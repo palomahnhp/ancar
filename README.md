@@ -3,7 +3,11 @@ Aplicación para el análisis de la carga de trabajo de las unidades municipales
 
 ## Estado del proyecto
 
+<<<<<<< HEAD
 Proyeto en sus fases inciales. Se inicia el desarrollo de esta aplicación [05 de abril de 2016
+=======
+Proyecto en sus fases inciales. Se inicia el desarrollo de esta aplicación [05 de abril de 2016
+>>>>>>> create_layouts_install_foundations_bk
 La evolución y futura lista de funcionalidades a implementar se pueden consultar en la lista de [tareas por hacer](https://github.com/IAMCorporativos/ANCAR).
 
 ## Tecnología

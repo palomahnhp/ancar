@@ -30,6 +30,7 @@ data:
     - config/locales/mailers.%{locale}.yml
     - config/locales/pages.%{locale}.yml
     - config/locales/devise_views.%{locale}.yml
+    - config/locales/devise.%{locale}.yml
     - config/locales/responders.%{locale}.yml
     - config/locales/kaminari.%{locale}.yml
 

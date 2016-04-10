@@ -26,6 +26,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise', '~> 3.5.6' # flexible authentication solution for Rails 
 gem 'devise-async'
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook', '~> 3.0.0'
+gem 'omniauth-google-oauth2', '~> 0.4.0'
+# Roles library without any authorization enforcement supporting scope on resource objects (instance or class). 
+# gem 'rolify', '~> 5.1'
+gem 'faraday', '~> 0.9.2'
 gem 'cancancan' # simple authorization solution for Rails which is decoupled from user roles.
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

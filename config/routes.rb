@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+
+  resources :tasks
+  resources :stats
+  resources :subprocesses
+  resources :mainprocesses
+  resources :settings
+  resources :users
+
+  namespace :admin do
+    root to: "dashboard#index"
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

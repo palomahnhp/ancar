@@ -1,0 +1,27 @@
+<header>
+
+  <div class="row">
+    <div class="top-bar">
+
+      <%= link_to Setting['header_logo'], admin_root_path, class: "logo show-for-small-only" %>
+
+       <div id="responsive-menu">
+        <div class="top-bar-title">
+          <%= link_to root_path, class: "hide-for-small-only" do %>
+            <%= image_tag('header_logo_madrid.png', class: 'hide-for-small-only float-left', size: '80x80', alt: t("layouts.header.logo")) %>
+            <%= Setting['org_name'] %>
+            &nbsp;|&nbsp;<%= t("admin.dashboard.index.title") %>
+          <% end %>
+        </div>
+
+        <div class="top-bar-right">
+          <ul class="menu">
+            <%= render "shared/admin_login_items" %>
+            <%= render "devise/menu/login_items" %>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,48 @@
+<header>
+
+  <%= render "shared/top_links" %>
+
+  <div class="row">
+    <div class="top-bar">
+
+      <%= link_to Setting['header_logo'], root_path, class: "logo show-for-small-only" %>
+
+      <div id="responsive-menu">
+        <div class="top-bar-title">
+          <%= link_to root_path, class: "hide-for-small-only", accesskey: "/" do %>
+            <%= image_tag('header_logo_madrid.png', class: 'hide-for-small-only float-left', size: '80x80', alt: setting['header_logo']) %>
+               <%= setting['app_name'] %>
+          <% end %>
+        </div>
+
+        <div class="top-bar-right">
+          <ul class="menu">
+            <%= render "shared/admin_login_items" %>
+            <!--%= render "devise/menu/login_items" %-->
+          </ul>
+
+          <div class="show-for-small-only">
+            <div class="subnavigation row">
+              <%= render "shared/subnavigation" %>
+              <div class="small-9 medium-2 column">
+                <%= yield :header_addon %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subnavigation row expanded">
+    <div class="row">
+      <div class="hide-for-small-only">
+        <%= render "shared/subnavigation" %>
+        <div class="small-12 medium-3 column">
+          <%= yield :header_addon %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>

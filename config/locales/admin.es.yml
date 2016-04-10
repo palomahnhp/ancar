@@ -1,0 +1,57 @@
+---
+es:
+  admin:
+    actions:
+      confirm: "¿Estás seguro?"
+      confirm_hide: Confirmar
+      hide: Ocultar
+      hide_author: Bloquear al autor
+      restore: Volver a mostrar
+    dashboard:
+      index:
+        title: Administración
+    menu:
+      mainprocess: Procesos
+      subprocess: Subprocesos
+      tasks: Tareas"
+      organizations: Organizaciones
+      settings: Configuración global
+      stats: Estadísticas
+    organizations:
+      index:
+        filter: Filtro
+        filters:
+          all: Todas
+          pending: Pendientes
+          rejected: Rechazadas
+          verified: Verificadas
+        hidden_count:
+          one: Hay además una organización sin usuario o con el usuario bloqueado
+          other: Hay %{count} organizaciones sin usuario o con el usuario bloqueado
+        reject: Rechazar
+        rejected: Rechazada
+        search: Buscar
+        search_placeholder: Nombre, email o teléfono
+        title: Organizaciones
+        verified: Verificada
+        verify: Verificar
+      search:
+        title: Buscar Organizaciones
+    settings:
+      flash:
+        updated: Valor actualizado
+      index:
+        title: Configuración global
+        update_setting: Actualizar
+        feature_flags: Funcionalidades
+        features:
+          enabled: "Funcionalidad activada"
+          disabled: "Funcionalidad desactivada"
+          enable: "Activar"
+          disable: "Desactivar"
+        banners: "Estilos de banners"
+    stats:
+      show:
+        stats_title: Estadísticas
+        summary:
+          visits: Visitas

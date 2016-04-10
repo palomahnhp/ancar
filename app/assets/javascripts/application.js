@@ -12,5 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+<<<<<<< HEAD
 //= require turbolinks
 //= require_tree .
+=======
+//= require foundation
+//= require turbolinks
+//= require_tree .
+
+$(function(){ $(document).foundation(); });
+>>>>>>> create_layouts_install_foundations_bk

@@ -1,0 +1,50 @@
+<nav class="admin-sidebar">
+  <ul id="admin_menu">
+    <li>
+      <%= link_to t("admin.dashboard.index.title"), admin_root_path %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "mainprocess" %>>
+      <%= link_to admin_root_path do %>
+        <span class="icon-tag"></span>
+        <%= t("admin.menu.mainprocess") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "subprocess" %>>
+      <%= link_to admin_root_path do %>
+        <span class="icon-tag"></span>
+        <%= t("admin.menu.subprocess") %>
+      <% end %>
+    </li>
+
+
+    <li <%= "class=active" if controller_name == "tasks" %>>
+      <%= link_to admin_root_path do %>
+        <span class="icon-tag"></span>
+        <%= t("admin.menu.tasks") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "tasks" %>>
+      <%= link_to admin_root_path do %>
+        <span class="icon-organizations"></span>
+        <%= t("admin.menu.organizations") %>
+      <% end %>
+    </li>
+
+    <li <%= 'class=active' if controller_name == 'settings' %>>
+      <%= link_to admin_root_path do %>
+        <span class="icon-settings"></span>
+        <%= t("admin.menu.settings") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "stats" %>>
+      <%= link_to admin_root_path do %>
+        <span class="icon-stats"></span>
+        <%= t("admin.menu.stats") %>
+      <% end %>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,28 @@
+es:
+  application:
+    menu: "Menú"
+    close: "Salir"
+  layouts:
+    application:
+      ie_title: "Análisis de carga de trabajo"
+    footer:
+      legal_warning: "Aviso legal" 
+      copyright: "© Copyrigth  %{year} Ayuntamiento de Madrid"
+      tasks_title: "Tareas"
+      tasks_text: "Inclusión de indicadores"
+      process_title: "Procesos"
+      process_text: "Revisón de los procesos"
+      reports_title: "Informes"
+      reports_text: "Consultar informes "
+      faq: "FAQ"
+    header:
+      logo: "Direccion General de Planificacion i18n"
+      open: "Abierto"
+      open_gov: "Gobierno abierto" 
+      open_data: "Oen data"
+      usuarios: "Usuarios"
+      subprocesos: "Subprocesos"
+      administracion: "Administración"
+      gestion: "Gestor"
+      validacion: "Validación" 
+ 

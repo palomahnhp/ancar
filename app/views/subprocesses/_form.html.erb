@@ -1,0 +1,17 @@
+<%= form_for(@subprocess) do |f| %>
+  <% if @subprocess.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subprocess.errors.count, "error") %> prohibited this subprocess from being saved:</h2>
+
+      <ul>
+      <% @subprocess.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
