@@ -1,0 +1,17 @@
+<%= form_for(@indicator) do |f| %>
+  <% if @indicator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@indicator.errors.count, "error") %> prohibited this indicator from being saved:</h2>
+
+      <ul>
+      <% @indicator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

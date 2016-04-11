@@ -10,9 +10,18 @@ es:
     dashboard:
       index:
         title: Administración
+    mainprocesses:
+      index:
+        create: Crear un Proceso
+        edit: editar 
+        delete: eliminar
+      mainprocess:  
+        new: 
+          order: Número de orden
+          description: Descripcion
     menu:
-      mainprocess: Procesos
-      subprocess: Subprocesos
+      mainprocesses: Procesos
+      subprocesses: Subprocesos
       tasks: Tareas"
       organizations: Organizaciones
       settings: Configuración global
