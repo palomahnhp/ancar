@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Typeorgs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @typeorgs.each do |typeorg| %>
+      <tr>
+        <td><%= link_to 'Show', typeorg %></td>
+        <td><%= link_to 'Edit', edit_typeorg_path(typeorg) %></td>
+        <td><%= link_to 'Destroy', typeorg, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Typeorg', new_typeorg_path %>

@@ -1,0 +1,2 @@
+module SubtypeorgsHelper
+end

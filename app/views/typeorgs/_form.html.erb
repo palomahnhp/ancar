@@ -1,0 +1,17 @@
+<%= form_for(@typeorg) do |f| %>
+  <% if @typeorg.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@typeorg.errors.count, "error") %> prohibited this typeorg from being saved:</h2>
+
+      <ul>
+      <% @typeorg.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

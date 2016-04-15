@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :subtypeorgs
+  resources :typeorgs
+  resources :organizations
   resources :sources
   resources :periods
   resources :indicators
