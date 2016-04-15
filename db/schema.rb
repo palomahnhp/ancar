@@ -11,38 +11,79 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412062926) do
+ActiveRecord::Schema.define(version: 20160416190215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "indicators", force: :cascade do |t|
-    t.integer  "task_id"
-    t.string   "indicator_int"
+  create_table "indicator_sources", force: :cascade do |t|
+    t.boolean  "fixed"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "indicator_id"
     t.integer  "source_id"
-    t.integer  "amount"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
   end
 
-  add_index "indicators", ["source_id"], name: "index_indicators_on_source_id", using: :btree
+  add_index "indicator_sources", ["indicator_id"], name: "index_indicator_sources_on_indicator_id", using: :btree
+  add_index "indicator_sources", ["source_id"], name: "index_indicator_sources_on_source_id", using: :btree
+
+  create_table "indicators", force: :cascade do |t|
+    t.string   "description"
+    t.string   "type"
+    t.integer  "amount"
+    t.string   "updated_by"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "task_id"
+  end
+
   add_index "indicators", ["task_id"], name: "index_indicators_on_task_id", using: :btree
 
-  create_table "mainprocesses", force: :cascade do |t|
-    t.integer  "period_id"
+  create_table "main_processes", force: :cascade do |t|
+    t.integer  "order"
     t.string   "description"
+    t.string   "updated_by"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "period_id"
   end
 
-  add_index "mainprocesses", ["period_id"], name: "index_mainprocesses_on_period_id", using: :btree
+  add_index "main_processes", ["period_id"], name: "index_main_processes_on_period_id", using: :btree
+
+  create_table "organization_types", force: :cascade do |t|
+    t.string   "acronym"
+    t.string   "name"
+    t.string   "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "sap_id"
+    t.string   "updated_by"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "organization_type_id"
+  end
+
+  add_index "organizations", ["organization_type_id"], name: "index_organizations_on_organization_type_id", using: :btree
 
   create_table "periods", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",                 limit: 80
+    t.string   "description",          limit: 100
+    t.date     "initial_date"
+    t.date     "final_date"
+    t.date     "opening_date"
+    t.date     "closing_date"
+    t.string   "updated_by"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "organization_type_id"
   end
+
+  add_index "periods", ["organization_type_id"], name: "index_periods_on_organization_type_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string "key"
@@ -50,33 +91,55 @@ ActiveRecord::Schema.define(version: 20160412062926) do
   end
 
   create_table "sources", force: :cascade do |t|
-    t.string   "description"
-    t.text     "specification"
+    t.string   "name"
+    t.boolean  "specification"
+    t.string   "updated_by"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
-  create_table "subprocesses", force: :cascade do |t|
-    t.integer  "mainprocess_id"
+  create_table "sub_processes", force: :cascade do |t|
+    t.integer  "order"
     t.string   "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "updated_by"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "main_process_id"
   end
 
-  add_index "subprocesses", ["mainprocess_id"], name: "index_subprocesses_on_mainprocess_id", using: :btree
+  add_index "sub_processes", ["main_process_id"], name: "index_sub_processes_on_main_process_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "subprocess_id"
+    t.string   "order"
     t.text     "description"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "updated_by"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "sub_process_id"
   end
 
-  add_index "tasks", ["subprocess_id"], name: "index_tasks_on_subprocess_id", using: :btree
+  add_index "tasks", ["sub_process_id"], name: "index_tasks_on_sub_process_id", using: :btree
 
-  add_foreign_key "indicators", "sources"
-  add_foreign_key "indicators", "tasks"
-  add_foreign_key "mainprocesses", "periods"
-  add_foreign_key "subprocesses", "mainprocesses"
-  add_foreign_key "tasks", "subprocesses"
+  create_table "unit_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "organization_type_id"
+  end
+
+  add_index "unit_types", ["organization_type_id"], name: "index_unit_types_on_organization_type_id", using: :btree
+
+  create_table "units", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "sap_id"
+    t.string   "updated_by"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "organization_id"
+    t.integer  "unit_type_id"
+  end
+
+  add_index "units", ["organization_id"], name: "index_units_on_organization_id", using: :btree
+  add_index "units", ["unit_type_id"], name: "index_units_on_unit_type_id", using: :btree
+
 end
