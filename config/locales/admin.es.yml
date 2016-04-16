@@ -20,6 +20,7 @@ es:
       main_processes: Procesos
       sub_processes: Subprocesos
       tasks: Tareas
+      indicators: Indicadores
       organization_types: Tipos de organizaciones
       unit_types: Tipos de unidades
       organizations: Organizaciones
