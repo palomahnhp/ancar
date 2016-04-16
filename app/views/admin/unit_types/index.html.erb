@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Admin Unit Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_unit_types.each do |admin_unit_type| %>
+      <tr>
+        <td><%= link_to 'Show', admin_unit_type %></td>
+        <td><%= link_to 'Edit', edit_admin_unit_type_path(admin_unit_type) %></td>
+        <td><%= link_to 'Destroy', admin_unit_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Unit type', new_admin_unit_type_path %>

@@ -1,4 +1,4 @@
 class SubProcess < ActiveRecord::Base
+  belongs_to :process
   has_many :tasks
-  belongs_to :main_process
 end

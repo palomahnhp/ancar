@@ -14,27 +14,46 @@ puts "Creando settings"
   Setting.create!(key: "org_name", value: "Ayuntamiento de Madrid")
   Setting.create!(key: "app_name", value: "Análisis de la carga de trabajo")
 
+puts "Creando tipos de organizaciones"
+  to1 = OrganizationType.create!(acronym: "SGT", name: "Secretaria General Técnica",
+                 updated_by: "carga")
+  to2 = OrganizationType.create!(acronym: "JD", name: "Junta de Distrito",
+                 updated_by: "carga")
+  to3 = OrganizationType.create!(acronym: "AG", name: "Áreas de Gobierno",
+                 updated_by: "carga")
+  to4 = OrganizationType.create!(acronym: "OOAA", name: "Organismos Autónomos",
+                 updated_by: "carga")
+
+
 puts "Creando periodos"
-  Period.create!(name: "1er sem. 2016", description: "Primer semestre de 2016", 
-                 initial_date: "01/01/2016", final_date: "30/06/2016",  
+  pto1 = Period.create!(organization_type_id: to1 ,name: "1er sem. 2016", description: "Primer semestre de 2016",
+                 initial_date: "01/01/2016", final_date: "30/06/2016",
                  opening_date: "01/04/2016", closing_date: "30/04/2016",
-                 updated_by: "carga") 
+                 updated_by: "carga")
+  pto2 = Period.create!(organization_type_id: to2 ,name: "1er sem. 2016", description: "Primer semestre de 2016",
+                 initial_date: "01/01/2016", final_date: "30/06/2016",
+                 opening_date: "01/04/2016", closing_date: "30/04/2016",
+                 updated_by: "carga")
+
 
 puts "Creando procesos"
-	MainProcess.create!(order: 10,period_id: 1,   description: 'RÉGIMEN JURÍDICO', updated_by: 'carga')
-	MainProcess.create!(order: 20,period_id: 1,   description: 'RÉGIMEN INTERIOR', updated_by: 'carga')
-	MainProcess.create!(order: 30,period_id: 1,   description: 'GESTIÓN PRESUPUESTARIA', updated_by: 'carga')
-	MainProcess.create!(order: 40,period_id: 1,   description: 'RECURSOS HUMANOS', updated_by: 'carga')
-	MainProcess.create!(order: 50,period_id: 1,   description: 'GESTIÓN DE FONDOS DOCUMENTALES', updated_by: 'carga')
-	MainProcess.create!(order: 60,period_id: 1,   description: 'REGISTRO Y ATENCIÓN AL CIUDADANO', updated_by: 'carga')
-	MainProcess.create!(order: 70,period_id: 1,   description: 'GASTOS', updated_by: 'carga')
-	MainProcess.create!(order: 80,period_id: 1,   description: 'CONTRATACIÓN', updated_by: 'carga')
-	MainProcess.create!(order: 90,period_id: 1,   description: 'GESTIÓN ECONÓMICA', updated_by: 'carga')
-	MainProcess.create!(order: 100,period_id: 1,   description: 'PATRIMONIO', updated_by: 'carga')
-	MainProcess.create!(order: 110,period_id: 1,   description: 'GESTIÓN DE PROCEDIMIENTOS', updated_by: 'carga')
-	MainProcess.create!(order: 120,period_id: 1,   description: 'TRANSPARENCIA', updated_by: 'carga')
-	MainProcess.create!(order: 130,period_id: 1,   description: 'RELAMACIONES Y RECURSOS', updated_by: 'carga')
-	MainProcess.create!(order: 140,period_id: 1,   description: 'FE PÚBLICA', updated_by: 'carga')
+	MainProcess.create!(order: 10,period_id: pto1,   description: 'RÉGIMEN JURÍDICO', updated_by: 'carga')
+	MainProcess.create!(order: 20,period_id: pto1,   description: 'RÉGIMEN INTERIOR', updated_by: 'carga')
+	MainProcess.create!(order: 30,period_id: pto1,   description: 'GESTIÓN PRESUPUESTARIA', updated_by: 'carga')
+	MainProcess.create!(order: 40,period_id: pto1,   description: 'RECURSOS HUMANOS', updated_by: 'carga')
+	MainProcess.create!(order: 50,period_id: pto1,   description: 'GESTIÓN DE FONDOS DOCUMENTALES', updated_by: 'carga')
+	MainProcess.create!(order: 60,period_id: pto1,   description: 'REGISTRO Y ATENCIÓN AL CIUDADANO', updated_by: 'carga')
+	MainProcess.create!(order: 70,period_id: pto1,   description: 'GASTOS', updated_by: 'carga')
+	MainProcess.create!(order: 80,period_id: pto1,   description: 'CONTRATACIÓN', updated_by: 'carga')
+	MainProcess.create!(order: 90,period_id: pto1,   description: 'GESTIÓN ECONÓMICA', updated_by: 'carga')
+	MainProcess.create!(order: 100,period_id: pto1,   description: 'PATRIMONIO', updated_by: 'carga')
+	MainProcess.create!(order: 110,period_id: pto1,   description: 'GESTIÓN DE PROCEDIMIENTOS', updated_by: 'carga')
+	MainProcess.create!(order: 120,period_id: pto1,   description: 'TRANSPARENCIA', updated_by: 'carga')
+	MainProcess.create!(order: 130,period_id: pto1,   description: 'RELAMACIONES Y RECURSOS', updated_by: 'carga')
+	MainProcess.create!(order: 140,period_id: pto1,   description: 'FE PÚBLICA', updated_by: 'carga')
+	MainProcess.create!(order: 140,period_id: pto1,   description: 'FE PÚBLICA', updated_by: 'carga')
+	MainProcess.create!(order: 140,period_id: pto1,   description: 'FE PÚBLICA', updated_by: 'carga')
+	MainProcess.create!(order: 140,period_id: pto1,   description: 'FE PÚBLICA', updated_by: 'carga')
 
 puts "Creando subprocesos"
 	SubProcess.create!(main_process_id: 1, order:  1, description: 'ASUNTOS JUNTA DE GOBIERNO, PLEN Y COMISIONES DEL PLENO', updated_by: 'carga')
@@ -138,29 +157,34 @@ puts "Creando tareas"
 	Task.create!(sub_process_id: 12, order: 1, description: 'Traslados de muebles o de material de trabajo', updated_by: 'carga')
 
 puts "Creando indicadores"
-	Indicator.create!(task_id: 1, order:1, description: 'Número  de  asuntos', updated_by: 'carga')
-	Indicator.create!(task_id: 4, order:2, description: 'Número de informes solicitados', updated_by: 'carga')
-	Indicator.create!(task_id: 5, order:3, description: 'Número de proyectos propios tramitados', updated_by: 'carga')
-	Indicator.create!(task_id: 6, order:4, description: 'Número de proyectos de otras áreas informados', updated_by: 'carga')
-	Indicator.create!(task_id: 7, order:5, description: '0', updated_by: 'carga')
-	Indicator.create!(task_id: 9, order:6, description: 'Número de expedientes solicitados', updated_by: 'carga')
-	Indicator.create!(task_id: 12, order:7, description: 'Número de sentencias', updated_by: 'carga')
-	Indicator.create!(task_id: 14, order:8, description: 'Número de quejas recibidas', updated_by: 'carga')
-	Indicator.create!(task_id: 17, order:9, description: 'Número de accesos controlados', updated_by: 'carga')
-	Indicator.create!(task_id: 17, order:10, description: 'Número de visitas', updated_by: 'carga')
-	Indicator.create!(task_id: 19, order:11, description: 'Número de peticiones de tarjetas corporativas', updated_by: 'carga')
-	Indicator.create!(task_id: 21, order:12, description: 'Número de edificios adscritos al Área', updated_by: 'carga')
-	Indicator.create!(task_id: 21, order:13, description: 'Número de empleados  del Área de Gobierno a 31 de diciembre 2015', updated_by: 'carga')
-	Indicator.create!(task_id: 22, order:14, description: 'Número de instrucciones difundidas', updated_by: 'carga')
-	Indicator.create!(task_id: 23, order:15, description: 'Número de contratos de arrendamiento de edificios gestionados por la SGT', updated_by: 'carga')
-	Indicator.create!(task_id: 24, order:16, description: 'Número de empleados  del Área de Gobierno a 31 de diciembre 2015', updated_by: 'carga')
-	Indicator.create!(task_id: 25, order:17, description: 'Importe de los contratos de mantenimiento y reparación de mobiliario', updated_by: 'carga')
-	Indicator.create!(task_id: 26, order:18, description: 'Dotación anual global de las partidas para adquisición de material', updated_by: 'carga')
-	Indicator.create!(task_id: 27, order:19, description: 'Número total de equipos informáticos', updated_by: 'carga')
-	Indicator.create!(task_id: 28, order:20, description: 'Número total de equipos de telefonía', updated_by: 'carga')
-	Indicator.create!(task_id: 29, order:21, description: 'Número de plazas de estacionamiento del  Área de Gobierno', updated_by: 'carga')
-	Indicator.create!(task_id: 30, order:22, description: 'Número de dependencias de ubicación del Área', updated_by: 'carga')
-	Indicator.create!(task_id: 31, order:23, description: 'Número de servicios  de conductor demandados', updated_by: 'carga')
-	Indicator.create!(task_id: 32, order:24, description: 'Número de empleados del Área de Gobierno a 31/12/15', updated_by: 'carga')
-	Indicator.create!(task_id: 33, order:25, description: 'Número de empleados del Área de Gobierno a 31/12/15', updated_by: 'carga')
-	Indicator.create!(task_id: 34, order:26, description: 'Número de metros cuadrados de los edificios del Área', updated_by: 'carga')
+	Indicator.create!(task_id: 1, description: 'Número  de  asuntos', updated_by: 'carga')
+	Indicator.create!(task_id: 4, description: 'Número de informes solicitados', updated_by: 'carga')
+	Indicator.create!(task_id: 5, description: 'Número de proyectos propios tramitados', updated_by: 'carga')
+	Indicator.create!(task_id: 6, description: 'Número de proyectos de otras áreas informados', updated_by: 'carga')
+	Indicator.create!(task_id: 7, description: '0', updated_by: 'carga')
+	Indicator.create!(task_id: 9, description: 'Número de expedientes solicitados', updated_by: 'carga')
+	Indicator.create!(task_id: 12, description: 'Número de sentencias', updated_by: 'carga')
+	Indicator.create!(task_id: 14, description: 'Número de quejas recibidas', updated_by: 'carga')
+	Indicator.create!(task_id: 17, description: 'Número de accesos controlados', updated_by: 'carga')
+	Indicator.create!(task_id: 17, description: 'Número de visitas', updated_by: 'carga')
+	Indicator.create!(task_id: 19, description: 'Número de peticiones de tarjetas corporativas', updated_by: 'carga')
+	Indicator.create!(task_id: 21, description: 'Número de edificios adscritos al Área', updated_by: 'carga')
+	Indicator.create!(task_id: 21, description: 'Número de empleados  del Área de Gobierno a 31 de diciembre 2015', updated_by: 'carga')
+	Indicator.create!(task_id: 22, description: 'Número de instrucciones difundidas', updated_by: 'carga')
+	Indicator.create!(task_id: 23, description: 'Número de contratos de arrendamiento de edificios gestionados por la SGT', updated_by: 'carga')
+	Indicator.create!(task_id: 24, description: 'Número de empleados  del Área de Gobierno a 31 de diciembre 2015', updated_by: 'carga')
+	Indicator.create!(task_id: 25, description: 'Importe de los contratos de mantenimiento y reparación de mobiliario', updated_by: 'carga')
+	Indicator.create!(task_id: 26, description: 'Dotación anual global de las partidas para adquisición de material', updated_by: 'carga')
+	Indicator.create!(task_id: 27, description: 'Número total de equipos informáticos', updated_by: 'carga')
+	Indicator.create!(task_id: 28, description: 'Número total de equipos de telefonía', updated_by: 'carga')
+	Indicator.create!(task_id: 29, description: 'Número de plazas de estacionamiento del  Área de Gobierno', updated_by: 'carga')
+	Indicator.create!(task_id: 30, description: 'Número de dependencias de ubicación del Área', updated_by: 'carga')
+	Indicator.create!(task_id: 31, description: 'Número de servicios  de conductor demandados', updated_by: 'carga')
+	Indicator.create!(task_id: 32, description: 'Número de empleados del Área de Gobierno a 31/12/15', updated_by: 'carga')
+	Indicator.create!(task_id: 33, description: 'Número de empleados del Área de Gobierno a 31/12/15', updated_by: 'carga')
+	Indicator.create!(task_id: 34, description: 'Número de metros cuadrados de los edificios del Área', updated_by: 'carga')
+
+puts "Creando Tipos de unidades"
+	UnitType.create!(organization_type_id: to2, name: "Departamento de Sanidad y Consumo")
+	UnitType.create!(organization_type_id: to2, name: "Secretaria General Técnica")
+	UnitType.create!(organization_type_id: to1, name: "Departamento de Sanidad y Consumo")

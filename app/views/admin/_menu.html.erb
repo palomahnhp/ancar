@@ -4,20 +4,26 @@
       <%= link_to t("admin.dashboard.index.title"), admin_root_path %>
     </li>
 
-    <li <%= "class=active" if controller_name == "mainprocess" %>>
-      <%= link_to admin_mainprocesses_path do %>
-        <span class="icon-tag"></span>
-        <%= t("admin.menu.mainprocess") %>
+    <li <%= "class=active" if controller_name == "periods" %>>
+      <%= link_to admin_periods_path do %>
+        <span class="icon-debates"></span>
+        <%= t("admin.menu.periods") %>
       <% end %>
     </li>
 
-    <li <%= "class=active" if controller_name == "subprocess" %>>
-      <%= link_to admin_subprocesses_path do %>
+    <li <%= "class=active" if controller_name == "main_processes" %>>
+      <%= link_to admin_main_processes_path do %>
         <span class="icon-tag"></span>
-        <%= t("admin.menu.subprocess") %>
+        <%= t("admin.menu.main_processes") %>
       <% end %>
     </li>
 
+    <li <%= "class=active" if controller_name == "sub_processes" %>>
+      <%= link_to admin_sub_processes_path do %>
+        <span class="icon-tag"></span>
+        <%= t("admin.menu.sub_processes") %>
+      <% end %>
+    </li>
 
     <li <%= "class=active" if controller_name == "tasks" %>>
       <%= link_to admin_tasks_path do %>
@@ -26,10 +32,38 @@
       <% end %>
     </li>
 
-    <li <%= "class=active" if controller_name == "tasks" %>>
-      <%= link_to admin_root_path do %>
+    <li <%= "class=active" if controller_name == "indicators" %>>
+      <%= link_to admin_indicators_path do %>
+        <span class="icon-tag"></span>
+        <%= t("admin.menu.indicators") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "organization_types" %>>
+      <%= link_to admin_organization_types_path do %>
+        <span class="icon-organizations"></span>
+        <%= t("admin.menu.organization_types") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "unit_types" %>>
+      <%= link_to admin_unit_types_path do %>
+        <span class="icon-organizations"></span>
+        <%= t("admin.menu.unit_types") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "organizations" %>>
+      <%= link_to admin_organizations_path do %>
         <span class="icon-organizations"></span>
         <%= t("admin.menu.organizations") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "units" %>>
+      <%= link_to admin_units_path do %>
+        <span class="icon-organizations"></span>
+        <%= t("admin.menu.units") %>
       <% end %>
     </li>
 
