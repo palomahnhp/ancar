@@ -1,17 +1,42 @@
 <div class="dashboard">
   <h2><%= t("admin.dashboard.index.title") %></h2>
 
-  <p>Desde aquí puedes administrar el sistema, a través de las siguientes acciones:</p>
+  <p>Desde aquí puedes definir los parámetros para la recogida de datos para estructurar la recogida de datos con la aplicación a través de las siguientes acciones:</p>
 
-  <h3>Procesos, subprocesos y tareas</h3>
-  <p>Estas opciones permiten <strong>añadir, eliminar o modificar</strong> los items que se utilizaran en el análisis de la carga de trabajo de las unidades.</p>
+  <h3>Periodos</h3>
+    <p>Desde aqui se pueden abrir nuevos periodos para la recogida de información.
+    Lod periodos son independientes para cada uno d elos tipos de unidades: SGT, JD, erc. (Los tipos de unidades se administran desde este otra opción de este menú).
+    Por cada periodo se define:
+      <li>
+        <ul> el tipo de unidad al que aplica</ul>
+        <ul>el periodo al que corresponden los datos</ul>
+        <ul> las fechas de inicio y fin de recogida de datos, que serán las que la aplicación abrirá la modificación de datos a las unidades afeactadas</ul>
+      </li>
+    Al crear un nuevo periodo se permite partir de un periodo anterior y modificar unicamente los datos que varían. Con esta opción se copian todos los items de recogida de datos del periodo anterior al nuevo y luego se pueden modificar con la siguente opción del menu.
+    </p>
 
-  <h3>Organizaciones</h3>
-  <p>Hay dos tipos de organizaciones SGTs y Distritos cargadas en el sistema. Está opcion permite revisarlas y, si se estima oportuno, wliminar, añadir alguna nueva o modificar una existente.</p>
+  <h3>Procesos, subprocesos, tareas e indicadores</h3>
+    <p>Estas opciones permiten gestionar, <strong>añadir, eliminar o modificar</strong> los items que se utilizaran en el análisis de la carga de trabajo de las unidades, de forma que según el tipo de unidad se puedan incluir items distintos</p>
+
+  <h3>Tipos de oganizaciones</h3>
+    <p>Con esta opción se pueden definir los tipos de organizaciones que se pueden gestionar con esta aplicación. En cualquier momento se pueden incuir nuevas organizaciones según las necesidades, ejemplo: SGT, JD, ÁG, OOAA. Está opcion permite revisar su denominación, y, si se estima oportuno, eliminar, añadir alguna nueva o modificar una existente.</p>
+
+  <h3>Tipos de unidades</h3>
+    <p>Una organización puede tener distintos tipos de unidades con distintos procesos de trabajo.
+    En el caso de los Distritos, correspondería con la estructura departamental general de un Distrito que se replica en los 21: Cultura, Participación ciudadana, Sanidad y consumo, etc.
+    Cada tipo de organización debe tener al menos un Tipo de unidad, por lo que, cuando se crea un nuevo tipo de organización se crea por defecto un tipo de unidad con la misma denominación que el tipo de organización, que posteriormente puede eliminarse al introducir otros tipos de unidades.</p>
+
+  <h3>Organizaciones  y unidades </h3>
+    <p>Las organizaciones principales y sus unidades dependientes se cargan desde el Directorio Municipal. Mediante esta opción se pueden revisar las organizaciones incluidas en cada tipo de organización y sus unidades
+  </h3>
+
+  <h3>Plantilla </h3>
+    <p><strong>Opcion pendiente de desarrollo</strong> Forzar la distribución de la plantilla
+  </h3>
 
   <h3>Configuración Global</h3>
-  <p>Opciones generales de configuración del sistema.</p>
+    <p>Opciones generales de configuración de la aplicación.</p>
 
   <h3>Estadísticas</h3>
-  <p>Estadísticas generales del sistema.</p>
+    <p>Estadísticas generales del sistema.</p>
 </div>

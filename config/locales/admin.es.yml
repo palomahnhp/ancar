@@ -3,27 +3,28 @@ es:
   admin:
     actions:
       confirm: "¿Estás seguro?"
-      confirm_hide: Confirmar
-      hide: Ocultar
-      hide_author: Bloquear al autor
-      restore: Volver a mostrar
     dashboard:
       index:
-        title: Administración
+        title: Configuración de la aplicación
     mainprocesses:
       index:
         create: Crear un Proceso
-        edit: editar 
+        edit: editar
         delete: eliminar
-      mainprocess:  
-        new: 
+      mainprocess:
+        new:
           order: Número de orden
           description: Descripcion
     menu:
-      mainprocesses: Procesos
-      subprocesses: Subprocesos
-      tasks: Tareas"
+      periods: Periodos de análisis
+      main_processes: Procesos
+      sub_processes: Subprocesos
+      tasks: Tareas
+      indicators: Indicadores
+      organization_types: Tipos de organizaciones
+      unit_types: Tipos de unidades
       organizations: Organizaciones
+      units: Unidades
       settings: Configuración global
       stats: Estadísticas
     organizations:

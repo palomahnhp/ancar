@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-
-  resources :subtypeorgs
-  resources :typeorgs
-  resources :organizations
-  resources :sources
-  resources :periods
-  resources :indicators
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -14,14 +7,18 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "dashboard#index"
-  
-    resources :tasks
-    resources :stats
-    resources :subprocesses
-    resources :mainprocesses
+    resources :periods
     resources :settings
-    resources :users
-
+    resources :sources
+    resources :indicators
+    resources :tasks
+    resources :sub_processes
+    resources :main_processes
+    resources :organization_types
+    resources :unit_types
+    resources :organizations
+    resources :units
+    resources :stats
   end
 
   # Example of regular route:

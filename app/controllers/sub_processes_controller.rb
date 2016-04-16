@@ -1,2 +1,0 @@
-class SubProcessesController < ApplicationController
-end
