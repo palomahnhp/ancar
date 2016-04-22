@@ -1,2 +1,2 @@
-class Admin::TasksController < ApplicationController
+class Admin::TasksController < Admin::BaseController
 end

@@ -1,2 +1,2 @@
-class Admin::IndicatorsController < ApplicationController
+class Admin::IndicatorsController < Admin::BaseController
 end

@@ -1,14 +1,18 @@
-<% if @banner.errors.any? %>
-   
+<% if resource.errors.any? %>
+<%debugger%>
   <div id="error_explanation" data-alert class="callout alert" data-closable>
     <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
       <span aria-hidden="true">&times;</span>
     </button>
 
     <strong>
-      <%= @banner.errors.count %>
-      <%= t("admin.banners.errors.form.error", count: @banner.errors.count) %>
+      <%= pluralize resource.errors.count, t("form.error"), t("form.errors") %>
+
+      <% if local_assigns[:message].present? %>
+        <%= message %>
+      <% else %>
+        <%= t("form.not_saved", resource: t("form.#{resource.class.to_s.underscore}")) %>
+      <% end %>
     </strong>
   </div>
-
 <% end %>

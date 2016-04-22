@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= t("admin.periods.index.title") %></h2>
+
+<p>
+  <%= link_to t("admin.periods.index.create"),
+              new_admin_period_path,
+              class: "button large success " %>
+</p>
+
+<h3><%= page_entries_info @periods %> </h3>
+
+<table>
+  <% if @periods.nil? %>
+    <h1><%= t("admin.periods.index.no_data") %></h1>
+  <% else %>
+    <% @periods.each do |period| %>
+      <tr id="<%= dom_id(period) %>">
+        <td>
+          <strong> <%= period.organization_type.name %> : </strong>
+                   <%= period.description %></div>
+          <div> <%= t("admin.periods.index.data_period") %>
+                de <%= period.start_at  %> a <%= period.end_at %>
+          </div>
+          <div> <%= t("admin.periods.index.data_collect") %>
+                de <strong> <%= period.open_at %> </strong>
+                 a <strong> <%= period.close_at %> </strong>
+          </div>
+        </td>
+        <td>
+          <%= link_to  admin_main_processes_path(commit: t("admin.main_processes.index.submit"),
+                                              period_id: period.id,
+                                              organization_type_id: period.organization_type_id),
+                class: 'button  float-right' do %>
+                  <span class="icon-success"></span>
+                  <%= t("admin.periods.index.processes") %>
+                <% end %>
+        </td>
+        <% if period.is_open? %>
+          <td>
+            <%= link_to edit_admin_period_path(period),
+                class: 'edit-banner button warning float-right' do %>
+                  <span class="icon-edit"></span>
+                  <%= t("admin.periods.index.edit") %>
+                <% end %>
+          </td>
+          <td>
+            <%= link_to admin_period_path(period), method: :delete,
+                class: 'delete-banner button alert float-right' do %>
+                  <span class="icon-delete"></span>
+                  <%= t("admin.periods.index.delete") %>
+                <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416190215) do
+ActiveRecord::Schema.define(version: 20160419164036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,18 @@ ActiveRecord::Schema.define(version: 20160416190215) do
   end
 
   add_index "indicators", ["task_id"], name: "index_indicators_on_task_id", using: :btree
+
+  create_table "main_organizations", force: :cascade do |t|
+    t.integer  "type_organization_id"
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "sap_id"
+    t.string   "updated_by"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "main_organizations", ["type_organization_id"], name: "index_main_organizations_on_type_organization_id", using: :btree
 
   create_table "main_processes", force: :cascade do |t|
     t.integer  "order"
@@ -73,10 +85,10 @@ ActiveRecord::Schema.define(version: 20160416190215) do
   create_table "periods", force: :cascade do |t|
     t.string   "name",                 limit: 80
     t.string   "description",          limit: 100
-    t.date     "initial_date"
-    t.date     "final_date"
-    t.date     "opening_date"
-    t.date     "closing_date"
+    t.date     "start_at"
+    t.date     "end_at"
+    t.date     "open_at"
+    t.date     "close_at"
     t.string   "updated_by"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false

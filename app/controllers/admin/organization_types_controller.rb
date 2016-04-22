@@ -1,4 +1,4 @@
-class Admin::OrganizationTypesController < ApplicationController
+class Admin::OrganizationTypesController < Admin::BaseController
   before_action :set_admin_organization_type, only: [:show, :edit, :update, :destroy]
 
   # GET /admin/organization_types

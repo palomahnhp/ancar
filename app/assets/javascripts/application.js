@@ -10,13 +10,39 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
 //= require foundation
 //= require turbolinks
-//= require_tree .
+//= require ckeditor/init
+//= require_directory ./ckeditor
+//= require initial
+//= require app
+//= require check_all_none
+//= require dropdown
+//= require location_changer
+//= require prevent_double_submission
+//= require users
+//= require registration_form
+//= require forms
+//= require fill_options
 
-$(function(){ $(document).foundation(); });
+var initialize_modules = function() {
+  App.Users.initialize();
+  App.Dropdown.initialize();
+  App.LocationChanger.initialize();
+  App.CheckAllNone.initialize();
+  App.PreventDoubleSubmission.initialize();
+  App.RegistrationForm.initialize();
+  App.Forms.initialize();
+  App.FillOptions.initialize();
+};
 
+$(function(){
+  Turbolinks.enableProgressBar()
+
+  $(document).ready(initialize_modules);
+  $(document).on('page:load', initialize_modules);
+  $(document).on('ajax:complete', initialize_modules);
+});

@@ -6,15 +6,6 @@ es:
     dashboard:
       index:
         title: Configuración de la aplicación
-    mainprocesses:
-      index:
-        create: Crear un Proceso
-        edit: editar
-        delete: eliminar
-      mainprocess:
-        new:
-          order: Número de orden
-          description: Descripcion
     menu:
       periods: Periodos de análisis
       main_processes: Procesos
@@ -27,6 +18,53 @@ es:
       units: Unidades
       settings: Configuración global
       stats: Estadísticas
+    periods:
+      index:
+        create: Abrir un periodo
+        edit: editar
+        delete: eliminar
+        title: Periodos de estudio
+        no_data: No hay periodos definidos
+        data_period: Los datos corresponden al periodo
+        data_collect: Periodo de mecanización
+        processes: Ver procesos
+      period:
+        organization: Organización
+        name: Nombre
+        description: Descripción
+        initial_date: Inicio del periodo
+        final_date: Fin del periodo
+        opening_date: Inicio de recogida de datos
+        closing_date: Fin  de recogida de datos
+    main_processes:
+      index:
+        create: Crear un proceso
+        edit: Editar
+        delete: Eliminar
+        title: Procesos
+        no_data: No hay procesos definidos
+        select_organization_type: Selecciona una organización
+        select_period: Selecciona un periodo
+        submit: Buscar procesos
+        sub_processes: Ver subprocesos
+      mainprocess:
+        new:
+          order: Número de orden
+          description: Descripcion
+    sub_processes:
+      index:
+        create: Crear un subproceso
+        edit: Editar
+        delete: Eliminar
+        title: Subprocesos
+        no_data: No hay suprocesos definidos
+        select_main_process: Selecciona un proceso
+        submit: Buscar subprocesos
+        tasks: Ver tareas
+      sub_process:
+        new:
+          order: Número de orden
+          description: Descripcion
     organizations:
       index:
         filter: Filtro
