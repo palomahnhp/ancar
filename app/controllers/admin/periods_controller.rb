@@ -12,11 +12,11 @@ class Admin::PeriodsController < Admin::BaseController
   end
 
   def create
-    @period = Period.new(banner_params)
+    @period = Period.new(period_params)
     if @period.save
       redirect_to admin_periods_path
     else
-      render new
+      render :new
     end
   end
 
@@ -36,7 +36,7 @@ class Admin::PeriodsController < Admin::BaseController
 
   private
     def period_params
-      params.require(:period).permit(:organization_type_id, :name, :description, :initial_date, :final_date, :opening_date, :closing_date)
+      params.require(:period).permit(:organization_type_id, :name, :description, :start_at, :end_at, :open_at, :close_at)
     end
 
     def find_period
@@ -44,7 +44,6 @@ class Admin::PeriodsController < Admin::BaseController
     end
 
     def organization_types
-      debugger
       @organization_types = OrganizationType.all.map { |type| [type.name, type.id] }
     end
 end

@@ -13,6 +13,8 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/datepicker
+//= require jquery-ui/datepicker-es
 //= require foundation
 //= require turbolinks
 //= require ckeditor/init
@@ -27,6 +29,7 @@
 //= require registration_form
 //= require forms
 //= require fill_options
+//= require date_picker
 
 var initialize_modules = function() {
   App.Users.initialize();
@@ -37,6 +40,7 @@ var initialize_modules = function() {
   App.RegistrationForm.initialize();
   App.Forms.initialize();
   App.FillOptions.initialize();
+  App.Date_Picker.initialize();
 };
 
 $(function(){

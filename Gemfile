@@ -16,6 +16,8 @@ gem 'uglifier', '>= 1.3.0' # Compressor for JavaScript assets
 gem 'coffee-rails', '~> 4.1.0' # CoffeeScript for .coffee assets and views
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+gem 'jquery-ui-rails'
+
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'turbolinks' # Following links in your web application faster.
 gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease.
@@ -28,10 +30,10 @@ gem 'devise', '~> 3.5.6' # flexible authentication solution for Rails
 gem 'devise-async'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'omniauth-facebook', '~> 3.0.0'
-gem 'omniauth-google-oauth2', '~> 0.4.0'
+#gem 'omniauth'
+#gem 'omniauth-twitter'
+#gem 'omniauth-facebook', '~> 3.0.0'
+#gem 'omniauth-google-oauth2', '~> 0.4.0'
 # Roles library without any authorization enforcement supporting scope on resource objects (instance or class).
 # gem 'rolify', '~> 5.1'
 gem 'faraday', '~> 0.9.2'

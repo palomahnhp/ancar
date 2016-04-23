@@ -28,18 +28,18 @@
           </div>
         </td>
         <td>
-          <%= link_to  admin_main_processes_path(commit: t("admin.main_processes.index.submit"),
-                                              period_id: period.id,
-                                              organization_type_id: period.organization_type_id),
+          <%= link_to admin_main_processes_path(
+                commit: t("admin.main_processes.index.submit"),
+                period_id: period.id,organization_type_id: period.organization_type_id),
                 class: 'button  float-right' do %>
-                  <span class="icon-success"></span>
+                  <span class="icon-tag"></span>
                   <%= t("admin.periods.index.processes") %>
                 <% end %>
         </td>
         <% if period.is_open? %>
           <td>
             <%= link_to edit_admin_period_path(period),
-                class: 'edit-banner button warning float-right' do %>
+                class: 'edit-banner button float-right' do %>
                   <span class="icon-edit"></span>
                   <%= t("admin.periods.index.edit") %>
                 <% end %>
@@ -47,7 +47,7 @@
           <td>
             <%= link_to admin_period_path(period), method: :delete,
                 class: 'delete-banner button alert float-right' do %>
-                  <span class="icon-delete"></span>
+                  <span class="icon-box"></span>
                   <%= t("admin.periods.index.delete") %>
                 <% end %>
           </td>

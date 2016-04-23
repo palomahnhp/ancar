@@ -1,6 +1,7 @@
 
 <div>
- <h3> <%= @organization_type.name %> / <%= @period.name %></h3>
+ <h3 class= "center"> <%= @organization_type.name %> / <%= @period.name %></h3>
+ <h3> <%= @organization_type.name %> /</h2>
 </div>
 
   <table>
@@ -12,16 +13,15 @@
           </div>
         </td>
         <td>
-          <%= link_to  admin_sub_processes_path(commit: t("admin.sub_processes.index.submit"),
-              main_process_id: main_process.id),
+          <%= link_to  admin_sub_processes_path,
               class: 'button  float-right' do %>
-                <span class="icon-tag"></span>
-                <%= t("admin.main_processes.index.sub_processes") %>
+                <span class="icon-success"></span>
+                <%= t("admin.main_process.index.sub_processes") %>
           <% end %>
         </td>
         <td>
           <%= link_to edit_admin_main_process_path(main_process),
-              class: 'button float-right' do %>
+              class: 'button warning float-right' do %>
                 <span class="icon-edit"></span>
                 <%= t("admin.main_process.index.edit") %>
           <% end %>
@@ -29,7 +29,7 @@
         <td>
           <%= link_to admin_main_process_path(main_process), method: :delete,
               class: 'button alert float-right' do %>
-                <span class="icon-box"></span>
+                <span class="icon-delete"></span>
                 <%= t("admin.main_process.index.delete") %>
            <% end %>
         </td>

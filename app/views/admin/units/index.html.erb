@@ -1,25 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Admin Units</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @admin_units.each do |admin_unit| %>
-      <tr>
-        <td><%= link_to 'Show', admin_unit %></td>
-        <td><%= link_to 'Edit', edit_admin_unit_path(admin_unit) %></td>
-        <td><%= link_to 'Destroy', admin_unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Unit', new_admin_unit_path %>
+<h2><%= t("admin.units.index.title") %></h2>
+  <% if @sub_processes.nil? %>
+    <%= render 'admin/shared/in_works' %>
+  <% else %>
+    <%= render 'item_list' %>
+  <% end %>
+</p>

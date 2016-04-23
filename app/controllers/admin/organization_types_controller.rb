@@ -4,7 +4,7 @@ class Admin::OrganizationTypesController < Admin::BaseController
   # GET /admin/organization_types
   # GET /admin/organization_types.json
   def index
-    @admin_organization_types = Admin::OrganizationType.all
+    @admin_organization_types = OrganizationType.all
   end
 
   # GET /admin/organization_types/1
@@ -14,7 +14,7 @@ class Admin::OrganizationTypesController < Admin::BaseController
 
   # GET /admin/organization_types/new
   def new
-    @admin_organization_type = Admin::OrganizationType.new
+    @admin_organization_type = OrganizationType.new
   end
 
   # GET /admin/organization_types/1/edit
@@ -24,7 +24,7 @@ class Admin::OrganizationTypesController < Admin::BaseController
   # POST /admin/organization_types
   # POST /admin/organization_types.json
   def create
-    @admin_organization_type = Admin::OrganizationType.new(admin_organization_type_params)
+    @admin_organization_type = OrganizationType.new(admin_organization_type_params)
 
     respond_to do |format|
       if @admin_organization_type.save

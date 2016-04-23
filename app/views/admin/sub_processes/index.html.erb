@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= t("admin.sub_processes.index.title") %></h2>
 
-<% if @sub_processes.nil? %>
-  <%= render 'select_options' %>
-<% else %>
-  <%= render 'item_list' %>
-<% end %>
+<h2><%= t("admin.sub_processes.index.title") %></h2>
+  <% if @sub_processes.nil? %>
+    <%= render 'admin/shared/in_works' %>
+  <% else %>
+    <%= render 'item_list' %>
+  <% end %>
+</p>
