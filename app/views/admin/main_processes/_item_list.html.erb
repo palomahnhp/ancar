@@ -7,30 +7,30 @@
     <% @main_processes.each do  |main_process|%>
       <tr id="<%= dom_id(main_process) %>">
         <td>
-          <div class="admin-list small-12 medium-6 column">
+          <div class="admin-list small-12 medium-14 column">
             <%= main_process.description %>
           </div>
         </td>
         <td>
           <%= link_to  admin_sub_processes_path(commit: t("admin.sub_processes.index.submit"),
               main_process_id: main_process.id),
-              class: 'button  float-right' do %>
+              class: 'button small float-right' do %>
                 <span class="icon-tag"></span>
                 <%= t("admin.main_processes.index.sub_processes") %>
           <% end %>
         </td>
         <td>
           <%= link_to edit_admin_main_process_path(main_process),
-              class: 'button float-right' do %>
+              class: 'button small float-right' do %>
                 <span class="icon-edit"></span>
-                <%= t("admin.main_process.index.edit") %>
+                <%= t("admin.actions.edit") %>
           <% end %>
         </td>
         <td>
           <%= link_to admin_main_process_path(main_process), method: :delete,
-              class: 'button alert float-right' do %>
+              class: 'button small alert float-right' do %>
                 <span class="icon-box"></span>
-                <%= t("admin.main_process.index.delete") %>
+                <%= t("admin.actions.delete") %>
            <% end %>
         </td>
       </tr>

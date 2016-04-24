@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<%= render "admin/shared/index" %>
 
 <h2><%= t("admin.periods.index.title") %></h2>
 
@@ -7,8 +7,6 @@
               new_admin_period_path,
               class: "button large success " %>
 </p>
-
-<h3><%= page_entries_info @periods %> </h3>
 
 <table>
   <% if @periods.nil? %>

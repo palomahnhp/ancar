@@ -1,32 +1,34 @@
 
 <div>
   <div class="expanded highlight padding">
-     <h3><%= @main_process.description %></h3>
      <strong><%= @organization_type.name %> / <%= @period.name %></strong>
+     <h3><%= @main_process.description %> </h3>
+     <h3> <%= @sub_process.description %></h3>
+
   </div>
 </div>
 
   <table>
-    <% @sub_processes.each do  |sub_process|%>
-      <tr id="<%= dom_id(sub_process) %>">
+    <% @tasks.each do  |task|%>
+      <tr id="<%= dom_id(task) %>">
         <td style="width: 50%">
           <div class="admin-list small-12 medium14 column">
-            <%= sub_process.description %>
+            <%= task.description %>
           </div>
         </td>
         <td>
           <div class="admin-list column">
-            <%= link_to  admin_tasks_path(commit: t("admin.tasks.index.submit"),
-                     sub_process_id: sub_process.id),
-                     class: 'button small float-right' do %>
-                      <span class="icon-tag"></span>
-                      <%= t("admin.sub_processes.index.tasks") %>
+            <%= link_to  admin_indicators_path(commit: t("admin.tasks.index.submit"),
+                task_id: task.id),
+                class: 'button small float-right' do %>
+                  <span class="icon-tag"></span>
+                  <%= t("admin.tasks.index.indicators") %>
             <% end %>
           </div>
         </td>
         <td>
           <div class="admin-list column">
-            <%= link_to edit_admin_sub_process_path(sub_process),
+            <%= link_to edit_admin_task_path(task),
                 class: 'button small float-right' do %>
                 <span class="icon-edit"></span>
                 <%= t("admin.actions.edit") %>
@@ -35,7 +37,7 @@
         </td>
         <td>
           <div class="admin-list column">
-            <%= link_to admin_sub_process_path(sub_process), method: :delete,
+            <%= link_to admin_task_path(task), method: :delete,
                 class: 'button small alert float-right' do %>
                 <span class="icon-box"></span>
                 <%= t("admin.actions.delete") %>

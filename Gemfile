@@ -45,9 +45,6 @@ gem 'kaminari' # A Scope & Engine based paginator
 gem 'responders' # A set of responders modules to dry up your Rails 4.2+ app.
 gem 'ckeditor', '~> 4.1.5' # WYSIWYG editor to be used inside web pages
 
-# HTTP server for Rack applications
-# gem 'unicorn', '~> 5.0.1'
-
 # gem 'rinku', require: 'rails_rinku' # auto-link rails, sanityze html
 gem 'savon' # SOAP client
 gem 'dalli' # mem cached client
@@ -69,7 +66,7 @@ gem 'turnout' # put your Rails application into maintenance mode
 gem 'redcarpet' # extensible Markdown to (X)HTML parser
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -107,6 +104,7 @@ group :development do
   gem 'poltergeist'
   gem 'coveralls', require: false
   gem 'email_spec'
+  gem 'seed_dump'
 end
 
 group :development do

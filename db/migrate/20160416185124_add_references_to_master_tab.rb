@@ -13,5 +13,6 @@ class AddReferencesToMasterTab < ActiveRecord::Migration
     add_reference :units, :unit_type, index: true
     add_reference :organizations, :organization_type, index: true
     add_reference :unit_types, :organization_type, index: true
+
   end
 end

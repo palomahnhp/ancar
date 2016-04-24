@@ -1,7 +1,14 @@
-<p id="notice"><%= notice %></p>
+<%= render "admin/shared/index" %>
 
 <h2><%= t("admin.tasks.index.title") %></h2>
-  <% if @sub_processes.nil? %>
+
+<p>
+  <%= link_to t("admin.tasks.index.create"),
+              new_admin_task_path,
+              class: "button large success " %>
+</p>
+
+  <% if @tasks.nil? %>
     <%= render 'admin/shared/in_works' %>
   <% else %>
     <%= render 'item_list' %>
