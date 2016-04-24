@@ -3,10 +3,9 @@ es:
   admin:
     actions:
       confirm: "¿Estás seguro?"
-      new:
-        submit_button: Crear
-      edit:
-        submit_button: Editar
+      new: Crear
+      edit: Editar
+      delete: Eliminar
       back: Volver
     dashboard:
       index:
@@ -14,9 +13,11 @@ es:
     indicators:
       index:
         title: Indicadores
+        create: Crear un indicador
+        no_data: No hay indicadores definidos
+        submit: Buscar indicadores
       new:
         title: Crear un indicador
-        back: Volver
     menu:
       periods: Periodos de análisis
       main_processes: Procesos
@@ -93,6 +94,12 @@ es:
         back: Volver
     tasks:
       index:
+        create: Crear una tarea
+        edit: Editar
+        delete: Eliminar
+        no_data: No hay tareas definidas
+        submit: Buscar tareas
+        indicators: Ver indicadores
         title: Tareas
       new:
         title: Crear una tarea

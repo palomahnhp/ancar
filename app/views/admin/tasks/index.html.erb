@@ -1,6 +1,7 @@
-<p id="notice"><%= notice %></p>
+<%= render "admin/shared/index" %>
 
 <h2><%= t("admin.tasks.index.title") %></h2>
+
   <% if @sub_processes.nil? %>
     <%= render 'admin/shared/in_works' %>
   <% else %>

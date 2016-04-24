@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419164036) do
+ActiveRecord::Schema.define(version: 20160424115826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,12 +29,13 @@ ActiveRecord::Schema.define(version: 20160419164036) do
 
   create_table "indicators", force: :cascade do |t|
     t.string   "description"
-    t.string   "type"
+    t.string   "in_out"
     t.integer  "amount"
     t.string   "updated_by"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "task_id"
+    t.integer  "order"
   end
 
   add_index "indicators", ["task_id"], name: "index_indicators_on_task_id", using: :btree
@@ -55,12 +56,14 @@ ActiveRecord::Schema.define(version: 20160419164036) do
     t.integer  "order"
     t.string   "description"
     t.string   "updated_by"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "period_id"
+    t.integer  "unit_type_id"
   end
 
   add_index "main_processes", ["period_id"], name: "index_main_processes_on_period_id", using: :btree
+  add_index "main_processes", ["unit_type_id"], name: "index_main_processes_on_unit_type_id", using: :btree
 
   create_table "organization_types", force: :cascade do |t|
     t.string   "acronym"

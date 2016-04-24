@@ -107,6 +107,7 @@ group :development do
   gem 'poltergeist'
   gem 'coveralls', require: false
   gem 'email_spec'
+  gem 'seed_dump'
 end
 
 group :development do
