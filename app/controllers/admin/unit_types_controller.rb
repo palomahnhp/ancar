@@ -4,7 +4,7 @@ class Admin::UnitTypesController < Admin::BaseController
   # GET /admin/unit_types
   # GET /admin/unit_types.json
   def index
-    @admin_unit_types = Admin::UnitType.all
+    @admin_unit_types = UnitType.all
   end
 
   # GET /admin/unit_types/1

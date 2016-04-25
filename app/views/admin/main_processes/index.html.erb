@@ -1,13 +1,9 @@
-<p id="notice"><%= notice %></p>
-
+<%= render "admin/shared/index" %>
 <h2><%= t("admin.main_processes.index.title") %></h2>
 
 <% if @main_processes.nil? %>
-
   <%= render 'select_options' %>
-
 <% else %>
-
   <%=  render 'item_list' %>
   <%= #render 'items_list', resource:  @main_processes,
       #                   son_resource_path: admin_sub_processes_path,

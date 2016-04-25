@@ -1,5 +1,7 @@
   App.Date_Picker =
 
   initialize: ->
-    $("#post_started_at").datepicker();
-    $("#post_ended_at").datepicker();  
+    $("#start_at").datepicker();
+    $("#end_at").datepicker();
+    $("#open_at").datepicker();
+    $("#close_at").datepicker();

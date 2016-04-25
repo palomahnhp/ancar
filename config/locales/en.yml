@@ -4,17 +4,19 @@ en:
     close: "Salir"
   layouts:
     application:
-      ie_title: "Análisis de carga de trabajo" 
+      ie_title: "Análisis de carga de trabajo"
     footer:
-      more_info: "Más información" 
+      FAQ_title: "FAQ"
+      FAQ_text: "FAQ"
+      more_info: "Más información"
       copyright: "Copyrigth"
     header:
       logo: "Direccion General de Planificacion i18n"
       open: "Abierto"
-      open_gov: "Gobierno abierto" 
+      open_gov: "Gobierno abierto"
       open_data: "Open data"
       usuarios: "Usuarios"
       subprocesos: "Subprocesos"
       administracion: "Administración"
       gestion: "Gestor"
-      validacion: "Validación" 
+      validacion: "Validación"

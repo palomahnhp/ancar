@@ -2,15 +2,15 @@
 <div class="small-12 medium-9 column">
   <ul>
     <li>
-      <%= link_to "Tareas", root_path, class: ("active" if controller_name == "user"), accesskey: "d" %>
+      <%= link_to "Procesos", root_path, class: ("active" if controller_name == "welcome"), accesskey: "p" %>
     </li>
 
     <li>
-      <%= link_to "Informes", root_path, class: ("active" if  controller_name == "subproceso"), accesskey: "p" %>
+      <%= link_to "Informes", in_works_path, class: ("active" if  controller_name == "in_works"), accesskey: "i" %>
     </li>
 
     <li>
-      <%= link_to "Otros", root_path, class: ("active" if controller_name == "otros"), accesskey: "s" %>
+      <%= link_to "FAQ", in_works_path, class: ("active" if controller_name == "faq"), accesskey: "i" %>
     </li>
   </ul>
 </div>

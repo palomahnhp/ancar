@@ -1,37 +1,46 @@
 
 <div>
- <h3 class= "center"> <%= @organization_type.name %> / <%= @period.name %></h3>
- <h3> <%= @organization_type.name %> /</h2>
+  <div class="expanded highlight padding">
+     <h3><%= @main_process.description %></h3>
+     <strong><%= @organization_type.name %> / <%= @period.name %></strong>
+  </div>
 </div>
 
   <table>
-    <% @main_processes.each do  |main_process|%>
-      <tr id="<%= dom_id(main_process) %>">
-        <td>
-          <div class="admin-list small-12 medium-6 column">
-            <%= main_process.description %>
+    <% @sub_processes.each do  |sub_process|%>
+      <tr id="<%= dom_id(sub_process) %>">
+        <td style="width: 50%">
+          <div class="admin-list small-12 medium14 column">
+            <%= sub_process.description %>
           </div>
         </td>
         <td>
-          <%= link_to  admin_sub_processes_path,
-              class: 'button  float-right' do %>
-                <span class="icon-success"></span>
-                <%= t("admin.main_process.index.sub_processes") %>
-          <% end %>
+          <div class="admin-list column">
+            <%= link_to  admin_tasks_path(commit: t("admin.tasks.index.submit"),
+                     sub_process_id: sub_process.id),
+                     class: 'button small float-right' do %>
+                      <span class="icon-tag"></span>
+                      <%= t("admin.sub_processes.index.tasks") %>
+            <% end %>
+          </div>
         </td>
         <td>
-          <%= link_to edit_admin_main_process_path(main_process),
-              class: 'button warning float-right' do %>
+          <div class="admin-list column">
+            <%= link_to edit_admin_sub_process_path(sub_process),
+                class: 'button small float-right' do %>
                 <span class="icon-edit"></span>
-                <%= t("admin.main_process.index.edit") %>
-          <% end %>
+                <%= t("admin.actions.edit") %>
+            <% end %>
+          </div>
         </td>
         <td>
-          <%= link_to admin_main_process_path(main_process), method: :delete,
-              class: 'button alert float-right' do %>
-                <span class="icon-delete"></span>
-                <%= t("admin.main_process.index.delete") %>
-           <% end %>
+          <div class="admin-list column">
+            <%= link_to admin_sub_process_path(sub_process), method: :delete,
+                class: 'button small alert float-right' do %>
+                <span class="icon-box"></span>
+                <%= t("admin.actions.delete") %>
+            <% end %>
+          </div>
         </td>
       </tr>
     <% end %>

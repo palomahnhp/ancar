@@ -1,16 +1,5 @@
 <footer>
   <div class="row">
-    <div class="small-12 large-4 column">
-      <h1 class="logo">
-        <%= link_to t("layouts.footer.tasks_title"), root_path %>
-      </h1>
-
-      <p class="info">
-        <%= t("layouts.footer.tasks_text") %>
-        <%= link_to t("layouts.footer.faq"), root_path %>
-      </p>
-    </div>
-
     <div class="small-12 medium-4 column">
       <h1 class="logo">
         <%= link_to t("layouts.footer.process_title"), root_path %>
@@ -20,11 +9,20 @@
 
     <div class="small-12 medium-4 column">
       <h1 class="logo">
-        <%= link_to t("layouts.footer.reports_title"), root_path %>
+        <%= link_to t("layouts.footer.reports_title"), in_works_path %>
       </h1>
       <p  class="info"><%= t("layouts.footer.reports_text") %></p>
     </div>
+    <div class="small-12 large-4 column">
+      <h1 class="logo">
+        <%= link_to t("layouts.footer.FAQ_title"), in_works_path %>
+      </h1>
+      <p class="info">
+        <%= t("layouts.footer.FAQ_text") %>
+      </p>
+    </div>
   </div>
+
   <div class="subfooter row">
     <div class="small-12 medium-8 column">
       <p>

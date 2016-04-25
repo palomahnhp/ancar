@@ -3,9 +3,21 @@ es:
   admin:
     actions:
       confirm: "¿Estás seguro?"
+      new: Crear
+      edit: Editar
+      delete: Eliminar
+      back: Volver
     dashboard:
       index:
         title: Configuración de la aplicación
+    indicators:
+      index:
+        title: Indicadores
+        create: Crear un indicador
+        no_data: No hay indicadores definidos
+        submit: Buscar indicadores
+      new:
+        title: Crear un indicador
     menu:
       periods: Periodos de análisis
       main_processes: Procesos
@@ -28,14 +40,16 @@ es:
         data_period: Los datos corresponden al periodo
         data_collect: Periodo de mecanización
         processes: Ver procesos
+      new:
+        title: Crear un periodo
       period:
         organization: Organización
         name: Nombre
         description: Descripción
-        initial_date: Inicio del periodo
-        final_date: Fin del periodo
-        opening_date: Inicio de recogida de datos
-        closing_date: Fin  de recogida de datos
+        start_at: Inicio
+        end_at: Fin
+        open_at: Inicio
+        close_at: Fin
     main_processes:
       index:
         create: Crear un proceso
@@ -49,8 +63,19 @@ es:
         sub_processes: Ver subprocesos
       mainprocess:
         new:
+          title: Crear un proceso
+          back: Volver
           order: Número de orden
           description: Descripcion
+    organizations:
+      index:
+        title: Organizaciones
+    organization_types:
+      index:
+        title: Tipos de organizaciones
+      new:
+        title: Crear un tipo de organización
+        back: Volver
     sub_processes:
       index:
         create: Crear un subproceso
@@ -62,29 +87,29 @@ es:
         submit: Buscar subprocesos
         tasks: Ver tareas
       sub_process:
-        new:
           order: Número de orden
           description: Descripcion
-    organizations:
+      new:
+        title: Crear un subproceso
+        back: Volver
+    tasks:
       index:
-        filter: Filtro
-        filters:
-          all: Todas
-          pending: Pendientes
-          rejected: Rechazadas
-          verified: Verificadas
-        hidden_count:
-          one: Hay además una organización sin usuario o con el usuario bloqueado
-          other: Hay %{count} organizaciones sin usuario o con el usuario bloqueado
-        reject: Rechazar
-        rejected: Rechazada
-        search: Buscar
-        search_placeholder: Nombre, email o teléfono
-        title: Organizaciones
-        verified: Verificada
-        verify: Verificar
-      search:
-        title: Buscar Organizaciones
+        create: Crear una tarea
+        edit: Editar
+        delete: Eliminar
+        no_data: No hay tareas definidas
+        submit: Buscar tareas
+        indicators: Ver indicadores
+        title: Tareas
+      new:
+        title: Crear una tarea
+        back: Volver
+    units:
+      index:
+        title: Unidades
+    unit_types:
+      index:
+        title: Tipos de unidades
     settings:
       flash:
         updated: Valor actualizado
