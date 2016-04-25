@@ -69,7 +69,7 @@ gem 'turnout' # put your Rails application into maintenance mode
 gem 'redcarpet' # extensible Markdown to (X)HTML parser
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
