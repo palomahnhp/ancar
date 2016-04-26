@@ -29,7 +29,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '~> 3.5.6' # flexible authentication solution for Rails
 gem 'devise-async'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.10'
 #gem 'omniauth'
 #gem 'omniauth-twitter'
 #gem 'omniauth-facebook', '~> 3.0.0'

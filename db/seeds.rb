@@ -12,7 +12,7 @@ DatabaseCleaner.clean_with :truncation
 puts "Creando settings"
   Setting.create!(key: "header_logo", value: "Análisis de la carga de trabajo")
   Setting.create!(key: "org_name", value: "Ayuntamiento de Madrid")
-  Setting.create!(key: "app_name", value: "Análisis de la carga de trabajo")
+  Setting.create!(key: "app_name", value: "Análisis de la seed de trabajo")
 
 puts "Creando tipos de organizaciones"
   to2 = OrganizationType.create!(acronym: "JD", name: "Junta de Distrito",
@@ -37,7 +37,6 @@ puts "Creando periodos"
 puts "Creando fuentes"
   s_servicio = Source.create!(name: "Servicio")
 
-
 puts "Creando datos de Distritos"
 puts "  1. Creando datos DEPARTAMENTO DE SERVICIOS JURÍDICOS"
 	tu   = UnitType.create!(name: "DEPARTAMENTO DE SERVICIOS JURÍDICOS", organization_type_id: to2.id)
@@ -48,10 +47,12 @@ puts "     Proceso: TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS"
   sp = SubProcess.create!(order: s, main_process_id: mp.id,  description: 'Contratos menores', updated_by: 'seed')
   t = 1
   tk = Task.create!(order: t, sub_process_id: sp.id, description: "Tarea", updated_by: 'seed' )
+
   i = 1
   id = Indicator.create!(order: i, task_id: tk.id, description: 'n.º de Contratos menores tramitados', in_out: 'Entrada', amount: 0, updated_by: 'seed')
   s = s + 1
   sp = SubProcess.create!(order: s, main_process_id: mp.id,  description: 'Contratos derivados del acuerdo Marco', updated_by: 'seed')
+
     tk = Task.create!(order: t, sub_process_id: sp.id, description: "Tarea", updated_by: 'seed' )
   i = i + 1
   id = Indicator.create!(order: i, task_id: tk.id, description: 'nº de contratos Acuerdos Marco', in_out: 'Entrada', amount: 0, updated_by: 'seed')
@@ -124,7 +125,6 @@ puts "  2. Creando datos DEPARTAMENTO DE SERVICIOS TÉCNICOS"
 	  n = 1
 	mp = MainProcess.create!(order: n, period_id: pdo2.id, unit_type_id: tu.id, description: 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS', updated_by: 'seed')
 	  n = n + 1
-
 	mp = MainProcess.create!(order: n, period_id: pdo2.id, unit_type_id: tu.id, description: 'AUTORIZACIONES Y CONCESIONES', updated_by: 'seed')
 	  n = n + 1
 	mp = MainProcess.create!(order: n, period_id: pdo2.id, unit_type_id: tu.id, description: 'LICENCIAS', updated_by: 'seed')
@@ -254,6 +254,7 @@ n = n + 1
 puts "  8. Creando datos SECRETARÍA DEL DISTRITO"
 	tu = UnitType.create!(name: "SECRETARÍA DEL DISTRITO", organization_type_id: to2)
 	n = 1
+
 	mp = MainProcess.create!(order: n, period_id: pdo2.id, unit_type_id: tu.id, description: 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS', updated_by: 'seed')
 	n = n + 1
 	mp = MainProcess.create!(order: n, period_id: pdo2.id, unit_type_id: tu.id, description: 'ELABORACIÓN ANTEPROYECTO Y GESTIÓN DEL PRESUPUESTO', updated_by: 'seed')
@@ -304,5 +305,4 @@ puts "Creando datos SGTs "
 	mp = MainProcess.create!(order: n, period_id: pdo1.id, unit_type_id: tu.id, description: 'FE PÚBLICA', updated_by: 'seed')
 	n = n + 1
 	mp = MainProcess.create!(order: n, period_id: pdo2.id, unit_type_id: tu.id, description: 'SUGERENCIAS RECLAMACIONES', updated_by: 'seed')
-
 
