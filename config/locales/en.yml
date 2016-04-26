@@ -6,8 +6,8 @@ en:
     application:
       ie_title: "Análisis de carga de trabajo"
     footer:
-      FAQ_title: "FAQ"
-      FAQ_text: "FAQ"
+      FAQ_title: "Instrucciones"
+      FAQ_text: "Instrucciones"
       more_info: "Más información"
       copyright: "Copyrigth"
     header:

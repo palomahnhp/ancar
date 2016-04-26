@@ -1,12 +1,21 @@
 
 <div>
- <h3 class= "center"> <%= @organization_type.name %> / <%= @period.name %></h3>
- <h3> <%= @organization_type.name %> /</h2>
+  <div class="expanded highlight padding">
+     <strong><%= @organization_type.name %> / <%= @period.name %></strong>
+     <h3><%= @main_process.description %> </h3>
+     <h3> <%= @sub_process.description %></h3>
+  </div>
+</div>
+<div class="row">
+  <div class="column medium-9">
+    <strong> <%= @task.description %> </strong>
+  </div>
 </div>
 
   <table>
     <% @indicators.each do  |indicator|%>
-      <tr id="<%= dom_id(main_process) %>">
+      <tr id="<%= dom_id(indicator) %>">
+
         <td>
           <div class="admin-list small-12 medium-14 column">
             <%= indicator.description %>

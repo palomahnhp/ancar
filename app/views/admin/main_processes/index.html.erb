@@ -1,5 +1,10 @@
 <%= render "admin/shared/index" %>
 <h2><%= t("admin.main_processes.index.title") %></h2>
+<p>
+  <%= link_to t("admin.main_process.index.create"),
+              new_admin_main_process_path,
+              class: "button large success " %>
+</p>
 
 <% if @main_processes.nil? %>
   <%= render 'select_options' %>
