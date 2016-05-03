@@ -1,6 +1,6 @@
 
 <div>
- <h3> <%= @organization_type.name %> / <%= @period.name %></h3>
+ <h3> <%= @organization_type.name %> / <%= @period.description %></h3>
 </div>
 
   <table>
@@ -8,7 +8,7 @@
       <tr id="<%= dom_id(main_process) %>">
         <td>
           <div class="admin-list small-12 medium-14 column">
-            <%= main_process.description %>
+            <%= Item.find(main_process.item_id).description %>
           </div>
         </td>
         <td>

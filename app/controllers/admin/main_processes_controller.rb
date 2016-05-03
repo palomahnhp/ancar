@@ -17,9 +17,26 @@ class Admin::MainProcessesController < Admin::BaseController
       @periods = Period.where("organization_type_id = ?", OrganizationType.first.id)
   end
 
-   def show
+  def new
+    @items = Item.where(item_type: "main_process")
+    @organization_type = OrganizationType.find(params[:organization_type_id])
+    @period = Period.find(params[:period_id])
+    @main_process = MainProcess.new
+  end
+
+  def create
+    debugger
+    @main_process = MainProcess.new(main_process_params)
+    if @main_process.save
+      redirect_to admin_main_processes_path
+    else
+      render :new
+    end
+  end
+
+  def show
     @main_process = MainProcess.find_by("id = ?", params[:organization][:period])
-   end
+  end
 
   def update_period
     @periods = Period.where("organization_type_id = ?", params[:organization_type_id])
@@ -30,7 +47,7 @@ class Admin::MainProcessesController < Admin::BaseController
 
   private
     def main_process_params
-      params.require(:main_process).permit(:period_id, :order, :description)
+      params.require(:main_process).permit(:period_id, :item_id, :order)
     end
 
     def find_main_process

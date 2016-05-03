@@ -9,8 +9,11 @@ module AdminHelper
   end
 
   def period_select_options
-#    return unless id
     @periods.collect { |v| [ v.name, v.id ] }
+  end
+
+  def main_process_items
+     @items.collect  { |v| [ v.description, v.id ] }
   end
 
   private

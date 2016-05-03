@@ -4,6 +4,7 @@ es:
     actions:
       confirm: "¿Estás seguro?"
       new: Crear
+      create: Crear
       edit: Editar
       delete: Eliminar
       back: Volver
@@ -19,11 +20,7 @@ es:
       new:
         title: Crear un indicador
     menu:
-      periods: Periodos de análisis
-      main_processes: Procesos
-      sub_processes: Subprocesos
-      tasks: Tareas
-      indicators: Indicadores
+      processes: Configurar procesos
       organization_types: Tipos de organizaciones
       unit_types: Tipos de unidades
       organizations: Organizaciones
@@ -41,18 +38,21 @@ es:
         data_collect: Periodo de mecanización
         processes: Ver procesos
       new:
-        title: Crear un periodo
-      period:
-        organization: Organización
+        title: Abrir un nuevo periodo
+      form:
+        organization_type: Organización
         name: Nombre
         description: Descripción
-        start_at: Inicio
-        end_at: Fin
-        open_at: Inicio
-        close_at: Fin
+        started_at: Inicio
+        ended_at: Fin
+        opened_at: Inicio
+        closed_at: Fin
+        dates: Periodo de los datos
+        data_collect: Recogida de datos
     main_processes:
       index:
-        create: Crear un proceso
+        empty: No hay procesos para este periodo
+        create: Incluir procesos
         edit: Editar
         delete: Eliminar
         title: Procesos
@@ -61,12 +61,12 @@ es:
         select_period: Selecciona un periodo
         submit: Buscar procesos
         sub_processes: Ver subprocesos
-      mainprocess:
-        new:
-          title: Crear un proceso
-          back: Volver
-          order: Número de orden
-          description: Descripcion
+      new:
+        title: Añadir procesos
+      form:
+        order: Número de orden
+        item: Descripcion
+        period: Periodo
     organizations:
       index:
         title: Organizaciones

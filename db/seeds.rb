@@ -14,6 +14,7 @@ puts "Creando settings"
   Setting.create!(key: "org_name", value: "Ayuntamiento de Madrid")
   Setting.create!(key: "app_name", value: "Análisis de la seed de trabajo")
 
+
 puts "Creando tipos de organizaciones"
   to2 = OrganizationType.create!(acronym: "JD", name: "Junta de Distrito",
                  updated_by: "seed")
@@ -26,8 +27,8 @@ puts "Creando tipos de organizaciones"
 
 puts "Creando periodos"
   pdo1 = Period.create!(organization_type_id: to1.id ,name: "1er sem. 2016", description: "Primer semestre de 2016",
-                 start_at: "01/01/2016", end_at: "30/06/2016",
-                 open_at: "01/04/2016", close_at: "30/04/2016",
+                 started_at: "01/01/2016", ended_at: "30/06/2016",
+                 opened_at: "01/04/2016", closed_at: "30/04/2016",
                  updated_by: "seed")
   pdo2 = Period.create!(organization_type_id: to2.id ,name: "1er sem. 2016", description: "Primer semestre de 2016",
                  start_at: "01/01/2016", end_at: "30/06/2016",

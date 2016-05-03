@@ -1,8 +1,7 @@
-
 <div>
   <div class="expanded highlight padding">
-     <h3><%= @main_process.description %></h3>
-     <strong><%= @organization_type.name %> / <%= @period.name %></strong>
+     <h3>"Proceso: "<%= Item.find(@main_process.item_id).description%> </h3>
+     <strong><%= @organization_type.name %> / <%= @period.description %></strong>
   </div>
 </div>
 
@@ -11,7 +10,7 @@
       <tr id="<%= dom_id(sub_process) %>">
         <td style="width: 50%">
           <div class="admin-list small-12 medium14 column">
-            <%= sub_process.description %>
+            <%= Item.find(sub_process.item_id).description %>
           </div>
         </td>
         <td>

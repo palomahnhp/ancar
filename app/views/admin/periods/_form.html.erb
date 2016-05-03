@@ -1,48 +1,49 @@
 <%= form_for [:admin, @period] do |f| %>
 
-  <%= render 'shared/errors', resource: @period %>
+  <%= render 'admin/shared/errors', resource: @period %>
+
   <div class="row">
-    <div class="small-3 column">
-      <%= f.label :name, t("admin.periods.period.name") %>
-      <%= f.text_field :name, placeholder: t("admin.periods.period.name"), label: false %>
+    <div class="small-4 column">
+      <%= f.label :organization_type_id, t("admin.periods.form.organization_type") %>
+      <%= f.select :organization_type_id, options_for_select(@organization_types), label: false, placeholder: t("admin.periods.form.organization_type") %>
     </div>
 
-    <div class="small-12 column">
-      <%= f.label :description, t("admin.periods.period.description") %>
+    <div class="small-12 column"></h3> </div>
+    <div class="small-5 column">
+      <%= f.label :description, t("admin.periods.form.description") %>
       <%= f.text_field :description, label: false,
-                        placeholder: t("admin.periods.period.description") %>
+                        placeholder: t("admin.periods.form.description") %>
     </div>
 
-   <div class="small-12 column"> <h3>Periodo a analizar: </h3> </div>
-
+    <div class="small-12 column"> <h3><%= t("admin.periods.form.dates") %> </h3> </div>
     <div class="small-3 column">
-      <%= f.label :start_at, t("admin.periods.period.start_at") %>
-      <%= f.datetime_field :start_at, label: false,
-                        placeholder: t("admin.periods.period.start_at"),
-                        id: "start_at" %>
-    </div>
-
-    <div class="small-3 column">
-      <%= f.label :end_at, t("admin.periods.period.end_at") %>
-      <%= f.datetime_field :end_at, label: false,
-                        placeholder: t("admin.periods.period.end_at"),
-                        id: "end_at" %>
-    </div>
-
-    <div class="small-12 column"> <h3>Apertura del plazo de recogida de datos: </h3> </div>
-
-    <div class="small-3 column">
-      <%= f.label :open_at, t("admin.periods.period.open_at") %>
-      <%= f.datetime_field :open_at, label: false,
-                        placeholder: t("admin.periods.period.open_at"),
-                        id: "open_at" %>
+      <%= f.label :started_at, t("admin.periods.form.started_at") %>
+      <%= f.datetime_field :started_at, label: false,
+                        placeholder: t("admin.periods.form.started_at"),
+                        id: "started_at" %>
     </div>
 
     <div class="small-3 column">
-      <%= f.label :close_at, t("admin.periods.period.close_at") %>
-      <%= f.datetime_field :close_at, label: false,
-                        placeholder: t("admin.periods.period.close_at"),
-                        id: "close_at" %>
+      <%= f.label :ended_at, t("admin.periods.form.ended_at") %>
+      <%= f.datetime_field :ended_at, label: false,
+                        placeholder: t("admin.periods.form.ended_at"),
+                        id: "ended_at" %>
+    </div>
+
+    <div class="small-12 column"> <h3><%= t("admin.periods.form.data_collect") %> </h3> </div>
+
+    <div class="small-3 column">
+      <%= f.label :opened_at, t("admin.periods.form.opened_at") %>
+      <%= f.datetime_field :opened_at, label: false,
+                        placeholder: t("admin.periods.form.opened_at"),
+                        id: "opened_at" %>
+    </div>
+
+    <div class="small-3 column">
+      <%= f.label :closed_at, t("admin.periods.form.closed_at") %>
+      <%= f.datetime_field :closed_at, label: false,
+                        placeholder: t("admin.periods.form.closed_at"),
+                        id: "closed_at" %>
     </div>
 
     <div class="actions small-12 column">

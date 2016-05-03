@@ -1,6 +1,6 @@
 class Admin::PeriodsController < Admin::BaseController
 
-  before_action :organization_types, only: [:edit, :new, :update]
+  before_action :organization_types, only: [:edit, :new, :create, :update]
   before_action :find_period,   only: [:edit, :update, :destroy]
 
   def index
@@ -36,7 +36,7 @@ class Admin::PeriodsController < Admin::BaseController
 
   private
     def period_params
-      params.require(:period).permit(:organization_type_id, :name, :description, :start_at, :end_at, :open_at, :close_at)
+      params.require(:period).permit(:organization_type_id, :description, :started_at, :ended_at, :opened_at, :closed_at)
     end
 
     def find_period
