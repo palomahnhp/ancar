@@ -8,7 +8,7 @@ puts "Creando settings"
   Setting.create!(key: "app_name", value: "Análisis de la carga de trabajo")
 
 puts "Creando items"
-	(1..5).each do |i|
+  (1..5).each do |i|
     descripcion = Faker::Lorem.sentence(3).truncate(60)
     item = Item.create!(item_type: "main_process", description: descripcion, updated_by: 'dev_seed')
   end
@@ -70,10 +70,6 @@ puts "Creando procesos"
       (1..4).each do |i|
         item =  Item.reorder("RANDOM()").first
         tk = Task.create!(sub_process_id: sp.id, item_id: item.id, order: i, updated_by: "dev_seed")
-        item =  Item.reorder("RANDOM()").first
-        ind   = Indicator.create!(task_id: tk.id, in: true, out: true, item_id: item.id, updated_by: "dev_seed")
-        item =  Item.reorder("RANDOM()").first
-        is = IndicatorsSource.create!(indicator_id: ind.id, source_id: item.id)
       end
     end
   end

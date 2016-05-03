@@ -25,7 +25,6 @@ class Admin::MainProcessesController < Admin::BaseController
   end
 
   def create
-    debugger
     @main_process = MainProcess.new(main_process_params)
     if @main_process.save
       redirect_to admin_main_processes_path
