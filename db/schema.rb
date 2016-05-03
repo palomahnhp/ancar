@@ -40,18 +40,6 @@ ActiveRecord::Schema.define(version: 20160424115826) do
 
   add_index "indicators", ["task_id"], name: "index_indicators_on_task_id", using: :btree
 
-  create_table "main_organizations", force: :cascade do |t|
-    t.integer  "type_organization_id"
-    t.string   "name"
-    t.string   "short_name"
-    t.string   "sap_id"
-    t.string   "updated_by"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "main_organizations", ["type_organization_id"], name: "index_main_organizations_on_type_organization_id", using: :btree
-
   create_table "main_processes", force: :cascade do |t|
     t.integer  "order"
     t.string   "description"
@@ -64,15 +52,6 @@ ActiveRecord::Schema.define(version: 20160424115826) do
 
   add_index "main_processes", ["period_id"], name: "index_main_processes_on_period_id", using: :btree
   add_index "main_processes", ["unit_type_id"], name: "index_main_processes_on_unit_type_id", using: :btree
-
-  create_table "mainprocesses", force: :cascade do |t|
-    t.integer  "period_id"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "mainprocesses", ["period_id"], name: "index_mainprocesses_on_period_id", using: :btree
 
   create_table "organization_types", force: :cascade do |t|
     t.string   "acronym"
@@ -133,15 +112,6 @@ ActiveRecord::Schema.define(version: 20160424115826) do
 
   add_index "sub_processes", ["main_process_id"], name: "index_sub_processes_on_main_process_id", using: :btree
 
-  create_table "subprocesses", force: :cascade do |t|
-    t.integer  "mainprocess_id"
-    t.string   "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "subprocesses", ["mainprocess_id"], name: "index_subprocesses_on_mainprocess_id", using: :btree
-
   create_table "tasks", force: :cascade do |t|
     t.string   "order"
     t.text     "description"
@@ -175,5 +145,4 @@ ActiveRecord::Schema.define(version: 20160424115826) do
   add_index "units", ["organization_id"], name: "index_units_on_organization_id", using: :btree
   add_index "units", ["unit_type_id"], name: "index_units_on_unit_type_id", using: :btree
 
-  add_foreign_key "subprocesses", "mainprocesses"
 end
