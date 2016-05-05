@@ -1,6 +1,6 @@
 
 <div>
- <h3> <%= @organization_type.name %> / <%= @period.description %></h3>
+ <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
 </div>
 
   <table>
@@ -8,11 +8,12 @@
       <tr id="<%= dom_id(main_process) %>">
         <td>
           <div class="admin-list small-12 medium-14 column">
-            <%= Item.find(main_process.item_id).description %>
+
+            <%= main_process.item_id %> - <%= Item.find(main_process.item_id).description %>
           </div>
         </td>
         <td>
-          <%= link_to  admin_sub_processes_path(commit: t("admin.sub_processes.index.submit"),
+          <%= link_to admin_sub_processes_path(commit: t("admin.sub_processes.index.submit"),
               main_process_id: main_process.id),
               class: 'button small float-right' do %>
                 <span class="icon-tag"></span>
@@ -20,15 +21,15 @@
           <% end %>
         </td>
         <td>
-          <%= link_to edit_admin_main_process_path(main_process),
+          <%= link_to admin_in_works_path,
               class: 'button small float-right' do %>
                 <span class="icon-edit"></span>
                 <%= t("admin.actions.edit") %>
-          <% end %>
+              <% end %>
         </td>
         <td>
-          <%= link_to admin_main_process_path(main_process), method: :delete,
-              class: 'button small alert float-right' do %>
+          <%= link_to admin_in_works_path(main_process, main_process_id: main_process.id),
+                  class: 'button small alert float-right' do %>
                 <span class="icon-box"></span>
                 <%= t("admin.actions.delete") %>
            <% end %>

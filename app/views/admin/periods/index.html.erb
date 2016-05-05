@@ -15,7 +15,7 @@
     <% @periods.each do |period| %>
       <tr id="<%= dom_id(period) %>">
         <td>
-          <strong> <%= OrganizationType.find(period.organization_type_id).name %> : </strong>
+          <strong> <%= OrganizationType.find(period.organization_type_id).description %> : </strong>
                    <%= period.description %></div>
           <div> <%= t("admin.periods.index.data_period") %>
                 de <%= period.started_at  %> a <%= period.ended_at %>

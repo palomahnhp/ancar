@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160430100424) do
     t.boolean  "in"
     t.boolean  "out"
     t.string   "metric"
+    t.integer  "order"
     t.string   "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -60,16 +61,16 @@ ActiveRecord::Schema.define(version: 20160430100424) do
 
   create_table "organization_types", force: :cascade do |t|
     t.string   "acronym"
-    t.string   "name"
+    t.string   "description"
     t.string   "updated_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "organizations", force: :cascade do |t|
     t.integer  "organization_type_id"
-    t.string   "name"
-    t.string   "short_name"
+    t.string   "description"
+    t.string   "short_description"
     t.string   "sap_id"
     t.string   "updated_by"
     t.datetime "created_at",           null: false
@@ -138,19 +139,20 @@ ActiveRecord::Schema.define(version: 20160430100424) do
 
   create_table "unit_types", force: :cascade do |t|
     t.integer  "organization_type_id"
-    t.string   "name"
+    t.string   "description"
+    t.string   "updated_by"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
 
   create_table "units", force: :cascade do |t|
     t.integer  "unit_type_id"
-    t.integer  "organization_type_id"
-    t.string   "name"
+    t.integer  "organization_id"
+    t.string   "description_sap"
     t.integer  "sap_id"
     t.string   "updated_by"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

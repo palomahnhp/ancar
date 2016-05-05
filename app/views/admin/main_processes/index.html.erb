@@ -1,17 +1,16 @@
-<div>
-  <%= render "admin/shared/index" %>
+<%= render "admin/shared/index" %>
 
-  <h2><%= t("admin.main_processes.index.title") %>  </h2>
+<h2><%= t("admin.main_processes.index.title") %>  </h2>
 
-  <div class="row">
+<div class="row">
 
-    <div class="column short-4">
-      <br><%= link_to t("admin.main_processes.index.create"),
-                  new_admin_main_process_path(period_id: params["period_id"],
-                                              organization_type_id: params["organization_type_id"]),
-                  class: "button large success " %>
-    </div>
+  <div class="column short-4">
+    <br><%= link_to t("admin.main_processes.index.create"),
+                new_admin_main_process_path(period_id: params["period_id"],
+                                            organization_type_id: params["organization_type_id"]),
+                class: "button large success " %>
   </div>
+</div>
 
 <div>
   <% if @main_processes.empty? %>

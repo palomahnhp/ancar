@@ -3,7 +3,7 @@
   <div class="expanded highlight padding">
      <h3>Proceso: <%= Item.find(@main_process.item_id).description%> </h3>
      <h3>Subproceso:  <%= Item.find(@sub_process.item_id).description %></h3>
-     <strong><%= @organization_type.name %> / <%= @period.description %></strong>
+     <strong><%= @organization_type.description %> / <%= @period.description %></strong>
   </div>
 </div>
 
@@ -27,7 +27,7 @@
         </td>
         <td>
           <div class="admin-list column">
-            <%= link_to edit_admin_task_path(task),
+            <%= link_to admin_in_works_path(task),
                 class: 'button small float-right' do %>
                 <span class="icon-edit"></span>
                 <%= t("admin.actions.edit") %>
@@ -36,7 +36,7 @@
         </td>
         <td>
           <div class="admin-list column">
-            <%= link_to admin_task_path(task), method: :delete,
+            <%= link_to admin_in_works_path(task),
                 class: 'button small alert float-right' do %>
                 <span class="icon-box"></span>
                 <%= t("admin.actions.delete") %>

@@ -44,6 +44,6 @@ class Admin::PeriodsController < Admin::BaseController
     end
 
     def organization_types
-      @organization_types = OrganizationType.all.map { |type| [type.name, type.id] }
+      @organization_types = OrganizationType.all.map { |type| [type.description, type.id] }
     end
 end

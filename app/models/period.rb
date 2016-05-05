@@ -11,6 +11,6 @@ class Period < ActiveRecord::Base
   validates :ended_at, presence: true
 
   def is_open?
-    opened_at <=  DateTime.now  && closed_at >=  DateTime.now
+    closed_at >=  DateTime.now
   end
 end

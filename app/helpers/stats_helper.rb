@@ -13,5 +13,4 @@ module StatsHelper
     opt[:data][:graph] = admin_api_stats_path(visits: true)
     content_tag :div, "", opt
   end
-
 end

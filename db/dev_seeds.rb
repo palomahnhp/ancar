@@ -8,22 +8,22 @@ puts "Creando settings"
   Setting.create!(key: "app_name", value: "Análisis de la carga de trabajo")
 
 puts "Creando items"
-  (1..5).each do |i|
-    descripcion = Faker::Lorem.sentence(3).truncate(60)
+  (1..15).each do |i|
+    descripcion = "mp - " + Faker::Lorem.sentence(3).truncate(60)
     item = Item.create!(item_type: "main_process", description: descripcion, updated_by: 'dev_seed')
   end
 
-  (1..5).each do |i|
-    descripcion = Faker::Lorem.sentence(3).truncate(60)
+  (1..15).each do |i|
+    descripcion = "sp - " + Faker::Lorem.sentence(3).truncate(60)
     item = Item.create!(item_type: "sub_process", description: descripcion, updated_by: 'dev_seed')
   end
-  (1..5).each do |i|
-    descripcion = Faker::Lorem.sentence(3).truncate(60)
+  (1..15).each do |i|
+    descripcion = "tk - " + Faker::Lorem.sentence(3).truncate(60)
     item = Item.create!(item_type: "task", description: descripcion, updated_by: 'dev_seed')
   end
 
   (1..5).each do |i|
-    descripcion = Faker::Lorem.sentence(3).truncate(60)
+    descripcion = "in - " + Faker::Lorem.sentence(3).truncate(60)
     item = Item.create!(item_type: "indicator", description: descripcion, updated_by: 'dev_seed')
   end
 
@@ -62,13 +62,13 @@ puts "Creando periodos"
 
 puts "Creando procesos"
   (1..5).each do |i|
-    item =  Item.reorder("RANDOM()").first
+    item =  Item.reorder("RANDOM()").where(item_type: "main_process").first
     mp = MainProcess.create!(period_id: pdo2.id, item_id: item.id, order: i, updated_by: "dev_seed")
     (1..4).each do |i|
-      item =  Item.reorder("RANDOM()").first
+      item =  Item.reorder("RANDOM()").where(item_type: "sub_process").first
       sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: i, item_id: item.id, order: i, updated_by: "dev_seed")
       (1..4).each do |i|
-        item =  Item.reorder("RANDOM()").first
+        item =  Item.reorder("RANDOM()").where(item_type: "task").first
         tk = Task.create!(sub_process_id: sp.id, item_id: item.id, order: i, updated_by: "dev_seed")
       end
     end

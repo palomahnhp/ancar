@@ -55,6 +55,7 @@ class CreateProcessMasterTables < ActiveRecord::Migration
       t.boolean :in
       t.boolean :out
       t.string :metric
+      t.integer :order
       t.string :updated_by
 
       t.timestamps null: false

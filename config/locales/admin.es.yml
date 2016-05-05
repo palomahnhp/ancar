@@ -8,6 +8,7 @@ es:
       edit: Editar
       delete: Eliminar
       back: Volver
+      in_construction: "En construcción"
     dashboard:
       index:
         title: Configuración de la aplicación
