@@ -1,0 +1,24 @@
+es:
+  activerecord:
+    errors:
+      models:
+        period:
+          attributes:
+            organization_type_id:
+              blank: Hay que indicar una organización
+            description:
+              blank: Hay que incluir una descripción
+            opened_at:
+              blank: Fecha de apertura obligatoria
+            closed_at:
+              blank: Fecha de cierre obligatoria
+            started_at:
+              blank: Fecha de inicio obligatoria
+            ended_at:
+              blank: Fecha de finalización obligatoria
+        main_process:
+          attributes:
+            period_id:
+              blank: Hay que indicar un periodo
+            item_id:
+              blank: Hay que incluir una descripción

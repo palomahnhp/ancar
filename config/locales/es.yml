@@ -25,3 +25,8 @@ es:
       administracion: "Administrador"
       gestion: "Gestor"
       validacion: "Validador"
+  form:
+    error: error
+    errors: errores
+    period:  el periodo
+    not_saved: 'impidieron guardar %{resource}:'

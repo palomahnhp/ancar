@@ -1,37 +1,32 @@
 
 <div>
   <div class="expanded highlight padding">
-     <strong><%= @organization_type.name %> / <%= @period.name %></strong>
-     <h3><%= @main_process.description %> </h3>
-     <h3> <%= @sub_process.description %></h3>
+     <h3>Proceso: <%= Item.find(@main_process.item_id).description%> </h3>
+     <h3>Subproceso:  <%= Item.find(@sub_process.item_id).description %></h3>
+     <h3>Tarea: <%= Item.find(@task.item_id).description %> </h3>
+     <strong><%= @organization_type.description %> / <%= @period.description %></strong>
   </div>
 </div>
-<div class="row">
-  <div class="column medium-9">
-    <strong> <%= @task.description %> </strong>
-  </div>
-</div>
-
   <table>
     <% @indicators.each do  |indicator|%>
       <tr id="<%= dom_id(indicator) %>">
 
         <td>
           <div class="admin-list small-12 medium-14 column">
-            <%= indicator.description %>
+            <%= Item.find(indicator.item_id).description %>
           </div>
         </td>
         <td>
         </td>
         <td>
-          <%= link_to edit_admin_indicator_path(indicator),
+          <%= link_to admin_in_works_path(indicator),
               class: 'button warning float-right' do %>
                 <span class="icon-edit"></span>
                 <%= t("admin.actions.edit") %>
           <% end %>
         </td>
         <td>
-          <%= link_to admin_indicator_path(indicator), method: :delete,
+          <%= link_to admin_in_works_path(indicator),
               class: 'button alert float-right' do %>
                 <span class="icon-delete"></span>
                 <%= t("admin.actions.delete") %>

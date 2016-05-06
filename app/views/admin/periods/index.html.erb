@@ -15,14 +15,14 @@
     <% @periods.each do |period| %>
       <tr id="<%= dom_id(period) %>">
         <td>
-          <strong> <%= period.organization_type.name %> : </strong>
+          <strong> <%= OrganizationType.find(period.organization_type_id).description %> : </strong>
                    <%= period.description %></div>
           <div> <%= t("admin.periods.index.data_period") %>
-                de <%= period.start_at  %> a <%= period.end_at %>
+                de <%= period.started_at  %> a <%= period.ended_at %>
           </div>
           <div> <%= t("admin.periods.index.data_collect") %>
-                de <strong> <%= period.open_at %> </strong>
-                 a <strong> <%= period.close_at %> </strong>
+                de <strong> <%= period.opened_at %> </strong>
+                 a <strong> <%= period.closed_at %> </strong>
           </div>
         </td>
         <td>

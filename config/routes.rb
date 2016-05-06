@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :organizations
     resources :units
     resources :stats
+    resources :in_works
   end
 
   # Example of regular route:

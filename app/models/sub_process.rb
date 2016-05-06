@@ -1,4 +1,10 @@
 class SubProcess < ActiveRecord::Base
-  belongs_to :process
   has_many :tasks
+  has_many :indicators, through: :tasks
+  belongs_to :main_process
+  belongs_to :item, -> { where item_type: "sub_process" }
+
+  validates :main_process_id, presence: true
+  validates :item_id, presence: true
+
 end
