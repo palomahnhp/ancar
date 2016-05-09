@@ -1,0 +1,41 @@
+<%= @main_procesess.each do |main_process| %>
+  <div class="row" >
+    <div class=" main_process long-12 short-12 columns text-left">
+      <div class="panel cobalto ">
+        <h5>
+          <%= main_process.id %> - <%= Item.find(main_process.item_id).description %>
+        </h5>
+      </div>
+    </div>
+    <%= main_process.sub_processes.each do |sub_process| %>
+      <div class=" sub_process long-10 short-10 columns text-left">
+        <div class="panel turquesa ">
+          <h5>
+            <% sub_process.id %> . <%= Item.find(sub_process.item_id).description %>
+          </h5>
+        </div>
+      </div>
+      <div class="long-12 short-12 columns">
+        <div class="row">
+          <table >
+            <%= sub_process.indicators.each do |indicator| %>
+              <tr>
+                <td><strong><%= Item.find(indicator.item_id).description %></strong></td>
+                <td><%= indicator.in %></td>
+                <td><%= indicator.out %></td>
+                <td>Servicio, PLYCA</td>
+                <td>525</td>
+              </tr>
+            <% end %>
+            <th>
+              <td></td>
+              <td></td>
+              <td><strong>TOTAL SUBPROCESO</strong></td>
+              <td><strong>666</strong></td>
+            </th>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

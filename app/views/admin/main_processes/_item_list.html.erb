@@ -8,8 +8,7 @@
       <tr id="<%= dom_id(main_process) %>">
         <td>
           <div class="admin-list small-12 medium-14 column">
-
-            <%= main_process.item_id %> - <%= Item.find(main_process.item_id).description %>
+            <%= description(0, main_process.id) %>
           </div>
         </td>
         <td>
