@@ -6,7 +6,7 @@
 // 04. Alerts
 // 05. Levels
 // 06. Responsive
-// 07. Banners 
+// 07. Banners
 //
 
 // 01. Typography
@@ -46,6 +46,21 @@ $line-height:         rem-calc(24);
 // 02. Colors
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// ColorCombo8920
+
+$morado: #814374;
+$morado-claro: #c9a4c1;
+$turquesa: #51A39D;
+$teja: #B7695C;
+$oro: #CDBB79;
+$perla: #F2F2F2;
+$cobalto: #06425C;
+$gris: #d0d0ca;
+
+$main_process: $cobalto;
+$sub_process: $turquesa;
+
+
 $brand:             #004A83;
 $body:              #E9E9E9;
 $background:        #EDEFF0;
@@ -59,6 +74,7 @@ $text-light:        #CCCCCC;
 $link:              #2895F1;
 $link-hover:        #2178BF;
 
+$unit:           #008CCF;
 $debates:           #008CCF;
 $votes-bg:          #26AEEE;
 $votes-border:      #1F94CB;
@@ -83,6 +99,7 @@ $footer-bg:         #DEE0E2;
 $footer-color:      #171819;
 $footer-link:       #454A4C;
 $footer-border:     #BFC1C3;
+
 
 // 03. Forms
 // - - - - - - - - - - - - - - - - - - - - - - - - -

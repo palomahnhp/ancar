@@ -14,7 +14,6 @@ puts "1. Creando settings"
   Setting.create!(key: "org_name", value: "Ayuntamiento de Madrid")
   Setting.create!(key: "app_name", value: "Evaluación de la carga de trabajo")
 
-
 puts "2. Creando tipos de organizaciones"
   to1 = OrganizationType.create!(acronym: "JD", description: "Junta de Distrito",
                  updated_by: "seed")
@@ -25,8 +24,20 @@ puts "2. Creando tipos de organizaciones"
   to4 = OrganizationType.create!(acronym: "OOAA", description: "Organismos Autónomos",
                  updated_by: "seed")
 
-puts "3. Cargando Items"
-puts "3.1 Indicadores"
+puts "3 Fuentes"
+  it_s1 = Item.create!(item_type: 'source', description: 'SAP', updated_by: 'seed')
+  it_s2 = Item.create!(item_type: 'source', description: 'GIIM', updated_by: 'seed')
+  it_s3 = Item.create!(item_type: 'source', description: 'PLYCA', updated_by: 'seed')
+  it_s4 = Item.create!(item_type: 'source', description: 'PLATEA', updated_by: 'seed')
+  it_s5 = Item.create!(item_type: 'source', description: 'Inventario', updated_by: 'seed')
+  it_s6 = Item.create!(item_type: 'source', description: 'Catálogo', updated_by: 'seed')
+  it_s7 = Item.create!(item_type: 'source', description: 'DG Patrimonio', updated_by: 'seed')
+  it_s8 = Item.create!(item_type: 'source', description: 'Otras fuentes corporativas', updated_by: 'seed')
+  it_s9 = Item.create!(item_type: 'source', description: 'Elaboración propia', updated_by: 'seed')
+  it_s10 = Item.create!(item_type: 'source', description: 'Servicio', updated_by: 'seed')
+
+puts "4. Cargando Items"
+puts "4.1 Indicadores"
 it_i1 = Item.create!(item_type: 'indicator', description: 'Acuerdos Marco', updated_by: 'seed')
 it_i2 = Item.create!(item_type: 'indicator', description: 'Alta en el sistema GIIM de los datos básicos de las concesiones y cánones a ingresar, así como sus modificaciones y prórrogas', updated_by: 'seed')
 it_i3 = Item.create!(item_type: 'indicator', description: 'Centros Culturales', updated_by: 'seed')
@@ -181,12 +192,25 @@ it_i153 = Item.create!(item_type: 'indicator', description: 'Unidad gestora Web'
 it_i154 = Item.create!(item_type: 'indicator', description: 'Unidades familiares en seguimiento en unidades de trabajo social', updated_by: 'seed')
 it_i155 = Item.create!(item_type: 'indicator', description: 'Resto de contratos no menores', updated_by: 'seed')
 
+puts "4.2 METRICAS"
+min_i00 = true
+mout_i00 = false
+met_i00 = Item.create!(item_type: 'metrica', description: 'nº', updated_by: 'seed')
+met_i39 = Item.create!(item_type: 'metrica', description: 'nº de contratos menores tramitados', updated_by: 'seed')
+met_i99 = met_i50 = met_i30 = met_i128 = met_i137 = met_i41 = Item.create!(item_type: 'metrica', description: 'nº de expedientes', updated_by: 'seed')
+met_i43 = Item.create!(item_type: 'metrica', description: 'nº de contratos menores iniciados', updated_by: 'seed')
+met_i63 = Item.create!(item_type: 'metrica', description: 'nº de contratos', updated_by: 'seed')
+met_i44 = Item.create!(item_type: 'metrica', description: 'nº de convenios tramitados', updated_by: 'seed')
+met_i67 = met_i138 = Item.create!(item_type: 'metrica', description: 'nº de facturas', updated_by: 'seed')
+met_i40 = Item.create!(item_type: 'metrica', description: 'nº de propuestas', updated_by: 'seed')
+met_i38 = Item.create!(item_type: 'metrica', description: 'nº de consultas', updated_by: 'seed')
+met_i52 = Item.create!(item_type: 'metrica', description: 'nº de documentos contables', updated_by: 'seed')
 
-puts "3.3 PROCESOS"
+puts "4.3 PROCESOS"
 it_mp01 = Item.create!(item_type: 'process', description: 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS', updated_by: 'seed')
 it_mp02 = Item.create!(item_type: 'process', description: 'AUTORIZACIONES Y CONCESIONES', updated_by: 'seed')
 it_mp03 = Item.create!(item_type: 'process', description: 'LICENCIAS ', updated_by: 'seed')
-it_mp04 = Item.create!(item_type: 'process', description: 'INspECCIONES Y PROTECCIÓN DE LA LEGALIDAD', updated_by: 'seed')
+it_mp04 = Item.create!(item_type: 'process', description: 'INSPECCIONES Y PROTECCIÓN DE LA LEGALIDAD', updated_by: 'seed')
 it_mp05 = Item.create!(item_type: 'process', description: 'DISCIPLINA', updated_by: 'seed')
 it_mp06 = Item.create!(item_type: 'process', description: 'DENUNCIAS ', updated_by: 'seed')
 it_mp06 = Item.create!(item_type: 'process', description: 'ELABORACIÓN DE PROYECTOS DE OBRA Y MANTENIMIENTO DE EDIFICIOS PÚBLICOS', updated_by: 'seed')
@@ -211,7 +235,7 @@ it_mp24 = Item.create!(item_type: 'process', description: 'JEFATURA y GESTIÓN D
 it_mp25 = Item.create!(item_type: 'process', description: 'ARCHIVO Y SERVICIOS GENERALES', updated_by: 'seed')
 it_mp00 = Item.create!(item_type: 'process', description: 'OTROS PROCESOS DEPARTAMENTO DE SERVICIOS JURÍDICOS', updated_by: 'seed')
 
-puts "3.4 SUBPROCESOS"
+puts "4.4 SUBPROCESOS"
 it_sp1_1 = Item.create!(item_type: 'sub_process', description: 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS POR EL DEPARTAMENTO JURÍDICO', updated_by: 'seed')
 it_sp1_2 = Item.create!(item_type: 'sub_process', description: 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS POR EL DEPARTAMENTO TÉCNICO', updated_by: 'seed')
 it_sp1_3 = Item.create!(item_type: 'sub_process', description: 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS POR EL DEPARTAMENTO DE SERVICIOS ECONÓMICOS', updated_by: 'seed')
@@ -228,8 +252,8 @@ it_sp2_6 = Item.create!(item_type: 'sub_process', description: 'AUTORIZACIONES U
 it_sp3_1 = Item.create!(item_type: 'sub_process', description: 'LICENCIAS URBANÍSTICAS DEPARTAMENTO JURÍDICO', updated_by: 'seed')
 it_sp3_2 = Item.create!(item_type: 'sub_process', description: 'LICENCIAS URBANÍSTICAS DEPARTAMENTO TÉCNICO', updated_by: 'seed')
 it_sp3_7 = Item.create!(item_type: 'sub_process', description: 'LICENCIAS DEPARTAMENTO DE SERV SANITARIOS, CALIDAD Y CONSUMO', updated_by: 'seed')
-it_sp4_7 = Item.create!(item_type: 'sub_process', description: 'INspECCIONES DEPARTAMENTO DE SERV SANITARIOS, CALIDAD Y CONSUMO', updated_by: 'seed')
-it_sp4_2 = Item.create!(item_type: 'sub_process', description: 'INspECCIONES DEPARTAMENTO TÉCNICO', updated_by: 'seed')
+it_sp4_7 = Item.create!(item_type: 'sub_process', description: 'INSPECCIONES DEPARTAMENTO DE SERV SANITARIOS, CALIDAD Y CONSUMO', updated_by: 'seed')
+it_sp4_2 = Item.create!(item_type: 'sub_process', description: 'INSPECCIONES DEPARTAMENTO TÉCNICO', updated_by: 'seed')
 it_sp5_1 = Item.create!(item_type: 'sub_process', description: 'EXPTES .DE DISCIPLINA URBANÍSTICA DEPARTAMENTO JURÍDICO', updated_by: 'seed')
 it_sp5_2 = Item.create!(item_type: 'sub_process', description: 'EXPTES .DE DISCIPLINA URBANÍSTICA DEPARTAMENTO TÉCNICO ', updated_by: 'seed')
 it_sp5_7 = Item.create!(item_type: 'sub_process', description: 'EXPEDIENTES SANCIONADORES DEPARTAMENTO DE SERV SANITARIOS, CALIDAD Y CONSUMO', updated_by: 'seed')
@@ -301,25 +325,10 @@ it_sp00_6 = Item.create!(item_type: 'sub_process', description: 'OTROS PROCESOS 
 it_sp00_7 = Item.create!(item_type: 'sub_process', description: 'OTROS PROCESOS DEPARTAMENTO DE SERVICIOS SANITARIOS, CALIDAD Y CONSUMO', updated_by: 'seed')
 it_sp00_8 = Item.create!(item_type: 'sub_process', description: 'OTROS PROCESOS SECRETRÍA DEL DISTRITO', updated_by: 'seed')
 
-
-
-it_sp00_1
-puts "3.5 Fuentes"
-it_s1 = Item.create!(item_type: 'source', description: 'SAP RRHH', updated_by: 'seed')
-it_s2 = Item.create!(item_type: 'source', description: 'SAP ECOFIN', updated_by: 'seed')
-it_s3 = Item.create!(item_type: 'source', description: 'PLYCA', updated_by: 'seed')
-it_s4 = Item.create!(item_type: 'source', description: 'PLATEA', updated_by: 'seed')
-it_s5 = Item.create!(item_type: 'source', description: 'Inventario', updated_by: 'seed')
-it_s6 = Item.create!(item_type: 'source', description: 'Catálogo', updated_by: 'seed')
-it_s7 = Item.create!(item_type: 'source', description: 'DG Patrimonio', updated_by: 'seed')
-it_s8 = Item.create!(item_type: 'source', description: 'Otras fuentes corporativas', updated_by: 'seed')
-it_s9 = Item.create!(item_type: 'source', description: 'Elaboración propia', updated_by: 'seed')
-it_s10 = Item.create!(item_type: 'source', description: 'Servicio', updated_by: 'seed')
-
-puts "3.4 Tareas"
+puts "4.4 Tareas"
 it_tarea = Item.create!(item_type: 'task', description: 'Tarea distritos', updated_by: 'seed')
 
-puts "4. Insertando datos de Distritos en organizations"
+puts "5. Insertando datos de Distritos en organizations"
     o1 = Organization.create!(organization_type_id: to1.id, description: "JUNTA MUNICIPAL DEL DISTRITO DE CENTRO", short_description: "CEN JMD CENTRO", sap_id: "10000002", updated_by: "seed")
     o2 = Organization.create!(organization_type_id: to1.id, description: "JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA", short_description: "ARG JMD ARGANZUELA", sap_id: "10000003", updated_by: "seed")
     o3 = Organization.create!(organization_type_id: to1.id, description: "JUNTA MUNICIPAL DEL DISTRITO DE RETIRO", short_description: "RET JMD RETIRO", sap_id: "10000004", updated_by: "seed")
@@ -342,8 +351,7 @@ puts "4. Insertando datos de Distritos en organizations"
     o20 = Organization.create!(organization_type_id: to1.id, description: "JUNTA MUNICIPAL DEL DISTRITO DE SAN BLAS CANILLEJAS", short_description: "SBC JMD SAN BLAS CANILLEJAS", sap_id: "10000021", updated_by: "seed")
     o21 = Organization.create!(organization_type_id: to1.id, description: "JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS", short_description: "BAR JMD BARAJAS", sap_id: "10000022", updated_by: "seed")
 
-puts "5. Creando Tipos de unidades para Distritos"
-
+puts "6. Creando Tipos de unidades para Distritos"
   ut1 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS JURÍDICOS", organization_type_id: to1.id, updated_by: "seed")
   ut2 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS TÉCNICOS", organization_type_id: to1.id, updated_by: "seed")
   ut3 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS ECONÓMICOS", organization_type_id: to1.id, updated_by: "seed")
@@ -353,20 +361,20 @@ puts "5. Creando Tipos de unidades para Distritos"
   ut7 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS SANITARIOS, CALIDAD Y CONSUMO", organization_type_id: to1.id, updated_by: "seed")
   ut8 = UnitType.create!(description: "SECRETARÍA DEL DISTRITO", organization_type_id: to1.id, updated_by: "seed")
 
-puts "6. Creando unidades para Distritos"
+puts "7. Creando unidades para Distritos"
   UnitType.where(organization_type_id: to1.id).each do |u|
     Organization.where(organization_type_id: to1.id).each do |o|
       Unit.create!(description_sap: u.description, organization_id: o.id, unit_type_id: u.id, updated_by: "seed")
     end
   end
 
-puts "7. Cargando datos Periodo 2015 Distritos"
+puts "8. Cargando datos Periodo 2015 Distritos"
   pdo1 = Period.create!(organization_type_id: to1.id, description: "Datos correspondientes a 2015",
                  started_at: "01/01/2015", ended_at: "31/12/2015",
                  opened_at: "01/04/2016", closed_at: "30/04/2016",
                  updated_by: "seed")
 
-  puts "7.1 Creando procesos  por departamentos"
+  puts "8.1 Creando procesos  por departamentos"
     i = 0
     mp1 = MainProcess.create!(period_id: to1.id,item_id: it_mp01.id, order: (i=i+1))
     mp2 = MainProcess.create!(period_id: to1.id,item_id: it_mp02.id, order: (i=i+1))
@@ -394,535 +402,539 @@ puts "7. Cargando datos Periodo 2015 Distritos"
     mp24 = MainProcess.create!(period_id: to1.id, item_id: it_mp24.id, order: (i=i+1))
     mp25 = MainProcess.create!(period_id: to1.id, item_id: it_mp25.id, order: (i=i+1))
     mp0 = MainProcess.create!(period_id: to1.id, item_id: it_mp00.id, order: (i=i+1))
-puts "7.1.1 Proceso #{mp1.id}"
+    MainProcess.all.each do |mp|
+      puts  mp.id, Item.find(mp.item_id).description
+    end
+puts "8.1.1 Proceso #{mp1.id}"
 mp = mp1
+
 j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp1_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
     i = 0
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i39.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i4.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i63.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i44.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i30.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, item_id: it_i39.id, in: min_i00, out: mout_i00, metric: met_i39.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, item_id: it_i41.id, in: min_i00, out: mout_i00, metric: met_i41.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, item_id: it_i63.id, in: min_i00, out: mout_i00, metric: met_i63.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, item_id: it_i44.id, in: min_i00, out: mout_i00, metric: met_i44.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, item_id: it_i30.id, in: min_i00, out: mout_i00, metric: met_i30.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp1_2.id, order: (j=j+1))
     i = 0
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i43.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i41.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i63.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i30.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i67.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i43.id, metric: met_i43.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i41.id, metric: met_i41.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i63.id, metric: met_i63.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i30.id, metric: met_i30.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i67.id, metric: met_i67.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut3.id, item_id: it_sp1_3.id, order: (j=j+1))
     i = 0
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i40.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i138.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i52.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i137.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i128.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i99.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i50.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i30.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i40.id, metric: met_i40.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i138.id, metric: met_i138.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i52.id, metric: met_i52.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i137.id, metric: met_i137.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i128.id, metric: met_i128.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i99.id, metric: met_i99.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i50.id, metric: met_i50.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i30.id, metric: met_i30.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp1_4.id, order: (j=j+1))
     i = 0
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i39.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i62.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i30.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i67.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i39.id, metric: met_i00.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i62.id, metric: met_i00.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i30.id, metric: met_i00.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i67.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut5.id, item_id: it_sp1_5.id, order: (j=j+1))
     i = 0
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i39.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i62.id, order: (i=i+1))
-    ind = Indicator.create!(task_id: tk.id, item_id: it_i67.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i39.id, metric: met_i00.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i62.id, metric: met_i00.id, order: (i=i+1))
+    ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i67.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut6.id, item_id: it_sp1_6.id, order: (j=j+1))
     i = 0
    tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
-   ind = Indicator.create!(task_id: tk.id, item_id: it_i43.id, order: (i=i+1))
-   ind = Indicator.create!(task_id: tk.id, item_id: it_i62.id, order: (i=i+1))
-   ind = Indicator.create!(task_id: tk.id, item_id: it_i30.id, order: (i=i+1))
-   ind = Indicator.create!(task_id: tk.id, item_id: it_i44.id, order: (i=i+1))
-   ind = Indicator.create!(task_id: tk.id, item_id: it_i67.id, order: (i=i+1))
+   ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i43.id, metric: met_i00.id, order: (i=i+1))
+   ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i62.id, metric: met_i00.id, order: (i=i+1))
+   ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i30.id, metric: met_i00.id, order: (i=i+1))
+   ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i44.id, metric: met_i00.id, order: (i=i+1))
+   ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i67.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp1_7.id, order: (j=j+1))
    tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
-   ind = Indicator.create!(task_id: tk.id, item_id: it_i39.id, order: (i=i+1))
-   ind = Indicator.create!(task_id: tk.id, item_id: it_i30.id, order: (i=i+1))
-   ind = Indicator.create!(task_id: tk.id, item_id: it_i67.id, order: (i=i+1))
+   ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i39.id, metric: met_i00.id, order: (i=i+1))
+   ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i30.id, metric: met_i00.id, order: (i=i+1))
+   ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i67.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.2 Proceso #{mp2.id}"
+puts "8.1.2 Proceso #{mp2.id}"
 mp = mp2
 j = 0
       sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp2_1.id, order: (j=j+1))
         tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
         i = 0
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i151.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i149.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i148.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i114.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i135.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i108.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i60.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i139.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i109.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i33.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i151.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i149.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i148.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i114.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i135.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i108.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i60.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i139.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i109.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i33.id, metric: met_i00.id, order: (i=i+1))
       sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp2_2.id, order: (j=j+1))
         i = 0
         tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i151.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i149.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i148.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i114.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i135.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i108.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i60.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i139.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i33.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i151.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i149.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i148.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i114.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i135.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i108.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i60.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i139.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i33.id, metric: met_i00.id, order: (i=i+1))
 
       sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp2_4.id, order: (j=j+1))
         i = 0
         tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i33.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i21.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i33.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i21.id, metric: met_i00.id, order: (i=i+1))
 
       sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut5.id, item_id: it_sp2_5.id, order: (j=j+1))
         tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
         i = 0
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i29.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i29.id, metric: met_i00.id, order: (i=i+1))
 
       sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut6.id, item_id: it_sp2_6.id, order: (j=j+1))
         tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
         i = 0
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i32.id, order: (i=i+1))
-        ind = Indicator.create!(task_id: tk.id, item_id: it_i22.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i32.id, metric: met_i00.id, order: (i=i+1))
+        ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i22.id, metric: met_i00.id, order: (i=i+1))
 
 
-puts "7.1.3 Proceso #{mp3.id}"
+puts "8.1.3 Proceso #{mp3.id}"
 mp = mp3
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp3_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i = 0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i98.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i31.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i45.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i96.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i97.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i95.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i38.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i37.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i116.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i61.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i98.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i31.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i45.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i96.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i97.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i95.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i38.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i37.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i116.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i61.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp3_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i = 0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i98.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i31.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i45.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i96.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i97.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i95.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i38.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i37.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i116.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i98.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i31.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i45.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i96.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i97.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i95.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i38.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i37.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i116.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp3_7.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i = 0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i115.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i115.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.4 Proceso #{mp4.id}"
+puts "8.1.4 Proceso #{mp4.id}"
 mp = mp4
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp4_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i = 0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i87.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i89.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i90.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i87.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i89.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i90.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp4_7.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i = 0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i84.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i88.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i84.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i88.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.5 Proceso #{mp5.id}"
+puts "8.1.5 Proceso #{mp5.id}"
 mp = mp5
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp5_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i = 0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i65.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i64.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i65.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i64.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp5_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i65.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i64.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i65.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i64.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp5_7.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i121.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i145.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i121.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i145.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.6 Proceso #{mp6.id}"
+puts "8.1.6 Proceso #{mp6.id}"
 mp = mp6
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp6_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i82.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i82.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp6_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i47.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i47.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp6_7.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i48.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i49.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i110.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i48.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i49.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i110.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.7 Proceso #{mp7.id}"
+puts "8.1.7 Proceso #{mp7.id}"
 mp = mp7
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp7_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i132.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i133.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i81.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i131.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i132.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i133.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i81.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i131.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp7_4.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i46.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i46.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.8 Proceso #{mp8.id}"
+puts "8.1.8 Proceso #{mp8.id}"
 mp = mp8
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp8_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i80.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i80.id, metric: met_i00.id, order: (i=i+1))
 
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp8_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i80.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i80.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.9 Proceso #{mp9.id}"
+puts "8.1.9 Proceso #{mp9.id}"
 mp = mp9
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp9_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i105.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i106.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i107.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i100.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i117.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i136.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i92.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i105.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i106.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i107.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i100.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i117.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i136.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i92.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.10 Proceso #{mp10.id}"
+puts "8.1.10 Proceso #{mp10.id}"
 mp = mp10
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp10_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i23.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i23.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.11 Proceso #{mp11.id}"
+puts "8.1.11 Proceso #{mp11.id}"
 mp = mp11
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp11_4.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i3.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i9.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i12.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i13.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i3.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i9.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i12.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i13.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut6.id, item_id: it_sp11_6.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i10.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i27.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i26.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i147.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i113.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i10.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i27.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i26.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i147.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i113.id, metric: met_i00.id, order: (i=i+1))
 
-puts "7.1.12 Proceso #{mp12.id}"
+puts "8.1.12 Proceso #{mp12.id}"
 mp = mp12
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut5.id, item_id: it_sp12_5.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i8.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i11.id, order: (i=i+1))
-puts "7.1.13 Proceso #{mp13.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i8.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i11.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.13 Proceso #{mp13.id}"
 mp = mp13
 j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut3.id, item_id: it_sp13_3.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i52.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i52.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp13_4.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i142.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i141.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i134.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i142.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i141.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i134.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut5.id, item_id: it_sp13_5.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i118.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i118.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut6.id, item_id: it_sp13_6.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i24.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i17.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i101.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i102.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i103.id, order: (i=i+1))
-puts "7.1.14 Proceso #{mp14.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i24.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i17.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i101.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i102.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i103.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.14 Proceso #{mp14.id}"
 mp = mp14
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp14_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i2.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i57.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i2.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i57.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut3.id, item_id: it_sp14_3.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i2.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i57.id, order: (i=i+1))
-puts "7.1.15 Proceso #{mp15.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i2.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i57.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.15 Proceso #{mp15.id}"
 mp = mp15
 j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp15_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i34.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i25.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i54.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i34.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i25.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i54.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut3.id, item_id: it_sp15_3.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i91.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i51.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i91.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i51.id, metric: met_i00.id, order: (i=i+1))
 puts "7.1.16 Proceso #{mp16.id}"
 mp = mp16
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp16_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i120.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i104.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i120.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i104.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp16_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i120.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i104.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i120.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i104.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut3.id, item_id: it_sp16_3.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i56.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i152.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i70.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i56.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i152.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i70.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp16_4.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i120.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i104.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i120.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i104.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut5.id, item_id: it_sp16_5.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i120.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i104.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i120.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i104.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut6.id, item_id: it_sp16_6.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i120.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i104.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i120.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i104.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp16_7.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i120.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i104.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i120.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i104.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut8.id, item_id: it_sp16_8.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i120.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i104.id, order: (i=i+1))
-puts "7.1.17 Proceso #{mp17.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i120.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i104.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.17 Proceso #{mp17.id}"
 mp = mp17
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut3.id, item_id: it_sp17_3.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i68.id, order: (i=i+1))
-puts "7.1.18 Proceso #{mp18.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i68.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.18 Proceso #{mp18.id}"
 mp = mp18
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp18_1.id, order: (j=j+1))
     j = 0
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i77.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i77.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp18_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i79.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i79.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp18_4.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i153.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i153.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut5.id, item_id: it_sp18_5.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i19.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i19.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut6.id, item_id: it_sp18_6.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i14.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i119.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i154.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i14.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i119.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i154.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp18_7.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i18.id, order: (i=i+1))
-puts "7.1.19 Proceso #{mp19.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i18.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.19 Proceso #{mp19.id}"
 mp = mp19
 j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp19_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i77.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i77.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp19_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i78.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i78.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut3.id, item_id: it_sp19_3.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i73.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i73.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp19_4.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i71.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i71.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut5.id, item_id: it_sp19_5.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i74.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i74.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut6.id, item_id: it_sp19_6.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i76.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i76.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp19_7.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i75.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i75.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut8.id, item_id: it_sp19_8.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i72.id, order: (i=i+1))
-puts "7.1.20 Proceso #{mp20.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i72.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.20 Proceso #{mp20.id}"
 mp = mp20
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp20_1.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i129.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i58.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i129.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i58.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp20_2.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i129.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i58.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i129.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i58.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut4.id, item_id: it_sp20_4.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i129.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i58.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i129.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i58.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut5.id, item_id: it_sp20_5.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i129.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i58.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i129.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i58.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut6.id, item_id: it_sp20_6.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i129.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i58.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i129.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i58.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut7.id, item_id: it_sp20_7.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i129.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i58.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i129.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i58.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut8.id, item_id: it_sp20_8.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i129.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i58.id, order: (i=i+1))
-puts "7.1.21 Proceso #{mp21.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i129.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i58.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.21 Proceso #{mp21.id}"
 mp = mp21
 j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp21_4.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i35.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i35.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut2.id, item_id: it_sp21_6.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i112.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i112.id, metric: met_i00.id, order: (i=i+1))
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut3.id, item_id: it_sp21_8.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i93.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i35.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i36.id, order: (i=i+1))
-puts "7.1.22 Proceso #{mp22.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i93.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i35.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i36.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.22 Proceso #{mp22.id}"
 mp = mp22
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut8.id, item_id: it_sp22_8.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i53.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i28.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i94.id, order: (i=i+1))
-puts "7.1.23 Proceso #{mp23.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i53.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i28.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i94.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.23 Proceso #{mp23.id}"
 mp = mp23
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut8.id, item_id: it_sp23_8.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i124.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i122.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i123.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i125.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i126.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i16.id, order: (i=i+1))
-puts "7.1.24 Proceso #{mp24.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i124.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i122.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i123.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i125.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i126.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i16.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.24 Proceso #{mp24.id}"
 mp = mp24
   j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut8.id, item_id: it_sp24_8.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i69.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i127.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i140.id, order: (i=i+1))
-puts "7.1.25 Proceso #{mp25.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i69.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i127.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i140.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.25 Proceso #{mp25.id}"
 mp = mp25
 j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut8.id, item_id: it_sp25_8.id, order: (j=j+1))
     tk = Task.create!(sub_process_id: sp.id, item_id: it_tarea.id, order: 1)
       i=0
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i15.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i146.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i83.id, order: (i=i+1))
-      ind = Indicator.create!(task_id: tk.id, item_id: it_i130.id, order: (i=i+1))
-puts "7.1.26 Proceso #{mp0.id}"
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i15.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i146.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i83.id, metric: met_i00.id, order: (i=i+1))
+      ind = Indicator.create!(task_id: tk.id, in: min_i00, out: mout_i00, item_id: it_i130.id, metric: met_i00.id, order: (i=i+1))
+puts "8.1.26 Proceso #{mp0.id}"
 mp = mp0
 j = 0
   sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: ut1.id, item_id: it_sp00_1.id, order: (j=j+1))

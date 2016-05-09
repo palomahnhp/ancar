@@ -25,8 +25,15 @@ es:
       administracion: "Administrador"
       gestion: "Gestor"
       validacion: "Validador"
+  subnavigation_menu:
+    entry_indicators: Inclusión indicadores
+    reports: Informes
+    instructions: Instrucciones
   form:
     error: error
     errors: errores
     period:  el periodo
     not_saved: 'impidieron guardar %{resource}:'
+  entry_indicators:
+    index:
+      title: Hoja de identificación de procesos en #{organiztion_type}

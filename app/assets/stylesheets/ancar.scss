@@ -1,12 +1,224 @@
 
 // Table of Contents - Styles ancar
-//
+// 01. Ficha de indicadores
 // 01. Votes and supports
 // 02. New participation
 // 03. Show participation
 // 04. List participation
 // 05. Featured
-//
+// 06. generales
+
+// 01. Ficha de indicadores
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+.unit, .main_process, .sub_process {
+  margin-bottom: 0;
+  margin-top: 0;
+   table{
+     padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
+   }
+  .panel {
+    background: white;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 0;
+    box-shadow: 0px 1px 3px 0 $border;
+    margin-bottom: rem-calc(12);
+    min-height: rem-calc(19);
+    padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
+
+    @media (min-width: $small-breakpoint) {
+      margin-bottom: rem-calc(-1);
+      padding-bottom: rem-calc(12);
+    }
+
+    &.morado {
+      background: $morado;
+    }
+    &.turquesa {
+      background: $turquesa;
+    }
+    &.cobalto {
+      background: $cobalto;
+    }
+    &.perla {
+      background: $perla;
+    }
+    &.gris {
+      background: $gris;
+    }
+    &.morado_claro {
+      background: $morado_claro;
+    }
+    &.teja {
+      background: $teja;
+    }
+
+    .label-debate, .label-proposal {
+      background: none;
+      clear: both;
+      display: block;
+      font-family: $font-sans;
+      font-size: rem-calc(12);
+      font-weight: bold;
+      line-height: $line-height;
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-top: 0;
+      text-transform: uppercase;
+    }
+
+    .label-debate {
+      color: $debates;
+    }
+
+    .label-proposal {
+      color: $proposals;
+    }
+
+    h3 {
+      font-weight: bold;
+      margin: 0;
+
+      a {
+        color: $text;
+      }
+    }
+
+    .debate-content, .proposal-content {
+      margin: 0;
+      min-height: rem-calc(180);
+      position: relative;
+
+      .tags {
+        display: block;
+      }
+    }
+
+    .icon-debates, .icon-proposals {
+      font-size: rem-calc(18);
+      line-height: $line-height;
+      position: absolute;
+      top: 0;
+    }
+
+    .icon-debates {
+      color: $debates;
+      left: rem-calc(48);
+    }
+
+    .icon-proposals {
+      color: $proposals;
+      left: rem-calc(72);
+    }
+
+    .debate-info, .proposal-info {
+      color: $text-medium;
+      font-size: $small-font-size;
+      margin: rem-calc(6) 0 0;
+
+      .icon-comments {
+        font-size: rem-calc(16);
+        vertical-align: top;
+      }
+
+      a {
+        color: $text-medium;
+      }
+    }
+
+    .debate-description, .proposal-description {
+      color: $text;
+      font-size: rem-calc(13);
+      height: rem-calc(72);
+      line-height: $line-height;
+      margin-bottom: rem-calc(12);
+      margin-top: 0;
+      overflow: hidden;
+      position: relative;
+
+      a {
+        color: $text;
+      }
+
+      ul, ol {
+
+        li {
+          font-size: rem-calc(13);
+          margin-bottom: rem-calc(12);
+        }
+      }
+    }
+
+    .truncate {
+      background: image-url('truncate.png');
+      background-repeat: repeat-x;
+      bottom: 0;
+      height: 24px;
+      position: absolute;
+      width: 100%;
+    }
+
+    p {
+      color: $text;
+    }
+  }
+
+  .not-logged {
+    line-height: $line-height;
+    padding-top: rem-calc(24);
+  }
+
+  .anonymous-votes, .organizations-votes {
+    padding-top: rem-calc(24);
+  }
+
+  .divider {
+    display: none;
+  }
+
+  @media (min-width: $medium-breakpoint) {
+    .divider {
+      display: inline-block;
+    }
+  }
+}
+
+.main_process {
+  color: white;
+  font-size: rem-calc(50);
+  line-height: 1$line-height;
+  opacity: .5;
+}
+
+.sub_process {
+  color: white;
+  font-size: rem-calc(40);
+  line-height: $line-height;
+  opacity: .5;
+
+ li {
+    font-size: $small-font-size;
+    margin: $line-height/2 0;
+    &:before {
+      content: "l ";
+      font-family: "icons" !important;
+    }
+  }
+  p {
+    font-size: $small-font-size;
+    line-height: $line-height;
+    margin: 0;
+  }
+
+}
+
+.indicator {
+  .specifications li:before {
+    color: $sub_process;
+  }
+}
+
+
 
 // 01. Votes and supports
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -526,161 +738,13 @@
 // 04. List participation
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-.debates-list, .proposals-list {
+.unit-list, .main_process-list {
 
   @media (min-width: $small-breakpoint) {
     margin-bottom: rem-calc(48);
   }
 }
 
-.debate, .proposal {
-  margin-bottom: 0;
-  margin-top: 0;
-
-  .panel {
-    background: white;
-    border: 1px solid;
-    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
-    border-radius: 0;
-    box-shadow: 0px 1px 3px 0 $border;
-    margin-bottom: rem-calc(12);
-    min-height: rem-calc(192);
-    padding: rem-calc(12) rem-calc(12) 0 rem-calc(12);
-
-    @media (min-width: $small-breakpoint) {
-      margin-bottom: rem-calc(-1);
-      padding-bottom: rem-calc(12);
-    }
-
-    .label-debate, .label-proposal {
-      background: none;
-      clear: both;
-      display: block;
-      font-family: $font-sans;
-      font-size: rem-calc(12);
-      font-weight: bold;
-      line-height: $line-height;
-      padding-bottom: 0;
-      padding-left: 0;
-      padding-top: 0;
-      text-transform: uppercase;
-    }
-
-    .label-debate {
-      color: $debates;
-    }
-
-    .label-proposal {
-      color: $proposals;
-    }
-
-    h3 {
-      font-weight: bold;
-      margin: 0;
-
-      a {
-        color: $text;
-      }
-    }
-
-    .debate-content, .proposal-content {
-      margin: 0;
-      min-height: rem-calc(180);
-      position: relative;
-
-      .tags {
-        display: block;
-      }
-    }
-
-    .icon-debates, .icon-proposals {
-      font-size: rem-calc(18);
-      line-height: $line-height;
-      position: absolute;
-      top: 0;
-    }
-
-    .icon-debates {
-      color: $debates;
-      left: rem-calc(48);
-    }
-
-    .icon-proposals {
-      color: $proposals;
-      left: rem-calc(72);
-    }
-
-    .debate-info, .proposal-info {
-      color: $text-medium;
-      font-size: $small-font-size;
-      margin: rem-calc(6) 0 0;
-
-      .icon-comments {
-        font-size: rem-calc(16);
-        vertical-align: top;
-      }
-
-      a {
-        color: $text-medium;
-      }
-    }
-
-    .debate-description, .proposal-description {
-      color: $text;
-      font-size: rem-calc(13);
-      height: rem-calc(72);
-      line-height: $line-height;
-      margin-bottom: rem-calc(12);
-      margin-top: 0;
-      overflow: hidden;
-      position: relative;
-
-      a {
-        color: $text;
-      }
-
-      ul, ol {
-
-        li {
-          font-size: rem-calc(13);
-          margin-bottom: rem-calc(12);
-        }
-      }
-    }
-
-    .truncate {
-      background: image-url('truncate.png');
-      background-repeat: repeat-x;
-      bottom: 0;
-      height: 24px;
-      position: absolute;
-      width: 100%;
-    }
-
-    p {
-      color: $text;
-    }
-  }
-
-  .not-logged {
-    line-height: $line-height;
-    padding-top: rem-calc(24);
-  }
-
-  .anonymous-votes, .organizations-votes {
-    padding-top: rem-calc(24);
-  }
-
-  .divider {
-    display: none;
-  }
-
-  @media (min-width: $medium-breakpoint) {
-    .divider {
-      display: inline-block;
-    }
-  }
-}
 
 .debate {
 
@@ -895,4 +959,7 @@
       }
     }
   }
+// 07. Generales
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
 }

@@ -1,16 +1,18 @@
+<div class="row">
+  <div class="medium-10 medium-offset-2 column">
+    <ul>
+      <li>
+        <%= link_to t("subnavigation_menu.entry_indicators"), entry_indicators_path, class: ("active" if controller_name == "entry_indicators"), accesskey: "e" %>
+      </li>
 
-<div class="small-12 medium-9 column">
-  <ul>
-    <li>
-      <%= link_to "Procesos", root_path, class: ("active" if controller_name == "welcome"), accesskey: "p" %>
-    </li>
+      <li>
+        <%= link_to t("subnavigation_menu.reports"), in_works_path, class: ("active" if  controller_name == "in_works"), accesskey: "i" %>
+      </li>
 
-    <li>
-      <%= link_to "Informes", in_works_path, class: ("active" if  controller_name == "in_works"), accesskey: "i" %>
-    </li>
+      <li>
+        <%= link_to t("subnavigation_menu.instructions"), in_works_path, class: ("active" if controller_name == "faq"), accesskey: "i" %>
+      </li>
+    </ul>
+  </div>
 
-    <li>
-      <%= link_to "Instrucciones", in_works_path, class: ("active" if controller_name == "faq"), accesskey: "i" %>
-    </li>
-  </ul>
 </div>
