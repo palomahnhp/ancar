@@ -4,9 +4,20 @@ class EntryIndicatorsController < ApplicationController
   # GET /entry_indicators
   # GET /entry_indicators.json
   def index
-    unit = 1 # de usuario select options  previo a la ficha
-    period_id = 1
-    @main_procesess = MainProcess.where(period_id: period_id)
+    # La organization se debe obtener del user,
+    @organization = OrganizationType.find(1).organizations.first
+    # de la organización el tipo de organziacion
+    @organization_type = @organization.organization_type
+    # el periodo es el activo para ese tipo de organización
+    @period = @organization_type.periods.first
+    @units = @organization.units.to_a
+    # no funciona la recuperación del periodo
+    @main_procesess = MainProcess.where(period_id: @period.id)
+    if params[:unit]
+      @unit = Unit.find(params[:unit])
+    else
+      @unit = @units.first
+    end
   end
 
   # GET /entry_indicators/1
