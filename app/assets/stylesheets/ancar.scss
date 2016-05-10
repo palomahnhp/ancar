@@ -10,7 +10,7 @@
 
 // 01. Ficha de indicadores
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-.unit, .main_process, .sub_process {
+.tab_title, .unit, .main_process, .sub_process {
   margin-bottom: 0;
   margin-top: 0;
    table{
@@ -31,11 +31,22 @@
       padding-bottom: rem-calc(12);
     }
 
+    &.corporativo {
+        background: $corporativo;
+      }
+
+    &.verde {
+      background: $verde;
+    }
+
     &.morado {
       background: $morado;
     }
     &.turquesa {
       background: $turquesa;
+    }
+    &.oro {
+      background: $oro;
     }
     &.cobalto {
       background: $cobalto;
@@ -182,15 +193,19 @@
     }
   }
 }
-
-.main_process {
+.tab_title  {
   color: white;
   font-size: rem-calc(50);
   line-height: 1$line-height;
-  opacity: .5;
 }
 
-.sub_process {
+.unit {
+  color: black;
+  font-size: rem-calc(50);
+  line-height: 1$line-height;
+}
+
+.sub_process, .main_process  {
   color: white;
   font-size: rem-calc(40);
   line-height: $line-height;
@@ -217,8 +232,6 @@
     color: $sub_process;
   }
 }
-
-
 
 // 01. Votes and supports
 // - - - - - - - - - - - - - - - - - - - - - - - - -

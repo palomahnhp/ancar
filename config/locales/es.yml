@@ -37,3 +37,4 @@ es:
   entry_indicators:
     index:
       title: Hoja de identificación de procesos en #{organiztion_type}
+      unit: Selecciona unidad

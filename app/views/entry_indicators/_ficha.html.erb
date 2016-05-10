@@ -1,47 +1,55 @@
-<% @main_procesess.each do |main_process| %>
-  <div class="row" >
-    <div class=" main_process long-12 short-12 columns text-left">
-      <div class="panel cobalto ">
-        <h5>
-          <%= description(main_process.id, main_process.item_id) %>
+<div class="row" >
+  <div class="unit long-12 short-12 columns text-center">
+    <div class="panel oro long-12 short-12 columns">
+      <h2> <%= @unit.description_sap %> </h2>
+   </div>
+</div>
 
-        </h5>
-      </div>
-    </div>
-    <% main_process.sub_processes.each do |sub_process| %>
-      <div class=" sub_process long-10 short-10 columns text-left">
-        <div class="panel turquesa ">
+<% @main_procesess.each do |main_process| %>
+  <% if sub_processes_unit(main_process, @unit).count > 0 %>
+    <div class="row" >
+      <div class=" main_process long-12 short-12 columns text-left">
+        <div class="panel cobalto ">
           <h5>
-            <%= description(sub_process.id, sub_process.item_id) %>
+            <%= description(main_process.id, main_process.item_id) %>
           </h5>
         </div>
       </div>
-      <div class="long-12 short-12 columns">
-        <div class="row">
-          <table >
-            <% sub_process.indicators.each do |indicator| %>
-              <% if indicator.in %>
-                  <!--td><%= description(0, indicator.metric) %> </td-->
-                  <% amount_text = description(0, indicator.metric)%>
-              <% end %>
-              <% if indicator.out %>
-                 <!--td><%= description(0, indicator.metric) %></td-->
+      <% sub_processes_unit(main_process, @unit).each do |sub_process| %>
+        <div class=" sub_process long-10 short-10 columns text-left">
+          <div class="panel turquesa ">
+            <h5>
+              <%= description(sub_process.id, sub_process.item_id) %>
+            </h5>
+          </div>
+        </div>
+        <div class="long-12 short-12 columns">
+          <div class="row">
+            <table >
+              <% sub_process.indicators.each do |indicator| %>
+                <tr>
+                  <td><strong><%= description(0, indicator.item_id) %></strong></td>
+                  <% if indicator.in %>
+                      <td><%= description(0, indicator.metric) %> </td>
+                      <% amount_text = description(0, indicator.metric)%>
+                  <% end %>
+                  <% if indicator.out %>
+                     <!--td><%= description(0, indicator.metric) %></td-->
+                  <% end %>
+                  <td>Servicio, SAP </td>
+                  <td><input id="amount" placeholder="<%= amount_text %>"</input></td>
+                </tr>
               <% end %>
               <tr>
-                <td><strong><%= description(0, indicator.item_id) %></strong></td>
-                <td>Servicio, SAP </td>
-                <td><input id="amount" placeholder="<%= amount_text %>"</input></td>
+                <td></td>
+                <td></td>
+                <td><strong>TOTAL SUBPROCESO</strong></td>
+                <td><strong>666</strong></td>
               </tr>
-            <% end %>
-            <tr>
-              <td></td>
-              <td></td>
-              <td><strong>TOTAL SUBPROCESO</strong></td>
-              <td><strong>666</strong></td>
-            </tr>
-          </table>
+            </table>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
