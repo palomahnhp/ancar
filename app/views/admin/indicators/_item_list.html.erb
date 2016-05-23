@@ -1,25 +1,26 @@
 
 <div>
   <div class="expanded highlight padding">
-     <h3>Proceso: <%= Item.find(@main_process.item_id).description%> </h3>
-     <h3>Subproceso:  <%= Item.find(@sub_process.item_id).description %></h3>
-     <h3>Tarea: <%= Item.find(@task.item_id).description %> </h3>
+     <h4><%= Item.find(@main_process.item_id).description%> </h4>
+     <h4><%= Item.find(@sub_process.item_id).description %></h4>
      <strong><%= @organization_type.description %> / <%= @period.description %></strong>
   </div>
 </div>
   <table>
+    <tr><th colspan="2">Totalizadores</th></tr>
+    <tr> <td>Proc.</td><td>Subproc</td></tr>
     <% @indicators.each do  |indicator|%>
       <tr id="<%= dom_id(indicator) %>">
-
+        <td><%= total_check(indicator.total_process) %></td>
+        <td><%= total_check(indicator.total_sub_process) %></td>
         <td>
-          <div class="admin-list small-12 medium-14 column">
-            <%= Item.find(indicator.item_id).description %>
-          </div>
+           <%= Item.find(indicator.item_id).description %>
         </td>
         <td>
+          <%= Item.find(indicator.metric).description%>
         </td>
         <td>
-          <%= link_to admin_in_works_path(indicator),
+          <%= link_to edit_admin_indicator_path(indicator),
               class: 'button warning float-right' do %>
                 <span class="icon-edit"></span>
                 <%= t("admin.actions.edit") %>

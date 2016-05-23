@@ -1,17 +1,51 @@
-<%= form_for [:admin, @mainprocess] do |f| %>
-  <% if @mainprocess.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@mainprocess.errors.count, "error") %> prohibited this mainprocess from being saved:</h2>
-
-      <ul>
-      <% @mainprocess.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_for [:admin, @indicator] do |f| %>
+  <%= render 'admin/shared/errors', resource: @indicator %>
+  <div class="row">
+    <div class="medium-12 small-12 columns">
+      <div class="medium-6 small-6 columns">
+        <%= f.hidden_field :task_id, value: @indicator.task_id ,label: false%>
+      </div>
     </div>
-  <% end %>
+    <div class="medium-12 small-12 columns">
+      <div class="medium-6 small-6 columns">
+        <b>Indicador</b> <%= f.select :item_id, options_for_select(indicator_items, @indicator.item_id), label: false %>
+      </div>
+    </div>
+  </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="medium-12 small-12 columns">
+      <div class="medium-4 small-4 columns">
+        <b>Métrica</b> <%= f.select :metric, options_for_select(metric_items, @indicator.metric), label: false, class: "input-metric" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-4 smal-4 columns">
+      <div class="medium-3 small-3 columns">
+        <b>Orden</b> <%= f.text_field :order, label: false %>
+      </div>
+    </div>
+    <div class="medium-4 small-4 columns end" >
+      <div class="medium-12 small-12 columns">
+        <%= f.check_box :total_process, title: t("admin.indicators.form.total_process?"), label: false %>
+        <%= t("admin.indicators.form.total_process?") %>
+      </div>
+      <div class="medium-12 small-12 columns">
+        <%= f.check_box :total_sub_process,     title: t("admin.indicators.form.total_sub_process?"), label: false %>
+        <%= t("admin.indicators.form.total_sub_process?") %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-12 small-12">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="actions medium-12 small-12 column">
+      <%= f.submit(class: "button", value: t("admin.actions.#{action_name}")) %>
+    </div>
   </div>
 <% end %>

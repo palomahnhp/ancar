@@ -18,6 +18,20 @@ module AdminHelper
     items_not_used.collect  { |v| [ v.id, v.id ] }
   end
 
+  def indicator_items
+    items_not_used = Item.where(item_type: "indicator").order(:description)
+    items_not_used.collect  { |v| [ v.description, v.id ] }
+  end
+
+  def metric_items
+    items_not_used = Item.where(item_type: "metric").order(:description)
+    items_not_used.collect  { |v| [ v.description, v.id ] }
+  end
+
+  def total_check(value)
+   value == 1 ? "X" : " "
+  end
+
   private
     def namespace
       controller.class.parent.name.downcase

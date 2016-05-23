@@ -34,11 +34,9 @@ class Admin::MainProcessesController < Admin::BaseController
   end
 
   def edit
-
-      @main_processes = MainProcess.where("period_id = ?", period_id)
-      @organization_type = OrganizationType.find(organization_type_id)
-      @period = Period.find(period_id)
-
+    @main_processes = MainProcess.where("period_id = ?", period_id)
+    @organization_type = OrganizationType.find(organization_type_id)
+    @period = Period.find(period_id)
   end
 
 

@@ -20,3 +20,6 @@ en:
       administracion: "Administración"
       gestion: "Gestor"
       validacion: "Validación"
+    welcome:
+      title: Organización del trabajo en las unidades municipales
+      sub_title: Estudio de cargas de trabajo

@@ -29,6 +29,12 @@ es:
     entry_indicators: Inclusión indicadores
     reports: Informes
     instructions: Instrucciones
+  flash:
+    actions:
+      update:
+        indicator: Indicador actualizado correctamente
+        main_process: Proceso actualizado correctamente
+        sub_process: Subproceso actualizado correctamente
   form:
     error: error
     errors: errores
@@ -38,3 +44,7 @@ es:
     index:
       title: Hoja de identificación de procesos en #{organiztion_type}
       unit: Selecciona unidad
+  welcome:
+    title: Organización del trabajo en las unidades municipales
+    sub_title: Estudio de cargas de trabajo
+    logo_alt: Logo Gerencia de la Ciudad

@@ -1,4 +1,7 @@
 class Admin::IndicatorsController < Admin::BaseController
+#   load_and_authorize_resource
+  before_action :set_indicator, only: [:show, :edit, :update, :destroy]
+
   def index
     if params[:commit] == t("admin.tasks.index.submit")
       if params[:indicators].nil?
@@ -25,7 +28,21 @@ class Admin::IndicatorsController < Admin::BaseController
       @sub_processes = SubProcess.where("main_process_id = ?", @main_processes.first.id)
   end
 
-   def show
-    @indicator = Task.find_by("id = ?", params[:task])
+  def update
+    @indicator.assign_attributes(indicator_params)
+    if @indicator.save
+      redirect_to admin_indicators_path
+    else
+      render :edit
+    end
+  end
+
+  private
+    def indicator_params
+      params.require(:indicator).permit(:task_id, :item_id, :order, :in_out,
+                                 :metric, :total_sub_process, :total_process)
+   end
+   def set_indicator
+      @indicator = Indicator.find(params[:id])
    end
 end

@@ -1,0 +1,6 @@
+namespace :import do
+  task main_processes: :environment do
+    desc "Import master data"
+    data = File.read("/documents/ancar/import/items.csv")
+    debugger
+end
