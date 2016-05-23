@@ -1,13 +1,15 @@
-<p id="notice"><%= notice %></p>
-<%= render 'unit_tabs' %>
-<div class="row tab_title " >
-  <div class="long-8 short-8 columns text-center">
-    <div class="panel corporativo ">
-      <h2><%= t("entry_indicators.index.title") %> los Distritos</h2>
-      <h3>Periodo de análisis 2015 </h3>
-    </div>
+ <p id="notice"><%= notice %></p>
+
+<div class="row " >
+  <div class="corporativo medium-12 small-9 columns">
+    <h3><%= t("entry_indicators.index.title") %> los Distritos</h3>
+    <h4>Periodo de análisis 2015 </h4>
+  </div>
+</div>
+<div class="row">
+  <div class="ficha medium-12 small-12 columns">
+      <%= render 'unit_tabs' %>
   </div>
 </div>
 
 <%= render "ficha" %>
-

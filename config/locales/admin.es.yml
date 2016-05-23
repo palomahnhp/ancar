@@ -20,6 +20,11 @@ es:
         submit: Buscar indicadores
       new:
         title: Crear un indicador
+      edit:
+        title: Editar indicador
+      form:
+        total_process?: ¿Totaliza para proceso?
+        total_sub_process?:  ¿Totaliza para subproceso?
     menu:
       processes: Configurar procesos
       organization_types: Tipos de organizaciones

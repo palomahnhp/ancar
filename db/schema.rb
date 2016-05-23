@@ -11,37 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517144412) do
+ActiveRecord::Schema.define(version: 20160523082121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "entry_indicator_sources", force: :cascade do |t|
+    t.integer "entry_indicator_id_id"
+    t.integer "source_id"
+  end
+
+  add_index "entry_indicator_sources", ["entry_indicator_id_id"], name: "index_entry_indicator_sources_on_entry_indicator_id_id", using: :btree
+  add_index "entry_indicator_sources", ["source_id"], name: "index_entry_indicator_sources_on_source_id", using: :btree
+
   create_table "entry_indicators", force: :cascade do |t|
     t.integer  "unit_id"
     t.integer  "indicator_id"
-    t.integer  "indicator_sources_id"
     t.text     "specifications"
     t.string   "updated_by"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "amount"
-    t.integer  "total_process"
-    t.integer  "total_sub_process"
   end
 
   add_index "entry_indicators", ["indicator_id"], name: "index_entry_indicators_on_indicator_id", using: :btree
-  add_index "entry_indicators", ["indicator_sources_id"], name: "index_entry_indicators_on_indicator_sources_id", using: :btree
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
 
   create_table "indicators", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "item_id"
     t.string   "in_out"
-    t.string   "metric"
     t.integer  "order"
     t.string   "updated_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "metric"
+    t.integer  "total_process"
+    t.integer  "total_sub_process"
   end
 
   add_index "indicators", ["item_id"], name: "index_indicators_on_item_id", using: :btree

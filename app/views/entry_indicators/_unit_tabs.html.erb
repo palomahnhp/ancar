@@ -1,10 +1,13 @@
-<section class="submenu">
-<div class="row">
+<div class="row unit_nav">
   <div class="length-12 short-12 columns">
-    <% @units.each do |unit| %>
-      <%= link_to unit.description_sap,
+    <ul>
+      <% @units.each do |unit| %>
+        <li>
+          <%= link_to unit.description_sap,
                   current_path_with_query_params(unit: unit.id) %>
-  <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
-</section>
+

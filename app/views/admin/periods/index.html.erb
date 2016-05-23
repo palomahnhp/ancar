@@ -13,19 +13,21 @@
     <h1><%= t("admin.periods.index.no_data") %></h1>
   <% else %>
     <% @periods.each do |period| %>
-      <tr id="<%= dom_id(period) %>">
-        <td>
-          <strong> <%= OrganizationType.find(period.organization_type_id).description %> : </strong>
-                   <%= period.description %></div>
-          <div> <%= t("admin.periods.index.data_period") %>
-                de <%= period.started_at  %> a <%= period.ended_at %>
+      <tr id="<%= dom_id(period) %>" >
+        <div class="small-12 medium-12 column">
+          <td class="medium-8 small-8 columns">
+            <strong> <%= OrganizationType.find(period.organization_type_id).description %> : </strong>
+                     <%= period.description %></div>
+             <div><%= t("admin.periods.index.data_period") %>
+                     de <%= period.started_at  %> a <%= period.ended_at %>
+             </div>
           </div>
           <div> <%= t("admin.periods.index.data_collect") %>
                 de <strong> <%= period.opened_at %> </strong>
                  a <strong> <%= period.closed_at %> </strong>
           </div>
         </td>
-        <td>
+        <td class="medium-3 small-3 columns end">
           <%= link_to admin_main_processes_path(
                 commit: t("admin.main_processes.index.submit"),
                 period_id: period.id,organization_type_id: period.organization_type_id),

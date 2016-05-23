@@ -1,55 +1,73 @@
-<div class="row" >
-  <div class="unit long-12 short-12 columns text-center">
-    <div class="panel oro long-12 short-12 columns">
-      <h2> <%= @unit.description_sap %> </h2>
-   </div>
-</div>
 
-<% @main_procesess.each do |main_process| %>
-  <% if sub_processes_unit(main_process, @unit).count > 0 %>
-    <div class="row" >
-      <div class=" main_process long-12 short-12 columns text-left">
-        <div class="panel cobalto ">
-          <h5>
-            <%= description(main_process.id, main_process.item_id) %>
-          </h5>
+<div class="row ficha_indicadores" >
+  <div class="unit medium-12 short-12 columns">
+    <h3> <%= @unit.description_sap %> </h3>
+  </div>
+  <% @main_procesess.each do |main_process| %>
+    <% if sub_processes_unit(main_process, @unit).count > 0 %>
+      <div class="row" >
+        <div class=" main_process medium-12 short-12 columns">
+          <h5><%= description(main_process.id, main_process.item_id) %></h5>
         </div>
       </div>
       <% sub_processes_unit(main_process, @unit).each do |sub_process| %>
-        <div class=" sub_process long-10 short-10 columns text-left">
-          <div class="panel turquesa ">
-            <h5>
-              <%= description(sub_process.id, sub_process.item_id) %>
-            </h5>
+        <div class="row">
+          <div class=" sub_process long-10 short-10 columns text-left">
+            <div class="panel turquesa ">
+              <h5>
+               <%= description(sub_process.id, sub_process.item_id) %>
+               </h5>
+            </div>
           </div>
         </div>
-        <div class="long-12 short-12 columns">
-          <div class="row">
+        <div class="row">
+          <div class="indicator long-12 short-12 columns">
             <table >
+              <tr>
+                <th>Indicador </th>
+                <th>Métrica </th>
+                <th>Fuente </th>
+                <th>Cantidad </th>
+                <th colspan= "5">
+                  <div class="staff">
+                    <table>
+                      <tr>
+                        <th id="title" colspan="5"> Efectivos</th>
+                      </tr>
+                      <tr>
+                        <th> A1</th>
+                        <th> A2</th>
+                        <th> C1</th>
+                        <th> C2</th>
+                        <th> E</th>
+                      </tr>
+                    </table>
+                </th>
+                  </div>
+              </tr>
               <% sub_process.indicators.each do |indicator| %>
                 <tr>
-                  <td><strong><%= description(0, indicator.item_id) %></strong></td>
-                  <% if indicator.in %>
+                  <td id="indicator"><%= description(0, indicator.item_id) %></td>
+                  <% if indicator.in_out == "in" %>
                       <td><%= description(0, indicator.metric) %> </td>
                       <% amount_text = description(0, indicator.metric)%>
                   <% end %>
-                  <% if indicator.out %>
+                  <% if indicator.in_out == "out" %>
                      <!--td><%= description(0, indicator.metric) %></td-->
                   <% end %>
-                  <td>Servicio, SAP </td>
-                  <td><input id="amount" placeholder="<%= amount_text %>"</input></td>
+                  <td>Servicio</td>
+                  <td><input class="amount" id="amount" placeholder="<%= amount_text %>"</input></td>
+                  <td><input class="group" id = "A1" placeholder="A1"></td>
+                  <td><input class="group" id = "A2" placeholder="A2"></td>
+                  <td><input class="group" id = "C1" placeholder="C1"></td>
+                  <td><input class="group" id = "C2" placeholder="C2"></td>
+                  <td><input class="group" id = "E" placeholder="E"></td>
                 </tr>
               <% end %>
-              <tr>
-                <td></td>
-                <td></td>
-                <td><strong>TOTAL SUBPROCESO</strong></td>
-                <td><strong>666</strong></td>
-              </tr>
             </table>
-          </div>
         </div>
       <% end %>
-    </div>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
