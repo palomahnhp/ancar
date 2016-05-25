@@ -12,7 +12,7 @@ class EntryIndicatorsController < ApplicationController
     @period = @organization_type.periods.first
     @units = @organization.units.to_a
     # no funciona la recuperación del periodo
-    @main_procesess = MainProcess.where(period_id: @period.id)
+    @main_processes = MainProcess.where(period_id: @period.id)
     if params[:unit]
       @unit = Unit.find(params[:unit])
     else

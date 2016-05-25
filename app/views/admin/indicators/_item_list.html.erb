@@ -17,7 +17,7 @@
            <%= Item.find(indicator.item_id).description %>
         </td>
         <td>
-          <%= Item.find(indicator.metric).description%>
+          <%= Item.find(indicator.metric.item_id).description%>
         </td>
         <td>
           <%= link_to edit_admin_indicator_path(indicator),

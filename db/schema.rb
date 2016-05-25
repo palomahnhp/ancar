@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523082121) do
+ActiveRecord::Schema.define(version: 20160524165937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(version: 20160523082121) do
   add_index "entry_indicators", ["indicator_id"], name: "index_entry_indicators_on_indicator_id", using: :btree
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
 
+  create_table "indicator_sources", force: :cascade do |t|
+    t.integer "indicator_id"
+    t.integer "source_id"
+  end
+
+  add_index "indicator_sources", ["indicator_id"], name: "index_indicator_sources_on_indicator_id", using: :btree
+  add_index "indicator_sources", ["source_id"], name: "index_indicator_sources_on_source_id", using: :btree
+
   create_table "indicators", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "item_id"
@@ -45,21 +53,14 @@ ActiveRecord::Schema.define(version: 20160523082121) do
     t.string   "updated_by"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "metric"
     t.integer  "total_process"
     t.integer  "total_sub_process"
+    t.integer  "metric_id"
   end
 
   add_index "indicators", ["item_id"], name: "index_indicators_on_item_id", using: :btree
+  add_index "indicators", ["metric_id"], name: "index_indicators_on_metric_id", using: :btree
   add_index "indicators", ["task_id"], name: "index_indicators_on_task_id", using: :btree
-
-  create_table "indicators_sources", force: :cascade do |t|
-    t.integer "indicator_id"
-    t.integer "source_id"
-  end
-
-  add_index "indicators_sources", ["indicator_id"], name: "index_indicators_sources_on_indicator_id", using: :btree
-  add_index "indicators_sources", ["source_id"], name: "index_indicators_sources_on_source_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.string   "item_type"
@@ -80,6 +81,15 @@ ActiveRecord::Schema.define(version: 20160523082121) do
 
   add_index "main_processes", ["item_id"], name: "index_main_processes_on_item_id", using: :btree
   add_index "main_processes", ["period_id"], name: "index_main_processes_on_period_id", using: :btree
+
+  create_table "metrics", force: :cascade do |t|
+    t.integer  "item_id"
+    t.string   "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "metrics", ["item_id"], name: "index_metrics_on_item_id", using: :btree
 
   create_table "organization_types", force: :cascade do |t|
     t.string   "acronym"
@@ -121,7 +131,6 @@ ActiveRecord::Schema.define(version: 20160523082121) do
   end
 
   create_table "sources", force: :cascade do |t|
-    t.integer  "indicator_id"
     t.integer  "item_id"
     t.boolean  "fixed"
     t.boolean  "has_specification"
@@ -130,7 +139,6 @@ ActiveRecord::Schema.define(version: 20160523082121) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "sources", ["indicator_id"], name: "index_sources_on_indicator_id", using: :btree
   add_index "sources", ["item_id"], name: "index_sources_on_item_id", using: :btree
 
   create_table "sub_processes", force: :cascade do |t|

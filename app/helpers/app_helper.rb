@@ -1,6 +1,7 @@
 module AppHelper
 
   def description(id, item_id)
+
     if id == 0
      "#{Item.find(item_id).description}"
     else
