@@ -15,7 +15,7 @@ class Admin::IndicatorsController < Admin::BaseController
         indicator_id = params[:tasks][:indicator_id]
       end
 
-      @indicators = Indicator.where("task_id = ?", task_id)
+      @indicators = Indicator.where("task_id = ?", task_id).order(:order)
       @task = Task.find(task_id)
       @sub_process = SubProcess.find(@task.sub_process_id)
       @main_process = MainProcess.find(@sub_process.main_process_id)
@@ -40,7 +40,7 @@ class Admin::IndicatorsController < Admin::BaseController
   private
     def indicator_params
       params.require(:indicator).permit(:task_id, :item_id, :order, :in_out,
-                                 :metric, :total_sub_process, :total_process)
+                                 :metric_id, :total_sub_process, :total_process)
    end
    def set_indicator
       @indicator = Indicator.find(params[:id])

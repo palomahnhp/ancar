@@ -1,11 +1,7 @@
 <%= form_for [:admin, @indicator] do |f| %>
   <%= render 'admin/shared/errors', resource: @indicator %>
   <div class="row">
-    <div class="medium-12 small-12 columns">
-      <div class="medium-6 small-6 columns">
-        <%= f.hidden_field :task_id, value: @indicator.task_id ,label: false%>
-      </div>
-    </div>
+    <%= f.hidden_field :task_id, value: @indicator.task_id ,label: false%>
     <div class="medium-12 small-12 columns">
       <div class="medium-6 small-6 columns">
         <b>Indicador</b> <%= f.select :item_id, options_for_select(indicator_items, @indicator.item_id), label: false %>
@@ -16,7 +12,7 @@
   <div class="row">
     <div class="medium-12 small-12 columns">
       <div class="medium-4 small-4 columns">
-        <b>Métrica</b> <%= f.select :metric, options_for_select(metric_items, @indicator.metric), label: false, class: "input-metric" %>
+        <b>Métrica</b> <%= f.select :metric_id, options_for_select(metric_items, @indicator.metric.item_id), label: false, class: "input-metric" %>
       </div>
     </div>
   </div>

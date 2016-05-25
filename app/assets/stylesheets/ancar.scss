@@ -37,7 +37,6 @@
   background: $brand;
   color: white;
   text-align: center;
-  margin-bottom: rem-calc(12);
   min-height: rem-calc(19);
   padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
 }
@@ -47,8 +46,6 @@
   color: blank;
   text-align: center;
   box-shadow: 0px 1px 3px 0 $border;
-  margin-bottom: rem-calc(12);
-  min-height: rem-calc(19);
   padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
 }
 
@@ -57,27 +54,24 @@
   background: $cobalto;
   box-shadow: 0px 1px 3px 0 $border;
   padding: rem-calc(12) rem-calc(12) 0 rem-calc(12);
-  margin-left: rem-calc(12);
-  margin-right: rem-calc(12);
 }
 
 .sub_process {
   color: white;
   background: lighten($turquesa, 5%);
   padding: rem-calc(12) rem-calc(12) 0 rem-calc(12);
-  margin-right: rem-calc(12);
-  margin-left: rem-calc(12);
 }
 
 .indicator {
   font-size: rem-calc(12);
   padding: 0 0 0 0;
   border: 1px;
+  text-align: left;
 
   th {
     background: darken($body, 10%);
-    text-align: left;
   }
+
   #indicator {
     width: 40%;
     font: bold;
@@ -86,16 +80,15 @@
 }
 
 .staff {
-  padding: 0 0 0 0;
-  width: 100%;
+  margin-left: 0;
   margin-top: 0;
   margin-bottom: 0;
+
   th {
    background: darken($body, 10%);
   }
-  #title td{
-      padding: 0 0 0 0;
-      border-bottom: 1px solid #ddd;
+  #title{
+    text-align: center;
   }
 }
 
