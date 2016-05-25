@@ -14,7 +14,7 @@
         <td><%= total_check(indicator.total_process) %></td>
         <td><%= total_check(indicator.total_sub_process) %></td>
         <td>
-           <%= Item.find(indicator.item_id).description %>
+           <%= description()Item.find(indicator.item_id).description %>
         </td>
         <td>
           <%= Item.find(indicator.metric.item_id).description%>

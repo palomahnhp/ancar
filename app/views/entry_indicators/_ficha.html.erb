@@ -45,7 +45,7 @@
                 <tr>
                   <td id="indicator"><%= description(0, indicator.item_id) %></td>
                   <% if indicator.in_out == "in" %>
-                      <td><%= description(0, indicator.metric_id) %> </td>
+                      <td><%= description(0, indicator.metric.item_id) %> </td>
                       <% amount_text = description(0, indicator.metric_id)%>
                   <% end %>
                   <% if indicator.in_out == "out" %>
