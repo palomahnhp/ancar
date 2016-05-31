@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="medium-12 short-12 columns">
+    <div class="medium-9 short-9 columns">  </div>
+    <div class="staff medium-3 short-3 columns">
+      <div class="row header">
+        <div id="title" class="medium-12 short-12 columns">EFECTIVOS
+          <div id="title" class="medium-2 short-2 columns"></div>
+          <div class="medium-10 short-10 columns">
+            <div class="row" id="header">
+              <div class="medium-1 small-1 columns"></div>
+                <% @official_groups.each do |gr| %>
+                  <div class="medium-2 short-2 columns">
+                <%= gr.name %>
+                  </div>
+                <% end %>
+              </div>
+            <div class="row">
+              <div class="medium-1 small-1 columns"> </div>
+                <% @official_groups.each do |gr| %>
+                  <div class="medium-2 short-2 columns">
+                    <% if @period.is_open? %>
+                      <input class="group" id = "<%= gr.name %>" placeholder="<%= gr.name %>">
+                    <% else %>
+                      <%= get_staff("SubProcess", sub_process, gr) %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+

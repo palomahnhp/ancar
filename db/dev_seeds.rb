@@ -2,74 +2,47 @@ require 'database_cleaner'
 
 DatabaseCleaner.clean_with :truncation
 
-puts "Creando settings"
-  Setting.create!(key: "header_logo", value: "Análisis de la carga de trabajo")
+puts "1. Creando settings"
+  Setting.create!(key: "header_logo", value: "Logo Ayuntamiento de Madrid")
   Setting.create!(key: "org_name", value: "Ayuntamiento de Madrid")
-  Setting.create!(key: "app_name", value: "Análisis de la carga de trabajo")
+  Setting.create!(key: "app_name", value: "Evaluación de la carga de trabajo")
 
-puts "Creando items"
-  (1..15).each do |i|
-    descripcion = "mp - " + Faker::Lorem.sentence(3).truncate(60)
-    item = Item.create!(item_type: "main_process", description: descripcion, updated_by: 'dev_seed')
-  end
+puts "2. Creando tipos de organizaciones"
+  to1 = OrganizationType.create!(acronym: "JD", description: "Junta de Distrito",
+                 updated_by: "seed")
+  to2 = OrganizationType.create!(acronym: "SGT", description: "Secretaria General Técnica",
+                 updated_by: "seed")
+  to3 = OrganizationType.create!(acronym: "AG", description: "Áreas de Gobierno",
+                 updated_by: "seed")
+  to4 = OrganizationType.create!(acronym: "OOAA", description: "Organismos Autónomos",
+                 updated_by: "seed")
 
-  (1..15).each do |i|
-    descripcion = "sp - " + Faker::Lorem.sentence(3).truncate(60)
-    item = Item.create!(item_type: "sub_process", description: descripcion, updated_by: 'dev_seed')
-  end
-  (1..15).each do |i|
-    descripcion = "tk - " + Faker::Lorem.sentence(3).truncate(60)
-    item = Item.create!(item_type: "task", description: descripcion, updated_by: 'dev_seed')
-  end
+puts "3. Creando Tipos de unidades para Distritos"
+  ut1 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS JURIDICOS", organization_type_id: to1.id, updated_by: "seed")
+  ut2 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS TECNICOS", organization_type_id: to1.id, updated_by: "seed")
+  ut3 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS ECONOMICOS", organization_type_id: to1.id, updated_by: "seed")
+  ut4 = UnitType.create!(description: "UNIDAD DE ACTIVIDADES CULTURALES, FORMATIVAS Y DEPORTIVAS", organization_type_id: to1.id, updated_by: "seed")
+  ut5 = UnitType.create!(description: "SECCION DE EDUCACION", organization_type_id: to1.id, updated_by: "seed")
+  ut6 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS SOCIALES", organization_type_id: to1.id, updated_by: "seed")
+  ut7 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS SANITARIOS, CALIDAD Y CONSUMO", organization_type_id: to1.id, updated_by: "seed")
+  ut8 = UnitType.create!(description: "SECRETARIA DE DISTRITO", organization_type_id: to1.id, updated_by: "seed")
 
-  (1..5).each do |i|
-    descripcion = "in - " + Faker::Lorem.sentence(3).truncate(60)
-    item = Item.create!(item_type: "indicator", description: descripcion, updated_by: 'dev_seed')
-  end
-
-
-puts "Creando tipos de organizaciones"
-  to = OrganizationType.create!(acronym: "JD", name: "Junta de Distrito",
-                 updated_by: "ev_seed")
-  tu = UnitType.create!(name: "DEPARTAMENTO DE SERVICIOS JURÍDICOS", organization_type_id: to.id)
-  tu = UnitType.create!(name: "DEPARTAMENTO DE SERVICIOS TÉCNICOS", organization_type_id: to.id)
-  tu = UnitType.create!(name: "DEPARTAMENTO DE SERVICIOS ECONÓMICOS", organization_type_id: to.id)
-  tu = UnitType.create!(name: "DEPARTAMENTO DE SERVICIOS SANITARIOS, CALIDAD Y CONSUMO", organization_type_id: to.id)
-  tu = UnitType.create!(name: "SECCIÓN DE EDUCACIÓN", organization_type_id: to.id)
-  tu = UnitType.create!(name: "UNIDAD DE ACTIVIDADES CULTURALES, FORMATIVAS Y DEPORTIVAS", organization_type_id: to.id)
-  tu = UnitType.create!(name: "DEPARTAMENTO DE SERVICIOS SOCIALES", organization_type_id: to.id)
-
-
-  to1 = OrganizationType.create!(acronym: "SGT", name: "Secretaria General Técnica",
-                 updated_by: "dev_seed")
-  to3 = OrganizationType.create!(acronym: "AG", name: "Áreas de Gobierno",
-                 updated_by: "dev_seed")
-  to4 = OrganizationType.create!(acronym: "OOAA", name: "Organismos Autónomos",
-                 updated_by: "dev_seed")
-
-
-puts "Creando periodos"
-
-  pdo1 = Period.create!(organization_type_id: to1.id, description: "Actividades de 2015",
-                        started_at: "01/01/2015", ended_at: "31/12/2015",
-                        opened_at: "01/04/2016", closed_at: "30/05/2016",
-                        updated_by: "dev_seed")
-
-  pdo2 = Period.create!(organization_type_id: to.id, description: "Actividades de 2015",
-                        started_at: "01/01/2015", ended_at: "31/12/2015",
-                        opened_at: "01/04/2016", closed_at: "30/05/2016",
-                        updated_by: "dev_seed")
-
-puts "Creando procesos"
-  (1..5).each do |i|
-    item =  Item.reorder("RANDOM()").where(item_type: "main_process").first
-    mp = MainProcess.create!(period_id: pdo2.id, item_id: item.id, order: i, updated_by: "dev_seed")
-    (1..4).each do |i|
-      item =  Item.reorder("RANDOM()").where(item_type: "sub_process").first
-      sp = SubProcess.create!(main_process_id: mp.id, unit_type_id: i, item_id: item.id, order: i, updated_by: "dev_seed")
-      (1..4).each do |i|
-        item =  Item.reorder("RANDOM()").where(item_type: "task").first
-        tk = Task.create!(sub_process_id: sp.id, item_id: item.id, order: i, updated_by: "dev_seed")
-      end
+puts "4. Creando unidades para Distritos"
+  UnitType.where(organization_type_id: to1.id).each do |u|
+    Organization.where(organization_type_id: to1.id).each do |o|
+      Unit.create!(description_sap: u.description, organization_id: o.id, unit_type_id: u.id, updated_by: "seed")
     end
   end
+
+puts "5. Cargando datos Periodo 2015 Distritos"
+  pdo1 = Period.create!(organization_type_id: to1.id, description: "PERIODO DE ANÁLISIS: AÑO 2015",
+                 started_at: "01/01/2015", ended_at: "31/12/2015",
+                 opened_at: "01/04/2016", closed_at: "30/04/2016",
+                 updated_by: "seed")
+
+puts "6. Cargando grupos de personal"
+  OfficialGroup.create!(name: "A1", description: "Grupo A1")
+  OfficialGroup.create!(name: "A2", description: "Grupo A2")
+  OfficialGroup.create!(name: "C1", description: "Grupo C1")
+  OfficialGroup.create!(name: "C2", description: "Grupo C2")
+  OfficialGroup.create!(name: "E",  description: "Grupo E")
