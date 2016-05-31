@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524165937) do
+ActiveRecord::Schema.define(version: 20160529102938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assigned_employees", force: :cascade do |t|
+    t.integer  "staff_of_id"
+    t.string   "staff_of_type"
+    t.integer  "official_groups_id"
+    t.string   "updated_by"
+    t.decimal  "quantity",           precision: 5, scale: 2
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
 
   create_table "entry_indicator_sources", force: :cascade do |t|
     t.integer "entry_indicator_id_id"
@@ -90,6 +100,13 @@ ActiveRecord::Schema.define(version: 20160524165937) do
   end
 
   add_index "metrics", ["item_id"], name: "index_metrics_on_item_id", using: :btree
+
+  create_table "official_groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "organization_types", force: :cascade do |t|
     t.string   "acronym"
