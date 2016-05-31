@@ -21,7 +21,7 @@
           <table >
             <tr>
               <th id="indicator_col">Indicador </th>
-              <th id="entrada_aalida">Entrada/Salida </th>
+              <th id="entrada_salida">Entrada/Salida </th>
               <th id="metric_col">Métrica </th>
               <th id="source_col">Fuente </th>
               <th id="amount_col">Cantidad </th>
@@ -34,6 +34,12 @@
                     <td> Entrada </td>
                 <% elsif indicator.in_out == "out" %>
                     <td> Salida </td>
+                <% elsif indicator.in_out == "stock" %>
+                    <td> Stock </td>
+                <% elsif indicator.in_out == "unknow" %>
+                    <td> Stock </td>
+                <% else%>
+                    <td> - </td>
                 <% end %>
                 <td id="<%= "source_col_#{indicator.sources.first.id}" %>"><%= description(0, indicator.sources.first.item_id) %></td>
                 <td id="<%= "metric_col_#{indicator.metric.id}" %>"><%= description(0, indicator.metric.item_id) %> </td>

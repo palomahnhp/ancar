@@ -287,7 +287,8 @@ private
       elsif (name.downcase.include? 'pendiente')
         tipo = "stock"
       else
-        tipo = "-"
+        tipo = "a determinar"
       end
+      tipo = "----"
     end
   end
