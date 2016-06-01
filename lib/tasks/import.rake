@@ -92,6 +92,9 @@ private
                               "E":  hoja.row(7)[11] }
     (hoja.rows).each do |f|
       cols = f.count
+    if @deb
+      debugger
+    end
       case
       when !f[0].nil? then #MainProcess
         import_process('main_process', f[1])
@@ -100,15 +103,17 @@ private
         # En el caso de los distritos la tarea es única y no viene en el csv
         import_process('task', 'Tarea')
       when  f[3] == 'TOTAL  SUBPROCESO' then # efectivos subprocess
-        @cell_efectivos_sub_proc = { "A1": f[7], "A2": f[8],
-                             "C1": f[9], "C2": f[10],
-                             "E":  f[11] }
+        @cell_efectivos_sub_proc = { "A1": f[7],
+                              "A2": f[8].nil? ? 0 : f[8],
+                              "C1": f[9].nil? ? 0 : f[9],
+                              "C2": f[10].nil? ? 0 : f[10],
+                              "E":  f[11].nil? ? 0 : f[11] }
 
         treat_proc("staff", 0)
       when  !f[3].nil? && f[3] != 'TOTAL  SUBPROCESO' # indicator
         @cell_metric = f[4]
         @cell_source = f[5]
-        @cell_amount = f[6]
+        @cell_amount = f[6].nil? ? 0 : f[6]
         import_process('indicator', f[3])
       end
     end
@@ -166,6 +171,10 @@ private
     else # se crea item
       it = Item.create!(item_type: type, description: description, updated_by: "import")
     end
+    if @deb
+      puts it.description
+      debugger
+    end
     treat_proc(type, it.id)
   end
 
@@ -201,18 +210,19 @@ private
         @tk = Task.create!(sub_process_id: @sp.id, item_id: id,  order:o_max, updated_by: "import")
       end
 
-
     when "indicator" # Por defecto se cargan de salida, y si es necesario se modifican por la app
         import_process('metric', @cell_metric)
-        in_out = indicator_type(@cell_metric)
-        @ind = Indicator.where(task_id: @tk.id, item_id:id, in_out: in_out).first
+        @ind = Indicator.where(task_id: @tk.id, item_id:id).first
       if @ind.nil?
         o_max = Indicator.maximum(:order)
         o_max = o_max.nil?  ? 1 : (o_max + 1)
-        @ind = Indicator.create!(task_id: @tk.id, item_id:id, in_out: in_out,
-                         order: o_max, metric_id: @mt.id,
-                         total_process: 0, total_sub_process: 0, updated_by: "import")
+        @ind = Indicator.create!(task_id: @tk.id, item_id:id, order: o_max, updated_by: "import")
       end
+      @im = IndicatorMetric.where(indicator_id: @ind.id, metric_id: @mt.id).first
+      if @im.nil?
+        @im = IndicatorMetric.create!(indicator_id: @ind.id, metric_id: @mt.id, total_process: 0, total_sub_process: 0)
+      end
+
       import_process('source', @cell_source)
 
       @is = IndicatorSource.where(indicator_id: @ind.id, source_id: @sr.id).first
@@ -220,18 +230,17 @@ private
         @is = IndicatorSource.create!(indicator_id: @ind.id, source_id: @sr.id)
       end
 
-      @ei = EntryIndicator.create!(unit_id: @u.id, indicator_id: @ind.id, specifications: nil, amount: @cell_amount, updated_by: "import")
-      puts "IN: #{@ind.item.description } - #{@ind.in_out}"
-      puts "Mt: #{Item.find(@mt.id).description } - #{@cell_amount}"
-
-
-      puts "Sr: #{Item.find(@sr.id).description }"
+      @ei = EntryIndicator.create!(unit_id: @u.id, indicator_metric_id: @im.id, specifications: nil, amount: @cell_amount, updated_by: "import")
+      puts " IND: #{@ind.item.description } "
+      puts "  Mt: #{@mt.item.description } - #{@mt.in_out}- #{@cell_amount}"
+      puts "  Sr: #{@sr.item.description }"
       @cell_metric = @cell_source = nil
 
     when "metric"
       @mt = Metric.where(item_id: id).first
       if @mt.nil?
-        @mt = Metric.create!(item_id: id, updated_by: "import")
+        in_out = indicator_type(@cell_metric)
+        @mt = Metric.create!(item_id: id, in_out: in_out, updated_by: "import")
       end
 
     when "source"
@@ -245,7 +254,7 @@ private
         gr = OfficialGroup.where(name: group).first
         @ae = AssignedEmployee.create!(staff_of_id: @sp.id, staff_of_type: "SubProcess", official_groups_id: gr.id,
           quantity: quantity, updated_by: "import")
-        puts "Staff : #{group} #{quantity} \n"
+        puts "  Staff : #{group} #{quantity} \n"
       end
 
       @cell_efectivos_sub_proc = false
@@ -280,7 +289,7 @@ private
       debugger
     end
     if !name.nil?
-      if  (name.downcase.include? 'terminad') || (name.downcase.include? 'informad') || (name.downcase.include? 'tramitad') || (name.downcase.include? 'contestaci')
+      if  (name.downcase.include? 'terminad') || (name.downcase.include? 'informad') || (name.downcase.include? 'tramitad') || (name.downcase.include? 'contestaci') || (name.downcase.include? 'supervisado')
          tipo = "out"
       elsif (name.downcase.include? 'recibid') || (name.downcase.include? 'presentad') || (name.downcase.include? 'iniciados')
          tipo = "in"

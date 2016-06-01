@@ -30,20 +30,12 @@
             <% sub_process.indicators.each do |indicator| %>
               <tr>
                 <td id= "<%= "indicator_col_#{indicator.id}" %>"> <%= description(0, indicator.item_id) %></td>
-                <% if indicator.in_out == "in" %>
-                    <td> Entrada </td>
-                <% elsif indicator.in_out == "out" %>
-                    <td> Salida </td>
-                <% elsif indicator.in_out == "stock" %>
-                    <td> Stock </td>
-                <% elsif indicator.in_out == "unknow" %>
-                    <td> Stock </td>
-                <% else%>
-                    <td> - </td>
-                <% end %>
-                <td id="<%= "source_col_#{indicator.sources.first.id}" %>"><%= description(0, indicator.sources.first.item_id) %></td>
-                <td id="<%= "metric_col_#{indicator.metric.id}" %>"><%= description(0, indicator.metric.item_id) %> </td>
-                <% amount_text = description(0, indicator.metric.item_id)%>
+                <td> <%= indicator_type(indicator.indicator_metrics) %> </td>
+                <% id = "source_col_#{indicator.sources.first.id}" %>
+                <td id= "<%= id %>"><%= description(0, indicator.sources.first.item_id) %></td>
+                <% id = "metric_col_#{indicator.metrics.first.id}" %>
+                <td id="<%= id %>"><%= description(0, indicator.metrics.first.item_id) %> </td>
+                <% amount_text = description(0, indicator.metrics.first.item_id)%>
                 <% amount_value = get_amount(indicator) %>
                 <td id="amount_col">
                   <% if @period.is_open? %>

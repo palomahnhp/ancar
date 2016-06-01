@@ -13,12 +13,25 @@ module AppHelper
   end
 
   def get_amount(indicator)
-    indicator.entry_indicator.first.amount
+    EntryIndicator.where(indicator_metric_id: indicator.indicator_metrics.first.id).first.amount
   end
 
   def get_staff(type, proc, group)
     ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_groups_id: group.id).first
     return ae.quantity
+  end
+
+  def indicator_type(type)
+    case type
+    when "in"
+      "Entrada"
+    when "out"
+      "Salida"
+    when "stock"
+      "Stock"
+    else
+      "Por determinar"
+    end
   end
 
   def current_path_with_query_params(query_parameters)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529102938) do
+ActiveRecord::Schema.define(version: 20160531172339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,16 +36,26 @@ ActiveRecord::Schema.define(version: 20160529102938) do
 
   create_table "entry_indicators", force: :cascade do |t|
     t.integer  "unit_id"
-    t.integer  "indicator_id"
     t.text     "specifications"
     t.string   "updated_by"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "amount"
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "indicator_metric_id"
+    t.decimal  "amount",              precision: 12, scale: 2
   end
 
-  add_index "entry_indicators", ["indicator_id"], name: "index_entry_indicators_on_indicator_id", using: :btree
+  add_index "entry_indicators", ["indicator_metric_id"], name: "index_entry_indicators_on_indicator_metric_id", using: :btree
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
+
+  create_table "indicator_metrics", force: :cascade do |t|
+    t.integer "indicator_id"
+    t.integer "metric_id"
+    t.integer "total_process"
+    t.integer "total_sub_process"
+  end
+
+  add_index "indicator_metrics", ["indicator_id"], name: "index_indicator_metrics_on_indicator_id", using: :btree
+  add_index "indicator_metrics", ["metric_id"], name: "index_indicator_metrics_on_metric_id", using: :btree
 
   create_table "indicator_sources", force: :cascade do |t|
     t.integer "indicator_id"
@@ -58,18 +68,13 @@ ActiveRecord::Schema.define(version: 20160529102938) do
   create_table "indicators", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "item_id"
-    t.string   "in_out"
     t.integer  "order"
     t.string   "updated_by"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "total_process"
-    t.integer  "total_sub_process"
-    t.integer  "metric_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "indicators", ["item_id"], name: "index_indicators_on_item_id", using: :btree
-  add_index "indicators", ["metric_id"], name: "index_indicators_on_metric_id", using: :btree
   add_index "indicators", ["task_id"], name: "index_indicators_on_task_id", using: :btree
 
   create_table "items", force: :cascade do |t|
@@ -97,6 +102,7 @@ ActiveRecord::Schema.define(version: 20160529102938) do
     t.string   "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "in_out"
   end
 
   add_index "metrics", ["item_id"], name: "index_metrics_on_item_id", using: :btree
