@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531172339) do
+ActiveRecord::Schema.define(version: 20160601174505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,11 +27,11 @@ ActiveRecord::Schema.define(version: 20160531172339) do
   end
 
   create_table "entry_indicator_sources", force: :cascade do |t|
-    t.integer "entry_indicator_id_id"
     t.integer "source_id"
+    t.integer "entry_indicator_id"
   end
 
-  add_index "entry_indicator_sources", ["entry_indicator_id_id"], name: "index_entry_indicator_sources_on_entry_indicator_id_id", using: :btree
+  add_index "entry_indicator_sources", ["entry_indicator_id"], name: "index_entry_indicator_sources_on_entry_indicator_id", using: :btree
   add_index "entry_indicator_sources", ["source_id"], name: "index_entry_indicator_sources_on_source_id", using: :btree
 
   create_table "entry_indicators", force: :cascade do |t|
@@ -47,11 +47,16 @@ ActiveRecord::Schema.define(version: 20160531172339) do
   add_index "entry_indicators", ["indicator_metric_id"], name: "index_entry_indicators_on_indicator_metric_id", using: :btree
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
 
+  create_table "indicator_groups", force: :cascade do |t|
+    t.string   "description"
+    t.string   "updated_by"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "indicator_metrics", force: :cascade do |t|
     t.integer "indicator_id"
     t.integer "metric_id"
-    t.integer "total_process"
-    t.integer "total_sub_process"
   end
 
   add_index "indicator_metrics", ["indicator_id"], name: "index_indicator_metrics_on_indicator_id", using: :btree
@@ -189,6 +194,15 @@ ActiveRecord::Schema.define(version: 20160531172339) do
 
   add_index "tasks", ["item_id"], name: "index_tasks_on_item_id", using: :btree
   add_index "tasks", ["sub_process_id"], name: "index_tasks_on_sub_process_id", using: :btree
+
+  create_table "total_indicators", force: :cascade do |t|
+    t.integer  "indicator_metric_id"
+    t.string   "type"
+    t.integer  "sub_process_group_id"
+    t.string   "updated_by"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
 
   create_table "unit_types", force: :cascade do |t|
     t.integer  "organization_type_id"

@@ -113,7 +113,14 @@ private
       when  !f[3].nil? && f[3] != 'TOTAL  SUBPROCESO' # indicator
         @cell_metric = f[4]
         @cell_source = f[5]
-        @cell_amount = f[6].nil? ? 0 : f[6]
+        if  f[6].class.to_s  == 'Spreadsheet::Formula'
+          @cell_amount = f[6].value
+        elsif   f[6].class.to_s  == 'Fixnum'
+          @cell_amount =  f[6]
+        else
+          @cell_amount = 0
+        end
+
         import_process('indicator', f[3])
       end
     end
@@ -165,12 +172,19 @@ private
   end
 
   def import_process(type, description)
+    if description.nil? then description = "" end
+    description.strip! # Elimina blancos
     item = Item.where(item_type: type, description: description)
     if !item.empty? # existe item
       it = item.first
     else # se crea item
       it = Item.create!(item_type: type, description: description, updated_by: "import")
     end
+
+    if description == ""
+      puts "ERROR - Description a blancos id #{it.id}"
+    end
+
     if @deb
       puts it.description
       debugger
@@ -220,7 +234,7 @@ private
       end
       @im = IndicatorMetric.where(indicator_id: @ind.id, metric_id: @mt.id).first
       if @im.nil?
-        @im = IndicatorMetric.create!(indicator_id: @ind.id, metric_id: @mt.id, total_process: 0, total_sub_process: 0)
+        @im = IndicatorMetric.create!(indicator_id: @ind.id, metric_id: @mt.id)
       end
 
       import_process('source', @cell_source)
@@ -239,7 +253,7 @@ private
     when "metric"
       @mt = Metric.where(item_id: id).first
       if @mt.nil?
-        in_out = indicator_type(@cell_metric)
+        in_out = "in" # Por defecto y posteriormente se modificarán
         @mt = Metric.create!(item_id: id, in_out: in_out, updated_by: "import")
       end
 
@@ -280,24 +294,5 @@ private
       "DEPARTAMENTO DE SERVICIOS SANITARIOS, CALIDAD Y CONSUMO"
     when "SECRETARÍA DEL DISTRITO" then
       "SECRETARIA DE DISTRITO"
-    end
-  end
-  def indicator_type(name)
-    # Los indicadores pueden ser de E/S/stockage
-
-    if @deb
-      debugger
-    end
-    if !name.nil?
-      if  (name.downcase.include? 'terminad') || (name.downcase.include? 'informad') || (name.downcase.include? 'tramitad') || (name.downcase.include? 'contestaci') || (name.downcase.include? 'supervisado')
-         tipo = "out"
-      elsif (name.downcase.include? 'recibid') || (name.downcase.include? 'presentad') || (name.downcase.include? 'iniciados')
-         tipo = "in"
-      elsif (name.downcase.include? 'pendiente')
-        tipo = "stock"
-      else
-        tipo = "a determinar"
-      end
-      tipo = "----"
     end
   end
