@@ -28,25 +28,26 @@
               <th id="staff_col" colspan= "5"> </th>
             </tr>
             <% sub_process.indicators.each do |indicator| %>
-              <tr>
-                <td id= "<%= "indicator_col_#{indicator.id}" %>"> <%= description(0, indicator.item_id) %></td>
-                <td> <%= indicator_type(indicator.indicator_metrics) %> </td>
-                <% id = "source_col_#{indicator.sources.first.id}" %>
-                <td id= "<%= id %>"><%= description(0, indicator.sources.first.item_id) %></td>
-                <% id = "metric_col_#{indicator.metrics.first.id}" %>
-                <td id="<%= id %>"><%= description(0, indicator.metrics.first.item_id) %> </td>
-                <% amount_text = description(0, indicator.metrics.first.item_id)%>
-                <% amount_value = get_amount(indicator) %>
-                <td id="amount_col">
-                  <% if @period.is_open? %>
-                    <input class="amount" id="amount" placeholder="
-                        <%= amount_value %>"><%= amount_value %> </input>
-                  <% else %>
-                     <%= amount_value %>
-                  <% end %>
-                </td>
-                <td>  <td>
-              </tr>
+              <% indicator.indicator_metrics.all.each do |indicator_metric| %>
+                <tr>
+
+                  <td id="<%= "indicator_col_#{indicator.id}" %>"> <%= description(0, indicator.item_id) %> </td>
+                  <% entry_indicator = get_entry_indicator(indicator_metric) %>
+                  <td id="entrada_salida"> <%= get_in_out(indicator_metric) %> </td>
+
+                  <td id= "source_col"> <%= sources_description( indicator.id, indicator.sources) %></td>
+                  <td id="metric_col"><%= get_metric(indicator_metric) %> </td>
+                  <td id="amount_col" class="float-left">
+                    <% if @period.is_open? %>
+                      <input class="amount" id="amount" placeholder="
+                          <%= amount_value %>"><%= get_amount(indicator_metric) %> </input>
+                    <% else %>
+                       <%= get_amount(indicator_metric) %>
+                    <% end %>
+                  </td>
+                  <td>  <td>
+                </tr>
+              <% end %>
             <% end %>
           </table>
        </div>

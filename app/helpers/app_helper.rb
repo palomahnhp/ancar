@@ -8,21 +8,22 @@ module AppHelper
     end
   end
 
-  def sources(id)
-    Indicator.find(id).sources
-  end
-
-  def get_amount(indicator)
-    EntryIndicator.where(indicator_metric_id: indicator.indicator_metrics.first.id).first.amount
+  def sources_description(id, sources)
+    description = ""
+    sources.all.each do |source|
+      description += source.item.description.to_s
+    end
+    return description
   end
 
   def get_staff(type, proc, group)
     ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_groups_id: group.id).first
-    return ae.quantity
+    return ae.nil? ? 0 : ae.quantity
   end
 
-  def indicator_type(type)
-    case type
+  def get_in_out(im)
+    in_out = Metric.find(im.metric_id).in_out
+    case in_out
     when "in"
       "Entrada"
     when "out"
@@ -32,6 +33,18 @@ module AppHelper
     else
       "Por determinar"
     end
+  end
+
+  def get_entry_indicator(im)
+    EntryIndicator.where(indicator_metric_id: im.id).first
+  end
+
+  def get_amount(im)
+    EntryIndicator.where(indicator_metric_id: im.id).first.amount
+  end
+
+  def get_metric(im)
+    description(0, Metric.find(im.metric_id).item_id)
   end
 
   def current_path_with_query_params(query_parameters)
