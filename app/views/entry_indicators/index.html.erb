@@ -1,17 +1,23 @@
  <p id="notice"><%= notice %></p>
 
 <div class="row " >
-  <div class="corporativo medium-12 small-12 columns">
-    <h3><%= t("entry_indicators.index.title") %> los Distritos</h3>
-    <h4>Periodo de análisis 2015 </h4>
-    <h4> <%= @organization.description %> </h4>
-  </div>
-</div>
-<div class="row">
-  <div class= medium-12 small-12 columns">
-      <%= render 'unit_tabs' %>
-  </div>
-</div>
-<div class="row">
-  <%= render "ficha" %>
+  <% if @main_processes %>
+    <div class="corporativo medium-12 small-12 columns">
+      <h3><%= t("entry_indicators.index.title") %> <%= @organization_type.description %></h3>
+      <h4><%= @period.description %> </h4>
+      <h4> <%= @organization.description %> </h4>
+    </div>
+    <div class="row">
+      <div class= medium-12 small-12 columns">
+       <%= render 'unit_tabs' %>
+      </div>
+    </div>
+    <div class="row">
+      <%= render "ficha" %>
+    </div>
+  <% elsif @organizations %>
+    <div class="row select_organization ">
+      <%= render "select_organizations" %>
+     </div>
+  <% end %>
 </div>

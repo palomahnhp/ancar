@@ -1,16 +1,20 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
+require 'database_cleaner'
+
+DatabaseCleaner.clean_with :truncation
 
 puts "1. Creando settings"
+
   Setting.create!(key: "header_logo", value: "Logo Ayuntamiento de Madrid")
   Setting.create!(key: "org_name", value: "Ayuntamiento de Madrid")
   Setting.create!(key: "app_name", value: "Evaluación de la carga de trabajo")
 
 puts "2. Creando tipos de organizaciones"
-  to1 = OrganizationType.create!(acronym: "JD", description: "Junta de Distrito",
+  to1 = OrganizationType.create!(acronym: "JD", description: "Distritos",
                  updated_by: "seed")
-  to2 = OrganizationType.create!(acronym: "SGT", description: "Secretaria General Técnica",
+  to2 = OrganizationType.create!(acronym: "SGT", description: "Secretarías Generales Técnicas",
                  updated_by: "seed")
   to3 = OrganizationType.create!(acronym: "AG", description: "Áreas de Gobierno",
                  updated_by: "seed")
@@ -18,21 +22,14 @@ puts "2. Creando tipos de organizaciones"
                  updated_by: "seed")
 
 puts "3. Creando Tipos de unidades para Distritos"
-  ut1 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS JURIDICOS", organization_type_id: to1.id, updated_by: "seed")
-  ut2 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS TECNICOS", organization_type_id: to1.id, updated_by: "seed")
-  ut3 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS ECONOMICOS", organization_type_id: to1.id, updated_by: "seed")
-  ut4 = UnitType.create!(description: "UNIDAD DE ACTIVIDADES CULTURALES, FORMATIVAS Y DEPORTIVAS", organization_type_id: to1.id, updated_by: "seed")
-  ut5 = UnitType.create!(description: "SECCION DE EDUCACION", organization_type_id: to1.id, updated_by: "seed")
-  ut6 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS SOCIALES", organization_type_id: to1.id, updated_by: "seed")
-  ut7 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS SANITARIOS, CALIDAD Y CONSUMO", organization_type_id: to1.id, updated_by: "seed")
-  ut8 = UnitType.create!(description: "SECRETARIA DE DISTRITO", organization_type_id: to1.id, updated_by: "seed")
-
-puts "4. Creando unidades para Distritos"
-  UnitType.where(organization_type_id: to1.id).each do |u|
-    Organization.where(organization_type_id: to1.id).each do |o|
-      Unit.create!(description_sap: u.description, organization_id: o.id, unit_type_id: u.id, updated_by: "seed")
-    end
-  end
+  ut1 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS JURIDICOS", organization_type_id: to1.id, order: 1, updated_by: "seed")
+  ut2 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS TECNICOS", organization_type_id: to1.id, order: 2, updated_by: "seed")
+  ut3 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS ECONOMICOS", organization_type_id: to1.id, order: 3, updated_by: "seed")
+  ut4 = UnitType.create!(description: "UNIDAD DE ACTIVIDADES CULTURALES, FORMATIVAS Y DEPORTIVAS", organization_type_id: to1.id, order: 4, updated_by: "seed")
+  ut5 = UnitType.create!(description: "SECCION DE EDUCACION", organization_type_id: to1.id, order: 5, updated_by: "seed")
+  ut6 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS SOCIALES", organization_type_id: to1.id, order: 6, updated_by: "seed")
+  ut7 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS SANITARIOS, CALIDAD Y CONSUMO", organization_type_id: to1.id, order: 7, updated_by: "seed")
+  ut8 = UnitType.create!(description: "SECRETARIA DE DISTRITO", organization_type_id: to1.id, order: 8, updated_by: "seed")
 
 puts "5. Cargando datos Periodo 2015 Distritos"
   pdo1 = Period.create!(organization_type_id: to1.id, description: "PERIODO DE ANÁLISIS: AÑO 2015",

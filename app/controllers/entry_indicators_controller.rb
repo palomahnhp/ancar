@@ -4,41 +4,49 @@ class EntryIndicatorsController < ApplicationController
   # GET /entry_indicators
   # GET /entry_indicators.json
   def index
-    # La organization se debe obtener del user, Utilizamos VillaVallecas para comprobaciones carga
-    distritos = 1
 
-    @organization = OrganizationType.find(distritos).organizations.find(20)
-    # de la organización el tipo de organizacion
-    @organization_type = @organization.organization_type
-    # el periodo es el activo para ese tipo de organización
-    @period = @organization_type.periods.first
-    @units = @organization.units.to_a
-    # no funciona la recuperación del periodo
-    @main_processes = MainProcess.where(period_id: @period.id)
-    if params[:unit]
-      @unit = Unit.find(params[:unit])
+    if params[:organization_id].nil?
+      # La organization se debe obtener del user
+      # Se cargan todas las organizaciones hasta que se implementen usuarios
+#      @user_organizations_sap_ids = Organization.ids[10000019, 10000018]
+      #
+      #@user_organizations = Organization.where(sap_id:  @user_organizations_sap_ids)
+      @user_organizations = Organization.all
+
+      @organizations = organizations_select_options
     else
-      @unit = @units.first
+
+      @organization = Organization.find(params[:organization_id])
+      @organization_type = @organization.organization_type
+      @period = @organization_type.periods.last
+      @units = @organization.units.order(:order).to_a
+
+      @main_processes = MainProcess.where(period_id: @period.id)
+      if params[:unit]
+        @unit = Unit.find(params[:unit])
+      else
+        @unit = @units.first
+      end
+      @official_groups = OfficialGroup.all
+
+      # totalizadores para comprobaciones de carga
+      mp = @main_processes.ids
+      sp = SubProcess.where(main_process_id: mp, unit_type_id: @unit.unit_type.id)
+
+      @total_sub_processes  = sp.count
+      @total_main_processes = sp.where(main_process_id: mp).distinct.count
+
+      @total_staff_sub_process_A1 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
+        official_groups_id: 1).sum(:quantity)
+      @total_staff_sub_process_A2 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
+        official_groups_id: 2).sum(:quantity)
+      @total_staff_sub_process_C1 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
+        official_groups_id: 3).sum(:quantity)
+      @total_staff_sub_process_C2 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
+        official_groups_id: 4).sum(:quantity)
+      @total_staff_sub_process_E  = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
+        official_groups_id: 5).sum(:quantity)
     end
-    @official_groups = OfficialGroup.all
-    # totalizadores para comprobaciones de carga
-
-    mp = @main_processes.ids
-    sp = SubProcess.where(main_process_id: mp, unit_type_id: @unit.unit_type.id)
-
-    @total_sub_processes  = sp.count
-    @total_main_processes = sp.where(main_process_id: mp).distinct.count
-
-    @total_staff_sub_process_A1 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-      official_groups_id: 1).sum(:quantity)
-    @total_staff_sub_process_A2 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-      official_groups_id: 2).sum(:quantity)
-    @total_staff_sub_process_C1 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-      official_groups_id: 3).sum(:quantity)
-    @total_staff_sub_process_C2 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-      official_groups_id: 4).sum(:quantity)
-    @total_staff_sub_process_E  = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-      official_groups_id: 5).sum(:quantity)
   end
 
   # GET /entry_indicators/1
@@ -104,5 +112,9 @@ class EntryIndicatorsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_indicator_params
       params.fetch(:entry_indicator, {})
+    end
+
+    def organizations_select_options
+      @user_organizations.collect { |v| [ v.description, v.id ] }
     end
 end
