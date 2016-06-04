@@ -22,6 +22,7 @@ module AppHelper
   end
 
   def get_in_out(im)
+
     in_out = Metric.find(im.metric_id).in_out
     case in_out
     when "in"
@@ -35,12 +36,12 @@ module AppHelper
     end
   end
 
-  def get_entry_indicator(im)
-    EntryIndicator.where(indicator_metric_id: im.id).first
+  def get_entry_indicator(im, unit)
+    EntryIndicator.where(indicator_metric_id: im.id, unit_id: unit.id).first
   end
 
-  def get_amount(im)
-    EntryIndicator.where(indicator_metric_id: im.id).first.amount
+  def get_amount(ei, unit)
+    ei.nil? ? "" : ei.amount
   end
 
   def get_metric(im)

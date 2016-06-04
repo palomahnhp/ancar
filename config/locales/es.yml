@@ -44,6 +44,8 @@ es:
     index:
       title: Hoja de identificación de procesos en #{organiztion_type}
       unit: Selecciona unidad
+      select_organization: Selecciona una organización
+      select: Seleccionar
   welcome:
     title: Organización del trabajo en las unidades municipales
     sub_title: Estudio de cargas de trabajo

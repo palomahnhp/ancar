@@ -2,8 +2,10 @@
 <div class="row">
   <div class="medium-12 short-12 columns">
     <div class="summary medium-5 short-5 columns">
-         TOTAL PROCESOS   : <%=  @total_main_processes %><br>
-         TOTAL SUBPROCESOS: <%=  @total_sub_processes %>
+         NUM PROCESOS     : <%=  @total_main_processes %><br>
+         NUM SUBPROCESOS  : <%=  @total_sub_processes %>
+         NUM INDICADORES  : <%=  @total_indicadores %>
+         TOTAL INDICADORES: <%=  @suma_indicadores %>
     </div>
     <div class="staff medium-3 short-3 columns">
       <div class="row header">
@@ -21,21 +23,20 @@
             <div class="row">
               <div class="medium-1 small-1 columns"> </div>
                   <div class="medium-2 short-2 columns">
-                      <%= @total_staff_sub_process_A1 %>
+                    <%= @total_staff_sub_process_A1 %>
                   </div>
                   <div class="medium-2 short-2 columns">
-                      <%= @total_staff_sub_process_A1 %>
+                    <%= @total_staff_sub_process_A1 %>
                   </div>
                   <div class="medium-2 short-2 columns">
-                      <%= @total_staff_sub_process_C1 %>
+                    <%= @total_staff_sub_process_C1 %>
                   </div>
                   <div class="medium-2 short-2 columns">
-                      <%= @total_staff_sub_process_C2 %>
+                    <%= @total_staff_sub_process_C2 %>
                   </div>
                   <div class="medium-2 short-2 columns">
-                      <%= @total_staff_sub_process_E %>
+                    <%= @total_staff_sub_process_E %>
                   </div>
-
               </div>
             </div>
           </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601174505) do
+ActiveRecord::Schema.define(version: 20160603094405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,10 +198,10 @@ ActiveRecord::Schema.define(version: 20160601174505) do
   create_table "total_indicators", force: :cascade do |t|
     t.integer  "indicator_metric_id"
     t.string   "type"
-    t.integer  "sub_process_group_id"
     t.string   "updated_by"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "indicator_group_id"
   end
 
   create_table "unit_types", force: :cascade do |t|
@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 20160601174505) do
     t.string   "updated_by"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "order"
   end
 
   create_table "units", force: :cascade do |t|
@@ -220,6 +221,7 @@ ActiveRecord::Schema.define(version: 20160601174505) do
     t.string   "updated_by"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "order"
   end
 
 end

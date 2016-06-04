@@ -1,10 +1,12 @@
-<div class="row " >
+<div class="row ">
   <div class="unit medium-12 short-12 columns">
-    <h3> <%= @unit.description_sap %> </h3>
+    <h3>
+      <%= @unit.description_sap %>
+    </h3>
   </div>
   <% @main_processes.each do |main_process| %>
     <% if sub_processes_unit(main_process, @unit).count > 0 %>
-      <div class="row" >
+      <div class="row">
           <div class="main_process medium-12 short-12 columns">
             <h5><%= description(0, main_process.item_id) %></h5>
           </div>
@@ -22,27 +24,26 @@
             <tr>
               <th id="indicator_col">Indicador </th>
               <th id="entrada_salida">Entrada/Salida </th>
-              <th id="metric_col">Métrica </th>
               <th id="source_col">Fuente </th>
+              <th id="metric_col">Métrica </th>
               <th id="amount_col">Cantidad </th>
               <th id="staff_col" colspan= "5"> </th>
             </tr>
             <% sub_process.indicators.each do |indicator| %>
               <% indicator.indicator_metrics.all.each do |indicator_metric| %>
                 <tr>
-
                   <td id="<%= "indicator_col_#{indicator.id}" %>"> <%= description(0, indicator.item_id) %> </td>
-                  <% entry_indicator = get_entry_indicator(indicator_metric) %>
+                  <% entry_indicator = get_entry_indicator(indicator_metric, @unit) %>
                   <td id="entrada_salida"> <%= get_in_out(indicator_metric) %> </td>
 
                   <td id= "source_col"> <%= sources_description( indicator.id, indicator.sources) %></td>
                   <td id="metric_col"><%= get_metric(indicator_metric) %> </td>
                   <td id="amount_col" class="float-left">
+                  <% amount_value = get_amount(entry_indicator, @unit) %>
                     <% if @period.is_open? %>
-                      <input class="amount" id="amount" placeholder="
-                          <%= amount_value %>"><%= get_amount(indicator_metric) %> </input>
+                      <input class="amount" id="amount" placeholder="<%= amount_value %>"><%= amount_value %> </input>
                     <% else %>
-                       <%= get_amount(indicator_metric) %>
+                      <%= amount_value %>
                     <% end %>
                   </td>
                   <td>  <td>
@@ -51,9 +52,8 @@
             <% end %>
           </table>
        </div>
-        <%= render 'staff', sub_process: sub_process %>
+       <%= render 'staff', sub_process: sub_process %>
       <% end %>
     <% end %>
   <% end %>
-  <%= render 'summary' %>
-</div>
+ </div>

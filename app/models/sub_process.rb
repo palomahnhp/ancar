@@ -4,6 +4,7 @@ class SubProcess < ActiveRecord::Base
   has_many :assigned_employees, as: :staff
 
   belongs_to :main_process
+  belongs_to :unit_type
   belongs_to :item, -> { where item_type: "sub_process" }
 
   validates :main_process_id, presence: true
