@@ -3,13 +3,14 @@ class User < ActiveRecord::Base
   has_one :administrator
   has_one :valuator
   has_one :manager
+  has_many :organizations, through: :user_organizations
 
   #accepts_nested_attributes_for :organization, update_only: true
 
   scope :administrators, -> { joins(:administrator) }
   scope :moderators,     -> { joins(:moderator) }
   scope :valuators,     -> { joins(:valuator) }
-#  scope :organizations,  -> { joins(:organization) }
+  scope :organizations,  -> { joins(:organization) }
 #  scope :by_document,    -> (document_type, document_number) { where(document_type: document_type, document_number: document_number) }
 
   def administrator?
@@ -27,4 +28,9 @@ class User < ActiveRecord::Base
   def organization?
 #    organization.present?
   end
+
+  def full_name
+    name + " " + first_surname + " " + second_surname
+  end
+
 end

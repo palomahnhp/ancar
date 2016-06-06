@@ -17,7 +17,8 @@
     </li>
   <% end %>
 
-    <li>
-      <%= link_to t("application.close"), root_path %>
-    </li>
+  <li>
+    <%= link_to t("application.close"), root_path(logout: "true") %>
+  </li>
+
 <% end %>
