@@ -46,3 +46,24 @@ puts "6. Cargando grupos de personal"
   OfficialGroup.create!(name: "C1", description: "Grupo C1")
   OfficialGroup.create!(name: "C2", description: "Grupo C2")
   OfficialGroup.create!(name: "E",  description: "Grupo E")
+
+puts "7. Creando usuarios"
+
+def create_user(ayre, name = Faker::Name.first_name,
+               first_surname = Faker::Name.last_name, second_surname = Faker::Name.last_name)
+  pwd = '12345678'
+  puts " #{ayre}"
+  User.create!(ayre: ayre, name: name, first_surname: first_surname, second_surname: second_surname)
+end
+
+admin = create_user('adm001')
+admin.create_administrator
+
+manager = create_user('man001')
+manager.create_manager
+
+valuator = create_user('val001')
+valuator.create_valuator
+
+user = create_user('usu001')
+

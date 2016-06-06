@@ -1,31 +1,31 @@
 Rails.application.routes.draw do
-  resources :output_indicators
-  resources :entry_indicators
-  resources :periods
-  resources :entry_tabs
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+
   resources :in_works
   resources :entry_indicators
+
+  resources :periods
 
   namespace :admin do
     root to: "dashboard#index"
       resources :settings
-    resources :sources
-    resources :periods
-    resources :indicators
-    resources :tasks
-    resources :sub_processes
-    resources :main_processes
-    resources :organization_types
-    resources :unit_types
-    resources :organizations
-    resources :units
-    resources :stats
-    resources :in_works
+      resources :sources
+      resources :periods
+      resources :indicators
+      resources :tasks
+      resources :sub_processes
+      resources :main_processes
+      resources :organization_types
+      resources :unit_types
+      resources :organizations
+      resources :units
+      resources :stats
+      resources :in_works
   end
 
   # Example of regular route:
