@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603094405) do
+ActiveRecord::Schema.define(version: 20160605193333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "administrators", force: :cascade do |t|
+    t.integer "user_id"
+  end
+
+  add_index "administrators", ["user_id"], name: "index_administrators_on_user_id", using: :btree
 
   create_table "assigned_employees", force: :cascade do |t|
     t.integer  "staff_of_id"
@@ -101,6 +107,12 @@ ActiveRecord::Schema.define(version: 20160603094405) do
 
   add_index "main_processes", ["item_id"], name: "index_main_processes_on_item_id", using: :btree
   add_index "main_processes", ["period_id"], name: "index_main_processes_on_period_id", using: :btree
+
+  create_table "managers", force: :cascade do |t|
+    t.integer "user_id"
+  end
+
+  add_index "managers", ["user_id"], name: "index_managers_on_user_id", using: :btree
 
   create_table "metrics", force: :cascade do |t|
     t.integer  "item_id"
@@ -224,4 +236,37 @@ ActiveRecord::Schema.define(version: 20160603094405) do
     t.integer  "order"
   end
 
+  create_table "user_organizations", force: :cascade do |t|
+    t.integer "user_id_id"
+    t.integer "organization_id_id"
+  end
+
+  add_index "user_organizations", ["organization_id_id"], name: "index_user_organizations_on_organization_id_id", using: :btree
+  add_index "user_organizations", ["user_id_id"], name: "index_user_organizations_on_user_id_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "ayre"
+    t.integer  "uweb_id"
+    t.string   "name"
+    t.string   "first_surname"
+    t.string   "second_surname"
+    t.string   "document_number"
+    t.string   "document_type"
+    t.integer  "pernr"
+    t.string   "phone"
+    t.string   "official_position"
+    t.string   "string"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "valuators", force: :cascade do |t|
+    t.integer "user_id"
+  end
+
+  add_index "valuators", ["user_id"], name: "index_valuators_on_user_id", using: :btree
+
+  add_foreign_key "administrators", "users"
+  add_foreign_key "managers", "users"
+  add_foreign_key "valuators", "users"
 end

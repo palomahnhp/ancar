@@ -63,7 +63,7 @@ private
       @num += 1
       if ut.nil?
         puts UnitType.all.pluck(:description)
-        raise "Error buscando tipo unidad"
+        raise "Error buscando tipo unidad #{@sap_id} #{name}"
       end
       o = Organization.where(sap_id: @JM_id_sap).first
       u = Unit.create!(unit_type_id: ut.id, organization_id: o.id, description_sap: @nombre, sap_id: @id_sap, order: ut.order)
@@ -78,6 +78,12 @@ private
   def process_sheet(hoja, file_name)
     n = hoja.rows.count
     reset_vars
+    if (hoja.name.include? "Hoja")
+      return
+    end
+    if (hoja.name.downcase.include? "ncidencia")
+      return
+    end
     puts "== #{hoja.name} =="
     # Procesando cabecera de la hoja
     if @first_time
@@ -87,14 +93,13 @@ private
     end
 
     @cell_unit_type =  hoja.row(3)[1]
-    if  @cell_unit_type.nil?
-        #"Hoja sin organización - NO SE PROCESA - #{hoja.row(3)[0,12]}"
-        return
-    end
+
     get_unit
     @cell_efectivos_proc = { "A1": hoja.row(6)[7], "A2": hoja.row(6)[8],
                              "C1": hoja.row(6)[9], "C2": hoja.row(6)[10],
                              "E":  hoja.row(6)[11] }
+    treat_proc("staff_unit", 0)
+
     @cell_dedicacion_proc = { "A1": hoja.row(7)[7], "A2": hoja.row(7)[8],
                               "C1": hoja.row(7)[9], "C2": hoja.row(7)[10],
                               "E":  hoja.row(7)[11] }
@@ -109,17 +114,19 @@ private
         # En el caso de los distritos la tarea es única y no viene en el csv
         import_process('task', 'Tarea')
       when  f[3] == 'TOTAL  SUBPROCESO' then # efectivos subprocess
-        @cell_efectivos_sub_proc = { "A1": f[7],
-                              "A2": f[8].nil? ? 0 : f[8],
-                              "C1": f[9].nil? ? 0 : f[9],
-                              "C2": f[10].nil? ? 0 : f[10],
-                              "E":  f[11].nil? ? 0 : f[11] }
+
+        @cell_efectivos_sub_proc = { "A1": process_cell(f[7]),
+                              "A2": process_cell(f[8]),
+                              "C1": process_cell(f[9]),
+                              "C2": process_cell(f[10]),
+                              "E":  procaess_cell(f[11]) }
 
         treat_proc("staff", 0)
+
       when  !f[3].nil? && f[3] != 'TOTAL  SUBPROCESO' # indicator
         @cell_metric = f[4]
         @cell_source = f[5]
-        if  f[6].class.to_s  == 'Spreadsheet::Formula'
+        if f[6].class.to_s == 'Spreadsheet::Formula'
           @cell_amount = f[6].value
         elsif f[6].class.to_s  == 'Fixnum' || f[6].class.to_s  == 'Float'
           @cell_amount =  f[6]
@@ -162,16 +169,17 @@ private
     if @ut
        puts "UNIT_TYPE:          #{@ut.description}"
     else
-      raise "Error: Tipo de unidad no encontrada: #{@unit_type_description}"
+      raise "Error: Tipo de unidad no encontrada: #{@cell_unit_type} #{@sap_id}"
     end
 
     @u = Unit.where(unit_type_id: @ut.id, organization_id: @o.id).first
     if @u
 #      # puts "UNIT: #{@u.description_sap}"
     else
-      raise "Error: Unidad no encontrada: #{@cell_unit_type}"
+      debugger
+      raise "Error: Unidad no encontrada: #{@cell_unit_type} #{@sap_id}"
     end
-   @cell_unit_type  = @cell_unit = nil
+    @cell_unit_type  = @cell_unit = nil
   end
 
   def import_process(type, description)
@@ -274,11 +282,25 @@ private
       end
 
       @cell_efectivos_sub_proc = false
+    when "staff_unit"
+      @cell_efectivos_proc.each do |group, quantity|
+        gr = OfficialGroup.where(name: group).first
+        @ae = AssignedEmployee.create!(staff_of_id: @sp.id, staff_of_type: "Unit", official_groups_id: gr.id,
+          quantity: quantity, updated_by: "import")
+         print "      Staff : #{group} #{quantity} "
+      end
+
+      @cell_efectivos_sub_proc = false
     end #end case
   end
 
   def convert_om(unit_type_description)
     # Se igual el nombre de las hojas con indicadores con el de EOM
+    if unit_type_description.nil? then
+      debugger
+      unit_type_description = ""
+    end
+    unit_type_description.strip! # Elimina blancos
     case  unit_type_description
     when "DEPARTAMENTO DE SERVICIOS JURÍDICOS" then
       "DEPARTAMENTO DE SERVICIOS JURIDICOS"
@@ -313,6 +335,8 @@ private
   end
 
   def in_out(unit_type, indicador, metrica)
+    unit_type.strip! # Elimina blancos
+
     if unit_type == "DEPARTAMENTO DE SERVICIOS JURIDICOS"
       case
       when indicador == "Contratos derivados del acuerdo Marco" && metrica == "nº de expedientes"
@@ -353,4 +377,15 @@ private
     @tot_sub_process = 0
     @tot_indicators = 0
     @num_indicators = 0
+  end
+
+  def process_cell(value)
+    case
+    when value.nil?
+      0
+    when value.class_to_s == "Spreadsheet::Formula"
+      value.value
+    else
+      value
+    end
   end

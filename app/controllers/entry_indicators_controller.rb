@@ -1,10 +1,10 @@
 class EntryIndicatorsController < ApplicationController
   before_action :set_entry_indicator, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, only: [:index, :show]
 
   # GET /entry_indicators
   # GET /entry_indicators.json
   def index
-
     if params[:organization_id].nil?
       # La organization se debe obtener del user
       # Se cargan todas las organizaciones hasta que se implementen usuarios
