@@ -95,14 +95,17 @@ private
     @cell_unit_type =  hoja.row(3)[1]
 
     get_unit
-    @cell_efectivos_proc = { "A1": hoja.row(6)[7], "A2": hoja.row(6)[8],
-                             "C1": hoja.row(6)[9], "C2": hoja.row(6)[10],
-                             "E":  hoja.row(6)[11] }
+
+    @cell_efectivos_proc = { "A1": process_cell(hoja.row(7)[7]),
+                             "A2": process_cell(hoja.row(7)[8]),
+                             "C1": process_cell(hoja.row(7)[9]),
+                             "C2": process_cell(hoja.row(7)[10]),
+                             "E":  process_cell(hoja.row(7)[11])}
     treat_proc("staff_unit", 0)
 
-    @cell_dedicacion_proc = { "A1": hoja.row(7)[7], "A2": hoja.row(7)[8],
-                              "C1": hoja.row(7)[9], "C2": hoja.row(7)[10],
-                              "E":  hoja.row(7)[11] }
+    @cell_dedicacion_proc = { "A1": hoja.row(8)[7], "A2": hoja.row(8)[8],
+                              "C1": hoja.row(8)[9], "C2": hoja.row(8)[10],
+                              "E":  hoja.row(8)[11] }
     (hoja.rows).each do |f|
       cols = f.count
 
@@ -119,7 +122,7 @@ private
                               "A2": process_cell(f[8]),
                               "C1": process_cell(f[9]),
                               "C2": process_cell(f[10]),
-                              "E":  procaess_cell(f[11]) }
+                              "E":  process_cell(f[11]) }
 
         treat_proc("staff", 0)
 
@@ -176,7 +179,6 @@ private
     if @u
 #      # puts "UNIT: #{@u.description_sap}"
     else
-      debugger
       raise "Error: Unidad no encontrada: #{@cell_unit_type} #{@sap_id}"
     end
     @cell_unit_type  = @cell_unit = nil
@@ -285,7 +287,7 @@ private
     when "staff_unit"
       @cell_efectivos_proc.each do |group, quantity|
         gr = OfficialGroup.where(name: group).first
-        @ae = AssignedEmployee.create!(staff_of_id: @sp.id, staff_of_type: "Unit", official_groups_id: gr.id,
+        @ae = AssignedEmployee.create!(staff_of_id: @u.id, staff_of_type: "Unit", official_groups_id: gr.id,
           quantity: quantity, updated_by: "import")
          print "      Staff : #{group} #{quantity} "
       end
@@ -383,7 +385,7 @@ private
     case
     when value.nil?
       0
-    when value.class_to_s == "Spreadsheet::Formula"
+    when value.class.to_s == "Spreadsheet::Formula"
       value.value
     else
       value

@@ -12,13 +12,15 @@ class ApplicationController < ActionController::Base
     if (params["login"])
       user = User.find_by_ayre(params["login"])
       if user
-        session[:user_id]  = User.find_by_ayre(params["login"]).id
-       redirect_to root_url, notice: "Usuario no válido"
+        session[:user_id]  = user.id
       end
     end
 
     if !current_user
-       redirect_to root_url, notice: "Usuario no conectado"
+
+       if self.controller_name  !=  'welcome'
+          redirect_to root_url, notice: "Usuario no conectado"
+       end
     end
 #   redirect_to root_url unless current_user
   end
