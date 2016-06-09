@@ -67,3 +67,15 @@ valuator.create_valuator
 
 user = create_user('usu001')
 
+=begin
+puts "8. Creando grupos de indicadores"
+  IndicatorGroup.create!(description: "CONTRATOS MENORES", updated_by: "seed")
+  IndicatorGroup.create!(description: "CONTRATOS DERIVADOS MARCO", updated_by: "seed")
+  IndicatorGroup.create!(description: "RESTO CONTRATOS", updated_by: "seed")
+  IndicatorGroup.create!(description: "TERRAZAS Y VELADORES Y CONCESIONES", updated_by: "seed")
+  IndicatorGroup.create!(description: "RESTO AUTORIZACIONES (MENOS SITUADOS)", updated_by: "seed")
+  IndicatorGroup.create!(description: "SITUADOS", updated_by: "seed")
+  IndicatorGroup.create!(description: "DECLARACIONES Y COMUNICACIONES", updated_by: "seed")
+  IndicatorGroup.create!(description: "TODO TIPO DE LICENCIAS", updated_by: "seed")
+  IndicatorGroup.create!(description: "CONSULTAS URBANISTICAS Y PLANEAMIENTO", updated_by: "seed")
+=end
