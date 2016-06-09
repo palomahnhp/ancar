@@ -118,6 +118,7 @@ private
     @hash_log[:tipo_unidad] = @cell_unit_type unless @process_structure
 
     get_unit
+
     if !@process_structure
       @cell_efectivos_unit = { A1: process_cell(hoja.row(7)[7]),
                                A2: process_cell(hoja.row(7)[8]),
@@ -150,6 +151,7 @@ private
         # En el caso de los distritos la tarea es única y no viene en el csv
         import_process('task', 'Tarea')
       when  f[3] == 'TOTAL  SUBPROCESO' then # efectivos subprocess
+
         if !@process_structure
          @cell_efectivos_sub_proc = { A1: process_cell(f[7]),
                                 A2: process_cell(f[8]),
@@ -222,6 +224,7 @@ private
     if @u
 #      # puts "UNIT: #{@u.description_sap}"
     else
+
       @hash_log[:observaciones] = "*** ERROR: Unidad no encontrada: #{@cell_unit_type} #{@sap_id}\n"
       write_log
       raise "Error: Unidad no encontrada: #{@cell_unit_type} #{@sap_id}"
@@ -389,6 +392,7 @@ private
 
       @cell_efectivos_sub_proc = false
     when "staff_unit"
+
       if !@process_structure
         @cell_efectivos_unit.each do |group, quantity|
           gr = OfficialGroup.where(name: group).first
