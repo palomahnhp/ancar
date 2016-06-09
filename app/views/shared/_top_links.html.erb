@@ -1,6 +1,10 @@
 <section class="top-links hide-for-small-only">
   <div class="row">
-      <%= "Nombre del usuario conectado"  %>
+      <%= if current_user
+            current_user.full_name
+          else
+            "No se ha iniciado sesión: usuario no conectado"
+          end  %>
     <div class="external-links">
       <%= link_to "Ayre", setting["ayre_url"], class: ("selected") %>
     </div>
