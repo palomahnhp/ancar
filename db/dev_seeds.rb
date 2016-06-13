@@ -68,6 +68,12 @@ admin.create_administrator
 admin = User.create!(ayre: "pac001", name: "Pascual", first_surname: "Artigas", second_surname: "Conesa")
 admin.create_administrator
 
+admin = User.create!(ayre: "mjs016", name: "Mª Rosario", first_surname: "Jiménez", second_surname: "Santiago")
+admin.create_administrator
+
+admin = User.create!(ayre: "slf006", name: "Susana", first_surname: "Lemonche", second_surname: "Fernández")
+admin.create_administrator
+
 admin = User.create!(ayre: "adm001", name: "Usuario", first_surname: "Administrador", second_surname: "IAM")
 admin.create_administrator
 
@@ -83,3 +89,5 @@ User.create!(ayre: "bar001", name: "Usuario", first_surname: "Distrito", second_
 User.create!(ayre: "arg001", name: "Usuario", first_surname: "Distrito", second_surname: "Arganzuela")
 User.create!(ayre: "lat001", name: "Usuario", first_surname: "Distrito", second_surname: "Latina")
 User.create!(ayre: "sal001", name: "Usuario", first_surname: "Distrito", second_surname: "Salamanca")
+
+IndicatorGroup.create!(description: "mi descripcion", updated_by: "seed")
