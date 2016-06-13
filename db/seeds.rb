@@ -43,3 +43,38 @@ puts "6. Cargando grupos de personal"
   OfficialGroup.create!(name: "C1", description: "Grupo C1")
   OfficialGroup.create!(name: "C2", description: "Grupo C2")
   OfficialGroup.create!(name: "E",  description: "Grupo E")
+
+puts "7. Creando usuarios genéricos"
+
+admin = User.create!(ayre: "phn001", name: "Paloma", first_surname: "Hernández", second_surname: "Navarro")
+admin.create_administrator
+
+admin = User.create!(ayre: "ltm004", name: "Leonor", first_surname: "Torres", second_surname: "Moreno")
+admin.create_administrator
+
+admin = User.create!(ayre: "pac001", name: "Pascual", first_surname: "Artigas", second_surname: "Conesa")
+admin.create_administrator
+
+admin = User.create!(ayre: "mjs016", name: "Mª Rosario", first_surname: "Jiménez", second_surname: "Santiago")
+admin.create_administrator
+
+admin = User.create!(ayre: "slf006", name: "Susana", first_surname: "Lemonche", second_surname: "Fernández")
+admin.create_administrator
+
+
+
+admin = User.create!(ayre: "adm001", name: "Usuario", first_surname: "Administrador", second_surname: "IAM")
+admin.create_administrator
+
+manager= User.create!(ayre: "man001", name: "Usuario", first_surname: "Gestor", second_surname: "Planificación")
+manager.create_manager
+
+valuator = User.create!(ayre: "val001", name: "Usuario", first_surname: "Validador", second_surname: "Distrito")
+valuator.create_valuator
+
+User.create!(ayre: "cen001", name: "Usuario", first_surname: "Distrito", second_surname: "Centro")
+User.create!(ayre: "hor001", name: "Usuario", first_surname: "Distrito", second_surname: "Hortaleza")
+User.create!(ayre: "bar001", name: "Usuario", first_surname: "Distrito", second_surname: "Barajas")
+User.create!(ayre: "arg001", name: "Usuario", first_surname: "Distrito", second_surname: "Arganzuela")
+User.create!(ayre: "lat001", name: "Usuario", first_surname: "Distrito", second_surname: "Latina")
+User.create!(ayre: "sal001", name: "Usuario", first_surname: "Distrito", second_surname: "Salamanca")
