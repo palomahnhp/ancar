@@ -68,11 +68,11 @@ admin.create_administrator
 admin = User.create!(ayre: "pac001", name: "Pascual", first_surname: "Artigas", second_surname: "Conesa")
 admin.create_administrator
 
-admin = User.create!(ayre: "mjs016", name: "Mª Rosario", first_surname: "Jiménez", second_surname: "Santiago")
-admin.create_administrator
+manager = User.create!(ayre: "mjs016", name: "Mª Rosario", first_surname: "Jiménez", second_surname: "Santiago")
+manager.create_manager
 
-admin = User.create!(ayre: "slf006", name: "Susana", first_surname: "Lemonche", second_surname: "Fernández")
-admin.create_administrator
+manager = User.create!(ayre: "slf006", name: "Susana", first_surname: "Lemonche", second_surname: "Fernández")
+manager.create_manager
 
 admin = User.create!(ayre: "adm001", name: "Usuario", first_surname: "Administrador", second_surname: "IAM")
 admin.create_administrator
