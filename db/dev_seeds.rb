@@ -90,4 +90,18 @@ User.create!(ayre: "arg001", name: "Usuario", first_surname: "Distrito", second_
 User.create!(ayre: "lat001", name: "Usuario", first_surname: "Distrito", second_surname: "Latina")
 User.create!(ayre: "sal001", name: "Usuario", first_surname: "Distrito", second_surname: "Salamanca")
 
+user = create_user('usu001')
+
+puts "8. Creando grupos de indicadores"
+  IndicatorGroup.create!(description: "CONTRATOS MENORES", updated_by: "seed")
+  IndicatorGroup.create!(description: "CONTRATOS DERIVADOS MARCO", updated_by: "seed")
+  IndicatorGroup.create!(description: "RESTO CONTRATOS", updated_by: "seed")
+  IndicatorGroup.create!(description: "TERRAZAS Y VELADORES Y CONCESIONES", updated_by: "seed")
+  IndicatorGroup.create!(description: "RESTO AUTORIZACIONES (MENOS SITUADOS)", updated_by: "seed")
+  IndicatorGroup.create!(description: "SITUADOS", updated_by: "seed")
+  IndicatorGroup.create!(description: "DECLARACIONES Y COMUNICACIONES", updated_by: "seed")
+  IndicatorGroup.create!(description: "TODO TIPO DE LICENCIAS", updated_by: "seed")
+  IndicatorGroup.create!(description: "CONSULTAS URBANISTICAS Y PLANEAMIENTO", updated_by: "seed")
+
 IndicatorGroup.create!(description: "mi descripcion", updated_by: "seed")
+
