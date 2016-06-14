@@ -65,17 +65,6 @@ namespace :import do
        puts "Creando: #{hoja.name} - nº: #{@num}"
      end
    end
-
-   desc "Import adding up indicators"
-  task sumandos: :environment do
-    fichero = "../Sumandos.xls"
-    libro = Spreadsheet.open fichero
-
-    (3..10).each do |i|
-      hoja = libro.worksheet i
-      puts "Procesando hoja #{hoja.name}"
-    end
-  end
 end
 
 private
