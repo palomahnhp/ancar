@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    debugger
     if (params["login"])
       user = User.find_by_ayre(params["login"].downcase)
       if user
