@@ -68,6 +68,12 @@ admin.create_administrator
 admin = User.create!(ayre: "pac001", name: "Pascual", first_surname: "Artigas", second_surname: "Conesa")
 admin.create_administrator
 
+manager = User.create!(ayre: "mjs016", name: "Mª Rosario", first_surname: "Jiménez", second_surname: "Santiago")
+manager.create_manager
+
+manager = User.create!(ayre: "slf006", name: "Susana", first_surname: "Lemonche", second_surname: "Fernández")
+manager.create_manager
+
 admin = User.create!(ayre: "adm001", name: "Usuario", first_surname: "Administrador", second_surname: "IAM")
 admin.create_administrator
 
@@ -86,7 +92,6 @@ User.create!(ayre: "sal001", name: "Usuario", first_surname: "Distrito", second_
 
 user = create_user('usu001')
 
-#=begin
 puts "8. Creando grupos de indicadores"
   IndicatorGroup.create!(description: "CONTRATOS MENORES", updated_by: "seed")
   IndicatorGroup.create!(description: "CONTRATOS DERIVADOS MARCO", updated_by: "seed")
@@ -98,4 +103,5 @@ puts "8. Creando grupos de indicadores"
   IndicatorGroup.create!(description: "TODO TIPO DE LICENCIAS", updated_by: "seed")
   IndicatorGroup.create!(description: "CONSULTAS URBANISTICAS Y PLANEAMIENTO", updated_by: "seed")
 
-#=end
+IndicatorGroup.create!(description: "mi descripcion", updated_by: "seed")
+

@@ -118,7 +118,7 @@ namespace :total_indicators do
                 puts "IndicatorMetricId = #{@ind_mt.id}, Type = #{@type}, IndicatorGroup = #{@ind_gr_id}"
                 
                 for i in (0..@type.length-1);
-                  TotalIndicator.create!(indicator_metric_id: @ind_mt.id, indicator_type: @type[i], indicator_group_id: @ind_gr_id, updated_by: 'import')
+                  TotalIndicator.create!(indicator_metric_id: @ind_mt.id, type: @type[i], indicator_group_id: @ind_gr_id, updated_by: 'import')
                 end
 
               else
