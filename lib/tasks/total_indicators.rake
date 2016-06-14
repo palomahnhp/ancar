@@ -1,78 +1,140 @@
-namespace :import do
+namespace :total_indicators do
   require 'spreadsheet'
 =begin
-  Tiene dos tareas:
-  -  - DISTRITO:
-         IMPORTACIÓN INICIAL DE DATOS GENERALES Y DATOS DE ENTRADA DE DISTRITOS
-         Entrada: excel de cada distrito 99999999_distrito.xls 99999999 -> id de SAP del distrito.
-     - UNIDADES:
-         Carga inicial del organigrama de Distrito obtenidos de Directorio
+  Tiene una única tarea, load, que carga los datos de la tabla
 =end
 
-  desc "Import process structure"
-  task procesos: :environment do
-    file = "../procesos.xls"
-    libro = Spreadsheet.open file
-    @first_time = true
-    @deb = false
-    @process_structure = true
-    cab_log
-    write_log
-    init_log
-    clear_data
-    (10000002..10000002).each  do |o|
-    # Procesando las hojas de los departamentos
-      @sap_id = o
-      (3..11).each do |i|
-         hoja = libro.worksheet i
-         process_sheet(hoja, file)
-       end
-     end
-  end
-
-  desc "Import organizations data"
-  task indicadores: :environment do
-      init_log
-      write_log
-    Dir["../CargasDistritos/*"].each do |file|
-      libro = Spreadsheet.open file
-      @sap_id = File.basename(file)[0,8]
-      @first_time = true
-      @deb = false
-
-      @hash_log = Hash.new(" ")
-      @hash_log[:DISTRITO] = file
-    # Procesando las hojas de los departamentos
-      (3..10).each do |i|
-         hoja = libro.worksheet i
-         process_sheet(hoja, file)
-       end
-    end
-  end
-
-  desc "import units"
-  task distritos: :environment do
-#    Rake::Task["db:seed"].execute
-    file_name = "../UnidadesDistritos.xls"
-    libro = Spreadsheet.open file_name
-
-    # Procesando las hojas de los departamentos
-    (0..8).each do |i|
-       hoja = libro.worksheet i
-       @num = 0
-       process_units(hoja, i)
-       puts "Creando: #{hoja.name} - nº: #{@num}"
-     end
-   end
-
-   desc "Import adding up indicators"
-  task sumandos: :environment do
+  desc "Import adding up indicators"
+  task load: :environment do
     fichero = "../Sumandos.xls"
     libro = Spreadsheet.open fichero
 
+    cab_log
+    write_log
+    init_log
+    #clear_data
+    TotalIndicator.delete_all
+    @per = Period.first
+    @num_main_process = 0
+    @num_sub_process = 0
+    @num_indicators = 0
+    @tot_indicators = 0
+    #@cell_amount = 0
+    @organization_type = OrganizationType.where(description: 'Distritos').first
+#### TODO: bucle para 21 JD    
+    @o = Organization.first # Probamos con una JD. ¿¿¿¿??????
+
+
     (3..10).each do |i|
+
       hoja = libro.worksheet i
       puts "Procesando hoja #{hoja.name}"
+      @cell_unit_type =  hoja.row(3)[1]
+      @hash_log[:tipo_unidad] = @cell_unit_type unless @process_structure
+      get_unit
+
+
+      ####### ADAPTANDO ##########################
+      (hoja.rows).each do |f|
+
+        next if  f.idx.between?(0,5)
+        #cols = f.count
+
+        case
+        when f[0] == 0 then
+          break
+
+        when !f[0].nil? && (f[0].is_a? Numeric) && (f[0].between?(1,25)) then #MainProcess
+          import_process('main_process', f[1])
+          puts "Proceso: #{@mp.id} #{@mp.item.description}"
+          
+         when !f[2].nil? then # subprocess
+          import_process('sub_process', f[3])
+          #puts "Subproceso: #{@sp.id} #{@sp.item.description}"
+
+         #  # En el caso de los distritos la tarea es única y no viene en el csv
+           import_process('task', 'Tarea')
+           #@tk = Task.where(sub_process_id: @sp.id, item_id: 3, updated_by: "import").first
+           #puts "Tarea: #{@tk}"
+
+        # when  f[3] == 'TOTAL  SUBPROCESO' then # efectivos subprocess
+
+        when  !f[3].nil? && f[3] != 'TOTAL  SUBPROCESO' # indicator
+=begin
+          description = f[3]
+          convert_string(description)
+          # @metric = f[4]
+          # @in_out = f[7]
+          # @type = f[8]
+          # @indicator_group = f[9]
+          # if !@type.nil?
+          #   #puts "Indicador: #{@indicator} Métrica: #{@metric} InOut: #{@in_out} Type: #{@type} IndicatorGroup: #{@indicator_group}"
+          @indicator_it = Item.where(item_type: 'indicator', description: description)
+          if @indicator_it.nil?
+            puts "NULO"
+          else
+            puts "#{@indicator_it} #{description}"
+          end
+          ####### @ind = Indicator.where(task_id: @tk.id, item_id:id).first
+          ####### puts "Indicador: #{@ind.id} #{@ind.item.description}"
+          #   puts ""
+          #   #puts "Indicador: #{@indicator_it.id} #{@indicator_it.description}"
+          # end
+=end
+
+          @cell_metric = f[4]
+          @hash_log[:metrica] = @cell_metric unless @process_structure
+          @cell_source = f[5]
+          #   if f[6].class.to_s == 'Spreadsheet::Formula'
+          #     @cell_amount = f[6].value
+          #   elsif f[6].class.to_s  == 'Fixnum' || f[6].class.to_s  == 'Float'
+          #     @cell_amount =  f[6]
+          #   else
+          @cell_amount = 0
+          #   end
+          #@hash_log[:cantidad] = @cell_metric unless @process_structure
+          @type = f[8]
+          @indicator_group = f[9]
+          if !@type.nil?
+            import_process('indicator', f[3])
+            if !@ind.nil?
+              #puts "Indicador: #{@ind.id} #{@ind.item.description}"
+              #puts "Metrica: #{@mt.id} #{@mt.item.description}"
+              @ind_mt = IndicatorMetric.where(indicator_id: @ind.id, metric_id: @mt.id).first
+              if !@ind_mt.nil?
+              @ind_gr_id = nil
+#=begin
+                if !@indicator_group.nil? #### VER XQ NO RECUEPRA IND-GR
+                  #convert_string(@indicator_group) # almacena el valor en description
+                  @ind_gr = IndicatorGroup.where(description: @indicator_group).first
+                  if !@ind_gr.nil?
+                    #puts "IndicatorGroup: #{@ind_gr.id} #{@ind_gr.description}"
+                    @ind_gr_id = @ind_gr.id
+                  else
+                    puts "\N======> INDICATOR GROUP NO ENCONTRADO"
+                  end
+                end
+#=end
+                puts "IndicatorMetricId = #{@ind_mt.id}, Type = #{@type}, IndicatorGroup = #{@ind_gr_id}"
+                
+                for i in (0..@type.length-1);
+                  TotalIndicator.create!(indicator_metric_id: @ind_mt.id, indicator_type: @type[i], indicator_group_id: @ind_gr_id, updated_by: 'import')
+                end
+
+              else
+                puts "INDICATOR-METRIC NO EXISTE"
+              end
+            else
+              puts "\n=====> NO EXISTE EL INDICADOR: #{f[3]}"
+            end
+          end
+        end
+      end
+
+
+
+
+      ####### FIN DE ADAPTANDO ###################
     end
   end
 end
@@ -269,7 +331,7 @@ private
   def treat_proc(type, id, description)
     case type
     when "main_process"
-      stats("main_process")
+      stats("ma@tot_indicatorsin_process")
       @mp = MainProcess.where(period_id: @per.id, item_id: id, updated_by: "import").first
       if @mp.nil?
         if @process_structure # se crea item solo en proceso de estructura
