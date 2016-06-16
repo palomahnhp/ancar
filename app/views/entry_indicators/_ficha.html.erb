@@ -23,7 +23,6 @@
           <table >
             <tr>
               <th id="indicator_col">Indicador </th>
-              <th id="entrada_salida">Entrada/Salida </th>
               <th id="source_col">Fuente </th>
               <th id="metric_col">Métrica </th>
               <th id="amount_col">Cantidad </th>
@@ -33,13 +32,10 @@
               <% indicator.indicator_metrics.all.each do |indicator_metric| %>
                 <tr>
                   <td id="<%= "indicator_col_#{indicator.id}" %>"> <%= description(0, indicator.item_id) %> </td>
-                  <% entry_indicator = get_entry_indicator(indicator_metric, @unit) %>
-                  <td id="entrada_salida"> <%= get_in_out(indicator_metric) %> </td>
-
                   <td id= "source_col"> <%= sources_description( indicator.id, indicator.sources) %></td>
                   <td id="metric_col"><%= get_metric(indicator_metric) %> </td>
-                  <td id="amount_col" class="float-left">
-                  <% amount_value = get_amount(entry_indicator, @unit) %>
+                  <td id="amount_col%>" class="float-left">
+                    <% amount_value = get_amount(indicator_metric, @unit) %>
                     <% if @period.is_open? %>
                       <input class="amount" id="amount" placeholder="<%= amount_value %>"><%= amount_value %> </input>
                     <% else %>

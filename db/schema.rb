@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160605193333) do
+ActiveRecord::Schema.define(version: 20160616111057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20160605193333) do
     t.decimal  "quantity",           precision: 5, scale: 2
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+    t.integer  "unit_id_id"
+    t.integer  "unit_id"
   end
 
   create_table "entry_indicator_sources", force: :cascade do |t|
@@ -195,6 +197,21 @@ ActiveRecord::Schema.define(version: 20160605193333) do
   add_index "sub_processes", ["main_process_id"], name: "index_sub_processes_on_main_process_id", using: :btree
   add_index "sub_processes", ["unit_type_id"], name: "index_sub_processes_on_unit_type_id", using: :btree
 
+  create_table "summary_processes", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "process_id"
+    t.string   "process_type"
+    t.decimal  "amount",       precision: 12, scale: 2
+    t.decimal  "A1",           precision: 5,  scale: 2
+    t.decimal  "A2",           precision: 5,  scale: 2
+    t.decimal  "C1",           precision: 5,  scale: 2
+    t.decimal  "C2",           precision: 5,  scale: 2
+    t.decimal  "E",            precision: 5,  scale: 2
+    t.string   "updated_by"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.integer  "sub_process_id"
     t.integer  "item_id"
@@ -209,7 +226,7 @@ ActiveRecord::Schema.define(version: 20160605193333) do
 
   create_table "total_indicators", force: :cascade do |t|
     t.integer  "indicator_metric_id"
-    t.string   "type"
+    t.string   "indicator_type"
     t.string   "updated_by"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false

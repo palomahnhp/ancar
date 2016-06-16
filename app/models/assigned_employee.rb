@@ -1,6 +1,6 @@
 class AssignedEmployee < ActiveRecord::Base
   belongs_to :staff, polymorphic: true
-  belongs_to :offical_groups
+  belongs_to :official_group
 
   validates_inclusion_of :staff_of_type, in: ["Unit", "SubProcess"]
 end

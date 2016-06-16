@@ -1,5 +1,12 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+# Incicializar BD Arranque Distritos:
+#  - db:seed -> incluye llamada a
+#       - import:distritos - UnidadesDistritos.xls  -> carga unidades distritos partiendo Directorio
+#       - import:procesos  - procesos_distritos_2015.xls  ->
+#  - import:indicadores - Carga/Distritos/99999999_nombre_distrito.xls
+#  - total_indicators:load - Sumandos.xls
+#  - stats:agregar_indicadores --> genera summary_processes
 #
 require 'database_cleaner'
 
@@ -76,3 +83,9 @@ User.create!(ayre: "bar001", name: "Usuario", first_surname: "Distrito", second_
 User.create!(ayre: "arg001", name: "Usuario", first_surname: "Distrito", second_surname: "Arganzuela")
 User.create!(ayre: "lat001", name: "Usuario", first_surname: "Distrito", second_surname: "Latina")
 User.create!(ayre: "sal001", name: "Usuario", first_surname: "Distrito", second_surname: "Salamanca")
+
+puts " 8. Cargar distritos"
+  Rake::Task['import:distritos'].invoke
+
+#puts " 9. Cargar procesos"
+#  Rake::Task['import:procesos'].invoke

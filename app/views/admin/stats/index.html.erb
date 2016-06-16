@@ -1,10 +1,11 @@
-<p id="notice"><%= notice %></p>
+<%= render "admin/shared/index" %>
 
+
+<%= link_to 'New Stat', new_admin_stat_path %>
 <h2><%= t("admin.stats.index.title") %></h2>
-  <% if @sub_processes.nil? %>
-    <%= render 'admin/shared/in_works' %>
+  <% if @stats.nil? %>
+    No hay datos hay que generar
   <% else %>
     <%= render 'item_list' %>
   <% end %>
 </p>
-<%= link_to 'New Stat', new_admin_stat_path %>
