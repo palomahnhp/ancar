@@ -36,12 +36,9 @@ module AppHelper
     end
   end
 
-  def get_entry_indicator(im, unit)
-    EntryIndicator.where(indicator_metric_id: im.id, unit_id: unit.id).first
-  end
-
-  def get_amount(ei, unit)
-    ei.nil? ? "" : ei.amount
+  def get_amount(im, unit)
+    ei = EntryIndicator.where(indicator_metric_id: im.id, unit_id: unit.id).first
+    amount = ei.nil? ? 0 : ei.amount
   end
 
   def get_metric(im)

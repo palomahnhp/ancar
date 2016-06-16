@@ -73,6 +73,9 @@ gem 'unicorn'
 
 # to read and write Spreadsheet Documents. As of version 0.6.0, only Microsoft Excel compatible spreadsheets are supported
 gem 'spreadsheet', '~> 1.1', '>= 1.1.2'
+
+# Create beautiful Javascript charts with one line of Ruby
+gem "chartkick"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
