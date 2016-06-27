@@ -87,5 +87,12 @@ User.create!(ayre: "sal001", name: "Usuario", first_surname: "Distrito", second_
 puts " 8. Cargar distritos"
   Rake::Task['import:distritos'].invoke
 
-#puts " 9. Cargar procesos"
-#  Rake::Task['import:procesos'].invoke
+puts " 9. Cargar procesos"
+  Rake::Task['import:procesos'].invoke
+
+puts " 10. Cargar indicadores"
+  Rake::Task['import:indicadores'].invoke
+
+puts " 11. Cargar TotalIndicators"
+  Rake::Task['total_indicators:load'].invoke
+

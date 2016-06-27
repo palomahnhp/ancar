@@ -4,8 +4,7 @@ class StatsController  < Admin::BaseController
   # GET /stats
   # GET /stats.json
   def index
-    debugger
-    @stats = Stat.all
+     @stats = Stat.all
   end
 
   # GET /stats/1

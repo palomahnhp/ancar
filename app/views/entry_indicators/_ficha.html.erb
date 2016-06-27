@@ -4,6 +4,7 @@
       <%= @unit.description_sap %>
     </h3>
   </div>
+         <%= render 'staff', of: "unit", sub_process: sub_process, unit: @unit  %>
   <% @main_processes.each do |main_process| %>
     <% if sub_processes_unit(main_process, @unit).count > 0 %>
       <div class="row">
@@ -48,7 +49,7 @@
             <% end %>
           </table>
        </div>
-       <%= render 'staff', sub_process: sub_process %>
+       <%= render 'staff', of: "sub_process", sub_process: sub_process, unit: @unit %>
       <% end %>
     <% end %>
   <% end %>
