@@ -29,6 +29,7 @@ namespace :import do
   desc "Import organizations entry data"
   task indicadores: :environment do
       puts " Realizando carga de indicadores de Distritos ..... "
+      @fuerce = true
       init_log
       cab_log
       cargar_cambios

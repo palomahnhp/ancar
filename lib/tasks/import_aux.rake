@@ -31,6 +31,7 @@ private
   end
 
   def process_sheet(hoja, file_name)
+
     @observaciones = ""
     puts ".... #{hoja.name}"
     reset_vars
@@ -78,6 +79,7 @@ private
 
       case
       when !f[0].nil? && (f[0].is_a? Numeric) then #MainProcess
+        @order = f[0]
         import_process('main_process', f[1])
        when !f[2].nil? then # subprocess
         import_process('sub_process', f[3])
@@ -170,21 +172,17 @@ private
   def import_process(type, description)
     if description.nil? then description = "" end
     description = convert_string(type, description)
-    if description == ""
-      if type == "metric" || type == "source"
-
-      else
-        write_log("*** ERROR - Description a blancos id #{type}")
-      end
+    if description == "" && !(type == "metric" || type == "source")
+      write_log("*** AVISO: Se carga #{type} con description a blancos}")
     end
 
     item = Item.where(item_type: type, description: description)
     if item.empty? # NO existe item
       # se crea item solo oen proceso de estructura
-      if @process_structure || ( !@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
+      if @fuerce || @process_structure || ( !@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
         it = Item.create!(item_type: type, description: description, updated_by: "import")
       else
-         write_log("*** ERROR: item: #{type} #{description} no existe", "sub_process")
+         write_log("*** ERROR fuerce: #{@fuerce}: item no existe: #{type} #{description} no existe")
       end
     else
       it = item.first
@@ -200,10 +198,8 @@ private
       @mp = MainProcess.where(period_id: @per.id, item_id: id, updated_by: "import").first
       if @mp.nil?
         if @process_structure # se crea item solo en proceso de estructura
-          o_max = MainProcess.maximum(:order)
-          o_max = o_max.nil?  ? 1 : (o_max + 1)
           @mp = MainProcess.create!(period_id: @per.id, item_id: id,
-                                  order:o_max, updated_by: "import")
+                                  order:@order, updated_by: "import")
         else
           write_log("*** ERROR: MainProcess no existe ", "main_process")
         end
@@ -217,11 +213,11 @@ private
       @sp = SubProcess.where(unit_type_id: @ut.id, main_process_id: @mp.id,
                              item_id: id, updated_by: "import").first
       if @sp.nil?
-        if @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
+        if @fuerce || @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
           @sp = SubProcess.create!(unit_type_id: @ut.id,
                       main_process_id: @mp.id, item_id: id, order:o_max, updated_by: "import")
         else
-          write_log("*** ERROR: SubProcess no existe: #{@¢ell_sub_process}, proceso: @mp.item.description ", "sub_process")
+          write_log("*** ERROR fuerce: #{@fuerce}: SubProcess no existe: #{@¢ell_sub_process}, proceso: @mp.item.description ", "sub_process")
         end
       end
 
@@ -241,12 +237,12 @@ private
 
         @ind = Indicator.where(task_id: @tk.id, item_id:id).first
       if @ind.nil?
-        if @process_structure || type =='indicator' && !@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)'
+        if @fuerce || @process_structure || type =='indicator' && !@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)'
           o_max = Indicator.maximum(:order)
           o_max = o_max.nil?  ? 1 : (o_max + 1)
           @ind = Indicator.create!(task_id: @tk.id, item_id:id, order: o_max, updated_by: "import")
         else
-          write_log("*** ERROR: Indicator no existe #{Item.find(id).description}")
+          write_log("*** ERROR fuerce: #{@fuerce}: Indicator no existe #{Item.find(id).description}")
         end
       end
 
@@ -255,7 +251,7 @@ private
         @im = IndicatorMetric.where(indicator_id: @ind.id, metric_id: @mt.id).first
       end
       if @im.nil?
-        if @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
+        if @fuerce || @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
           @im = IndicatorMetric.create!(indicator_id: @ind.id, metric_id: @mt.id)
         else
           write_log("*** ERROR: IndicatorMetric no existe #{@ind.item.description} #{@mt.item.description}")
@@ -267,7 +263,7 @@ private
       if @ind && @sr
         @is = IndicatorSource.where(indicator_id: @ind.id, source_id: @sr.id).first
         if @is.nil?
-          if @process_structure # se crea item solo en proceso de estructura
+          if @fuerce || @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
             @is = IndicatorSource.create!(indicator_id: @ind.id, source_id: @sr.id)
           end
         end
@@ -286,7 +282,7 @@ private
     when "metric"
       @mt = Metric.where(item_id: id).first
       if @mt.nil?
-        if @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
+        if @fuerce || @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
           @mt = Metric.create!(item_id: id, in_out: "in", updated_by: "import")
         else
           write_log("*** ERROR: Metric NO existe  #{Item.find(id).description}")
@@ -295,7 +291,7 @@ private
     when "source"
       @sr = Source.where(item_id: id, fixed: true, has_specification: false, updated_by: "import").first
       if @sr.nil?
-       if @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
+       if @fuerce || @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
           @sr = Source.create!(item_id: id, fixed: true, has_specification: false, updated_by: "import")
          else
         write_log("*** ERROR: Source NO existe #{Item.find(id).description}")
@@ -306,7 +302,7 @@ private
       @cell_efectivos_sub_proc.each do |group, quantity|
         gr = OfficialGroup.where(name: group).first
         if @sp
-          @ae = AssignedEmployee.create!(staff_of_id: @sp.id, staff_of_type: "SubProcess", official_groups_id: gr.id,
+          @ae = AssignedEmployee.create!(staff_of_id: @sp.id, staff_of_type: "SubProcess", official_group_id: gr.id,
             quantity: quantity, unit_id: @u.id, updated_by: "import")
            # print "      Staff : #{group} #{quantity} "
         end
@@ -317,7 +313,7 @@ private
       if !@process_structure
         @cell_efectivos_unit.each do |group, quantity|
           gr = OfficialGroup.where(name: group).first
-          @ae = AssignedEmployee.create!(staff_of_id: @u.id, staff_of_type: "Unit", official_groups_id: gr.id,
+          @ae = AssignedEmployee.create!(staff_of_id: @u.id, staff_of_type: "Unit", official_group_id: gr.id,
             quantity: quantity, unit_id: @u.id, updated_by: "import")
            # print "      Staff : #{group} #{quantity} "
         end

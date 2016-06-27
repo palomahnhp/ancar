@@ -16,7 +16,7 @@
                     <% if @period.is_open? %>
                       <input class="group" id = "<%= gr.name %>" placeholder="<%= gr.name %>">
                     <% else %>
-                      <%= get_staff("SubProcess", sub_process, gr) %>
+                      <%= get_staff("SubProcess", sub_process, gr, unit) %>
                     <% end %>
                   </div>
                 <% end %>

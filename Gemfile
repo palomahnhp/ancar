@@ -110,6 +110,7 @@ group :development do
   gem 'coveralls', require: false
   gem 'email_spec'
   gem 'seed_dump'
+  gem 'jazzhands', '~> 0.0.4' # consola replaces IRB with Pry, improves output through awesome_print
 end
 
 group :development do

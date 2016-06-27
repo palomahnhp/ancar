@@ -3,7 +3,7 @@ namespace :total_indicators do
 
   desc "Import adding up indicators"
   task load: :environment do
-    fichero = "../Sumandos.xls"
+    fichero = "../SumandosRevisado.xls"
     libro = Spreadsheet.open fichero
     cargar_cambios
     init_log

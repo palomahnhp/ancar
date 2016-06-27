@@ -26,5 +26,11 @@ class CreateUsers < ActiveRecord::Migration
     create_table :valuators do |t|
       t.belongs_to :user, index: true, foreign_key: true
     end
+
+    create_table :user_organizations do |t|
+      t.belongs_to :user, index: true, foreign_key: true
+      t.belongs_to :organization, index: true, foreign_key: true
+    end
+
   end
 end

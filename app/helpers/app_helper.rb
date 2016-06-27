@@ -16,8 +16,8 @@ module AppHelper
     return description
   end
 
-  def get_staff(type, proc, group)
-    ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_groups_id: group.id).first
+  def get_staff(type, proc, group,unit)
+    ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_groups_id: group.id, unit_id: unit.id).first
     return ae.nil? ? 0 : ae.quantity
   end
 

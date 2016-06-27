@@ -21,26 +21,18 @@
 //= require_directory ./ckeditor
 //= require initial
 //= require app
-//= require check_all_none
 //= require dropdown
-//= require location_changer
 //= require prevent_double_submission
-//= require users
-//= require registration_form
 //= require forms
-//= require fill_options
 //= require date_picker
+// #require process_summary
 
 var initialize_modules = function() {
-  App.Users.initialize();
   App.Dropdown.initialize();
-  App.LocationChanger.initialize();
-  App.CheckAllNone.initialize();
   App.PreventDoubleSubmission.initialize();
-  App.RegistrationForm.initialize();
   App.Forms.initialize();
-  App.FillOptions.initialize();
   App.Date_Picker.initialize();
+  App.ProcessSummary.initialize();
 };
 
 $(function(){

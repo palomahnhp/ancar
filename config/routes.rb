@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :in_works
   resources :entry_indicators
+  resources :process_summary
 
   resources :periods
 

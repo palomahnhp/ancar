@@ -1,14 +1,14 @@
-App.Suggest =
+App.ProcessSummary =
 
   initialize: ->
 
-    $('[data-js-suggest-result]').each ->
-      $this = $(this)
+    $('#js-summary-process').each ->
+      $this = $(this)js-id
 
       callback = ->
         $.ajax
           url: $this.data('js-url')
-          data: {search: $this.val()},
+          data: {id: 'js-id'},
           type: 'GET',
           dataType: 'html'
           success: (stHtml) ->
@@ -19,4 +19,4 @@ App.Suggest =
         window.clearTimeout(callback)
         window.setTimeout(callback, 1000)
 
-      $this.on 'change', callback
+      $this.on 'click', callback
