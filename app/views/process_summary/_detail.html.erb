@@ -1,0 +1,167 @@
+<div class="row indicadores">
+  <div class="medium-12 small-12 columns" >
+    <div class="medium-10 short-10 columns">
+      <div class="medium-3 short-3 columns">
+        <h5> INDICADORES </h5>
+      </div>
+      <div class="medium-9 short-9 columns end">
+        <% spi = summary_indicators(pid)%>
+        <% if spi %>
+          <% spi.each do |i| %>
+            <div class="row">
+              <div class="medium-12 small-12 columns end" >
+                <div class="medium-7 small-7 columns">
+                  <h6><%= i.indicator %></h6>
+                </div>
+                <div class="medium-5 small-5 columns end"><h6>
+                  <%= i.metric %></h6>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row indicadores">
+  <div class="medium-12 small-12 columns" >
+    <div class="medium-10 short-10 columns">
+      <div class="medium-6 small-6 columns" >
+        <h5>Distrito</h5>
+      </div>
+      <div class="numeric medium-1 small-1 columns" >
+        <h5>Indicador</h5>
+      </div>
+      <div class="numeric medium-1 small-1 columns" >
+        <h5>A1</h5>
+      </div>
+      <div class="numeric medium-1 small-1 columns" >
+       <h5>A2</h5>
+      </div>
+      <div class="numeric medium-1 small-1 columns" >
+        <h5>C1</h5>
+      </div>
+      <div class="numeric medium-1 small-1 columns" >
+        <h5>C2</h5>
+      </div>
+      <div class="numeric medium-1 small-1 columns end" >
+        <h5>E</h5>
+      </div>
+    </div>
+  </div>
+</div>
+<% spd = summary_details(pid) %>
+<% if spd %>
+  <% spd.each do |d| %>
+    <div class="row distritos">
+      <div class="medium-12 small-12 columns" >
+        <div class="medium-10 short-10 columns">
+          <div class="medium-6 small-6 columns" >
+            <%= distrito(d.unit_id) %>
+          </div>
+          <div class="numeric medium-1 small-1 columns end" >
+            <%= number_with_delimiter(d.amount, delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(d.A1, delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(d.A2, delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+           <%= number_with_delimiter(d.C1, delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(d.C2, delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(d.E, delimiter: ".", separator: ",") %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <br>
+  <div class="row distritos">
+      <div class="medium-12 small-12 columns" >
+        <div class="medium-10 short-10 columns">
+          <div class="medium-6 small-6 columns" >
+            <b>Total</b>
+          </div>
+          <div class="numeric medium-1 small-1 columns end" >
+            <%= number_with_delimiter(stats('total', 'amount', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('total', 'A1', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('total', 'A2', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+           <%= number_with_delimiter(stats('total', 'C1', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('total', 'C2', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('total', 'E', spd), delimiter: ".", separator: ",") %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row distritos">
+      <div class="medium-12 small-12 columns" >
+        <div class="medium-10 short-10 columns">
+          <div class="medium-6 small-6 columns" >
+            <b>Media</b>
+          </div>
+          <div class="numeric medium-1 small-1 columns end" >
+            <%= number_with_delimiter(stats('average', 'amount', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('average', 'A1', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('average', 'A2', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+           <%= number_with_delimiter(stats('average', 'C1', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('average', 'C2', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('average', 'E', spd), delimiter: ".", separator: ",") %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row distritos">
+      <div class="medium-12 small-12 columns" >
+        <div class="medium-10 short-10 columns">
+          <div class="medium-6 small-6 columns" >
+            <b>Mediana</b>
+          </div>
+          <div class="numeric medium-1 small-1 columns end" >
+            <%= number_with_delimiter(stats('median', 'amount', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('median', 'A1', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('median', 'A2', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+           <%= number_with_delimiter(stats('median', 'C1', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('median', 'C2', spd), delimiter: ".", separator: ",") %>
+          </div>
+          <div class="numeric medium-1 small-1 columns" >
+            <%= number_with_delimiter(stats('median', 'E', spd), delimiter: ".", separator: ",") %>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
