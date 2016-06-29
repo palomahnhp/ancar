@@ -27,7 +27,8 @@ es:
       validacion: "Validador"
   subnavigation_menu:
     entry_indicators: Inclusión indicadores
-    reports: Informes
+    process_summary: Resumen por proceso
+    subprocess_summary: Resumen por subproceso
     instructions: Instrucciones
   flash:
     actions:

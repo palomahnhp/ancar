@@ -71,14 +71,14 @@ private
       sm_details = SummaryProcessDetail.where(summary_process_id: sm_p.id, unit_id: org.id).take
       if sm_details.nil?
         p_type = sp.class.to_s if ti.indicator_type == 'P'
-        puts "Amount: 0   #{ei.indicator_metric.indicator.item.description} #{ei.amount}"
+#        puts "Amount: 0   #{ei.indicator_metric.indicator.item.description} #{ei.amount}"
         sql = " SELECT units.organization_id,
                        organizations.description,
                        assigned_employees.official_group_id,
                        sum(assigned_employees.quantity) AS quantity
-                FROM public.assigned_employees,
-                     public.units,
-                     public.organizations
+                FROM assigned_employees,
+                     units,
+                     organizations
                 WHERE assigned_employees.unit_id = units.id
                   AND units.organization_id = organizations.id
                   AND staff_of_type = '#{p_type}'

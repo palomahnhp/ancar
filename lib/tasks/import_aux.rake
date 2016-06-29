@@ -82,6 +82,7 @@ private
         @order = f[0]
         import_process('main_process', f[1])
        when !f[2].nil? then # subprocess
+        @order = f[2]
         import_process('sub_process', f[3])
         # En el caso de los distritos la tarea es única y no viene en el csv
         import_process('task', 'Tarea')
@@ -199,7 +200,7 @@ private
       if @mp.nil?
         if @process_structure # se crea item solo en proceso de estructura
           @mp = MainProcess.create!(period_id: @per.id, item_id: id,
-                                  order:@order, updated_by: "import")
+                                  order: @order, updated_by: "import")
         else
           write_log("*** ERROR: MainProcess no existe ", "main_process")
         end
@@ -208,14 +209,12 @@ private
 
     when "sub_process"
 
-      o_max = SubProcess.maximum(:order)
-      o_max = o_max.nil?  ? 1 : (o_max + 1)
       @sp = SubProcess.where(unit_type_id: @ut.id, main_process_id: @mp.id,
                              item_id: id, updated_by: "import").first
       if @sp.nil?
         if @fuerce || @process_structure || (!@mp.nil? && @mp.item.description == 'OTROS PROCESOS (cumplimentar dedicación solo en el caso excepcional de que hubiera actividad del personal en otros procesos no identificados)')
           @sp = SubProcess.create!(unit_type_id: @ut.id,
-                      main_process_id: @mp.id, item_id: id, order:o_max, updated_by: "import")
+                      main_process_id: @mp.id, item_id: id, order:@order, updated_by: "import")
         else
           write_log("*** ERROR fuerce: #{@fuerce}: SubProcess no existe: #{@¢ell_sub_process}, proceso: @mp.item.description ", "sub_process")
         end
