@@ -177,11 +177,17 @@
   .indicadores{
     border-color: red;
     color: black;
+    .numeric{
+       text-align: right;
+    }
   }
 
   .distritos {
    border-color: gray;
    color: black;
+    .numeric{
+       text-align: right;
+    }
   }
 
 }

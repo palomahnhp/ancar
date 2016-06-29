@@ -6,7 +6,11 @@
       </li>
 
       <li>
-        <%= link_to t("subnavigation_menu.reports"), process_summary_index_path, class: ("active" if  controller_name == "process_summary"), accesskey: "i" %>
+        <%= link_to t("subnavigation_menu.process_summary"), process_summary_index_path(type: "MainProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "MainProcess" ), accesskey: "p" %>
+      </li>
+
+      <li>
+        <%= link_to t("subnavigation_menu.subprocess_summary"), process_summary_index_path(type: "SubProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "SubProcess"), accesskey: "s" %>
       </li>
 
       <li>
