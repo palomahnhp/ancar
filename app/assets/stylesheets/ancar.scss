@@ -39,7 +39,7 @@
 .ficha_indicadores {
    margin-left: rem-calc(12);
    margin-right: rem-calc(12);
-   margin-bottom: rem-calc(0);
+   margin-bottom: 0;
 }
 
 .corporativo {
@@ -54,17 +54,16 @@
   background: lighten($peach, 5%);
   color: blank;
   text-align: center;
-  box-shadow: 0px 1px 3px 0 $border;
+  box-shadow: 0 1px 3px 0 $border;
   padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
 }
 
 .main_process {
   color: white;
   background: $cobalto;
-  box-shadow: 0px 1px 3px 0 $border;
-  padding: rem-calc(12) rem-calc(012) 0 rem-calc(12);
-  margin-top: rem-calc(20);
-
+  box-shadow: 0 0 0 2px $cobalto;
+  margin-bottom: rem-calc(20);
+  padding: rem-calc(12) rem-calc(12) 0 rem-calc(12);
 }
 
 .sub_process {
@@ -82,24 +81,18 @@
   padding: rem-calc(12) rem-calc(12) 0 rem-calc(0);
   background: lighten(orange, 35%);
   font-size: rem-calc(12);
-    #title{
-      text-align: center;
-      font-weight: $global-weight-bold;
-      border: 14px;
-    }
 
-    #header{
-      text-align: center;
-      font-weight: $global-weight-bold;
-      border: 14px;
-    }
-
+  #title, #header {
+    text-align: center;
+    font-weight: $global-weight-bold;
+    border: 14px;
+  }
 }
 
 .indicator {
   font-size: rem-calc(12);
-  padding: 0 0 0 0;
-  border: 1px;
+  padding: 0;
+  border: 1px solid red;
   text-align: left;
   margin-bottom: 0;
 
@@ -130,26 +123,29 @@
   }
 }
 
-.group{
+.group {
   width: 100%;
-  padding:0 0 0 0;
-  margin-left:0;
+  padding: 0;
+  margin-left: 0;
   margin-right: 0;
 }
 
 .unit_nav {
   padding:  rem-calc(12) rem-calc(12) 0 rem-calc(12);
   font-size: rem-calc(11);
+
   a {
     color: gray;
   }
-  li{
-    width:33.333%;
-    float:left;
-    display:inline;
-  }
-  ul{
+
+  ul {
     overflow:hidden;
+
+    li {
+      width: 33.333%;
+      float: left;
+      display: inline;
+    }
   }
 }
 
@@ -162,32 +158,82 @@
   padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
 }
 
-
-.ficha{
-  border-style: solid;
+.card {
+  border: 2px solid $border;
   background: $body;
-  margin-top:  rem-calc(12);
-  margin-left: rem-calc(22);
-  padding: rem-calc(12) rem-calc(12) 0 rem-calc(12);
-  border-width: 2px 2px 2px 2px;
-  border-color: gray;
-  color: darkblue;
   font-size: rem-calc(12);
+  margin-top: rem-calc(20);
+  padding-bottom: rem-calc(20);
 
-  .indicadores{
-    border-color: red;
-    color: black;
-    .numeric{
-       text-align: right;
-    }
+  .card-content {
+    padding: 0 rem-calc(20);
   }
 
-  .distritos {
-   border-color: gray;
-   color: black;
-    .numeric{
-       text-align: right;
-    }
+  &:last-child {
+    margin-bottom: rem-calc(80);
   }
 
+  table {
+    table-layout: fixed;
+    margin-bottom: 0;
+
+    tbody, thead, th {
+      background: $body;
+      border: 0;
+    }
+
+    thead {
+      border-bottom: 2px solid $cobalto;
+    }
+
+    th:first-child {
+      width: 40%;
+    }
+
+    tr {
+      background: $body;
+
+      &:first-child td {
+        padding-top: 10px;
+      }
+
+      th, td {
+        padding: 0;
+      }
+
+      th:last-child, td:last-child {
+        padding-right: rem-calc(10);
+      }
+    }
+
+    &.stats {
+      font-weight: bold;
+
+      tr {
+        background: rgba(6,66,92,.1);
+
+        td:first-child {
+          padding-left: rem-calc(10);
+        }
+      }
+
+      tr:first-child td {
+        border-top: 2px solid $cobalto;
+        padding-top: 10px;
+      }
+
+      tr:last-child td {
+        border-bottom: 2px solid $cobalto;
+        padding-bottom: 10px;
+      }
+    }
+
+    &.indicators {
+      margin-bottom: rem-calc(40);
+
+      th:first-child {
+        width: 70%;
+      }
+    }
+  }
 }
