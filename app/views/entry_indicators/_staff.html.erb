@@ -1,30 +1,28 @@
-    <div class="staff float-rigth medium-3 short-3 columns">
-      <div class="row header">
-        <div id="title" class="medium-12 short-12 columns">EFECTIVOS
-          <div class="medium-2 short-2 columns"></div>
-          <div class="medium-10 short-10 columns">
-            <div class="row" id="header">
-              <div class="medium-1 small-1 columns"></div>
-                <% @official_groups.each do |gr| %>
-                <div class="medium-2 short-2 columns end"><%= gr.name %></div>
-                <% end %>
-              </div>
-            <div class="row">
-              <div class="medium-1 small-1 columns"> </div>
-                <% @official_groups.each do |gr| %>
-                  <div class="medium-2 short-2 columns end ">
-                    <% if @period.is_open? %>
-                      <input class="group" id = "<%= gr.name %>" placeholder="<%= gr.name %>">
-                    <% else %>
-                      <%= get_staff("SubProcess", sub_process, gr, unit) %>
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="staff medium-3 short-3 columns">
+  <table>
+    <thead>
+      <tr>
+        <th colspan="5" class="text-center"> EFECTIVOS </th>
+      </tr>
+      <tr>
+        <% @official_groups.each do |gr| %>
+          <th><%= gr.name %></th>
+        <% end %>
+      </tr>
+    </thead>
 
-
-
+    <tbody>
+      <tr>
+        <% @official_groups.each do |gr| %>
+          <td>
+            <% if @period.is_open? %>
+              <input id = "<%= gr.name %>" placeholder="<%= gr.name %>">
+            <% else %>
+              <%= get_staff(of, process, gr, unit) %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

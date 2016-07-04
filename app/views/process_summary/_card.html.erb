@@ -1,5 +1,5 @@
 <% @main_processes.each do |mp| %>
-  <div class="card">
+  <div class="card ">
     <div class="main_process small-12 columns">
       <h5><%= mp.order %> <%= mp.item.description %></h5>
       <% if mp.id == @mp_id.to_i %>
@@ -14,10 +14,8 @@
     <% if @type == "SubProcess" %>
       <% if mp.id == @mp_id.to_i %>
         <% @sub_processes.each do |sp| %>
-          <div class="row">
-            <div class="main_process small-12 columns">
-              <h5><%= sp.order %> <%= sp.item.description %></h5>
-            </div>
+          <div class="sub_process small-12 columns">
+            <h5><%= sp.order %> <%= sp.item.description %></h5>
           </div>
           <div class="card-content">
             <%= render partial: 'detail', locals: {pid: sp.id} %>

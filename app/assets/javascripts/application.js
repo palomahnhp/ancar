@@ -32,7 +32,6 @@ var initialize_modules = function() {
   App.PreventDoubleSubmission.initialize();
   App.Forms.initialize();
   App.Date_Picker.initialize();
-  App.ProcessSummary.initialize();
 };
 
 $(function(){

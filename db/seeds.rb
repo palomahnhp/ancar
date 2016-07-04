@@ -59,7 +59,7 @@ admin.create_administrator
 admin = User.create!(ayre: "ltm004", name: "Leonor", first_surname: "Torres", second_surname: "Moreno")
 admin.create_administrator
 
-admin = User.create!(ayre: "pac001", name: "Pascual", first_surname: "Artigas", second_surname: "Conesa")
+admin = User.create!(ayre: "pac007", name: "Pascual", first_surname: "Artigas", second_surname: "Conesa")
 admin.create_administrator
 
 manager = User.create!(ayre: "mjs016", name: "Mª Rosario", first_surname: "Jiménez", second_surname: "Santiago")

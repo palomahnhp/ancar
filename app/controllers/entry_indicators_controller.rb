@@ -21,7 +21,7 @@ class EntryIndicatorsController < ApplicationController
       @period = @organization_type.periods.last
       @units = @organization.units.order(:order).to_a
 
-      @main_processes = MainProcess.where(period_id: @period.id)
+      @main_processes = MainProcess.where(period_id: @period.id).order(:order)
       if params[:unit]
         @unit = Unit.find(params[:unit])
       else
@@ -30,22 +30,23 @@ class EntryIndicatorsController < ApplicationController
       @official_groups = OfficialGroup.all
 
       # totalizadores para comprobaciones de carga
-      mp = @main_processes.ids
+=begin      mp = @main_processes.ids
       sp = SubProcess.where(main_process_id: mp, unit_type_id: @unit.unit_type.id)
 
       @total_sub_processes  = sp.count
       @total_main_processes = sp.where(main_process_id: mp).distinct.count
 
       @total_staff_sub_process_A1 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-        official_groups_id: 1).sum(:quantity)
+        official_group_id: 1).sum(:quantity)
       @total_staff_sub_process_A2 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-        official_groups_id: 2).sum(:quantity)
+        official_group_id: 2).sum(:quantity)
       @total_staff_sub_process_C1 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-        official_groups_id: 3).sum(:quantity)
+        official_group_id: 3).sum(:quantity)
       @total_staff_sub_process_C2 = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-        official_groups_id: 4).sum(:quantity)
+        official_group_id: 4).sum(:quantity)
       @total_staff_sub_process_E  = AssignedEmployee.where(staff_of_type: "SubProcess", staff_of_id: sp,
-        official_groups_id: 5).sum(:quantity)
+        official_group_id: 5).sum(:quantity)
+=end
     end
   end
 

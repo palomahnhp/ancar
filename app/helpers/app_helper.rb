@@ -16,8 +16,9 @@ module AppHelper
     return description
   end
 
-  def get_staff(type, proc, group,unit)
-    ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_groups_id: group.id, unit_id: unit.id).first
+  def get_staff(type, proc, group, unit)
+
+    ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_group_id: group.id, unit_id: unit.id).first
     return ae.nil? ? 0 : ae.quantity
   end
 
@@ -50,6 +51,6 @@ module AppHelper
   end
 
   def sub_processes_unit(main_process, unit)
-    main_process.sub_processes.where(unit_type_id: unit.unit_type_id)
+    main_process.sub_processes.where(unit_type_id: unit.unit_type_id).order(:order)
   end
 end
