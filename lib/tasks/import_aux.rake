@@ -80,9 +80,11 @@ private
       case
       when !f[0].nil? && (f[0].is_a? Numeric) then #MainProcess
         @order = f[0]
+        if @order == 0 then @order = 90 end
         import_process('main_process', f[1])
        when !f[2].nil? then # subprocess
-        @order = f[2]
+        @order = f[2].to_s
+        if @order[0] == '0' then @order[0]  = '9'  end
         import_process('sub_process', f[3])
         # En el caso de los distritos la tarea es única y no viene en el csv
         import_process('task', 'Tarea')
