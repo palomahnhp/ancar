@@ -17,7 +17,6 @@ class ApplicationController < ActionController::Base
     end
 
     if !current_user
-
        if self.controller_name  !=  'welcome'
           redirect_to root_url, notice: "Usuario no conectado"
        end
