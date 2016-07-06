@@ -144,7 +144,6 @@
   .main_process {
    color: $body    ;
    background: $cobalto;
-   margin-bottom: rem-calc(20);
    padding: rem-calc(12);
    padding-bottom: 0;
   }
@@ -154,6 +153,25 @@
     background: lighten($turquesa, 5%);
     padding: rem-calc(12);
     padding-bottom: 0;
+  }
+
+  .accordion, .accordion-content {
+    background: none;
+    color: black;
+
+    .accordion-title {
+      border: 0;
+
+      &:hover, &:focus {
+        background: white;
+      }
+
+      &::before {
+        font-size: rem-calc(24);
+        font-weight: bold;
+        margin-top: -14px;
+      }
+    }
   }
 
   table {

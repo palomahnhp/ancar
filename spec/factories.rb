@@ -1,18 +1,10 @@
 FactoryGirl.define do
-  factory :summary_process do
-    
-  end
-  factory :user do
-    
-  end
-  factory :output_indicator do
-    
-  end
-  sequence(:document_number) { |n| "#{n.to_s.rjust(8, '0')}X" }
 
-  factory :period do
-    sequence(:description) { |n| "Periodo#{n}" }
+    factory :user do
+      sequence(:ayre) { |n| "usu00#{n}" }
+      sequence(:name) { |n| "Nombre#{n}" }
+      sequence(:first_surname)  { |n| "Apellido_1_#{n}" }
+      sequence(:second_surname) { |n| "Apellido_2_#{n}" }
+    end
 
-    started_at        { Time.now }
-  end
 end

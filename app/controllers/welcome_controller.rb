@@ -3,7 +3,6 @@ class WelcomeController < ApplicationController
   before_action :check_session
 
   def index
-
   end
 
 private
