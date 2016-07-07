@@ -1,1 +1,0 @@
-$(document).bind("page:change",function(){if("undefined"!=typeof CKEDITOR)for(name in CKEDITOR.instances)try{CKEDITOR.replace(name)}catch(n){}});
