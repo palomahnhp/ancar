@@ -9,11 +9,15 @@
     <% spi = summary_indicators(pid) %>
     <% if spi %>
       <% spi.each do |i| %>
-      <tr>
-        <td><%= i.indicator %></td>
-        <td><%= i.metric %></td>
-      </tr>
+        <tr>
+          <td><%= i.indicator %></td>
+          <td><%= i.metric %></td>
+        </tr>
       <% end %>
+    <% else %>
+      <tr>
+        <td colspan="2">NO HAY INDICADORES PARA ESTE SUBPROCESO  </td>
+      </tr>
     <% end %>
   </tbody>
 </table>
