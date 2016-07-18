@@ -2,11 +2,14 @@ class UwebAuthenticator
 
   def initialize(data={})
     @user_params = {login: data[:login], user_key: data[:clave_usuario], date: data[:fecha_conexion], development: data[:development]}.with_indifferent_access
+    puts "Entra en UwebAuthenticator: #{@user_params}"
   end
 
   def auth
+    puts "Auth: Entra"
     return false unless [@user_params[:login], @user_params[:user_key], @user_params[:date]].all? {|_| _.present?}
     return @uweb_user if user_data && @user_params[:development] && Rails.env.development?
+    puts "Auth: Ejecuta comprobaciones"
     return @uweb_user if user_exists? && application_authorized?
     false
   end
@@ -51,8 +54,8 @@ class UwebAuthenticator
     end
 
     def application_authorized?
+      puts "Application_authorized: entra"
       response = client.call(:get_applications_user_list, message: { ub: {user_key: @user_params[:user_key]} }).body
-
       parsed_response = parser.parse((response[:get_applications_user_list_response][:get_applications_user_list_return]))
       aplication_value = parsed_response["APLICACIONES"]["APLICACION"]
       puts "Usuario #{@user_params[:login]} con app #{application_key} autorizada en uweb"
