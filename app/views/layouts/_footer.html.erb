@@ -8,10 +8,12 @@
     </div>
 
     <div class="small-12 medium-4 column">
-      <h1 class="logo">
-        <%= link_to t("layouts.footer.reports_title"), in_works_path %>
-      </h1>
-      <p  class="info"><%= t("layouts.footer.reports_text") %></p>
+      <% if current_user %>
+        <h1 class="logo">
+          <%= link_to t("layouts.footer.reports_title"), in_works_path %>
+        </h1>
+        <p  class="info"><%= t("layouts.footer.reports_text") %></p>
+      <% end %>
     </div>
     <div class="small-12 large-4 column">
       <h1 class="logo">

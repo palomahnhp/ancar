@@ -49,46 +49,46 @@ puts "6. Cargando grupos de personal"
 
 puts "7. Creando usuarios falsos"
 
-def create_user(ayre, name = Faker::Name.first_name,
-               first_surname = Faker::Name.last_name, second_surname = Faker::Name.last_name)
+def create_user(login, name = Faker::Name.first_name,
+               surname = Faker::Name.last_name, second_surname = Faker::Name.last_name)
   pwd = '12345678'
-  puts " #{ayre}"
-  User.create!(ayre: ayre, name: name, first_surname: first_surname, second_surname: second_surname)
+  puts " #{login}"
+  User.create!(login: login, name: name, surname: surname, second_surname: second_surname)
 end
 
 
 puts "7. Creando usuarios genéricos"
 
-admin = User.create!(ayre: "phn001", name: "Paloma", first_surname: "Hernández", second_surname: "Navarro")
+admin = User.create!(login: "phn001", name: "Paloma", surname: "Hernández", second_surname: "Navarro")
 admin.create_administrator
 
-admin = User.create!(ayre: "ltm004", name: "Leonor", first_surname: "Torres", second_surname: "Moreno")
+admin = User.create!(login: "ltm004", name: "Leonor", surname: "Torres", second_surname: "Moreno")
 admin.create_administrator
 
-admin = User.create!(ayre: "pac001", name: "Pascual", first_surname: "Artigas", second_surname: "Conesa")
+admin = User.create!(login: "pac001", name: "Pascual", surname: "Artigas", second_surname: "Conesa")
 admin.create_administrator
 
-manager = User.create!(ayre: "mjs016", name: "Mª Rosario", first_surname: "Jiménez", second_surname: "Santiago")
+manager = User.create!(login: "mjs016", name: "Mª Rosario", surname: "Jiménez", second_surname: "Santiago")
 manager.create_manager
 
-manager = User.create!(ayre: "slf006", name: "Susana", first_surname: "Lemonche", second_surname: "Fernández")
+manager = User.create!(login: "slf006", name: "Susana", surname: "Lemonche", second_surname: "Fernández")
 manager.create_manager
 
-admin = User.create!(ayre: "adm001", name: "Usuario", first_surname: "Administrador", second_surname: "IAM")
+admin = User.create!(login: "adm001", name: "Usuario", surname: "Administrador", second_surname: "IAM")
 admin.create_administrator
 
-manager= User.create!(ayre: "man001", name: "Usuario", first_surname: "Gestor", second_surname: "Planificación")
+manager= User.create!(login: "man001", name: "Usuario", surname: "Gestor", second_surname: "Planificación")
 manager.create_manager
 
-valuator = User.create!(ayre: "val001", name: "Usuario", first_surname: "Validador", second_surname: "Distrito")
+valuator = User.create!(login: "val001", name: "Usuario", surname: "Validador", second_surname: "Distrito")
 valuator.create_valuator
 
-User.create!(ayre: "cen001", name: "Usuario", first_surname: "Distrito", second_surname: "Centro")
-User.create!(ayre: "hor001", name: "Usuario", first_surname: "Distrito", second_surname: "Hortaleza")
-User.create!(ayre: "bar001", name: "Usuario", first_surname: "Distrito", second_surname: "Barajas")
-User.create!(ayre: "arg001", name: "Usuario", first_surname: "Distrito", second_surname: "Arganzuela")
-User.create!(ayre: "lat001", name: "Usuario", first_surname: "Distrito", second_surname: "Latina")
-User.create!(ayre: "sal001", name: "Usuario", first_surname: "Distrito", second_surname: "Salamanca")
+User.create!(login: "cen001", name: "Usuario", surname: "Distrito", second_surname: "Centro")
+User.create!(login: "hor001", name: "Usuario", surname: "Distrito", second_surname: "Hortaleza")
+User.create!(login: "bar001", name: "Usuario", surname: "Distrito", second_surname: "Barajas")
+User.create!(login: "arg001", name: "Usuario", surname: "Distrito", second_surname: "Arganzuela")
+User.create!(login: "lat001", name: "Usuario", surname: "Distrito", second_surname: "Latina")
+User.create!(login: "sal001", name: "Usuario", surname: "Distrito", second_surname: "Salamanca")
 
 user = create_user('usu001')
 
