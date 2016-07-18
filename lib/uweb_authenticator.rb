@@ -5,8 +5,10 @@ class UwebAuthenticator
   end
 
   def auth
+    puts "Uweb_authenticaror.auth Entrada"
     return false unless [@user_params[:login], @user_params[:user_key], @user_params[:date]].all? {|_| _.present?}
     return @uweb_user if user_data && @user_params[:development] && Rails.env.development?
+    puts "Uweb_authenticaror.auth Antes de llamadas"
     return @uweb_user if user_exists? && application_authorized?
     false
   end
@@ -14,11 +16,12 @@ class UwebAuthenticator
   private
 
     def user_exists?
+      puts "Uweb_authenticaror.user_exists? entrada"
       response = client.call(:get_status_user_data, message: { ub: {user_key: @user_params[:user_key], date: @user_params[:date]} }).body
       parsed_response = parser.parse((response[:get_status_user_data_response][:get_status_user_data_return]))
       @uweb_user = uweb_user(parsed_response)
+      puts "Uweb_authenticaror.user_exists? Usuario #{@user_params[:login]} validado en uweb"
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
-
     rescue  Exception  => e
       puts e
       false
@@ -43,6 +46,7 @@ class UwebAuthenticator
       response = client.call(:get_user_data_by_login, message: { ub: {login: @user_params[:login]} }).body
       parsed_response = parser.parse((response[:get_user_data_by_login_response][:get_user_data_by_login_return]))
       @uweb_user = uweb_user(parsed_response)
+
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
       rescue  Exception  => e
        puts e
@@ -50,13 +54,15 @@ class UwebAuthenticator
     end
 
     def application_authorized?
+      puts "Uweb_authenticaror.application_authorized? entrada"
       response = client.call(:get_applications_user_list, message: { ub: {user_key: @user_params[:user_key]} }).body
 
       parsed_response = parser.parse((response[:get_applications_user_list_response][:get_applications_user_list_return]))
       aplication_value = parsed_response["APLICACIONES"]["APLICACION"]
+      puts "Uweb_authenticaror.application_authorized? Usuario #{@user_params[:login]} con app #{application_key} autorizada en uweb"
+
       # aplication_value from UWEB can be an array of hashes or a hash
       aplication_value.include?( {"CLAVE_APLICACION" => application_key}) || aplication_value["CLAVE_APLICACION"] == application_key
-
     rescue Savon::Error => e
       puts e
       false
