@@ -9,7 +9,7 @@ feature "Welcome screen" do
 
   scenario 'si hay usuario conectado muestra nombre' do
     user = create(:user)
-    visit root_path(login: user.ayre)
-   expect(page).to have_content("#{user.ayre} #{user.name} #{user.first_surname} #{user.second_surname}")
+    visit root_path(login: user.login)
+   expect(page).to have_content("#{user.login} #{user.full_name}")
   end
 end

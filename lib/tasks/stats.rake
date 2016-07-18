@@ -1,6 +1,7 @@
 namespace :stats do
 
   desc "Generate summary indicators for graphics"
+  # OJO hacaer el delete por period
   task agregar_indicadores: :environment do
     SummaryProcessIndicator.delete_all
     SummaryProcessDetail.delete_all

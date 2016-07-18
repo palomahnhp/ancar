@@ -14,7 +14,7 @@ es:
       process_text: "Revisón de los procesos"
       reports_title: "Informes"
       reports_text: "Consultar informes "
-      faq: "FAQ"
+      faq: "Instrucciones"
     header:
       logo: "Direccion General de Planificacion i18n"
       open: "Abierto"
@@ -26,7 +26,7 @@ es:
       gestion: "Gestor"
       validacion: "Validador"
   subnavigation_menu:
-    entry_indicators: Inclusión indicadores
+    entry_indicators: Indicadores
     process_summary: Resumen por proceso
     subprocess_summary: Resumen por subproceso
     instructions: Instrucciones
