@@ -37,7 +37,7 @@ class EntryIndicatorsController < ApplicationController
     @entry_indicator = EntryIndicator.new(entry_indicator_params)
 
     respond_to do |format|
-      if @entry_in_dicator.save
+      if @entry_indicator.save
         format.html { redirect_to @entry_indicator, notice: 'Entry indicator was successfully created.' }
         format.json { render :show, status: :created, location: @entry_indicator }
       else
@@ -60,7 +60,7 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def destroy
-    @entry_indicat_or.destroy
+    @entry_indicator.destroy
     respond_to do |format|
       format.html { redirect_to entry_indicators_url, notice: 'Entry indicator was successfully destroyed.' }
       format.json { head :no_content }
