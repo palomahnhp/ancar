@@ -2,6 +2,7 @@ class UwebAuthenticator
 
   def initialize(data={})
     @user_params = {login: data[:login], user_key: data[:clave_usuario], date: data[:fecha_conexion], development: data[:development]}.with_indifferent_access
+    puts "Entra en UwebAuthenticator: #{@user_params}"
   end
 
   def auth
@@ -56,7 +57,6 @@ class UwebAuthenticator
     def application_authorized?
       puts "Uweb_authenticaror.application_authorized? entrada"
       response = client.call(:get_applications_user_list, message: { ub: {user_key: @user_params[:user_key]} }).body
-
       parsed_response = parser.parse((response[:get_applications_user_list_response][:get_applications_user_list_return]))
       aplication_value = parsed_response["APLICACIONES"]["APLICACION"]
       puts "Uweb_authenticaror.application_authorized? Usuario #{@user_params[:login]} con app #{application_key} autorizada en uweb"
