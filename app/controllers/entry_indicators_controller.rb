@@ -6,7 +6,8 @@ class EntryIndicatorsController < ApplicationController
   # GET /entry_indicators.json
   def index
     if !current_user.has_organizations?
-      render :index, notice: 'No tiene autorizada la consulta de datos de ninguna unidad'
+      puts "Sin unidad"
+      redirect_to root_path, notice: 'No tiene autorizada la consulta de datos de ninguna unidad'
     end
 
     if current_user.organizations_unique?  || !params[:organization_id].nil?
@@ -51,6 +52,7 @@ class EntryIndicatorsController < ApplicationController
     respond_to do |format|
       if @entry_indicator.update(entry_indicator_params)
         format.html { redirect_to @entry_indicator, notice: 'Entry indicator was successfully updated.' }
+
         format.json { render :show, status: :ok, location: @entry_indicator }
       else
         format.html { render :edit }
