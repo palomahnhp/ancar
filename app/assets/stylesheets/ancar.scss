@@ -27,19 +27,9 @@
 
 // 02. Ficha de indicadores
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-.select_organization {
-  font-size: rem-calc(12);
-  padding: 0 0 0 0;
-  border: 1px;
-  float: center;
-  margin-bottom: 0;
-  text-align: center;
-}
 
 .ficha_indicadores {
-   margin-left: rem-calc(12);
-   margin-right: rem-calc(12);
-   margin-bottom: rem-calc(0);
+   margin: rem-calc(12) 0;
 }
 
 .corporativo {
@@ -47,109 +37,83 @@
   color: white;
   text-align: center;
   min-height: rem-calc(19);
-  padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
-}
+  padding: rem-calc(12);
+  padding-bottom: 0;
+  margin-bottom: rem-calc(12);
+  }
 
 .unit{
-  background: lighten($peach, 5%);
-  color: blank;
-  text-align: center;
-  box-shadow: 0px 1px 3px 0 $border;
-  padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
+  background: $body;
+  color: black;
+  box-shadow: 0 1px 3px 0 $border;
+  margin: 0;
+  padding-top: rem-calc(12);
+  border: 1px solid $brand;
 }
 
 .main_process {
   color: white;
   background: $cobalto;
-  box-shadow: 0px 1px 3px 0 $border;
-  padding: rem-calc(12) rem-calc(012) 0 rem-calc(12);
-  margin-top: rem-calc(20);
-
-}
+  box-shadow: 0 0 0 2px $cobalto;
+  margin-bottom: rem-calc(20);
+  padding: rem-calc(12);
+  padding-bottom: 0;
+  }
 
 .sub_process {
   color: white;
   background: lighten($turquesa, 5%);
-  padding: rem-calc(12) rem-calc(12) 0 rem-calc(12);
-}
+  padding: rem-calc(12);
+  padding-bottom: 0;
+  }
 
 .staff {
-  border: 14px;
-  margin-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  box-shadow: inset 0 1px 2px white;
-  padding: rem-calc(12) rem-calc(12) 0 rem-calc(0);
-  background: lighten(orange, 35%);
-  font-size: rem-calc(12);
-    #title{
-      text-align: center;
-      font-weight: $global-weight-bold;
-      border: 14px;
+  margin: 0;
+    th{
+      border-bottom: rem-calc(2) solid $cobalto;
     }
 
-    #header{
-      text-align: center;
-      font-weight: $global-weight-bold;
-      border: 14px;
-    }
-
+    tr:last-child td {
+        border-bottom: rem-calc(2) solid $cobalto;
+        padding-bottom: rem-calc(10);
+      }
 }
 
 .indicator {
-  font-size: rem-calc(12);
-  padding: 0 0 0 0;
-  border: 1px;
-  text-align: left;
+  padding: 0;
+  border: 1px solid gray;
+  border-bottom: 0;
   margin-bottom: 0;
-
-  th {
-    background: darken($body, 10%);
-  }
-
-  #indicator {
-    width: 40%;
-    font: bold;
-  }
-
-  #indicator_col {
-    width: 65%;
-    font: bold;
-  }
-
-  #metric_col {
-    width: 15%;
-  }
-
-  #source_col {
-    width: 15%;
-  }
-
-  #amount_col {
-    width: 10%;
-  }
+    thead {
+      border-bottom: 2px solid $cobalto;
+    }
+    td{
+      font-size: rem-calc(12);
+    }
 }
 
-.group{
-  width: 100%;
-  padding:0 0 0 0;
-  margin-left:0;
-  margin-right: 0;
+.group {
+  padding: 0;
+  margin: 0;
 }
 
 .unit_nav {
+  margin-top: rem-calc(50);
   padding:  rem-calc(12) rem-calc(12) 0 rem-calc(12);
   font-size: rem-calc(11);
+
   a {
     color: gray;
   }
-  li{
-    width:33.333%;
-    float:left;
-    display:inline;
-  }
-  ul{
+
+  ul {
     overflow:hidden;
+
+    li {
+      width: 33.333%;
+      float: left;
+      display: inline;
+    }
   }
 }
 
@@ -162,32 +126,114 @@
   padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
 }
 
-
-.ficha{
-  border-style: solid;
+.card {
+  border: 2px solid $border;
   background: $body;
-  margin-top:  rem-calc(12);
-  margin-left: rem-calc(22);
-  padding: rem-calc(12) rem-calc(12) 0 rem-calc(12);
-  border-width: 2px 2px 2px 2px;
-  border-color: gray;
-  color: darkblue;
   font-size: rem-calc(12);
+  margin-top: rem-calc(20);
+  padding-bottom: rem-calc(20);
 
-  .indicadores{
-    border-color: red;
+  .card-content {
+    padding: 0 rem-calc(20);
+  }
+
+  &:last-child {
+    margin-bottom: rem-calc(80);
+  }
+
+  .main_process {
+   color: $body    ;
+   background: $cobalto;
+   padding: rem-calc(12);
+   padding-bottom: 0;
+  }
+
+  .sub_process {
+    color: white;
+    background: lighten($turquesa, 5%);
+    padding: rem-calc(12);
+    padding-bottom: 0;
+  }
+
+  .accordion, .accordion-content {
+    background: none;
     color: black;
-    .numeric{
-       text-align: right;
+
+    .accordion-title {
+      border: 0;
+
+      &:hover, &:focus {
+        background: white;
+      }
+
+      &::before {
+        font-size: rem-calc(24);
+        font-weight: bold;
+        margin-top: -14px;
+      }
     }
   }
 
-  .distritos {
-   border-color: gray;
-   color: black;
-    .numeric{
-       text-align: right;
+  table {
+    table-layout: fixed;
+    margin-bottom: 0;
+
+    tbody, thead, th {
+      background: $body;
+      border: 0;
+    }
+
+    thead {
+      border-bottom: 2px solid $cobalto;
+    }
+
+    th:first-child {
+      width: 40%;
+    }
+
+    tr {
+      background: $body;
+
+      &:first-child td {
+        padding-top: 10px;
+      }
+
+      th, td {
+        padding: 0;
+      }
+
+      th:last-child, td:last-child {
+        padding-right: rem-calc(10);
+      }
+    }
+    &.stats {
+      font-weight: bold;
+      margin-bottom: rem-calc(20);
+      tr {
+        background: rgba(6,66,92,.1);
+
+        td:first-child {
+          padding-left: rem-calc(10);
+        }
+      }
+
+      tr:first-child td {
+        border-top: rem-calc(2) solid $cobalto;
+        padding-top: rem-calc(10);
+      }
+
+      tr:last-child td {
+        border-bottom: rem-calc(2) solid $cobalto;
+        padding-bottom: rem-calc(10);
+      }
+    }
+
+    &.indicators {
+      margin-bottom: rem-calc(40);
+
+      th:first-child {
+        width: 70%;
+      }
     }
   }
-
 }

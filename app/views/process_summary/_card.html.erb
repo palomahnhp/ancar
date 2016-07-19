@@ -1,0 +1,26 @@
+<% @main_processes.each do |mp| %>
+  <div class="card">
+    <div class="main_process medium-12">
+      <strong class="title"><%= mp.order %>  <%= mp.item.description %></strong>
+    </div>
+
+    <% if @type == "SubProcess" %>
+      <ul class="accordion" data-multi-expand="true" data-allow-all-closed="true" data-accordion>
+        <% mp.sub_processes.each do |sp| %>
+          <li class="accordion-item small-12" data-accordion-item>
+            <a href="#" class="accordion-title" >
+              <h5><%= sp.order %> <%= sp.item.description %></h5>
+            </a>
+            <div class="card-content accordion-content" data-tab-content>
+              <%= render partial: 'detail', locals: {pid: sp.id} %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="card-content">
+        <%= render partial: 'detail', locals: {pid: mp.id}  %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

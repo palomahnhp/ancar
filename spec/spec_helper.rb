@@ -32,8 +32,9 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do |example|
+    puts example
     DatabaseCleaner.strategy = :transaction
-    I18n.locale = :en
+    I18n.locale = :es
     load "#{Rails.root}/db/seeds.rb"
   end
 
@@ -56,11 +57,6 @@ RSpec.configure do |config|
 
   config.append_after(:each) do
     DatabaseCleaner.clean
-  end
-
-  config.before(:each, type: :feature) do
-    Bullet.start_request
-    allow(InvisibleCaptcha).to receive(:timestamp_threshold).and_return(0)
   end
 
   config.after(:each, type: :feature) do
@@ -98,6 +94,5 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
-
 
 end

@@ -1,59 +1,6 @@
-example_id                                                        | status  | run_time     |
------------------------------------------------------------------ | ------- | ------------ |
-./spec/views/admin/dashboard/index.html.erb_spec.rb[1:1]          | unknown |              |
-./spec/views/admin/organization_types/edit.html.erb_spec.rb[1:1]  | unknown |              |
-./spec/views/admin/organization_types/index.html.erb_spec.rb[1:1] | unknown |              |
-./spec/views/admin/organization_types/new.html.erb_spec.rb[1:1]   | unknown |              |
-./spec/views/admin/organization_types/show.html.erb_spec.rb[1:1]  | unknown |              |
-./spec/views/admin/unit_types/edit.html.erb_spec.rb[1:1]          | failed  | 1.98 seconds |
-./spec/views/admin/unit_types/index.html.erb_spec.rb[1:1]         | unknown |              |
-./spec/views/admin/unit_types/new.html.erb_spec.rb[1:1]           | failed  | 1.96 seconds |
-./spec/views/admin/unit_types/show.html.erb_spec.rb[1:1]          | failed  | 2.01 seconds |
-./spec/views/admin/units/edit.html.erb_spec.rb[1:1]               | unknown |              |
-./spec/views/admin/units/index.html.erb_spec.rb[1:1]              | failed  | 1.95 seconds |
-./spec/views/admin/units/new.html.erb_spec.rb[1:1]                | unknown |              |
-./spec/views/admin/units/show.html.erb_spec.rb[1:1]               | unknown |              |
-./spec/views/entry_indicators/edit.html.erb_spec.rb[1:1]          | unknown |              |
-./spec/views/entry_indicators/index.html.erb_spec.rb[1:1]         | unknown |              |
-./spec/views/entry_indicators/new.html.erb_spec.rb[1:1]           | failed  | 2.14 seconds |
-./spec/views/entry_indicators/show.html.erb_spec.rb[1:1]          | failed  | 1.95 seconds |
-./spec/views/indicators/edit.html.erb_spec.rb[1:1]                | failed  | 2 seconds    |
-./spec/views/indicators/index.html.erb_spec.rb[1:1]               | unknown |              |
-./spec/views/indicators/new.html.erb_spec.rb[1:1]                 | unknown |              |
-./spec/views/indicators/show.html.erb_spec.rb[1:1]                | unknown |              |
-./spec/views/main_processes/edit.html.erb_spec.rb[1:1]            | failed  | 2.18 seconds |
-./spec/views/main_processes/index.html.erb_spec.rb[1:1]           | unknown |              |
-./spec/views/main_processes/new.html.erb_spec.rb[1:1]             | failed  | 2.03 seconds |
-./spec/views/main_processes/show.html.erb_spec.rb[1:1]            | failed  | 1.95 seconds |
-./spec/views/organization_types/edit.html.erb_spec.rb[1:1]        | unknown |              |
-./spec/views/organization_types/index.html.erb_spec.rb[1:1]       | unknown |              |
-./spec/views/organization_types/new.html.erb_spec.rb[1:1]         | unknown |              |
-./spec/views/organization_types/show.html.erb_spec.rb[1:1]        | unknown |              |
-./spec/views/organizations/edit.html.erb_spec.rb[1:1]             | unknown |              |
-./spec/views/organizations/index.html.erb_spec.rb[1:1]            | unknown |              |
-./spec/views/organizations/new.html.erb_spec.rb[1:1]              | unknown |              |
-./spec/views/organizations/show.html.erb_spec.rb[1:1]             | unknown |              |
-./spec/views/settings/edit.html.erb_spec.rb[1:1]                  | unknown |              |
-./spec/views/settings/index.html.erb_spec.rb[1:1]                 | unknown |              |
-./spec/views/settings/new.html.erb_spec.rb[1:1]                   | unknown |              |
-./spec/views/settings/show.html.erb_spec.rb[1:1]                  | failed  | 2 seconds    |
-./spec/views/sources/edit.html.erb_spec.rb[1:1]                   | unknown |              |
-./spec/views/sources/index.html.erb_spec.rb[1:1]                  | unknown |              |
-./spec/views/sources/new.html.erb_spec.rb[1:1]                    | failed  | 1.99 seconds |
-./spec/views/sources/show.html.erb_spec.rb[1:1]                   | unknown |              |
-./spec/views/stats/edit.html.erb_spec.rb[1:1]                     | unknown |              |
-./spec/views/stats/index.html.erb_spec.rb[1:1]                    | unknown |              |
-./spec/views/stats/new.html.erb_spec.rb[1:1]                      | unknown |              |
-./spec/views/stats/show.html.erb_spec.rb[1:1]                     | unknown |              |
-./spec/views/sub_processes/edit.html.erb_spec.rb[1:1]             | unknown |              |
-./spec/views/sub_processes/index.html.erb_spec.rb[1:1]            | unknown |              |
-./spec/views/sub_processes/new.html.erb_spec.rb[1:1]              | unknown |              |
-./spec/views/sub_processes/show.html.erb_spec.rb[1:1]             | unknown |              |
-./spec/views/tasks/edit.html.erb_spec.rb[1:1]                     | unknown |              |
-./spec/views/tasks/index.html.erb_spec.rb[1:1]                    | unknown |              |
-./spec/views/tasks/new.html.erb_spec.rb[1:1]                      | failed  | 1.97 seconds |
-./spec/views/tasks/show.html.erb_spec.rb[1:1]                     | unknown |              |
-./spec/views/unit_types/edit.html.erb_spec.rb[1:1]                | failed  | 1.9 seconds  |
-./spec/views/unit_types/index.html.erb_spec.rb[1:1]               | unknown |              |
-./spec/views/unit_types/new.html.erb_spec.rb[1:1]                 | failed  | 2.01 seconds |
-./spec/views/unit_types/show.html.erb_spec.rb[1:1]                | unknown |              |
+example_id                           | status | run_time        |
+------------------------------------ | ------ | --------------- |
+./spec/features/welcome_spec.rb[1:1] | passed | 0.69101 seconds |
+./spec/features/welcome_spec.rb[1:2] | failed | 1.21 seconds    |
+./spec/i18n_spec.rb[1:1]             | failed | 3.11 seconds    |
+./spec/i18n_spec.rb[1:2]             | failed | 5.65 seconds    |

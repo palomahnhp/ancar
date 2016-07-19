@@ -6,11 +6,12 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  get 'sign_in', to: 'sessions#create', as: :sign_in
+  resource :session, only: [:create, :destroy]
+
   resources :in_works
   resources :entry_indicators
   resources :process_summary
-
-  resources :periods
 
   namespace :admin do
     root to: "dashboard#index"

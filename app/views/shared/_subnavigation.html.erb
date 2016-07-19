@@ -1,21 +1,24 @@
 <div class="row">
   <div class="medium-10 medium-offset-2 column">
     <ul>
-      <li>
-        <%= link_to t("subnavigation_menu.entry_indicators"), entry_indicators_path, class: ("active" if controller_name == "entry_indicators"), accesskey: "e" %>
-      </li>
+      <% if current_user %>
+        <li>
+          <%= link_to t("subnavigation_menu.entry_indicators"), entry_indicators_path, class: ("active" if controller_name == "entry_indicators"), accesskey: "e" %>
+        </li>
 
-      <li>
-        <%= link_to t("subnavigation_menu.process_summary"), process_summary_index_path(type: "MainProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "MainProcess" ), accesskey: "p" %>
-      </li>
+          <% if current_user.is_manager? || current_user.is_admin? %>
+          <li>
+            <%= link_to t("subnavigation_menu.process_summary"), process_summary_index_path(type: "MainProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "MainProcess" ), accesskey: "p" %>
+          </li>
 
-      <li>
-        <%= link_to t("subnavigation_menu.subprocess_summary"), process_summary_index_path(type: "SubProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "SubProcess"), accesskey: "s" %>
-      </li>
-
-      <li>
-        <!--%= #link_to t("subnavigation_menu.instructions"), in_works_path, class: ("active" if controller_name == "faq"), accesskey: "i" %-->
-      </li>
+          <li>
+            <%= link_to t("subnavigation_menu.subprocess_summary"), process_summary_index_path(type: "SubProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "SubProcess"), accesskey: "s" %>
+          </li>
+        <% end %>
+        <li>
+          <!--%= #link_to t("subnavigation_menu.instructions"), in_works_path, class: ("active" if controller_name == "faq"), accesskey: "i" %-->
+        </li>
+      <% end %>
     </ul>
   </div>
 

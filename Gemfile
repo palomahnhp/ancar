@@ -110,7 +110,7 @@ group :development do
   gem 'coveralls', require: false
   gem 'email_spec'
   gem 'seed_dump'
-  gem 'jazzhands', '~> 0.0.4' # consola replaces IRB with Pry, improves output through awesome_print
+  gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'
 end
 
 group :development do

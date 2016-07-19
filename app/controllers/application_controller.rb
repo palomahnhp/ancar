@@ -10,18 +10,22 @@ class ApplicationController < ActionController::Base
 
   def require_user
     if (params["login"])
-      user = User.find_by_ayre(params["login"].downcase)
+      user = User.find_by_login(params["login"].downcase)
       if user
         session[:user_id]  = user.id
       end
     end
 
     if !current_user
-
        if self.controller_name  !=  'welcome'
           redirect_to root_url, notice: "Usuario no conectado"
        end
     end
 #   redirect_to root_url unless current_user
   end
+
+  private
+    def verify_user
+      raise ActionController::RoutingError.new('Not Found') unless current_user.present?
+    end
 end
