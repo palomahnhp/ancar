@@ -7,14 +7,14 @@ class SessionsController < ApplicationController
     if authenticated_uweb?
       redirect_to root_path
     else
-      redirect_to root_path notice: "No hay usuario conectado"
+      redirect_to root_path, notice: "Usuario no autorizado"
     end
   end
 
   def destroy
     current_user.login()
     destroy_session
-    redirect_to root_path notice: "Se ha cerrado la sesión: usuario desconectado"
+    redirect_to root_path, notice: "Se ha cerrado la sesión: usuario desconectado"
   end
 
   private
@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
         if user.uweb_update!(uw_user)
           session[:user_id] = user.id
         else
-          redirect_to root_path notice: "Se ha cerrado la sesión: usuario desconectado"
+          redirect_to root_path, notice: "Se ha cerrado la sesión: usuario desconectado"
         end
       end
     end
