@@ -6,7 +6,7 @@ class UwebAuthenticator
 
   def auth
     return false unless [@user_params[:login], @user_params[:user_key], @user_params[:date]].all? {|_| _.present?}
-    return @uweb_user if user_data && @user_params[:development] && Rails.env.development?
+    return @uweb_user if user_data && (!@user_params[:development].nil? && @user_params[:development] == "TRUE") && Rails.env.development?
     return @uweb_user if user_exists? && application_authorized?
     false
   end
@@ -15,6 +15,7 @@ class UwebAuthenticator
 
     def user_exists?
       response = client.call(:get_status_user_data, message: { ub: {user_key: @user_params[:user_key], date: @user_params[:date]} }).body
+      puts "Llamada realizada UWEB: get_status_user_data - #{response}"
       parsed_response = parser.parse((response[:get_status_user_data_response][:get_status_user_data_return]))
       @uweb_user = uweb_user(parsed_response)
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
@@ -51,6 +52,7 @@ class UwebAuthenticator
 
     def application_authorized?
       response = client.call(:get_applications_user_list, message: { ub: {user_key: @user_params[:user_key]} }).body
+      puts "Llamada realizada UWEB: application_user_list aplicación: #{application_key} - #{response}"
       parsed_response = parser.parse((response[:get_applications_user_list_response][:get_applications_user_list_return]))
       aplication_value = parsed_response["APLICACIONES"]["APLICACION"]
 
@@ -62,6 +64,7 @@ class UwebAuthenticator
     end
 
     def client
+      puts "Generación cliente uweb: WSDL - #{Rails.application.secrets.uweb_wsdl}"
       @client ||= Savon.client(wsdl: Rails.application.secrets.uweb_wsdl,
                                raise_errors: true)
     end
