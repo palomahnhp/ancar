@@ -23,26 +23,18 @@ ActiveRecord::Schema.define(version: 20160713094423) do
   add_index "administrators", ["user_id"], name: "index_administrators_on_user_id", using: :btree
 
   create_table "assigned_employees", force: :cascade do |t|
-    t.integer  "official_group_id"
     t.integer  "staff_of_id"
     t.string   "staff_of_type"
-    t.integer  "unit_id"
+    t.integer  "official_groups_id"
     t.string   "updated_by"
-    t.decimal  "quantity",          precision: 5, scale: 2
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.decimal  "quantity",           precision: 5, scale: 2
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
-  add_index "assigned_employees", ["official_group_id"], name: "index_assigned_employees_on_official_group_id", using: :btree
-  add_index "assigned_employees", ["unit_id"], name: "index_assigned_employees_on_unit_id", using: :btree
-
   create_table "entry_indicator_sources", force: :cascade do |t|
-    t.integer  "entry_indicator_id"
-    t.integer  "source_id"
-    t.decimal  "amount",             precision: 12, scale: 2
-    t.string   "uupdates_by"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.integer "source_id"
+    t.integer "entry_indicator_id"
   end
 
   add_index "entry_indicator_sources", ["entry_indicator_id"], name: "index_entry_indicator_sources_on_entry_indicator_id", using: :btree
@@ -50,17 +42,15 @@ ActiveRecord::Schema.define(version: 20160713094423) do
 
   create_table "entry_indicators", force: :cascade do |t|
     t.integer  "unit_id"
-    t.integer  "indicator_metric_id"
-    t.integer  "indicator_source_id"
     t.text     "specifications"
-    t.integer  "amount"
     t.string   "updated_by"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "indicator_metric_id"
+    t.decimal  "amount",              precision: 12, scale: 2
   end
 
   add_index "entry_indicators", ["indicator_metric_id"], name: "index_entry_indicators_on_indicator_metric_id", using: :btree
-  add_index "entry_indicators", ["indicator_source_id"], name: "index_entry_indicators_on_indicator_source_id", using: :btree
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
 
   create_table "indicator_groups", force: :cascade do |t|
@@ -126,10 +116,10 @@ ActiveRecord::Schema.define(version: 20160713094423) do
 
   create_table "metrics", force: :cascade do |t|
     t.integer  "item_id"
-    t.string   "in_out"
     t.string   "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "in_out"
   end
 
   add_index "metrics", ["item_id"], name: "index_metrics_on_item_id", using: :btree
@@ -154,13 +144,10 @@ ActiveRecord::Schema.define(version: 20160713094423) do
     t.string   "description"
     t.string   "short_description"
     t.string   "sap_id"
-    t.integer  "order"
     t.string   "updated_by"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
-
-  add_index "organizations", ["organization_type_id"], name: "index_organizations_on_organization_type_id", using: :btree
 
   create_table "periods", force: :cascade do |t|
     t.integer  "organization_type_id"
@@ -187,7 +174,6 @@ ActiveRecord::Schema.define(version: 20160713094423) do
     t.integer  "item_id"
     t.boolean  "fixed"
     t.boolean  "has_specification"
-    t.integer  "order"
     t.string   "updated_by"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -263,48 +249,40 @@ ActiveRecord::Schema.define(version: 20160713094423) do
 
   create_table "total_indicators", force: :cascade do |t|
     t.integer  "indicator_metric_id"
-    t.integer  "indicator_group_id"
     t.string   "indicator_type"
     t.string   "updated_by"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "indicator_group_id"
   end
-
-  add_index "total_indicators", ["indicator_group_id"], name: "index_total_indicators_on_indicator_group_id", using: :btree
-  add_index "total_indicators", ["indicator_metric_id"], name: "index_total_indicators_on_indicator_metric_id", using: :btree
 
   create_table "unit_types", force: :cascade do |t|
     t.integer  "organization_type_id"
     t.string   "description"
     t.string   "updated_by"
-    t.integer  "order"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "order"
   end
-
-  add_index "unit_types", ["organization_type_id"], name: "index_unit_types_on_organization_type_id", using: :btree
 
   create_table "units", force: :cascade do |t|
     t.integer  "unit_type_id"
     t.integer  "organization_id"
     t.string   "description_sap"
     t.integer  "sap_id"
-    t.integer  "order"
     t.string   "updated_by"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "order"
   end
-
-  add_index "units", ["organization_id"], name: "index_units_on_organization_id", using: :btree
-  add_index "units", ["unit_type_id"], name: "index_units_on_unit_type_id", using: :btree
 
   create_table "user_organizations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "organization_id"
+    t.integer "user_id_id"
+    t.integer "organization_id_id"
   end
 
-  add_index "user_organizations", ["organization_id"], name: "index_user_organizations_on_organization_id", using: :btree
-  add_index "user_organizations", ["user_id"], name: "index_user_organizations_on_user_id", using: :btree
+  add_index "user_organizations", ["organization_id_id"], name: "index_user_organizations_on_organization_id_id", using: :btree
+  add_index "user_organizations", ["user_id_id"], name: "index_user_organizations_on_user_id_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "login"
@@ -329,41 +307,10 @@ ActiveRecord::Schema.define(version: 20160713094423) do
   add_index "valuators", ["user_id"], name: "index_valuators_on_user_id", using: :btree
 
   add_foreign_key "administrators", "users"
-  add_foreign_key "assigned_employees", "official_groups"
-  add_foreign_key "assigned_employees", "units"
-  add_foreign_key "entry_indicator_sources", "entry_indicators"
-  add_foreign_key "entry_indicator_sources", "sources"
-  add_foreign_key "entry_indicators", "indicator_metrics"
-  add_foreign_key "entry_indicators", "indicator_sources"
-  add_foreign_key "entry_indicators", "units"
-  add_foreign_key "indicator_metrics", "indicators"
-  add_foreign_key "indicator_metrics", "metrics"
-  add_foreign_key "indicator_sources", "indicators"
-  add_foreign_key "indicator_sources", "sources"
-  add_foreign_key "indicators", "items"
-  add_foreign_key "indicators", "tasks"
-  add_foreign_key "main_processes", "items"
-  add_foreign_key "main_processes", "periods"
   add_foreign_key "managers", "users"
-  add_foreign_key "metrics", "items"
-  add_foreign_key "organizations", "organization_types"
-  add_foreign_key "periods", "organization_types"
-  add_foreign_key "sources", "items"
-  add_foreign_key "sub_processes", "items"
-  add_foreign_key "sub_processes", "main_processes"
-  add_foreign_key "sub_processes", "unit_types"
   add_foreign_key "summary_process_details", "sub_processes"
   add_foreign_key "summary_process_details", "summary_processes"
   add_foreign_key "summary_process_details", "units"
   add_foreign_key "summary_process_indicators", "summary_processes"
-  add_foreign_key "tasks", "items"
-  add_foreign_key "tasks", "sub_processes"
-  add_foreign_key "total_indicators", "indicator_groups"
-  add_foreign_key "total_indicators", "indicator_metrics"
-  add_foreign_key "unit_types", "organization_types"
-  add_foreign_key "units", "organizations"
-  add_foreign_key "units", "unit_types"
-  add_foreign_key "user_organizations", "organizations"
-  add_foreign_key "user_organizations", "users"
   add_foreign_key "valuators", "users"
 end

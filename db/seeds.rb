@@ -38,6 +38,12 @@ puts "3. Creando Tipos de unidades para Distritos"
   ut7 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS SANITARIOS, CALIDAD Y CONSUMO", organization_type_id: to1.id, order: 7, updated_by: "seed")
   ut8 = UnitType.create!(description: "SECRETARIA DE DISTRITO", organization_type_id: to1.id, order: 8, updated_by: "seed")
 
+puts "5. Cargando datos Periodo 2015 Distritos"
+  pdo1 = Period.create!(organization_type_id: to1.id, description: "PERIODO DE ANÁLISIS: AÑO 2015",
+                 started_at: "01/01/2015", ended_at: "31/12/2015",
+                 opened_at: "01/04/2016", closed_at: "30/04/2016",
+                 updated_by: "seed")
+
 puts "6. Cargando grupos de personal"
   OfficialGroup.create!(name: "A1", description: "Grupo A1")
   OfficialGroup.create!(name: "A2", description: "Grupo A2")
