@@ -9,14 +9,18 @@ namespace :total_indicators do
     init_log
     cab_log
     write_log
-    TotalIndicator.delete_all
-    @per = Period.first
-    @num_main_process = 0
-    @num_sub_process = 0
-    @num_indicators = 0
-    @tot_indicators = 0
+    reset_vars
+    #@num_main_process = 0
+    #@num_sub_process = 0
+    #@num_indicators = 0
+    #@tot_indicators = 0
+
+    TotalIndicator.delete_all # AÑADIR WHERE PARA OTROS PERIODOS
+    @per = Period.first # SOLO VALIDO PARA CARGA DE PRIMER PERIODO
+
+    # Válido sólo para Distritos
     @organization_type = OrganizationType.where(description: 'Distritos').first
-    @o = Organization.first # Probamos con una JD. ¿¿¿¿??????
+    # @o = Organization.first # Probamos con una JD. ¿¿¿¿??????
 
     (3..10).each do |i|
       hoja = libro.worksheet i
