@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_one :valuator
   has_one :manager
   has_many :user_organizations
+  has_many :manager_organization_types
   has_many :organizations, through: :user_organizations
 
   #accepts_nested_attributes_for :organization, update_only: true
@@ -48,15 +49,30 @@ class User < ActiveRecord::Base
   end
 
   def has_organizations?
-    auth_organizations.present? || ( is_admin? || is_manager?)
+    auth_organizations.present?
   end
 
   def organizations_unique?
     auth_organizations.size == 1
   end
 
-  def auth_organizations
-    @organizations ||=  ( is_admin? || is_manager? ) ? Organization.all : organizations
+  def has_organization_types?
+    auth_organization_types.present?
+    #is_manager? && auth_organization_types.present? || is_admin
   end
 
+  # organizaciones a las que está autorizado un usuario
+  def auth_organizations(organization_type_id: 0)
+    if organization_type_id != 0
+      @organizations ||= Organization.where(organization_type_id: organization_type_id)
+    elsif has_organization_types?
+      @organizations ||= Organization.where(organization_type_id: @organization_types.ids)
+    else
+      @organizations ||= ( is_admin?) ? Organization.all : organizations
+    end
+  end
+
+  def auth_organization_types
+   @organization_types ||= ( is_admin? ) ? OrganizationType.all : OrganizationType.where(id: ManagerOrganizationType.where(user_id: id).ids)
+  end
 end

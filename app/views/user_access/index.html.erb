@@ -1,0 +1,41 @@
+<div class="row " >
+  <div class="corporativo medium-12 small-12 columns">
+    <h3><%= t("user_access.index.title") %> </h3>
+    <h4><%= t("user_access.index.select") %> </h4>
+  </div>
+
+  <div class="row">
+    <div class= "small-12 columns">
+      <% if params[:select_view] == "organizations" %>
+        <% current_user.auth_organizations.each do |o| %>
+          <div class="callout" >
+            <h5><%=o.description %> </h5>
+            <% @periods.each do |p| %>
+              <div class= "small-3 columns end">
+                <%= link_to p.description, entry_indicators_path(organization_id: o.id,  period: p.id)%>
+              </div>
+            <% end %>
+           </div>
+        <% end %>
+       <% elsif params[:organization_type_id] %>
+        <% Organization.where(organization_type_id: params[:organization_type_id]).each do |o| %>
+          <div class="callout" >
+            <h5><%=o.description %> </h5>
+            <% @periods.each do |p| %>
+              <div class= "small-3 columns end">
+                <%= link_to p.description, entry_indicators_path(organization_id: o.id,  period: p.id)%>
+              </div>
+            <% end %>
+           </div>
+        <% end %>
+      <% elsif params[:select_view] == "organization_types" %>
+        <% current_user.auth_organization_types.each do |ot| %>
+          <div class="callout">
+          <h5><%= link_to ot.description, user_access_index_path(organization_type_id: ot.id)%> </h5>
+          </div>
+        <% end %>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
