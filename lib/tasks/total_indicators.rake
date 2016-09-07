@@ -20,7 +20,7 @@ namespace :total_indicators do
 
     # Válido sólo para Distritos
     @organization_type = OrganizationType.where(description: 'Distritos').first
-    # @o = Organization.first # Probamos con una JD. ¿¿¿¿??????
+    @o = Organization.first # Probamos con una JD. ¿¿¿¿??????
 
     (3..10).each do |i|
       hoja = libro.worksheet i
