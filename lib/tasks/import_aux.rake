@@ -1,13 +1,14 @@
 private
-  def process_units(hoja, i)
-    @organization_type = OrganizationType.where(description: 'Distritos').first
+  def process_units(hoja, i, organization_type)
+    @organization_type = OrganizationType.where(acronym: organization_type).first
     (hoja.rows).each  do |f|
+
       next if f[1].nil? || f[1] == "DIRECCIÓN" || f[1] == "COD. UNIDAD" # no procesa fila 1, cabecera
       @id_sap = f[1]
       @nombre = f[2]
       @JM_id_sap = f[8]
       @JM_nombre = f[9]
-      create_unit(hoja.name, i)
+      create_unit(@organization_type.description, i)
     end
   end
 
@@ -17,21 +18,23 @@ private
  #     puts "  Creado Dpto #{@nombre} "
       @num += 1
       if ut.nil?
-#       puts UnitType.all.pluck(:description)
-        raise "Error buscando tipo unidad #{@sap_id} #{name}"
+        ut = UnitType.create(description: name, order: 1, updated_by: "import")
+ #       raise "Error buscando tipo unidad #{@sap_id} #{name}"
       end
       o = Organization.where(sap_id: @JM_id_sap).first
+      if o.nil?
+        o = Organization.create!(organization_type_id: @organization_type.id, description: @nombre, sap_id: @id_sap)
+      end
       u = Unit.create!(unit_type_id: ut.id, organization_id: o.id, description_sap: @nombre, sap_id: @id_sap, order: ut.order)
     else # JM
-       o = Organization.create!(organization_type_id: @organization_type.id, description: @nombre, sap_id: @id_sap)
-#       puts "  Creada JM #{@nombre}"
+      o = Organization.create!(organization_type_id: @organization_type.id, description: @nombre, sap_id: @id_sap)
+#      puts "  Creada JM #{@nombre}"
       @num += 1
-       @JM_id_sap = @JM_nombre = nil
+      @JM_id_sap = @JM_nombre = nil
     end
   end
 
   def process_sheet(hoja, file_name)
-
     @observaciones = ""
     puts ".... #{hoja.name}"
     reset_vars

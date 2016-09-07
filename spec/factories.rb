@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :manager_organization_type do
+    
+  end
 
     factory :user do
       sequence(:login) { |n| "usu00#{n}" }

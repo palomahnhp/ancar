@@ -5,28 +5,22 @@ class EntryIndicatorsController < ApplicationController
   # GET /entry_indicators
   # GET /entry_indicators.json
   def index
-    if !current_user.has_organizations?
-      puts "Sin unidad"
-      redirect_to root_path, notice: 'No tiene autorizada la consulta de datos de ninguna unidad'
-    end
-
-    if current_user.organizations_unique?  || !params[:organization_id].nil?
-      organization_id = params[:organization_id].nil? ? current_user.organizations.take.id : params[:organization_id]
-      @organization = Organization.find(organization_id)
+    if params[:organization_id] && params[:period]
+#     organization_id = params[:organization_id].nil? ? current_user.organizations.take.id : params[:organization_id]
+      @organization = Organization.find(params[:organization_id])
       @organization_type = @organization.organization_type
-      @period = @organization_type.periods.last
+      @period = Period.find(params[:period])
       @units = @organization.units.order(:order).to_a
       @main_processes = MainProcess.where(period_id: @period.id).order(:order)
-
       if params[:unit]
         @unit = Unit.find(params[:unit])
       else
         @unit = @units.first
       end
       @official_groups = OfficialGroup.all
-
-    else
-      @select_organizations = organizations_select_options
+      if @main_processes.empty?
+        render :index, notice: t("entry_indicators.flash.no_main_processes")
+      end
     end
   end
 
@@ -81,6 +75,15 @@ class EntryIndicatorsController < ApplicationController
 
     def organizations_select_options
       current_user.auth_organizations.collect { |v| [ v.description, v.id ] }
+     end
+
+    def organization_types_select_options
+      current_user.auth_organization_types.collect { |v| [ v.description, v.id ] }
+    end
+
+    def periods_select_options
+      @periods ||= Period.where(organization_type_id: @organization_type_id).order(:started_at)
+      @periods.collect { |v| [ v.description, v.id ] }
     end
 
 end

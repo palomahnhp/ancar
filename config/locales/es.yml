@@ -41,12 +41,27 @@ es:
     errors: errores
     period:  el periodo
     not_saved: 'impidieron guardar %{resource}:'
+
   entry_indicators:
     index:
       title: Hoja de identificación de procesos en #{organiztion_type}
-      unit: Selecciona unidad
-      select_organization: Selecciona una organización
+      unit: Seleccionar unidad
+      select_organization: Seleccionar una unidad
       select: Seleccionar
+      select_organization_type: Selecciona una organización
+      select_period: Seleccionar periodo
+
+    flash:
+      no_units_authorized: No tiene autorizada la consulta de datos de ninguna unidad.
+      no_main_processes: No hay datos para ese Periodo.
+      no_periods: No existen Periodos para ese tipo de unidad.
+      no_units: No se han encontrado unidades de ese tipo.
+
+  user_access:
+    index:
+      title: Hoja de identificación de procesos
+      select: Selección de unidad a tratar
+
   welcome:
     title: Organización del trabajo en las unidades municipales
     sub_title: Estudio de cargas de trabajo
