@@ -1,4 +1,3 @@
- <p id="notice"><%= notice %></p>
 
 <div class="row " >
   <% if @main_processes %>
@@ -15,9 +14,19 @@
 
       <%= render "ficha" %>
 
-  <% elsif @select_organizations %>
+  <% else %>
     <div class="row select_organization ">
-      <%= render "select_organizations" %>
-     </div>
+        <%= render "select_organization_types" %>
+    </div>
+    <% if @select_periods && !@select_periods.empty? %>
+      <div class="row select_organization ">
+        <%= render "select_periods" %>
+       </div>
+    <% end %>
+    <% if @select_organizations && !@select_organizations.empty? %>
+      <div class="row select_organization ">
+       <%= render "select_organizations" %>
+      </div>
+    <% end %>
   <% end %>
 </div>

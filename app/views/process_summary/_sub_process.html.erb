@@ -1,0 +1,8 @@
+<li class="accordion-item small-12" data-accordion-item>
+  <a href="#" class="accordion-title" >
+    <h5><%= sub_process.order %> <%= sub_process.item.description %></h5>
+  </a>
+  <div id="detail_sp_<%= sub_process.id %>" class="card-content accordion-content" data-tab-content>
+    <%= render partial: 'detail', locals: {pid: sub_process.id} %>
+  </div>
+</li>
