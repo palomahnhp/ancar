@@ -22,6 +22,21 @@ namespace :total_indicators do
     @organization_type = OrganizationType.where(description: 'Distritos').first
     @o = Organization.first # Probamos con una JD. ¿¿¿¿??????
 
+    # Meto aquí los indicator_groups "a pelo"
+    # No vale. El item_id es requerido
+=begin
+    IndicatorGroup.delete_all
+    IndicatorGroup.create!(description: "CONTRATOS MENORES", updated_by: "import")
+    IndicatorGroup.create!(description: "CONTRATOS DERIVADOS MARCO", updated_by: "import")
+    IndicatorGroup.create!(description: "RESTO CONTRATOS", updated_by: "import")
+    IndicatorGroup.create!(description: "TERRAZAS Y VELADORES Y CONCESIONES", updated_by: "import")
+    IndicatorGroup.create!(description: "RESTO AUTORIZACIONES (MENOS SITUADOS)", updated_by: "import")
+    IndicatorGroup.create!(description: "SITUADOS", updated_by: "import")
+    IndicatorGroup.create!(description: "DECLARACIONES Y COMUNICACIONES", updated_by: "import")
+    IndicatorGroup.create!(description: "TODO TIPO DE LICENCIAS", updated_by: "import")
+    IndicatorGroup.create!(description: "CONSULTAS URBANISTICAS Y PLANEAMIENTO", updated_by: "import")
+=end
+
     (3..10).each do |i|
       hoja = libro.worksheet i
       puts "Procesando hoja #{hoja.name}"
@@ -53,18 +68,28 @@ namespace :total_indicators do
               if !@ind_mt.nil?
               @ind_gr_id = nil
                 if !@indicator_group.nil?
-                  @ind_gr = IndicatorGroup.where(description: @indicator_group).first
-                  if !@ind_gr.nil?
-                    @ind_gr_id = @ind_gr.id
-                  else
+                  @indicator_group = @indicator_group.strip
+                  # @ind_gr = IndicatorGroup.where(description: @indicator_group).first
+                  @item_id = Item.where(item_type: 'indicator_group', description: @indicator_group).first
+                  #if !@ind_gr.nil?
+                  #  @ind_gr_id = @ind_gr.id
+                  #else
+                  if @item_id.nil?
 #                    puts "\n======> INDICATOR GROUP NO ENCONTRADO"
+                     it = Item.create!(item_type: 'indicator_group', description: @indicator_group, updated_by: 'import')
+                     IndicatorGroup.create!(description: @indicator_group, item_id: it.id, updated_by: 'import')
+                     @item_id = it.id
                   end
+                  @ind_gr = IndicatorGroup.where(item_id: @item_id).first
+                  @ind_gr_id = @ind_gr.id
                 end
                 puts "IndicatorMetricId = #{@ind_mt.id}, Type = #{@type}, IndicatorGroup = #{@ind_gr_id}"
                 for i in (0..@type.length-1);
-                  TotalIndicator.create!(indicator_metric_id: @ind_mt.id, indicator_type: @type[i], indicator_group_id: @ind_gr_id, updated_by: 'import')
+                  TotalIndicator.create!(indicator_metric_id: @ind_mt.id, indicator_type: @type[i], updated_by: 'import')
                 end
-
+                if !@ind_gr_id.nil?
+                    TotalIndicator.create!(indicator_metric_id: @ind_mt.id, indicator_type: 'G', indicator_group_id: @ind_gr_id, updated_by: 'import')
+                end
               else
                 puts "INDICATOR-METRIC NO EXISTE"
               end
