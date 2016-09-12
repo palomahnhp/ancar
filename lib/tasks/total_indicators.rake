@@ -66,7 +66,7 @@ namespace :total_indicators do
             if !@ind.nil?
               @ind_mt = IndicatorMetric.where(indicator_id: @ind.id, metric_id: @mt.id).first
               if !@ind_mt.nil?
-              @ind_gr_id = nil
+                @ind_gr_id = nil
                 if !@indicator_group.nil?
                   @indicator_group = @indicator_group.strip
                   # @ind_gr = IndicatorGroup.where(description: @indicator_group).first
@@ -75,9 +75,9 @@ namespace :total_indicators do
                   #  @ind_gr_id = @ind_gr.id
                   #else
                   if @item_id.nil?
-#                    puts "\n======> INDICATOR GROUP NO ENCONTRADO"
+                     puts "\n======> INDICATOR GROUP NO ENCONTRADO"
                      it = Item.create!(item_type: 'indicator_group', description: @indicator_group, updated_by: 'import')
-                     IndicatorGroup.create!(description: @indicator_group, item_id: it.id, updated_by: 'import')
+                     IndicatorGroup.create!(item_id: it.id, updated_by: 'import')
                      @item_id = it.id
                   end
                   @ind_gr = IndicatorGroup.where(item_id: @item_id).first

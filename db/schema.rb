@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907110612) do
+ActiveRecord::Schema.define(version: 20160912102553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160907110612) do
     t.decimal  "quantity",          precision: 5, scale: 2
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.integer  "period_id"
   end
 
   add_index "assigned_employees", ["official_group_id"], name: "index_assigned_employees_on_official_group_id", using: :btree
@@ -64,10 +65,9 @@ ActiveRecord::Schema.define(version: 20160907110612) do
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
 
   create_table "indicator_groups", force: :cascade do |t|
-    t.string   "description"
     t.string   "updated_by"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "item_id"
     t.integer  "order"
   end
@@ -332,6 +332,7 @@ ActiveRecord::Schema.define(version: 20160907110612) do
 
   add_foreign_key "administrators", "users"
   add_foreign_key "assigned_employees", "official_groups"
+  add_foreign_key "assigned_employees", "periods"
   add_foreign_key "assigned_employees", "units"
   add_foreign_key "entry_indicator_sources", "entry_indicators"
   add_foreign_key "entry_indicator_sources", "sources"
