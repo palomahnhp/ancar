@@ -1,4 +1,6 @@
 class IndicatorGroup < ActiveRecord::Base
-  belongs_to :indicator_metric
   has_many :total_indicators
+	belongs_to :item, -> { where item_type: "indicator_group" }
+
+  validates :item_id, presence: true
 end
