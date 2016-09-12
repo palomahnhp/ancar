@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resource :session, only: [:create, :destroy]
 
   resources :in_works
+  resources :user_access
   resources :entry_indicators
   resources :process_summary
 

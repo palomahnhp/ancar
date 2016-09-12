@@ -50,17 +50,21 @@ namespace :import do
     puts "Finalizada importación de indicadores de distritos."
   end
 
-  desc "import units"
-  task distritos: :environment do
-#   Rake::Task["db:seed"].execute
-    file_name = "../UnidadesDistritos.xls"
-    libro = Spreadsheet.open file_name
+  desc "import units: Unidades.xls"
+  task units: :environment do
+    organization_type = ENV['tipo']
+    if organization_type.nil?
+      puts "Indica el tipo de organización ej. tipo= 'Distrito'"
+      exit
+    end
 
+    file_name = "../Unidades.xls"
+    libro = Spreadsheet.open file_name
     # Procesando las hojas de los departamentos
     (0..8).each do |i|
        hoja = libro.worksheet i
        @num = 0
-       process_units(hoja, i)
+       process_units(hoja, i, organization_type)
        puts "Creando: #{hoja.name} - nº: #{@num}"
      end
    end
