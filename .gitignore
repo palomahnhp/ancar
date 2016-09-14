@@ -7,10 +7,13 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore config 
+# Ignore config
 /config/database.yml
 /config/secrets.yml
 /config/deploy-secrets.yml
+
+# Ignore coverage files
+/coverage/*
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
