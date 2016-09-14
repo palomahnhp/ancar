@@ -1,66 +1,102 @@
 ---
-es:
+en:
   admin:
     actions:
       confirm: "¿Estás seguro?"
+      new: Crear
+      create: Crear
+      edit: Editar
+      delete: Eliminar
+      back: Volver
+      in_construction: "En construcción"
     dashboard:
       index:
         title: Configuración de la aplicación
-    mainprocesses:
+    indicators:
       index:
-        create: Crear un Proceso
-        edit: editar
-        delete: eliminar
-      mainprocess:
-        new:
-          order: Número de orden
-          description: Descripcion
+        title: Indicadores
+        create: Crear un indicador
+      edit:
+        title: Editar indicador
+      form:
+        total_process?: ¿Totaliza para proceso?
+        total_sub_process?:  ¿Totaliza para subproceso?
     menu:
-      periods: Periodos de análisis
-      main_processes: Procesos
-      sub_processes: Subprocesos
-      tasks: Tareas
+      processes: Configurar procesos
       organization_types: Tipos de organizaciones
       unit_types: Tipos de unidades
       organizations: Organizaciones
       units: Unidades
       settings: Configuración global
       stats: Estadísticas
+    main_processes:
+      index:
+        empty: No hay procesos para este periodo
+        create: Incluir procesos
+        edit: Editar
+        delete: Eliminar
+        title: Procesos
+        select_organization_type: Selecciona una organización
+        select_period: Selecciona un periodo
+        sub_processes: Ver subprocesos
+        submit: Submit
+      edit:
+        title: Editar procesos
+      new:
+        title: Crear procesos
+      form:
+        order: Número de orden
+        item: Descripcion
+        period: Periodo
     organizations:
       index:
-        filter: Filtro
-        filters:
-          all: Todas
-          pending: Pendientes
-          rejected: Rechazadas
-          verified: Verificadas
-        hidden_count:
-          one: Hay además una organización sin usuario o con el usuario bloqueado
-          other: Hay %{count} organizaciones sin usuario o con el usuario bloqueado
-        reject: Rechazar
-        rejected: Rechazada
-        search: Buscar
-        search_placeholder: Nombre, email o teléfono
         title: Organizaciones
-        verified: Verificada
-        verify: Verificar
-      search:
-        title: Buscar Organizaciones
-    settings:
-      flash:
-        updated: Valor actualizado
+    organization_types:
       index:
-        title: Configuración global
-        update_setting: Actualizar
-        feature_flags: Funcionalidades
-        features:
-          enabled: "Funcionalidad activada"
-          disabled: "Funcionalidad desactivada"
-          enable: "Activar"
-          disable: "Desactivar"
-        banners: "Estilos de banners"
+        title: Tipos de organizaciones
+    periods:
+      index:
+        create: Abrir un periodo
+        edit: editar
+        delete: eliminar
+        title: Periodos de estudio
+        no_data: No hay periodos definidos
+        data_period: Los datos corresponden al periodo
+        data_collect: Periodo de mecanización
+        processes: Ver procesos
+      new:
+        title: Abrir un nuevo periodo
+      form:
+        organization_type: Organización
+        description: Descripción
+        started_at: Inicio
+        ended_at: Fin
+        opened_at: Inicio
+        closed_at: Fin
+        dates: Periodo de los datos
+        data_collect: Recogida de datos
     stats:
-      show:
-        stats_title: Estadísticas
-        summary:
-          visits: Visitas
+      index:
+        title: Estadísticas
+    sub_processes:
+      index:
+        create: Crear
+        edit: Editar
+        delete: Eliminar
+        title: Subprocesos
+        submit: Buscar subprocesos
+        tasks: Ver tareas
+    tasks:
+      index:
+        create: Crear una tarea
+        edit: Editar
+        delete: Eliminar
+        submit: Buscar tareas
+        indicators: Ver indicadores
+        title: Tareas
+    units:
+      index:
+        title: Unidades
+    unit_types:
+      index:
+        title: Tipos de unidades

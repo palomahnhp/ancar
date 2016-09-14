@@ -1,6 +1,41 @@
-example_id                           | status | run_time        |
------------------------------------- | ------ | --------------- |
-./spec/features/welcome_spec.rb[1:1] | passed | 0.69101 seconds |
-./spec/features/welcome_spec.rb[1:2] | failed | 1.21 seconds    |
-./spec/i18n_spec.rb[1:1]             | failed | 3.11 seconds    |
-./spec/i18n_spec.rb[1:2]             | failed | 5.65 seconds    |
+example_id                                            | status  | run_time        |
+----------------------------------------------------- | ------- | --------------- |
+./spec/controllers/sessions_controller_spec.rb[1:1:1] | pending | 0.35343 seconds |
+./spec/controllers/sessions_controller_spec.rb[1:1:2] | pending | 0.33913 seconds |
+./spec/controllers/sessions_controller_spec.rb[1:2:1] | pending | 0.00001 seconds |
+./spec/features/welcome_spec.rb[1:1]                  | passed  | 0.54382 seconds |
+./spec/features/welcome_spec.rb[1:2]                  | pending | 0.00002 seconds |
+./spec/helpers/user_access_helper_spec.rb[1:1]        | pending | 0.00001 seconds |
+./spec/i18n_spec.rb[1:1]                              | passed  | 2.98 seconds    |
+./spec/i18n_spec.rb[1:2]                              | passed  | 5.68 seconds    |
+./spec/models/manager_organization_type_spec.rb[1:1]  | pending | 0.00001 seconds |
+./spec/models/organization_types_spec.rb[1:1]         | passed  | 0.33597 seconds |
+./spec/models/organization_types_spec.rb[1:2]         | passed  | 0.40408 seconds |
+./spec/models/organization_types_spec.rb[1:3]         | passed  | 0.33419 seconds |
+./spec/models/organization_types_spec.rb[1:4]         | pending | 0.00001 seconds |
+./spec/models/organization_types_spec.rb[1:5]         | pending | 0.00001 seconds |
+./spec/models/organization_types_spec.rb[1:6]         | pending | 0.00001 seconds |
+./spec/models/organization_types_spec.rb[1:7]         | pending | 0.00001 seconds |
+./spec/models/organization_types_spec.rb[1:8]         | pending | 0.00001 seconds |
+./spec/models/organization_types_spec.rb[1:9]         | pending | 0.00001 seconds |
+./spec/models/organization_types_spec.rb[1:10]        | pending | 0.00001 seconds |
+./spec/models/organization_types_spec.rb[1:11]        | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:1]                    | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:2]                    | pending | 0.00002 seconds |
+./spec/models/periods_spec.rb[1:3:1]                  | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:3:2]                  | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:3:3]                  | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:4:1]                  | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:4:2]                  | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:4:3]                  | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:4:4]                  | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:4:5]                  | pending | 0.00001 seconds |
+./spec/models/periods_spec.rb[1:4:6]                  | pending | 0.00001 seconds |
+./spec/models/user_spec.rb[1:1]                       | passed  | 0.33803 seconds |
+./spec/models/user_spec.rb[1:2]                       | passed  | 0.35212 seconds |
+./spec/models/user_spec.rb[1:3:1]                     | passed  | 0.33881 seconds |
+./spec/models/user_spec.rb[1:3:2]                     | passed  | 0.35488 seconds |
+./spec/models/user_spec.rb[1:4:1]                     | pending | 0.00001 seconds |
+./spec/models/user_spec.rb[1:4:2]                     | pending | 0.00001 seconds |
+./spec/models/user_spec.rb[1:5:1]                     | passed  | 0.32941 seconds |
+./spec/models/user_spec.rb[1:5:2]                     | passed  | 0.35811 seconds |

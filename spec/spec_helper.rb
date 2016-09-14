@@ -32,9 +32,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do |example|
-    puts example
     DatabaseCleaner.strategy = :transaction
-    I18n.locale = :es
+    I18n.locale = :en
     load "#{Rails.root}/db/seeds.rb"
   end
 

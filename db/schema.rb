@@ -22,13 +22,6 @@ ActiveRecord::Schema.define(version: 20160901101125) do
 
   add_index "administrators", ["user_id"], name: "index_administrators_on_user_id", using: :btree
 
-  create_table "ajax_items", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "assigned_employees", force: :cascade do |t|
     t.integer  "official_group_id"
     t.integer  "staff_of_id"
@@ -43,12 +36,6 @@ ActiveRecord::Schema.define(version: 20160901101125) do
 
   add_index "assigned_employees", ["official_group_id"], name: "index_assigned_employees_on_official_group_id", using: :btree
   add_index "assigned_employees", ["unit_id"], name: "index_assigned_employees_on_unit_id", using: :btree
-
-  create_table "categories", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "entry_indicator_sources", force: :cascade do |t|
     t.integer  "entry_indicator_id"
