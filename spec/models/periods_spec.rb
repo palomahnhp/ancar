@@ -21,4 +21,4 @@ describe "Period" do
     it "is invalid if closed_at is greater than opened_at"
   end
 
-engit statusd
+end

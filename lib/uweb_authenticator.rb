@@ -22,7 +22,6 @@ class UwebAuthenticator
       parsed_response = parser.parse((response[:get_status_user_data_response][:get_status_user_data_return]))
       @logger.info('UwebAuthenticator#user_exists? ') { "Llamada UWEB: get_status_user_data - #{parsed_response}" }
       @uweb_user = uweb_user(parsed_response)
-      debugger
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
     rescue  Exception  => e
       @logger.error('UwebAuthenticator#user_exists? ') { "Error llamada UWEB: get_status_user_data - #{@user_params}" }
@@ -78,9 +77,7 @@ class UwebAuthenticator
     end
 
     def parser
-      parser ||= Nori.new(:parser => :rexml)
-      parser = Nokogiri::XML(response.to_s)
-      debugger
+      @parser ||= Nori.new
     end
 
     def application_key
