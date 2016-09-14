@@ -1,25 +1,70 @@
 en:
   application:
-    menu: "Menú"
     close: "Salir"
+  entry_indicators:
+    index:
+      title: Hoja de identificación de procesos en #{organiztion_type}
+      select_unit: Seleccionar una unidad
+      select: Seleccionar
+      select_organization_type: Selecciona una organización
+      select_period: Seleccionar periodo
+    flash:
+      no_units_authorized: No tiene autorizada la consulta de datos de ninguna unidad.
+      no_main_processes: No hay datos para ese Periodo.
+  form:
+    error: error
+    errors: errores
+    period:  el periodo
+    not_saved: 'impidieron guardar %{resource}:'
   layouts:
-    application:
-      ie_title: "Análisis de carga de trabajo"
     footer:
+      legal_warning: "Aviso legal"
+      copyright: "© Copyrigth  %{year} Ayuntamiento de Madrid"
       FAQ_title: "Instrucciones"
-      FAQ_text: "Instrucciones"
-      more_info: "Más información"
-      copyright: "Copyrigth"
+      FAQ_text: "Preguntas Frecuentes"
+      process_title: "Procesos"
+      process_text: "Revisón de los procesos"
+      reports_title: "Informes"
+      reports_text: "Consultar informes "
     header:
       logo: "Direccion General de Planificacion i18n"
       open: "Abierto"
       open_gov: "Gobierno abierto"
       open_data: "Open data"
-      usuarios: "Usuarios"
-      subprocesos: "Subprocesos"
-      administracion: "Administración"
+      administracion: Administrador
       gestion: "Gestor"
-      validacion: "Validación"
-    welcome:
-      title: Organización del trabajo en las unidades municipales
-      sub_title: Estudio de cargas de trabajo
+      validacion: "Validador"
+    application:
+      chrome: Google Chrome
+      firefox: Firefox
+      ie: Hemos detectado que estás navegando desde Internet Explorer. Para una mejor experiencia te recomendamos utilizar %{chrome} o %{firefox}.
+      ie_title: Esta web no está optimizada para tu navegador
+  shared:
+    advanced_search:
+      author_type: 'Por categoría de autor'
+      author_type_blank: 'Elige una categoría'
+      date: 'Por fecha'
+      date_placeholder: 'DD/MM/AAAA'
+      date_range_blank: 'Elige una fecha'
+      from: 'Desde'
+      general: 'Con el texto'
+      general_placeholder: 'Escribe el texto'
+      search: 'Filtrar'
+      title: 'Búsqueda avanzada'
+      to: 'Hasta'
+    print:
+      print_button: Imprimir esta información
+    target_blank_html: " (se abre en ventana nueva)"
+  subnavigation_menu:
+    entry_indicators: Indicadores
+    process_summary: Resumen por proceso
+    subprocess_summary: Resumen por subproceso
+    instructions: Instrucciones
+  user_access:
+    index:
+      title: Hoja de identificación de procesos
+      select: Selección de unidad a tratar
+  welcome:
+    title: Organización del trabajo en las unidades municipales
+    sub_title: Estudio de cargas de trabajo
+    logo_alt: Logo Gerencia de la Ciudad
