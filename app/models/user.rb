@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
 
   #accepts_nested_attributes_for :organization, update_only: true
 
+  validates :login, presence: true, uniqueness: true
+  validates :uweb_id, uniqueness: true
+  validates :pernr, uniqueness: true
+
+
   scope :administrator, -> { joins(:administrator) }
   scope :moderators,     -> { joins(:moderator) }
   scope :valuators,     -> { joins(:valuator) }

@@ -16,10 +16,6 @@ es:
       index:
         title: Indicadores
         create: Crear un indicador
-        no_data: No hay indicadores definidos
-        submit: Buscar indicadores
-      new:
-        title: Crear un indicador
       edit:
         title: Editar indicador
       form:
@@ -33,6 +29,31 @@ es:
       units: Unidades
       settings: Configuración global
       stats: Estadísticas
+    main_processes:
+      index:
+        empty: No hay procesos para este periodo
+        create: Incluir procesos
+        edit: Editar
+        delete: Eliminar
+        title: Procesos
+        select_organization_type: Selecciona una organización
+        select_period: Selecciona un periodo
+        sub_processes: Ver subprocesos
+        submit: Submit
+      edit:
+        title: Editar procesos
+      form:
+        order: Número de orden
+        item: Descripcion
+        period: Periodo
+      new:
+        title: Crear procesos
+    organizations:
+      index:
+        title: Organizaciones
+    organization_types:
+      index:
+        title: Tipos de organizaciones
     periods:
       index:
         create: Abrir un periodo
@@ -47,7 +68,6 @@ es:
         title: Abrir un nuevo periodo
       form:
         organization_type: Organización
-        name: Nombre
         description: Descripción
         started_at: Inicio
         ended_at: Fin
@@ -55,82 +75,28 @@ es:
         closed_at: Fin
         dates: Periodo de los datos
         data_collect: Recogida de datos
-    main_processes:
+    stats:
       index:
-        empty: No hay procesos para este periodo
-        create: Incluir procesos
-        edit: Editar
-        delete: Eliminar
-        title: Procesos
-        no_data: No hay procesos definidos
-        select_organization_type: Selecciona una organización
-        select_period: Selecciona un periodo
-        submit: Buscar procesos
-        sub_processes: Ver subprocesos
-      new:
-        title: Añadir procesos
-      form:
-        order: Número de orden
-        item: Descripcion
-        period: Periodo
-    organizations:
-      index:
-        title: Organizaciones
-    organization_types:
-      index:
-        title: Tipos de organizaciones
-      new:
-        title: Crear un tipo de organización
-        back: Volver
+        title: Estadísticas
     sub_processes:
       index:
-        create: Crear un subproceso
+        create: Crear
         edit: Editar
         delete: Eliminar
         title: Subprocesos
-        no_data: No hay suprocesos definidos
-        select_main_process: Selecciona un proceso
         submit: Buscar subprocesos
         tasks: Ver tareas
-      sub_process:
-          order: Número de orden
-          description: Descripcion
-      new:
-        title: Crear un subproceso
-        back: Volver
     tasks:
       index:
         create: Crear una tarea
         edit: Editar
         delete: Eliminar
-        no_data: No hay tareas definidas
         submit: Buscar tareas
         indicators: Ver indicadores
         title: Tareas
-      new:
-        title: Crear una tarea
-        back: Volver
     units:
       index:
         title: Unidades
     unit_types:
       index:
         title: Tipos de unidades
-    settings:
-      flash:
-        updated: Valor actualizado
-      index:
-        title: Configuración global
-        update_setting: Actualizar
-        feature_flags: Funcionalidades
-        features:
-          enabled: "Funcionalidad activada"
-          disabled: "Funcionalidad desactivada"
-          enable: "Activar"
-          disable: "Desactivar"
-        banners: "Estilos de banners"
-    stats:
-      show:
-        stats_title: Estadísticas
-        summary:
-          visits: Visitas
