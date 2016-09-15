@@ -1,0 +1,17 @@
+language: ruby
+rvm:
+ - "2.2.3"
+cache: bundler
+before_script:
+  - "for i in config/*.example; do cp \"$i\" \"${i/.example}\"; done"
+  - bundle exec rake db:setup
+script: bundle exec rakelanguage: ruby
+addons:
+  postgresql: "9.4"
+rvm:
+ - "2.2.3"
+cache: bundler
+before_script:
+  - "for i in config/*.example; do cp \"$i\" \"${i/.example}\"; done"
+  - bundle exec rake db:setup
+script: bundle exec rake
