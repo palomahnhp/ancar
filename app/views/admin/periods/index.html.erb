@@ -36,7 +36,7 @@
                   <%= t("admin.periods.index.processes") %>
                 <% end %>
         </td>
-        <% if period.open %> <!-- scope que sustituye a is_open? -->
+        <% if period.is_open? %>
           <td>
             <%= link_to edit_admin_period_path(period),
                 class: 'edit-banner button float-right' do %>

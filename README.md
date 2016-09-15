@@ -1,4 +1,7 @@
 # ANCAR
+
+[![Build Status](https://travis-ci.org/IAMCorporativos/ancar.svg?branch=master)](https://travis-ci.org/IAMCorporativos/ancar)
+
 Aplicación para el análisis de la carga de trabajo de las unidades municipales 
 
 ## Estado del proyecto

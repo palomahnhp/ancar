@@ -7,14 +7,11 @@ class Period < ActiveRecord::Base
   validates :closed_at, presence: true
   validates :started_at, presence: true
   validates :ended_at, presence: true
-#  validates :started_at_before_ended_at
-#  validates :opened_at_before_closed_at
 
-  scope :open, -> {where(opened_at <=  DateTime.now  && closed_at >=  DateTime.now)}
-# se sutituye por el scope oopen
-#  def is_open?
-#    opened_at <=  DateTime.now  && closed_at >=  DateTime.now
-#  end
+  def is_open?
+    opened_at <=  DateTime.now  && closed_at >=  DateTime.now
+  end
+
   private
 
   def started_at_before_ended_at
