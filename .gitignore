@@ -6,7 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
-git status
+
 # Ignore config
 /config/database.yml
 /config/secrets.yml
