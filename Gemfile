@@ -53,7 +53,7 @@ gem 'rollbar', '~> 2.8.0' # exception tracking for ruby
 # ActiveRecord backend for Delayed::Job,
 gem 'delayed_job_active_record', '~> 4.1.0'
 gem 'daemons' # wrap existing ruby scripts to be run as a daemon.
-gem 'newrelic_rpm', '~> 3.14' # information about the performance of your web application as it runs in production.
+
 gem 'whenever', require: false # Clean ruby syntax for writing and deploying cron jobs (scheduled jobs).
 
 # Visit tracking for Rails, usaremos piwik

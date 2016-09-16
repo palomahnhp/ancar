@@ -7,18 +7,11 @@ class User < ActiveRecord::Base
   has_many :manager_organization_types
   has_many :organizations, through: :user_organizations
 
-  #accepts_nested_attributes_for :organization, update_only: true
-
   validates :login, presence: true, uniqueness: true
   validates :uweb_id, uniqueness: true
   validates :pernr, uniqueness: true
 
-
-  scope :administrator, -> { joins(:administrator) }
-  scope :moderators,     -> { joins(:moderator) }
-  scope :valuators,     -> { joins(:valuator) }
-
-#  scope :by_document,    -> (document_type, document_number) { where(document_type: document_type, document_number: document_number) }
+  enum role: [:user, :validator, :manager, :admin]
 
   def uweb_update!(uweb_data)
     if login == uweb_data[:login]
@@ -37,18 +30,6 @@ class User < ActiveRecord::Base
      end
   end
 
-  def is_admin?
-    administrator.present?
-  end
-
-  def is_valuator?
-    valuator.present?
-  end
-
-  def is_manager?
-    manager.present?
-  end
-
   def full_name
     name + " " + surname + " " + second_surname
   end
@@ -63,21 +44,23 @@ class User < ActiveRecord::Base
 
   def has_organization_types?
     auth_organization_types.present?
-    #is_manager? && auth_organization_types.present? || is_admin
   end
 
-  # organizaciones a las que está autorizado un usuario
   def auth_organizations(organization_type_id: 0)
     if organization_type_id != 0
       @organizations ||= Organization.where(organization_type_id: organization_type_id)
     elsif has_organization_types?
       @organizations ||= Organization.where(organization_type_id: @organization_types.ids)
     else
-      @organizations ||= ( is_admin?) ? Organization.all : organizations
+      @organizations ||= ( self.admin?) ? Organization.all : organizations
     end
   end
 
   def auth_organization_types
-   @organization_types ||= ( is_admin? ) ? OrganizationType.all : OrganizationType.where(id: ManagerOrganizationType.where(user_id: id).ids)
+    if self.admin?
+      @organization_types ||= OrganizationType.all
+    elsif self.manager?
+      @organization_types ||= OrganizationType.where(id: ManagerOrganizationType.where(user_id: id).pluck(:organization_type_id))
+    end
   end
 end
