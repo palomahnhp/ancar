@@ -6,7 +6,7 @@
           <%= link_to t("subnavigation_menu.entry_indicators"), user_access_index_path, class: ("active" if controller_name == "user_access") , accesskey: "e" %>
         </li>
 
-          <% if current_user.is_manager? || current_user.is_admin? %>
+          <% if current_user.manager? || current_user.admin? %>
           <li>
             <%= link_to t("subnavigation_menu.process_summary"), process_summary_index_path(type: "MainProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "MainProcess" ), accesskey: "p" %>
           </li>
