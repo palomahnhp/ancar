@@ -14,7 +14,9 @@ class Admin::PeriodsController < Admin::BaseController
   def create
     @period = Period.new(period_params)
     if @period.save
-      redirect_to admin_periods_path
+     # TODO controlar si ha seleccionado copiar desde otro periodo
+      msg = t("admin.periods.index.create.success.no_processes_copy")
+      redirect_to admin_periods_path, notice: msg
     else
       render :new
     end
@@ -30,8 +32,12 @@ class Admin::PeriodsController < Admin::BaseController
   end
 
   def destroy
-    @period.destroy
-    redirect_to admin_period_path
+    if @period.destroy
+      msg = t("admin.periods.index.destroy.success")
+    else
+      msg = t("admin.periods.index.destroy.error")
+    end
+    redirect_to admin_periods_path, notice: msg
   end
 
   private
