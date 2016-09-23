@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912102553) do
+ActiveRecord::Schema.define(version: 20160922122336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160912102553) do
   end
 
   add_index "assigned_employees", ["official_group_id"], name: "index_assigned_employees_on_official_group_id", using: :btree
+  add_index "assigned_employees", ["period_id"], name: "index_assigned_employees_on_period_id", using: :btree
   add_index "assigned_employees", ["unit_id"], name: "index_assigned_employees_on_unit_id", using: :btree
 
   create_table "entry_indicator_sources", force: :cascade do |t|
@@ -66,11 +67,15 @@ ActiveRecord::Schema.define(version: 20160912102553) do
 
   create_table "indicator_groups", force: :cascade do |t|
     t.string   "updated_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "item_id"
     t.integer  "order"
+    t.integer  "sub_process_id"
   end
+
+  add_index "indicator_groups", ["item_id"], name: "index_indicator_groups_on_item_id", using: :btree
+  add_index "indicator_groups", ["sub_process_id"], name: "index_indicator_groups_on_sub_process_id", using: :btree
 
   create_table "indicator_metrics", force: :cascade do |t|
     t.integer "indicator_id"
@@ -330,6 +335,7 @@ ActiveRecord::Schema.define(version: 20160912102553) do
     t.string   "email"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "role"
   end
 
   create_table "valuators", force: :cascade do |t|
@@ -348,6 +354,7 @@ ActiveRecord::Schema.define(version: 20160912102553) do
   add_foreign_key "entry_indicators", "indicator_sources"
   add_foreign_key "entry_indicators", "units"
   add_foreign_key "indicator_groups", "items"
+  add_foreign_key "indicator_groups", "sub_processes"
   add_foreign_key "indicator_metrics", "indicators"
   add_foreign_key "indicator_metrics", "metrics"
   add_foreign_key "indicator_sources", "indicators"
