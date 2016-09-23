@@ -1,6 +1,6 @@
 class UwebAuthenticator
   require "logger"
-
+# TODO parametrizar logger en settings  para su uso en toda la aplicación
   def initialize(data={})
     @logger = Logger.new('session.log', 'weekly')
     @logger.level = Logger::INFO

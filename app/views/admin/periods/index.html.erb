@@ -3,9 +3,9 @@
 <h2><%= t("admin.periods.index.title") %></h2>
 
 <p>
-  <%= link_to t("admin.periods.index.create"),
+  <%= link_to t("admin.periods.index.button.create"),
               new_admin_period_path,
-              class: "button large success " %>
+              class: "button large success hollow" %>
 </p>
 
 <table>
@@ -15,7 +15,7 @@
     <% @periods.each do |period| %>
       <tr id="<%= dom_id(period) %>" >
         <div class="small-12 medium-12 column">
-          <td class="medium-8 small-8 columns">
+          <td class="small-6 columns">
             <strong> <%= OrganizationType.find(period.organization_type_id).description %> : </strong>
                      <%= period.description %></div>
              <div><%= t("admin.periods.index.data_period") %>
@@ -26,32 +26,40 @@
                 de <strong> <%= period.opened_at %> </strong>
                  a <strong> <%= period.closed_at %> </strong>
           </div>
+          <% if period.open_entry? %>
+            <h5><%= t("admin.periods.index.entry_opened") %></h5>
+          <% elsif period.close_entry? %>
+            <h5><%= t("admin.periods.index.entry_closed") %></h5>
+          <% end %>
         </td>
-        <td class="medium-3 small-3 columns end">
+        <td class="small-2 columns end">
           <%= link_to admin_main_processes_path(
                 commit: t("admin.main_processes.index.submit"),
                 period_id: period.id,organization_type_id: period.organization_type_id),
-                class: 'button  float-right' do %>
+                class: 'button float-right tiny hollow' do %>
                   <span class="icon-tag"></span>
-                  <%= t("admin.periods.index.processes") %>
+                  <%= t("admin.periods.index.button.processes") %>
                 <% end %>
         </td>
-        <% if period.is_open? %>
-          <td>
-            <%= link_to edit_admin_period_path(period),
-                class: 'edit-banner button float-right' do %>
-                  <span class="icon-edit"></span>
-                  <%= t("admin.periods.index.edit") %>
-                <% end %>
-          </td>
-          <td>
-            <%= link_to admin_period_path(period), method: :delete,
-                class: 'delete-banner button alert float-right' do %>
-                  <span class="icon-box"></span>
-                  <%= t("admin.periods.index.delete") %>
-                <% end %>
-          </td>
+        <% if period.modifiable? %>
+        <td class="small-2 columns end">
+          <%= link_to edit_admin_period_path(period),
+              class: 'edit-banner button float-right tiny hollow' do %>
+               <span class="icon-edit"></span>
+                <%= t("admin.periods.index.button.edit") %>
+          <% end %>
+        </td>
         <% end %>
+        <% if period.eliminable? %>
+        <td class="small-2 columns end">
+          <%= link_to admin_period_path(period), method: :delete,
+              class: 'delete-banner button alert float-right tiny hollow' do %>
+                <span class="icon-box"></span>
+                <%= t("admin.periods.index.button.delete") %>
+          <% end %>
+        </td>
+        <% end %>
+      <!-- TODO añadir select option con periodos para copiar desde-->
       </tr>
     <% end %>
   <% end %>

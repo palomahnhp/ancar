@@ -1,4 +1,5 @@
 <nav class="admin-sidebar">
+  <!-- TODO separar menus segun tipo de usuario -->
   <ul id="admin_menu">
     <li>
       <%= link_to t("admin.dashboard.index.title"), admin_root_path %>
@@ -7,7 +8,7 @@
     <li <%= "class=active" if controller_name == "periods" %>>
       <%= link_to admin_periods_path do %>
         <span class="icon-debates"></span>
-        <%= t("admin.menu.processes") %>
+        <%= t("admin.menu.periods") %>
       <% end %>
     </li>
 

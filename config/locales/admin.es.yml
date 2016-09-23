@@ -22,10 +22,10 @@ es:
         total_process?: ¿Totaliza para proceso?
         total_sub_process?:  ¿Totaliza para subproceso?
     menu:
-      processes: Configurar procesos
       organization_types: Tipos de organizaciones
       unit_types: Tipos de unidades
       organizations: Organizaciones
+      periods: Configurar Periodos
       units: Unidades
       settings: Configuración global
       stats: Estadísticas
@@ -56,14 +56,24 @@ es:
         title: Tipos de organizaciones
     periods:
       index:
-        create: Abrir un periodo
-        edit: editar
-        delete: eliminar
-        title: Periodos de estudio
-        no_data: No hay periodos definidos
+        button:
+          create: Crear un periodo
+          edit: editar
+          delete: eliminar
+          processes: ver procesos
+        create:
+          success:
+            processes_copy: Se ha creado el periodo correctamente. Se está ejecutando la copia de procesos e indicadores.
+            no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los porceso e indicadores desde la opción "Configurar indicadores".
         data_period: Los datos corresponden al periodo
         data_collect: Periodo de mecanización
-        processes: Ver procesos
+        destroy:
+          success: Se ha eliminado el Periodo correctamente
+          error: Se ha producido un error a eliminar el Periodo
+        entry_opened:  Abierta entrada de datos
+        entry_closed: Cerrada entrada de datos
+        no_data: No hay periodos definidos
+        title: Periodos de estudio
       new:
         title: Abrir un nuevo periodo
       form:
@@ -75,6 +85,11 @@ es:
         closed_at: Fin
         dates: Periodo de los datos
         data_collect: Recogida de datos
+      validate:
+        period:
+          ended_at: Fecha de fin no puede ser anterior a fecha de inicio
+          closed_at: Fecha de cierre no puede ser anterior a fecha de apertura
+          opened_at: Fecha de apertura no puede ser anterior a la fecha de finalización del periodo
     stats:
       index:
         title: Estadísticas
