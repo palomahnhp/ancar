@@ -11,16 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922122336) do
+ActiveRecord::Schema.define(version: 20160927105447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "administrators", force: :cascade do |t|
-    t.integer "user_id"
-  end
-
-  add_index "administrators", ["user_id"], name: "index_administrators_on_user_id", using: :btree
 
   create_table "ajax_items", force: :cascade do |t|
     t.string   "name"
@@ -145,12 +139,6 @@ ActiveRecord::Schema.define(version: 20160922122336) do
 
   add_index "manager_organization_types", ["organization_type_id"], name: "index_manager_organization_types_on_organization_type_id", using: :btree
   add_index "manager_organization_types", ["user_id"], name: "index_manager_organization_types_on_user_id", using: :btree
-
-  create_table "managers", force: :cascade do |t|
-    t.integer "user_id"
-  end
-
-  add_index "managers", ["user_id"], name: "index_managers_on_user_id", using: :btree
 
   create_table "metrics", force: :cascade do |t|
     t.integer  "item_id"
@@ -357,7 +345,6 @@ ActiveRecord::Schema.define(version: 20160922122336) do
 
   add_index "valuators", ["user_id"], name: "index_valuators_on_user_id", using: :btree
 
-  add_foreign_key "administrators", "users"
   add_foreign_key "assigned_employees", "official_groups"
   add_foreign_key "assigned_employees", "periods"
   add_foreign_key "assigned_employees", "units"
@@ -378,7 +365,6 @@ ActiveRecord::Schema.define(version: 20160922122336) do
   add_foreign_key "main_processes", "periods"
   add_foreign_key "manager_organization_types", "organization_types"
   add_foreign_key "manager_organization_types", "users"
-  add_foreign_key "managers", "users"
   add_foreign_key "metrics", "items"
   add_foreign_key "organizations", "organization_types"
   add_foreign_key "periods", "organization_types"

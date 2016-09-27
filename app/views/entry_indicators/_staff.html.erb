@@ -15,7 +15,7 @@
       <tr>
         <% @official_groups.each do |gr| %>
           <td>
-            <% if @period.is_open? %>
+            <% if @period.open_entry? %>
               <input id = "<%= gr.name %>" placeholder="<%= gr.name %>">
             <% else %>
               <%= get_staff(of, process, gr, unit) %>

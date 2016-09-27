@@ -37,7 +37,7 @@
                 <td id="metric_col"><%= get_metric(indicator_metric) %> </td>
                 <td id="amount_col%>" class="float-left">
                   <% amount_value = get_amount(indicator_metric, @unit) %>
-                  <% if @period.is_open? %>
+                  <% if @period.open_entry? %>
                      <input class="amount" id="amount" placeholder="<%= amount_value %>"><%= amount_value %> </input>
                   <% else %>
                     <%= amount_value %>

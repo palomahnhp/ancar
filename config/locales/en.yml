@@ -43,6 +43,9 @@ en:
       firefox: Firefox
       ie: Hemos detectado que estás navegando desde Internet Explorer. Para una mejor experiencia te recomendamos utilizar %{chrome} o %{firefox}.
       ie_title: Esta web no está optimizada para tu navegador
+  process_summary:
+    no_indicators: No se han incluido indicadores para el resumen de este proceso
+
   shared:
     advanced_search:
       author_type: 'Por categoría de autor'
