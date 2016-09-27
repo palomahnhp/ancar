@@ -1,0 +1,48 @@
+
+<div>
+  <div class="expanded highlight padding">
+     <h3>Proceso: <%= Item.find(@main_process.item_id).description%> </h3>
+     <h3>Subproceso:  <%= Item.find(@sub_process.item_id).description %></h3>
+     <strong><%= @organization_type.description %> / <%= @period.description %></strong>
+  </div>
+</div>
+
+  <table>
+    <% @tasks.each do  |task|%>
+      <tr id="<%= dom_id(task) %>">
+        <td style="width: 50%">
+          <div class="admin-list small-12 medium14 column">
+            <%= Item.find(task.item_id).description %>
+          </div>
+        </td>
+        <td>
+          <div class="admin-list column">
+            <%= link_to  manager_indicators_path(commit: t("manager.tasks.index.submit"),
+                task_id: task.id),
+                class: 'button small float-right tiny hollow' do %>
+                  <span class="icon-tag"></span>
+                  <%= t("manager.tasks.index.indicators") %>
+            <% end %>
+          </div>
+        </td>
+        <td>
+          <div class="admin-list column">
+            <%= link_to manager_in_works_path(task),
+                class: 'button small float-right tiny hollow' do %>
+                <span class="icon-edit"></span>
+                <%= t("manager.actions.edit") %>
+            <% end %>
+          </div>
+        </td>
+        <td>
+          <div class="admin-list column">
+            <%= link_to manager_in_works_path(task),
+                class: 'button small alert float-right tiny hollow' do %>
+                <span class="icon-box"></span>
+                <%= t("manager.actions.delete") %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>

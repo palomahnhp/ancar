@@ -1,0 +1,13 @@
+<div class="banner-new row">
+
+  <div class="small-12 column">
+    <%= link_to manager_main_processes_path, class: "back" do %>
+      <span class="icon-angle-left"></span>
+      <%= t("manager.actions.back") %>
+    <% end %>
+
+    <h1><%= t("manager.main_processes.new.title") %></h1>
+    <br>
+    <%=  render "shared/in_works" %>
+  </div>
+</div>

@@ -17,12 +17,6 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
       resources :settings
-      resources :sources
-      resources :periods
-      resources :indicators
-      resources :tasks
-      resources :sub_processes
-      resources :main_processes
       resources :organization_types
       resources :unit_types
       resources :organizations
@@ -30,6 +24,18 @@ Rails.application.routes.draw do
       resources :stats
       resources :in_works
   end
+
+  namespace :manager do
+    root to: "dashboard#index"
+      resources :sources
+      resources :periods
+      resources :indicators
+      resources :tasks
+      resources :sub_processes
+      resources :main_processes
+      resources :in_works
+  end
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

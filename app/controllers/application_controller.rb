@@ -24,6 +24,17 @@ class ApplicationController < ActionController::Base
 #   redirect_to root_url unless current_user
   end
 
+  def ini_logger
+     logger_status ? Setting['logger:status'] : '0'
+     if logger_status == 1
+       @@my_logger ||=  Logger.new(Setting['logger_name'], Setting['logger_age'])
+       @@logger.level = Setting['logger_level']
+       true
+     else
+       false
+     end
+  end
+
   private
     def verify_user
       raise ActionController::RoutingError.new('Not Found') unless current_user.present?

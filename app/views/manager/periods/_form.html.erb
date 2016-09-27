@@ -1,0 +1,53 @@
+<%= form_for [:manager, @period] do |f| %>
+
+  <%= render 'shared/errors', resource: @period %>
+
+  <div class="row">
+    <div class="small-4 column">
+      <%= f.label :organization_type_id, t("manager.periods.form.organization_type") %>
+      <%= f.select :organization_type_id, options_for_select(@organization_types), label: false, placeholder: t("manager.periods.form.organization_type") %>
+    </div>
+
+    <div class="small-12 column"></h3> </div>
+    <div class="small-5 column">
+      <%= f.label :description, t("manager.periods.form.description") %>
+      <%= f.text_field :description, label: false,
+                        placeholder: t("manager.periods.form.description") %>
+    </div>
+
+    <div class="small-12 column"> <h3><%= t("manager.periods.form.dates") %> </h3> </div>
+    <div class="small-3 column">
+      <%= f.label :started_at, t("manager.periods.form.started_at") %>
+      <%= f.datetime_field :started_at, label: false,
+                        placeholder: t("manager.periods.form.started_at"),
+                        id: "started_at" %>
+    </div>
+
+    <div class="small-3 column">
+      <%= f.label :ended_at, t("manager.periods.form.ended_at") %>
+      <%= f.datetime_field :ended_at, label: false,
+                        placeholder: t("manager.periods.form.ended_at"),
+                        id: "ended_at" %>
+    </div>
+
+    <div class="small-12 column"> <h3><%= t("manager.periods.form.data_collect") %> </h3> </div>
+
+    <div class="small-3 column">
+      <%= f.label :opened_at, t("manager.periods.form.opened_at") %>
+      <%= f.datetime_field :opened_at, label: false,
+                        placeholder: t("manager.periods.form.opened_at"),
+                        id: "opened_at" %>
+    </div>
+
+    <div class="small-3 column">
+      <%= f.label :closed_at, t("manager.periods.form.closed_at") %>
+      <%= f.datetime_field :closed_at, label: false,
+                        placeholder: t("manager.periods.form.closed_at"),
+                        id: "closed_at" %>
+    </div>
+
+    <div class="actions small-12 column">
+      <%= f.submit(class: "button hollow", value: t("manager.actions.#{action_name}")) %>
+    </div>
+  </div>
+<% end %>
