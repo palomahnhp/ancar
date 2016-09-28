@@ -1,0 +1,14 @@
+<%= render "shared/index" %>
+
+<h2><%= t("manager.sub_processes.index.title") %></h2>
+<p>
+  <%= link_to t("manager.sub_processes.index.create"),
+              new_manager_sub_process_path,
+              class: "button large success tiny hollow" %>
+</p>
+  <% if @sub_processes.nil? %>
+    <%= render 'manager/shared/in_works' %>
+  <% else %>
+    <%= render 'item_list' %>
+  <% end %>
+</p>

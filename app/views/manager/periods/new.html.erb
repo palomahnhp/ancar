@@ -1,0 +1,13 @@
+<div class="banner-new row">
+
+  <div class="small-12 column">
+    <%= link_to manager_periods_path, class: "back" do %>
+      <span class="icon-angle-left"></span>
+      <%= t("actions.back") %>
+    <% end %>
+
+    <h1><%= t("manager.periods.new.title") %></h1>
+
+    <%= render "form" %>
+  </div>
+</div>

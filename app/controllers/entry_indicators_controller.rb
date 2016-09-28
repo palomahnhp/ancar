@@ -2,8 +2,6 @@ class EntryIndicatorsController < ApplicationController
   before_action :set_entry_indicator, only: [:show, :edit, :update, :destroy]
   before_action :require_user, only: [:index, :show]
 
-  # GET /entry_indicators
-  # GET /entry_indicators.json
   def index
     if params[:organization_id] && params[:period]
 #     organization_id = params[:organization_id].nil? ? current_user.organizations.take.id : params[:organization_id]
@@ -31,36 +29,24 @@ class EntryIndicatorsController < ApplicationController
   def create
     @entry_indicator = EntryIndicator.new(entry_indicator_params)
 
-    respond_to do |format|
-      if @entry_indicator.save
-        format.html { redirect_to @entry_indicator, notice: 'Entry indicator was successfully created.' }
-        format.json { render :show, status: :created, location: @entry_indicator }
-      else
-        format.html { render :new }
-        format.json { render json: @entry_indicator.errors, status: :unprocessable_entity }
-      end
+    if @entry_indicator.save
+      redirect_to @entry_indicator, notice: 'Entry indicator was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @entry_indicator.update(entry_indicator_params)
-        format.html { redirect_to @entry_indicator, notice: 'Entry indicator was successfully updated.' }
-
-        format.json { render :show, status: :ok, location: @entry_indicator }
-      else
-        format.html { render :edit }
-        format.json { render json: @entry_indicator.errors, status: :unprocessable_entity }
-      end
+    if @entry_indicator.update(entry_indicator_params)
+      redirect_to @entry_indicator, notice: 'Entry indicator was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @entry_indicator.destroy
-    respond_to do |format|
-      format.html { redirect_to entry_indicators_url, notice: 'Entry indicator was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to entry_indicators_url, notice: 'Entry indicator was successfully destroyed.'
   end
 
   private

@@ -1,6 +1,6 @@
 # i18n-tasks finds and manages missing and unused translations: https://github.com/glebm/i18n-tasks
 
-# The "main" locale. 
+# The "main" locale.
 # base_locale: en
 ## All available locales are inferred from the data by default. Alternatively, specify them explicitly:
 # locales: [es, fr]
@@ -23,7 +23,7 @@ data:
     # - "<%#= %x[bundle show vagrant].chomp %>/templates/locales/%{locale}.yml"
     - config/locales/%{locale}.yml
     - config/locales/admin.%{locale}.yml
-    - config/locales/moderation.%{locale}.yml
+    - config/locales/manager.%{locale}.yml
     - config/locales/valuation.%{locale}.yml
     - config/locales/management.%{locale}.yml
     - config/locales/verification.%{locale}.yml

@@ -1,6 +1,5 @@
 class UwebAuthenticator
   require "logger"
-
   def initialize(data={})
     @logger = Logger.new('session.log', 'weekly')
     @logger.level = Logger::INFO

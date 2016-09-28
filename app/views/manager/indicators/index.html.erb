@@ -1,0 +1,14 @@
+<%= render "shared/index" %>
+
+<h2><%= t("manager.indicators.index.title") %></h2>
+<p>
+  <%= link_to t("manager.indicators.index.create"),
+              new_manager_indicator_path,
+              class: "button large success hollow" %>
+</p>
+  <% if @indicators.nil? %>
+
+  <% else %>
+    <%= render 'item_list' %>
+  <% end %>
+</p>

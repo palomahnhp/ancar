@@ -1,7 +1,7 @@
 class SubProcess < ActiveRecord::Base
-  has_many :tasks
-  has_many :indicators, through: :tasks
-  has_many :assigned_employees, as: :staff
+  has_many :tasks, :dependent => :destroy
+  has_many :indicators, through: :tasks, :dependent => :destroy
+  has_many :assigned_employees, as: :staff, :dependent => :destroy
 
   belongs_to :main_process
   belongs_to :unit_type

@@ -1,0 +1,22 @@
+<nav class="admin-sidebar">
+  <ul id="admin_menu">
+    <li>
+      <%= link_to t("manager.dashboard.index.title"), manager_root_path %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "periods" %>>
+      <%= link_to manager_periods_path do %>
+        <span class="icon-debates"></span>
+        <%= t("manager.menu.periods") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "main_processes" %>>
+      <%= link_to in_works_path do %>
+        <span class="icon-debates"></span>
+        <%= t("manager.menu.processes") %>
+      <% end %>
+    </li>
+
+  </ul>
+</nav>

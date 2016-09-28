@@ -1,0 +1,16 @@
+<%= render "shared/index" %>
+
+<h2><%= t("manager.tasks.index.title") %></h2>
+
+<p>
+  <%= link_to t("manager.tasks.index.create"),
+              new_manager_task_path,
+              class: "button large success tiny hollow" %>
+</p>
+
+  <% if @tasks.nil? %>
+    <%= render 'manager/shared/in_works' %>
+  <% else %>
+    <%= render 'item_list' %>
+  <% end %>
+</p>
