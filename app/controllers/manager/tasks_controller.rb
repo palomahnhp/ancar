@@ -1,6 +1,6 @@
 class Manager::TasksController < Manager::BaseController
 
-   def index
+  def index
     if params[:commit] == t("manager.tasks.index.submit")
       if params[:tasks].nil?
         sub_process_id = params[:sub_process_id]

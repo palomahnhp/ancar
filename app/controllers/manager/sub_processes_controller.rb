@@ -1,6 +1,6 @@
 class Manager::SubProcessesController < Manager::BaseController
 
-   def index
+  def index
     # Aun no está listo para subi a Pro
     redirect_to in_works_path, alert: "Opción no disponible. Lo estará proximamente"
 
