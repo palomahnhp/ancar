@@ -23,14 +23,14 @@
           <%= link_to edit_manager_main_process_path(main_process, period_id: params[:period_id], organization_type_id: params[:organization_type_id]),
               class: 'button small float-right hollow' do %>
                 <span class="icon-edit"></span>
-                <%= t("manager.actions.edit") %>
+                <%= t("actions.edit") %>
               <% end %>
         </td>
         <td>
           <%= link_to manager_main_process_path(main_process), method: :delete,
                   class: 'button small alert float-right hollow' do %>
                 <span class="icon-box"></span>
-                <%= t("manager.actions.delete") %>
+                <%= t("actions.delete") %>
            <% end %>
         </td>
       </tr>

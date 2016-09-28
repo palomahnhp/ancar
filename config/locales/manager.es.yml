@@ -1,14 +1,6 @@
 ---
 es:
   manager:
-    actions:
-      confirm: "¿Estás seguro?"
-      new: Crear
-      create: Crear
-      edit: Editar
-      delete: Eliminar
-      back: Volver
-      in_construction: "En construcción"
     dashboard:
       index:
         title: Configuración de procesos
@@ -19,8 +11,8 @@ es:
       edit:
         title: Editar indicador
       form:
-        total_process?: ¿Totaliza para proceso?
-        total_sub_process?:  ¿Totaliza para subproceso?
+        total_process: ¿Totaliza para proceso?
+        total_sub_process:  ¿Totaliza para subproceso?
     menu:
       periods: Configurar Periodos
       processes: Configurar Procesos e indicadores
@@ -28,8 +20,6 @@ es:
       index:
         empty: No hay procesos para este periodo
         create: Incluir procesos
-        edit: Editar
-        delete: Eliminar
         title: Procesos
         select_organization_type: Selecciona una organización
         select_period: Selecciona un periodo
@@ -52,7 +42,6 @@ es:
           processes: ver procesos
         create:
           success:
-            processes_copy: Se ha creado el periodo correctamente. Se está ejecutando la copia de procesos e indicadores.
             no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los porceso e indicadores desde la opción "Configurar indicadores".
         data_period: Los datos corresponden al periodo
         data_collect: Periodo de mecanización
@@ -82,16 +71,12 @@ es:
     sub_processes:
       index:
         create: Crear
-        edit: Editar
-        delete: Eliminar
         title: Subprocesos
         submit: Buscar subprocesos
         tasks: Ver tareas
     tasks:
       index:
         create: Crear una tarea
-        edit: Editar
-        delete: Eliminar
         submit: Buscar tareas
         indicators: Ver indicadores
         title: Tareas

@@ -32,15 +32,15 @@ class Period < ActiveRecord::Base
   private
 
   def started_at_before_ended_at
-    errors.add(:ended_at, I18n.t("admin.periods.validate.period.ended_at")) if (started_at.present? &&  ended_at.present? && started_at > ended_at)
+    errors.add(:ended_at, I18n.t("manager.periods.validate.period.ended_at")) if (started_at.present? &&  ended_at.present? && started_at > ended_at)
   end
 
   def opened_at_before_closed_at
-    errors.add(:closed_at, I18n.t("admin.periods.validate.period.closed_at")) if (opened_at.present? && closed_at.present? && opened_at > closed_at)
+    errors.add(:closed_at, I18n.t("manager.periods.validate.period.closed_at")) if (opened_at.present? && closed_at.present? && opened_at > closed_at)
   end
 
   def ended_at_before_opened_at
-    errors.add(:ended_at, I18n.t("admin.periods.validate.period.opened_at")) if (ended_at.present? && opened_at.present? && ended_at > opened_at)
+    errors.add(:ended_at, I18n.t("manager.periods.validate.period.opened_at")) if (ended_at.present? && opened_at.present? && ended_at > opened_at)
   end
 
   def copy(periodo_origen_id)
