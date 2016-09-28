@@ -8,8 +8,8 @@ class Manager::SubProcessesController < Manager::BaseController
       if params[:sub_processes].nil?
         main_process_id = params[:main_process_id]
       else
-        period_id =  params[:sub_processes][:period_id]
-        organization_type_id = params[:sub_processes][:organization_type_id]
+#        period_id =  params[:sub_processes][:period_id]
+#        organization_type_id = params[:sub_processes][:organization_type_id]
         main_process_id = params[:sub_processes][:main_process_id]
       end
       @sub_processes = SubProcess.where("main_process_id = ?", main_process_id)
@@ -22,10 +22,10 @@ class Manager::SubProcessesController < Manager::BaseController
       @main_processes = MainProcess.where("main_process_id = ?", @periods.first.id)
   end
 
-   def show
+  def show
     # Aun no está listo para subi a Pro
     redirect_to in_works_path, alert: "Opción no disponible. Lo estará proximamente"
     @sub_process = SubProcess.find_by("id = ?", params[:main_process])
-   end
+  end
 
 end

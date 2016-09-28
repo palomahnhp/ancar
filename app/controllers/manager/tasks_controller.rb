@@ -5,9 +5,9 @@ class Manager::TasksController < Manager::BaseController
       if params[:tasks].nil?
         sub_process_id = params[:sub_process_id]
       else
-        period_id =  params[:tasks][:period_id]
-        organization_type_id = params[:tasks][:organization_type_id]
-        main_process_id = params[:tasks][:main_process_id]
+#        3period_id =  params[:tasks][:period_id]
+#        organization_type_id = params[:tasks][:organization_type_id]
+#        main_process_id = params[:tasks][:main_process_id]
         sub_process_id = params[:tasks][:sub_process_id]
       end
 

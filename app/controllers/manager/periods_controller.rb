@@ -14,7 +14,7 @@ class Manager::PeriodsController < Manager::BaseController
   def create
     @period = Period.new(period_params)
     if @period.save
-     # TODO controlar si ha seleccionado copiar desde otro periodo
+     # FALTA controlar si ha seleccionado copiar desde otro periodo
       msg = t("manager.periods.index.create.success.no_processes_copy")
       redirect_to manager_periods_path, notice: msg
     else
