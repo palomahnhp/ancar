@@ -23,4 +23,4 @@
 !/log/.keep
 /tmp
 /.project
-spec/examples.txt
+/spec/examples.txt
