@@ -1,5 +1,7 @@
 class Period < ActiveRecord::Base
-  has_many :main_process
+  has_many :main_process, :dependent => :destroy
+  has_many :assigned_employees, :dependent => :destroy
+
   belongs_to :organization_type
 
   validates :description, presence: true,  length: { in: 4..100 }
@@ -21,12 +23,27 @@ class Period < ActiveRecord::Base
   end
 
   def modifiable?
+    !close_entry?  && !open_entry?
+  end
 
+  def is_empty?
+    self.main_process.count == 0
   end
 
   def eliminable?
-    (opened_at >  DateTime.now  && closed_at >=  DateTime.now) ||
-    self.main_process.count == 0
+    modifiable? && is_empty?
+  end
+
+  def copy(periodo_origen_id, current_user_login)
+    p = Period.find(periodo_origen_id)
+    p.main_process.each do |mp|
+      mp.copy(self.id, current_user_login)
+    end
+
+    p.assigned_employees.where(staff_of_type: "Unit").each do |ae|
+      ae.copy(self.id, current_user_login)
+    end
+
   end
 
   private
@@ -43,9 +60,4 @@ class Period < ActiveRecord::Base
     errors.add(:ended_at, I18n.t("manager.periods.validate.period.opened_at")) if (ended_at.present? && opened_at.present? && ended_at > opened_at)
   end
 
-  def copy(periodo_origen_id)
-    main_process.each do |m|
-      m.copy(periodo_origen_id)
-    end
-  end
 end

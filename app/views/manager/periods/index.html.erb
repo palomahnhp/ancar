@@ -50,14 +50,20 @@
           <% end %>
         </td>
         <% end %>
-        <% if period.eliminable? %>
-        <td class="small-2 columns end">
-          <%= link_to manager_period_path(period), method: :delete,
-              class: 'delete-banner button alert float-right tiny hollow' do %>
-                <span class="icon-box"></span>
-                <%= t("manager.periods.index.button.delete") %>
-          <% end %>
-        </td>
+
+        <% if period.eliminable?
+               delete_msg = "¿Desea borrar el periodo?"
+           elsif period.modifiable? && !period.is_empty?
+               delete_msg = "Este periodo tiene indicadores asignados ¿Desea borrarlo de todas formas?"
+           end %>
+        <% if delete_msg %>
+          <td class="small-2 columns end">
+            <%= link_to manager_period_path(period), method: :delete, data: {confirm: delete_msg},
+                class: 'delete-banner button alert float-right tiny hollow end' do %>
+                  <span class="icon-box"></span>
+                  <%= t("manager.periods.index.button.delete") %>
+            <% end %>
+          </td>
         <% end %>
       </tr>
     <% end %>

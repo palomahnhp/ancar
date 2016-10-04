@@ -1,6 +1,7 @@
 class Manager::PeriodsController < Manager::BaseController
 
   before_action :organization_types, only: [:edit, :new, :create, :update]
+  before_action :get_periods, only: [:new, :create]
   before_action :find_period,   only: [:edit, :update, :destroy]
 
   def index
@@ -14,8 +15,17 @@ class Manager::PeriodsController < Manager::BaseController
   def create
     @period = Period.new(period_params)
     if @period.save
-     # FALTA controlar si ha seleccionado copiar desde otro periodo
-      msg = t("manager.periods.index.create.success.no_processes_copy")
+      if params[:period][:id].empty?
+        msg = t("manager.periods.index.create.success.no_processes_copy")
+      else
+        @period_from = Period.find(params[:period][:id])
+        if @period_from
+          @period.copy(params[:period][:id], current_user.login)
+          msg = t("manager.periods.index.create.success.processes_copy")
+        else
+          msg = t("manager.periods.index.create.error.processes_copy")
+        end
+      end
       redirect_to manager_periods_path, notice: msg
     else
       render :new
@@ -42,7 +52,7 @@ class Manager::PeriodsController < Manager::BaseController
 
   private
     def period_params
-      params.require(:period).permit(:organization_type_id, :description, :started_at, :ended_at, :opened_at, :closed_at)
+      params.require(:period).permit(:organization_type_id, :description, :started_at, :ended_at, :opened_at, :closed_at, :period_id)
     end
 
     def find_period
@@ -52,4 +62,9 @@ class Manager::PeriodsController < Manager::BaseController
     def organization_types
       @organization_types = OrganizationType.all.map { |type| [type.description, type.id] }
     end
+
+    def get_periods
+      @periods_from = Period.all.order(:ended_at).map { |type| [type.description, type.id] }
+    end
+
 end

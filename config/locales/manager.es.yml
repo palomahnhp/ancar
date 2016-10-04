@@ -12,7 +12,7 @@ es:
         title: Editar indicador
       form:
         total_process: ¿Totaliza para proceso?
-        total_sub_process:  ¿Totaliza para subproceso?
+        total_sub_process: ¿Totaliza para subproceso?
     menu:
       periods: Configurar Periodos
       processes: Configurar Procesos e indicadores
@@ -42,7 +42,10 @@ es:
           processes: ver procesos
         create:
           success:
-            no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los porceso e indicadores desde la opción "Configurar indicadores".
+            processes_copy: Se ha creado el periodo correctamente con los procesos e indicatores del periodo seleccionado.
+            no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
+          error:
+            processes_copy: Se ha creado el periodo correctamente. Se está reañozando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
         data_period: Los datos corresponden al periodo
         data_collect: Periodo de mecanización
         destroy:
@@ -55,14 +58,16 @@ es:
       new:
         title: Abrir un nuevo periodo
       form:
-        organization_type: Organización
+        closed_at: Fin
+        data_collect: Recogida de datos
+        dates: Periodo de los datos
         description: Descripción
-        started_at: Inicio
         ended_at: Fin
         opened_at: Inicio
-        closed_at: Fin
-        dates: Periodo de los datos
-        data_collect: Recogida de datos
+        organization_type: Organización
+        period: Periodo a copiar
+        period_from: Selecciona el periodo a copiar
+        started_at: Inicio
       validate:
         period:
           ended_at: Fecha de fin no puede ser anterior a fecha de inicio

@@ -1,8 +1,17 @@
 en:
   actions:
-    edit: Editar
-    delete: Eliminar
     back: Volver
+    create: Crear
+    delete: Eliminar
+    edit: Editar
+    new: Crear
+  activerecord:
+    errors:
+      models:
+        period:
+          attributes:
+            description:
+              too_short: La descripción es demasiado corta
   application:
     close: "Salir"
   entry_indicators:
