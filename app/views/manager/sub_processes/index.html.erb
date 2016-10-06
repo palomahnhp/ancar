@@ -1,14 +1,20 @@
 <%= render "shared/index" %>
 
 <h2><%= t("manager.sub_processes.index.title") %></h2>
-<p>
-  <%= link_to t("manager.sub_processes.index.create"),
-              new_manager_sub_process_path,
-              class: "button large success tiny hollow" %>
-</p>
-  <% if @sub_processes.nil? %>
-    <%= render 'manager/shared/in_works' %>
+<div class="row">
+  <div class="column short-4">
+    <br><%= link_to t("manager.sub_processes.index.create"),
+                new_manager_sub_process_path(period_id: params["period_id"],
+                                            organization_type_id: params["organization_type_id"]),
+                                            main_process_id: params["main_process_id"],
+                class: "button large success hollow" %>
+  </div>
+</div>
+
+<div>
+  <% if @sub_processes.nil? || @sub_processes.empty? %>
+    <strong> <%=t("manager.sub_processes.index.empty") %> </strong>
   <% else %>
-    <%= render 'item_list' %>
+    <%=  render 'item_list' %>
   <% end %>
-</p>
+</div>

@@ -9,6 +9,7 @@ class Indicator < ActiveRecord::Base
   belongs_to :task
   belongs_to :item, -> { where item_type: "indicator" }
 
+
   def copy(tk_id, current_user_login)
     i = Indicator.create(self.attributes.merge(id: nil, task_id: tk_id, updated_by: current_user_login))
     indicator_sources.each do |is|
