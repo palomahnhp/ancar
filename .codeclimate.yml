@@ -10,6 +10,9 @@ engines:
     enabled: true
   duplication:
     enabled: true
+    exclude_fingerprints:
+    - 3caae933451bff834099a43d192376fc # period.rb validate:code duplicate
+    - b595875aa6790ea26d1f256205da453d # box-sizing property isn't supported in IE6 and IE7
     config:
       languages:
       - ruby
