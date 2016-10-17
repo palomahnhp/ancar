@@ -6,7 +6,9 @@ class UwebAuthenticator
 
   def auth
     # comprueba los paramearos
-    return false unless [@user_params[:login], @user_params[:user_key], @user_params[:date]].all? {|_| _.present?}
+    if !([@user_params[:login], @user_params[:user_key], @user_params[:date]].all? {|_| _.present?})
+      return false
+    end
     if (Rails.env.development? || Rails.env.preproduction?) && (!@user_params[:development].nil? && @user_params[:development] == "TRUE")
       # pruebas en desarrollo / preproduccion recupera los datos del usuario de uweb sin realizar comprobaciones
       return @uweb_user if user_data
@@ -25,8 +27,8 @@ class UwebAuthenticator
       Rails.logger.info('  INFO - UwebAuthenticator#user_exists? ') { "Llamada UWEB: get_status_user_data - #{parsed_response}" }
       @uweb_user = uweb_user(parsed_response)
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
-    rescue  Exception  => e
-      Rails.logger.error { "  ERROR - UwebAuthenticator#user_exists? Error llamada UWEB: get_status_user_data - #{e}" }
+    rescue Savon::Error => e
+      Rails.logger.error { "  ERROR - UwebAuthenticator#user_exists? #{e}" }
       false
     end
 
@@ -52,7 +54,8 @@ class UwebAuthenticator
       @uweb_user = uweb_user(parsed_response)
 
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
-    rescue  Exception  => e
+    rescue Savon::Error => e
+       Rails.logger.error { "  ERROR - UwebAuthenticator#user_data? #{e}" }
        false
     end
 
@@ -65,7 +68,7 @@ class UwebAuthenticator
       # aplication_value from UWEB can be an array of hashes or a hash ()
       aplication_value.include?( {"CLAVE_APLICACION" => application_key}) # || aplication_value["CLAVE_APLICACION"] == application_key
     rescue Savon::Error => e
-      Rails.logger.error { "  ERROR - UwebAuthenticator#application_authorized?: ERROR UWEB: application_user_list #{@user_params}" }
+      Rails.logger.error { "  ERROR - UwebAuthenticator#application_authorized?: #{e}" }
       false
     end
 
