@@ -19,7 +19,7 @@ gem 'coffee-rails', '~> 4.1.0' # CoffeeScript for .coffee assets and views
 gem 'jquery-ui-rails'
 
 gem 'jquery-rails' # Use jquery as the JavaScript library
-gem 'turbolinks' # Following links in your web application faster.
+gem 'turbolinks', '2.5.3' # Following links in your web application faster.
 gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease.
 gem 'initialjs-rails', '0.2.0.1'
 

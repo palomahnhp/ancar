@@ -35,6 +35,8 @@ var initialize_modules = function() {
 };
 
 $(function(){
+  Turbolinks.enableProgressBar()
+
   $(document).ready(initialize_modules);
   $(document).on('page:load', initialize_modules);
   $(document).on('ajax:complete', initialize_modules);
