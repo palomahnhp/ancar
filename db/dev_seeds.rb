@@ -53,42 +53,22 @@ def create_user(login, name = Faker::Name.first_name,
                surname = Faker::Name.last_name, second_surname = Faker::Name.last_name)
   pwd = '12345678'
   puts " #{login}"
-  User.create!(login: login, name: name, surname: surname, second_surname: second_surname)
+  User.create!(login: login, name: name, surname: surname, second_surname: second_surname, , role: 0)
 end
 
 
 puts "7. Creando usuarios genéricos"
 
-admin = User.create!(login: "phn001", name: "Paloma", surname: "Hernández", second_surname: "Navarro")
-admin.create_administrator
+admin = User.create!(login: "adm001", name: "Usuario", surname: "Administrador", second_surname: "IAM", role: 3)
+manager= User.create!(login: "man001", name: "Usuario", surname: "Gestor", second_surname: "Planificación", role: 2)
+valuator = User.create!(login: "val001", name: "Usuario", surname: "Validador", second_surname: "Distrito", role: 1)
 
-admin = User.create!(login: "ltm004", name: "Leonor", surname: "Torres", second_surname: "Moreno")
-admin.create_administrator
-
-admin = User.create!(login: "pac001", name: "Pascual", surname: "Artigas", second_surname: "Conesa")
-admin.create_administrator
-
-manager = User.create!(login: "mjs016", name: "Mª Rosario", surname: "Jiménez", second_surname: "Santiago")
-manager.create_manager
-
-manager = User.create!(login: "slf006", name: "Susana", surname: "Lemonche", second_surname: "Fernández")
-manager.create_manager
-
-admin = User.create!(login: "adm001", name: "Usuario", surname: "Administrador", second_surname: "IAM")
-admin.create_administrator
-
-manager= User.create!(login: "man001", name: "Usuario", surname: "Gestor", second_surname: "Planificación")
-manager.create_manager
-
-valuator = User.create!(login: "val001", name: "Usuario", surname: "Validador", second_surname: "Distrito")
-valuator.create_valuator
-
-User.create!(login: "cen001", name: "Usuario", surname: "Distrito", second_surname: "Centro")
-User.create!(login: "hor001", name: "Usuario", surname: "Distrito", second_surname: "Hortaleza")
-User.create!(login: "bar001", name: "Usuario", surname: "Distrito", second_surname: "Barajas")
-User.create!(login: "arg001", name: "Usuario", surname: "Distrito", second_surname: "Arganzuela")
-User.create!(login: "lat001", name: "Usuario", surname: "Distrito", second_surname: "Latina")
-User.create!(login: "sal001", name: "Usuario", surname: "Distrito", second_surname: "Salamanca")
+User.create!(login: "cen001", name: "Usuario", surname: "Distrito", second_surname: "Centro", , role: 0)
+User.create!(login: "hor001", name: "Usuario", surname: "Distrito", second_surname: "Hortaleza", role: 0)
+User.create!(login: "bar001", name: "Usuario", surname: "Distrito", second_surname: "Barajas", role: 0)
+User.create!(login: "arg001", name: "Usuario", surname: "Distrito", second_surname: "Arganzuela", role: 0)
+User.create!(login: "lat001", name: "Usuario", surname: "Distrito", second_surname: "Latina", role: 0)
+User.create!(login: "sal001", name: "Usuario", surname: "Distrito", second_surname: "Salamanca", role: 0)
 
 user = create_user('usu001')
 
