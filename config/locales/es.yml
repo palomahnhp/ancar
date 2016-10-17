@@ -1,5 +1,7 @@
 es:
   actions:
+    new: Crear
+    create: Crear
     edit: Editar
     delete: Eliminar
     back: Volver

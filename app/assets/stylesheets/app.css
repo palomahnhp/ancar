@@ -1,64 +1,64 @@
 /* line 431, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-version {
+.foundation-version {
   font-family: "/5.5.3/";
 }
 
 /* line 435, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-small {
+.foundation-mq-small {
   font-family: "/only screen/";
   width: 0;
 }
 
 /* line 440, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-small-only {
+.foundation-mq-small-only {
   font-family: "/only screen and (max-width: 40em)/";
   width: 0;
 }
 
 /* line 445, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-medium {
+.foundation-mq-medium {
   font-family: "/only screen and (min-width:40.0625em)/";
   width: 40.0625em;
 }
 
 /* line 450, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-medium-only {
+.foundation-mq-medium-only {
   font-family: "/only screen and (min-width:40.0625em) and (max-width:64em)/";
   width: 40.0625em;
 }
 
 /* line 455, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-large {
+.foundation-mq-large {
   font-family: "/only screen and (min-width:64.0625em)/";
   width: 64.0625em;
 }
 
 /* line 460, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-large-only {
+.foundation-mq-large-only {
   font-family: "/only screen and (min-width:64.0625em) and (max-width:90em)/";
   width: 64.0625em;
 }
 
 /* line 465, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-xlarge {
+.foundation-mq-xlarge {
   font-family: "/only screen and (min-width:90.0625em)/";
   width: 90.0625em;
 }
 
 /* line 470, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-xlarge-only {
+.foundation-mq-xlarge-only {
   font-family: "/only screen and (min-width:90.0625em) and (max-width:120em)/";
   width: 90.0625em;
 }
 
 /* line 475, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-mq-xxlarge {
+.foundation-mq-xxlarge {
   font-family: "/only screen and (min-width:120.0625em)/";
   width: 120.0625em;
 }
 
 /* line 480, ../bower_components/foundation/scss/foundation/components/_global.scss */
-meta.foundation-data-attribute-namespace {
+.foundation-data-attribute-namespace {
   font-family: false;
 }
 
@@ -2527,12 +2527,8 @@ button.tiny, .button.tiny {
 }
 /* line 234, ../bower_components/foundation/scss/foundation/components/_buttons.scss */
 button.expand, .button.expand {
-  padding: 1rem 2rem 1.0625rem 2rem;
+  padding: 1rem 1rem 1.0625rem 1rem;
   font-size: 1rem;
-  padding-bottom: 1.0625rem;
-  padding-top: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
   width: 100%;
 }
 /* line 236, ../bower_components/foundation/scss/foundation/components/_buttons.scss */
@@ -2716,6 +2712,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.even-2 li > button, .button-group.even-2 li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2735,6 +2732,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.even-3 li > button, .button-group.even-3 li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2754,6 +2752,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.even-4 li > button, .button-group.even-4 li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2773,6 +2772,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.even-5 li > button, .button-group.even-5 li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2792,6 +2792,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.even-6 li > button, .button-group.even-6 li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2811,6 +2812,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.even-7 li > button, .button-group.even-7 li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2830,6 +2832,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.even-8 li > button, .button-group.even-8 li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2848,6 +2851,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group > li > button, .button-group > li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2863,6 +2867,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.stack > li > button, .button-group.stack > li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2871,6 +2876,7 @@ button::-moz-focus-inner {
 }
 /* line 69, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.stack > li > button, .button-group.stack > li .button {
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
   border-left-width: 0;
   border-top: 1px solid;
@@ -2893,6 +2899,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.stack-for-small > li > button, .button-group.stack-for-small > li .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2909,6 +2916,7 @@ button::-moz-focus-inner {
   /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
   .button-group.stack-for-small > li > button, .button-group.stack-for-small > li .button {
     border-left: 1px solid;
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.5);
   }
   /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2917,6 +2925,7 @@ button::-moz-focus-inner {
   }
   /* line 69, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
   .button-group.stack-for-small > li > button, .button-group.stack-for-small > li .button {
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.5);
     border-left-width: 0;
     border-top: 1px solid;
@@ -2940,6 +2949,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.radius > * > button, .button-group.radius > * .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2975,6 +2985,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.radius.stack > * > button, .button-group.radius.stack > * .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -2983,6 +2994,7 @@ button::-moz-focus-inner {
 }
 /* line 69, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.radius.stack > * > button, .button-group.radius.stack > * .button {
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
   border-left-width: 0;
   border-top: 1px solid;
@@ -3027,6 +3039,7 @@ button::-moz-focus-inner {
   /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
   .button-group.radius.stack-for-small > * > button, .button-group.radius.stack-for-small > * .button {
     border-left: 1px solid;
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.5);
   }
   /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -3064,6 +3077,7 @@ button::-moz-focus-inner {
   /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
   .button-group.radius.stack-for-small > * > button, .button-group.radius.stack-for-small > * .button {
     border-left: 1px solid;
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.5);
   }
   /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -3072,6 +3086,7 @@ button::-moz-focus-inner {
   }
   /* line 69, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
   .button-group.radius.stack-for-small > * > button, .button-group.radius.stack-for-small > * .button {
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.5);
     border-left-width: 0;
     border-top: 1px solid;
@@ -3116,6 +3131,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.round > * > button, .button-group.round > * .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -3151,6 +3167,7 @@ button::-moz-focus-inner {
 /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.round.stack > * > button, .button-group.round.stack > * .button {
   border-left: 1px solid;
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
 }
 /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -3159,6 +3176,7 @@ button::-moz-focus-inner {
 }
 /* line 69, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
 .button-group.round.stack > * > button, .button-group.round.stack > * .button {
+  border-color: white;
   border-color: rgba(255, 255, 255, 0.5);
   border-left-width: 0;
   border-top: 1px solid;
@@ -3203,6 +3221,7 @@ button::-moz-focus-inner {
   /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
   .button-group.round.stack-for-small > * > button, .button-group.round.stack-for-small > * .button {
     border-left: 1px solid;
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.5);
   }
   /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -3240,6 +3259,7 @@ button::-moz-focus-inner {
   /* line 39, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
   .button-group.round.stack-for-small > * > button, .button-group.round.stack-for-small > * .button {
     border-left: 1px solid;
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.5);
   }
   /* line 45, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
@@ -3248,6 +3268,7 @@ button::-moz-focus-inner {
   }
   /* line 69, ../bower_components/foundation/scss/foundation/components/_button-groups.scss */
   .button-group.round.stack-for-small > * > button, .button-group.round.stack-for-small > * .button {
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.5);
     border-left-width: 0;
     border-top: 1px solid;
@@ -3484,6 +3505,7 @@ button::-moz-focus-inner {
 
   /* line 193, ../bower_components/foundation/scss/foundation/components/_clearing.scss */
   .clearing-assembled .clearing-container .carousel {
+    background: black;
     background: rgba(51, 51, 51, 0.8);
     height: 120px;
     margin-top: 10px;
@@ -3682,7 +3704,6 @@ button::-moz-focus-inner {
   display: none;
   left: -9999px;
   list-style: none;
-  margin-left: 0;
   position: absolute;
   background: #FFFFFF;
   border: solid 1px #cccccc;
@@ -4149,6 +4170,7 @@ input:not([type]), input[type="text"], input[type="password"], input[type="date"
   border-width: 1px;
   border-color: #cccccc;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  color: black;
   color: rgba(0, 0, 0, 0.75);
   display: block;
   font-family: inherit;
@@ -4318,12 +4340,12 @@ select {
   border-style: solid;
   border-width: 1px;
   border-color: #cccccc;
+  color: black;
   color: rgba(0, 0, 0, 0.75);
   font-family: inherit;
   font-size: 0.875rem;
   line-height: normal;
   padding: 0.5rem;
-  border-radius: 0;
   height: 2.3125rem;
 }
 /* line 335, ../bower_components/foundation/scss/foundation/components/_forms.scss */
@@ -4456,7 +4478,6 @@ span.error, small.error {
   display: inline;
   font-size: 60%;
   font-style: normal;
-  margin: 0;
   padding: 0;
   text-transform: capitalize;
 }
@@ -5069,6 +5090,7 @@ label.error {
 
 /* line 158, ../bower_components/foundation/scss/foundation/components/_joyride.scss */
 .joyride-modal-bg {
+  background: black;
   background: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   display: none;
@@ -5337,6 +5359,7 @@ kbd {
 .orbit-container .orbit-slides-container > * .orbit-caption {
   bottom: 0;
   position: absolute;
+  background-color: black;
   background-color: rgba(51, 51, 51, 0.8);
   color: #FFFFFF;
   font-size: 0.875rem;
@@ -5370,6 +5393,7 @@ kbd {
 /* line 209, ../bower_components/foundation/scss/foundation/components/_orbit.scss */
 .orbit-container .orbit-timer .orbit-progress {
   height: 3px;
+  background-color: white;
   background-color: rgba(255, 255, 255, 0.3);
   display: block;
   width: 0;
@@ -5425,6 +5449,7 @@ kbd {
 /* line 272, ../bower_components/foundation/scss/foundation/components/_orbit.scss */
 .orbit-container .orbit-prev:hover,
 .orbit-container .orbit-next:hover {
+  background-color: black;
   background-color: rgba(0, 0, 0, 0.3);
 }
 /* line 276, ../bower_components/foundation/scss/foundation/components/_orbit.scss */
@@ -5776,7 +5801,7 @@ ul.pagination li {
   display: block;
   height: 100%;
   float: left;
-  width: 0%;
+  width: 0;
 }
 /* line 66, ../bower_components/foundation/scss/foundation/components/_progress-bars.scss */
 .progress .meter.secondary {
@@ -5784,7 +5809,7 @@ ul.pagination li {
   display: block;
   height: 100%;
   float: left;
-  width: 0%;
+  width: 0;
 }
 /* line 67, ../bower_components/foundation/scss/foundation/components/_progress-bars.scss */
 .progress .meter.success {
@@ -5792,7 +5817,7 @@ ul.pagination li {
   display: block;
   height: 100%;
   float: left;
-  width: 0%;
+  width: 0;
 }
 /* line 68, ../bower_components/foundation/scss/foundation/components/_progress-bars.scss */
 .progress .meter.alert {
@@ -5800,7 +5825,7 @@ ul.pagination li {
   display: block;
   height: 100%;
   float: left;
-  width: 0%;
+  width: 0;
 }
 /* line 70, ../bower_components/foundation/scss/foundation/components/_progress-bars.scss */
 .progress.secondary .meter {
@@ -5808,7 +5833,7 @@ ul.pagination li {
   display: block;
   height: 100%;
   float: left;
-  width: 0%;
+  width: 0;
 }
 /* line 71, ../bower_components/foundation/scss/foundation/components/_progress-bars.scss */
 .progress.success .meter {
@@ -5816,7 +5841,7 @@ ul.pagination li {
   display: block;
   height: 100%;
   float: left;
-  width: 0%;
+  width: 0;
 }
 /* line 72, ../bower_components/foundation/scss/foundation/components/_progress-bars.scss */
 .progress.alert .meter {
@@ -5824,7 +5849,7 @@ ul.pagination li {
   display: block;
   height: 100%;
   float: left;
-  width: 0%;
+  width: 0;
 }
 /* line 74, ../bower_components/foundation/scss/foundation/components/_progress-bars.scss */
 .progress.radius {
@@ -5939,7 +5964,7 @@ ul.pagination li {
 
 /* line 172, ../bower_components/foundation/scss/foundation/components/_range-slider.scss */
 .range-slider-handle {
-  border: 1px solid none;
+  border: 1px solid;
   cursor: pointer;
   display: inline-block;
   height: 1.375rem;
@@ -5967,7 +5992,6 @@ ul.pagination li {
   right: 0;
   top: 0;
   z-index: 1004;
-  left: 0;
 }
 
 /* line 174, ../bower_components/foundation/scss/foundation/components/_reveal.scss */
@@ -6144,6 +6168,7 @@ ul.pagination li {
 }
 /* line 81, ../bower_components/foundation/scss/foundation/components/_side-nav.scss */
 .side-nav li a:not(.button):hover, .side-nav li a:not(.button):focus {
+  background: #000000;
   background: rgba(0, 0, 0, 0.025);
   color: #1cc7ff;
 }
@@ -6200,10 +6225,12 @@ ul.pagination li {
 }
 /* line 97, ../bower_components/foundation/scss/foundation/components/_split-buttons.scss */
 .split.button span:active {
+  background-color: #000000;
   background-color: rgba(0, 0, 0, 0.1);
 }
 /* line 103, ../bower_components/foundation/scss/foundation/components/_split-buttons.scss */
 .split.button span {
+  border-left-color: white;
   border-left-color: rgba(255, 255, 255, 0.5);
 }
 /* line 140, ../bower_components/foundation/scss/foundation/components/_split-buttons.scss */
@@ -6223,6 +6250,7 @@ ul.pagination li {
 }
 /* line 103, ../bower_components/foundation/scss/foundation/components/_split-buttons.scss */
 .split.button.secondary span {
+  border-left-color: white;
   border-left-color: rgba(255, 255, 255, 0.5);
 }
 /* line 166, ../bower_components/foundation/scss/foundation/components/_split-buttons.scss */
@@ -6231,10 +6259,12 @@ ul.pagination li {
 }
 /* line 103, ../bower_components/foundation/scss/foundation/components/_split-buttons.scss */
 .split.button.alert span {
+  border-left-color: white;
   border-left-color: rgba(255, 255, 255, 0.5);
 }
 /* line 103, ../bower_components/foundation/scss/foundation/components/_split-buttons.scss */
 .split.button.success span {
+  border-left-color: white;
   border-left-color: rgba(255, 255, 255, 0.5);
 }
 /* line 179, ../bower_components/foundation/scss/foundation/components/_split-buttons.scss */
@@ -6856,7 +6886,7 @@ table tr td {
   }
 }
 /* line 113, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
-meta.foundation-mq-topbar {
+.foundation-mq-topbar {
   font-family: "/only screen and (min-width:40.0625em)/";
   width: 40.0625em;
 }
@@ -7015,7 +7045,7 @@ meta.foundation-mq-topbar {
 }
 /* line 229, ../bower_components/foundation/scss/foundation/components/_global.scss */
 .top-bar .toggle-topbar.menu-icon a span:hover:after {
-  box-shadow: 0 0 0 1px "", 0 7px 0 1px "", 0 14px 0 1px "";
+  box-shadow: 0 0 0 1px , 0 7px 0 1px , 0 14px 0 1px ;
 }
 /* line 268, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
 .top-bar.expanded {
@@ -7305,9 +7335,7 @@ meta.foundation-mq-topbar {
 }
 /* line 420, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
 .top-bar-section .has-dropdown.moved > .dropdown {
-  position: static !important;
   height: auto;
-  width: auto;
   overflow: visible;
   clip: auto;
   display: block;
@@ -7327,7 +7355,6 @@ meta.foundation-mq-topbar {
   width: 1px;
   display: block;
   padding: 0;
-  position: absolute;
   top: 0;
   z-index: 99;
   left: 100%;
@@ -7506,6 +7533,7 @@ meta.foundation-mq-topbar {
     display: block;
     height: 0;
     width: 0;
+    border-color: white;
     border-color: rgba(255, 255, 255, 0.4) transparent transparent transparent;
     border-top-style: solid;
     margin-top: -2.5px;
@@ -7526,7 +7554,6 @@ meta.foundation-mq-topbar {
   }
   /* line 609, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
   .top-bar-section .has-dropdown.hover > .dropdown, .top-bar-section .has-dropdown.not-click:hover > .dropdown {
-    position: static !important;
     height: auto;
     width: auto;
     overflow: visible;
@@ -7536,7 +7563,6 @@ meta.foundation-mq-topbar {
   }
   /* line 614, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
   .top-bar-section .has-dropdown > a:focus + .dropdown {
-    position: static !important;
     height: auto;
     width: auto;
     overflow: visible;
@@ -7635,7 +7661,6 @@ meta.foundation-mq-topbar {
   }
   /* line 733, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
   .no-js .top-bar-section .has-dropdown:hover > .dropdown {
-    position: static !important;
     height: auto;
     width: auto;
     overflow: visible;
@@ -7645,7 +7670,6 @@ meta.foundation-mq-topbar {
   }
   /* line 738, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
   .no-js .top-bar-section .has-dropdown > a:focus + .dropdown {
-    position: static !important;
     height: auto;
     width: auto;
     overflow: visible;
@@ -7936,7 +7960,7 @@ p {
   text-rendering: optimizeLegibility;
 }
 /* line 245, ../bower_components/foundation/scss/foundation/components/_type.scss */
-p.lead {
+.lead {
   font-size: 1.21875rem;
   line-height: 1.6;
 }
@@ -8552,14 +8576,12 @@ blockquote p {
   overflow-y: auto;
   position: absolute;
   transition: transform 500ms ease 0s;
-  width: 15.625rem;
   z-index: 1001;
   -webkit-transform: translate3d(0, 100%, 0);
   -moz-transform: translate3d(0, 100%, 0);
   -ms-transform: translate(0, 100%);
   -o-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
-  bottom: 0;
   width: 100%;
   height: 18.75rem;
 }
@@ -8590,6 +8612,8 @@ ul.off-canvas-list li label {
 /* line 258, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
 ul.off-canvas-list li a {
   border-bottom: 1px solid #262626;
+  background: #000000;
+  color: white;
   color: rgba(255, 255, 255, 0.7);
   display: block;
   padding: 0.66667rem;
@@ -8619,6 +8643,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8631,6 +8656,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .move-right .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -8650,6 +8676,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8662,6 +8689,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .move-left .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -8681,6 +8709,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8693,6 +8722,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .move-top .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -8712,6 +8742,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8724,6 +8755,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .move-bottom .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -8745,6 +8777,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8757,6 +8790,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .offcanvas-overlap .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -8777,6 +8811,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8789,6 +8824,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .offcanvas-overlap-left .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -8809,6 +8845,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8821,6 +8858,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .offcanvas-overlap-right .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -8841,6 +8879,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8853,6 +8892,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .offcanvas-overlap-top .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -8873,6 +8913,7 @@ ul.off-canvas-list li a:active {
   cursor: pointer;
   transition: background 300ms ease;
   -webkit-tap-highlight-color: transparent;
+  background: white;
   background: rgba(255, 255, 255, 0.2);
   bottom: 0;
   display: block;
@@ -8885,6 +8926,7 @@ ul.off-canvas-list li a:active {
 @media only screen and (min-width: 40.0625em) {
   /* line 296, ../bower_components/foundation/scss/foundation/components/_offcanvas.scss */
   .offcanvas-overlap-bottom .exit-off-canvas:hover {
+    background: white;
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -9068,8 +9110,6 @@ ul.off-canvas-list li a:active {
   -ms-transform: translate(0, -100%);
   -o-transform: translate3d(0, -100%, 0);
   transform: translate3d(0, -100%, 0);
-  top: 0;
-  width: 100%;
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
   -ms-transition: -ms-transform 500ms ease;
@@ -9111,7 +9151,6 @@ ul.off-canvas-list li a:active {
   -webkit-backface-visibility: hidden;
   -webkit-overflow-scrolling: touch;
   background: #333333;
-  bottom: 0;
   box-sizing: content-box;
   margin: 0;
   overflow-x: hidden;
@@ -9127,7 +9166,6 @@ ul.off-canvas-list li a:active {
   -o-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
   bottom: 0;
-  width: 100%;
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
   -ms-transition: -ms-transform 500ms ease;
