@@ -11,17 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927105447) do
+ActiveRecord::Schema.define(version: 20161007070543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ajax_items", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "assigned_employees", force: :cascade do |t|
     t.integer  "official_group_id"
@@ -38,12 +31,6 @@ ActiveRecord::Schema.define(version: 20160927105447) do
   add_index "assigned_employees", ["official_group_id"], name: "index_assigned_employees_on_official_group_id", using: :btree
   add_index "assigned_employees", ["period_id"], name: "index_assigned_employees_on_period_id", using: :btree
   add_index "assigned_employees", ["unit_id"], name: "index_assigned_employees_on_unit_id", using: :btree
-
-  create_table "categories", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "entry_indicator_sources", force: :cascade do |t|
     t.integer  "entry_indicator_id"
@@ -339,12 +326,6 @@ ActiveRecord::Schema.define(version: 20160927105447) do
     t.integer  "role"
   end
 
-  create_table "valuators", force: :cascade do |t|
-    t.integer "user_id"
-  end
-
-  add_index "valuators", ["user_id"], name: "index_valuators_on_user_id", using: :btree
-
   add_foreign_key "assigned_employees", "official_groups"
   add_foreign_key "assigned_employees", "periods"
   add_foreign_key "assigned_employees", "units"
@@ -385,5 +366,4 @@ ActiveRecord::Schema.define(version: 20160927105447) do
   add_foreign_key "units", "unit_types"
   add_foreign_key "user_organizations", "organizations"
   add_foreign_key "user_organizations", "users"
-  add_foreign_key "valuators", "users"
 end

@@ -19,7 +19,7 @@ gem 'coffee-rails', '~> 4.1.0' # CoffeeScript for .coffee assets and views
 gem 'jquery-ui-rails'
 
 gem 'jquery-rails' # Use jquery as the JavaScript library
-gem 'turbolinks' # Following links in your web application faster.
+gem 'turbolinks', '2.5.3' # Following links in your web application faster.
 gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease.
 gem 'initialjs-rails', '0.2.0.1'
 
@@ -94,9 +94,9 @@ group :development, :test do
   gem 'i18n-tasks' #  helps you find and manage missing and unused translations.
 
   #  utility and framework for executing commands in parallel on multiple remote machines, via SSH.
-  gem 'capistrano', '3.4.0',           require: false
+  gem 'capistrano', '3.5.0',           require: false
   gem "capistrano-bundler", '1.1.4',   require: false
-  gem "capistrano-rails", '1.1.6',     require: false
+  gem "capistrano-rails", '1.1.7',     require: false
   gem "capistrano-rvm",                require: false
   gem 'capistrano3-delayed-job', '~> 1.0'
 
