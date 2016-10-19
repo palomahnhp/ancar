@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007070543) do
+ActiveRecord::Schema.define(version: 20161019105607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,7 +129,6 @@ ActiveRecord::Schema.define(version: 20161007070543) do
 
   create_table "metrics", force: :cascade do |t|
     t.integer  "item_id"
-    t.string   "in_out"
     t.string   "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -271,8 +270,10 @@ ActiveRecord::Schema.define(version: 20161007070543) do
     t.string   "updated_by"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "in_out"
   end
 
+  add_index "total_indicators", ["in_out"], name: "index_total_indicators_on_in_out", using: :btree
   add_index "total_indicators", ["indicator_group_id"], name: "index_total_indicators_on_indicator_group_id", using: :btree
   add_index "total_indicators", ["indicator_metric_id"], name: "index_total_indicators_on_indicator_metric_id", using: :btree
 
