@@ -1,5 +1,8 @@
 ---
 es:
+  indicators:
+    delete:
+      message: ¿Desea borrar este indicador?
   manager:
     dashboard:
       index:
@@ -13,10 +16,15 @@ es:
       form:
         total_process: ¿Totaliza para proceso?
         total_sub_process: ¿Totaliza para subproceso?
+        description: Descripción
     menu:
       periods: Configurar Periodos
       processes: Configurar Procesos e indicadores
     main_processes:
+      delete:
+        message: ¿Desea borrar este proceso y sus subprocesos e indicadores?
+      edit:
+        title: Editar procesos
       index:
         empty: No hay procesos para este periodo
         create: Incluir procesos
@@ -25,15 +33,17 @@ es:
         select_period: Selecciona un periodo
         sub_processes: Ver subprocesos
         submit: Submit
-      edit:
-        title: Editar procesos
       form:
-        order: Número de orden
         item: Descripcion
+        order: Núm. orden
         period: Periodo
+        process: Descripción del proceso
       new:
         title: Crear procesos
     periods:
+      delete:
+        message: ¿Desea borrar este periodo y sus procesos,subprocesos e indicadores?
+        message_empty: Periodo sin procesos asociados ¿Desea borrarlo?
       index:
         button:
           create: Crear un periodo
@@ -74,14 +84,24 @@ es:
           closed_at: Fecha de cierre no puede ser anterior a fecha de apertura
           opened_at: Fecha de apertura no puede ser anterior a la fecha de finalización del periodo
     sub_processes:
+      delete:
+        message: ¿Desea borrar este subprocesos y sus tareas e indicadores?
       index:
-        create: Crear
-        title: Subprocesos
+        create: Incluir subprocesos
+        empty: No hay sub procesos definidos
         submit: Buscar subprocesos
         tasks: Ver tareas
+        title: Subprocesos
+      form:
+        unit_type: Unidad
+        description: Descripción
     tasks:
+      delete:
+        message: ¿Desea borrar esta tarea y sus indicadores?
       index:
-        create: Crear una tarea
+        create: Incluir una tarea
         submit: Buscar tareas
         indicators: Ver indicadores
         title: Tareas
+      form:
+        description: Descripción

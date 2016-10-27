@@ -5,6 +5,7 @@
   background: $brand;
   color: white;
   font-weight: bold;
+  text-align: center;
 }
 
 .ui-datepicker-calendar {
@@ -24,13 +25,6 @@
   padding: 0;
   z-index: 4 !important;
 
-  .ui-datepicker-prev {
-    left: 12px;
-  }
-
-  .ui-datepicker-next {
-    right: 12px;
-  }
 
   .ui-datepicker-prev, .ui-datepicker-next {
     color: white;
@@ -39,6 +33,15 @@
     font-size: $small-font-size;
     line-height: $line-height;
     top: 0;
+  }
+
+  .ui-datepicker-prev {
+    left: 12px;
+  }
+
+  .ui-datepicker-next {
+    right: 12px;
+    margin-left: 142px;
   }
 
   table {

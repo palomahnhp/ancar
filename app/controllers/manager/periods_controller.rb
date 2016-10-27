@@ -1,7 +1,7 @@
 class Manager::PeriodsController < Manager::BaseController
 
   before_action :organization_types, only: [:edit, :new, :create, :update]
-  before_action :get_periods, only: [:new, :create]
+  before_action :get_periods, only: [:edit, :new, :create]
   before_action :find_period,   only: [:edit, :update, :destroy]
 
   def index
@@ -10,6 +10,11 @@ class Manager::PeriodsController < Manager::BaseController
 
   def new
     @period = Period.new
+  end
+
+  def edit
+
+
   end
 
   def create

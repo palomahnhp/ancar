@@ -53,3 +53,8 @@ DatabaseCleaner.clean_with :truncation
   OfficialGroup.create!(name: "C1", description: "Grupo C1")
   OfficialGroup.create!(name: "C2", description: "Grupo C2")
   OfficialGroup.create!(name: "E",  description: "Grupo E")
+
+#puts "7. Cargando valores de in_out en indicadores"
+  Item.create!(item_type: "ind_out", description: "Proceso")
+  Item.create!(item_type: "ind_out", description: "Subproceso")
+  Item.create!(item_type: "ind_out", description: "Stock")

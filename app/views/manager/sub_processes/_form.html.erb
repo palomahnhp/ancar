@@ -1,17 +1,45 @@
-<%= form_for [:manager, @mainprocess] do |f| %>
-  <% if @mainprocess.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@mainprocess.errors.count, "error") %> prohibited this mainprocess from being saved:</h2>
+<%= render 'shared/errors', resource: @main_process %>
+<h5><%= @period.description %></h5>
+<h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
+<h4><%= @sub_process.order %>. <%= @sub_process.item.description %></h4>
 
-      <ul>
-      <% @mainprocess.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<%= form_tag do %>
+  <br>
+  <div class="small-8 columns" >
+    <label for="unit_type_description"><%= t("manager.sub_processes.form.unit_type")%></label>
+    <input list="unit_type_description" type="text" name="unit_type_desc" value="<%=@sub_process.unit_type.description %>"  onclick="this.value=''">
+    <datalist id="unit_type_description"%>" >
+      <% @unit_types.each do |unit_type| %>
+        <% if @sub_process.unit_type_id == unit_type.id %>
+         <option id="<%= unit_type.id %>" value="<%= unit_type.description %>" selected="true">
+        <% else %>
+         <option id="<%= unit_type.id %>" value="<%= unit_type.description %>">
+        <% end %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </datalist>
+  </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="small-8 columns" >
+   <label for="item_description"><%= t("manager.sub_processes.form.description")%></label>
+    <input list="item_description" type="text" name="item_desc" value="<%=@sub_process.item.description %>"  onclick="this.value=''">
+    <datalist id="item_description"%>" >
+      <% @items.each do |item| %>
+        <% if @sub_process.item_id == item[1] %>
+         <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
+        <% else %>
+         <option id="<%= item[1] %>" value="<%= item[0] %>">
+        <% end %>
+      <% end %>
+    </datalist>
+  </div>
+
+  <div class="small-12 column" ></div>
+  <div class="small-1 column">
+      <%= label_tag :order, t("manager.main_processes.form.order") %>
+      <%= text_field_tag(:order, @sub_process.order) %>
+  </div>
+
+  <div class="actions small-12 column">
+      <%= submit_tag t("actions.#{action_name}"), class: "button tiny hollow"%>
   </div>
 <% end %>

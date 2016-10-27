@@ -1,6 +1,7 @@
-<h1>Editing Task</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+<div class="banner-edit row">
+  <div class="small-12 column">
+    <%= render "shared/index" %>
+    <h1><%= t("actions.edit") %></h1>
+    <%= render "form" %>
+  </div>
+</div>

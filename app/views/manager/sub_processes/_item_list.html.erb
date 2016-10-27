@@ -1,13 +1,22 @@
-<div>
- <h3> <%= @organization_type.description %> / <%= @period.description %>aqui</h3>
+<div class="highlight padding">
+ <h3> <%= @organization_type.description %> / <%= @period.description %>
+  <h4> <%= @main_process.item.description %></h4>
 </div>
 
 <table>
   <% @sub_processes.each do  |sub_process|%>
+    <% if @unit_type_before != unit_type_description(sub_process.unit_type_id) %>
+      <tr>
+        <td colspan= "0" class="expanded highlight small-12 columns">
+          <%= unit_type_description(sub_process.unit_type_id) %>
+        </td>
+      </tr>
+      <% @unit_type_before = unit_type_description(sub_process.unit_type_id)%>
+    <% end %>
     <tr id="<%= dom_id(sub_process) %>">
       <td>
-        <div class="admin-list small-12 medium-14 column">
-          <%= description(0, sub_process.item_id) %>
+        <div class="admin-list small-12">
+          <%= sub_process.order %> <%= description(0, sub_process.item_id) %>
         </div>
       </td>
       <td>
@@ -28,7 +37,8 @@
       </td>
       <td>
         <%= link_to manager_sub_process_path(sub_process), method: :delete,
-                class: 'button small alert float-right hollow' do %>
+              data: {confirm: delete_msg(sub_process.class.name)},
+              class: 'button small alert float-right hollow' do %>
               <span class="icon-box"></span>
               <%= t("actions.delete") %>
          <% end %>

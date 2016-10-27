@@ -1,24 +1,39 @@
 
 <div>
   <div class="expanded highlight padding">
-     <h4><%= Item.find(@main_process.item_id).description%> </h4>
-     <h4><%= Item.find(@sub_process.item_id).description %></h4>
+     <h5><%= @main_process.item.description %> </h5>
+     <h5><%= @sub_process.item.description %></h5>
      <strong><%= @organization_type.description %> / <%= @period.description %></strong>
   </div>
 </div>
   <table>
-    <tr><th colspan="2">Totalizadores</th></tr>
-    <tr> <td>Proc.</td><td>Subproc</td></tr>
+    <tr>
+      <th colrow="2">Indicador</th>
+      <th colrow="2">Métrica</th>
+      <th colrow="2">Fuente</th>
+      <th colspan="<%=@indicator_types.count%>">Totalizadores</th>
+    </tr>
+    <tr>
+       <td colspan="3"></td>
+       <% @indicator_types.each do |indicator_type|%>
+          <td><%= indicator_type.description %></td>
+        <% end %>
+    </tr>
+
     <% @indicators.each do  |indicator|%>
       <tr id="<%= dom_id(indicator) %>">
-        <td><%= total_check(indicator.total_process) %></td>
-        <td><%= total_check(indicator.total_sub_process) %></td>
         <td>
-           <%= Item.find(indicator.item_id).description %>
+           <%= indicator.item.description %>
         </td>
-        <td>
-          <%= Item.find(indicator.metric.item_id).description%>
+        <td id="<%= dom_id(indicator.indicator_metrics.first) %>">
+          <%= indicator.indicator_metrics.first.metric.item.description %>
         </td>
+        <td id="<%= dom_id(indicator.indicator_sources.first) %>">
+          <%= indicator.indicator_sources.first.source.item.description %>
+        </td>
+        <% @indicator_types.each do |indicator_type|%>
+          <td class="text-center"><%= total_check(indicator.indicator_metrics.take.id, indicator_type) %></td>
+        <% end %>
         <td>
           <%= link_to edit_manager_indicator_path(indicator),
               class: 'button warning float-right tiny hollow' do %>

@@ -1,4 +1,13 @@
-<p id="notice"><%= notice %></p>
+<div class="banner-new row">
 
-<%= link_to 'Edit', edit_manager_period_path(@period) %> |
-<%= link_to 'Back', manager_periods_path %>
+  <div class="small-12 column">
+    <%= link_to manager_periods_path, class: "back" do %>
+      <span class="icon-angle-left"></span>
+      <%= t("actions.back") %>
+    <% end %>
+
+    <h1><%= t("manager.periods.new.title") %></h1>
+
+    <%= render "form" %>
+  </div>
+</div>

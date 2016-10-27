@@ -8,6 +8,8 @@
 
     <h1><%= t("manager.main_processes.new.title") %></h1>
     <br>
-    <%=  render "shared/in_works" %>
+    <h4>Nuevo proceso </h4>
+    <h5><%= @period.description %></h5>
+    <%=  render "form" %>
   </div>
 </div>

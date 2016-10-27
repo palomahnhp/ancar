@@ -1,4 +1,4 @@
-module AdminHelper
+module ManagerHelper
 
   def side_menu
     render "/#{namespace}/menu"
@@ -28,8 +28,23 @@ module AdminHelper
     items_not_used.collect  { |v| [ v.description, v.id ] }
   end
 
-  def total_check(value)
-   value == 1 ? "X" : " "
+  def total_check(indicator_metric_id, indicator_type_id)
+    TotalIndicator.where(indicator_metric_id: indicator_metric_id, indicator_type: indicator_type_id).count == 0 ? '.' : 'X'
+  end
+
+  def unit_type_description(id)
+    @unit_type_description = UnitType.find(id).description
+  end
+
+  def delete_msg(class_name, count=0)
+    if class_name != Period.class.name
+      t("manager.#{class_name.pluralize.underscore}.delete.message")
+    elsif count == 0
+      t("manager.#{class_name..pluralize.underscore}.delete.message.no_empty")
+    else
+      t("manager.#{class_name..pluralize.underscore}.delete.message")
+    end
+
   end
 
   private

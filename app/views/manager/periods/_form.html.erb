@@ -43,14 +43,14 @@
       </div>
     </div>
 
-
-    <div class="small-3 columns end">
-      <h4>
-        <%= f.label :id, t("manager.periods.form.period") %>
-        <%= f.select :id, options_for_select(@periods_from,), include_blank: true, label: false, placeholder: t("manager.periods.form.period") %>
-      </h4>
-    </div>
-
+    <% if params[:action] != "edit" %>
+      <div class="small-3 columns end">
+        <h4>
+          <%= f.label :id, t("manager.periods.form.period") %>
+          <%= f.select :id, options_for_select(@periods_from,), include_blank: true, label: false, placeholder: t("manager.periods.form.period") %>
+        </h4>
+      </div>
+    <% end %>
     <div class="actions small-12 columns">
       <%= f.submit(class: "button hollow", value: t("actions.#{action_name}")) %>
     </div>

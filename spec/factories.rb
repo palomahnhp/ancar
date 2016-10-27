@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :indicator_type do
+    
+  end
 
   factory :period do
     association :organization_type, factory: :organization_type

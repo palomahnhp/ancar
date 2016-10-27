@@ -34,9 +34,9 @@ es:
       legal_warning: "Aviso legal"
       copyright: "© Copyrigth  %{year} Ayuntamiento de Madrid"
       FAQ_title: "Instrucciones"
-      FAQ_text: "Preguntas Frecuentes"
-      process_title: "Procesos"
-      process_text: "Revisón de los procesos"
+      FAQ_text: Instrucciones para la cumplimentación de los indicadores
+      process_title: "Indicadores"
+      process_text: "Consulta y modificación de indicatores"
       reports_title: "Informes"
       reports_text: "Consultar informes "
     header:

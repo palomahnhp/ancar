@@ -1,17 +1,33 @@
-<%= form_for(@task) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<%= render 'shared/errors', resource: @sub_process %>
+<h5><%= @period.description %></h5>
+<h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
+<h5><%= @sub_process.order %>. <%= @sub_process.item.description %></h5>
+<h4><%= @task.order %>. <%= @task.item.description %></h4>
 
-      <ul>
-      <% @task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<%= form_tag do %>
+  <br>
+  <div class="small-8 columns" >
+   <label for="item_description"><%= t("manager.task.form.description")%></label>
+    <input list="item_description" type="text" name="item_desc" value="<%=@task.item.description %>"  onclick="this.value=''">
+    <datalist id="item_description"%>" >
+      <% @items.each do |item| %>
+        <% if @task.item_id == item[1] %>
+         <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
+        <% else %>
+         <option id="<%= item[1] %>" value="<%= item[0] %>">
+        <% end %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </datalist>
+  </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="small-12 column" ></div>
+  <div class="small-1 column">
+      <%= label_tag :order, t("manager.task.form.order") %>
+      <%= text_field_tag(:order, @task.order) %>
+  </div>
+
+  <div class="actions small-12 column">
+      <%= submit_tag t("actions.#{action_name}"), class: "button tiny hollow"%>
   </div>
 <% end %>
+

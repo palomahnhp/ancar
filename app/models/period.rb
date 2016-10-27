@@ -23,7 +23,7 @@ class Period < ActiveRecord::Base
   end
 
   def modifiable?
-    !close_entry?  && !open_entry?
+    !close_entry?
   end
 
   def is_empty?
@@ -31,7 +31,7 @@ class Period < ActiveRecord::Base
   end
 
   def eliminable?
-    modifiable? && is_empty?
+    modifiable? && is_empty? && !open_entry?
   end
 
   def copy(periodo_origen_id, current_user_login)

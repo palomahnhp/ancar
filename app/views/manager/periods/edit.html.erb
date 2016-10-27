@@ -1,13 +1,8 @@
 <div class="banner-edit row">
 
   <div class="small-12 column">
-    <%= link_to manager_banners_path, class: "back" do %>
-      <span class="icon-angle-left"></span>
-      <%= t("actions.back") %>
-    <% end %>
-
+    <%= render "shared/index" %>
     <h1><%= t("actions.edit") %></h1>
-
     <%= render "form" %>
   </div>
 </div>

@@ -13,10 +13,13 @@ en:
       form:
         total_process: ¿Totaliza para proceso?
         total_sub_process:  ¿Totaliza para subproceso?
+        description: Descripción
     menu:
       periods: Configurar Periodos
       processes: Configurar Procesos e indicadores
     main_processes:
+      delete:
+        message: ¿Desea borrar este proceso y sus subprocesos e indicadores?
       index:
         empty: No hay procesos para este periodo
         create: Incluir procesos
@@ -28,9 +31,10 @@ en:
       edit:
         title: Editar procesos
       form:
-        order: Número de orden
         item: Descripcion
+        order: Núm. orden
         period: Periodo
+        process: Descripción del proceso
       new:
         title: Crear procesos
     periods:
@@ -75,13 +79,19 @@ en:
           opened_at: Fecha de apertura no puede ser anterior a la fecha de finalización del periodo
     sub_processes:
       index:
-        create: Crear
-        title: Subprocesos
+        create: Incuir subprocesos
+        empty: No hay sub procesos definidos
         submit: Buscar subprocesos
         tasks: Ver tareas
+        title: Subprocesos
+      form:
+        unit_type: Unidad
+        description: Descripción
     tasks:
       index:
         create: Crear una tarea
         submit: Buscar tareas
         indicators: Ver indicadores
         title: Tareas
+      form:
+        description: Descripción
