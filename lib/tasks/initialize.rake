@@ -2,6 +2,10 @@ namespace :initialize do
 
   desc "Initializa summary_types"
   task summary_types: :environment do
+    TotalIndicator.update_all(summary_type_id: nil)
+    SummaryType.delete_all
+    Item.where(item_type: "summary_type").delete_all
+
     process     = Item.create!(item_type: "summary_type", description: "Proceso", updated_by: "initialize")
     subprocess  = Item.create!(item_type: "summary_type", description: "Subproceso", updated_by: "initialize")
     stock       = Item.create!(item_type: "summary_type", description: "Stock", updated_by: "initialize")

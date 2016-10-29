@@ -1,53 +1,53 @@
-
 <div>
   <div class="expanded highlight padding">
-     <h5><%= @main_process.item.description %> </h5>
-     <h5><%= @sub_process.item.description %></h5>
-     <strong><%= @organization_type.description %> / <%= @period.description %></strong>
+     <h4><%= @organization_type.description %> / <%= @period.description %></h4>
+     <h5><%= @main_process.order %>. <%= @main_process.item.description %> </h5>
+     <h5><%= @sub_process.order %>. <%= @sub_process.item.description %></h5>
   </div>
 </div>
-  <table>
-    <tr>
-      <th colrow="2">Indicador</th>
-      <th colrow="2">Métrica</th>
-      <th colrow="2">Fuente</th>
-      <th colspan="<%=@indicator_types.count%>">Totalizadores</th>
-    </tr>
-    <tr>
-       <td colspan="3"></td>
-       <% @indicator_types.each do |indicator_type|%>
-          <td><%= indicator_type.description %></td>
-        <% end %>
-    </tr>
 
-    <% @indicators.each do  |indicator|%>
-      <tr id="<%= dom_id(indicator) %>">
-        <td>
-           <%= indicator.item.description %>
-        </td>
-        <td id="<%= dom_id(indicator.indicator_metrics.first) %>">
-          <%= indicator.indicator_metrics.first.metric.item.description %>
-        </td>
-        <td id="<%= dom_id(indicator.indicator_sources.first) %>">
-          <%= indicator.indicator_sources.first.source.item.description %>
-        </td>
-        <% @indicator_types.each do |indicator_type|%>
-          <td class="text-center"><%= total_check(indicator.indicator_metrics.take.id, indicator_type) %></td>
+<table>
+  <tr>
+    <th colrow="2">Indicador</th>
+    <th colrow="2">Métrica</th>
+    <th colrow="2">Fuente</th>
+    <th colspan="<%=@summary_types.count%>">Totalizadores</th>
+  </tr>
+  <tr>
+     <td colspan="3"></td>
+     <% @summary_types.each do |summary_type|%>
+        <td><%= summary_type.description %></td>
+      <% end %>
+  </tr>
+
+  <% @indicators.each do  |indicator|%>
+    <tr id="<%= dom_id(indicator) %>">
+      <td>
+        <%= indicator.item.description %>
+      </td>
+      <td id="<%= dom_id(indicator.indicator_metrics.first) %>">
+        <%= indicator.indicator_metrics.first.metric.item.description %>
+      </td>
+      <td id="<%= dom_id(indicator.indicator_sources.first) %>">
+        <%= indicator.indicator_sources.first.source.item.description %>
+      </td>
+      <% @summary_types.each do |summary_type|%>
+        <td class="text-center"><%= total_check(indicator.indicator_metrics.take.id, summary_type) %></td>
+      <% end %>
+      <td>
+        <%= link_to edit_manager_indicator_path(indicator),
+            class: 'button warning float-right tiny hollow' do %>
+              <span class="icon-edit"></span>
+              <%= t("actions.edit") %>
         <% end %>
-        <td>
-          <%= link_to edit_manager_indicator_path(indicator),
-              class: 'button warning float-right tiny hollow' do %>
-                <span class="icon-edit"></span>
-                <%= t("actions.edit") %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to manager_in_works_path(indicator),
-              class: 'button alert float-right tiny hollow' do %>
-                <span class="icon-delete"></span>
-                <%= t("actions.delete") %>
-           <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+      </td>
+      <td>
+        <%= link_to manager_in_works_path(indicator),
+            class: 'button alert float-right tiny hollow' do %>
+              <span class="icon-delete"></span>
+              <%= t("actions.delete") %>
+         <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

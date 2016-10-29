@@ -47,6 +47,11 @@ module ManagerHelper
 
   end
 
+  def summary_type_checked?(indicator, item_summary_type_id)
+    summary_type_id = SummaryType.where(item_id: item_summary_type_id).take.id
+    !TotalIndicator.where(indicator_metric_id: indicator.indicator_metrics.take.id, summary_type_id: summary_type_id).empty?
+  end
+
   private
     def namespace
       controller.class.parent.name.downcase

@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   resources :in_works
   resources :user_access
   resources :entry_indicators
-  resources :process_summary
   resources :instructions
 
   namespace :admin do
@@ -29,6 +28,7 @@ Rails.application.routes.draw do
   namespace :manager do
     root to: "dashboard#index"
       resources :sources
+      resources :process_summary
       resources :periods do
         member do
           post 'edit'

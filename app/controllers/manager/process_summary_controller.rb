@@ -1,4 +1,4 @@
-class ProcessSummaryController < ApplicationController
+class Manager::ProcessSummaryController < Manager::BaseController
   before_action :require_user, only: [:index, :show]
 
   def index

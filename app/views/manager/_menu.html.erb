@@ -11,5 +11,19 @@
       <% end %>
     </li>
 
+    <li>
+      <%= link_to manager_process_summary_index_path(type: "MainProcess") do %>
+        <span class="icon-document"> </span>
+        <%= t("subnavigation_menu.process_summary") %>
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to manager_process_summary_index_path(type: "SubProcess") do %>
+        <span class="icon-document"> </span>
+        <%= t("subnavigation_menu.sub_process_summary") %>
+      <% end %>
+    </li>
+
   </ul>
 </nav>

@@ -40,6 +40,19 @@ body.admin {
     input[type="text"], textarea {
       width: 100%;
     }
+
+    .checkbox {
+    font-size: $small-font-size;
+    color: green;
+   }
+
+    .panel {
+      background: #F8F8F8;
+      border: 1px solid $medium-gray;
+      border-style: solid;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
   }
 
   table {

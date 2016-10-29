@@ -59,6 +59,6 @@ private
   end
 
   def item_new(description)
-    Item.create(item_type: MainProcess.class.name.undescore, description: description).id
+    Item.create(item_type: MainProcess.class.name.underscore, description: description).id
   end
 end
