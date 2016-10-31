@@ -7,7 +7,7 @@
 <%= form_tag do %>
   <br>
   <div class="small-8 columns" >
-   <label for="item_description"><%= t("manager.task.form.description")%></label>
+   <label for="item_description"><%= t("manager.tasks.form.description")%></label>
     <input list="item_description" type="text" name="item_desc" value="<%=@task.item.description %>"  onclick="this.value=''">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
@@ -22,7 +22,7 @@
 
   <div class="small-12 column" ></div>
   <div class="small-1 column">
-      <%= label_tag :order, t("manager.task.form.order") %>
+      <%= label_tag :order, t("manager.tasks.form.order") %>
       <%= text_field_tag(:order, @task.order) %>
   </div>
 

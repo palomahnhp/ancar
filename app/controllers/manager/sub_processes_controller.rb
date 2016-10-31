@@ -31,8 +31,7 @@ class Manager::SubProcessesController < Manager::BaseController
     @organization_type = OrganizationType.find(@unit_type.organization_type_id)
     @unit_types   = UnitType.where(organization_type_id: @organization_type.id).order(:order)
     if params[:commit]
-      @sub_process.item_id =
-        @items.to_h[params[:item_desc]].nil? ? item_new(params[:item_desc]) : @items.to_h[params[:item_desc]]
+      @sub_process.item_id =  desc_to_item_id(params[:item_desc], Subprocess.name.underscore)
       @sub_process.order = params[:order]
       if @sub_process.save
         redirect_to manager_sub_processes_path(commit: t("manager.sub_processes.index.submit"),
@@ -53,12 +52,4 @@ class Manager::SubProcessesController < Manager::BaseController
      redirect_to manager_sub_processes_path, notice: msg
   end
 
-private
-  def unit_types
-    @unit_types = UnitType.all.map { |type| [type.description, type.id] }
-  end
-
-  def item_new(description)
-    Item.create(item_type: MainProcess.class.name.underscore, description: description).id
-  end
 end

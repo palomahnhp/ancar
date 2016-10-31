@@ -36,8 +36,7 @@ class Manager::MainProcessesController < Manager::BaseController
     @main_process = MainProcess.find(params[:id])
     @period = @main_process.period
     if params[:commit]
-      @main_process.item_id =
-        @items.to_h[params[:item_desc]].nil? ? item_new(params[:item_desc]) : @items.to_h[params[:item_desc]]
+      @main_process.item_id = desc_to_item_id(params[:item_desc], Process.name.underscore)
       @main_process.order = params[:order]
       if @main_process.save
         redirect_to manager_main_processes_path(commit: t("manager.main_processes.index.submit"), period_id: @period.id, organization_type_id: @period.organization_type_id)
@@ -82,7 +81,4 @@ class Manager::MainProcessesController < Manager::BaseController
 #      @periods = Period.where(organization_type_id: type.id).map { |period| [period.description, period.id] }
     end
 
-    def item_new(description)
-      Item.create(item_type: "main_process", description: description).id
-    end
 end

@@ -23,7 +23,7 @@
   <% @indicators.each do  |indicator|%>
     <tr id="<%= dom_id(indicator) %>">
       <td>
-        <%= indicator.item.description %>
+        <%= indicator.order %>. <%= indicator.item.description %>
       </td>
       <td id="<%= dom_id(indicator.indicator_metrics.first) %>">
         <%= indicator.indicator_metrics.first.metric.item.description %>

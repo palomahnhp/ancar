@@ -33,7 +33,7 @@
     </datalist>
   </div>
   <div class="small-8 columns" >
-    <label for="source_description"><%= t("source.indicators.form.source")%></label>
+    <label for="source_description"><%= t("manager.indicators.form.source")%></label>
     <input list="source_description" type="text" name="source_desc" value="<%=@indicator.indicator_sources.take.source.item.description %>"  onclick="this.value=''">
     <datalist id="source_description"%>" >
       <% @sources.each do |source| %>

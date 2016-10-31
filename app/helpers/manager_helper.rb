@@ -19,12 +19,15 @@ module ManagerHelper
   end
 
   def indicator_items
-    items_not_used = Item.where(item_type: "indicator").order(:description)
-    items_not_used.collect  { |v| [ v.description, v.id ] }
+    select_items("indicator")
   end
 
   def metric_items
-    items_not_used = Item.where(item_type: "metric").order(:description)
+    select_items("metric")
+  end
+
+  def select_items(class_name)
+    items_not_used = Item.where(item_type: class_name).order(:description)
     items_not_used.collect  { |v| [ v.description, v.id ] }
   end
 

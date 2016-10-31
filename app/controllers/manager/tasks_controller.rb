@@ -34,8 +34,7 @@ class Manager::TasksController < Manager::BaseController
     @organization_type = OrganizationType.find(@unit_type.organization_type_id)
     @unit_types   = UnitType.where(organization_type_id: @organization_type.id).order(:order)
     if params[:commit]
-      @task.item_id =
-        @items.to_h[params[:item_desc]].nil? ? item_new(params[:item_desc]) : @items.to_h[params[:item_desc]]
+      @task.item_id = desc_to_item_id(params[:item_desc], Tasks.name.underscore)
       @task.order = params[:order]
       if @task.save
         redirect_to manager_tasks_path(commit: t("manager.tasks.index.submit"),
@@ -50,9 +49,9 @@ class Manager::TasksController < Manager::BaseController
 
   def destroy
      if @task.destroy_all
-       msg = t("manager.task.index.destroy.success")
+       msg = t("manager.tasks.index.destroy.success")
      else
-       msg = t("manager.task.index.destroy.error")
+       msg = t("manager.tasks.index.destroy.error")
      end
      redirect_to manager_task_path, notice: msg
   end

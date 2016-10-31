@@ -5,39 +5,43 @@ en:
       index:
         title: Configuración de procesos
     indicators:
+      delete:
+        message: ¿Desea borrar este indicador?
+      form:
+        description: Descripción
+        metric: Métrica
+        order: Orden
+        source: Fuente
       index:
         title: Indicadores
         create: Crear un indicador
-      edit:
-        title: Editar indicador
-      form:
-        total_process: ¿Totaliza para proceso?
-        total_sub_process:  ¿Totaliza para subproceso?
-        description: Descripción
+        submit: Tareas
     menu:
       periods: Configurar Periodos
-      processes: Configurar Procesos e indicadores
     main_processes:
       delete:
         message: ¿Desea borrar este proceso y sus subprocesos e indicadores?
       index:
         empty: No hay procesos para este periodo
         create: Incluir procesos
+        destroy:
+          error: Error eliminando proceso
+          success: Proceso eliminado
         title: Procesos
         select_organization_type: Selecciona una organización
         select_period: Selecciona un periodo
         sub_processes: Ver subprocesos
         submit: Submit
-      edit:
-        title: Editar procesos
       form:
-        item: Descripcion
+        description: Descripción
         order: Núm. orden
-        period: Periodo
-        process: Descripción del proceso
       new:
         title: Crear procesos
+      show:
+        title: Procesos
     periods:
+      delete:
+        message: ¿Desea borrar este periodo y sus procesos,subprocesos e indicadores?
       index:
         button:
           create: Crear un periodo
@@ -70,7 +74,6 @@ en:
         opened_at: Inicio
         organization_type: Organización
         period: Periodo a copiar
-        period_from: Selecciona el periodo a copiar
         started_at: Inicio
       validate:
         period:
@@ -78,20 +81,34 @@ en:
           closed_at: Fecha de cierre no puede ser anterior a fecha de apertura
           opened_at: Fecha de apertura no puede ser anterior a la fecha de finalización del periodo
     sub_processes:
+      delete:
+        message: ¿Desea borrar este subprocesos y sus tareas e indicadores?
       index:
         create: Incuir subprocesos
         empty: No hay sub procesos definidos
+        destroy:
+          error: Error eliminando proceso
+          success: Proceso eliminado
         submit: Buscar subprocesos
         tasks: Ver tareas
         title: Subprocesos
+      new:
+        title: Crear subproceso
       form:
         unit_type: Unidad
         description: Descripción
     tasks:
+      delete:
+        message: ¿Desea borrar esta tarea y sus indicadores?
       index:
         create: Crear una tarea
         submit: Buscar tareas
         indicators: Ver indicadores
         title: Tareas
+        empty: Tarea Vacia
+        destroy:
+          error: Error eliminando tarea
+          success: Tarea eliminada
       form:
         description: Descripción
+        order: Orden
