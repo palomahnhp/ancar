@@ -17,7 +17,7 @@ class Manager::ProcessSummaryController < Manager::BaseController
       if @mp_id
         @sub_processes = sub_process_by_order  # main_processes_select_options
       end
-   end
+    end
   end
 
 private

@@ -16,7 +16,7 @@ namespace :initialize do
     s  = SummaryType.create(acronym: "S", item_id:subprocess.id,  order: 2, updated_at: 'initialize')
     u  = SummaryType.create(acronym: "U", item_id:stock.id,       order: 4, updated_at: 'initialize')
     g  = SummaryType.create(acronym: "G", item_id:sub_subprocess.id, order: 3, updated_at: 'initialize')
-    c  = SummaryType.create(acronym: "C", item_id:process.id,     order: 5, updated_at: 'initialize')
+    c  = SummaryType.create(acronym: "C", item_id:control.id,     order: 5, updated_at: 'initialize')
 
     TotalIndicator.where(indicator_type: "P").update_all(summary_type_id: pr.id)
     TotalIndicator.where(indicator_type: "S").update_all(summary_type_id: s.id)

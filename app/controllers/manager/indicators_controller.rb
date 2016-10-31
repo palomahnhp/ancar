@@ -13,8 +13,6 @@ class Manager::IndicatorsController < Manager::BaseController
     @period = @main_process.period
     @organization_type = @period.organization_type
     @summary_types = Item.where(item_type: "summary_type")
-  if params[:commit] == t("manager.tasks.index.submit")
-    end
   end
 
   def edit
@@ -26,7 +24,6 @@ class Manager::IndicatorsController < Manager::BaseController
     @main_process = @sub_process.main_process #MainProcess.find(@sub_process.main_process_id)
     @period       = @main_process.period
     @organization_type = OrganizationType.find(@unit_type.organization_type_id)
-    debugger
     @items    = select_option_descriptions(Indicator.name.underscore)
     @metrics  = select_option_descriptions(Metric.name.underscore)
     @sources  = select_option_descriptions(Source.name.underscore)
