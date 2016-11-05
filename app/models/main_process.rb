@@ -14,4 +14,7 @@ class MainProcess < ActiveRecord::Base
     end
   end
 
+  def is_empty?
+   self.sub_processes.count == 0
+  end
 end

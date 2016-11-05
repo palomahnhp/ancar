@@ -23,9 +23,15 @@ module ManagerActions
       @items.to_h[description].nil? ? item_new(description, class_name) : @items.to_h[description]
     end
 
+    def desc_to_unit_type_id(description)
+      @unit_types.to_h[description]
+    end
+
     def select_option_descriptions(class_name)
       Item.where(item_type: class_name).order(:description).map{|item| [item.description, item.id]}
     end
 
-
+    def items_map(class_name)
+      Item.where(item_type: class_name).order(:description).map{|item| [item.description, item.id]}
+    end
 end

@@ -1,7 +1,22 @@
-<div class="banner-edit row">
+<div class="row">
+  <div class="small-12 columns">
+    <div class="small-8 columns">
+      <h2><%= t("manager.#{SubProcess.name.underscore.pluralize}.#{action_name}.title") %>  </h2>
+    </div>
+    <div  class="small-1 columns">
+      <%= render "shared/back" %>
+    </div>
+  </div>
+</div>
+
+<div class="expanded highlight padding">
+  <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
+  <h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
+  <h4><%= @sub_process.order %>. <%= @sub_process.item.description %></h4>
+</div>
+
+<div class="row">
   <div class="small-12 column">
-    <%= render "shared/index" %>
-    <h1><%= t("actions.edit") %></h1>
     <%= render "form" %>
   </div>
 </div>

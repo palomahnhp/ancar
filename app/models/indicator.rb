@@ -13,10 +13,15 @@ class Indicator < ActiveRecord::Base
   def copy(tk_id, current_user_login)
     i = Indicator.create(self.attributes.merge(id: nil, task_id: tk_id, updated_by: current_user_login))
     indicator_sources.each do |is|
-      is.copy(i.id, current_user_login)
+      is.copy(i.id)
     end
     indicator_metrics.each do |im|
-      im.copy(i.id, current_user_login)
+      im.copy(i.id)
     end
   end
+
+  def is_empty?
+    true
+  end
+
 end

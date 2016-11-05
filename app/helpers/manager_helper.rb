@@ -31,28 +31,29 @@ module ManagerHelper
     items_not_used.collect  { |v| [ v.description, v.id ] }
   end
 
-  def total_check(indicator_metric_id, indicator_type_id)
-    TotalIndicator.where(indicator_metric_id: indicator_metric_id, indicator_type: indicator_type_id).count == 0 ? '.' : 'X'
+  def total_check(indicator_metric_id, item_summary_type_id)
+    summary_type = SummaryType.where(item_id: item_summary_type_id).take
+    TotalIndicator.where(indicator_metric_id: indicator_metric_id, summary_type_id: summary_type.id).count == 0 ? '.' : 'X'
   end
 
   def unit_type_description(id)
     @unit_type_description = UnitType.find(id).description
   end
 
-  def delete_msg(class_name, count=0)
-    if class_name != Period.class.name
-      t("manager.#{class_name.pluralize.underscore}.delete.message")
-    elsif count == 0
-      t("manager.#{class_name..pluralize.underscore}.delete.message.no_empty")
+  def delete_msg(class_name, eliminable, modifiable, empty)
+    if modifiable && !empty
+      t("manager.#{class_name}.delete.message.no_empty")
     else
-      t("manager.#{class_name..pluralize.underscore}.delete.message")
+      t("manager.#{class_name}.delete.message")
     end
-
   end
 
   def summary_type_checked?(indicator, item_summary_type_id)
-    summary_type_id = SummaryType.where(item_id: item_summary_type_id).take.id
-    !TotalIndicator.where(indicator_metric_id: indicator.indicator_metrics.take.id, summary_type_id: summary_type_id).empty?
+    if indicator.id.nil?
+    else
+      summary_type_id = SummaryType.where(item_id: item_summary_type_id).take.id
+      !TotalIndicator.where(indicator_metric_id: indicator.indicator_metrics.take.id, summary_type_id: summary_type_id).empty?
+    end
   end
 
   private

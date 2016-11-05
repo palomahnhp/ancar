@@ -1,9 +1,8 @@
-<div>
-  <div class="expanded highlight padding">
-     <h4><%= @organization_type.description %> / <%= @period.description %></h4>
-     <h5><%= @main_process.order %>. <%= @main_process.item.description %> </h5>
-     <h5><%= @sub_process.order %>. <%= @sub_process.item.description %></h5>
-  </div>
+<div class="expanded highlight padding">
+ <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
+ <h4> <%= @main_process.item.description %></h4>
+ <h4> <%= @sub_process.item.description %></h4>
+ <h4> <%= @task.item.description %></h4>
 </div>
 
 <table>
@@ -11,11 +10,11 @@
     <th colrow="2">Indicador</th>
     <th colrow="2">Métrica</th>
     <th colrow="2">Fuente</th>
-    <th colspan="<%=@summary_types.count%>">Totalizadores</th>
+    <th colspan="<%=@item_summary_types.count%>">Totalizadores</th>
   </tr>
   <tr>
      <td colspan="3"></td>
-     <% @summary_types.each do |summary_type|%>
+     <% @item_summary_types.each do |summary_type|%>
         <td><%= summary_type.description %></td>
       <% end %>
   </tr>
@@ -31,22 +30,30 @@
       <td id="<%= dom_id(indicator.indicator_sources.first) %>">
         <%= indicator.indicator_sources.first.source.item.description %>
       </td>
-      <% @summary_types.each do |summary_type|%>
-        <td class="text-center"><%= total_check(indicator.indicator_metrics.take.id, summary_type) %></td>
+      <% @item_summary_types.each do |item_summary_type|%>
+        <td class="text-center"><%= total_check(indicator.indicator_metrics.take.id, item_summary_type.id)%></td>
       <% end %>
       <td>
-        <%= link_to edit_manager_indicator_path(indicator),
-            class: 'button warning float-right tiny hollow' do %>
-              <span class="icon-edit"></span>
-              <%= t("actions.edit") %>
+        <% if params[:modifiable] == 'true' %>
+          <%= link_to edit_manager_indicator_path(indicator, task_id: @task.id),
+              id: "edit_#{indicator.id}",
+              class: 'button warning float-right tiny hollow' do %>
+                <span class="icon-edit"></span>
+                <%= t("actions.edit") %>
+          <% end %>
         <% end %>
       </td>
       <td>
-        <%= link_to manager_in_works_path(indicator),
-            class: 'button alert float-right tiny hollow' do %>
-              <span class="icon-delete"></span>
-              <%= t("actions.delete") %>
-         <% end %>
+        <% if params[:modifiable] == 'true' %>
+         <% msg = delete_msg(indicator.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], !indicator.is_empty? ) %>
+         <%= link_to manager_in_works_path(indicator), method: :delete,
+              data: {confirm: msg},
+              id: "delete_#{indicator.id}",
+              class: 'button alert float-right tiny hollow' do %>
+                <span class="icon-delete"></span>
+                <%= t("actions.delete") %>
+           <% end %>
+        <% end %>
       </td>
     </tr>
   <% end %>

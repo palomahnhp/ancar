@@ -5,60 +5,87 @@ en:
       index:
         title: Configuración de procesos
     indicators:
+      create:
+        success: El indicador se ha creado correctmete.
       delete:
         message: ¿Desea borrar este indicador?
+      destroy:
+        error: Error eliminando indicador
+        success: Se ha eliminado el Indicador correctamente
+      edit:
+        title: Editar proceso
       form:
         description: Descripción
         metric: Métrica
         order: Orden
         source: Fuente
       index:
+        empty: No hay procesos para este periodo
         title: Indicadores
-        create: Crear un indicador
-        submit: Tareas
+        create: Incluir un indicador
+        submit: submit
+      new:
+        title: Crear indicadores
+      update:
+        success: El registro se ha actualizado correctamente.
+      show:
+        title: Indicador
     menu:
       periods: Configurar Periodos
     main_processes:
+      create:
+        success: El indicador se ha creado correctmete.
       delete:
         message: ¿Desea borrar este proceso y sus subprocesos e indicadores?
+      destroy:
+        error: Error eliminando proceso
+        success: Proceso eliminado
+      edit:
+        title: Editar proceso
+      update:
+        success: El registro se ha actualizado correctamente.
       index:
         empty: No hay procesos para este periodo
         create: Incluir procesos
-        destroy:
-          error: Error eliminando proceso
-          success: Proceso eliminado
         title: Procesos
-        select_organization_type: Selecciona una organización
-        select_period: Selecciona un periodo
         sub_processes: Ver subprocesos
-        submit: Submit
+        submit: submit
+        select_organization_type: Seleccionar la Organización
+        select_period: Seleccionar el periodo
       form:
         description: Descripción
         order: Núm. orden
       new:
         title: Crear procesos
+      update:
+        success: El registro se ha actualizado correctamente.
       show:
         title: Procesos
     periods:
+      create:
+        success:
+          processes_copy: Se ha creado el periodo correctamente con los procesos e indicatores del periodo seleccionado.
+          no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
+        error:
+          processes_copy: Se ha creado el periodo correctamente. Se está reañozando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
       delete:
         message: ¿Desea borrar este periodo y sus procesos,subprocesos e indicadores?
+      destroy:
+        success: Se ha eliminado el Periodo correctamente
+        error: Se ha producido un error a eliminar el Periodo
+      edit:
+        title: Editar periodo
+      update:
+        success: El registro se ha actualizado correctamente.
       index:
         button:
           create: Crear un periodo
           edit: editar
           delete: eliminar
           processes: ver procesos
-        create:
-          success:
-            processes_copy: Se ha creado el periodo correctamente. Se está realizando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
-            no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
-          error:
-            processes_copy: Se ha creado el periodo correctamente. Se está reañozando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
         data_period: Los datos corresponden al periodo
         data_collect: Periodo de mecanización
-        destroy:
-          success: Se ha eliminado el Periodo correctamente
-          error: Se ha producido un error a eliminar el Periodo
+        empty: No se ha creado ningún periodo
         entry_opened:  Abierta entrada de datos
         entry_closed: Cerrada entrada de datos
         no_data: No hay periodos definidos
@@ -75,6 +102,8 @@ en:
         organization_type: Organización
         period: Periodo a copiar
         started_at: Inicio
+      show:
+        title: Indicador
       validate:
         period:
           ended_at: Fecha de fin no puede ser anterior a fecha de inicio
@@ -83,32 +112,53 @@ en:
     sub_processes:
       delete:
         message: ¿Desea borrar este subprocesos y sus tareas e indicadores?
+      destroy:
+        error: Error eliminando proceso
+        success: Proceso eliminado
+      edit:
+        title: Editar subproceso
+      update:
+        success: El registro se ha actualizado correctamente.
       index:
-        create: Incuir subprocesos
-        empty: No hay sub procesos definidos
-        destroy:
-          error: Error eliminando proceso
-          success: Proceso eliminado
-        submit: Buscar subprocesos
+        create: Incluir subprocesos
+        empty: No hay subprocesos definidos
         tasks: Ver tareas
         title: Subprocesos
-      new:
-        title: Crear subproceso
+        submit: submit
       form:
         unit_type: Unidad
         description: Descripción
+        order: Núm. orden
+      new:
+        title: Crear subproceso
+      update:
+        success: El registro se ha actualizado correctamente.
+      show:
+        title: Indicador
     tasks:
+      create:
+        success: La tarea se ha creado correctamente
       delete:
         message: ¿Desea borrar esta tarea y sus indicadores?
+      destroy:
+        error: Error eliminando tarea
+        success: Tarea eliminada
+      edit:
+        title: Editar tarea
+      update:
+        success: El registro se ha actualizado correctamente.
       index:
-        create: Crear una tarea
-        submit: Buscar tareas
+        create: Incluir una tarea
+        submit: submit
         indicators: Ver indicadores
         title: Tareas
         empty: Tarea Vacia
-        destroy:
-          error: Error eliminando tarea
-          success: Tarea eliminada
       form:
         description: Descripción
         order: Orden
+      new:
+        title: Crear tareas
+      update:
+        success: El registro se ha actualizado correctamente.
+      show:
+        title: Indicador

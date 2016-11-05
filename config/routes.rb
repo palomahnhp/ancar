@@ -29,11 +29,7 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
       resources :sources
       resources :process_summary
-      resources :periods do
-        member do
-          post 'edit'
-         end
-      end
+      resources :periods
       resources :indicators  do
         member do
           post 'edit'
@@ -49,11 +45,9 @@ Rails.application.routes.draw do
           post 'edit'
          end
       end
-      resources :main_processes do
-        member do
-          post 'edit'
-         end
-      end
+
+      resources :main_processes
+
       resources :in_works
       resources :items do
         member do

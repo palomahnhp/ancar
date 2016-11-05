@@ -1,13 +1,15 @@
 <%= render 'shared/errors', resource: @main_process %>
-<h5><%= @period.description %></h5>
-<h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
 
-<%= form_tag do %>
+<%= form_for [:manager, @main_process] do |f| %>
+
   <br>
   <div class="small-8 columns" >
+    <%= f.hidden_field :period_id, value: params[:period_id]%>
+    <%= f.hidden_field :modifiable, value: params[:modifiable]%>
+    <%= f.hidden_field :eliminable, value: params[:eliminable]%>
+
     <label for="item_description"><%= t("manager.main_processes.form.description")%></label>
-    <input list="item_description" type="text" name="item_desc"
-          value="<%=@main_process.item.description %>"  onclick="this.value=''">
+    <input list="item_description" type="text" name="item_desc" value="<%=@main_process.item.description  if !@main_process.id.nil? %>" onclick="this.value=''">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
         <% if @main_process.item_id == item[1] %>
@@ -21,11 +23,12 @@
 
   <div class="small-12 column" ></div>
   <div class="small-1 column">
-    <%= label_tag :order, t("manager.main_processes.form.order") %>
-    <%= text_field_tag(:order, @main_process.order) %>
+    <%= f.label :order, t("manager.main_processes.form.order") %>
+    <%= f.text_field :order, label: false,
+        placeholder: t("manager.main_processes.form.order") %>
   </div>
 
   <div class="actions small-12 column">
-    <%= submit_tag t("actions.#{action_name}"), class: "button tiny hollow"%>
+    <%= f.submit(t("actions.#{action_name}"), class: "button tiny hollow") %>
   </div>
 <% end %>

@@ -1,7 +1,16 @@
-<div class="banner-edit row">
+<%= render "shared/back" %>
+
+<div class="row">
   <div class="small-12 column">
-    <%= render "shared/index" %>
-    <h1><%= t("actions.edit") %></h1>
+    <h2><%= t("actions.edit") %></h2>
+  </div>
+  <div class="highlight small-12 column">
+    <h5><%= @period.description %></h5>
+    <h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
+    <h5><%= @sub_process.order %>. <%= @sub_process.item.description %></h5>
+    <h4><%= @task.order %>. <%= @task.item.description %></h4>
+  </div>
+  <div class="small-12 column">
     <%= render "form" %>
   </div>
 </div>

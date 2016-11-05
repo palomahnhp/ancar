@@ -1,2 +1,27 @@
-<h1>New Mainprocess</h1>
-<%= render "shared/in_works" %>
+    <div  class="small-1 columns">
+      <%= render "shared/back" %>
+    </div>
+<div class="row">
+  <div class="small-12 columns">
+    <div class=small-8 columns">
+      <h2><%= t("manager.indicators.#{action_name}.title") %>  </h2>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="highlight small-12 column">
+    <h5><%= @period.description %></h5>
+        <h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
+        <h5><%= @sub_process.order %>. <%= @sub_process.item.description %></h5>
+        <h5><%= @task.order %>. <%= @task.item.description %></h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 column">
+    <%= render "form" %>
+  </div>
+</div>
+
+

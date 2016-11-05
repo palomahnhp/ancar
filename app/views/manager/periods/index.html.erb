@@ -1,71 +1,24 @@
-<%= render "shared/index" %>
-
-<h2><%= t("manager.periods.index.title") %></h2>
-
-<p>
-  <%= link_to t("manager.periods.index.button.create"),
+<div class="row">
+  <div  class="small-12 columns">
+      <%= render "shared/back" %>
+  </div>
+  <div class="small-12 columns">
+    <div class="small-10 columns">
+      <h2><%= t("manager.periods.#{action_name}.title") %>  </h2>
+    </div>
+    <div class="column small-2">
+      <br>
+        <%= link_to t("manager.periods.index.button.create"),
               new_manager_period_path,
               class: "button large success hollow" %>
-</p>
+    </div>
+  </div>
+</div>
 
-<table>
-  <% if @periods.nil? %>
-    <h1><%= t("manager.periods.index.no_data") %></h1>
+<div>
+  <% if @periods.nil? || @periods.empty? %>
+    <strong> <%=t("manager.periods.index.empty") %> </strong>
   <% else %>
-    <% @periods.each do |period| %>
-      <tr id="<%= dom_id(period) %>" >
-        <div class="small-12 medium-12 column">
-          <td class="small-6 columns">
-            <strong> <%= OrganizationType.find(period.organization_type_id).description %> : </strong>
-                     <%= period.description %></div>
-             <div><%= t("manager.periods.index.data_period") %>
-                     de <%= period.started_at  %> a <%= period.ended_at %>
-             </div>
-          </div>
-          <div> <%= t("manager.periods.index.data_collect") %>
-                de <strong> <%= period.opened_at %> </strong>
-                 a <strong> <%= period.closed_at %> </strong>
-          </div>
-          <% if period.open_entry? %>
-            <h5><%= t("manager.periods.index.entry_opened") %></h5>
-          <% elsif period.close_entry? %>
-            <h5><%= t("manager.periods.index.entry_closed") %></h5>
-          <% end %>
-        </td>
-        <td class="small-2 columns end">
-          <%= link_to manager_main_processes_path(
-                commit: t("manager.main_processes.index.submit"),
-                period_id: period.id, organization_type_id: period.organization_type_id),
-                class: 'button float-right tiny hollow' do %>
-                  <span class="icon-tag"></span>
-                  <%= t("manager.periods.index.button.processes") %>
-                <% end %>
-        </td>
-        <% if period.modifiable? %>
-        <td class="small-2 columns end">
-          <%= link_to edit_manager_period_path(period),
-              class: 'edit-banner button float-right tiny hollow' do %>
-               <span class="icon-edit"></span>
-                <%= t("manager.periods.index.button.edit") %>
-          <% end %>
-        </td>
-        <% end %>
-
-        <% if period.eliminable?
-               delete_msg = "¿Desea borrar el periodo?"
-           elsif period.modifiable? && !period.is_empty?
-               delete_msg = "Este periodo tiene indicadores asignados ¿Desea borrarlo de todas formas?"
-           end %>
-        <% if delete_msg %>
-          <td class="small-2 columns end">
-            <%= link_to manager_period_path(period), method: :delete, data: {confirm: delete_msg},
-                class: 'delete-banner button alert float-right tiny hollow end' do %>
-                  <span class="icon-box"></span>
-                  <%= t("manager.periods.index.button.delete") %>
-            <% end %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
+    <%=  render 'item_list' %>
   <% end %>
-</table>
+</div>

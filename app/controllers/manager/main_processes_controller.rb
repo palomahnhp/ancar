@@ -10,61 +10,75 @@ class Manager::MainProcessesController < Manager::BaseController
           organization_type_id = params[:main_processes][:organization_type_id]
       end
       @main_processes = MainProcess.where("period_id = ?", period_id).order(:order)
-      @organization_type = OrganizationType.find(organization_type_id)
       @period = Period.find(period_id)
+      @organization_type = OrganizationType.find(organization_type_id)
     end
   end
 
+  def show
+  end
+
   def new
-    @items = Item.where(item_type: "main_process")
+    @items = items_map(MainProcess.name.underscore)
     @organization_type = OrganizationType.find(params[:organization_type_id])
     @period = Period.find(params[:period_id])
     @main_process = MainProcess.new
   end
 
-  def create
-    @main_process = MainProcess.new(main_process_params)
-    if @main_process.save
-      redirect_to manager_periods_path
-    else
-      render :new
-    end
-  end
-
   def edit
-    @items = Item.where(item_type: 'main_process').order(:description).map{|item| [item.description, item.id]}
+    @items = items_map(MainProcess.name.underscore)
     @main_process = MainProcess.find(params[:id])
+    @item = @main_process.item
     @period = @main_process.period
     if params[:commit]
-      @main_process.item_id = desc_to_item_id(params[:item_desc], Process.name.underscore)
+      @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
       @main_process.order = params[:order]
       if @main_process.save
-        redirect_to manager_main_processes_path(commit: t("manager.main_processes.index.submit"), period_id: @period.id, organization_type_id: @period.organization_type_id)
+        redirect_to_index(t("manager.main_processes.update.success"))
       else
         render :edit
       end
     end
   end
 
-  def update
-    if @main_process.update
-      redirect_to manager_main_processes_path
+  def create
+    @items = items_map(MainProcess.name.underscore)
+    @period = Period.find(main_process_params[:period_id])
+    @organization_type = @period.organization_type
+
+    @main_process = MainProcess.new(main_process_params)
+    @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
+    if @main_process.save
+      redirect_to_index(t("manager.main_processes.create.success"))
     else
-      render :edit
+      render :new
     end
   end
 
-  def show
-   @main_process = MainProcess.find(params[:id])
+  def update
+    if params[:commit]
+      @items = items_map(MainProcess.name.underscore)
+      @main_process = MainProcess.find(params[:id])
+      @main_process.assign_attributes(main_process_params)
+      @period = @main_process.period
+      @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
+      if @main_process.save
+        redirect_to_index(t("manager.main_processes.update.success"))
+      else
+        render :edit
+      end
+    end
   end
 
   def destroy
-     if @main_process.destroy_all
-       msg = t("manager.main_processes.index.destroy.success")
-     else
-       msg = t("manager.main_processes.index.destroy.error")
-     end
-     redirect_to manager_main_processes_path, notice: msg
+   @main_process = MainProcess.find(params[:id])
+   @period = @main_process.period
+   if @main_process.destroy
+     msg = t("manager.main_processes.destroy.success")
+   else
+     msg = t("manager.main_processes.destroy.error")
+   end
+     redirect_to_index(msg)
   end
 
   private
@@ -72,13 +86,10 @@ class Manager::MainProcessesController < Manager::BaseController
       params.require(:main_process).permit(:period_id, :item_id, :order)
     end
 
-    def find_main_process
-      @main_process = MainProcess.find(params[:id])
+    def redirect_to_index(msg)
+      redirect_to manager_main_processes_path(commit: t("manager.main_processes.index.submit"),
+           period_id: @period.id, organization_type_id: @period.organization_type_id,
+           modifiable: @period.modifiable?, eliminable: @period.eliminable?),
+           notice: msg
     end
-
-    def find_references
-      @organization_types = OrganizationType.all.map { |org| [org.description, org.id] }
-#      @periods = Period.where(organization_type_id: type.id).map { |period| [period.description, period.id] }
-    end
-
 end

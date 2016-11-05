@@ -1,13 +1,10 @@
-<div class="banner-new row">
+<%= render "shared/back" %>
 
-  <div class="small-12 column">
-    <%= link_to manager_periods_path, class: "back" do %>
-      <span class="icon-angle-left"></span>
-      <%= t("actions.back") %>
-    <% end %>
-
-    <h1><%= t("manager.periods.new.title") %></h1>
-
+<div class="row">
+  <div class="expanded small-12 column">
+    <h2><%= t("manager.periods.new.title") %></h2>
+  </div>
+  <div class="small-12 column"
     <%= render "form" %>
   </div>
 </div>

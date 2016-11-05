@@ -4,6 +4,7 @@ es:
     create: Crear
     delete: Eliminar
     edit: Editar
+    update: Editar
     new: Crear
   activerecord:
     errors:

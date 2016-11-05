@@ -13,4 +13,7 @@ class Task < ActiveRecord::Base
     end
   end
 
+  def is_empty?
+    self.indicators.count == 0
+  end
 end

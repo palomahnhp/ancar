@@ -5,6 +5,7 @@ en:
     delete: Eliminar
     edit: Editar
     new: Crear
+    update: Editar
   activerecord:
     errors:
       models:

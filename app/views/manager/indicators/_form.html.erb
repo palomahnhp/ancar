@@ -1,17 +1,17 @@
 <%= render 'shared/errors', resource: @indicator %>
-<h5><%= @period.description %></h5>
-<h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
-<h5><%= @sub_process.order %>. <%= @sub_process.item.description %></h5>
-<h4><%= @indicator.order %>. <%= @indicator.item.description %></h5>
 
-<%= form_tag do %>
+<%= form_for [:manager, @indicator] do |f| %>
   <br>
   <div class="small-8 columns" >
+    <%= f.hidden_field :task_id, value: params[:task_id]%>
+    <%= f.hidden_field :modifiable, value: params[:modifiable]%>
+    <%= f.hidden_field :eliminable, value: params[:eliminable]%>
+
    <label for="item_description"><%= t("manager.indicators.form.description")%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%=@indicator.item.description %>"  onclick="this.value=''">
+    <input list="item_description" type="text" name="item_desc" value="<%= @indicator.item.description if !@indicator.id.nil? %>" onclick="this.value=''">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
-        <% if @indicator.item_id == item[1] %>
+        <% if !@indicator.id.nil? && @indicator.item_id == item[1] %>
          <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
         <% else %>
          <option id="<%= item[1] %>" value="<%= item[0] %>">
@@ -21,10 +21,10 @@
   </div>
   <div class="small-8 columns" >
     <label for="metric_description"><%= t("manager.indicators.form.metric")%></label>
-    <input list="metric_description" type="text" name="metric_desc" value="<%=@indicator.indicator_metrics.take.metric.item.description %>"  onclick="this.value=''">
+    <input list="metric_description" type="text" name="metric_desc" value="<%=@indicator.indicator_metrics.take.metric.item.description if !@indicator.id.nil? %>"  onclick="this.value=''">
     <datalist id="metric_description"%>" >
       <% @metrics.each do |metric| %>
-        <% if @indicator.indicator_metrics.take.metric.id == metric[1] %>
+        <% if !@indicator.id.nil? && @indicator.indicator_metrics.take.metric.id == metric[1] %>
          <option id="<%= metric[1] %>" value="<%= metric[0] %>" selected="true">
         <% else %>
          <option id="<%= metric[1] %>" value="<%= metric[0] %>">
@@ -34,10 +34,12 @@
   </div>
   <div class="small-8 columns" >
     <label for="source_description"><%= t("manager.indicators.form.source")%></label>
-    <input list="source_description" type="text" name="source_desc" value="<%=@indicator.indicator_sources.take.source.item.description %>"  onclick="this.value=''">
+    <input list="source_description" type="text" name="source_desc"
+           value="<%= @indicator.indicator_sources.take.source.item.description if !@indicator.id.nil? %>"
+           onclick="this.value=''">
     <datalist id="source_description"%>" >
       <% @sources.each do |source| %>
-        <% if @indicator.indicator_sources.take.source.id == source[1] %>
+        <% if !@indicator.id.nil? && @indicator.indicator_sources.take.source.id == source[1] %>
          <option id="<%= source[1] %>" value="<%= source[0] %>" selected="true">
         <% else %>
          <option id="<%= source[1] %>" value="<%= source[0] %>">
@@ -50,9 +52,10 @@
     <label> Marcar el/los tipo/s en los que se tiene en cuenta: </label>
   </div>
   <div class="small-7 columns panel">
-    <% @items_summary_types.all.each do |item_summary| %>
+    <% @item_summary_types.all.each do |item_summary| %>
       <div div class="small-4 columns end">
-        <%= check_box_tag(:summary_type_id, { :multiple => true, checked: summary_type_checked?(@indicator, item_summary.id)} ) %>
+        <%= check_box_tag item_summary.description, item_summary.id,
+         summary_type_checked?(@indicator, item_summary.id) if !@indicator.id.nil?%>
         <label for="summary_#{item_summary.id}""> <%= item_summary.description %></label>
       </div>
     <% end %>
@@ -60,11 +63,11 @@
   <div  class="small-12 columns"> <br> </div>
 
   <div class="small-4 columns">
-    <%= label_tag :order, t("manager.indicators.form.order") %>
-    <%= text_field_tag(:order, @indicator.order) %>
+    <%= f.label :order, t("manager.indicators.form.order") %>
+    <%= f.text_field :order, label: false %>
   </div>
 
   <div class="actions small-12 columns">
-      <%= submit_tag t("actions.#{action_name}"), class: "button hollow"%>
+      <%= f.submit t("actions.#{action_name}"), class: "button hollow"%>
   </div>
 <% end %>

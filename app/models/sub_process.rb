@@ -17,4 +17,7 @@ class SubProcess < ActiveRecord::Base
     end
   end
 
+   def is_empty?
+     self.tasks.count == 0
+   end
 end

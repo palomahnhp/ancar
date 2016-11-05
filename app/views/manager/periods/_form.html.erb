@@ -42,12 +42,11 @@
                           id: "closed_at" %>
       </div>
     </div>
-
-    <% if params[:action] != "edit" %>
+    <% if params[:action] != "edit" && params[:action] != "update" %>
       <div class="small-3 columns end">
         <h4>
           <%= f.label :id, t("manager.periods.form.period") %>
-          <%= f.select :id, options_for_select(@periods_from,), include_blank: true, label: false, placeholder: t("manager.periods.form.period") %>
+          <%= f.select :id, options_for_select(@periods_from ,), include_blank: true, label: false, placeholder: t("manager.periods.form.period") %>
         </h4>
       </div>
     <% end %>

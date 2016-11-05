@@ -1,20 +1,20 @@
-<%= render 'shared/errors', resource: @sub_process %>
-<h5><%= @period.description %></h5>
-<h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
-<h5><%= @sub_process.order %>. <%= @sub_process.item.description %></h5>
-<h4><%= @task.order %>. <%= @task.item.description %></h4>
+<%= render 'shared/errors', resource: @task %>
 
-<%= form_tag do %>
+<%= form_for [:manager, @task] do |f| %>
   <br>
+  <%= f.hidden_field :sub_process_id, value: params[:sub_process_id]%>
+  <%= f.hidden_field :modifiable, value: params[:modifiable]%>
+  <%= f.hidden_field :eliminable, value: params[:eliminable]%>
+
   <div class="small-8 columns" >
-   <label for="item_description"><%= t("manager.tasks.form.description")%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%=@task.item.description %>"  onclick="this.value=''">
+    <label for="item_description"><%= t("manager.tasks.form.description")%></label>
+    <input list="item_description" type="text" name="item_desc" value="<%= @task.item.description if !@task.id.nil? %>" placeholder="<%=t("manager.tasks.form.description")%>" onclick="this.value=''">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
         <% if @task.item_id == item[1] %>
-         <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
+          <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
         <% else %>
-         <option id="<%= item[1] %>" value="<%= item[0] %>">
+          <option id="<%= item[1] %>" value="<%= item[0] %>">
         <% end %>
       <% end %>
     </datalist>
@@ -22,12 +22,14 @@
 
   <div class="small-12 column" ></div>
   <div class="small-1 column">
-      <%= label_tag :order, t("manager.tasks.form.order") %>
-      <%= text_field_tag(:order, @task.order) %>
+    <%= f.label :order, t("manager.tasks.form.order") %>
+    <%= f.text_field :order, label: false,
+        placeholder: t("manager.tasks.form.order")%>
   </div>
 
   <div class="actions small-12 column">
-      <%= submit_tag t("actions.#{action_name}"), class: "button tiny hollow"%>
+    <%= f.submit(t("actions.#{action_name}"), class: "button tiny hollow") %>
   </div>
+
 <% end %>
 

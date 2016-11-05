@@ -1,13 +1,14 @@
-<div class="banner-new row">
+<%= render "shared/back" %>
 
+<div class="row">
   <div class="small-12 column">
-    <%= link_to manager_sub_processes_path, class: "back" do %>
-      <span class="icon-angle-left"></span>
-      <%= t("actions.back") %>
-    <% end %>
-
-    <h1><%= t("manager.sub_processes.new.title") %></h1>
-
+    <h2><%= t("manager.sub_processes.new.title") %></h2>
+  </div>
+  <div class="highlight small-12 column">
+    <h5><%= @period.description %></h5>
+    <h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
+  </div>
+  <div class="small-12 column">
     <%= render "form" %>
   </div>
 </div>
