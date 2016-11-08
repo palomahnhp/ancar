@@ -30,6 +30,7 @@ es:
     errors: errores
     period:  el periodo
     not_saved: 'impidieron guardar %{resource}:'
+    indicator: Indicador
   layouts:
     footer:
       legal_warning: "Aviso legal"

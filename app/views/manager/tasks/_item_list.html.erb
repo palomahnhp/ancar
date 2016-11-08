@@ -41,7 +41,7 @@
         </td>
         <td>
           <% if params[:modifiable] == 'true' %>
-            <% msg = delete_msg(task.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], !task.is_empty? ) %>
+            <% msg = delete_msg(task.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], task.is_empty? ) %>
             <%= link_to manager_task_path(task), method: :delete,
               data: {confirm: msg},
                 id: "delete_#{task.id}",

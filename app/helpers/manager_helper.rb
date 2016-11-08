@@ -31,9 +31,13 @@ module ManagerHelper
     items_not_used.collect  { |v| [ v.description, v.id ] }
   end
 
-  def total_check(indicator_metric_id, item_summary_type_id)
+  def total_check(indicator_metric, item_summary_type_id)
     summary_type = SummaryType.where(item_id: item_summary_type_id).take
-    TotalIndicator.where(indicator_metric_id: indicator_metric_id, summary_type_id: summary_type.id).count == 0 ? '.' : 'X'
+    if ! indicator_metric.nil?
+      TotalIndicator.where(indicator_metric_id: indicator_metric.id, summary_type_id: summary_type.id).count == 0 ? '-' : 'X'
+    else
+      '-'
+    end
   end
 
   def unit_type_description(id)
@@ -44,7 +48,7 @@ module ManagerHelper
     if modifiable && !empty
       t("manager.#{class_name}.delete.message.no_empty")
     else
-      t("manager.#{class_name}.delete.message")
+      t("manager.#{class_name}.delete.message.empty")
     end
   end
 
@@ -53,6 +57,25 @@ module ManagerHelper
     else
       summary_type_id = SummaryType.where(item_id: item_summary_type_id).take.id
       !TotalIndicator.where(indicator_metric_id: indicator.indicator_metrics.take.id, summary_type_id: summary_type_id).empty?
+    end
+  end
+
+  def show_errors(object, field_name)
+    if object.errors.any?
+      if !object.errors.messages[field_name].blank?
+        object.errors.messages[field_name].join(", ")
+      end
+    end
+  end
+
+  def indicator_description(indicator, item_id)
+    debugger
+    if !indicator.item_id.nil?
+      indicator.item.description
+    elsif !item_id.nil?
+      Item.find(item_id).description
+    else
+      ""
     end
   end
 
