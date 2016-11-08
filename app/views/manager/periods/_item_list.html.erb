@@ -47,7 +47,7 @@
         <% end %>
 
         <% if period.modifiable?%>
-          <% msg = delete_msg(period.class.name.pluralize.underscore, period.eliminable?, period.modifiable?, !period.is_empty? ) %>
+          <% msg = delete_msg(period.class.name.pluralize.underscore, period.eliminable?, period.modifiable?, period.is_empty? ) %>
           <td class="small-2 columns end">
             <%= link_to manager_period_path(period), method: :delete,
                         data: {confirm: msg},

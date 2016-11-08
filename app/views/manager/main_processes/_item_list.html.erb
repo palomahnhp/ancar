@@ -38,7 +38,7 @@
         </td>
         <td>
           <% if params[:modifiable] == 'true' %>
-            <% msg = delete_msg(main_process.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], !main_process.is_empty? ) %>
+            <% msg = delete_msg(main_process.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], main_process.is_empty? ) %>
             <%= link_to manager_main_process_path(main_process), method: :delete,
               data: {confirm: msg},
               id: "delete_#{main_process.id}",

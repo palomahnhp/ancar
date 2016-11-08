@@ -1,8 +1,8 @@
 <div class="expanded highlight padding">
- <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
- <h4> <%= @main_process.item.description %></h4>
- <h4> <%= @sub_process.item.description %></h4>
- <h4> <%= @task.item.description %></h4>
+  <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
+  <h4> <%= @main_process.item.description %></h4>
+  <h4> <%= @sub_process.item.description %></h4>
+<h4> <%= @task.item.description %></h4>
 </div>
 
 <table>
@@ -13,10 +13,10 @@
     <th colspan="<%=@item_summary_types.count%>">Totalizadores</th>
   </tr>
   <tr>
-     <td colspan="3"></td>
-     <% @item_summary_types.each do |summary_type|%>
-        <td><%= summary_type.description %></td>
-      <% end %>
+    <td colspan="3"></td>
+    <% @item_summary_types.each do |summary_type|%>
+      <td><%= summary_type.description %></td>
+    <% end %>
   </tr>
 
   <% @indicators.each do  |indicator|%>
@@ -24,14 +24,22 @@
       <td>
         <%= indicator.order %>. <%= indicator.item.description %>
       </td>
-      <td id="<%= dom_id(indicator.indicator_metrics.first) %>">
-        <%= indicator.indicator_metrics.first.metric.item.description %>
-      </td>
-      <td id="<%= dom_id(indicator.indicator_sources.first) %>">
-        <%= indicator.indicator_sources.first.source.item.description %>
-      </td>
+      <% if !indicator.indicator_metrics.take.nil? %>
+        <td id="<%= dom_id(indicator.indicator_metrics.first) %>">
+          <%= indicator.indicator_metrics.take.metric.item.description %>
+        </td>
+      <% else %>
+        <td>No cumplimentada</td>
+      <% end %>
+      <% if !indicator.indicator_sources.take.nil? %>
+        <td id="<%= dom_id(indicator.indicator_sources.first) %>">
+          <%= indicator.indicator_sources.first.source.item.description %>
+        </td>
+      <% else %>
+        <td>No cumplimentada</td>
+      <% end %>
       <% @item_summary_types.each do |item_summary_type|%>
-        <td class="text-center"><%= total_check(indicator.indicator_metrics.take.id, item_summary_type.id)%></td>
+        <td class="text-center"><%= total_check(indicator.indicator_metrics.take, item_summary_type.id)%></td>
       <% end %>
       <td>
         <% if params[:modifiable] == 'true' %>
@@ -45,8 +53,8 @@
       </td>
       <td>
         <% if params[:modifiable] == 'true' %>
-         <% msg = delete_msg(indicator.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], !indicator.is_empty? ) %>
-         <%= link_to manager_in_works_path(indicator), method: :delete,
+         <% msg = delete_msg(indicator.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], false ) %>
+         <%= link_to manager_indicator_path(indicator, task_id: @task.id), method: :delete,
               data: {confirm: msg},
               id: "delete_#{indicator.id}",
               class: 'button alert float-right tiny hollow' do %>

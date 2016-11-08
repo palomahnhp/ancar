@@ -4,11 +4,22 @@ es:
     dashboard:
       index:
         title: Configuración de procesos
+    errors:
+      models:
+        indicator:
+          attributes:
+            metric_id:
+              blank: Hay que incluir una métrica
+            source_id:
+              blank: Hay que incluir una fuente
     indicators:
       create:
         success: El indicador se ha creado correctmete.
+        title: Crear indicador
       delete:
-        message: ¿Desea borrar este indicador?
+        message:
+          empty: ¿Desea borrar este indicador?
+          no_empty: ¿Desea borrar este indicadoro y sus subprocesos e indicadores?
       destroy:
         error: Error eliminando indicador
         success: Se ha eliminado el Indicador correctamente
@@ -36,7 +47,9 @@ es:
       create:
         success: El indicador se ha creado correctmete.
       delete:
-        message: ¿Desea borrar este proceso y sus subprocesos e indicadores?
+        message:
+          empty: ¿Desea borrar este proceso?
+          no_empty: ¿Desea borrar este proceso y sus subprocesos e indicadores?
       destroy:
         error: Error eliminando proceso
         success: Proceso eliminado
@@ -69,7 +82,9 @@ es:
         error:
           processes_copy: Se ha creado el periodo correctamente. Se está reañozando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
       delete:
-        message: ¿Desea borrar este periodo y sus procesos,subprocesos e indicadores?
+        message:
+         empty: ¿Desea borrar este periodo?
+         no_empty:  ¿Desea borrar este periodo y sus procesos, subprocesos e indicadores?
       destroy:
         success: Se ha eliminado el Periodo correctamente
         error: Se ha producido un error a eliminar el Periodo
@@ -111,7 +126,9 @@ es:
           opened_at: Fecha de apertura no puede ser anterior a la fecha de finalización del periodo
     sub_processes:
       delete:
-        message: ¿Desea borrar este subprocesos y sus tareas e indicadores?
+        message:
+         empty: ¿Desea borrar este subproceso?
+         no_empty: ¿Desea borrar este subproceso y sus tareas e indicadores?
       destroy:
         error: Error eliminando proceso
         success: Proceso eliminado
@@ -139,7 +156,9 @@ es:
       create:
         success: La tarea se ha creado correctamente
       delete:
-        message: ¿Desea borrar esta tarea y sus indicadores?
+        message:
+          empty: ¿Desea borrar esta tarea?
+          no_empty: ¿Desea borrar esta tarea y sus indicadores?
       destroy:
         error: Error eliminando tarea
         success: Tarea eliminada

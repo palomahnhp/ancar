@@ -22,3 +22,13 @@ es:
               blank: Hay que indicar un periodo
             item_id:
               blank: Hay que incluir una descripción
+        indicator:
+          attributes:
+            item_id:
+              blank: Hay que incluir una descripción
+            order:
+              blank: Hay que incluir el número de orden
+            metric_id:
+              blank: Hay que incluir una métrica
+            source_id:
+              blank: Hay que incluir una fuente
