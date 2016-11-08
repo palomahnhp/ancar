@@ -69,7 +69,6 @@ module ManagerHelper
   end
 
   def indicator_description(indicator, item_id)
-    debugger
     if !indicator.item_id.nil?
       indicator.item.description
     elsif !item_id.nil?
