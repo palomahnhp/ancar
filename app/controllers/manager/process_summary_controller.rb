@@ -1,4 +1,4 @@
-class ProcessSummaryController < ApplicationController
+class Manager::ProcessSummaryController < Manager::BaseController
   before_action :require_user, only: [:index, :show]
 
   def index
@@ -17,7 +17,7 @@ class ProcessSummaryController < ApplicationController
       if @mp_id
         @sub_processes = sub_process_by_order  # main_processes_select_options
       end
-   end
+    end
   end
 
 private

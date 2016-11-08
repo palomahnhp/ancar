@@ -1,47 +1,84 @@
+<%= render 'shared/errors', resource: @indicator %>
+
 <%= form_for [:manager, @indicator] do |f| %>
-  <%= render '/shared/errors', resource: @indicator %>
-  <div class="row">
-    <%= f.hidden_field :task_id, value: @indicator.task_id ,label: false%>
-    <div class="medium-12 small-12 columns">
-      <div class="medium-6 small-6 columns">
-        <b>Indicador</b> <%= f.select :item_id, options_for_select(indicator_items, @indicator.item_id), label: false %>
-      </div>
-    </div>
+  <br>
+  <div class="small-8 columns" >
+    <%= f.hidden_field :task_id, value: @indicator.task_id %>
+    <%= hidden_field_tag :modifiable, value: params[:modifiable]%>
+    <%= hidden_field_tag :eliminable, value: params[:eliminable]%>
+    <%= hidden_field_tag :item_id, value: params[:item_id]%>
+
+    <label for="item_desc"><%= t("manager.indicators.form.description")%></label>
+    <input list="item_desc" type="text" name="item_desc" value="<%=indicator_description(@indicator, params[:item_id]) %>" onclick="this.value=''">
+    <datalist id="item_desc"%>" >
+      <% @items.each do |item| %>
+        <% if !@indicator.id.nil? && @indicator.item_id == item[1] %>
+         <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
+        <% else %>
+         <option id="<%= item[1] %>" value="<%= item[0] %>">
+        <% end %>
+      <% end %>
+    </datalist>
+    <small class="error  error"><%= show_errors(@indicator, :item_id)%></small>
   </div>
 
-  <div class="row">
-    <div class="medium-12 small-12 columns">
-      <div class="medium-4 small-4 columns">
-        <b>Métrica</b> <%= f.select :metric_id, options_for_select(metric_items, @indicator.metric.item_id), label: false, class: "input-metric" %>
-      </div>
-    </div>
+  <div class="small-8 columns" >
+    <label for="metric_description"><%= t("manager.indicators.form.metric")%></label>
+    <input list="metric_description" type="text" name="metric_desc"
+           value="<%= @indicator.indicator_metrics.take.metric.item.description if !@indicator.id.nil? && !@indicator.indicator_metrics.take.nil? %>"  onclick="this.value=''">
+    <datalist id="metric_description"%>" >
+      <% @metrics.each do |metric| %>
+        <% if !@indicator.id.nil? &&  !@indicator.indicator_metrics.take.nil? && @indicator.indicator_metrics.take.metric.id == metric[1] %>
+         <option id="<%= metric[1] %>" value="<%= metric[0] %>" selected="true">
+        <% else %>
+         <option id="<%= metric[1] %>" value="<%= metric[0] %>">
+        <% end %>
+      <% end %>
+    </datalist>
+    <small class="error  error"><%= show_errors(@indicator, :metric_id)%></small>
   </div>
 
-  <div class="row">
-    <div class="medium-4 smal-4 columns">
-      <div class="medium-3 small-3 columns">
-        <b>Orden</b> <%= f.text_field :order, label: false %>
-      </div>
-    </div>
-    <div class="medium-4 small-4 columns end" >
-      <div class="medium-12 small-12 columns">
-        <%= f.check_box :total_process, title: t("manager.indicators.form.total_process"), label: false %>
-        <%= t("manager.indicators.form.total_process") %>
-      </div>
-      <div class="medium-12 small-12 columns">
-        <%= f.check_box :total_sub_process,     title: t("manager.indicators.form.total_sub_process"), label: false %>
-        <%= t("manager.indicators.form.total_sub_process") %>
-      </div>
-    </div>
+  <div class="small-8 columns" >
+    <label for="source_description"><%= t("manager.indicators.form.source")%></label>
+    <input list="source_description" type="text" name="source_desc"
+           value="<%= @indicator.indicator_sources.take.source.item.description if !@indicator.id.nil? && !@indicator.indicator_sources.take.nil? %>"
+           onclick="this.value=''">
+    <datalist id="source_description"%>" >
+      <% @sources.each do |source| %>
+        <% if !@indicator.id.nil? && !@indicator.indicator_sources.take.nil? && @indicator.indicator_sources.take.source.id == source[1] %>
+         <option id="<%= source[1] %>" value="<%= source[0] %>" selected="true">
+        <% else %>
+         <option id="<%= source[1] %>" value="<%= source[0] %>">
+        <% end %>
+      <% end %>
+    </datalist>
+    <small class="error  error"><%= show_errors(@indicator, :source_id)%></small>
   </div>
-  <div class="row">
-    <div class="medium-12 small-12">
 
+  <% if !(params[:action] == "create" || params[:action] == "new") %>
+    <div class="small-12 columns">
+      <label> Marcar el/los tipo/s en los que se tiene en cuenta: </label>
     </div>
-  </div>
-  <div class="row">
-    <div class="actions medium-12 small-12 column">
-      <%= f.submit(class: "button tiny hollow", value: t("actions.#{action_name}"))%>
+    <div class="small-7 columns panel">
+      <% @item_summary_types.all.each do |item_summary| %>
+        <div div class="small-4 columns end">
+          <%= check_box_tag item_summary.description, item_summary.id,
+           summary_type_checked?(@indicator, item_summary.id) if !@indicator.id.nil?%>
+          <label for="summary_#{item_summary.id}""> <%= item_summary.description %></label>
+        </div>
+      <% end %>
     </div>
+  <% end %>
+
+  <div  class="small-12 columns"> <br> </div>
+
+  <div class="small-4 columns">
+    <%= f.label :order, t("manager.indicators.form.order") %>
+    <%= f.text_field :order, label: false %>
   </div>
+
+  <div class="actions small-12 columns">
+      <%= f.submit t("actions.#{action_name}"), class: "button hollow"%>
+  </div>
+
 <% end %>

@@ -9,65 +9,76 @@ class Manager::MainProcessesController < Manager::BaseController
           period_id =  params[:main_processes][:period_id]
           organization_type_id = params[:main_processes][:organization_type_id]
       end
-      @main_processes = MainProcess.where("period_id = ?", period_id)
-      @organization_type = OrganizationType.find(organization_type_id)
+      @main_processes = MainProcess.where("period_id = ?", period_id).order(:order)
       @period = Period.find(period_id)
+      @organization_type = OrganizationType.find(organization_type_id)
     end
-#      @organization_types = OrganizationType.all
-#      @periods = Period.where("organization_type_id = ?", OrganizationType.first.id)
+  end
+
+  def show
   end
 
   def new
-    redirect_to in_works_path, alert: "Opción no disponible. Lo estará proximamente"
-    @items = Item.where(item_type: "main_process")
+    @items = items_map(MainProcess.name.underscore)
     @organization_type = OrganizationType.find(params[:organization_type_id])
     @period = Period.find(params[:period_id])
     @main_process = MainProcess.new
   end
 
+  def edit
+    @items = items_map(MainProcess.name.underscore)
+    @main_process = MainProcess.find(params[:id])
+    @item = @main_process.item
+    @period = @main_process.period
+    if params[:commit]
+      @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
+      @main_process.order = params[:order]
+      if @main_process.save
+        redirect_to_index(t("manager.main_processes.update.success"))
+      else
+        render :edit
+      end
+    end
+  end
+
   def create
+    @items = items_map(MainProcess.name.underscore)
+    @period = Period.find(main_process_params[:period_id])
+    @organization_type = @period.organization_type
+
     @main_process = MainProcess.new(main_process_params)
+    @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
     if @main_process.save
-      redirect_to admin_root_path
+      redirect_to_index(t("manager.main_processes.create.success"))
     else
       render :new
     end
   end
 
-  def edit
-     # Aun no está listo para subi a Pro
-    redirect_to in_works_path, alert: "Opción no disponible. Lo estará proximamente"
-    period_id = params[:period_id]
-    organization_type_id = params[:organization_type_id]
-    @main_processes = MainProcess.where("period_id = ?", period_id)
-    @organization_type = OrganizationType.find(organization_type_id)
-    @period = Period.find(period_id)
-  end
-
-
-  def show
-   @main_process = MainProcess.find(params[:id])
-  end
-
-  def update_period
-    @periods = Period.where("organization_type_id = ?", params[:organization_type_id])
-    respond_to do |format|
-      format.js
+  def update
+    if params[:commit]
+      @items = items_map(MainProcess.name.underscore)
+      @main_process = MainProcess.find(params[:id])
+      @main_process.assign_attributes(main_process_params)
+      @period = @main_process.period
+      @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
+      if @main_process.save
+        redirect_to_index(t("manager.main_processes.update.success"))
+      else
+        render :edit
+      end
     end
   end
 
   def destroy
-     # Aun no está listo para subi a Pro
-    redirect_to in_works_path, alert: "Opción no disponible. Lo estará proximamente"
-
-    # main_process = MainProcess.find(params[:id])
-
-    # if main_process.destroy_all
-    #   msg = t("manager.main_processes.index.destroy.success")
-    # else
-    #   msg = t("manager.main_processes.index.destroy.error")
-    # end
-    # redirect_to manager_main_processes_path, notice: msg
+   @main_process = MainProcess.find(params[:id])
+   @period = @main_process.period
+   if @main_process.destroy
+     msg = t("manager.main_processes.destroy.success")
+   else
+     msg = t("manager.main_processes.destroy.error")
+   end
+     redirect_to_index(msg)
   end
 
   private
@@ -75,12 +86,10 @@ class Manager::MainProcessesController < Manager::BaseController
       params.require(:main_process).permit(:period_id, :item_id, :order)
     end
 
-    def find_main_process
-      @main_process = MainProcess.find(params[:id])
-    end
-
-    def find_references
-      @organization_types = OrganizationType.all.map { |org| [org.description, org.id] }
-#      @periods = Period.where(organization_type_id: type.id).map { |period| [period.description, period.id] }
+    def redirect_to_index(msg)
+      redirect_to manager_main_processes_path(commit: t("manager.main_processes.index.submit"),
+           period_id: @period.id, organization_type_id: @period.organization_type_id,
+           modifiable: @period.modifiable?, eliminable: @period.eliminable?),
+           notice: msg
     end
 end

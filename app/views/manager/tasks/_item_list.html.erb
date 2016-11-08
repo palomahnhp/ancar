@@ -1,10 +1,7 @@
-
-<div>
-  <div class="expanded highlight padding">
-     <h3>Proceso: <%= Item.find(@main_process.item_id).description%> </h3>
-     <h3>Subproceso:  <%= Item.find(@sub_process.item_id).description %></h3>
-     <strong><%= @organization_type.description %> / <%= @period.description %></strong>
-  </div>
+<div class="expanded highlight padding">
+ <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
+ <h4> <%= @main_process.item.description %></h4>
+ <h4> <%= @sub_process.item.description %></h4>
 </div>
 
   <table>
@@ -18,30 +15,41 @@
         <td>
           <div class="admin-list column">
             <%= link_to  manager_indicators_path(commit: t("manager.tasks.index.submit"),
-                task_id: task.id),
-                class: 'button small float-right tiny hollow' do %>
-                  <span class="icon-tag"></span>
-                  <%= t("manager.tasks.index.indicators") %>
+                task_id: task.id,
+                modifiable: params[:modifiable],
+                eliminable: params[:eliminable],
+                sub_process_id: task.sub_process_id),
+              id: "index_#{task.id}",
+              class: 'button small float-right hollow' do %>
+              <span class="icon-tag"></span>
+                     <%= t("manager.tasks.index.indicators") %>
             <% end %>
           </div>
         </td>
         <td>
-          <div class="admin-list column">
-            <%= link_to manager_in_works_path(task),
+          <% if params[:modifiable] == 'true' %>
+            <%= link_to edit_manager_task_path(task, period_id: params[:period_id],
+                  organization_type_id: params[:organization_type_id],
+                  main_process_id: params[:main_process_id],
+                  sub_process_id: params[:sub_process_id]),
+                id: "edit_#{task.id}",
                 class: 'button small float-right tiny hollow' do %>
                 <span class="icon-edit"></span>
                 <%= t("actions.edit") %>
             <% end %>
-          </div>
+          <% end %>
         </td>
         <td>
-          <div class="admin-list column">
-            <%= link_to manager_in_works_path(task),
+          <% if params[:modifiable] == 'true' %>
+            <% msg = delete_msg(task.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], task.is_empty? ) %>
+            <%= link_to manager_task_path(task), method: :delete,
+              data: {confirm: msg},
+                id: "delete_#{task.id}",
                 class: 'button small alert float-right tiny hollow' do %>
                 <span class="icon-box"></span>
                 <%= t("actions.delete") %>
             <% end %>
-          </div>
+          <% end %>
         </td>
       </tr>
     <% end %>

@@ -1,13 +1,20 @@
-<div class="banner-edit row">
+<div class="row">
+  <div class="small-12 columns">
+    <div class="small-8 columns">
+      <h2><%= t("manager.periods.#{action_name}.title") %>  </h2>
+    </div>
+    <div  class="small-1 columns">
+      <%= render "shared/back" %>
+    </div>
+  </div>
+</div>
 
+<div class="expanded highlight padding">
+ <h3> <%= @period.organization_type.description %> / <%= @period.description %></h3>
+</div>
+
+<div class="row">
   <div class="small-12 column">
-    <%= link_to manager_banners_path, class: "back" do %>
-      <span class="icon-angle-left"></span>
-      <%= t("actions.back") %>
-    <% end %>
-
-    <h1><%= t("actions.edit") %></h1>
-
     <%= render "form" %>
   </div>
 </div>

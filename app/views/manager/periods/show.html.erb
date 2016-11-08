@@ -1,4 +1,9 @@
-<p id="notice"><%= notice %></p>
+<%= render "shared/back" %>
 
-<%= link_to 'Edit', edit_manager_period_path(@period) %> |
-<%= link_to 'Back', manager_periods_path %>
+<div class="row">
+  <div class="small-12 column">
+    <h1><%= t("manager.periods.new.title") %></h1>
+
+    <%= render "form" %>
+  </div>
+</div>

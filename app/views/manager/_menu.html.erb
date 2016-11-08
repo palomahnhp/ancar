@@ -11,10 +11,17 @@
       <% end %>
     </li>
 
-    <li <%= "class=active" if controller_name == "main_processes" %>>
-      <%= link_to in_works_path do %>
-        <span class="icon-debates"></span>
-        <%= t("manager.menu.processes") %>
+    <li>
+      <%= link_to manager_process_summary_index_path(type: "MainProcess") do %>
+        <span class="icon-document"> </span>
+        <%= t("subnavigation_menu.process_summary") %>
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to manager_process_summary_index_path(type: "SubProcess") do %>
+        <span class="icon-document"> </span>
+        <%= t("subnavigation_menu.subprocess_summary") %>
       <% end %>
     </li>
 

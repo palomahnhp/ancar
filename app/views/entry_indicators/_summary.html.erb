@@ -1,40 +1,40 @@
 <br><br>
 <div class="row">
-  <div class="medium-12 short-12 columns">
-    <div class="summary medium-5 short-5 columns">
+  <div class="medium-12 small-12 columns">
+    <div class="summary medium-5 small-5 columns">
          NUM PROCESOS     : <%=  @total_main_processes %><br>
          NUM SUBPROCESOS  : <%=  @total_sub_processes %>
          NUM INDICADORES  : <%=  @total_indicadores %>
          TOTAL INDICADORES: <%=  @suma_indicadores %>
     </div>
-    <div class="staff medium-3 short-3 columns">
+    <div class="staff medium-3 small-3 columns">
       <div class="row header">
-        <div id="title" class="medium-12 short-12 columns">TOTAL EFECTIVOS
-          <div id="title" class="medium-2 short-2 columns"></div>
-          <div class="medium-10 short-10 columns">
+        <div id="title" class="medium-12 small-12 columns">TOTAL EFECTIVOS
+          <div id="title" class="medium-2 small-2 columns"></div>
+          <div class="medium-10 small-10 columns">
             <div class="row" id="header">
               <div class="medium-1 small-1 columns"></div>
                 <% @official_groups.each do |gr| %>
-                  <div class="medium-2 short-2 columns">
+                  <div class="medium-2 small-2 columns">
                     <%= gr.name %>
                   </div>
                 <% end %>
               </div>
             <div class="row">
               <div class="medium-1 small-1 columns"> </div>
-                  <div class="medium-2 short-2 columns">
+                  <div class="medium-2 small-2 columns">
                     <%= @total_staff_sub_process_A1 %>
                   </div>
-                  <div class="medium-2 short-2 columns">
+                  <div class="medium-2 small-2 columns">
                     <%= @total_staff_sub_process_A1 %>
                   </div>
-                  <div class="medium-2 short-2 columns">
+                  <div class="medium-2 small-2 columns">
                     <%= @total_staff_sub_process_C1 %>
                   </div>
-                  <div class="medium-2 short-2 columns">
+                  <div class="medium-2 small-2 columns">
                     <%= @total_staff_sub_process_C2 %>
                   </div>
-                  <div class="medium-2 short-2 columns">
+                  <div class="medium-2 small-2 columns">
                     <%= @total_staff_sub_process_E %>
                   </div>
               </div>

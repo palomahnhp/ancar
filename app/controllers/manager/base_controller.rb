@@ -1,4 +1,5 @@
 class Manager::BaseController < ApplicationController
+  include ManagerActions
   layout 'admin'
 
   private

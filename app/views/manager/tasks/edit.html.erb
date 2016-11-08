@@ -1,6 +1,16 @@
-<h1>Editing Task</h1>
+<%= render "shared/back" %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+<div class="row">
+  <div class="small-12 column">
+    <h2><%= t("actions.edit") %></h2>
+  </div>
+  <div class="highlight small-12 column">
+    <h5><%= @period.description %></h5>
+    <h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
+    <h5><%= @sub_process.order %>. <%= @sub_process.item.description %></h5>
+    <h4><%= @task.order %>. <%= @task.item.description %></h4>
+  </div>
+  <div class="small-12 column">
+    <%= render "form" %>
+  </div>
+</div>

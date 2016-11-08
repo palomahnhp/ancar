@@ -17,24 +17,8 @@ module AppHelper
   end
 
   def get_staff(type, proc, group, unit)
-
     ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_group_id: group.id, unit_id: unit.id).first
     return ae.nil? ? 0 : ae.quantity
-  end
-
-  def get_in_out(im)
-
-    in_out = Metric.find(im.metric_id).in_out
-    case in_out
-    when "in"
-      "Entrada"
-    when "out"
-      "Salida"
-    when "stock"
-      "Stock"
-    else
-      "Por determinar"
-    end
   end
 
   def get_amount(im, unit)

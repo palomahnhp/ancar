@@ -1,5 +1,16 @@
-<%= render "shared/index" %>
+<%= render "shared/back" %>
 
-<h3><%= t("manager.indicators.edit.title") %></h3>
+<div class="row">
+  <div class="small-12 column">
+    <h2><%= t("manager.indicators.edit.title") %></h2>
 
-<%= render 'form' %>
+    <div class="highlight">
+      <h6><%= @period.description %></h6>
+      <h6><%= @main_process.order %>. <%= @main_process.item.description %></h6>
+      <h6><%= @sub_process.order %>. <%= @sub_process.item.description %></h6>
+      <h6><%= @task.order %>. <%= @task.item.description %></h6>
+      <h6><%= @indicator.order %>. <%= @indicator.item.description %></h6>
+    </div>
+    <%= render "form" %>
+  </div>
+</div>

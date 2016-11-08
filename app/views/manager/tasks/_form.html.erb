@@ -1,17 +1,35 @@
-<%= form_for(@task) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<%= render 'shared/errors', resource: @task %>
 
-      <ul>
-      <% @task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<%= form_for [:manager, @task] do |f| %>
+  <br>
+  <%= f.hidden_field :sub_process_id, value: params[:sub_process_id]%>
+  <%= f.hidden_field :modifiable, value: params[:modifiable]%>
+  <%= f.hidden_field :eliminable, value: params[:eliminable]%>
+
+  <div class="small-8 columns" >
+    <label for="item_description"><%= t("manager.tasks.form.description")%></label>
+    <input list="item_description" type="text" name="item_desc" value="<%= @task.item.description if !@task.id.nil? %>" placeholder="<%=t("manager.tasks.form.description")%>" onclick="this.value=''">
+    <datalist id="item_description"%>" >
+      <% @items.each do |item| %>
+        <% if @task.item_id == item[1] %>
+          <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
+        <% else %>
+          <option id="<%= item[1] %>" value="<%= item[0] %>">
+        <% end %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+    </datalist>
   </div>
+
+  <div class="small-12 column" ></div>
+  <div class="small-1 column">
+    <%= f.label :order, t("manager.tasks.form.order") %>
+    <%= f.text_field :order, label: false,
+        placeholder: t("manager.tasks.form.order")%>
+  </div>
+
+  <div class="actions small-12 column">
+    <%= f.submit(t("actions.#{action_name}"), class: "button tiny hollow") %>
+  </div>
+
 <% end %>
+

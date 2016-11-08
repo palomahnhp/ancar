@@ -5,16 +5,10 @@
         <li>
           <%= link_to t("subnavigation_menu.entry_indicators"), user_access_index_path, class: ("active" if controller_name == "user_access") , accesskey: "e" %>
         </li>
+        <li>
+          <%= link_to t("subnavigation_menu.instructions"), instructions_path, class: ("active" if controller_name == "instructions") , accesskey: "i" %>
+        </li>
 
-          <% if current_user.manager? || current_user.admin? %>
-          <li>
-            <%= link_to t("subnavigation_menu.process_summary"), process_summary_index_path(type: "MainProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "MainProcess" ), accesskey: "p" %>
-          </li>
-
-          <li>
-            <%= link_to t("subnavigation_menu.subprocess_summary"), process_summary_index_path(type: "SubProcess"), class: ("active" if controller_name == "process_summary" && params[:type] == "SubProcess"), accesskey: "s" %>
-          </li>
-        <% end %>
         <li>
           <!--%= #link_to t("subnavigation_menu.instructions"), in_works_path, class: ("active" if controller_name == "faq"), accesskey: "i" %-->
         </li>

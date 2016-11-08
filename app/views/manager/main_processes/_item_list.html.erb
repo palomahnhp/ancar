@@ -1,5 +1,5 @@
 
-<div>
+<div class="expanded highlight padding">
  <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
 </div>
 
@@ -8,30 +8,45 @@
       <tr id="<%= dom_id(main_process) %>">
         <td>
           <div class="admin-list small-12 medium-14 column">
-            <%= description(0, main_process.item_id) %>
+            <%= main_process.order %>. <%= description(0, main_process.item_id) %>
           </div>
         </td>
         <td>
           <%= link_to manager_sub_processes_path(commit: t("manager.sub_processes.index.submit"),
-              main_process_id: main_process.id),
+              main_process_id: main_process.id,
+              modifiable: params[:modifiable],
+              eliminable: params[:eliminable]),
+              id: "index_#{main_process.id}",
               class: 'button small float-right hollow' do %>
                 <span class="icon-tag"></span>
                 <%= t("manager.main_processes.index.sub_processes") %>
           <% end %>
         </td>
         <td>
-          <%= link_to edit_manager_main_process_path(main_process, period_id: params[:period_id], organization_type_id: params[:organization_type_id]),
-              class: 'button small float-right hollow' do %>
-                <span class="icon-edit"></span>
-                <%= t("actions.edit") %>
-              <% end %>
+          <% if params[:modifiable] == 'true' %>
+            <%= link_to edit_manager_main_process_path(main_process,
+                period_id: params[:period_id],
+                organization_type_id: params[:organization_type_id],
+                modifiable: params[:modifiable],
+                eliminable: params[:eliminable]),
+                id: "edit_#{main_process.id}",
+                class: 'button small float-right hollow' do %>
+                  <span class="icon-edit"></span>
+                  <%= t("actions.edit") %>
+                <% end %>
+          <% end %>
         </td>
         <td>
-          <%= link_to manager_main_process_path(main_process), method: :delete,
-                  class: 'button small alert float-right hollow' do %>
-                <span class="icon-box"></span>
-                <%= t("actions.delete") %>
-           <% end %>
+          <% if params[:modifiable] == 'true' %>
+            <% msg = delete_msg(main_process.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], main_process.is_empty? ) %>
+            <%= link_to manager_main_process_path(main_process), method: :delete,
+              data: {confirm: msg},
+              id: "delete_#{main_process.id}",
+              class: 'button small alert float-right hollow' do %>
+                  <span class="icon-box"></span>
+                  <%= t("actions.delete") %>
+              <% end %>
+          <% end %>
         </td>
       </tr>
     <% end %>

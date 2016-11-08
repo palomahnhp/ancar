@@ -12,28 +12,49 @@ Rails.application.routes.draw do
   resources :in_works
   resources :user_access
   resources :entry_indicators
-  resources :process_summary
+  resources :instructions
 
   namespace :admin do
     root to: "dashboard#index"
-      resources :settings
-      resources :organization_types
-      resources :unit_types
-      resources :organizations
-      resources :units
-      resources :stats
-      resources :in_works
+    resources :settings
+    resources :organization_types
+    resources :unit_types
+    resources :organizations
+    resources :units
+    resources :stats
+    resources :in_works
   end
 
   namespace :manager do
     root to: "dashboard#index"
       resources :sources
+      resources :process_summary
       resources :periods
-      resources :indicators
-      resources :tasks
-      resources :sub_processes
+      resources :indicators  do
+        member do
+          post 'edit'
+         end
+      end
+      resources :tasks  do
+        member do
+          post 'edit'
+         end
+      end
+      resources :sub_processes  do
+        member do
+          post 'edit'
+         end
+      end
+
       resources :main_processes
+
       resources :in_works
+      resources :items do
+        member do
+          post 'edit'
+        end
+      end
+
   end
 
 

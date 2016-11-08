@@ -53,3 +53,4 @@ DatabaseCleaner.clean_with :truncation
   OfficialGroup.create!(name: "C1", description: "Grupo C1")
   OfficialGroup.create!(name: "C2", description: "Grupo C2")
   OfficialGroup.create!(name: "E",  description: "Grupo E")
+

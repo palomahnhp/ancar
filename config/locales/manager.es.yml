@@ -4,50 +4,103 @@ es:
     dashboard:
       index:
         title: Configuración de procesos
+    errors:
+      models:
+        indicator:
+          attributes:
+            metric_id:
+              blank: Hay que incluir una métrica
+            source_id:
+              blank: Hay que incluir una fuente
     indicators:
-      index:
-        title: Indicadores
-        create: Crear un indicador
+      create:
+        success: El indicador se ha creado correctmete.
+        title: Crear indicador
+      delete:
+        message:
+          empty: ¿Desea borrar este indicador?
+          no_empty: ¿Desea borrar este indicadoro y sus subprocesos e indicadores?
+      destroy:
+        error: Error eliminando indicador
+        success: Se ha eliminado el Indicador correctamente
       edit:
-        title: Editar indicador
+        title: Editar proceso
       form:
-        total_process: ¿Totaliza para proceso?
-        total_sub_process:  ¿Totaliza para subproceso?
+        description: Descripción
+        metric: Métrica
+        order: Orden
+        source: Fuente
+      index:
+        empty: No hay procesos para este periodo
+        title: Indicadores
+        create: Incluir un indicador
+        submit: submit
+      new:
+        title: Crear indicadores
+      update:
+        success: El registro se ha actualizado correctamente.
+      show:
+        title: Indicador
     menu:
       periods: Configurar Periodos
-      processes: Configurar Procesos e indicadores
     main_processes:
+      create:
+        success: El indicador se ha creado correctmete.
+      delete:
+        message:
+          empty: ¿Desea borrar este proceso?
+          no_empty: ¿Desea borrar este proceso y sus subprocesos e indicadores?
+      destroy:
+        error: Error eliminando proceso
+        success: Proceso eliminado
+      edit:
+        title: Editar proceso
+      update:
+        success: El registro se ha actualizado correctamente.
       index:
         empty: No hay procesos para este periodo
         create: Incluir procesos
         title: Procesos
-        select_organization_type: Selecciona una organización
-        select_period: Selecciona un periodo
         sub_processes: Ver subprocesos
-        submit: Submit
-      edit:
-        title: Editar procesos
+        submit: submit
+        select_organization_type: Seleccionar la Organización
+        select_period: Seleccionar el periodo
       form:
-        order: Número de orden
-        item: Descripcion
-        period: Periodo
+        description: Descripción
+        order: Núm. orden
       new:
         title: Crear procesos
+      update:
+        success: El registro se ha actualizado correctamente.
+      show:
+        title: Procesos
     periods:
+      create:
+        success:
+          processes_copy: Se ha creado el periodo correctamente con los procesos e indicatores del periodo seleccionado.
+          no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
+        error:
+          processes_copy: Se ha creado el periodo correctamente. Se está reañozando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
+      delete:
+        message:
+         empty: ¿Desea borrar este periodo?
+         no_empty:  ¿Desea borrar este periodo y sus procesos, subprocesos e indicadores?
+      destroy:
+        success: Se ha eliminado el Periodo correctamente
+        error: Se ha producido un error a eliminar el Periodo
+      edit:
+        title: Editar periodo
+      update:
+        success: El registro se ha actualizado correctamente.
       index:
         button:
           create: Crear un periodo
           edit: editar
           delete: eliminar
           processes: ver procesos
-        create:
-          success:
-            no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los porceso e indicadores desde la opción "Configurar indicadores".
         data_period: Los datos corresponden al periodo
         data_collect: Periodo de mecanización
-        destroy:
-          success: Se ha eliminado el Periodo correctamente
-          error: Se ha producido un error a eliminar el Periodo
+        empty: No se ha creado ningún periodo
         entry_opened:  Abierta entrada de datos
         entry_closed: Cerrada entrada de datos
         no_data: No hay periodos definidos
@@ -55,28 +108,76 @@ es:
       new:
         title: Abrir un nuevo periodo
       form:
-        organization_type: Organización
+        closed_at: Fin
+        data_collect: Recogida de datos
+        dates: Periodo de los datos
         description: Descripción
-        started_at: Inicio
         ended_at: Fin
         opened_at: Inicio
-        closed_at: Fin
-        dates: Periodo de los datos
-        data_collect: Recogida de datos
+        organization_type: Organización
+        period: Periodo a copiar
+        started_at: Inicio
+      show:
+        title: Indicador
       validate:
         period:
           ended_at: Fecha de fin no puede ser anterior a fecha de inicio
           closed_at: Fecha de cierre no puede ser anterior a fecha de apertura
           opened_at: Fecha de apertura no puede ser anterior a la fecha de finalización del periodo
     sub_processes:
+      delete:
+        message:
+         empty: ¿Desea borrar este subproceso?
+         no_empty: ¿Desea borrar este subproceso y sus tareas e indicadores?
+      destroy:
+        error: Error eliminando proceso
+        success: Proceso eliminado
+      edit:
+        title: Editar subproceso
+      update:
+        success: El registro se ha actualizado correctamente.
       index:
-        create: Crear
-        title: Subprocesos
-        submit: Buscar subprocesos
+        create: Incluir subprocesos
+        empty: No hay subprocesos definidos
         tasks: Ver tareas
+        title: Subprocesos
+        submit: submit
+      form:
+        unit_type: Unidad
+        description: Descripción
+        order: Núm. orden
+      new:
+        title: Crear subproceso
+      update:
+        success: El registro se ha actualizado correctamente.
+      show:
+        title: Indicador
     tasks:
+      create:
+        success: La tarea se ha creado correctamente
+      delete:
+        message:
+          empty: ¿Desea borrar esta tarea?
+          no_empty: ¿Desea borrar esta tarea y sus indicadores?
+      destroy:
+        error: Error eliminando tarea
+        success: Tarea eliminada
+      edit:
+        title: Editar tarea
+      update:
+        success: El registro se ha actualizado correctamente.
       index:
-        create: Crear una tarea
-        submit: Buscar tareas
+        create: Incluir una tarea
+        submit: submit
         indicators: Ver indicadores
         title: Tareas
+        empty: Tarea Vacia
+      form:
+        description: Descripción
+        order: Orden
+      new:
+        title: Crear tareas
+      update:
+        success: El registro se ha actualizado correctamente.
+      show:
+        title: Indicador

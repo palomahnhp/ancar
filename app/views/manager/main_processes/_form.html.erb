@@ -1,23 +1,34 @@
+<%= render 'shared/errors', resource: @main_process %>
+
 <%= form_for [:manager, @main_process] do |f| %>
 
-  <%= render 'manager/shared/errors', resource: @main_process %>
   <br>
-  <div class="small-4 column">
-      <%= f.hidden_field :period_id, value: @period.id ,label: false, placeholder: t("manager.main_processes.form.period") %>
+  <div class="small-8 columns" >
+    <%= f.hidden_field :period_id, value: params[:period_id]%>
+    <%= f.hidden_field :modifiable, value: params[:modifiable]%>
+    <%= f.hidden_field :eliminable, value: params[:eliminable]%>
+
+    <label for="item_description"><%= t("manager.main_processes.form.description")%></label>
+    <input list="item_description" type="text" name="item_desc" value="<%=@main_process.item.description  if !@main_process.id.nil? %>" onclick="this.value=''">
+    <datalist id="item_description"%>" >
+      <% @items.each do |item| %>
+        <% if @main_process.item_id == item[1] %>
+          <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
+        <% else %>
+          <option id="<%= item[1] %>" value="<%= item[0] %>">
+        <% end %>
+      <% end %>
+    </datalist>
   </div>
-  <div class="small-4 column">
-      <%= f.label :item_id, t("manager.main_processes.form.item") %>
-      <%= f.select :item_id, options_for_select(main_process_items), label: false, placeholder: t("manager.main_processes.form.item") %>
-  </div>
+
   <div class="small-12 column" ></div>
-  <div class="small-2 column">
-      <%= f.label :order, t("manager.main_processes.form.order") %>
-      <%= f.select :order, options_for_select(1..25), label: false, placeholder: t("manager.main_processes.form.order") %>
-    </div>
-
-    <div class="actions small-12 column">
-      <%= f.submit(class: "button tiny hollow", value: t("manager.actions.#{action_name}")) %>
-    </div>
+  <div class="small-1 column">
+    <%= f.label :order, t("manager.main_processes.form.order") %>
+    <%= f.text_field :order, label: false,
+        placeholder: t("manager.main_processes.form.order") %>
   </div>
 
+  <div class="actions small-12 column">
+    <%= f.submit(t("actions.#{action_name}"), class: "button tiny hollow") %>
+  </div>
 <% end %>
