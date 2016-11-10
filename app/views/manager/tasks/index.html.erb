@@ -7,12 +7,14 @@
       <h2><%= t("manager.#{Task.name.underscore.pluralize}.#{action_name}.title") %>  </h2>
     </div>
     <div class="column small-2">
-    <br><%= link_to t("manager.tasks.index.create"),
-              new_manager_task_path(period_id: params["period_id"],
+      <% if params[:modifiable] == 'true' %>
+        <br><%= link_to t("manager.tasks.index.create"),
+                   new_manager_task_path(period_id: params["period_id"],
                          organization_type_id: params["organization_type_id"],
                               main_process_id: params["main_process_id"],
                               sub_process_id: params["sub_process_id"]),
-                class: "button large success hollow" %>
+                   class: "button large success hollow" %>
+      <% end %>
     </div>
   </div>
 </div>

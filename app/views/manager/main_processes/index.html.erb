@@ -7,10 +7,12 @@
       <h2><%= t("manager.#{MainProcess.name.underscore.pluralize}.#{action_name}.title") %>  </h2>
     </div>
     <div class="column small-2">
+     <% if params[:modifiable] == 'true' %>
       <br><%= link_to t("manager.main_processes.index.create"),
               new_manager_main_process_path(period_id: params["period_id"],
                       organization_type_id: params["organization_type_id"]),
                   class: "button large success hollow" %>
+     <% end %>
     </div>
   </div>
 </div>

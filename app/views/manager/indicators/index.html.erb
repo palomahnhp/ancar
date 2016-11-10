@@ -7,15 +7,17 @@
       <h2><%= t("manager.indicators.#{action_name}.title") %>  </h2>
     </div>
     <div class="column small-2">
-    <br>
-    <%= link_to t("manager.indicators.index.create"),
-                new_manager_indicator_path(
-                  task_id: params["task_id"],
-                  sub_process_id: params["sub_process_id"],
-                  main_process_id: params["main_process_id"],
-                  organization_type_id: params["organization_type_id"],
-                  period_id: params["period_id"]),
-                class: "button large success hollow" %>
+      <% if params[:modifiable] == 'true' %>
+      <br>
+      <%= link_to t("manager.indicators.index.create"),
+                  new_manager_indicator_path(
+                    task_id: params["task_id"],
+                    sub_process_id: params["sub_process_id"],
+                    main_process_id: params["main_process_id"],
+                    organization_type_id: params["organization_type_id"],
+                    period_id: params["period_id"]),
+                  class: "button large success hollow" %>
+      <% end %>
     </div>
   </div>
 </div>
