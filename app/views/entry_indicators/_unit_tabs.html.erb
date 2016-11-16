@@ -6,7 +6,7 @@
         <% puts unit.description_sap %>
         <li>
           <%= link_to unit.description_sap,
-                  current_path_with_query_params(unit: unit.id) %>
+                  current_path_with_query_params(unit_id: unit.id) %>
         </li>
       <% end %>
     </ul>

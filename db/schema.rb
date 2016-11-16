@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027054353) do
+ActiveRecord::Schema.define(version: 20161114071102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,10 +53,12 @@ ActiveRecord::Schema.define(version: 20161027054353) do
     t.string   "updated_by"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "period_id"
   end
 
   add_index "entry_indicators", ["indicator_metric_id"], name: "index_entry_indicators_on_indicator_metric_id", using: :btree
   add_index "entry_indicators", ["indicator_source_id"], name: "index_entry_indicators_on_indicator_source_id", using: :btree
+  add_index "entry_indicators", ["period_id"], name: "index_entry_indicators_on_period_id", using: :btree
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
 
   create_table "indicator_groups", force: :cascade do |t|
@@ -86,17 +88,6 @@ ActiveRecord::Schema.define(version: 20161027054353) do
 
   add_index "indicator_sources", ["indicator_id"], name: "index_indicator_sources_on_indicator_id", using: :btree
   add_index "indicator_sources", ["source_id"], name: "index_indicator_sources_on_source_id", using: :btree
-
-  create_table "indicator_types", force: :cascade do |t|
-    t.integer  "item_id"
-    t.string   "acronym"
-    t.integer  "order"
-    t.string   "updated_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "indicator_types", ["item_id"], name: "index_indicator_types_on_item_id", using: :btree
 
   create_table "indicators", force: :cascade do |t|
     t.integer  "task_id"
@@ -293,14 +284,12 @@ ActiveRecord::Schema.define(version: 20161027054353) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.string   "in_out"
-    t.integer  "indicator_type_id"
     t.integer  "summary_type_id"
   end
 
   add_index "total_indicators", ["in_out"], name: "index_total_indicators_on_in_out", using: :btree
   add_index "total_indicators", ["indicator_group_id"], name: "index_total_indicators_on_indicator_group_id", using: :btree
   add_index "total_indicators", ["indicator_metric_id"], name: "index_total_indicators_on_indicator_metric_id", using: :btree
-  add_index "total_indicators", ["indicator_type_id"], name: "index_total_indicators_on_indicator_type_id", using: :btree
   add_index "total_indicators", ["summary_type_id"], name: "index_total_indicators_on_summary_type_id", using: :btree
 
   create_table "unit_types", force: :cascade do |t|
@@ -360,6 +349,7 @@ ActiveRecord::Schema.define(version: 20161027054353) do
   add_foreign_key "entry_indicator_sources", "sources"
   add_foreign_key "entry_indicators", "indicator_metrics"
   add_foreign_key "entry_indicators", "indicator_sources"
+  add_foreign_key "entry_indicators", "periods"
   add_foreign_key "entry_indicators", "units"
   add_foreign_key "indicator_groups", "items"
   add_foreign_key "indicator_groups", "sub_processes"
@@ -367,7 +357,6 @@ ActiveRecord::Schema.define(version: 20161027054353) do
   add_foreign_key "indicator_metrics", "metrics"
   add_foreign_key "indicator_sources", "indicators"
   add_foreign_key "indicator_sources", "sources"
-  add_foreign_key "indicator_types", "items"
   add_foreign_key "indicators", "items"
   add_foreign_key "indicators", "tasks"
   add_foreign_key "main_processes", "items"
@@ -390,7 +379,6 @@ ActiveRecord::Schema.define(version: 20161027054353) do
   add_foreign_key "tasks", "sub_processes"
   add_foreign_key "total_indicators", "indicator_groups"
   add_foreign_key "total_indicators", "indicator_metrics"
-  add_foreign_key "total_indicators", "indicator_types"
   add_foreign_key "total_indicators", "summary_types"
   add_foreign_key "unit_types", "organization_types"
   add_foreign_key "units", "organizations"

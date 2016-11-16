@@ -1,17 +1,78 @@
-<%= form_for(@entry_indicator) do |f| %>
-  <% if @entry_indicator.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@entry_indicator.errors.count, "error") %> prohibited this entry_indicator from being saved:</h2>
+<div class="unit text-center small-12 columns">
+  <h3>
+    <%= @unit.description_sap %>
+  </h3>
+</div>
+<%= form_tag(updates_entry_indicators_path, method: "post") do %>
+  <div class="small-12 columns">
+    <% if @period.open_entry? %>
+      <%= hidden_field_tag(:unit_id, @unit.id) %>
+      <%= hidden_field_tag(:period_id, @period.id) %>
+      <%= hidden_field_tag(:organization_id, @organization.id) %>
+      <div class="small-4 columns">
+        <br>
+        <%= submit_tag("Actualizar indicadores", class: "button hollow large") %>
+      </div>
+    <% end %>
+    <div class="small-4 columns">
+      <%= render 'staff', of: "Unit", process: @unit, unit: @unit, period: @period %>
+    </div>
+  </div>
 
-      <ul>
-      <% @entry_indicator.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+  <% @main_processes.each do |main_process| %>
+    <% if sub_processes_unit(main_process, @unit).count > 0 %>
+      <div class="main_process small-12 columns">
+        <h5><%= description(0, main_process.item_id) %></h5>
+      </div>
+
+      <% sub_processes_unit(main_process, @unit).each do |sub_process| %>
+        <div class="sub_process small-12 columns">
+          <h5>
+            <%= description(0, sub_process.item_id) %>
+          </h5>
+        </div>
+        <div small-12 columns">
+          <table class="indicator" >
+            <thead>
+              <tr>
+                <div class="small-6 columns"> <th><strong><%= t(".indicator") %></strong></th> </div>
+                <div class="small-2 columns"> <th><strong><%= t(".source") %></th> </strong></div>
+                <div class="small-2 columns"> <th><strong><%= t(".metric") %></th> </strong></div>
+                <div class="small-2 columns"> <th><strong><%= t(".amount") %></th> </strong></div>
+              </tr>
+            <thead>
+            <% sub_process.indicators.each do |indicator| %>
+              <% indicator.indicator_metrics.all.each do |indicator_metric| %>
+                <tr>
+                  <td id="<%= "indicator_col_#{indicator.id}" %>"> <%= description(0, indicator.item_id) %> </td>
+                  <td id="<%= "source_col_#{indicator.indicator_sources.take.source_id}"%>"> <%= sources_description( indicator.id, indicator.sources) %></td>
+                  <td id="<%= "metric_col_#{indicator_metric.metric_id}"%>" ><%= get_metric(indicator_metric) %> </td>
+                  <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="float-left">
+                    <% amount_value = get_amount(indicator_metric, @unit) %>
+                    <% if @period.open_entry? %>
+                      <%= text_field_tag("IndicatorMetric[#{indicator_metric.id}]", amount_value, class: "inline", placeholder: t(".amount")) %>
+                    <% else %>
+                      <%= amount_value %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+          <div class="small-4 columns">
+            <%= render 'staff', of: "SubProcess", process: sub_process, unit: @unit,  period: @period  %>
+          </div>
+        </div>
       <% end %>
-      </ul>
+
+    <% end %>
+  <% end %>
+
+  <% if @period.open_entry? %>
+    <div class="small-4 columns end">
+      <br>
+      <%= submit_tag("Actualizar indicadores", class: "button hollow large") %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

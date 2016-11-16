@@ -1,6 +1,6 @@
 namespace :initialize do
 
-  desc "Initializa summary_types"
+  desc "Inicializar summary_types"
   task summary_types: :environment do
     TotalIndicator.update_all(summary_type_id: nil)
     SummaryType.delete_all
@@ -25,4 +25,11 @@ namespace :initialize do
     TotalIndicator.where(indicator_type: "C").update_all(summary_type_id: c.id)
 
   end
+
+  desc "Inicializar referencia entry_indicators period"
+  task entry_indicators_period: :environment do
+    period = Period.take
+    EntryIndicator.update_all(period_id: period.id)
+  end
+
 end

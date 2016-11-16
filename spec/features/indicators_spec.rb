@@ -12,7 +12,6 @@ feature "Mantenimiento de Indicadores" do
       click_link "Configurar Periodos"
 
       page.find("#index_#{ind1.task.sub_process.main_process.period.id}").click
-      save_and_open_page
       page.find("#index_#{ind1.task.sub_process.main_process.id}").click
 
       page.find("#index_#{ind1.task.sub_process.id}").click

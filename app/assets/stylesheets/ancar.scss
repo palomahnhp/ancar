@@ -2,7 +2,7 @@
 // Table of Contents - Styles ancar
 // 01. Welcome
 // 02. Ficha de indicadores
-// 03. Indicator form
+// 03. Resumen de procesos
 // 04. Main Process form
 // 05. Sub process form
 // 06. Task form
@@ -69,14 +69,20 @@
 
 .staff {
   margin: 0;
-    th{
-      border-bottom: rem-calc(2) solid $cobalto;
-    }
-
-    tr:last-child td {
-        border-bottom: rem-calc(2) solid $cobalto;
-        padding-bottom: rem-calc(10);
-      }
+  font-size: rem-calc(12);
+  thead {
+    border: rem-calc(1) solid $cobalto;
+  }
+  tbody {
+    border: rem-calc(1) solid $cobalto;
+  }
+  tr{
+   background-color: #efe7c9;
+   font-size: rem-calc(12);
+  }
+  tr:last-child td {
+    padding-bottom: rem-calc(10);
+ }
 }
 
 .indicator {
@@ -84,11 +90,13 @@
   border: 1px solid gray;
   border-bottom: 0;
   margin-bottom: 0;
+
     thead {
       border-bottom: 2px solid $cobalto;
     }
     td{
       font-size: rem-calc(12);
+      padding: 0;
     }
 }
 
@@ -115,15 +123,26 @@
       display: inline;
     }
   }
+
 }
 
+input.inline {
+  width:rem-calc(45);
+  font-size: rem-calc(12);
+  color: $cobalto;
+  display:inline;
+  padding: rem-calc(-2) rem-calc(2) rem-calc(2) rem-calc(-2);
+  margin-bottom: 0;
+}
+
+// 03. Resumen de procesos
 .summary{
   margin-top: rem-calc(12);
   background: lighten($verde, 35%);
   color: blank;
   text-align: left;
   box-shadow: 0px 1px 3px 0 $border;
-  padding: rem-calc(12) rem-calc(12) 0 rem-calc(2);
+  padding: rem-calc(2) rem-calc(2) rem-calc(2) rem-calc(2);
 }
 
 .card {
