@@ -16,14 +16,14 @@ module AppHelper
     return description
   end
 
-  def get_staff(type, proc, group, unit)
-    ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_group_id: group.id, unit_id: unit.id).first
-    return ae.nil? ? 0 : ae.quantity
+  def get_staff(type, proc, group, unit, period)
+    ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_group_id: group.id, unit_id: unit.id, period_id: period.id).first
+    return ae.nil? ? nil : ae.quantity
   end
 
   def get_amount(im, unit)
     ei = EntryIndicator.where(indicator_metric_id: im.id, unit_id: unit.id).first
-    amount = ei.nil? ? 0 : ei.amount
+    amount = ei.nil? ? nil : ei.amount
   end
 
   def get_metric(im)

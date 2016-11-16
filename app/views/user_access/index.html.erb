@@ -12,7 +12,7 @@
             <h5><%=o.description %> </h5>
             <% @periods.each do |p| %>
               <div class= "small-3 columns end">
-                <%= link_to p.description, entry_indicators_path(organization_id: o.id,  period: p.id)%>
+                <%= link_to p.description, entry_indicators_path(organization_id: o.id,  period_id: p.id)%>
               </div>
             <% end %>
            </div>
@@ -23,7 +23,7 @@
             <h5><%=o.description %> </h5>
             <% @periods.each do |p| %>
               <div class= "small-3 columns end">
-                <%= link_to p.description, entry_indicators_path(organization_id: o.id,  period: p.id)%>
+                <%= link_to p.description, entry_indicators_path(organization_id: o.id,  period_id: p.id)%>
               </div>
             <% end %>
            </div>

@@ -19,12 +19,12 @@ class Manager::PeriodsController < Manager::BaseController
   def create
     @period = Period.new(period_params)
     if @period.save
-      if params[:period][:id].empty?
+      if params[:period_id][:id].empty?
         msg = t("manager.periods.create.success.no_processes_copy")
       else
-        @period_from = Period.find(params[:period][:id])
+        @period_from = Period.find(params[:period_id][:id])
         if @period_from
-          @period.copy(params[:period][:id], current_user.login)
+          @period.copy(params[:period_id][:id], current_user.login)
           msg = t("manager.periods.create.success.processes_copy")
         else
           msg = t("manager.periods.create.error.processes_copy")

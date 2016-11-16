@@ -22,9 +22,22 @@ es:
       select: Seleccionar
       select_organization_type: Selecciona una organización
       select_period: Seleccionar periodo
+      no_main_processes: No hay indicadores para este periodo.
     flash:
       no_units_authorized: No tiene autorizada la consulta de datos de ninguna unidad.
-      no_main_processes: No hay datos para ese Periodo.
+    updates:
+      success: Se han actualizado correctamente los indicadores de esta unidad.
+      incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
+    staff:
+      Unit:
+        title: EFECTIVOS UNIDAD
+      SubProcess:
+        title: EFECTIVOS SUBPROCESO
+    form:
+      indicator: Indicador
+      metric: Métrica
+      source: Fuente
+      amount: Cantidad
   form:
     error: error
     errors: errores

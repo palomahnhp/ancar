@@ -11,8 +11,15 @@ Rails.application.routes.draw do
 
   resources :in_works
   resources :user_access
-  resources :entry_indicators
+  resources :entry_indicators, only: [:edit, :index] do
+    collection do
+      post 'updates'
+    end
+  end
+
+  resources :units
   resources :instructions
+
 
   namespace :admin do
     root to: "dashboard#index"
