@@ -24,7 +24,7 @@ es:
         error: Error eliminando indicador
         success: Se ha eliminado el Indicador correctamente
       edit:
-        title: Editar proceso
+        title: Editar indicador
       form:
         description: Descripción
         metric: Métrica

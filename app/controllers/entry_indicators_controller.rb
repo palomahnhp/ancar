@@ -90,17 +90,16 @@ class EntryIndicatorsController < ApplicationController
         type = "SubProcess"
         grupos.keys.each do |grupo|
           quantity = grupos[grupo]
-          official_group_id = OfficialGroup.where(name: grupo)
+          official_group_id = OfficialGroup.find_by_name(grupo).id
           if quantity.empty?
             @all_assigned_employess_cumplimented = false
             AssignedEmployee.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id).delete_all
           else
             ae = AssignedEmployee.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id)
+            ae.official_group_id = official_group_id
             ae.quantity = quantity
             ae.updated_by = current_user.login
-            if !ae.save
-              render :edit
-            end
+            ae.save
           end
         end
 
@@ -109,6 +108,7 @@ class EntryIndicatorsController < ApplicationController
     end
 
     def update_entry_indicators(indicator_metrics)
+
       indicator_metrics.each do |im|
         indicator_metric_id = im[0].to_i
         amount = im[1]
@@ -122,9 +122,7 @@ class EntryIndicatorsController < ApplicationController
           ei.amount = amount
           ei.period_id = @period.id
           ei.updated_by = current_user.login
-          if !ei.save
-            render :edit
-          end
+          ei.save
         end
       end
     end

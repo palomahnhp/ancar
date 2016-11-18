@@ -15,6 +15,13 @@ module AppHelper
     end
     return description
   end
+  def source_id(indicator)
+    indicator.indicator_sources.take.nil? ? "-" : indicator.indicator_sources.take.source_id
+  end
+
+  def metric_id
+    indicator.indicator_metrics.take.nil? ? "-" : indicator.indicator_metrics.take.source_id
+  end
 
   def get_staff(type, proc, group, unit, period)
     ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_group_id: group.id, unit_id: unit.id, period_id: period.id).first

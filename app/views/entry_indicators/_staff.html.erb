@@ -1,12 +1,12 @@
-<div class="staff row">
-  <table>
+<div class="staff">
+  <table class="margin text-center">
     <thead>
       <tr>
-        <th class="small-10 columns text-center"> <%= (t(".#{process.class.name}.title")) %></th>
+        <th class="text-center" colspan="5"> <%= (t(".#{process.class.name}.title")) %></th>
       </tr>
       <tr>
         <% @official_groups.each do |gr| %>
-          <th class="small-2 columns end text-center"><%= gr.name %></th>
+          <th class="text-center"><%= gr.name %></th>
         <% end %>
       </tr>
     </thead>
@@ -14,12 +14,16 @@
     <tbody>
       <tr>
         <% @official_groups.each do |gr| %>
-          <td class="small-2 columns end text-center">
+          <td>
             <% group_value = get_staff(of, process, gr, unit, period) %>
             <% if @period.open_entry? && of == "SubProcess"%>
               <%= text_field_tag("SubProcess[#{process.id}][#{gr.name}]", group_value, class: "inline", placeholder: gr.name) %>
             <% else %>
-              <%=  group_value %>
+              <% if of == "SubProcess" %>
+                <%=  group_value %>
+              <% else %>
+                <strong><%=  group_value %></strong>
+              <% end %>
             <% end %>
           </td>
         <% end %>
