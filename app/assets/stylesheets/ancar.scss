@@ -64,40 +64,68 @@
   color: white;
   background: lighten($turquesa, 5%);
   padding: rem-calc(12);
-  padding-bottom: 0;
+  text-align: left;
   }
 
-.staff {
-  margin: 0;
-  font-size: rem-calc(12);
-  thead {
-    border: rem-calc(1) solid $cobalto;
-  }
-  tbody {
-    border: rem-calc(1) solid $cobalto;
-  }
-  tr{
-   background-color: #efe7c9;
-   font-size: rem-calc(12);
-  }
-  tr:last-child td {
-    padding-bottom: rem-calc(10);
- }
-}
-
-.indicator {
-  padding: 0;
-  border: 1px solid gray;
-  border-bottom: 0;
-  margin-bottom: 0;
+  table.indicator {
+    margin-bottom: 0;
 
     thead {
       border-bottom: 2px solid $cobalto;
     }
-    td{
-      font-size: rem-calc(12);
-      padding: 0;
+
+    th, td {
+      border: 1px solid $border;
+      padding: rem-calc(12) rem-calc(6);
     }
+
+    td {
+      font-size: rem-calc(12);
+      padding-bottom: 0;
+      padding-bottom: rem-calc(5);
+      padding-top: 0;
+    }
+
+    input {
+      font-size: rem-calc(12);
+      height: auto !important;
+      margin: rem-calc(6) 0 !important;
+      width: rem-calc(48);
+    }
+  }
+
+.staff {
+
+  margin: 0;
+  font-size: rem-calc(14);
+
+  thead {
+    border: 1px solid $cobalto;
+  }
+
+  td {
+    border: 1px solid $border;
+  }
+
+  th {
+    background: $body;
+    border-top: 1px solid $cobalto;
+    border-bottom: 1px solid $cobalto;
+  }
+
+  tr {
+   background-color: #efe7c9;
+   font-size: rem-calc(16);
+  }
+
+  tr:last-child td {
+    border-bottom: 1px solid $cobalto;
+    padding-bottom: rem-calc(10);
+ }
+
+  tbody {
+    border: 2px solid $cobalto !important;
+  }
 }
 
 .group {
@@ -123,16 +151,6 @@
       display: inline;
     }
   }
-
-}
-
-input.inline {
-  width:rem-calc(45);
-  font-size: rem-calc(12);
-  color: $cobalto;
-  display:inline;
-  padding: rem-calc(-2) rem-calc(2) rem-calc(2) rem-calc(-2);
-  margin-bottom: 0;
 }
 
 // 03. Resumen de procesos
@@ -256,3 +274,4 @@ input.inline {
     }
   }
 }
+

@@ -13,7 +13,7 @@ class Indicator < ActiveRecord::Base
   validates :order, presence: true
 
   validates_associated :indicator_metrics
-
+  validates_associated :indicator_sources
 
   def copy(tk_id, current_user_login)
     i = Indicator.create(self.attributes.merge(id: nil, task_id: tk_id, updated_by: current_user_login))

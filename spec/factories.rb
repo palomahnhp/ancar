@@ -39,17 +39,15 @@ FactoryGirl.define do
   factory :indicator do
     association :item, :factory => [:item, :indicator]
     association :task, factory: :task
-    sequence(:order) {|n|  "#{n}"}
 
+    sequence(:order) {|n|  "#{n}"}
   end
 
   factory :indicator_metric do
-    association :indicator, factory: :indicator
     association :metric, factory: :metric
   end
 
   factory :indicator_source do
-    association :indicator, factory: :indicator
     association :source, factory: :source
   end
 
