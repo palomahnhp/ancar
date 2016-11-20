@@ -41,17 +41,6 @@ class Manager::SubProcessesController < Manager::BaseController
     @items = items_map(SubProcess.name.underscore)
     @unit_types  = @organization_type.unit_types.order(:order)
 
-    if params[:commit]
-      @sub_process.item_id = desc_to_item_id(params[:item_desc], Subprocess.name.underscore)
-      @sub_process.unit_type_id = desc_to_unit_type_id(params[:unit_type_desc])
-
-      @sub_process.order = params[:order]
-      if @sub_process.save
-        redirect_to_index(t("manager.sub_processes.update.success"))
-      else
-        render :edit
-      end
-    end
   end
 
   def create
@@ -63,6 +52,7 @@ class Manager::SubProcessesController < Manager::BaseController
     @sub_process.item_id = desc_to_item_id(params[:item_desc], SubProcess.name.underscore)
 
     @sub_process.unit_type_id = desc_to_unit_type_id(params[:unit_type_desc])
+    @sub_process.order = @sub_process.order.to_s.rjust(2, '0')  # => '05'
 
     if @sub_process.save
       redirect_to_index(t("manager.sub_processes.update.success"))
@@ -80,6 +70,8 @@ class Manager::SubProcessesController < Manager::BaseController
 
       @main_process = @sub_process.main_process
       @period = @main_process.period
+      @sub_process.order = @sub_process.order.to_s.rjust(2, '0')  # => '05'
+
       if @sub_process.save
         redirect_to_index(t("manager.sub_processes.update.success"))
       else

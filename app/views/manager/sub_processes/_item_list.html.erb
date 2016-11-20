@@ -22,7 +22,7 @@
         <%= sub_process.order %> <%= description(0, sub_process.item_id) %>
       </td>
       <td>
-        <%= link_to manager_tasks_path(commit: t("manager.tasks.index.submit"),
+        <%= link_to manager_indicators_path(commit: t("manager.indicators.index.submit"),
               main_process_id: sub_process.main_process_id,
               modifiable: params[:modifiable],
               eliminable: params[:eliminable],
@@ -30,7 +30,7 @@
             id: "index_#{sub_process.id}",
             class: 'button small float-right hollow' do %>
               <span class="icon-tag"></span>
-              <%= t("manager.sub_processes.index.tasks") %>
+              <%= t("manager.sub_processes.index.indicators") %>
         <% end %>
       </td>
       <td>

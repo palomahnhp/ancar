@@ -41,7 +41,15 @@
           <% sub_process.indicators.each do |indicator| %>
             <% indicator.indicator_metrics.all.each do |indicator_metric| %>
               <tr>
-                <td id="<%= "indicator_col_#{indicator.id}" %>"> <%= description(0, indicator.item_id) %> </td>
+                <td id="<%= "indicator_col_#{indicator.id}" %>">
+                  <% if indicator.description.nil? %>
+                    <%= description(0, indicator.item_id) %>
+                  <% else %>
+                    <div class= "moderation-description" >
+                      <%= indicator.description %>
+                    </div>
+                  <% end %>
+                  </td>
 
                 <td id="<%= "source_col_#{source_id(indicator)}" %>"> <%= sources_description( indicator.id, indicator.sources) %></td>
                 <td id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>

@@ -19,7 +19,7 @@ class Manager::PeriodsController < Manager::BaseController
   def create
     @period = Period.new(period_params)
     if @period.save
-      if params[:period_id][:id].empty?
+      if params[:period][:id].empty?
         msg = t("manager.periods.create.success.no_processes_copy")
       else
         @period_from = Period.find(params[:period_id][:id])

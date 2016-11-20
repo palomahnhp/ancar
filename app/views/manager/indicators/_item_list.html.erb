@@ -2,7 +2,6 @@
   <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
   <h4> <%= @main_process.item.description %></h4>
   <h4> <%= @sub_process.item.description %></h4>
-<h4> <%= @task.item.description %></h4>
 </div>
 
 <table>
@@ -22,7 +21,14 @@
   <% @indicators.each do  |indicator|%>
     <tr id="<%= dom_id(indicator) %>">
       <td>
-        <%= indicator.order %>. <%= indicator.item.description %>
+        <% if indicator.description.nil? %>
+          <%= indicator.order %>. <%= indicator.item.description %>
+        <% else %>
+          <br>
+          <div class="moderation-description">
+            <%= indicator.description %>
+          </div>
+        <% end %>
       </td>
       <% if !indicator.indicator_metrics.take.nil? %>
         <td id="<%= dom_id(indicator.indicator_metrics.first) %>">
