@@ -45,20 +45,6 @@ module ManagerHelper
     end
   end
 
-  def in_out_alt_text(mark)
-    case mark
-    when 'E'
-      t(".input")
-    when 'S'
-      t(".output")
-    when 'X'
-      t(".whitout")
-    when '.'
-      t(".nothing")
-    end
-
-  end
-
   def unit_type_description(id)
     @unit_type_description = UnitType.find(id).description
   end

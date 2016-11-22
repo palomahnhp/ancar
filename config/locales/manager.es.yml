@@ -44,10 +44,10 @@ es:
       item_list:
         in_out:
           alt_text:
-            input: Totalizador de entrada
-            output: Totalizador de salida
-            whitout: Totalizador sin marca de entrada o salida
-            nothing: No totaliza
+            E: Totalizador de entrada
+            S: Totalizador de salida
+            X: Totalizador sin marca de entrada o salida
+            -: No totaliza
     menu:
       periods: Configurar Periodos
     main_processes:
