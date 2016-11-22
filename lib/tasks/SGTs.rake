@@ -2,7 +2,7 @@ namespace :SGT do
   require 'spreadsheet'
 
   desc "Importar datos de la SGT"
-#  rake SGT:import file=/home/phn001/Documents/ANCAR/SGTs/DatosSGTs-2016-T1.xls period=14
+#  rake SGT:import file=/home/phn001/Documents/ANCAR/SGTs/DatosSGTs-2016-T1.xls period=76
   task :import => :environment do
     file = ENV['file'] or raise "Hay que indicar un fichero file=fichero"
     period_id = ENV['period'] or raise "Hay que indicar el id del periodo a cargar period=id"
@@ -72,9 +72,16 @@ namespace :SGT do
     metrica = row[@columns["vTodoTareaIndicadorSGT.descripcion"]-1]
     fuente = row[@columns["Fuente.descripcion"]-1]
     fuenteTexto = row[@columns["fuenteTexto"]-1]
-
     task = subproceso.tasks.find_or_create_by(item_id: Item.find_or_create_by(item_type: "task", description: "Tarea").id)
     indicator_item = indicador[0..100]
+
+    # sustituir \t y \n por párrafos html
+    indicador.gsub!(/[\t]+/, "<p>")
+    indicador.gsub!(/[-]+/, "")
+    indicador.gsub!(/[\n\n]+/, "</\p>")
+    indicador << "</p>"
+    indicador = "#{indicador}"
+
     indicator = task.indicators.find_or_create_by(item_id: Item.find_or_create_by(
       item_type: "indicator", description: indicator_item).id, description: indicador)
     indicator.updated_by = @updated_by
@@ -101,6 +108,7 @@ namespace :SGT do
 
     amount = cantidad.to_i
     entry_indicator = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric.id)
+    entry_indicator.specifications = fuenteTexto
     entry_indicator.amount = amount
     entry_indicator.period_id = @period.id
     entry_indicator.updated_by = @updated_by
