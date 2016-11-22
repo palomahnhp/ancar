@@ -39,7 +39,8 @@
         <td>No cumplimentada</td>
       <% end %>
       <% @item_summary_types.each do |item_summary_type|%>
-        <td class="text-center"><%= total_check(indicator.indicator_metrics.take, item_summary_type.id)%></td>
+        <% mark = total_check(indicator.indicator_metrics.take, item_summary_type.id) %>
+        <td class="text-center" title="<%= "#{ in_out_alt_text(mark)}"%>"><%= mark%></td>
       <% end %>
       <td>
         <% if params[:modifiable] == 'true' %>
