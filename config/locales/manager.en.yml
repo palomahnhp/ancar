@@ -35,6 +35,13 @@ en:
         title: Indicadores
         create: Incluir un indicador
         submit: submit
+      item_list:
+        in_out:
+          alt_text:
+            input: Totalizador de entrada
+            output: Totalizador de salida
+            whitout: Totalizador sin marca de entrada o salida
+            nothing: No totaliza
       new:
         title: Crear indicadores
       update:

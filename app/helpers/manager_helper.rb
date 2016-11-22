@@ -34,10 +34,29 @@ module ManagerHelper
   def total_check(indicator_metric, item_summary_type_id)
     summary_type = SummaryType.where(item_id: item_summary_type_id).take
     if ! indicator_metric.nil?
-      TotalIndicator.where(indicator_metric_id: indicator_metric.id, summary_type_id: summary_type.id).count == 0 ? '-' : 'X'
+      total_indicators = TotalIndicator.where(indicator_metric_id: indicator_metric.id, summary_type_id: summary_type.id)
+      if total_indicators.count == 0
+       '-'
+      else
+        mark = total_indicators.take.in_out.nil? ? 'X' : total_indicators.take.in_out
+      end
     else
       '-'
     end
+  end
+
+  def in_out_alt_text(mark)
+    case mark
+    when 'E'
+      t(".in_out.alt_text.input")
+    when 'S'
+      t(".in_out.alt_text.output")
+    when 'X'
+      t(".in_out.alt_text.whitout")
+    when '.'
+      t(".in_out.alt_text.nothing")
+    end
+
   end
 
   def unit_type_description(id)
