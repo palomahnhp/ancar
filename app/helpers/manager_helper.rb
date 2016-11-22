@@ -38,7 +38,7 @@ module ManagerHelper
       if total_indicators.count == 0
        '-'
       else
-        mark = total_indicators.take.in_out.nil? ? 'X' : total_indicators.take.in_out
+        total_indicators.take.in_out.nil? ? 'X' : total_indicators.take.in_out
       end
     else
       '-'
