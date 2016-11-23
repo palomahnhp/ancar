@@ -41,6 +41,13 @@ es:
         success: El registro se ha actualizado correctamente.
       show:
         title: Indicador
+      item_list:
+        in_out:
+          alt_text:
+            E: Totalizador de entrada
+            S: Totalizador de salida
+            X: Totalizador sin marca de entrada o salida
+            -: No totaliza
     menu:
       periods: Configurar Periodos
     main_processes:

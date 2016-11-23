@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(version: 20161119160711) do
     t.string   "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "active"
   end
 
   add_index "summary_types", ["item_id"], name: "index_summary_types_on_item_id", using: :btree

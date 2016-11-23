@@ -2,6 +2,7 @@ namespace :initialize do
 
   desc "Inicializar summary_types"
   task summary_types: :environment do
+    puts " Iniciado proceso "
     TotalIndicator.update_all(summary_type_id: nil)
     SummaryType.delete_all
     Item.where(item_type: "summary_type").delete_all
@@ -23,13 +24,15 @@ namespace :initialize do
     TotalIndicator.where(indicator_type: "U").update_all(summary_type_id: u.id)
     TotalIndicator.where(indicator_type: "G").update_all(summary_type_id: g.id)
     TotalIndicator.where(indicator_type: "C").update_all(summary_type_id: c.id)
-
+    puts " Ha terminado correctamente "
   end
 
   desc "Inicializar referencia entry_indicators period"
   task entry_indicators_period: :environment do
+    puts " Iniciado proceso "
     period = Period.take
     EntryIndicator.update_all(period_id: period.id)
+    puts " Proceso finalizado"
   end
 
 desc "Añadir 0 a la izquierda a orden"

@@ -132,7 +132,6 @@ class Manager::IndicatorsController < Manager::BaseController
       @period = @main_process.period
       @organization_type = @period.organization_type
       @unit_type = @sub_process.unit_type
-      @item_summary_types = Item.where(item_type: "summary_type")
-
+      @item_summary_types = SummaryType.active.map {|st| st.item}
     end
 end

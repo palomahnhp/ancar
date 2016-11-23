@@ -34,7 +34,12 @@ module ManagerHelper
   def total_check(indicator_metric, item_summary_type_id)
     summary_type = SummaryType.where(item_id: item_summary_type_id).take
     if ! indicator_metric.nil?
-      TotalIndicator.where(indicator_metric_id: indicator_metric.id, summary_type_id: summary_type.id).count == 0 ? '-' : 'X'
+      total_indicators = TotalIndicator.where(indicator_metric_id: indicator_metric.id, summary_type_id: summary_type.id)
+      if total_indicators.count == 0
+       '-'
+      else
+        total_indicators.take.in_out.nil? ? 'X' : total_indicators.take.in_out
+      end
     else
       '-'
     end
