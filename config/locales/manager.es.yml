@@ -48,6 +48,10 @@ es:
             S: Totalizador de salida
             X: Totalizador sin marca de entrada o salida
             -: No totaliza
+        indicator: indicadores
+        metric: Métrica
+        source: Fuente
+        totals: Totalizadores
     menu:
       periods: Configurar Periodos
     main_processes:
@@ -146,7 +150,7 @@ es:
       index:
         create: Incluir subprocesos
         empty: No hay subprocesos definidos
-        tasks: Ver tareas
+        indicators: Ver indicadores
         title: Subprocesos
         submit: submit
       form:

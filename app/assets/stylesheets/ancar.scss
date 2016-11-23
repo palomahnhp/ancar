@@ -3,10 +3,7 @@
 // 01. Welcome
 // 02. Ficha de indicadores
 // 03. Resumen de procesos
-// 04. Main Process form
-// 05. Sub process form
-// 06. Task form
-// 07. generales
+// 04. Manager:
 
 // 01. Welcome
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -157,6 +154,7 @@
 }
 
 // 03. Resumen de procesos
+
 .summary{
   margin-top: rem-calc(12);
   background: lighten($verde, 35%);
@@ -276,5 +274,9 @@
       }
     }
   }
+}
+
+// 04 Manager
+.manager{
 }
 
