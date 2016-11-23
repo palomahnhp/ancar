@@ -84,6 +84,9 @@
       padding-bottom: 0;
       padding-bottom: rem-calc(5);
       padding-top: 0;
+      &.indicador_size{
+       font-size: rem-calc(14);
+    }
     }
 
     input {
