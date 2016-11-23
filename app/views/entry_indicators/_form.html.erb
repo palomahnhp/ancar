@@ -37,25 +37,28 @@
               <th><strong><%= t(".metric") %></strong></th>
               <th class="text-center"><strong><%= t(".amount") %></strong></th>
             </tr>
-          <thead>
+          </thead>
           <% sub_process.indicators.each do |indicator| %>
-            <% indicator.indicator_metrics.all.each do |indicator_metric| %>
-              <tr>
-                <td id="<%= "indicator_col_#{indicator.id}" %>"> <%= description(0, indicator.item_id) %> </td>
-
-                <td id="<%= "source_col_#{source_id(indicator)}" %>"> <%= sources_description( indicator.id, indicator.sources) %></td>
-                <td id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
-                <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
-                  <% amount_value = get_amount(indicator_metric, @unit) %>
-                  <% if @period.open_entry? %>
-                    <%= text_field_tag("IndicatorMetric[#{indicator_metric.id}]", amount_value, class: "inline", placeholder: t(".amount")) %>
-                  <% else %>
-                    <%= amount_value %>
-                  <% end %>
-                </td>
-              </tr>
+            <tr>
+              <td id="<%= "indicator_col_#{indicator.id}" %>"> <strong> <%= description(0, indicator.item_id) %> </strong></td>
+            </tr>
+            <% indicator.indicator_metrics.order(:id).each do |indicator_metric| %>
+             <tr>
+              <td></td>
+              <td id="<%= "source_col_#{source_id(indicator)}" %>"> <%= sources_description( indicator.id, indicator.sources) %></td>
+              <td id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
+              <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
+                <% amount_value = get_amount(indicator_metric, @unit) %>
+                <% if @period.open_entry? %>
+                  <%= text_field_tag("IndicatorMetric[#{indicator_metric.id}]", amount_value, class: "inline", placeholder: t(".amount")) %>
+                <% else %>
+                  <%= amount_value %>
+                <% end %>
+              </td>
+            </tr>
             <% end %>
           <% end %>
+
         </table>
       <div class="columns medium-offset-8 medium-4 small-12">
           <%= render 'staff', of: "SubProcess", process: sub_process, unit: @unit,  period: @period  %>

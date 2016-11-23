@@ -4,4 +4,5 @@ class Item < ActiveRecord::Base
   has_many :tasks
   has_many :indicators
   has_many :sources
+  has_many :summary_types
 end
