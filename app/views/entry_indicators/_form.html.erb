@@ -41,10 +41,12 @@
           <% sub_process.indicators.each do |indicator| %>
             <tr>
               <td id="<%= "indicator_col_#{indicator.id}" %>"> <strong> <%= description(0, indicator.item_id) %> </strong></td>
-            </tr>
-            <% indicator.indicator_metrics.order(:id).each do |indicator_metric| %>
+            <% indicator.indicator_metrics.order(:id).each_with_index do |indicator_metric, index| %>
+            <% if index != 0 %>
              <tr>
-              <td></td>
+             <td></td>
+             <% end %>
+
               <td id="<%= "source_col_#{source_id(indicator)}" %>"> <%= sources_description( indicator.id, indicator.sources) %></td>
               <td id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
               <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
@@ -55,6 +57,9 @@
                   <%= amount_value %>
                 <% end %>
               </td>
+            <% if index != 0 %>
+            </tr>
+            <% end %>
             </tr>
             <% end %>
           <% end %>
