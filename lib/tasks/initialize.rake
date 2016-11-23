@@ -35,4 +35,22 @@ namespace :initialize do
     puts " Proceso finalizado"
   end
 
+desc "Añadir 0 a la izquierda a orden"
+  task order: :environment do
+   update_order("MainProcess")
+   update_order("SubProcess")
+   update_order("Indicator")
+  end
+
 end
+
+private
+  def update_order(resource)
+    Object.const_get(resource).all.each do |mp|
+      debugger
+      if mp.order < 10
+        mp.order = mp.order.to_s.rjust(2, '0')
+        mp.save
+      end
+    end
+  end

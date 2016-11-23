@@ -48,6 +48,8 @@ class Manager::MainProcessesController < Manager::BaseController
 
     @main_process = MainProcess.new(main_process_params)
     @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
+    @main_process.order = @main_process.order.to_s.rjust(2, '0')  # => '05'
+
     if @main_process.save
       redirect_to_index(t("manager.main_processes.create.success"))
     else
@@ -62,6 +64,8 @@ class Manager::MainProcessesController < Manager::BaseController
       @main_process.assign_attributes(main_process_params)
       @period = @main_process.period
       @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
+      @main_process.order = @main_process.order.to_s.rjust(2, '0')  # => '05'
+
       if @main_process.save
         redirect_to_index(t("manager.main_processes.update.success"))
       else

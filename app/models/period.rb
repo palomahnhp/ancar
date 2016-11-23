@@ -1,5 +1,5 @@
 class Period < ActiveRecord::Base
-  has_many :main_process, :dependent => :destroy
+  has_many :main_processes, :dependent => :destroy
   has_many :assigned_employees, :dependent => :destroy
 
   belongs_to :organization_type
@@ -27,7 +27,7 @@ class Period < ActiveRecord::Base
   end
 
   def is_empty?
-    self.main_process.count == 0
+    self.main_processes.count == 0
   end
 
   def eliminable?
@@ -36,7 +36,7 @@ class Period < ActiveRecord::Base
 
   def copy(periodo_origen_id, current_user_login)
     p = Period.find(periodo_origen_id)
-    p.main_process.each do |mp|
+    p.main_processes.each do |mp|
       mp.copy(self.id, current_user_login)
     end
 

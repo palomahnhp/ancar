@@ -108,7 +108,6 @@ class EntryIndicatorsController < ApplicationController
     end
 
     def update_entry_indicators(indicator_metrics)
-
       indicator_metrics.each do |im|
         indicator_metric_id = im[0].to_i
         amount = im[1]

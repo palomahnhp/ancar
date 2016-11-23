@@ -7,7 +7,8 @@ class Manager::IndicatorsController < Manager::BaseController
   end
 
   def new
-    @task = Task.find(params[:task_id])
+    @sub_process = SubProcess.find(params[:sub_process_id])
+    @task = @sub_process.tasks.take
     @indicator = Indicator.new
     @indicator.task = @task
     initialize_instance_vars
@@ -20,19 +21,18 @@ class Manager::IndicatorsController < Manager::BaseController
   def create
     @indicator = Indicator.new(indicator_params)
     @indicator.task = @task
-
     indicator_item_id = desc_to_item_id(params[:item_desc], Indicator.name.underscore)
     @indicator.item_id = indicator_item_id if @indicator.item_id != indicator_item_id
 
     metric_id = desc_to_metric_id(params[:metric_desc], Metric.name.underscore)
     source_id = desc_to_source_id(params[:source_desc], Source.name.underscore)
+    @indicator.order = @indicator.order.to_s.rjust(2, '0')  # => '05'
 
     if !metric_id.nil? && !source_id.nil? && @indicator.save
       @indicator.indicator_metrics.create(metric_id: metric_id)
       @indicator.indicator_sources.create(source_id: source_id)
 
       update_total_indicators_summary_types
-
       redirect_to_index(t("manager.indicators.create.success"))
     else
       if metric_id.nil? || source_id.nil?
@@ -45,7 +45,6 @@ class Manager::IndicatorsController < Manager::BaseController
       if source_id.nil?
         @indicator.errors[:source_id] = t("manager.errors.models.indicator.attributes.source_id.blank")
       end
-      params
       render :new
     end
   end
@@ -56,6 +55,7 @@ class Manager::IndicatorsController < Manager::BaseController
 
     indicator_item_id = desc_to_item_id(params[:item_desc], Indicator.name.underscore)
     @indicator.item_id = indicator_item_id if @indicator.item_id != indicator_item_id
+    @indicator.order = @indicator.order.to_s.rjust(2, '0')  # => '05'
 
     metric_id = desc_to_metric_id(params[:metric_desc], Metric.name.underscore)
     @indicator_metric =  @indicator.indicator_metrics.take
@@ -119,10 +119,12 @@ class Manager::IndicatorsController < Manager::BaseController
       @metrics = items_map(Metric.name.underscore)
       @sources = items_map(Source.name.underscore)
 
-      if params[:action] == "create" || params[:action] == "update"
-        @task = Task.find(indicator_params[:task_id])
-      else
+      if params[:sub_process_id]
+        @task = SubProcess.find(params[:sub_process_id]).tasks.take
+      elsif params[:task_id]
         @task = Task.find(params[:task_id])
+      elsif indicator_params[:task_id]
+        @task = Task.find(indicator_params[:task_id])
       end
 
       @sub_process = @task.sub_process

@@ -40,6 +40,7 @@ class Manager::TasksController < Manager::BaseController
 
     @task = Task.new(task_params)
     @task.item_id = desc_to_item_id(params[:item_desc], Task.name.underscore)
+    @task.order = params[:order].to_s.rjust(2, '0')  # => '05'
 
     if @task.save
       redirect_to_index(t("manager.tasks.create.success"))
@@ -58,6 +59,7 @@ class Manager::TasksController < Manager::BaseController
       @sub_process = @task.sub_process
       @main_process = @sub_process.main_process
       @period = @main_process.period
+      @task.order = params[:order].to_s.rjust(2, '0')  # => '05'
 
       if @task.save
         redirect_to_index(t("manager.tasks.update.success"))
