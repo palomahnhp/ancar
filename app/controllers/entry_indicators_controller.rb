@@ -73,7 +73,8 @@ class EntryIndicatorsController < ApplicationController
       end
       if params[:period_id]
         @period = Period.find(params[:period_id]) if params[:period_id]
-        @main_processes = MainProcess.where(period_id: @period.id).order(:order)
+        @main_processes = MainProcess.where(period_id: @period.id).order(:order).includes(:item, :sub_processes,
+          :indicators)
       end
       if params[:unit_id]
         @unit = Unit.find(params[:unit_id])
@@ -102,9 +103,7 @@ class EntryIndicatorsController < ApplicationController
             ae.save
           end
         end
-
       end
-
     end
 
     def update_entry_indicators(indicator_metrics)

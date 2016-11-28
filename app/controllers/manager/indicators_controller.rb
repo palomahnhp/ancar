@@ -3,7 +3,8 @@ class Manager::IndicatorsController < Manager::BaseController
   before_action :initialize_instance_vars, only: [:index, :edit, :update, :create, :destroy]
 
   def index
-    @indicators = @task.indicators.order(:order)
+    @indicators = @task.indicators.order(:order).includes(:item, :entry_indicators,
+      :indicator_metrics, :metrics, :entry_indicators, :total_indicators, :summary_types, :indicator_sources, sources: :item)
   end
 
   def new
@@ -16,6 +17,7 @@ class Manager::IndicatorsController < Manager::BaseController
 
   def edit
     @indicator  = Indicator.find(params[:id])
+
   end
 
   def create
@@ -29,7 +31,7 @@ class Manager::IndicatorsController < Manager::BaseController
     @indicator.order = @indicator.order.to_s.rjust(2, '0')  # => '05'
 
     if !metric_id.nil? && !source_id.nil? && @indicator.save
-      @indicator.indicator_metrics.create(metric_id: metric_id)
+      params[:indicator_metric_id] = @indicator.indicator_metrics.create(metric_id: metric_id).id
       @indicator.indicator_sources.create(source_id: source_id)
 
       update_total_indicators_summary_types
@@ -58,7 +60,7 @@ class Manager::IndicatorsController < Manager::BaseController
     @indicator.order = @indicator.order.to_s.rjust(2, '0')  # => '05'
 
     metric_id = desc_to_metric_id(params[:metric_desc], Metric.name.underscore)
-    @indicator_metric =  @indicator.indicator_metrics.take
+    @indicator_metric = params[:indicator_metrics]
     if @indicator_metric
       @indicator_metric.metric_id = metric_id if !metric_id.nil? || @indicator_metric.metric_id != metric_id
     end
@@ -68,6 +70,7 @@ class Manager::IndicatorsController < Manager::BaseController
     if @indicator_source
       @indicator_source.source_id = source_id if !source_id.nil? || @indicator_source.source_id != source_id
     end
+
     update_total_indicators_summary_types
 
     if (!@indicator_metric || @indicator_metric.save) && (!@indicator_source || @indicator_source.save) && @indicator.save
@@ -94,12 +97,22 @@ class Manager::IndicatorsController < Manager::BaseController
     end
 
     def update_total_indicators_summary_types
-      SummaryType.all.each do |summary_type|
-        if params[summary_type.item.description.to_sym].nil?
-          TotalIndicator.where(indicator_metric_id: @indicator.indicator_metrics.take.id,
-          summary_type_id: summary_type.id).delete_all
+      @summary_types.each do |summary_type|
+        if params[summary_type.item.description].nil?
+          summary_type.total_indicators.find_by_indicator_metric_id(params[:indicator_metric]).delete_all
         else
-          TotalIndicator.where(indicator_metric_id: @indicator.indicator_metrics.take.id).find_or_create_by(summary_type_id: summary_type.id, indicator_type: summary_type.acronym)
+          # Si es númerico es el id #new
+          if params[summary_type.item.description.to_sym].to_i.to_s == params[summary_type.item.description.to_sym]
+            tit = TotalIndicatorType.find(params[summary_type.item.description.to_sym]).acronym
+          else
+            # si es cadena es item.description #edit
+            tit = TotalIndicatorType.find(@total_indicator_types.to_h[params[summary_type.item.description.to_sym]]).acronym
+          end
+          ti = summary_type.total_indicators.find_or_create_by(indicator_metric_id: params[:indicator_metric_id],
+            indicator_type: summary_type.acronym)
+          ti.in_out =  tit
+          ti.updated_by = current_user.login
+          ti.save
         end
       end
     end
@@ -132,6 +145,9 @@ class Manager::IndicatorsController < Manager::BaseController
       @period = @main_process.period
       @organization_type = @period.organization_type
       @unit_type = @sub_process.unit_type
-      @item_summary_types = SummaryType.active.map {|st| st.item}
+      @summary_types = SummaryType.active.includes(:total_indicators, :item)
+      @item_summary_types = @summary_types.map {|st| st.item}
+      @total_indicator_types = TotalIndicatorType.active.order(:order).includes(:item).map{ |type| [type.item.description, type.id] }
     end
+
 end

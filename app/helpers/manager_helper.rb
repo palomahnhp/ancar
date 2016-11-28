@@ -31,17 +31,13 @@ module ManagerHelper
     items_not_used.collect  { |v| [ v.description, v.id ] }
   end
 
-  def total_check(indicator_metric, item_summary_type_id)
-    summary_type = SummaryType.where(item_id: item_summary_type_id).take
-    if ! indicator_metric.nil?
-      total_indicators = TotalIndicator.where(indicator_metric_id: indicator_metric.id, summary_type_id: summary_type.id)
-      if total_indicators.count == 0
-       '-'
-      else
-        total_indicators.take.in_out.nil? ? 'X' : total_indicators.take.in_out
-      end
-    else
+  def total_check(indicator_metric_id, item_summary_type_id)
+    summary_type = @summary_types.find_by_item_id(item_summary_type_id)
+    total_indicators = summary_type.total_indicators.find_by_indicator_metric_id(indicator_metric_id)
+    if total_indicators.nil?
       '-'
+    else
+      total_indicators.in_out.nil? ? 'X' : total_indicators.in_out
     end
   end
 
@@ -57,14 +53,6 @@ module ManagerHelper
     end
   end
 
-  def summary_type_checked?(indicator, item_summary_type_id)
-    if indicator.id.nil?
-    else
-      summary_type_id = SummaryType.where(item_id: item_summary_type_id).take.id
-      !TotalIndicator.where(indicator_metric_id: indicator.indicator_metrics.take.id, summary_type_id: summary_type_id).empty?
-    end
-  end
-
   def show_errors(object, field_name)
     if object.errors.any?
       if !object.errors.messages[field_name].blank?
@@ -73,13 +61,14 @@ module ManagerHelper
     end
   end
 
-  def indicator_description(indicator, item_id)
-    if !indicator.item_id.nil?
-      indicator.item.description
-    elsif !item_id.nil?
-      Item.find(item_id).description
-    else
-      ""
+  def summary_type_selected(indicator_metric_id, item_summary_type_id)
+    summary_type = @summary_types.find_by_item_id(item_summary_type_id)
+    ti = summary_type.total_indicators.find_by_indicator_metric_id(indicator_metric_id)
+    if ti.nil?
+      t(".-")
+    elsif
+      in_out = ti.in_out.nil? ? 'A' : ti.in_out
+      t(".#{in_out}")
     end
   end
 
@@ -87,4 +76,5 @@ module ManagerHelper
     def namespace
       controller.class.parent.name.downcase
     end
+
 end

@@ -3,7 +3,7 @@
   <%= render 'shared/errors', resource: @period %>
 
   <div class="row">
-    <div class="small-4 column"><h4><%= f.label :organization_type_id, t("manager.periods.form.organization_type") %></h4>
+    <div class="small-12 medium-4 column"><h4><%= f.label :organization_type_id, t("manager.periods.form.organization_type") %></h4>
       <%= f.select :organization_type_id, options_for_select(@organization_types), label: false, placeholder: t("manager.periods.form.organization_type") %>
     </div>
     <div class="small-12 columns"></div>
