@@ -50,7 +50,7 @@ es:
         E: Entrada
         S: Salida
         U: Único
-        A: "Acumula (blanco)"
+        A: "Acumula"
         -: No acumula
     menu:
       periods: Configurar Periodos
