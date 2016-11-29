@@ -6,9 +6,9 @@
 
 <table>
   <tr>
-    <th colrow="2"><%= t(".indicator") %></th>
-    <th colrow="2"><%= t(".metric") %></th>
-    <th colrow="2"><%= t(".source") %></th>
+    <th><%= t(".indicator") %></th>
+    <th><%= t(".metric") %></th>
+    <th><%= t(".source") %></th>
     <th class="text-center" colspan="<%=@item_summary_types.count%>"><%= t(".totals") %></th>
   </tr>
   <tr>
@@ -20,13 +20,13 @@
 
   <% @indicators.each do  |indicator|%>
     <tr rowspan="indicator.indicator_metrics.count" id="<%= dom_id(indicator) %>">
-      <td>
+      <td colspan="5">
         <% if indicator.description.nil? %>
           <strong> <%= indicator.order %>. <%= indicator.item.description %></strong>
         <% else %>
           <br>
           <div class="moderation-description">
-            <%= indicator.description %>
+            <%= simple_format (indicator.description) %>
           </div>
         <% end %>
       </td>
@@ -52,8 +52,9 @@
           <td class="text-center" title="<%= "#{t(".in_out.alt_text.#{mark}")}"%>"><%= mark%></td>
         <% end %>
         <td>
-          <% if params[:modifiable] == 'true' && false %>
-            <%= link_to edit_manager_indicator_path(indicator, task_id: @task.id),
+          <% if params[:modifiable] == 'true'%>
+            <%= link_to edit_manager_indicator_path(indicator, indicator_metric: im,
+              task_id: @task.id, eliminable: params[:eliminable],  modifiable: params[:modifiable]),
                 id: "edit_#{indicator.id}",
                 class: 'button warning float-right tiny hollow' do %>
                   <span class="icon-edit"></span>
@@ -62,9 +63,9 @@
           <% end %>
         </td>
         <td>
-          <% if params[:modifiable] == 'true'  && false %>
+          <% if params[:modifiable] == 'true' %>
            <% msg = delete_msg(indicator.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], false ) %>
-           <%= link_to manager_indicator_path(indicator, task_id: @task.id), method: :delete,
+           <%= link_to manager_indicator_path(indicator, task_id: @task.id, eliminable: params[:eliminable],  modifiable: params[:modifiable]), method: :delete,
                 data: {confirm: msg},
                 id: "delete_#{indicator.id}",
                 class: 'button alert float-right tiny hollow' do %>

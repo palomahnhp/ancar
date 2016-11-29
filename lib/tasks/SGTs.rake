@@ -2,7 +2,7 @@ namespace :SGT do
   require 'spreadsheet'
 
   desc "Importar datos de la SGT"
-#  rake SGT:import file=/home/phn001/Documents/ANCAR/SGTs/DatosSGTs-2016-T1.xls period=76
+#  rake SGT:import file=/home/phn001/Documents/ANCAR/SGTs/DatosSGTs-2016-T1.xls period=78
   task :import => :environment do
     file = ENV['file'] or raise "Hay que indicar un fichero file=fichero"
     period_id = ENV['period'] or raise "Hay que indicar el id del periodo a cargar period=id"
@@ -17,11 +17,12 @@ namespace :SGT do
     libro = Spreadsheet.open file
     hoja = libro.worksheet 0
         @unit_id_ant = ""
+    @equivalencias = change_name
     (hoja.rows).each  do |row|
       if row.idx == 0
         columns_assignation(row)
       else
-        process_row(row)
+        process_row(row, row.idx)
       end
     end
     puts "Finalizada importación de datos de SGT."
@@ -29,31 +30,45 @@ namespace :SGT do
 
   private
 
-  def process_row(row)
+  def process_row(row, idx)
     # unit & organization
     unit_id = row[@columns["ncodUni"]-1]
+    unit_order= 1
     unit_description = row[@columns["cDenominacion"]-1]
+    unit_description = @equivalencias[unit_description.to_sym]
     puts unit_description if @unit_id_ant != unit_id
     @unit_id_ant = unit_id
     @unit_type = UnitType.find_or_create_by(organization_type_id: @period.organization_type.id,
-                                            description: "Secretaria General Técnica")
+                                            description: "Secretarías Generales Técnicas")
+
     @organization = @period.organization_type.organizations.find_or_create_by(
-      description:unit_description)
+      description: unit_description)
+    if @organization.changed?
+      @organization.updated_by =   @updated_by
+      @organization.save
+    end
+
     @unit = @organization.units.find_or_create_by(sap_id: unit_id,
                              description_sap: unit_description,
-                             unit_type_id: @unit_type.id)
+                             unit_type_id: @unit_type.id, order: unit_order)
+    if @unit.changed?
+
+      @unit.updated_by =   @updated_by
+      @unit.save
+    end
+
+
     # main_process
     process_order = row[@columns["Bloque_orden"]-1]
     process_description = row[@columns["Bloque_descripcion"]-1]
 
     proceso = @period.main_processes.find_or_create_by(
       item_id: Item.find_or_create_by(item_type: "main_process",
-      description: process_description).id)
-
+      description: process_description).id )
     proceso.order = process_order.to_s.rjust(2, '0')  # => '05'
-
     proceso.updated_by = @updated_by
     proceso.save
+
 
     # sub_process
     subprocess_order = row[@columns["Proceso_orden"]-1]
@@ -66,6 +81,7 @@ namespace :SGT do
     subproceso.updated_by = @updated_by
     subproceso.save
 
+
     # indicator
     indicator_order = 0
     indicador = row[@columns["tareas"]-1]
@@ -75,23 +91,20 @@ namespace :SGT do
     task = subproceso.tasks.find_or_create_by(item_id: Item.find_or_create_by(item_type: "task", description: "Tarea").id)
     indicator_item = indicador[0..100]
 
-    # sustituir \t y \n por párrafos html
-    indicador.gsub!(/[\t]+/, "<p>")
-    indicador.gsub!(/[-]+/, "")
-    indicador.gsub!(/[\n\n]+/, "</\p>")
-    indicador << "</p>"
-    indicador = "#{indicador}"
-
     indicator = task.indicators.find_or_create_by(item_id: Item.find_or_create_by(
-      item_type: "indicator", description: indicator_item).id, description: indicador)
+      item_type: "indicator", description: indicator_item ).id, description: indicador)
+
+
     indicator.updated_by = @updated_by
     indicator.order = indicator_order.to_s.rjust(2, '0')
     indicator.save
 
     it = Item.find_or_create_by(item_type: "metric", description: metrica)
     metric = Metric.find_or_create_by(item_id: it.id)
+    metric.save
     it = Item.find_or_create_by(item_type: "source", description: fuente)
-    source = Source.find_or_create_by(item_id: it.id)
+    source = Source.find_or_create_by(item_id: it.id, updated_by: @updated_by)
+    source.save
 
     indicator_metric = indicator.indicator_metrics.find_or_create_by(metric_id: metric.id)
     indicator_source = indicator.indicator_sources.find_or_create_by(source_id: source.id)
@@ -121,7 +134,6 @@ namespace :SGT do
       ae.quantity = grupo[index]
       ae.updated_by = @updated_by
       ae.save
-
     end
   end
 
@@ -131,4 +143,16 @@ namespace :SGT do
     @columns = Hash[cols.map {|key, value| [key, i+= 1]}]
   end
 
+  def change_name
+    {
+      "PJG SGT PORTAV. COORD. J.G. RR CON PLENO" => "SECRETARIA GENERAL TECNICA PORTAVOZ COORDINACION DE LA J. G. Y RELACIONES PLENO",
+      "AGU SGT DESARROLLO URBANO SOSTENIBLE" => "SECRETARIA GENERAL TECNICA DEL AREA DE GOBIERNO DE DESARROLLO URBANO SOSTENIBLE",
+      "AGM SGT AG MEDIO AMBIENTE Y MOVILIDAD" => "SECRETARIA GENERAL TECNICA AG MEDIO AMBIENTE Y MOVILIDAD",
+      "AGS SGT AG SALUD,SEGURIDAD Y EMERGENCIAS" => "SECRETARIA GENERAL TECNICA A.G. SALUD, SEGURIDAD Y EMERGENCIAS",
+      "GC SGT GERENCIA DE LA CIUDAD" => "SECRETARIA GENERAL TECNICA GERENCIA DE LA CIUDAD",
+      "AGF SGT EQUIDAD, DCHOS SOCIALES Y EMPLEO" => "SECRETARIA GENERAL TECNICA DE EQUIDAD DERECHOS SOCIALES Y EMPLEO",
+      "AGA SGT CULTURA Y DEPORTES" => "SECRETARIA GENERAL TECNICA AREA DE GOBIERNO DE CULTURA Y DEPORTES",
+      "AGE SGT ECONOMIA Y HACIENDA" => "SECRETARIA GENERAL TECNICA AREA DE GOBIERNO DE ECONOMIA Y HACIENDA"
+    }
+  end
 end

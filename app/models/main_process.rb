@@ -1,6 +1,8 @@
 class MainProcess < ActiveRecord::Base
   has_many :sub_processes, :dependent => :destroy
   has_many :tasks, through: :sub_processes, :dependent => :destroy
+  has_many :indicators, through: :tasks, :dependent => :destroy
+
   belongs_to :period
   belongs_to :item, -> { where item_type: "main_process" }
 

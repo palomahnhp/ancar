@@ -46,7 +46,7 @@ es:
           alt_text:
             E: Totalizador de entrada
             S: Totalizador de salida
-            X: Totalizador sin marca de entrada o salida
+            A: Totalizador sin marca de entrada o salida
             -: No totaliza
         indicator: indicadores
         metric: Métrica

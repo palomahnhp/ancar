@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119160711) do
+ActiveRecord::Schema.define(version: 20161127180917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -278,6 +278,18 @@ ActiveRecord::Schema.define(version: 20161119160711) do
   add_index "tasks", ["item_id"], name: "index_tasks_on_item_id", using: :btree
   add_index "tasks", ["sub_process_id"], name: "index_tasks_on_sub_process_id", using: :btree
 
+  create_table "total_indicator_types", force: :cascade do |t|
+    t.integer  "item_id"
+    t.string   "acronym"
+    t.integer  "order"
+    t.boolean  "active"
+    t.string   "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "total_indicator_types", ["item_id"], name: "index_total_indicator_types_on_item_id", using: :btree
+
   create_table "total_indicators", force: :cascade do |t|
     t.integer  "indicator_metric_id"
     t.integer  "indicator_group_id"
@@ -379,6 +391,7 @@ ActiveRecord::Schema.define(version: 20161119160711) do
   add_foreign_key "summary_types", "items"
   add_foreign_key "tasks", "items"
   add_foreign_key "tasks", "sub_processes"
+  add_foreign_key "total_indicator_types", "items"
   add_foreign_key "total_indicators", "indicator_groups"
   add_foreign_key "total_indicators", "indicator_metrics"
   add_foreign_key "total_indicators", "summary_types"

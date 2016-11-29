@@ -9,12 +9,12 @@
       <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>
-      <div class="small-4 columns">
+      <div class="small-12 medium-4 columns">
         <br>
         <%= submit_tag("Actualizar indicadores", class: "button hollow large") %>
       </div>
     <% else %>
-        <div class="small-4 columns">  </div>
+        <div class="small-12 medium-4 columns">  </div>
     <% end %>
     <div class="columns medium-4 small-12">
       <%= render 'staff', of: "Unit", process: @unit, unit: @unit, period: @period %>
@@ -46,7 +46,7 @@
              <tr>
              <td></td>
             <% end %>
-
+              <%= hidden_field_tag(:indicator_metric_id, indicator_metric.id) %>
               <td id="<%= "source_col_#{source_id(indicator)}" %>"> <%= sources_description( indicator.id, indicator.sources) %></td>
               <td id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
               <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
@@ -74,7 +74,7 @@
   <% end %>
 
   <% if @period.open_entry? %>
-    <div class="small-4 columns end">
+    <div class="small-12 medium-4 columns end">
       <br>
       <%= submit_tag("Actualizar indicadores", class: "button hollow large") %>
     </div>

@@ -7,6 +7,11 @@
 
 // 01. Welcome
 // - - - - - - - - - - - - - - - - - - - - - - - - -
+
+.note{
+  font-size: $small-font-size;
+  font-style: italic;
+}
 .welcome {
   background: #F2F3F4;
   text-align: center;
