@@ -98,8 +98,8 @@ class Manager::IndicatorsController < Manager::BaseController
 
     def update_total_indicators_summary_types
       @summary_types.each do |summary_type|
-        if params[summary_type.item.description].nil?
-          summary_type.total_indicators.find_by_indicator_metric_id(params[:indicator_metric]).delete_all
+        if params[summary_type.item.description].nil? || params[summary_type.item.description].empty?
+          summary_type.total_indicators.find_by_indicator_metric_id(params[:indicator_metric_id]).delete
         else
           # Si es númerico es el id #new
           if params[summary_type.item.description.to_sym].to_i.to_s == params[summary_type.item.description.to_sym]

@@ -41,7 +41,7 @@
 
   <div class="small-8 columns" >
     <label for="source_description"><%= t("manager.indicators.form.source")%></label>
-    <input list="source_description" type="text" name="source_desc"
+    <input list="source_description" type="text" name="source_desc" required
            value="<%= @indicator.indicator_sources.take.source.item.description if !@indicator.id.nil? && !@indicator.indicator_sources.take.nil? %>"
            onclick="this.value=''">
     <datalist id="source_description"%>" >
