@@ -67,13 +67,6 @@ es:
       firefox: Firefox
       ie: Hemos detectado que estás navegando desde Internet Explorer. Para una mejor experiencia te recomendamos utilizar %{chrome} o %{firefox}.
       ie_title: Esta web no está optimizada para tu navegador
-  manager_helper:
-    summary_type_selected:
-      E: Entrada
-      S: Salida
-      U: Único
-      X: "Acumula (blanco)"
-      -: No acumula
   process_summary:
     no_indicators: No se han incluido indicadores para el resumen de este proceso
   shared:

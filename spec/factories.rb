@@ -86,7 +86,8 @@ FactoryGirl.define do
       item_type 'metric'
       sequence(:description) {|n|  "Metric #{n}"}
     end
-    trait :metric do
+
+    trait :source do
       item_type 'source'
       sequence(:description) {|n|  "Source #{n}"}
     end
