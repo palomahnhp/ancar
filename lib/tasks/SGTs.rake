@@ -22,7 +22,7 @@ namespace :SGT do
       if row.idx == 0
         columns_assignation(row)
       else
-        process_row(row, row.idx)
+        process_row(row)
       end
     end
     puts "Finalizada importación de datos de SGT."
@@ -30,7 +30,7 @@ namespace :SGT do
 
   private
 
-  def process_row(row, idx)
+  def process_row(row)
     # unit & organization
     unit_id = row[@columns["ncodUni"]-1]
     unit_order= 1

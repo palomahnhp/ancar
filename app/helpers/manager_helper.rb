@@ -65,11 +65,11 @@ module ManagerHelper
     summary_type = @summary_types.find_by_item_id(item_summary_type_id)
     ti = summary_type.total_indicators.find_by_indicator_metric_id(indicator_metric_id)
     if ti.nil?
-      t(".-")
+      in_out = "-"
     elsif
       in_out = ti.in_out.nil? ? 'A' : ti.in_out
-      t(".#{in_out}")
     end
+    t("manager.indicators.total_indicator_type.#{in_out}")
   end
 
   private

@@ -48,8 +48,8 @@ namespace :initialize do
 
   task total_indicator_types: :environment do
     it = Item.create!(item_type: "total_indicator_type", description: "No acumula", updated_by: "initialize")
-    TotalIndicatorType.create(item_id: it.id, acronym: 'N',order: 1, updated_at: 'initialize', active: TRUE)
-    it = Item.create!(item_type: "total_indicator_type", description: "Acumula (blanco)", updated_by: "initialize")
+    TotalIndicatorType.create(item_id: it.id, acronym: '-',order: 1, updated_at: 'initialize', active: TRUE)
+    it = Item.create!(item_type: "total_indicator_type", description: "Acumula", updated_by: "initialize")
     TotalIndicatorType.create(item_id: it.id, acronym: 'A',order: 5, updated_at: 'initialize', active: TRUE)
     it = Item.create!(item_type: "total_indicator_type", description: "Entrada", updated_by: "initialize")
     TotalIndicatorType.create(item_id: it.id, acronym: 'E',order: 2, updated_at: 'initialize', active: TRUE)

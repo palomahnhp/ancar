@@ -10,7 +10,7 @@ feature "Mantenimiento de Indicadores" do
       ind2 = create(:indicator)
       visit manager_periods_path
       click_link "Configurar Periodos"
-
+      pending("pendiente de finalizar")
       page.find("#index_#{ind1.task.sub_process.main_process.period.id}").click
       page.find("#index_#{ind1.task.sub_process.main_process.id}").click
 

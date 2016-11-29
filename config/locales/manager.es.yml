@@ -42,16 +42,16 @@ es:
       show:
         title: Indicador
       item_list:
-        in_out:
-          alt_text:
-            E: Totalizador de entrada
-            S: Totalizador de salida
-            A: Totalizador sin marca de entrada o salida
-            -: No totaliza
         indicator: indicadores
         metric: Métrica
         source: Fuente
         totals: Totalizadores
+      total_indicator_type:
+        E: Entrada
+        S: Salida
+        U: Único
+        A: "Acumula (blanco)"
+        -: No acumula
     menu:
       periods: Configurar Periodos
     main_processes:

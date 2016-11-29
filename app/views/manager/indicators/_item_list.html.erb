@@ -49,7 +49,7 @@
         <% end %>
         <% @item_summary_types.each do |item_summary_type|%>
           <% mark = total_check(im, item_summary_type.id) %>
-          <td class="text-center" title="<%= "#{t(".in_out.alt_text.#{mark}")}"%>"><%= mark%></td>
+          <td class="text-center" title="<%= "#{t("manager.indicators.total_indicator_type.#{mark}")}"%>"><%= mark%></td>
         <% end %>
         <td>
           <% if params[:modifiable] == 'true'%>
