@@ -30,6 +30,7 @@ class Manager::MainProcessesController < Manager::BaseController
     @main_process = MainProcess.find(params[:id])
     @item = @main_process.item
     @period = @main_process.period
+    @organization_type = @period.organization_type
     if params[:commit]
       @main_process.item_id = desc_to_item_id(params[:item_desc], MainProcess.name.underscore)
       @main_process.order = params[:order]
