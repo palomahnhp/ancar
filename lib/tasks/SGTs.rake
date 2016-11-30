@@ -57,7 +57,6 @@ namespace :SGT do
       @unit.save
     end
 
-
     # main_process
     process_order = row[@columns["Bloque_orden"]-1]
     process_description = row[@columns["Bloque_descripcion"]-1]
@@ -125,6 +124,7 @@ namespace :SGT do
     entry_indicator.amount = amount
     entry_indicator.period_id = @period.id
     entry_indicator.updated_by = @updated_by
+    puts
     entry_indicator.save
     OfficialGroup.all.each.with_index do |og, index|
       ae = AssignedEmployee.find_or_create_by(official_group_id: og.id,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127180917) do
+ActiveRecord::Schema.define(version: 20161130114410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 20161127180917) do
     t.integer  "indicator_metric_id"
     t.integer  "indicator_source_id"
     t.text     "specifications"
-    t.integer  "amount"
+    t.decimal  "amount",              precision: 15, scale: 2
     t.string   "updated_by"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "period_id"
   end
 
