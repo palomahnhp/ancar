@@ -18,6 +18,7 @@ class Manager::PeriodsController < Manager::BaseController
 
   def create
     @period = Period.new(period_params)
+    @period.updated_by = current_user.login
     if @period.save
       if params[:period][:id].empty?
         msg = t("manager.periods.create.success.no_processes_copy")
@@ -38,6 +39,7 @@ class Manager::PeriodsController < Manager::BaseController
 
   def update
     @period.assign_attributes(period_params)
+    @period.updated_by = current_user.login
     if @period.update(period_params)
       redirect_to manager_periods_path, notice: t("manager.periods.update.success")
     else

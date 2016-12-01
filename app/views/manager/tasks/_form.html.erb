@@ -8,7 +8,7 @@
 
   <div class="small-8 columns" >
     <label for="item_description"><%= t("manager.tasks.form.description")%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%= @task.item.description if !@task.id.nil? %>" placeholder="<%=t("manager.tasks.form.description")%>" onclick="this.value=''">
+    <input list="item_description" type="text" name="item_desc" value="<%= @task.item.description if !@task.id.nil? %>" placeholder="<%=t("manager.tasks.form.description")%>" ">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
         <% if @task.item_id == item[1] %>

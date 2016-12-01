@@ -8,7 +8,7 @@
       <div div class="small-6 medium-2 columns end">
         <label for="item_summary_type_description"><%= item_summary_type.description %></label>
         <input list="item_summary_type_description" type="text"
-         name="<%=item_summary_type.description%>" value="<%= summary_type_selected(params[:indicator_metric], item_summary_type.id) %>"  onclick="this.value=''">
+         name="<%=item_summary_type.description%>" value="<%= summary_type_selected(params[:indicator_metric], item_summary_type.id) %>"  ">
         <datalist id="item_summary_type_description"%>">
           <% @total_indicator_types.each do |in_out| %>
             <% if summary_type_selected(@indicator, item_summary_type.id) == in_out[1] %>
