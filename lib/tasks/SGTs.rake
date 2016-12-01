@@ -52,11 +52,9 @@ namespace :SGT do
                              description_sap: unit_description,
                              unit_type_id: @unit_type.id, order: unit_order)
     if @unit.changed?
-
       @unit.updated_by =   @updated_by
       @unit.save
     end
-
 
     # main_process
     process_order = row[@columns["Bloque_orden"]-1]
@@ -69,7 +67,6 @@ namespace :SGT do
     proceso.updated_by = @updated_by
     proceso.save
 
-
     # sub_process
     subprocess_order = row[@columns["Proceso_orden"]-1]
     subprocess_description = row[@columns["Proceso_descripcion"]-1]
@@ -80,7 +77,6 @@ namespace :SGT do
     subproceso.order = subprocess_order.to_s.rjust(2, '0')
     subproceso.updated_by = @updated_by
     subproceso.save
-
 
     # indicator
     indicator_order = 0
@@ -93,7 +89,6 @@ namespace :SGT do
 
     indicator = task.indicators.find_or_create_by(item_id: Item.find_or_create_by(
       item_type: "indicator", description: indicator_item ).id, description: indicador)
-
 
     indicator.updated_by = @updated_by
     indicator.order = indicator_order.to_s.rjust(2, '0')

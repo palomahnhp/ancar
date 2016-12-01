@@ -9,7 +9,7 @@
     <%= f.hidden_field :eliminable, value: params[:eliminable]%>
 
     <label for="item_description"><%= t("manager.main_processes.form.description")%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%=@main_process.item.description  if !@main_process.id.nil? %>" onclick="this.value=''">
+    <input list="item_description" type="text" name="item_desc" value="<%=@main_process.item.description  if !@main_process.id.nil? %>" ">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
         <% if @main_process.item_id == item[1] %>

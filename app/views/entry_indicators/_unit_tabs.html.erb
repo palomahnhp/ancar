@@ -2,8 +2,6 @@
   <div class="length-12 small-12 columns">
     <ul>
       <% @units.each do |unit| %>
-        <% puts unit.id  %>
-        <% puts unit.description_sap %>
         <li>
           <%= link_to unit.description_sap,
                   current_path_with_query_params(unit_id: unit.id) %>

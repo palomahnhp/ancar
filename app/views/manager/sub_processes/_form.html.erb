@@ -7,7 +7,7 @@
   <%= f.hidden_field :eliminable, value: params[:eliminable]%>
   <div class="small-8 columns" >
     <label for="unit_type_description"><%= t("manager.sub_processes.form.unit_type")%></label>
-    <input list="unit_type_description" type="text" name="unit_type_desc" value="<%=@sub_process.unit_type.description if !@sub_process.id.nil? %>"  onclick="this.value=''">
+    <input list="unit_type_description" type="text" name="unit_type_desc" value="<%=@sub_process.unit_type.description if !@sub_process.id.nil? %>"  ">
     <datalist id="unit_type_description"%>">
       <% @unit_types.each do |unit_type| %>
         <% if @sub_process.unit_type_id == unit_type[1] %>
@@ -21,7 +21,7 @@
 
   <div class="small-8 columns" >
    <label for="item_description"><%= t("manager.sub_processes.form.description")%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%=@sub_process.item.description  if !@sub_process.id.nil? %>"  onclick="this.value=''">
+    <input list="item_description" type="text" name="item_desc" value="<%=@sub_process.item.description  if !@sub_process.id.nil? %>"  ">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
         <% if @sub_process.item_id == item[1] %>
