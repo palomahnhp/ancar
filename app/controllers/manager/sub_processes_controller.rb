@@ -1,7 +1,5 @@
 class Manager::SubProcessesController < Manager::BaseController
 
-  before_action :unit_types, only: [:edit, :new, :create, :update]
-
   def index
     if params[:commit] == t("manager.sub_processes.index.submit")
       if params[:sub_processes].nil?
@@ -24,9 +22,7 @@ class Manager::SubProcessesController < Manager::BaseController
     @items = items_map(SubProcess.name.underscore)
     @main_process = MainProcess.find(params[:main_process_id])
     @period = @main_process.period
-    @organization_type = @period.organization_type
-    @unit_types  = @organization_type.unit_types.order(:order)
-
+    initialize_vars
     @sub_process = SubProcess.new
   end
 
@@ -36,25 +32,25 @@ class Manager::SubProcessesController < Manager::BaseController
 
     @main_process = @sub_process.main_process
     @period       = @sub_process.main_process.period
+    initialize_vars
     @unit_type    = @sub_process.unit_type
-    @organization_type = @period.organization_type
     @items = items_map(SubProcess.name.underscore)
-    @unit_types  = @organization_type.unit_types.order(:order)
-
   end
 
   def create
     @items = items_map(SubProcess.name.underscore)
     @main_process = MainProcess.find(sub_process_params[:main_process_id])
     @period = @main_process.period
-    @organization_type = @period.organization_type
+    initialize_vars
     @sub_process = SubProcess.new(sub_process_params)
     @sub_process.item_id = desc_to_item_id(params[:item_desc], SubProcess.name.underscore)
-
+    @unit_types.find_by_description(params[:unit_type_desc]).description
     @sub_process.unit_type_id = desc_to_unit_type_id(params[:unit_type_desc])
     @sub_process.order = @sub_process.order.to_s.rjust(2, '0')  # => '05'
-
+    @sub_process.updated_by = current_user.login
+    it_task = Item.find_or_create_by(item_type: "task", description: "Tarea")
     if @sub_process.save
+      @sub_process.tasks.find_or_create_by(item_id: it_task.id)
       redirect_to_index(t("manager.sub_processes.update.success"))
     else
       render :new
@@ -70,8 +66,9 @@ class Manager::SubProcessesController < Manager::BaseController
 
       @main_process = @sub_process.main_process
       @period = @main_process.period
+      initialize_vars
       @sub_process.order = @sub_process.order.to_s.rjust(2, '0')  # => '05'
-
+      @sub_process.updated_by = current_user.login
       if @sub_process.save
         redirect_to_index(t("manager.sub_processes.update.success"))
       else
@@ -104,5 +101,11 @@ class Manager::SubProcessesController < Manager::BaseController
        period_id: @period.id, organization_type_id: @period.organization_type_id,
        modifiable: @period.modifiable?, eliminable: @period.eliminable?),
        notice: msg
+    end
+
+    def initialize_vars
+      @organization_type = @period.organization_type
+      @unit_types  = @organization_type.unit_types.order(:order)
+
     end
 end

@@ -35,7 +35,7 @@ module ManagerActions
     end
 
     def desc_to_unit_type_id(description)
-      @unit_types.to_h[description]
+      @unit_types.where(description: description).take.id
     end
 
     def select_option_descriptions(class_name)
