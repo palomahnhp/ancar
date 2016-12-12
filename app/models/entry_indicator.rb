@@ -1,4 +1,5 @@
 class EntryIndicator < ActiveRecord::Base
+  resourcify
   has_many :entry_indicator_sources
 
   has_many :metrics, through: :indicator_metrics

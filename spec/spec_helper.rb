@@ -1,9 +1,9 @@
 require 'factory_girl_rails'
 require 'database_cleaner'
 require 'email_spec'
-require 'devise'
+#require 'devise'
 
-Dir["./spec/helpers/*.rb"].sort.each { |f| require f }
+Dir["./spec/support/*.rb"].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false

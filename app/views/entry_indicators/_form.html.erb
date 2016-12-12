@@ -1,4 +1,4 @@
-<div class="unit text-center small-12 columns">
+<div id="unit" class="unit text-center small-12 columns">
   <h3>
     <%= @unit.description_sap %>
   </h3>
@@ -26,7 +26,6 @@
       <div class="main_process small-12 columns">
         <h5><%= description(0, main_process.item_id) %></h5>
       </div>
-
       <% sub_processes_unit(main_process, @unit).each do |sub_process| %>
         <table class="indicator" >
           <caption class="sub_process"><%= description(0, sub_process.item_id) %></caption>

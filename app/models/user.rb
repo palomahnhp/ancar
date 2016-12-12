@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   #has_many :organizations, through: :user_organizations
   has_one :administrator
   has_one :valuator
@@ -11,7 +12,7 @@ class User < ActiveRecord::Base
   validates :uweb_id, uniqueness: true
   validates :pernr, uniqueness: true
 
-  enum role: [:user, :validator, :manager, :admin]
+#  enum role: [:user, :validator, :manager, :admin]
 
   def uweb_update!(uweb_data)
     if login == uweb_data[:login]
@@ -31,11 +32,16 @@ class User < ActiveRecord::Base
   end
 
   def full_name
+    name = name.nil? ? "" : name
+    surname = surname.nil? ? "" : surname
+    second_surname = second_surname.nil? ? "" : second_surname
+
     name + " " + surname + " " + second_surname
   end
 
-  def has_organizations?
-    auth_organizations.present?
+  def has_organizations?(organization_type_id = 0)
+    a = auth_organizations(organization_type_id)
+    a.present?
   end
 
   def organizations_unique?
@@ -46,21 +52,31 @@ class User < ActiveRecord::Base
     auth_organization_types.present?
   end
 
-  def auth_organizations(organization_type_id: 0)
+  def auth_organizations(organization_type_id = 0)
     if organization_type_id != 0
-      @organizations ||= Organization.where(organization_type_id: organization_type_id)
-    elsif has_organization_types?
-      @organizations ||= Organization.where(organization_type_id: @organization_types.ids)
+      # global roles
+      if self.has_any_role? :admin, :manager, :visitor
+        @organizations ||= Organization.where(organization_type_id: organization_type_id).distinct
+      # scoped roles
+      else
+         organization_type_roles = OrganizationType.applied_roles
+         user_roles = self.roles
+         if (organization_type_roles.ids).map{ |id| (user_roles.ids).include? id}
+           @organizations ||= Organization.where(organization_type_id: organization_type_id)
+         end
+      end
     else
-      @organizations ||= ( self.admin?) ? Organization.all : organizations
+      @organizations ||= Organization.with_roles([:unit_user, :admin, :manager, :visitor], self).distinct
     end
   end
 
   def auth_organization_types
-    if self.admin?
+    # global roles
+    if self.has_any_role? :admin, :manager, :visitor
       @organization_types ||= OrganizationType.all
-    elsif self.manager?
-      @organization_types ||= OrganizationType.where(id: ManagerOrganizationType.where(user_id: id).pluck(:organization_type_id))
+    # scoped roles
+    else
+     @organization_types ||= OrganizationType.with_roles([:admin, :manager, :visitor], self)
     end
   end
 end

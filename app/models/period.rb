@@ -1,4 +1,5 @@
 class Period < ActiveRecord::Base
+  resourcify
   has_many :main_processes, :dependent => :destroy
   has_many :assigned_employees, :dependent => :destroy
 

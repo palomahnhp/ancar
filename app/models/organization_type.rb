@@ -1,4 +1,5 @@
 class OrganizationType < ActiveRecord::Base
+  resourcify
   has_many :organizations
   has_many :periods
   has_many :unit_types

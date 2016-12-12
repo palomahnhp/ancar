@@ -18,4 +18,8 @@ module SpecTestHelper
   def current_user
     User.find(request.session[:user_id])
   end
+
+  def create_process
+    debugger
+  end
 end

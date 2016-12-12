@@ -1,18 +1,20 @@
 class EntryIndicatorsController < ApplicationController
   before_action :require_user, only: [:index, :show]
+  load_and_authorize_resource
 
   def index
     if params[:organization_id] && params[:period_id]
       initialize_instance_vars
       if @main_processes.empty?
         render :index, notice: t(".no_main_processes")
-      elsif period_is_modifiable?
-        if params[:unit_id]
-          unit = Unit.find(params[:unit_id])
-        else
-          unit = Unit.where(organization_id: params[:organization_id]).take
-        end
-        redirect_to edit_entry_indicator_path(1, unit_id: unit.id, period_id: params[:period_id],
+      # else # if period_is_modifiable?
+      #   if params[:unit_id]
+      #     unit = Unit.find(params[:unit_id])
+      #   else
+      #     unit = Unit.where(organization_id: params[:organization_id]).take
+      else
+        entry_indicator = EntryIndicator.first.nil? ? EntryIndicator.create(unit_id:@unit.id) : EntryIndicator.first
+        redirect_to edit_entry_indicator_path(entry_indicator.id, unit_id: @unit.id, period_id: params[:period_id],
             organization_id: params[:organization_id])
       end
     end
@@ -57,7 +59,7 @@ class EntryIndicatorsController < ApplicationController
     end
 
     def periods_select_options
-      @periods ||= Period.where(organization_type_id: @organization_type_id).order(:started_at)
+      @periods ||= Period.where(organization_type_id: @organization_type_id).order(started_at: :desc)
       @periods.collect { |v| [ v.description, v.id ] }
     end
 

@@ -1,25 +1,25 @@
-<!-- Esto de comprobar el login pero hasta que no este funcionando devise no se ponen los ifs recuperarlos luego de consul -->
 <% if current_user %>
-  <% if current_user.admin? %>
+
+  <% if current_user.has_role? :admin %>
     <li>
       <%= link_to t("layouts.header.administracion"), admin_root_path %>
     </li>
   <% end %>
 
-  <% if current_user.manager? || current_user.admin? %>
+  <% if current_user.has_role? :manager %>
     <li>
       <%= link_to t("layouts.header.gestion"), manager_root_path %>
     </li>
   <% end %>
 
-  <!-- % if (current_user.validator? || current_user.admin?) %>
+  <% if current_user.has_role? :validator %>
     <li>
       <%= link_to t("layouts.header.validacion"), root_path %>
     </li>
-  <--% end %> -->
+  <% end %>
 
   <li>
-    <%= link_to t("application.close"), session_path, method: :DELETE%>
+    <%= link_to t("application.close"), session_path, method: :DELETE %>
   </li>
 
 <% end %>

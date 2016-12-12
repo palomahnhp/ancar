@@ -1,4 +1,5 @@
 class Indicator < ActiveRecord::Base
+  resourcify
   has_many :indicator_sources, :dependent => :destroy
   has_many :indicator_metrics, :dependent => :destroy
 

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  after_create :assign_default_role
+
   def create
     @user = User.new(user_params)
     user = params[:user]
@@ -22,6 +24,10 @@ class UsersController < ApplicationController
     else
      redirect_to root_url notice: 'error creando usuario'
     end
+  end
+
+  def assign_default_role
+    self.add_role(:user) if self.roles.blank?
   end
 
   private

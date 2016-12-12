@@ -1,4 +1,5 @@
 class AssignedEmployee < ActiveRecord::Base
+  resourcify
   belongs_to :staff_of, polymorphic: true
   belongs_to :official_group
   belongs_to :period

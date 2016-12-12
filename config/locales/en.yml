@@ -92,6 +92,7 @@ en:
     index:
       title: Hoja de identificación de procesos
       select: Selección de unidad a tratar
+      no_auth_units: No tienes unidades autorizadas
   welcome:
     title: Organización del trabajo en las unidades municipales
     sub_title: Estudio de cargas de trabajo

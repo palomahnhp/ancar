@@ -5,7 +5,6 @@ gem 'rails', '4.2.7.1'
 
 gem 'pg' # Use postgresqlas the database for Active Record
 gem 'ancestry' # Organise ActiveRecord model into a tree structure
-gem 'paranoia' # Don`t destroy Active Record object but just "hid" the record.
 gem 'pg_search'  # scopes that take advantage of PostgreSQL's full text search
 
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
@@ -14,8 +13,6 @@ gem 'foundation_rails_helper'
 
 gem 'uglifier', '>= 1.3.0' # Compressor for JavaScript assets
 gem 'coffee-rails', '~> 4.1.0' # CoffeeScript for .coffee assets and views
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 gem 'jquery-ui-rails'
 
 gem 'jquery-rails' # Use jquery as the JavaScript library
@@ -26,38 +23,29 @@ gem 'initialjs-rails', '0.2.0.1'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'devise', '~> 3.5.6' # flexible authentication solution for Rails
-gem 'devise-async'
-# Use ActiveModel has_secure_password
-#gem 'bcrypt', '~> 3.1.10'
-#gem 'omniauth'
-#gem 'omniauth-twitter'
-#gem 'omniauth-facebook', '~> 3.0.0'
-#gem 'omniauth-google-oauth2', '~> 0.4.0'
+gem 'devise'
 # Roles library without any authorization enforcement supporting scope on resource objects (instance or class).
-# gem 'rolify', '~> 5.1'
+gem 'rolify', '~> 5.1'
 gem 'faraday', '~> 0.9.2'
 gem 'cancancan' # simple authorization solution for Rails which is decoupled from user roles.
+
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 gem 'kaminari' # A Scope & Engine based paginator
 
 gem 'responders' # A set of responders modules to dry up your Rails 4.2+ app.
-gem 'ckeditor', '~> 4.1.5' # WYSIWYG editor to be used inside web pages
 
 # gem 'rinku', require: 'rails_rinku' # auto-link rails, sanityze html
 gem 'savon' # SOAP client
 gem 'dalli' # mem cached client
 
 gem 'rollbar', '~> 2.8.0' # exception tracking for ruby
+
 # ActiveRecord backend for Delayed::Job,
 gem 'delayed_job_active_record', '~> 4.1.0'
 gem 'daemons' # wrap existing ruby scripts to be run as a daemon.
 
 gem 'whenever', require: false # Clean ruby syntax for writing and deploying cron jobs (scheduled jobs).
 
-# Visit tracking for Rails, usaremos piwik
-# gem 'ahoy_matey', '~> 1.2.1'
 gem 'groupdate'   # group temporary data
 gem 'tolk' # Web interface for translations
 
@@ -68,14 +56,12 @@ gem 'redcarpet' # extensible Markdown to (X)HTML parser
 # Use Unicorn as the app server
 gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # to read and write Spreadsheet Documents. As of version 0.6.0, only Microsoft Excel compatible spreadsheets are supported
 gem 'spreadsheet', '~> 1.1', '>= 1.1.2'
 
 # Create beautiful Javascript charts with one line of Ruby
 gem "chartkick"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -111,9 +97,6 @@ group :development do
   gem 'email_spec'
   gem 'seed_dump'
   gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'
-end
-
-group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end

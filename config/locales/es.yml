@@ -88,10 +88,17 @@ es:
     process_summary: Resumen por proceso
     subprocess_summary: Resumen por subproceso
     instructions: Instrucciones
+  unauthorized:
+    manage:
+      all: "Acción no autorizada."
+      user: "Not allowed to manage other user accounts."
+    update:
+      project: "Actualización no permitida."
   user_access:
     index:
       title: Hoja de identificación de procesos
       select: Selección de unidad a tratar
+      no_auth_units: No tienes unidades autorizadas
   welcome:
     title: Organización del trabajo en las unidades municipales
     sub_title: Estudio de cargas de trabajo

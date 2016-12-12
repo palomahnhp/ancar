@@ -1,8 +1,60 @@
 FactoryGirl.define do
+  factory :role do
+
+  end
+
+  factory :user do
+    sequence(:login) { |n| "usu00#{n}" }
+    sequence(:name) { |n| "Nombre#{n}" }
+    sequence(:surname)  { |n| "Apellido_1_#{n}" }
+    sequence(:second_surname) { |n| "Apellido_2_#{n}" }
+    sequence(:pernr) { |n| }
+    sequence(:uweb_id)  { |n| }
+
+    trait :with_one_organization do
+      after :create do |user|
+        organization = Organization.find_by_organization_type_id(1)
+        user.add_role(:unit_user, organization)
+      end
+    end
+
+    trait :with_two_organizations do
+      after :create do |user|
+        organization = Organization.where(organization_type_id: 1).first
+        user.add_role(:unit_user, organization)
+        organization = Organization.where(organization_type_id: 1).last
+        user.add_role(:unit_user, organization)
+      end
+    end
+
+    factory :admin do
+        sequence(:login) { |n| "adm00#{n}" }
+        after :create do |user|
+          user.add_role(:admin)
+        end
+    end
+
+    factory :manager_global do
+        sequence(:login) { |n| "man00#{n}" }
+        after(:create) {|user| user.add_role(:manager)}
+    end
+
+    factory :manager_with_all_organization_types do
+        sequence(:login) { |n| "man00#{n}" }
+        after(:create) {|user| user.add_role(:manager, OrganizationType)}
+    end
+
+    factory :manager_with_organization_type do
+        sequence(:login) { |n| "man00#{n}" }
+        organization_type = OrganizationType.first
+        after(:create) {|user| user.add_role(:manager, organization_type)}
+    end
+
+  end
 
   factory :period do
     association :organization_type, factory: :organization_type
-    sequence(:description) {|n|  "Periodo año #{n} actual"}
+    description "Periodo"
     started_at  '20150101'
     ended_at    '20151231'
     opened_at   '20160101'
@@ -10,10 +62,12 @@ FactoryGirl.define do
 
     trait :open do
       closed_at  Time.now + 1.day
+      description "Periodo abierto"
     end
 
     trait :close do
       closed_at  Time.now - 1.day
+      description "Periodo cerrado"
     end
   end
 
@@ -112,19 +166,5 @@ FactoryGirl.define do
     sequence(:sap_id, 10200000)  { |n| "#{n}" }
   end
 
-  factory :user do
-    sequence(:login) { |n| "usu00#{n}" }
-    sequence(:name) { |n| "Nombre#{n}" }
-    sequence(:surname)  { |n| "Apellido_1_#{n}" }
-    sequence(:second_surname) { |n| "Apellido_2_#{n}" }
-    sequence(:pernr) { |n| }
 
-    trait :admin do
-      role 'admin'
-    end
-
-    trait :manager do
-      role 'manager'
-    end
-  end
 end
