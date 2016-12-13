@@ -31,7 +31,6 @@ feature "User access" do
     end
 
     it 'has role with one OrganizationType' do
-      debugger
       manager = create(:manager_with_organization_type)
       login_as_authenticated_user(manager)
 

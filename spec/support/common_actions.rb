@@ -34,20 +34,19 @@ module CommonActions
     /\d errors? prevented this #{resource_model} from being saved:/
   end
 
-  def add_staff(staff_of_type, staff_of_id, unit_id, grupoA1, grupoA2, grupoC1, grupoC2 )
-    debugger
+  def add_staff(staff_of_type, staff_of_id, unit_id, period, grupoA1, grupoA2, grupoC1, grupoC2 )
     group = OfficialGroup.find_by_name("A1")
     AssignedEmployee.create!(staff_of_type: staff_of_type, staff_of_id: staff_of_id,
-          official_group_id: group.id, unit_id: unit_id, quantity: grupoA1 )
+          official_group_id: group.id, unit_id: unit_id, quantity: grupoA1, period_id: period.id )
     group = OfficialGroup.find_by_name("A2")
     AssignedEmployee.create!(staff_of_type: staff_of_type, staff_of_id: staff_of_id,
-          official_group_id: group.id, unit_id: unit_id, quantity: grupoA2 )
+          official_group_id: group.id, unit_id: unit_id, quantity: grupoA2, period_id: period.id )
     group = OfficialGroup.find_by_name("C1")
     AssignedEmployee.create!(staff_of_type: staff_of_type, staff_of_id: staff_of_id,
-          official_group_id: group.id, unit_id: unit_id, quantity: grupoC1 )
+          official_group_id: group.id, unit_id: unit_id, quantity: grupoC1, period_id: period.id )
     group = OfficialGroup.find_by_name("C2")
     AssignedEmployee.create!(staff_of_type: staff_of_type, staff_of_id: staff_of_id,
-          official_group_id: group.id, unit_id: unit_id, quantity: grupoC2 )
+          official_group_id: group.id, unit_id: unit_id, quantity: grupoC2, period_id: period.id )
 #    expect(find('.top-bar')).to have_content 'My account'
   end
 
@@ -82,7 +81,7 @@ module CommonActions
 
   def create_units(organization, organization_type_id)
     sap_id = 10200100
-    UnitType.where(organization_type_id: organization_type_id).each_with_index do |unit_type, index|
+    UnitType.where(organization_type_id: organization_type_id).order(:id).each_with_index do |unit_type, index|
       Unit.create!(unit_type_id: unit_type.id, organization_id: organization.id,
                    description_sap: unit_type.description, sap_id: sap_id + index, order: index + 1)
     end

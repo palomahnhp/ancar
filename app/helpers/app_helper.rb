@@ -24,7 +24,6 @@ module AppHelper
   end
 
   def get_staff(type, proc, group, unit, period)
-    debugger
     ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_group_id: group.id, unit_id: unit.id, period_id: period.id).first
     return ae.nil? ? nil : ae.quantity
   end

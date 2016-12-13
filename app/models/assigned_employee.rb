@@ -4,7 +4,7 @@ class AssignedEmployee < ActiveRecord::Base
   belongs_to :official_group
   belongs_to :period
 
-  validates_inclusion_of :staff_of_type, in: ["Unit", "SubProcess"]
+  validates_inclusion_of :staff_of_type, in: ["Unit", "SubProcess", "Indicator"]
 
   def copy(period_destino_id, current_user_login)
     AssignedEmployee.create(self.attributes.merge(id: nil, period_id: period_destino_id, updated_at: current_user_login))
