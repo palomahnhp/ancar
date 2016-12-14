@@ -13,6 +13,8 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/datepicker
+//= require jquery-ui/datepicker-es
 //= require foundation
 //= require turbolinks
 //= require initial

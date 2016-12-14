@@ -13,7 +13,7 @@ gem 'foundation_rails_helper'
 
 gem 'uglifier', '>= 1.3.0' # Compressor for JavaScript assets
 gem 'coffee-rails', '~> 4.1.0' # CoffeeScript for .coffee assets and views
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 5.0'
 
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'turbolinks', '2.5.3' # Following links in your web application faster.
