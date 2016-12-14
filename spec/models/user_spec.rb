@@ -16,36 +16,21 @@ describe User do
   end
 
   describe "validator?" do
-    it "is false when the user is not a valuator" do
-      expect(subject.validator?).to be false
-    end
+    it "is false when the user is not a validator"
 
-    it "is true when the user is a validator" do
-      subject.role = 1
-      expect(subject.validator?).to be true
-    end
+    it "is true when the user is a validator"
   end
 
   describe "is_manager?" do
-    it "is false when the user is not a manager" do
-      expect(subject.manager?).to be false
-    end
+    it "is false when the user is not a manager"
 
-    it "is true when the user is a manager" do
-      subject.role = 2
-      expect(subject.manager?).to be true
-    end
+    it "is true when the user is a manager"
   end
 
   describe "administrator?" do
-    it "is false when the user is not an admin" do
-      expect(subject.admin?).to be false
-    end
+    it "is false when the user is not an admin"
 
-    it "is true when the user is an admin" do
-      subject.role = 3
-      expect(subject.admin?).to be true
-    end
+    it "is true when the user is an admin"
   end
 
 end
