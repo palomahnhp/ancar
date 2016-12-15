@@ -8,21 +8,21 @@
         <div class="small-12 medium-12 column">
           <td class="small-6 columns">
             <strong> <%= OrganizationType.find(period.organization_type_id).description %> : </strong>
-                     <%= period.description %></div>
+              <%= period.description %>
              <div><%= t("manager.periods.index.data_period") %>
                      de <%= period.started_at  %> a <%= period.ended_at %>
              </div>
-          </div>
-          <div> <%= t("manager.periods.index.data_collect") %>
+             <div> <%= t("manager.periods.index.data_collect") %>
                 de <strong> <%= period.opened_at %> </strong>
                  a <strong> <%= period.closed_at %> </strong>
-          </div>
+             </div>
           <% if period.open_entry? %>
             <h5><%= t("manager.periods.index.entry_opened") %></h5>
           <% elsif period.close_entry? %>
             <h5><%= t("manager.periods.index.entry_closed") %></h5>
           <% end %>
         </td>
+        </div>
         <td class="small-2 columns end">
           <%= link_to manager_main_processes_path(
                 commit: t("manager.main_processes.index.submit"),

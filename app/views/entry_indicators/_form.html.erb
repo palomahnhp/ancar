@@ -47,7 +47,7 @@
              <td></td>
             <% end %>
               <%= hidden_field_tag(:indicator_metric_id, indicator_metric.id) %>
-              <td id="<%= "source_col_#{source_id(indicator)}" %>"> <%= sources_description( indicator.id, indicator.sources) %></td>
+              <td id="<%= "source_col_#{source_id(indicator)}" %>"> <%= sources_description(indicator.sources) %></td>
               <td id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
               <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
                 <% amount_value = get_amount(indicator_metric, @unit) %>
@@ -58,9 +58,8 @@
                 <% end %>
               </td>
             <% if index != 0 %>
-            </tr>
+              </tr>
             <% end %>
-            </tr>
             <% end %>
           <% end %>
 

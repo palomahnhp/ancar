@@ -40,12 +40,12 @@
       <% spd.each do |d| %>
         <tr>
           <td><%= distrito(d.unit_id) %></td>
-          <td class="text-right"><%= number_with_delimiter(d.amount, delimiter: ".", separator: ",") %></td>
-          <td class="text-right"><%= number_with_delimiter(d.A1, delimiter: ".", separator: ",") %></td>
-          <td class="text-right"><%= number_with_delimiter(d.A2, delimiter: ".", separator: ",") %></td>
-          <td class="text-right"><%= number_with_delimiter(d.C1, delimiter: ".", separator: ",") %></td>
-          <td class="text-right"><%= number_with_delimiter(d.C2, delimiter: ".", separator: ",") %></td>
-          <td class="text-right"><%= number_with_delimiter(d.E, delimiter: ".", separator: ",") %></td>
+          <td class="text-right"><%= number_with_delimiter(d.amount, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.A1, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.A2, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.C1, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.C2, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.E, delimiter: '.', separator: ',') %></td>
         </tr>
       <% end %>
     </tbody>
@@ -65,30 +65,30 @@
   <tbody>
       <tr>
         <td><strong>TOTAL</strong></td>
-        <td class="text-right"><%= number_with_delimiter(stats('total', 'amount', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('total', 'A1', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('total', 'A2', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('total', 'C1', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('total', 'C2', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('total', 'E', spd), delimiter: ".", separator: ",") %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'amount', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'A1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'A2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'C1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'C2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'E', spd), delimiter: '.', separator: ',') %></td>
       </tr>
       <tr>
         <td><strong>MEDIA</strong></td>
-        <td class="text-right"><%= number_with_delimiter(stats('average', 'amount', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('average', 'A1', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('average', 'A2', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('average', 'C1', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('average', 'C2', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('average', 'E', spd), delimiter: ".", separator: ",") %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'amount', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'A1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'A2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'C1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'C2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'E', spd), delimiter: '.', separator: ',') %></td>
       </tr>
       <tr>
         <td><strong>MEDIANA</strong></td>
-        <td class="text-right"><%= number_with_delimiter(stats('median', 'amount', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('median', 'A1', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('median', 'A2', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('median', 'C1', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('median', 'C2', spd), delimiter: ".", separator: ",") %></td>
-        <td class="text-right"><%= number_with_delimiter(stats('median', 'E', spd), delimiter: ".", separator: ",") %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'amount', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'A1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'A2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'C1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'C2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'E', spd), delimiter: '.', separator: ',') %></td>
       </tr>
     <% end %>
   </tbody>

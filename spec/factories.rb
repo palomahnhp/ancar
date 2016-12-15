@@ -93,6 +93,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :entry_indicator do
+
+  end
+
   factory :unit_type do
     association :organization_type, factory: :organization_type
     sequence(:description) {|n|  "Tipo de unidad #{n}"}
@@ -117,7 +121,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "Nombre#{n}" }
     sequence(:surname)  { |n| "Apellido_1_#{n}" }
     sequence(:second_surname) { |n| "Apellido_2_#{n}" }
-    sequence(:pernr) { |n| }
+    sequence(:pernr) { |n| n}
 
     trait :admin do
       role 'admin'

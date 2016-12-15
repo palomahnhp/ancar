@@ -4,7 +4,7 @@
       <strong class="title"><%= mp.order %>  <%= mp.item.description %></strong>
     </div>
 
-    <% if @type == "SubProcess" %>
+    <% if @type == 'SubProcess' %>
       <ul class="accordion" data-multi-expand="true" data-allow-all-closed="true" data-accordion>
         <% mp.sub_processes.each do |sp| %>
           <li class="accordion-item small-12" data-accordion-item>
