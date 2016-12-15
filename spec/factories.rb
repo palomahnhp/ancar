@@ -147,6 +147,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :entry_indicator do
+
+  end
+
   factory :unit_type do
     association :organization_type, factory: :organization_type
     sequence(:description) {|n|  "Tipo de unidad #{n}"}
@@ -165,6 +169,5 @@ FactoryGirl.define do
     sequence(:short_description) { |n| "Org.#{n}" }
     sequence(:sap_id, 10200000)  { |n| "#{n}" }
   end
-
 
 end

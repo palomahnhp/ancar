@@ -4,12 +4,12 @@ describe User do
 
   subject { build(:user) }
 
-  it "is valid" do
+  it 'is valid' do
     user1 = create(:user, login: subject.login)
     expect(user1).to be_valid
   end
 
-  it "is unique" do
+  it 'is unique' do
     user1 = create(:user, login: subject.login)
     user2 = build(:user, login: subject.login)
     expect(user2).to be_invalid

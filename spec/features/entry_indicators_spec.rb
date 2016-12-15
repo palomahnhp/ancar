@@ -48,8 +48,8 @@ feature "Entry Indicators" do
       end
 
       within("table#staff_Unit") do
-        expect(page).to have_content("1.0", count: 2)
-        expect(page).to have_content("0.5", count: 2)
+        expect(page).to have_content("1,0", count: 2)
+        expect(page).to have_content("0,5", count: 2)
       end
     end
   end

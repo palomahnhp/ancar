@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    if (params["login"])
+    if params["login"]
       user = User.find_by_login(params["login"].downcase)
       if user
         session[:user_id]  = user.id

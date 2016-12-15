@@ -16,4 +16,9 @@ class EntryIndicator < ActiveRecord::Base
   validates_associated :indicator_source
 
   scope :period, ->(id) { where(period_id: id) }
+
+  def amount=(val)
+    val.sub!(',', '.') if val.is_a?(String)
+    self['amount'] = val
+  end
 end

@@ -4,7 +4,7 @@
         <%= f.label :organization_type_id,
             t("manager.main_processes.index.select_organization_type") %>
         <%= f.select :organization_type_id,
-                      options_for_select(organization_type_select_options),
+                      options_for_select(organization_type_options),
                       label: false,
                       id: 'js-organizations-select',
                       prompt: " ",
