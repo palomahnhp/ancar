@@ -1,4 +1,5 @@
 class EntryIndicatorsController < ApplicationController
+
   before_action :require_user, only: [:index, :show]
 
   def index
@@ -52,7 +53,7 @@ class EntryIndicatorsController < ApplicationController
       current_user.auth_organizations.collect { |v| [ v.description, v.id ] }
     end
 
-    def organization_types_select_options
+    def organization_types_options
       current_user.auth_organization_types.collect { |v| [ v.description, v.id ] }
     end
 
@@ -114,7 +115,6 @@ class EntryIndicatorsController < ApplicationController
           @all_entry_indicators_cumplimented = false
           EntryIndicator.where(unit_id: @unit.id, indicator_metric_id: indicator_metric_id).delete_all
         else
-          amount = amount.to_i
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
           ei.indicator_source_id = IndicatorSource.where(indicator_id: IndicatorMetric.find(indicator_metric_id).indicator.id).take.id
           ei.amount = amount

@@ -38,10 +38,10 @@ private
     @observaciones = ""
     puts ".... #{hoja.name}"
     reset_vars
-    if (hoja.name.include? "Hoja")
+    if hoja.name.include? "Hoja"
       return
     end
-    if (hoja.name.downcase.include? "ncidencia")
+    if hoja.name.downcase.include? "ncidencia"
       return
     end
 #    @hash_log[:distrito] = "\n#{hoja.name}"

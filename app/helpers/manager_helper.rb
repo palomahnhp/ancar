@@ -4,7 +4,7 @@ module ManagerHelper
     render "/#{namespace}/menu"
   end
 
-  def organization_type_select_options
+  def organization_type_options
     @organization_types.collect { |v| [ v.description, v.id ] }
   end
 
@@ -42,6 +42,7 @@ module ManagerHelper
   end
 
   def unit_type_description(id)
+    # noinspection RailsChecklist05
     @unit_type_description = UnitType.find(id).description
   end
 
