@@ -9,7 +9,8 @@
       <tr id="<%= dom_id(task) %>">
         <td style="width: 50%">
           <div class="admin-list small-12 medium14 column">
-            <%= Item.find(task.item_id).description %>
+            <%= # noinspection RailsChecklist05
+                Item.find(task.item_id).description %>
           </div>
         </td>
         <td>

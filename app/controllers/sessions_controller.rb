@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.login()
+    current_user.login
     destroy_session
     redirect_to root_path, notice: "Se ha cerrado la sesión: usuario desconectado"
   end
