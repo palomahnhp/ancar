@@ -170,15 +170,4 @@ FactoryGirl.define do
     sequence(:sap_id, 10200000)  { |n| "#{n}" }
   end
 
-  factory :user do
-    sequence(:login) { |n| "usu00#{n}" }
-    sequence(:name) { |n| "Nombre#{n}" }
-    sequence(:surname)  { |n| "Apellido_1_#{n}" }
-    sequence(:second_surname) { |n| "Apellido_2_#{n}" }
-    sequence(:pernr) { |n| n}
-
-    trait :admin do
-      role 'admin'
-    end
-
 end
