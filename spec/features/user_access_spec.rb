@@ -31,7 +31,10 @@ feature "User access" do
     end
 
     it 'has role with one OrganizationType' do
-      manager = create(:manager_with_organization_type)
+      manager = create(:manager)
+
+      manager.add_role(:manager, OrganizationType.first)
+
       login_as_authenticated_user(manager)
 
       click_link("Indicadores", :match => :first)

@@ -44,10 +44,8 @@ FactoryGirl.define do
         after(:create) {|user| user.add_role(:manager, OrganizationType)}
     end
 
-    factory :manager_with_organization_type do
-        sequence(:login) { |n| "man00#{n}" }
-        organization_type = OrganizationType.first
-        after(:create) {|user| user.add_role(:manager, organization_type)}
+    factory :manager do
+      sequence(:login) { |n| "man00#{n}" }
     end
 
   end
