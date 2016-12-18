@@ -109,8 +109,8 @@ es:
           edit: editar
           delete: eliminar
           processes: ver procesos
-        data_period: Los datos corresponden al periodo
-        data_collect: Periodo de mecanización
+        organization_type: Organización
+        data_collect: Entrada de datos
         empty: No se ha creado ningún periodo
         entry_opened:  Abierta entrada de datos
         entry_closed: Cerrada entrada de datos

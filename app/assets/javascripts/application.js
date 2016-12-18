@@ -17,8 +17,6 @@
 //= require jquery-ui/datepicker-es
 //= require foundation
 //= require turbolinks
-//= require ckeditor/init
-//= require_directory ./ckeditor
 //= require initial
 //= require app
 //= require dropdown
@@ -35,7 +33,7 @@ var initialize_modules = function() {
 };
 
 $(function(){
-  Turbolinks.enableProgressBar()
+  Turbolinks.enableProgressBar();
 
   $(document).ready(initialize_modules);
   $(document).on('page:load', initialize_modules);

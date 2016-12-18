@@ -4,7 +4,7 @@ class Manager::IndicatorsController < Manager::BaseController
 
   def index
     @indicators = @task.indicators.order(:order).includes(:item, :entry_indicators,
-      :indicator_metrics, :metrics, :entry_indicators, :total_indicators, :summary_types, :indicator_sources, sources: :item)
+      :indicator_metrics, :metrics, :entry_indicators, :total_indicators, :summary_types, :indicator_sources, sources: :items)
   end
 
   def new

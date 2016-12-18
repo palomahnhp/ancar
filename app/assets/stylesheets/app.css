@@ -3646,7 +3646,6 @@ button::-moz-focus-inner {
   display: none;
   left: -9999px;
   list-style: none;
-  margin-left: 0;
   position: absolute;
   background: #FFFFFF;
   border: solid 1px #cccccc;

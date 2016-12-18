@@ -1,18 +1,22 @@
 class EntryIndicatorsController < ApplicationController
+
   before_action :require_user, only: [:index, :show]
+  load_and_authorize_resource
 
   def index
     if params[:organization_id] && params[:period_id]
       initialize_instance_vars
       if @main_processes.empty?
         render :index, notice: t(".no_main_processes")
-      elsif period_is_modifiable?
-        if params[:unit_id]
-          unit = Unit.find(params[:unit_id])
-        else
-          unit = Unit.where(organization_id: params[:organization_id]).take
-        end
-        redirect_to edit_entry_indicator_path(1, unit_id: unit.id, period_id: params[:period_id],
+      # else # if period_is_modifiable?
+      #   if params[:unit_id]
+      #     unit = Unit.find(params[:unit_id])
+      #   else
+      #     unit = Unit.where(organization_id: params[:organization_id]).take
+      else
+        entry_indicator = EntryIndicator.first.nil? ? EntryIndicator.create(unit_id:@unit.id) :
+             EntryIndicator.first
+        redirect_to edit_entry_indicator_path(entry_indicator.id, unit_id: @unit.id, period_id: params[:period_id],
             organization_id: params[:organization_id])
       end
     end
@@ -31,12 +35,14 @@ class EntryIndicatorsController < ApplicationController
          update_assigned_employess(params[key])
        when 'IndicatorMetric'
          update_entry_indicators(params[key])
+        else
+         flash[:notice] = t('entry_indicators.updates.no_key')
       end
     end
     if all_cumplimented?
-      flash[:notice] = t('.success')
+      flash[:notice] = t('entry_indicators.updates.success')
     else
-      flash[:alert] = t('.incomplete')
+      flash[:alert] = t('entry_indicators.updates.incomplete')
     end
     redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
        organization_id: @organization.id)
@@ -52,17 +58,8 @@ class EntryIndicatorsController < ApplicationController
       current_user.auth_organizations.collect { |v| [ v.description, v.id ] }
     end
 
-    def organization_types_select_options
+    def organization_types_options
       current_user.auth_organization_types.collect { |v| [ v.description, v.id ] }
-    end
-
-    def periods_select_options
-      @periods ||= Period.where(organization_type_id: @organization_type_id).order(:started_at)
-      @periods.collect { |v| [ v.description, v.id ] }
-    end
-
-    def period_is_modifiable?
-      Period.find(params[:period_id]).modifiable?
     end
 
     def initialize_instance_vars
@@ -88,7 +85,7 @@ class EntryIndicatorsController < ApplicationController
       sub_processes.each do |sp|
         grupos = sp[1]
         process_id = sp[0].to_i
-        type = "SubProcess"
+        type = :SubProcess
         grupos.keys.each do |grupo|
           quantity = grupos[grupo]
           official_group_id = OfficialGroup.find_by_name(grupo).id
@@ -114,7 +111,6 @@ class EntryIndicatorsController < ApplicationController
           @all_entry_indicators_cumplimented = false
           EntryIndicator.where(unit_id: @unit.id, indicator_metric_id: indicator_metric_id).delete_all
         else
-          amount = amount.to_i
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
           ei.indicator_source_id = IndicatorSource.where(indicator_id: IndicatorMetric.find(indicator_metric_id).indicator.id).take.id
           ei.amount = amount

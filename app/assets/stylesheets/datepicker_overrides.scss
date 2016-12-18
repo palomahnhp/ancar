@@ -62,7 +62,7 @@
       border-bottom: 1px solid $border;
 
       &:last-child {
-        border-bottom: 0px;
+        border-bottom: 0;
       }
 
       &:nth-child(odd) {
@@ -75,7 +75,7 @@
       border-right: 1px solid $border;
 
       &:last-child {
-        border-right: 0px;
+        border-right: 0;
       }
 
       span, a {
