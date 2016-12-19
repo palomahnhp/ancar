@@ -1,4 +1,5 @@
 class Unit < ActiveRecord::Base
+  resourcify
   belongs_to :unit_type
   belongs_to :organization
 

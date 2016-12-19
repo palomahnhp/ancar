@@ -23,8 +23,6 @@ en:
       select_organization_type: Selecciona una organización
       select_period: Seleccionar periodo
       no_main_processes: No hay indicadores para este periodo.
-    flash:
-      no_units_authorized: No tiene autorizada la consulta de datos de ninguna unidad.
     updates:
       success: Se han actualizado correctamente los indicadores de esta unidad.
       incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
@@ -92,6 +90,7 @@ en:
     index:
       title: Hoja de identificación de procesos
       select: Selección de unidad a tratar
+      no_auth_units: No tienes unidades autorizadas
   welcome:
     title: Organización del trabajo en las unidades municipales
     sub_title: Estudio de cargas de trabajo

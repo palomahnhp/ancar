@@ -18,6 +18,9 @@
 # Ignore spec examples file
 /spec/examples.txt
 
+# Ignore IDE RubyMain file
+/.idea/*
+
 # Ignore all logfiles and tempfiles.
 .byebug_history
 *.log
