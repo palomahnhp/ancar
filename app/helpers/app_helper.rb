@@ -11,8 +11,9 @@ module AppHelper
   end
 
   def sources_description(sources)
-    description = ""
+    description = ''
     sources.all.each do |source|
+      description += ', ' unless description == ''
       description += source.item.description.to_s
     end
     return description

@@ -4,7 +4,8 @@ class Manager::IndicatorsController < Manager::BaseController
 
   def index
     @indicators = @task.indicators.order(:order).includes(:item, :entry_indicators,
-      :indicator_metrics, :metrics, :entry_indicators, :total_indicators, :summary_types, :indicator_sources, sources: :item)
+      :indicator_metrics, :metrics, :entry_indicators, :total_indicators, :summary_types,
+                                                          :indicator_sources, sources: :item)
   end
 
   def new
@@ -35,17 +36,17 @@ class Manager::IndicatorsController < Manager::BaseController
       @indicator.indicator_sources.create(source_id: source_id)
 
       update_total_indicators_summary_types
-      redirect_to_index(t("manager.indicators.create.success"))
+      redirect_to_index(t('manager.indicators.create.success'))
     else
       if metric_id.nil? || source_id.nil?
          @indicator.valid?
       end
 
       if metric_id.nil?
-        @indicator.errors[:metric_id] = t("manager.errors.models.indicator.attributes.metric_id.blank")
+        @indicator.errors[:metric_id] = t('manager.errors.models.indicator.attributes.metric_id.blank')
       end
       if source_id.nil?
-        @indicator.errors[:source_id] = t("manager.errors.models.indicator.attributes.source_id.blank")
+        @indicator.errors[:source_id] = t('manager.errors.models.indicator.attributes.source_id.blank')
       end
       render :new
     end
@@ -74,7 +75,7 @@ class Manager::IndicatorsController < Manager::BaseController
     update_total_indicators_summary_types
 
     if (!@indicator_metric || @indicator_metric.save) && (!@indicator_source || @indicator_source.save) && @indicator.save
-      redirect_to_index(t("manager.indicators.update.success"))
+      redirect_to_index(t('manager.indicators.update.success'))
     else
       render :edit
     end
@@ -84,9 +85,9 @@ class Manager::IndicatorsController < Manager::BaseController
      @indicator  = Indicator.find(params[:id])
      @task = @indicator.task
      if @indicator.destroy
-       msg = t("manager.indicators.destroy.success")
+       msg = t('manager.indicators.destroy.success')
      else
-       msg = t("manager.indicators.destroy.error")
+       msg = t('manager.indicators.destroy.error')
      end
      redirect_to_index(msg)
   end
@@ -118,7 +119,7 @@ class Manager::IndicatorsController < Manager::BaseController
     end
 
     def redirect_to_index(msg)
-      redirect_to manager_indicators_path(commit: t("manager.indicators.index.submit"),
+      redirect_to manager_indicators_path(commit: t('manager.indicators.index.submit'),
            task_id: @task.id,
            sub_process_id: @sub_process.id,
            main_process_id: @main_process.id,

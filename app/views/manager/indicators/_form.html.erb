@@ -9,7 +9,7 @@
     <%= hidden_field_tag :eliminable, params[:eliminable]%>
     <%= hidden_field_tag :indicator_metric_id, params[:indicator_metric] %>
 
-    <label for="item_desc"><%= t(".description")%></label>
+    <label for="item_desc"><%= t('.description')%></label>
     <input list="item_desc" type="text" name="item_desc" value="<%=@indicator.item.description if @indicator.item.present? %>" ">
     <datalist id="item_desc"%>" >
       <% @items.each do |item| %>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="small-8 columns" >
-    <label for="metric_description"><%= t("manager.indicators.form.metric")%></label>
+    <label for="metric_description"><%= t('manager.indicators.form.metric')%></label>
     <input list="metric_description" type="text" name="metric_desc"
            value="<%= @indicator.indicator_metrics.take.metric.item.description if !@indicator.id.nil? && !@indicator.indicator_metrics.take.nil? %>"  ">
     <datalist id="metric_description"%>" >
@@ -40,7 +40,7 @@
   </div>
 
   <div class="small-8 columns" >
-    <label for="source_description"><%= t("manager.indicators.form.source")%></label>
+    <label for="source_description"><%= t('manager.indicators.form.source')%></label>
     <input list="source_description" type="text" name="source_desc" required
            value="<%= @indicator.indicator_sources.take.source.item.description if !@indicator.id.nil? && !@indicator.indicator_sources.take.nil? %>"
            ">
@@ -56,8 +56,8 @@
     <small class="error  error"><%= show_errors(@indicator, :source_id)%></small>
   </div>
 
-  <% if !(params[:action] == "create" || params[:action] == "new") %>
-    <%= render "total_indicator_types" %>
+  <% if !(params[:action] == 'create' || params[:action] == 'new') %>
+    <%= render 'total_indicator_types' %>
   <% else %>
     <div class="small-7 columns panel">
         <% @item_summary_types.each do |item_summary_type| %>
@@ -72,12 +72,12 @@
   <div  class="small-12 columns"> <br> </div>
 
   <div class="small-12 medium-4 columns">
-    <%= f.label :order, t("manager.indicators.form.order") %>
+    <%= f.label :order, t('manager.indicators.form.order') %>
     <%= f.text_field :order, label: false %>
   </div>
 
   <div class="actions small-12 columns">
-      <%= f.submit t("actions.#{action_name}"), class: "button hollow"%>
+      <%= f.submit t("actions.#{action_name}"), class: 'button hollow'%>
   </div>
 
 <% end %>

@@ -17,9 +17,6 @@ es:
     organization_types:
       index:
         title: Tipos de organizaciones
-    stats:
-      index:
-        title: Estadísticas
     units:
       index:
         title: Unidades

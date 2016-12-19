@@ -5,14 +5,15 @@
       <label class="note"> (Seleccionar el/los tipo/s de procesos y su tipo) </label>
     </div>
     <% @item_summary_types.each do |item_summary_type| %>
-      <div div class="small-6 medium-2 columns end">
+      <div class="small-6 medium-2 columns end">
         <label for="item_summary_type_description"><%= item_summary_type.description %></label>
         <input list="item_summary_type_description" type="text"
-         name="<%=item_summary_type.description%>" value="<%= summary_type_selected(params[:indicator_metric], item_summary_type.id) %>"  ">
+               name="<%= item_summary_type.description %>"
+               value="<%= summary_type_selected(params[:indicator_metric], item_summary_type.id) %>" >
         <datalist id="item_summary_type_description"%>">
           <% @total_indicator_types.each do |in_out| %>
             <% if summary_type_selected(@indicator, item_summary_type.id) == in_out[1] %>
-              <option id="<%= item_summary_type.id %>" value="<%= in_out[0]%>" selected="true">
+              <option id="<%= item_summary_type.id %>" value="<%= in_out[0] %>" selected="true">
             <% else %>
               <option id="<%= item_summary_type.id %>" value="<%=  in_out[0] %>">
             <% end %>

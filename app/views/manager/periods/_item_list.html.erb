@@ -1,38 +1,41 @@
 
 <table>
   <% if @periods.nil? %>
-    <h1><%= t("manager.periods.index.no_data") %></h1>
+    <h1><%= t('manager.periods.index.no_data') %></h1>
   <% else %>
     <% @periods.each do |period| %>
       <tr id="<%= dom_id(period) %>" >
         <div class="small-12 medium-12 column">
           <td class="small-6 columns">
-            <strong> <%= OrganizationType.find(period.organization_type_id).description %> : </strong>
-              <%= period.description %>
-             <div><%= t("manager.periods.index.data_period") %>
-                     de <%= period.started_at  %> a <%= period.ended_at %>
+            <div>
+              <%= t('manager.periods.index.organization_type') %>
+              <strong> <%= OrganizationType.find(period.organization_type_id).description %> </strong>
+            </div>
+            <div>
+              <%= t('manager.periods.index.period') %>
+              <strong> <%= period.description %> </strong>
+              de <%= period.started_at  %> a <%= period.ended_at %>
              </div>
-             <div> <%= t("manager.periods.index.data_collect") %>
+             <div> <%= t('manager.periods.index.data_collect') %>
                 de <strong> <%= period.opened_at %> </strong>
                  a <strong> <%= period.closed_at %> </strong>
-             </div>
+          </div>
           <% if period.open_entry? %>
-            <h5><%= t("manager.periods.index.entry_opened") %></h5>
+            <h5><%= t('manager.periods.index.entry_opened') %></h5>
           <% elsif period.close_entry? %>
-            <h5><%= t("manager.periods.index.entry_closed") %></h5>
+            <h5><%= t('manager.periods.index.entry_closed') %></h5>
           <% end %>
         </td>
-        </div>
         <td class="small-2 columns end">
           <%= link_to manager_main_processes_path(
-                commit: t("manager.main_processes.index.submit"),
+                commit: t('manager.main_processes.index.submit'),
                 period_id: period.id, organization_type_id: period.organization_type_id,
                 modifiable: period.modifiable?,
                 eliminable: period.eliminable?),
                 id: "index_#{period.id}",
                 class: 'button float-right tiny hollow' do %>
                   <span class="icon-tag"></span>
-                  <%= t("manager.periods.index.button.processes") %>
+                  <%= t('manager.periods.index.button.processes') %>
                 <% end %>
         </td>
         <% if period.modifiable? %>
@@ -41,7 +44,7 @@
               id: "edit_#{period.id}",
               class: 'edit-banner button float-right tiny hollow' do %>
                <span class="icon-edit"></span>
-                <%= t("manager.periods.index.button.edit") %>
+                <%= t('manager.periods.index.button.edit') %>
           <% end %>
         </td>
         <% end %>
@@ -54,7 +57,7 @@
                         id: "delete_#{period.id}",
                         class: 'delete-banner button alert float-right tiny hollow end' do %>
                           <span class="icon-box"></span>
-                          <%= t("manager.periods.index.button.delete") %>
+                          <%= t('manager.periods.index.button.delete') %>
                         <% end %>
           </td>
         <% end %>

@@ -1,6 +1,6 @@
 <div class="row">
   <div  class="small-12 columns">
-      <%= render "shared/back" %>
+      <%= render 'shared/back' %>
   </div>
   <div class="small-12 columns">
     <div class="small-10 columns">
@@ -8,11 +8,11 @@
     </div>
     <div class="column small-2">
          <% if params[:modifiable] == 'true' %>
-        <br><%= link_to t("manager.sub_processes.index.create"),
-                  new_manager_sub_process_path(period_id: params["period_id"],
-                    organization_type_id: params["organization_type_id"],
-                    main_process_id: params["main_process_id"]),
-                  class: "button large success hollow" %>
+        <br><%= link_to t('manager.sub_processes.index.create'),
+                  new_manager_sub_process_path(period_id: params['period_id'],
+                    organization_type_id: params['organization_type_id'],
+                    main_process_id: params['main_process_id']),
+                  class: 'button large success hollow' %>
       <% end %>
     </div>
   </div>
@@ -20,7 +20,7 @@
 
 <div>
   <% if @sub_processes.nil? || @sub_processes.empty? %>
-    <strong> <%=t("manager.sub_processes.index.empty") %> </strong>
+    <strong> <%=t('manager.sub_processes.index.empty') %> </strong>
   <% else %>
     <%=  render 'item_list' %>
   <% end %>

@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title><%= content_for?(:title) ? yield(:title) : "Admin" %></title>
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <title><%= content_for?(:title) ? yield(:title) : 'Admin' %></title>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= content_for :head %>
     <%= csrf_meta_tags %>
-    <%= favicon_link_tag "favicon.ico" %>
+    <%= favicon_link_tag 'favicon.ico' %>
   </head>
 
   <body class="admin">
@@ -24,7 +24,7 @@
         <div class="admin-content small-12 medium-9 column">
           <% if notice %>
             <div data-alert class="callout success" data-closable>
-              <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+              <button class="close-button" aria-label="<%= t('application.close') %>" type="button" data-close>
                 <span aria-hidden="true">&times;</span>
               </button>
               <%= notice %>
@@ -33,7 +33,7 @@
 
           <% if alert %>
             <div data-alert class="callout alert" data-closable>
-              <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+              <button class="close-button" aria-label="<%= t('application.close') %>" type="button" data-close>
                 <span aria-hidden="true">&times;</span>
               </button>
               <%= alert %>

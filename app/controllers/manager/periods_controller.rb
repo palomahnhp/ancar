@@ -21,14 +21,14 @@ class Manager::PeriodsController < Manager::BaseController
     @period.updated_by = current_user.login
     if @period.save
       if params[:period][:id].empty?
-        msg = t("manager.periods.create.success.no_processes_copy")
+        msg = t('manager.periods.create.success.no_processes_copy')
       else
         @period_from = Period.find(params[:period][:id])
         if @period_from
           @period.copy(params[:period][:id], current_user.login)
-          msg = t("manager.periods.create.success.processes_copy")
+          msg = t('manager.periods.create.success.processes_copy')
         else
-          msg = t("manager.periods.create.error.processes_copy")
+          msg = t('manager.periods.create.error.processes_copy')
         end
       end
       redirect_to manager_periods_path, notice: msg
@@ -41,17 +41,17 @@ class Manager::PeriodsController < Manager::BaseController
     @period.assign_attributes(period_params)
     @period.updated_by = current_user.login
     if @period.update(period_params)
-      redirect_to manager_periods_path, notice: t("manager.periods.update.success")
+      redirect_to manager_periods_path, notice: t('manager.periods.update.success')
     else
-      render "edit"
+      render 'edit'
     end
   end
 
   def destroy
     if @period.destroy
-      msg = t("manager.periods.destroy.success")
+      msg = t('manager.periods.destroy.success')
     else
-      msg = t("manager.periods.destroy.error")
+      msg = t('manager.periods.destroy.error')
     end
     redirect_to manager_periods_path, notice: msg
   end

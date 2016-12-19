@@ -85,7 +85,6 @@
 
     td {
       font-size: rem-calc(12);
-      padding-bottom: 0;
       padding-bottom: rem-calc(5);
       padding-top: 0;
       &.indicador_size{
@@ -97,7 +96,7 @@
       font-size: rem-calc(12);
       height: auto !important;
       margin: rem-calc(6) 0 !important;
-      width: rem-calc(48);
+      width: rem-calc(60);
     }
   }
 
@@ -167,7 +166,7 @@
   background: lighten($verde, 35%);
   color: blank;
   text-align: left;
-  box-shadow: 0px 1px 3px 0 $border;
+  box-shadow: 0 1px 3px 0 $border;
   padding: rem-calc(2) rem-calc(2) rem-calc(2) rem-calc(2);
 }
 
@@ -288,3 +287,5 @@
 
 }
 
+#item_desc {
+}

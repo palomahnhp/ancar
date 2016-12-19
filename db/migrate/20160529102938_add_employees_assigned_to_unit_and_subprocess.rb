@@ -1,3 +1,4 @@
+# noinspection RubyClassModuleNamingConvention
 class AddEmployeesAssignedToUnitAndSubprocess < ActiveRecord::Migration
   def change
    create_table :official_groups do |t|

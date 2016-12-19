@@ -7,8 +7,8 @@
   <%= f.hidden_field :eliminable, value: params[:eliminable]%>
 
   <div class="small-8 columns" >
-    <label for="item_description"><%= t("manager.tasks.form.description")%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%= @task.item.description if !@task.id.nil? %>" placeholder="<%=t("manager.tasks.form.description")%>" ">
+    <label for="item_description"><%= t('manager.tasks.form.description')%></label>
+    <input list="item_description" type="text" name="item_desc" value="<%= @task.item.description unless @task.id.nil? %>" placeholder="<%= t('manager.tasks.form.description')%>" ">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
         <% if @task.item_id == item[1] %>
@@ -22,13 +22,13 @@
 
   <div class="small-12 column" ></div>
   <div class="small-1 column">
-    <%= f.label :order, t("manager.tasks.form.order") %>
+    <%= f.label :order, t('manager.tasks.form.order') %>
     <%= f.text_field :order, label: false,
-        placeholder: t("manager.tasks.form.order")%>
+        placeholder: t('manager.tasks.form.order')%>
   </div>
 
   <div class="actions small-12 column">
-    <%= f.submit(t("actions.#{action_name}"), class: "button tiny hollow") %>
+    <%= f.submit(t("actions.#{action_name}"), class: 'button tiny hollow') %>
   </div>
 
 <% end %>

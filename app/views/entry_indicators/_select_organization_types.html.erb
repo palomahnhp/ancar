@@ -2,12 +2,12 @@
     <div class="medium-12 small-12 columns">
       <div class="medium-3 small-3 columns">-</div>
       <div class="medium-6 small-6 columns">
-        <%= form_tag( entry_indicators_path,  method: "get") do %>
+        <%= form_tag( entry_indicators_path,  method: 'get') do %>
           <%= label_tag(:organization_type_id,
-          t("entry_indicators.index.select_organization_type")) %>
+          t('entry_indicators.index.select_organization_type')) %>
           <% selected = @organization_type_id.nil? ? 0 : @organization_type_id %>
-          <%= select_tag("organization_type_id", options_for_select(@select_organization_types, selected ), {prompt: t("entry_indicators.index.select")}) %>
-          <%= submit_tag t("entry_indicators.index.select_organization_type"), class: "expanded button"%>
+          <%= select_tag('organization_type_id', options_for_select(@select_organization_types, selected ), {prompt: t('entry_indicators.index.select')}) %>
+          <%= submit_tag t('entry_indicators.index.select_organization_type'), class: 'expanded button'%>
         <% end %>
        </div>
       <div class="medium-3 small-6 columns"></div>

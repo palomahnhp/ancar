@@ -8,8 +8,8 @@
     <%= f.hidden_field :modifiable, value: params[:modifiable]%>
     <%= f.hidden_field :eliminable, value: params[:eliminable]%>
 
-    <label for="item_description"><%= t("manager.main_processes.form.description")%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%=@main_process.item.description  if !@main_process.id.nil? %>" ">
+    <label for="item_description"><%= t('manager.main_processes.form.description')%></label>
+    <input list="item_description" type="text" name="item_desc" value="<%= @main_process.item.description unless @main_process.id.nil? %>" ">
     <datalist id="item_description"%>" >
       <% @items.each do |item| %>
         <% if @main_process.item_id == item[1] %>
@@ -23,12 +23,12 @@
 
   <div class="small-12 column" ></div>
   <div class="small-1 column">
-    <%= f.label :order, t("manager.main_processes.form.order") %>
+    <%= f.label :order, t('manager.main_processes.form.order') %>
     <%= f.text_field :order, label: false,
-        placeholder: t("manager.main_processes.form.order") %>
+        placeholder: t('manager.main_processes.form.order') %>
   </div>
 
   <div class="actions small-12 column">
-    <%= f.submit(t("actions.#{action_name}"), class: "button tiny hollow") %>
+    <%= f.submit(t("actions.#{action_name}"), class: 'button tiny hollow') %>
   </div>
 <% end %>

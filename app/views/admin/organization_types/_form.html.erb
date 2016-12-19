@@ -1,7 +1,7 @@
 <%= form_for(@admin_organization_type) do |f| %>
   <% if @admin_organization_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@admin_organization_type.errors.count, "error") %> prohibited this admin_organization_type from being saved:</h2>
+      <h2><%= pluralize(@admin_organization_type.errors.count, 'error') %> prohibited this admin_organization_type from being saved:</h2>
 
       <ul>
       <% @admin_organization_type.errors.full_messages.each do |message| %>

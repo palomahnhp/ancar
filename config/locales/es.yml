@@ -26,6 +26,7 @@ es:
     updates:
       success: Se han actualizado correctamente los indicadores de esta unidad.
       incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
+      no_key: "Falta parametro key"
     staff:
       Unit:
         title: EFECTIVOS UNIDAD
@@ -101,3 +102,7 @@ es:
     title: Organización del trabajo en las unidades municipales
     sub_title: Estudio de cargas de trabajo
     logo_alt: Logo Gerencia de la Ciudad
+  manager:
+    periods:
+      index:
+        period: "Periodo:"
