@@ -33,7 +33,7 @@ class EntryIndicatorsController < ApplicationController
        when 'IndicatorMetric'
          update_entry_indicators(params[key])
         else
-         flash[:notice] = t('entry_indicators.updates.no_key')
+         flash[:error] = t('entry_indicators.updates.no_key')
       end
     end
     if all_cumplimented?

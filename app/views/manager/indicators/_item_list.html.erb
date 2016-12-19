@@ -10,12 +10,14 @@
     <th><%= t(".metric") %></th>
     <th><%= t(".source") %></th>
     <th class="text-center" colspan="<%=@item_summary_types.count%>"><%= t(".totals") %></th>
+    <th colspan="2"></th>
   </tr>
   <tr>
     <th colspan="3"></th>
     <% @item_summary_types.each do |summary_type|%>
       <th><%= summary_type.description %></th>
     <% end %>
+    <th colspan="2"></th>
   </tr>
 
   <% @indicators.each do  |indicator|%>

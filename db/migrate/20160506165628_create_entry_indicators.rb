@@ -16,7 +16,7 @@ class CreateEntryIndicators < ActiveRecord::Migration
       t.belongs_to :entry_indicator, index: true, foreign_key: true
       t.belongs_to :source, index: true, foreign_key: true
       t.decimal :amount, :precision => 12, :scale => 2
-      t.string :uupdates_by
+      t.string :updates_by
 
       t.timestamps null: false
     end

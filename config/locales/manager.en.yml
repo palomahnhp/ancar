@@ -114,6 +114,7 @@ en:
         entry_opened:  Abierta entrada de datos
         entry_closed: Cerrada entrada de datos
         no_data: No hay periodos definidos
+        organization_type: Organización
         title: Periodos de estudio
       new:
         title: Abrir un nuevo periodo

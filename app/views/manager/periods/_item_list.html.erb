@@ -21,9 +21,9 @@
                  a <strong> <%= period.closed_at %> </strong>
           </div>
           <% if period.open_entry? %>
-            <h5><%= t("manager.periods.index.entry_opened") %></h5>
+            <h5><%= t('manager.periods.index.entry_opened') %></h5>
           <% elsif period.close_entry? %>
-            <h5><%= t("manager.periods.index.entry_closed") %></h5>
+            <h5><%= t('manager.periods.index.entry_closed') %></h5>
           <% end %>
         </td>
         <td class="small-2 columns end">
@@ -35,7 +35,7 @@
                 id: "index_#{period.id}",
                 class: 'button float-right tiny hollow' do %>
                   <span class="icon-tag"></span>
-                  <%= t("manager.periods.index.button.processes") %>
+                  <%= t('manager.periods.index.button.processes') %>
                 <% end %>
         </td>
         <% if period.modifiable? %>
@@ -44,7 +44,7 @@
               id: "edit_#{period.id}",
               class: 'edit-banner button float-right tiny hollow' do %>
                <span class="icon-edit"></span>
-                <%= t("manager.periods.index.button.edit") %>
+                <%= t('manager.periods.index.button.edit') %>
           <% end %>
         </td>
         <% end %>
@@ -57,7 +57,7 @@
                         id: "delete_#{period.id}",
                         class: 'delete-banner button alert float-right tiny hollow end' do %>
                           <span class="icon-box"></span>
-                          <%= t("manager.periods.index.button.delete") %>
+                          <%= t('manager.periods.index.button.delete') %>
                         <% end %>
           </td>
         <% end %>

@@ -3,55 +3,55 @@
   <%= render 'shared/errors', resource: @period %>
 
   <div class="row">
-    <div class="small-12 medium-4 column"><h4><%= f.label :organization_type_id, t("manager.periods.form.organization_type") %></h4>
-      <%= f.select :organization_type_id, options_for_select(@organization_types, @period.organization_type_id), label: false, placeholder: t("manager.periods.form.organization_type") %>
+    <div class="small-12 medium-4 column"><h4><%= f.label :organization_type_id, t('manager.periods.form.organization_type') %></h4>
+      <%= f.select :organization_type_id, options_for_select(@organization_types, @period.organization_type_id), label: false, placeholder: t('manager.periods.form.organization_type') %>
     </div>
     <div class="small-12 columns"></div>
     <div class="small-8 columns">
-      <%= f.label :description, t("manager.periods.form.description") %>
+      <%= f.label :description, t('manager.periods.form.description') %>
       <%= f.text_field :description, label: false,
-                        placeholder: t("manager.periods.form.description") %>
+                        placeholder: t('manager.periods.form.description') %>
     </div>
 
-    <div class="small-12 columns"><h6><%= t("manager.periods.form.dates") %> </h6>
+    <div class="small-12 columns"><h6><%= t('manager.periods.form.dates') %> </h6>
       <div class="small-3 columns">
-        <%= f.label :started_at, t("manager.periods.form.started_at") %>
+        <%= f.label :started_at, t('manager.periods.form.started_at') %>
         <%= f.datetime_field :started_at, label: false,
-                          placeholder: t("manager.periods.form.started_at"),
-                          id: "started_at" %>
+                          placeholder: t('manager.periods.form.started_at'),
+                          id: 'started_at' %>
       </div>
       <div class="small-3 columns end">
-        <%= f.label :ended_at, t("manager.periods.form.ended_at") %>
+        <%= f.label :ended_at, t('manager.periods.form.ended_at') %>
         <%= f.datetime_field :ended_at, label: false,
-                        placeholder: t("manager.periods.form.ended_at"),
-                        id: "ended_at" %>
+                        placeholder: t('manager.periods.form.ended_at'),
+                        id: 'ended_at' %>
       </div>
     </div>
 
-    <div class="small-12 column"><h6><%= t("manager.periods.form.data_collect") %> </h6>
+    <div class="small-12 column"><h6><%= t('manager.periods.form.data_collect') %> </h6>
       <div class="small-3 columns end">
-        <%= f.label :opened_at, t("manager.periods.form.opened_at") %>
+        <%= f.label :opened_at, t('manager.periods.form.opened_at') %>
         <%= f.datetime_field :opened_at, label: false,
-                          placeholder: t("manager.periods.form.opened_at"),
-                          id: "opened_at" %>
+                          placeholder: t('manager.periods.form.opened_at'),
+                          id: 'opened_at' %>
       </div>
       <div class="small-3 columns end">
-        <%= f.label :closed_at, t("manager.periods.form.closed_at") %>
+        <%= f.label :closed_at, t('manager.periods.form.closed_at') %>
         <%= f.datetime_field :closed_at, label: false,
-                          placeholder: t("manager.periods.form.closed_at"),
-                          id: "closed_at" %>
+                          placeholder: t('manager.periods.form.closed_at'),
+                          id: 'closed_at' %>
       </div>
     </div>
-    <% if params[:action] != "edit" && params[:action] != "update" %>
+    <% if params[:action] != 'edit' && params[:action] != 'update' %>
       <div class="small-3 columns end">
         <h4>
-          <%= f.label :id, t("manager.periods.form.period") %>
-          <%= f.select :id, options_for_select(@periods_from ,), include_blank: true, label: false, placeholder: t("manager.periods.form.period") %>
+          <%= f.label :id, t('manager.periods.form.period') %>
+          <%= f.select :id, options_for_select(@periods_from ,), include_blank: true, label: false, placeholder: t('manager.periods.form.period') %>
         </h4>
       </div>
     <% end %>
     <div class="actions small-12 columns">
-      <%= f.submit(class: "button hollow", value: t("actions.#{action_name}")) %>
+      <%= f.submit(class: 'button hollow', value: t("actions.#{action_name}")) %>
     </div>
   </div>
 <% end %>

@@ -3,7 +3,7 @@
     <%= @unit.description_sap %>
   </h3>
 </div>
-<%= form_tag(updates_entry_indicators_path, method: "post") do %>
+<%= form_tag(updates_entry_indicators_path, method: 'post') do %>
   <div class="row">
     <% if @period.open_entry? %>
       <%= hidden_field_tag(:unit_id, @unit.id) %>
@@ -11,13 +11,13 @@
       <%= hidden_field_tag(:organization_id, @organization.id) %>
       <div class="small-12 medium-4 columns">
         <br>
-        <%= submit_tag("Actualizar indicadores", class: "button hollow large") %>
+        <%= submit_tag('Actualizar indicadores', class: 'button hollow large') %>
       </div>
     <% else %>
         <div class="small-12 medium-4 columns">  </div>
     <% end %>
     <div class="columns medium-4 small-12">
-      <%= render 'staff', of: "Unit", process: @unit, unit: @unit, period: @period %>
+      <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period %>
     </div>
   </div>
 
@@ -31,10 +31,10 @@
           <caption class="sub_process"><%= description(0, sub_process.item_id) %></caption>
           <thead>
             <tr>
-              <th><strong><%= t(".indicator") %></strong></th>
-              <th><strong><%= t(".source") %></strong></th>
-              <th><strong><%= t(".metric") %></strong></th>
-              <th class="text-center"><strong><%= t(".amount") %></strong></th>
+              <th><strong><%= t('.indicator') %></strong></th>
+              <th><strong><%= t('.source') %></strong></th>
+              <th><strong><%= t('.metric') %></strong></th>
+              <th class="text-center"><strong><%= t('.amount') %></strong></th>
             </tr>
           </thead>
           <% sub_process.indicators.each do |indicator| %>
@@ -51,7 +51,7 @@
               <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
                 <% amount_value = get_amount(indicator_metric, @unit) %>
                 <% if @period.open_entry? %>
-                  <%= text_field_tag("IndicatorMetric[#{indicator_metric.id}]", amount_value, class: "inline", placeholder: t(".amount")) %>
+                  <%= text_field_tag("IndicatorMetric[#{indicator_metric.id}]", amount_value, class: 'inline', placeholder: t('.amount')) %>
                 <% else %>
                   <%= amount_value %>
                 <% end %>
@@ -64,7 +64,7 @@
 
         </table>
       <div class="columns medium-offset-8 medium-4 small-12">
-          <%= render 'staff', of: "SubProcess", process: sub_process, unit: @unit,  period: @period  %>
+          <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period  %>
         </div>
       <% end %>
 
@@ -74,7 +74,7 @@
   <% if @period.open_entry? %>
     <div class="small-12 medium-4 columns end">
       <br>
-      <%= submit_tag("Actualizar indicadores", class: "button hollow large") %>
+      <%= submit_tag('Actualizar indicadores', class: 'button hollow large') %>
     </div>
   <% end %>
 

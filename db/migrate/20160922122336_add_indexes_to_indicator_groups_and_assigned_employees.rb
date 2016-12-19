@@ -1,3 +1,4 @@
+# noinspection RubyClassModuleNamingConvention
 class AddIndexesToIndicatorGroupsAndAssignedEmployees < ActiveRecord::Migration
   def change
   	add_index :indicator_groups, :sub_process_id

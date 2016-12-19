@@ -1,7 +1,7 @@
 <div class="row " >
   <div class="corporativo medium-12 small-12 columns">
-    <h3><%= t("user_access.index.title") %> </h3>
-    <h4><%= t("user_access.index.select") %> </h4>
+    <h3><%= t('user_access.index.title') %> </h3>
+    <h4><%= t('user_access.index.select') %> </h4>
   </div>
   <div class="row">
     <div class= "small-12 columns">
@@ -21,14 +21,14 @@
         <% end %>
       <% when params[:organization_type_id] %>
           <% current_user.auth_organizations(params[:organization_type_id]).each do |organization| %>
-            <%= render "organization_periods", organization: organization %>
+            <%= render 'organization_periods', organization: organization %>
           <% end %>
       <% when params[:organization_type_id].nil? && current_user.has_organizations? %>
           <% current_user.auth_organizations(0).each do |organization| %>
-             <%= render "organization_periods", organization: organization %>
+             <%= render 'organization_periods', organization: organization %>
           <% end %>
       <% when params[:organization_type_id].nil? && !current_user.has_organizations? %>
-          <div class="field_with_errors"> <%=I18n.t("user_access.index.no_auth_units") %></div>
+          <div class="field_with_errors"> <%=I18n.t('user_access.index.no_auth_units') %></div>
       <% end %>
     </div>
   </div>

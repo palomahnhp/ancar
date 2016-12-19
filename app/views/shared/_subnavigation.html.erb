@@ -3,10 +3,12 @@
     <ul>
       <% if current_user %>
         <li>
-          <%= link_to t("subnavigation_menu.entry_indicators"), user_access_index_path, class: ("active" if controller_name == "user_access") , accesskey: "e" %>
+          <%= # noinspection RubyQuotedStringsInspection,RubyQuotedStringsInspection,RubyQuotedStringsInspection,RubyQuotedStringsInspection
+              link_to t("subnavigation_menu.entry_indicators"), user_access_index_path, class: ("active" if controller_name == "user_access") , accesskey: "e" %>
         </li>
         <li>
-          <%= link_to t("subnavigation_menu.instructions"), instructions_path, class: ("active" if controller_name == "instructions") , accesskey: "i" %>
+          <%= # noinspection RubyQuotedStringsInspection,RubyQuotedStringsInspection,RubyQuotedStringsInspection,RubyQuotedStringsInspection
+              link_to t("subnavigation_menu.instructions"), instructions_path, class: ("active" if controller_name == "instructions") , accesskey: "i" %>
         </li>
 
         <li>

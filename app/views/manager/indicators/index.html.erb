@@ -1,6 +1,6 @@
 <div class="row">
   <div  class="small-12 columns">
-      <%= render "shared/back" %>
+      <%= render 'shared/back' %>
   </div>
   <div class="small-12 columns">
     <div class="small-10 columns">
@@ -9,14 +9,14 @@
     <div class="column small-2">
       <% if params[:modifiable] == 'true' %>
       <br>
-      <%= link_to t("manager.indicators.index.create"),
+      <%= link_to t('manager.indicators.index.create'),
                   new_manager_indicator_path(
-                    task_id: params["task_id"],
-                    sub_process_id: params["sub_process_id"],
-                    main_process_id: params["main_process_id"],
-                    organization_type_id: params["organization_type_id"],
-                    period_id: params["period_id"]),
-                  class: "button large success hollow" %>
+                    task_id: params['task_id'],
+                    sub_process_id: params['sub_process_id'],
+                    main_process_id: params['main_process_id'],
+                    organization_type_id: params['organization_type_id'],
+                    period_id: params['period_id']),
+                  class: 'button large success hollow' %>
       <% end %>
     </div>
   </div>
@@ -24,7 +24,7 @@
 
 <div>
   <% if @indicators.nil? || @indicators.empty? %>
-    <strong> <%=t("manager.indicators.index.empty") %> </strong>
+    <strong> <%=t('manager.indicators.index.empty') %> </strong>
   <% else %>
     <%= render 'item_list' %>
   <% end %>
