@@ -56,17 +56,19 @@ class Manager::IndicatorsController < Manager::BaseController
     @indicator  = Indicator.find(params[:id])
     @indicator.assign_attributes(indicator_params)
 
-    indicator_item_id = desc_to_item_id(params[:item_desc], Indicator.name.underscore)
+#    indicator_item_id = desc_to_item_id(params[:item_desc], Indicator.name.underscore)
+    indicator_item_id = Item.find(indicator_params[:item_id])
     @indicator.item_id = indicator_item_id if @indicator.item_id != indicator_item_id
     @indicator.order = @indicator.order.to_s.rjust(2, '0')  # => '05'
 
-    metric_id = desc_to_metric_id(params[:metric_desc], Metric.name.underscore)
-    @indicator_metric = params[:indicator_metrics]
-    if @indicator_metric
-      @indicator_metric.metric_id = metric_id if !metric_id.nil? || @indicator_metric.metric_id != metric_id
+    metric_id = params[:metric_id]
+    indicator_metric_id = params[:indicator_metric_id]
+    if indicator_metric_id
+      indicator_metric = @indicator.indicator_metrics.find(indicator_metric_id)
+      indicator_metric.metric_id = metric_id unless (metric_id.nil? || indicator_metric.metric_id != metric_id)
     end
 
-    source_id = desc_to_source_id(params[:source_desc], Source.name.underscore)
+    source_id = params[:source_id]
     @indicator_source = @indicator.indicator_sources.take
     if @indicator_source
       @indicator_source.source_id = source_id if !source_id.nil? || @indicator_source.source_id != source_id
@@ -100,7 +102,7 @@ class Manager::IndicatorsController < Manager::BaseController
     def update_total_indicators_summary_types
       @summary_types.each do |summary_type|
         if params[summary_type.item.description].nil? || params[summary_type.item.description].empty?
-          summary_type.total_indicators.find_by_indicator_metric_id(params[:indicator_metric_id]).delete
+          summary_type.total_indicators.find_by_indicator_metric_id(params[:indicator_metric_id]).delete unless summary_type.total_indicators.find_by_indicator_metric_id(params[:indicator_metric_id]).nil?
         else
           # Si es númerico es el id #new
           if params[summary_type.item.description.to_sym].to_i.to_s == params[summary_type.item.description.to_sym]

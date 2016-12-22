@@ -22,8 +22,6 @@
 //= require dropdown
 //= require prevent_double_submission
 //= require forms
-//= require date_picker
-// #require process_summary
 
 var initialize_modules = function() {
   App.Dropdown.initialize();
@@ -39,3 +37,5 @@ $(function(){
   $(document).on('page:load', initialize_modules);
   $(document).on('ajax:complete', initialize_modules);
 });
+
+

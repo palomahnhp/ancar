@@ -111,8 +111,9 @@ en:
           processes: ver procesos
         data_collect: Periodo de mecanización
         empty: No se ha creado ningún periodo
-        entry_opened:  Abierta entrada de datos
-        entry_closed: Cerrada entrada de datos
+        entry_opened: No modificable - abierta entrada de datos
+        entry_closed: No modificable - cerrada entrada de datos
+        entry_not_open_yet: Modificable - aún no ha empezado entrada de datos
         no_data: No hay periodos definidos
         organization_type: Organización
         title: Periodos de estudio

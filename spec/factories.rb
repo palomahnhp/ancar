@@ -52,20 +52,20 @@ FactoryGirl.define do
 
   factory :period do
     association :organization_type, factory: :organization_type
-    description "Periodo"
-    started_at  '20150101'
-    ended_at    '20151231'
-    opened_at   '20160101'
-    closed_at   '20160331'
+    description 'Periodo de análisis de datos'
+    started_at  (Time.now - 1.year).beginning_of_year
+    ended_at    (Time.now - 1.year).end_of_year
+    opened_at    Time.now - 1.month
+    closed_at    Time.now + 1.month
 
     trait :open do
       closed_at  Time.now + 1.day
-      description "Periodo abierto"
+      description 'Periodo abierto'
     end
 
     trait :close do
       closed_at  Time.now - 1.day
-      description "Periodo cerrado"
+      description 'Periodo cerrado'
     end
   end
 

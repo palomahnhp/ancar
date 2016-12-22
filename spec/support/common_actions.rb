@@ -109,17 +109,24 @@ module CommonActions
     metric = Metric.create!(item_id: metric_item.id)
     indicator_metric = IndicatorMetric.create!(indicator_id: indicator.id, metric_id: metric.id)
 
+    summary_types = SummaryType.all.map{|st| [st.acronym, st.id] }
+
+    indicator_metric.total_indicators.create!(indicator_type: summary_types[0][0], in_out: 'E', summary_type_id: summary_types[0][1])
+    indicator_metric.total_indicators.create!(indicator_type: summary_types[2][0], in_out: 'U', summary_type_id: summary_types[2][1])
+
     metric_item = Item.create!(item_type: "metric", description: "Nº de Contratos tramitados")
     metric = Metric.create!(item_id: metric_item.id)
     indicator_metric = IndicatorMetric.create!(indicator_id: indicator.id, metric_id: metric.id)
+    indicator_metric.total_indicators.create!(indicator_type: summary_types[1][0], in_out: 'S', summary_type_id: summary_types[1][1])
 
     source_item = Item.create!(item_type: "source", description: "SIGSA")
     source = Source.create!(item_id: source_item.id)
     indicator_source = IndicatorSource.create!(indicator_id: indicator.id, source_id: source.id)
 
-    mp2 = MainProcess.create!(period_id: period.id, item_id: Item.create!(item_type: "main_process",
-                                         description: "AUTORIZACIONES Y CONCESIONES").id,
-                          order: "2")
+    mp2 = MainProcess.create!(period_id: period.id,
+                              item_id: Item.create!(item_type: "main_process", description: "AUTORIZACIONES Y CONCESIONES").id,
+                              order: "2")
+
   end
 
   def create_entry_indicators

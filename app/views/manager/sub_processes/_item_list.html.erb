@@ -1,7 +1,3 @@
-<div class="expanded highlight padding">
- <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
-  <h4> <%= @main_process.item.description %></h4>
-</div>
 
 <br>
 <table>
@@ -19,7 +15,7 @@
     <% end %>
     <tr id="<%= dom_id(sub_process) %>">
       <td class="admin-list">
-        <%= sub_process.order %> <%= description(0, sub_process.item_id) %>
+        <%= sub_process.main_process.order %>. <%= sub_process.order %>. <%= description(0, sub_process.item_id) %>
       </td>
       <td>
         <%= link_to manager_indicators_path(commit: t("manager.indicators.index.submit"),

@@ -8,52 +8,18 @@
     <%= hidden_field_tag :modifiable, params[:modifiable]%>
     <%= hidden_field_tag :eliminable, params[:eliminable]%>
     <%= hidden_field_tag :indicator_metric_id, params[:indicator_metric] %>
-
-    <label for="item_desc"><%= t('.description')%></label>
-    <input list="item_desc" type="text" name="item_desc" value="<%=@indicator.item.description if @indicator.item.present? %>" ">
-    <datalist id="item_desc"%>" >
-      <% @items.each do |item| %>
-        <% if !@indicator.id.nil? && @indicator.item_id == item[1] %>
-         <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
-        <% else %>
-         <option id="<%= item[1] %>" value="<%= item[0] %>">
-        <% end %>
-      <% end %>
-    </datalist>
-    <small class="error  error"><%= show_errors(@indicator, :item_id)%></small>
+    <%= f.label :item_id, t('manager.indicators.form.description')%>
+    <%= f.select :item_id, options_for_select(indicator_items, @indicator.item_id), label: false, placeholder: t('manager.indicators.form.description') %>
   </div>
 
   <div class="small-8 columns" >
-    <label for="metric_description"><%= t('manager.indicators.form.metric')%></label>
-    <input list="metric_description" type="text" name="metric_desc"
-           value="<%= @indicator.indicator_metrics.take.metric.item.description if !@indicator.id.nil? && !@indicator.indicator_metrics.take.nil? %>"  ">
-    <datalist id="metric_description"%>" >
-      <% @metrics.each do |metric| %>
-        <% if !@indicator.id.nil? &&  !@indicator.indicator_metrics.take.nil? && @indicator.indicator_metrics.take.metric.id == metric[1] %>
-         <option id="<%= metric[1] %>" value="<%= metric[0] %>" selected="true">
-        <% else %>
-         <option id="<%= metric[1] %>" value="<%= metric[0] %>">
-        <% end %>
-      <% end %>
-    </datalist>
-    <small class="error  error"><%= show_errors(@indicator, :metric_id)%></small>
+    <%= label_tag :metric_id, t('manager.indicators.form.metric') %>
+    <%= select_tag :metric_id, options_for_select(metric_items, @indicator.indicator_metrics.take.metric.item.description), label: false, placeholder: t('manager.indicators.form.metric') %>
   </div>
 
   <div class="small-8 columns" >
-    <label for="source_description"><%= t('manager.indicators.form.source')%></label>
-    <input list="source_description" type="text" name="source_desc" required
-           value="<%= @indicator.indicator_sources.take.source.item.description if !@indicator.id.nil? && !@indicator.indicator_sources.take.nil? %>"
-           ">
-    <datalist id="source_description"%>" >
-      <% @sources.each do |source| %>
-        <% if !@indicator.id.nil? && !@indicator.indicator_sources.take.nil? && @indicator.indicator_sources.take.source.id == source[1] %>
-         <option id="<%= source[1] %>" value="<%= source[0] %>" selected="true">
-        <% else %>
-         <option id="<%= source[1] %>" value="<%= source[0] %>">
-        <% end %>
-      <% end %>
-    </datalist>
-    <small class="error  error"><%= show_errors(@indicator, :source_id)%></small>
+    <%= label_tag :source_id, t('manager.indicators.form.source') %>
+    <%= select_tag :source_id, options_for_select(metric_items, @indicator.indicator_sources.take.source.item.description), label: false, placeholder: t('manager.indicators.form.source') %>
   </div>
 
   <% if !(params[:action] == 'create' || params[:action] == 'new') %>

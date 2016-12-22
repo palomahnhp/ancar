@@ -100,3 +100,6 @@ en:
     periods:
       index:
         period: "Periodo:"
+    indicators:
+      update:
+        total_indicators: "Seleccionar el/los tipo/s de procesos y su tipo"

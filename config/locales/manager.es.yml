@@ -112,8 +112,9 @@ es:
         organization_type: Organización
         data_collect: Entrada de datos
         empty: No se ha creado ningún periodo
-        entry_opened:  Abierta entrada de datos
-        entry_closed: Cerrada entrada de datos
+        entry_opened: No modificable - abierta entrada de datos
+        entry_closed: No modificable - cerrada entrada de datos
+        entry_not_open_yet: Modificable - aun no ha empezado entrada de datos
         no_data: No hay periodos definidos
         title: Periodos de estudio
       new:

@@ -1,22 +1,17 @@
-<div class="expanded highlight padding">
-  <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
-  <h4> <%= @main_process.item.description %></h4>
-  <h4> <%= @sub_process.item.description %></h4>
-</div>
-
+<br>
 <table>
   <tr>
-    <th><%= t(".indicator") %></th>
+    <th><%= t('.indicator') %></th>
     <th><%= t(".metric") %></th>
     <th><%= t(".source") %></th>
     <th class="text-center" colspan="<%=@item_summary_types.count%>"><%= t(".totals") %></th>
     <th colspan="2"></th>
   </tr>
   <tr>
-    <th colspan="3"></th>
-    <% @item_summary_types.each do |summary_type|%>
-      <th><%= summary_type.description %></th>
-    <% end %>
+      <th colspan="3"></th>
+      <% @item_summary_types.each do |summary_type|%>
+        <th ><%= summary_type.description %></th>
+      <% end %>
     <th colspan="2"></th>
   </tr>
 
@@ -24,7 +19,7 @@
     <tr rowspan="indicator.indicator_metrics.count" id="<%= dom_id(indicator) %>">
       <td colspan="5">
         <% if indicator.description.nil? %>
-          <strong> <%= indicator.order %>. <%= indicator.item.description %></strong>
+          <strong> <%= indicator.task.sub_process.order %>.<%= indicator.task.sub_process.main_process.order %>.<%= indicator.order %>. <%= indicator.item.description %></strong>
         <% else %>
           <br>
           <div class="moderation-description">
@@ -49,10 +44,12 @@
         <% else %>
           <td>No cumplimentada</td>
         <% end %>
-        <% @item_summary_types.each do |item_summary_type|%>
-          <% mark = total_check(im, item_summary_type.id) %>
-          <td class="text-center" title="<%= "#{t("manager.indicators.total_indicator_type.#{mark}")}"%>"><%= mark%></td>
-        <% end %>
+
+          <% @item_summary_types.each do |item_summary_type|%>
+              <% mark = total_check(im, item_summary_type.id) %>
+              <td title="<%= "#{t("manager.indicators.total_indicator_type.#{mark}")}"%>"><%= mark%></td>
+          <% end %>
+
         <td>
           <% if params[:modifiable] == 'true'%>
             <%= link_to edit_manager_indicator_path(indicator, indicator_metric: im,

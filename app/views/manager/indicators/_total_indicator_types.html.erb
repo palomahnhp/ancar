@@ -2,22 +2,14 @@
       <label> Tipo de indicador: </label>
     </div>
     <div class="small-12 columns">
-      <label class="note"> (Seleccionar el/los tipo/s de procesos y su tipo) </label>
+      <label class="note"> <%= t('manager.indicators.update.total_indicators') %> </label>
     </div>
+    <% total_indicators = @indicator.indicator_metrics.find(params[:indicator_metric]).total_indicators %>
     <% @item_summary_types.each do |item_summary_type| %>
       <div class="small-6 medium-2 columns end">
-        <label for="item_summary_type_description"><%= item_summary_type.description %></label>
-        <input list="item_summary_type_description" type="text"
-               name="<%= item_summary_type.description %>"
-               value="<%= summary_type_selected(params[:indicator_metric], item_summary_type.id) %>" >
-        <datalist id="item_summary_type_description"%>">
-          <% @total_indicator_types.each do |in_out| %>
-            <% if summary_type_selected(@indicator, item_summary_type.id) == in_out[1] %>
-              <option id="<%= item_summary_type.id %>" value="<%= in_out[0] %>" selected="true">
-            <% else %>
-              <option id="<%= item_summary_type.id %>" value="<%=  in_out[0] %>">
-            <% end %>
-          <% end %>
-        </datalist>
+        <%= label_tag :summary_type_id, item_summary_type.description %>
+        <%= select_tag :summary_type_id,
+                       options_for_select(@total_indicator_types, summary_type_selected(params[:indicator_metric], item_summary_type.id)),
+                       label: false, placeholder: t('manager.indicators.form.source') %>
       </div>
     <% end %>

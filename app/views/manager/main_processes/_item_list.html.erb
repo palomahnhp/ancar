@@ -1,9 +1,5 @@
 
-<div class="expanded highlight padding">
- <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
-</div>
-
-  <table>
+  <table id="main_processes_list">
     <% @main_processes.each do  |main_process|%>
       <tr id="<%= dom_id(main_process) %>">
         <td>

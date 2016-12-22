@@ -1,19 +1,7 @@
-<div class="row">
-  <div  class="small-12 columns">
-      <%= render "shared/back" %>
-  </div>
-  <div class="small-12 columns">
-    <div class="small-10 columns">
-      <h2><%= t("manager.periods.#{action_name}.title") %>  </h2>
-    </div>
-    <div class="column small-2">
-      <br>
-        <%= link_to t("manager.periods.index.button.create"),
-              new_manager_period_path,
-              class: "button large success hollow" %>
-    </div>
-  </div>
-</div>
+<%= render partial: 'manager/shared/header',
+           locals: {title: t("manager.periods.#{action_name}.title"), button: t("manager.periods.index.button.create"),
+                    path: new_manager_period_path, modifiable: 'true',
+                    period: nil, main_process: nil, sub_process: nil, indicator: nil  } %>
 
 <div>
   <% if @periods.nil? || @periods.empty? %>
