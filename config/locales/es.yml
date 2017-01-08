@@ -1,111 +1,131 @@
+---
 es:
   actions:
     back: Volver
     create: Crear
     delete: Eliminar
     edit: Editar
-    update: Editar
     new: Crear
-  activerecord:
-    errors:
-      models:
-        period:
-          attributes:
-            description:
-              too_short: La descripción es demasiado corta
+    update: Editar
+  admin:
+    dashboard:
+      index:
+        title: Configuración de la aplicación
+    menu:
+      organization_types: Tipos de organizaciones
+      organizations: Organizaciones
+      settings: Configuración global
+      stats: Estadísticas
+      unit_types: Tipos de unidades
+      units: Unidades
+    organization_types:
+      index:
+        title: Tipos de organizaciones
+    organizations:
+      index:
+        title: Organizaciones
+    unit_types:
+      index:
+        title: Tipos de unidades
+    units:
+      index:
+        title: Unidades
   application:
-    close: "Salir"
+    close: Salir
   entry_indicators:
-    index:
-      title: Hoja de identificación de procesos en #{organiztion_type}
-      select_unit: Seleccionar una unidad
-      select: Seleccionar
-      select_organization_type: Selecciona una organización
-      select_period: Seleccionar periodo
-      no_main_processes: No hay indicadores para este periodo.
-    updates:
-      success: Se han actualizado correctamente los indicadores de esta unidad.
-      incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
-      no_key: "Falta parametro key"
-    staff:
-      Unit:
-        title: EFECTIVOS UNIDAD
-      SubProcess:
-        title: EFECTIVOS SUBPROCESO
     form:
+      amount: Cantidad
       indicator: Indicador
       metric: Métrica
       source: Fuente
-      amount: Cantidad
+    index:
+      no_main_processes: No hay indicadores para este periodo.
+      select: Seleccionar
+      select_organization_type: Selecciona una organización
+      select_period: Seleccionar periodo
+      select_unit: Seleccionar una unidad
+      title: Hoja de identificación de procesos en
+    staff:
+      SubProcess:
+        title: EFECTIVOS SUBPROCESO
+      Unit:
+        title: EFECTIVOS UNIDAD
+    updates:
+      incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
+      no_key: Falta parametro key
+      success: Se han actualizado correctamente los indicadores de esta unidad.
   form:
-    error: error
-    errors: errores
-    period:  el periodo
-    not_saved: 'impidieron guardar %{resource}:'
+    error: error impidió
+    errors: errores impidieron
     indicator: Indicador
+    indicator_metric: la métrica
+    main_process: el proceso
+    not_saved: 'guardar %{resource}:'
+    period: el periodo
+    sub_process: el subproceso
   layouts:
-    footer:
-      legal_warning: "Aviso legal"
-      copyright: "© Copyrigth  %{year} Ayuntamiento de Madrid"
-      FAQ_title: "Instrucciones"
-      FAQ_text: Instrucciones para la cumplimentación de los indicadores
-      process_title: "Indicadores"
-      process_text: "Consulta y modificación de indicatores"
-    header:
-      logo: "Direccion General de Planificacion i18n"
-      open: "Abierto"
-      open_gov: "Gobierno abierto"
-      open_data: "Open data"
-      administracion: Administrador
-      gestion: "Gestor"
-      validacion: "Validador"
     application:
       chrome: Google Chrome
       firefox: Firefox
       ie: Hemos detectado que estás navegando desde Internet Explorer. Para una mejor experiencia te recomendamos utilizar %{chrome} o %{firefox}.
       ie_title: Esta web no está optimizada para tu navegador
+    footer:
+      FAQ_text: Instrucciones para la cumplimentación de los indicadores
+      FAQ_title: Instrucciones
+      copyright: "© Copyrigth  %{year} Ayuntamiento de Madrid"
+      legal_warning: Aviso legal
+      process_text: Consulta y modificación de indicatores
+      process_title: Indicadores
+    header:
+      administracion: Administrador
+      gestion: Gestor
+      logo: Direccion General de Planificacion i18n
+      open: Abierto
+      open_data: Open data
+      open_gov: Gobierno abierto
+      validacion: Validador
   process_summary:
     no_indicators: No se han incluido indicadores para el resumen de este proceso
   shared:
     advanced_search:
-      author_type: 'Por categoría de autor'
-      author_type_blank: 'Elige una categoría'
-      date: 'Por fecha'
-      date_placeholder: 'DD/MM/AAAA'
-      date_range_blank: 'Elige una fecha'
-      from: 'Desde'
-      general: 'Con el texto'
-      general_placeholder: 'Escribe el texto'
-      search: 'Filtrar'
-      title: 'Búsqueda avanzada'
-      to: 'Hasta'
+      author_type: Por categoría de autor
+      author_type_blank: Elige una categoría
+      date: Por fecha
+      date_placeholder: DD/MM/AAAA
+      date_range_blank: Elige una fecha
+      from: Desde
+      general: Con el texto
+      general_placeholder: Escribe el texto
+      search: Filtrar
+      title: Búsqueda avanzada
+      to: Hasta
     print:
       print_button: Imprimir esta información
     target_blank_html: " (se abre en ventana nueva)"
   subnavigation_menu:
     entry_indicators: Indicadores
+    instructions: Instrucciones
     process_summary: Resumen por proceso
     subprocess_summary: Resumen por subproceso
-    instructions: Instrucciones
   unauthorized:
     manage:
-      all: "Acción no autorizada."
-      user: "Not allowed to manage other user accounts."
+      all: Acción no autorizada.
+      user: Not allowed to manage other user accounts.
     update:
-      project: "Actualización no permitida."
+      project: Actualización no permitida.
   user_access:
     index:
-      title: Hoja de identificación de procesos
-      select: Selección de unidad a tratar
       no_auth_units: No tienes unidades autorizadas
+      select: Selección de unidad a tratar
+      title: Hoja de identificación de procesos
   welcome:
-    title: Organización del trabajo en las unidades municipales
-    sub_title: Estudio de cargas de trabajo
     logo_alt: Logo Gerencia de la Ciudad
-  manager:
-    periods:
-      index:
-        period: "Periodo:"
-    indicators:
-      update:
-        total_indicators: "Seleccionar el/los tipo/s de procesos y su tipo"
+    sub_title: Estudio de cargas de trabajo
+    title: Organización del trabajo en las unidades municipales
+  activerecord:
+    errors:
+      models:
+        indicator_metric:
+          attributes:
+            source_id:
+              blank: "Es obligatorio indicar una fuente"

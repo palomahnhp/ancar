@@ -1,10 +1,9 @@
 <%= render partial: 'manager/shared/header',
            locals: {title: t("manager.main_processes.#{action_name}.title"),
                     button: t("manager.main_processes.index.create"),
-                    path: new_manager_main_process_path(period_id: params["period_id"],
-                                                        organization_type_id: params["organization_type_id"]),
-                    modifiable: params[:modifiable],
-                    period: @period, main_process: nil, sub_process: nil, indicator: nil  } %>
+                    path: new_manager_main_process_path(period_id: params["period_id"]),
+                    modifiable: @period.modifiable?,
+                    period: @period, main_process: nil, sub_process: nil, indicator: nil, indicator_metric: nil  } %>
 <div>
 
   <% if @main_processes.nil? || @main_processes.empty? %>

@@ -1,21 +1,8 @@
-<div class="row">
-  <div class="small-12 columns">
-    <div class="highlight small-8 columns">
-      <h2><%= t("manager.#{MainProcess.name.underscore.pluralize}.#{action_name}.title") %>  </h2>
-    </div>
-    <div  class="small-1 columns">
-      <%= render 'shared/back' %>
-    </div>
-  </div>
-</div>
-
-<div class="expanded highlight padding">
- <h5> <%= @organization_type.description %> / <%= @period.description %></h5>
- <h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
-</div>
-
-<div class="row">
-  <div class="small-12 column">
-    <%= render 'form' %>
-  </div>
+<%= render partial: 'manager/shared/header',
+           locals: {title: t("manager.main_processes.#{action_name}.title"),
+                    button: nil, path: nil, modifiable: true,
+                    period: @main_process.period, main_process: @main_process, sub_process: nil,
+                    indicator: nil, indicator_metric: nil  } %>
+<div class="small-12 column">
+  <%= render "form" %>
 </div>

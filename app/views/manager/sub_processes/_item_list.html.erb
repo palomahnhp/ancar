@@ -19,10 +19,7 @@
       </td>
       <td>
         <%= link_to manager_indicators_path(commit: t("manager.indicators.index.submit"),
-              main_process_id: sub_process.main_process_id,
-              modifiable: params[:modifiable],
-              eliminable: params[:eliminable],
-              sub_process_id: sub_process.id),
+                                            sub_process_id: sub_process.id),
             id: "index_#{sub_process.id}",
             class: 'button small float-right hollow' do %>
               <span class="icon-tag"></span>
@@ -30,12 +27,8 @@
         <% end %>
       </td>
       <td>
-        <% if params[:modifiable] == 'true' %>
-          <%= link_to edit_manager_sub_process_path(sub_process,
-              period_id: params[:period_id],
-              organization_type_id: params[:organization_type_id],
-              modifiable: params[:modifiable],
-              eliminable: params[:eliminable]),
+        <% if sub_process.modifiable? == true %>
+          <%= link_to edit_manager_sub_process_path(sub_process),
               id: "edit_#{sub_process.id}",
               class: 'button small float-right hollow' do %>
                 <span class="icon-edit"></span>
@@ -44,8 +37,9 @@
           <% end %>
       </td>
       <td>
-        <% if params[:modifiable] == 'true' %>
-            <% msg = delete_msg(sub_process.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], sub_process.is_empty? ) %>
+        <% if sub_process.modifiable? == true %>
+            <% msg = delete_msg(sub_process.class.name.pluralize.underscore, sub_process.main_process.period.eliminable?,
+                                sub_process.main_process.period.modifiable?, sub_process.is_empty? ) %>
             <%= link_to manager_sub_process_path(sub_process), method: :delete,
                 data: {confirm: msg},
                 id: "delete_#{sub_process.id}",

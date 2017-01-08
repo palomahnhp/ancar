@@ -47,7 +47,6 @@ FactoryGirl.define do
     factory :manager do
       sequence(:login) { |n| "man00#{n}" }
     end
-
   end
 
   factory :period do
@@ -55,8 +54,8 @@ FactoryGirl.define do
     description 'Periodo de análisis de datos'
     started_at  (Time.now - 1.year).beginning_of_year
     ended_at    (Time.now - 1.year).end_of_year
-    opened_at    Time.now - 1.month
-    closed_at    Time.now + 1.month
+    opened_at   (Time.now - 1.year).end_of_year + 1.day
+    closed_at   (Time.now - 1.year).end_of_year + 1.month
 
     trait :open do
       closed_at  Time.now + 1.day
@@ -96,10 +95,12 @@ FactoryGirl.define do
   end
 
   factory :indicator_metric do
+    association :indicator, factory: :indicator
     association :metric, factory: :metric
   end
 
   factory :indicator_source do
+    association :indicator_metric, factory: :indicator
     association :source, factory: :source
   end
 
@@ -109,6 +110,11 @@ FactoryGirl.define do
 
   factory :source do
     association :item, :factory => [:item, :source]
+  end
+
+  factory :entry_indicator do
+    association :indicator_metric, factory: :indicator_metric
+    amount 13.5
   end
 
   factory :item do
@@ -143,10 +149,6 @@ FactoryGirl.define do
       item_type 'source'
       sequence(:description) {|n|  "Source #{n}"}
     end
-  end
-
-  factory :entry_indicator do
-
   end
 
   factory :unit_type do

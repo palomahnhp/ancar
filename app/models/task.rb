@@ -16,4 +16,20 @@ class Task < ActiveRecord::Base
   def is_empty?
     self.indicators.count == 0
   end
+
+  def main_process
+    sub_process.main_process
+  end
+
+  def period
+    main_process.period
+  end
+
+  def modifiable?
+    period.modifible?
+  end
+
+  def eliminable?
+    period.eliminable?
+  end
 end

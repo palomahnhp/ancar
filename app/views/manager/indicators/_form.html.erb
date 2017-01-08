@@ -1,41 +1,23 @@
-<%= render 'shared/errors', resource: @indicator %>
 
 <%= form_for [:manager, @indicator] do |f| %>
   <br>
+   <%= render 'shared/errors', resource: @indicator %>
   <div class="small-8 columns" >
     <%= f.hidden_field(:task_id) %>
     <%= f.hidden_field :item_id %>
-    <%= hidden_field_tag :modifiable, params[:modifiable]%>
-    <%= hidden_field_tag :eliminable, params[:eliminable]%>
-    <%= hidden_field_tag :indicator_metric_id, params[:indicator_metric] %>
+
     <%= f.label :item_id, t('manager.indicators.form.description')%>
-    <%= f.select :item_id, options_for_select(indicator_items, @indicator.item_id), label: false, placeholder: t('manager.indicators.form.description') %>
+    <%= f.select :item_id, options_for_select(indicator_items, @indicator.item_id), :prompt => t('manager.indicators.form.description'),
+                 label: false, placeholder: t('manager.indicators.form.description') %>
   </div>
 
-  <div class="small-8 columns" >
-    <%= label_tag :metric_id, t('manager.indicators.form.metric') %>
-    <%= select_tag :metric_id, options_for_select(metric_items, @indicator.indicator_metrics.take.metric.item.description), label: false, placeholder: t('manager.indicators.form.metric') %>
-  </div>
-
-  <div class="small-8 columns" >
-    <%= label_tag :source_id, t('manager.indicators.form.source') %>
-    <%= select_tag :source_id, options_for_select(metric_items, @indicator.indicator_sources.take.source.item.description), label: false, placeholder: t('manager.indicators.form.source') %>
-  </div>
-
-  <% if !(params[:action] == 'create' || params[:action] == 'new') %>
-    <%= render 'total_indicator_types' %>
-  <% else %>
-    <div class="small-7 columns panel">
-        <% @item_summary_types.each do |item_summary_type| %>
-          <div div class="small-12 medium-4 columns end">
-            <%= label_tag item_summary_type.description %>
-           <%= select_tag item_summary_type.description, options_for_select(@total_indicator_types) %>
-          </div>
-        <% end %>
+    <div class="row">
+      <div class="small-7 columns" >
+        <%= label_tag t('manager.indicators.form.items.description')%>
+        <%= text_field_tag(:item_description) %>
       </div>
-  <% end %>
+    </div>
 
-  <div  class="small-12 columns"> <br> </div>
 
   <div class="small-12 medium-4 columns">
     <%= f.label :order, t('manager.indicators.form.order') %>

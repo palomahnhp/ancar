@@ -3,8 +3,6 @@
 <%= form_for [:manager, @task] do |f| %>
   <br>
   <%= f.hidden_field :sub_process_id, value: params[:sub_process_id]%>
-  <%= f.hidden_field :modifiable, value: params[:modifiable]%>
-  <%= f.hidden_field :eliminable, value: params[:eliminable]%>
 
   <div class="small-8 columns" >
     <label for="item_description"><%= t('manager.tasks.form.description')%></label>

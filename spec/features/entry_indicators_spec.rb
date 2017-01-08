@@ -98,10 +98,9 @@ feature "Entry Indicators" do
       login_as_authenticated_user(user)
 
       click_link("Indicadores", :match => :first)
-
       click_link('Periodo de análisis de datos', :match => :first)
       expect(page).to have_content "Contratos Menores"
-      expect(page).to have_content("SIGSA", count: 2)
+      expect(page).to have_content("SIGSA", count: 4)
       expect(page).to have_content "Nº de Contratos recibidos"
       expect(page).to have_content "Nº de Contratos tramitados"
 

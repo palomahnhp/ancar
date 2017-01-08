@@ -8,6 +8,7 @@ feature 'Indicators Maintenance' do
   end
 
   describe 'index of indicators' do
+
     it 'listado de indicadores' do
       manager = create(:manager_global)
       login_as_authenticated_user(manager)
@@ -15,12 +16,14 @@ feature 'Indicators Maintenance' do
       visit manager_root_path
 
       click_link 'Configurar Periodos'
+
       within("#period_1") do
         click_link "ver procesos"
       end
       within("#main_process_1") do
         click_link "Ver subprocesos"
       end
+
       click_link("Ver indicadores", :match => :first)
 
       expect(page).to have_selector('tr', count: 5)
@@ -39,22 +42,35 @@ feature 'Indicators Maintenance' do
       expect(page).to have_content('SIGSA', count: 2)
 
       within('tr#indicator_metric_1') do
-        expect(page).to have_selector('td#E', count: 1)
-        expect(page).to have_selector('td#U', count: 1)
-        expect(page).to have_selector('td#-', count: 1)
+        within('td#summary_type_1') do
+          expect(page).to have_content 'E'
+        end
+        within('td#summary_type_2') do
+          expect(page).to have_content '-'
+        end
+        within('td#summary_type_3') do
+          expect(page).to have_content 'U'
+        end
       end
 
       within('tr#indicator_metric_2') do
-        expect(page).to have_selector('td#S', count: 1)
-        expect(page).to have_selector('td#-', count: 2)
+        within('td#summary_type_1') do
+          expect(page).to have_content '-'
+        end
+        within('td#summary_type_2') do
+          expect(page).to have_content 'S'
+        end
+        within('td#summary_type_3') do
+          expect(page).to have_content '-'
+        end
       end
-    end
 
+    end
 
     it 'has correct buttons for opened period ' do
 
       period = Period.first
-      period.opened_at = Time.now - 2.months
+      period.opened_at = Time.now - 1.days
       period.closed_at = Time.now + 1.months
       period.save
 
@@ -70,16 +86,20 @@ feature 'Indicators Maintenance' do
       within("#main_process_1") do
         click_link "Ver subprocesos"
       end
+      within("#sub_process_1") do
+        click_link "Ver indicadores"
+      end
 
-      expect(page).to have_link('Editar', count: 2)
-      expect(page).to have_link('Eliminar', count: 2)
+      expect(page).to have_link 'Añadir métrica'
+      expect(page).to have_link('Editar', count: 3)
+      expect(page).to have_link('Eliminar', count: 3)
     end
 
     it "has correct buttons for closed period " do
       period = Period.first
 
-      period.opened_at = Time.now - 2.months
-      period.closed_at = Time.now - 1.months
+      period.opened_at = Time.now - 2.days
+      period.closed_at = Time.now - 1.day
       period.save
 
       manager = create(:manager_global)
@@ -95,6 +115,10 @@ feature 'Indicators Maintenance' do
       end
       within("#main_process_1") do
         click_link "Ver subprocesos"
+      end
+
+      within("#sub_process_1") do
+        click_link "Ver indicadores"
       end
 
       expect(page).not_to have_link 'Editar'
@@ -124,38 +148,167 @@ feature 'Indicators Maintenance' do
         click_link "Ver subprocesos"
       end
 
+      within("#sub_process_1") do
+        click_link "Ver indicadores"
+      end
+
       expect(page).to have_link 'Editar'
       expect(page).to have_link 'Eliminar'
     end
   end
 
-  describe 'formulario de actualización' do
-    it 'muestra todos los campos para actualización en vista edit'
+  describe 'edit a indicator' do
+    it 'show the correct fields' do
+      period = Period.first
+      period.opened_at = Time.now - 2.months
+      period.closed_at = Time.now + 1.months
+      period.save
 
+      manager = create(:manager_global)
+      login_as_authenticated_user(manager)
 
-    it 'muestra los checks de agrupación correctamente marcados'
+      visit manager_root_path
 
+      click_link 'Configurar Periodos'
+      within("#period_1") do
+        click_link "ver procesos"
+      end
+      within("#main_process_1") do
+        click_link "Ver subprocesos"
+      end
+      within('#sub_process_1') do
+        click_link 'Ver indicadores'
+      end
+      within('#indicator_1') do
+        click_link 'Editar'
+      end
 
-    it 'muestra todos los campos vacios en vista new'
+      expect(page).to have_content 'Editar indicador'
+      expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
+      expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+      expect(page).to have_content '1.1.1. Contratos Menores'
 
-    it 'muestra el botón para actualizar en edit'
+      description = page.find_field('indicator_item_id')
+      expect(description.text).to eq 'Contratos Menores Expedientes urbanísticos'
+      expect(description.tag_name).to eq('select')
+      expect(description.value).to eq('15')
 
+      button = page.find_button
+      expect(button[:name]).to eq 'commit'
+      expect(button.value).to eq 'Editar'
+      expect(button.tag_name).to eq('input')
 
-    it 'muestra el botón para actualizar en new'
+    end
 
+    it 'changes indicator order an description with select options' do
+      period = Period.first
+      period.opened_at = Time.now - 2.months
+      period.closed_at = Time.now + 1.months
+      period.save
 
-    it 'propone contenido en descripcion'
+      manager = create(:manager_global)
+      login_as_authenticated_user(manager)
 
-    it 'crea nueva descripcion'
+      visit manager_root_path
 
-    it 'propone contenido en métricas'
+      click_link 'Configurar Periodos'
+      within('#period_1') do
+        click_link 'ver procesos'
+      end
+      within('#main_process_1') do
+        click_link 'Ver subprocesos'
+      end
+      within('#sub_process_1') do
+        click_link 'Ver indicadores'
+      end
+      within('#indicator_1') do
+        click_link 'Editar'
+      end
 
-    it 'crea nueva métrica'
+      select('Expedientes urbanísticos', :from => 'indicator_item_id')
 
-    it 'propone contenido en fuentes'
+      fill_in('indicator_order', :with => '99')
+      click_button "Editar"
 
-    it 'crea nueva fuente'
+      expect(page.current_path).to  eq(manager_indicators_path)
+      expect(page).to have_content 'Indicadores'
+      expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
+      expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+      expect(page).to have_content '1.1.99. Expedientes urbanísticos'
+
+    end
+    it 'changes indicator writing descripcion' do
+      period = Period.first
+      period.opened_at = Time.now - 2.months
+      period.closed_at = Time.now + 1.months
+      period.save
+
+      manager = create(:manager_global)
+      login_as_authenticated_user(manager)
+
+      visit manager_root_path
+
+      click_link 'Configurar Periodos'
+      within('#period_1') do
+        click_link 'ver procesos'
+      end
+      within('#main_process_1') do
+        click_link 'Ver subprocesos'
+      end
+      within('#sub_process_1') do
+        click_link 'Ver indicadores'
+      end
+      within('#indicator_1') do
+        click_link 'Editar'
+      end
+
+      select('Expedientes urbanísticos', :from => 'indicator_item_id')
+
+      find('#indicator_item_id').find(:xpath, 'option[2]').select_option
+      fill_in 'item_description', with: 'Nueva descripción'
+
+      click_button "Editar"
+
+      expect(page.current_path).to  eq(manager_indicators_path)
+      expect(page).to have_content 'Indicadores'
+      expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
+      expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+      expect(page).not_to have_content '1.1.1. Expedientes urbanísticos'
+      expect(page).to have_content '1.1. Nueva descripción'
+
+    end
+
   end
+  describe 'Delete a indicator' do
 
+    it "delete a indicator and all references " do
+      manager = create(:manager_global)
+      login_as_authenticated_user(manager)
+
+      visit manager_root_path
+
+      click_link 'Configurar Periodos'
+
+      within('#period_1') do
+        click_link 'ver procesos'
+      end
+
+      within('#main_process_1') do
+        click_link 'Ver subprocesos'
+      end
+
+      within('#sub_process_1') do
+        click_link 'Ver indicadores'
+      end
+
+      within('#indicator_1') do
+        click_link 'Eliminar'
+      end
+      expect(page).to have_content 'Se ha eliminado el Indicador correctamente'
+      expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
+      expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+      expect(page).not_to have_content '1.1.1. Expedientes urbanísticos'
+    end
+  end
 
 end

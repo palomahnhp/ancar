@@ -60,6 +60,17 @@ namespace :initialize do
     puts "Inicializados correctamente"
   end
 
+  desc "inicializar indicator_metric en indicator_sources"
+
+  task indicator_sources: :environment do
+    IndicatorMetric.all.each do |im|
+
+     IndicatorSource.where(indicator_id: im.indicator).each do |is|
+       is.indicator_metric_id = im.id
+       is.save
+      end
+    end
+  end
 end
 
 private

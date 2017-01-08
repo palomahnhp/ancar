@@ -19,7 +19,7 @@
              <div> <%= t('manager.periods.index.data_collect') %>
                 de <strong> <%= period.opened_at %> </strong>
                  a <strong> <%= period.closed_at %> </strong>
-          </div>
+            </div>
           <% if period.open_entry? %>
             <strong><%= t('manager.periods.index.entry_opened') %></strong>
           <% elsif period.close_entry? %>
@@ -27,13 +27,11 @@
           <% else %>
             <strong><%= t('manager.periods.index.entry_not_open_yet') %></strong>
           <% end %>
-        </td>
-        <td class="small-2 columns end">
+          </td>
+          <td class="small-2 columns end">
           <%= link_to manager_main_processes_path(
                 commit: t('manager.main_processes.index.submit'),
-                period_id: period.id, organization_type_id: period.organization_type_id,
-                modifiable: period.modifiable?,
-                eliminable: period.eliminable?),
+                period_id: period.id, organization_type_id: period.organization_type_id),
                 id: "index_#{period.id}",
                 class: 'button float-right tiny hollow' do %>
                   <span class="icon-tag"></span>
@@ -63,6 +61,7 @@
                         <% end %>
           </td>
         <% end %>
+       </div>
       </tr>
     <% end %>
   <% end %>

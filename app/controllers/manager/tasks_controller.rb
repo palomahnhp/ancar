@@ -99,8 +99,7 @@ private
    redirect_to manager_tasks_path(commit: t("manager.tasks.index.submit"),
      sub_process_id: @task.sub_process_id,
      main_process_id: @task.sub_process.main_process_id,
-     period_id: @period.id, organization_type_id: @period.organization_type_id,
-     modifiable: @period.modifiable?, eliminable: @period.eliminable?),
+     period_id: @period.id, organization_type_id: @period.organization_type_id),
      notice: msg
   end
 

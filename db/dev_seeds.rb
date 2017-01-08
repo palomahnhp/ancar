@@ -96,13 +96,13 @@ periodo = Period.create!(organization_type_id: to1.id, description: 'PERIODO DE 
         item_id: item.id,
         created_at: rand((Time.now - 1.week) .. Time.now))
         puts "     #{ind.item.description}"
-        # indicator_metric
+        # indicator_metrics
         (1..rand(1..2)).each do |i|
           ind.indicator_metrics.create!(metric_id: rand(1..Metric.count))
-        end
-        # indicator_source
-        (1..rand(1..3)).each do |i|
-          ind.indicator_sources.create!(source_id: rand(1..Source.count))
+          # indicator_source
+          (1..rand(1..3)).each do |i|
+            i.indicator_sources.create!(source_id: rand(1..Source.count), indicator_id: ind.id)
+          end
         end
       end
     end

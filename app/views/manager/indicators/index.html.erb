@@ -1,13 +1,10 @@
 <%= render partial: 'manager/shared/header',
            locals: {title: t("manager.indicators.#{action_name}.title"),
                     button: t("manager.indicators.index.create"),
-                    path: new_manager_indicator_path( task_id: params['task_id'],
-                                                      sub_process_id: params['sub_process_id'],
-                                                      main_process_id: params['main_process_id'],
-                                                      organization_type_id: params['organization_type_id'],
-                                                      period_id: params['period_id']),
-                    modifiable: params[:modifiable],
-                    period: @sub_process.main_process.period, main_process: @sub_process.main_process, sub_process: @sub_process, indicator: nil  } %>
+                    path: new_manager_indicator_path(sub_process_id: @sub_process.id),
+                    modifiable: @sub_process.modifiable?,
+                    period: @sub_process.main_process.period, main_process: @sub_process.main_process,
+                    sub_process: @sub_process, indicator: nil, indicator_metric: nil  } %>
 
 <div>
   <% if @indicators.nil? || @indicators.empty? %>
