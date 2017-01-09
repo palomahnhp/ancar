@@ -48,7 +48,7 @@ class EntryIndicatorsController < ApplicationController
   private
 
     def entry_indicator_params
-      params.require(:indicator_metrics).permit(:amount, :unit_id, :period_id, :indicator_metrics, :indicator_source)
+      params.require(:entry_indicator).permit(:amount, :unit_id, :period_id, :indicator_metric, :indicator_source)
     end
 
     def organizations_select_options
