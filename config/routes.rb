@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :manager do
+  get 'items/create'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,13 +59,15 @@ Rails.application.routes.draw do
 
       resources :main_processes
 
-      resources :in_works
       resources :items do
         member do
           post 'edit'
         end
       end
+      resources :indicators
+      resources :indicator_metrics
 
+      resources :in_works
   end
 
 

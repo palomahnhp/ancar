@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161204203659) do
+ActiveRecord::Schema.define(version: 20170104180512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20161204203659) do
   create_table "indicator_metrics", force: :cascade do |t|
     t.integer "indicator_id"
     t.integer "metric_id"
+    t.string  "order"
   end
 
   add_index "indicator_metrics", ["indicator_id"], name: "index_indicator_metrics_on_indicator_id", using: :btree
@@ -84,9 +85,12 @@ ActiveRecord::Schema.define(version: 20161204203659) do
   create_table "indicator_sources", force: :cascade do |t|
     t.integer "indicator_id"
     t.integer "source_id"
+    t.integer "{:foreign_key=>true}_id"
+    t.integer "indicator_metric_id"
   end
 
   add_index "indicator_sources", ["indicator_id"], name: "index_indicator_sources_on_indicator_id", using: :btree
+  add_index "indicator_sources", ["indicator_metric_id"], name: "index_indicator_sources_on_indicator_metric_id", using: :btree
   add_index "indicator_sources", ["source_id"], name: "index_indicator_sources_on_source_id", using: :btree
 
   create_table "indicators", force: :cascade do |t|
@@ -387,6 +391,7 @@ ActiveRecord::Schema.define(version: 20161204203659) do
   add_foreign_key "indicator_groups", "sub_processes"
   add_foreign_key "indicator_metrics", "indicators"
   add_foreign_key "indicator_metrics", "metrics"
+  add_foreign_key "indicator_sources", "indicator_metrics"
   add_foreign_key "indicator_sources", "indicators"
   add_foreign_key "indicator_sources", "sources"
   add_foreign_key "indicators", "items"

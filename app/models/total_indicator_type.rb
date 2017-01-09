@@ -3,4 +3,8 @@ class TotalIndicatorType < ActiveRecord::Base
   has_many :summary_types
 
   scope :active, -> { where(active: true) }
+
+  def self.to_options
+    @total_indicator_types ||= TotalIndicatorType.active.order(:order).includes(:item).map{ |type| [type.item.description, type.id] }
+  end
 end

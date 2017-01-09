@@ -2,35 +2,29 @@
 
 <%= form_for [:manager, @sub_process] do |f| %>
   <br>
-  <%= f.hidden_field :main_process_id, value: @main_process.id %>
-  <%= f.hidden_field :modifiable, value: params[:modifiable]%>
-  <%= f.hidden_field :eliminable, value: params[:eliminable]%>
-  <div class="small-8 columns" >
-    <label for="unit_type_description"><%= t('manager.sub_processes.form.unit_type')%></label>
-    <input list="unit_type_description" type="text" name="unit_type_desc" value="<%= @sub_process.unit_type.description unless @sub_process.id.nil? %>"  ">
-    <datalist id="unit_type_description" %>">
-      <% @unit_types.each do |unit_type| %>
-        <% if @sub_process.unit_type_id == unit_type[1] %>
-         <option id="<%= unit_type.id %>" value="<%= unit_type.description %>" selected="true">
-        <% else %>
-         <option id="<%= unit_type.id %>" value="<%= unit_type.description %>">
-        <% end %>
-      <% end %>
-    </datalist>
+  <%= f.hidden_field :main_process_id, value: @sub_process.main_process.id %>
+
+  <div class="small-10 columns" >
+    <%= f.label :unit_type_id, t('manager.sub_processes.form.unit_type') %>
+    <%= f.select :unit_type_id, options_for_select(unit_type_descriptions, @sub_process.unit_type_id),
+                   :prompt => t('manager.sub_processes.form.unit_type'), label: false,
+                   placeholder: t('manager.sub_processes.form.unit_type') %>
+
   </div>
 
-  <div class="small-8 columns" >
-   <label for="item_description"><%= t('manager.sub_processes.form.description')%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%= @sub_process.item.description unless @sub_process.id.nil? %>"  ">
-    <datalist id="item_description"%>" >
-      <% @items.each do |item| %>
-        <% if @sub_process.item_id == item[1] %>
-         <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
-        <% else %>
-         <option id="<%= item[1] %>" value="<%= item[0] %>">
-        <% end %>
-      <% end %>
-    </datalist>
+  <div class="small-10 columns end">
+    <%= f.label :item_id, t('manager.sub_processes.form.description') %>
+    <%= f.select :item_id, options_for_select(sub_process_items, @sub_process.item_id),
+                   :prompt => t('manager.sub_processes.form.description'), label: false,
+                   placeholder: t('manager.sub_processes.form.description') %>
+
+  </div>
+
+  <div class="row">
+    <div class="small-7 columns" >
+      <%= label_tag t('manager.sub_processes.form.items.description')%>
+      <%= text_field_tag(:item_description) %>
+    </div>
   </div>
 
   <div class="small-12 column" ></div>

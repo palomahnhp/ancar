@@ -72,7 +72,7 @@ private
       sm_details = SummaryProcessDetail.where(summary_process_id: sm_p.id, unit_id: org.id).take
       if sm_details.nil?
         p_type = sp.class.to_s if ti.indicator_type == 'P'
-#        puts "Amount: 0   #{ei.indicator_metric.indicator.item.description} #{ei.amount}"
+#        puts "Amount: 0   #{ei.indicator_metrics.indicator.item.description} #{ei.amount}"
         sql = " SELECT units.organization_id,
                        organizations.description,
                        assigned_employees.official_group_id,

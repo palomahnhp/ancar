@@ -4,14 +4,9 @@ es:
     dashboard:
       index:
         title: Configuración de procesos
-    errors:
-      models:
-        indicator:
-          attributes:
-            metric_id:
-              blank: Hay que incluir una métrica
-            source_id:
-              blank: Hay que incluir una fuente
+    headers:
+      organization: 'Organización:'
+      period: 'Periodo:'
     indicators:
       create:
         success: El indicador se ha creado correctmete.
@@ -27,11 +22,11 @@ es:
         title: Editar indicador
       form:
         description: Descripción
-        metric: Métrica
         order: Orden
-        source: Fuente
+        items:
+          description: "Si no existe la descripción en la caja superior escribala aquí"
       index:
-        empty: No hay procesos para este periodo
+        empty: No hay indicadores definidos
         title: Indicadores
         create: Incluir un indicador
         submit: submit
@@ -52,11 +47,31 @@ es:
         U: Único
         A: "Acumula"
         -: No acumula
+    indicator_metrics:
+      new:
+        title: Crear métrica
+      delete: "¿Deseas borrar está métrica?"
+      edit:
+        title: Editar métrica
+      update:
+        title: Editar métrica
+        total_indicators: "Seleccionar el/los tipo/s de procesos y el comportamiento"
+        success: La métrica se ha modificado correctamente
+      form:
+        metric: Métrica
+        source: Fuente
+      total_indicators:
+        title: "Tipo de indicador"
+      create:
+        success: La métrica se ha añadido correctamente
+      index:
+        submit: "submit"
     menu:
       periods: Configurar Periodos
     main_processes:
       create:
-        success: El indicador se ha creado correctmete.
+        success: El proceso se ha creado correctamente.
+        title: Crear proceso
       delete:
         message:
           empty: ¿Desea borrar este proceso?
@@ -78,7 +93,10 @@ es:
         select_period: Seleccionar el periodo
       form:
         description: Descripción
+        prompt: Selecciona una descripción
         order: Núm. orden
+        items:
+          description: "Si no existe la descripción en la caja superior escriba aquí la nueva descripción"
       new:
         title: Crear procesos
       update:
@@ -109,12 +127,14 @@ es:
           edit: editar
           delete: eliminar
           processes: ver procesos
-        organization_type: Organización
-        data_collect: Entrada de datos
+        data_collect: Periodo de mecanización
         empty: No se ha creado ningún periodo
-        entry_opened:  Abierta entrada de datos
-        entry_closed: Cerrada entrada de datos
+        entry_opened: No modificable - abierta entrada de datos
+        entry_closed: No modificable - cerrada entrada de datos
+        entry_not_open_yet: Modificable - aún no ha empezado entrada de datos
         no_data: No hay periodos definidos
+        organization_type: Organización
+        period: 'Periodo:'
         title: Periodos de estudio
       new:
         title: Abrir un nuevo periodo
@@ -141,8 +161,8 @@ es:
          empty: ¿Desea borrar este subproceso?
          no_empty: ¿Desea borrar este subproceso y sus tareas e indicadores?
       destroy:
-        error: Error eliminando proceso
-        success: Proceso eliminado
+        error: Error eliminando subproceso
+        success: Subproceso eliminado
       edit:
         title: Editar subproceso
       update:
@@ -157,12 +177,16 @@ es:
         unit_type: Unidad
         description: Descripción
         order: Núm. orden
+        items:
+          description: "Si no existe la descripción en la caja superior escribala aquí"
       new:
         title: Crear subproceso
       update:
         success: El registro se ha actualizado correctamente.
       show:
         title: Indicador
+      create:
+        success: "El subproceso se ha creado correctamente"
     tasks:
       create:
         success: La tarea se ha creado correctamente
@@ -192,3 +216,13 @@ es:
         success: El registro se ha actualizado correctamente.
       show:
         title: Indicador
+    indicator:
+      index:
+        indicator_metric:
+          create: 'Añadir métrica'
+    indicators_metrics:
+      create:
+        title: la métrica
+      destroy:
+        success: 'Se ha eliminado correctmente la métrica'
+        error: "Error eliminando la métrica"

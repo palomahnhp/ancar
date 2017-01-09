@@ -1,9 +1,5 @@
 
-<div class="expanded highlight padding">
- <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
-</div>
-
-  <table>
+  <table id="main_processes_list">
     <% @main_processes.each do  |main_process|%>
       <tr id="<%= dom_id(main_process) %>">
         <td>
@@ -12,10 +8,8 @@
           </div>
         </td>
         <td>
-          <%= link_to manager_sub_processes_path(commit: t("manager.sub_processes.index.submit"),
-              main_process_id: main_process.id,
-              modifiable: params[:modifiable],
-              eliminable: params[:eliminable]),
+          <%= link_to manager_sub_processes_path(commit: t('manager.main_processes.index.submit'),
+              main_process_id: main_process.id),
               id: "index_#{main_process.id}",
               class: 'button small float-right hollow' do %>
                 <span class="icon-tag"></span>
@@ -23,12 +17,8 @@
           <% end %>
         </td>
         <td>
-          <% if params[:modifiable] == 'true' %>
-            <%= link_to edit_manager_main_process_path(main_process,
-                period_id: params[:period_id],
-                organization_type_id: params[:organization_type_id],
-                modifiable: params[:modifiable],
-                eliminable: params[:eliminable]),
+          <% if main_process.modifiable? == true %>
+            <%= link_to edit_manager_main_process_path(main_process),
                 id: "edit_#{main_process.id}",
                 class: 'button small float-right hollow' do %>
                   <span class="icon-edit"></span>
@@ -37,15 +27,14 @@
           <% end %>
         </td>
         <td>
-          <% if params[:modifiable] == 'true' %>
-            <% msg = delete_msg(main_process.class.name.pluralize.underscore, params[:eliminable], params[:modifiable], main_process.is_empty? ) %>
-            <%= link_to manager_main_process_path(main_process), method: :delete,
-              data: {confirm: msg},
-              id: "delete_#{main_process.id}",
-              class: 'button small alert float-right hollow' do %>
-                  <span class="icon-box"></span>
-                  <%= t("actions.delete") %>
-              <% end %>
+          <% if main_process.modifiable? == true %>
+            <% msg = delete_msg(main_process.class.name.pluralize.underscore, main_process.eliminable?, main_process.modifiable?, main_process.is_empty? ) %>
+            <%= link_to manager_main_process_path(main_process),
+                        method: :delete, data: {confirm: msg}, id: "delete_#{main_process.id}",
+                        class: 'button small alert float-right hollow' do %>
+                          <span class="icon-box"></span>
+                          <%= t("actions.delete") %>
+                        <% end %>
           <% end %>
         </td>
       </tr>

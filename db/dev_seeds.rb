@@ -96,13 +96,13 @@ periodo = Period.create!(organization_type_id: to1.id, description: 'PERIODO DE 
         item_id: item.id,
         created_at: rand((Time.now - 1.week) .. Time.now))
         puts "     #{ind.item.description}"
-        # indicator_metric
+        # indicator_metrics
         (1..rand(1..2)).each do |i|
           ind.indicator_metrics.create!(metric_id: rand(1..Metric.count))
-        end
-        # indicator_source
-        (1..rand(1..3)).each do |i|
-          ind.indicator_sources.create!(source_id: rand(1..Source.count))
+          # indicator_source
+          (1..rand(1..3)).each do |i|
+            i.indicator_sources.create!(source_id: rand(1..Source.count), indicator_id: ind.id)
+          end
         end
       end
     end
@@ -189,4 +189,31 @@ puts '12. Creando usuarios '
                       official_position: Faker::Company.profession)
   user.add_role(:user, Organization.where(organization_type: to1.id).second)
   puts " #{user.login}"
+
+
+puts "Cargando SummaryType y TotalIndicatorType"
+
+process     = Item.create!(item_type: "summary_type", description: "Proceso", updated_by: "initialize")
+subprocess  = Item.create!(item_type: "summary_type", description: "Subproceso", updated_by: "initialize")
+stock       = Item.create!(item_type: "summary_type", description: "Stock", updated_by: "initialize")
+sub_subprocess = Item.create!(item_type: "summary_type", description: "Sub-subproceso", updated_by: "initialize")
+control     = Item.create!(item_type: "summary_type", description: "Control", updated_by: "initialize")
+
+pr = SummaryType.create(acronym: "P", item_id:process.id,     order: 1, updated_at: 'initialize', active: TRUE)
+s  = SummaryType.create(acronym: "S", item_id:subprocess.id,  order: 2, updated_at: 'initialize', active: TRUE)
+u  = SummaryType.create(acronym: "U", item_id:stock.id,       order: 4, updated_at: 'initialize',  active: TRUE)
+g  = SummaryType.create(acronym: "G", item_id:sub_subprocess.id, order: 3, updated_at: 'initialize',  active: FALSE)
+c  = SummaryType.create(acronym: "C", item_id:control.id,     order: 5, updated_at: 'initialize',  active: FALSE)
+
+it = Item.create!(item_type: "total_indicator_type", description: "No acumula", updated_by: "initialize")
+TotalIndicatorType.create(item_id: it.id, acronym: '-',order: 1, updated_at: 'initialize', active: TRUE)
+it = Item.create!(item_type: "total_indicator_type", description: "Acumula", updated_by: "initialize")
+TotalIndicatorType.create(item_id: it.id, acronym: 'A',order: 5, updated_at: 'initialize', active: TRUE)
+it = Item.create!(item_type: "total_indicator_type", description: "Entrada", updated_by: "initialize")
+TotalIndicatorType.create(item_id: it.id, acronym: 'E',order: 2, updated_at: 'initialize', active: TRUE)
+it = Item.create!(item_type: "total_indicator_type", description: "Salida", updated_by: "initialize")
+TotalIndicatorType.create(item_id: it.id, acronym: 'S',order: 3, updated_at: 'initialize', active: TRUE)
+it = Item.create!(item_type: "total_indicator_type", description: "Único", updated_by: "initialize")
+TotalIndicatorType.create(item_id: it.id, acronym: 'U',order: 4, updated_at: 'initialize', active: TRUE)
+
 

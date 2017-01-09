@@ -1,27 +1,21 @@
 <%= render 'shared/errors', resource: @main_process %>
 
 <%= form_for [:manager, @main_process] do |f| %>
-
   <br>
-  <div class="small-8 columns" >
-    <%= f.hidden_field :period_id, value: params[:period_id]%>
-    <%= f.hidden_field :modifiable, value: params[:modifiable]%>
-    <%= f.hidden_field :eliminable, value: params[:eliminable]%>
-
-    <label for="item_description"><%= t('manager.main_processes.form.description')%></label>
-    <input list="item_description" type="text" name="item_desc" value="<%= @main_process.item.description unless @main_process.id.nil? %>" ">
-    <datalist id="item_description"%>" >
-      <% @items.each do |item| %>
-        <% if @main_process.item_id == item[1] %>
-          <option id="<%= item[1] %>" value="<%= item[0] %>" selected="true">
-        <% else %>
-          <option id="<%= item[1] %>" value="<%= item[0] %>">
-        <% end %>
-      <% end %>
-    </datalist>
+  <%= f.hidden_field :period_id, value: main_process_period_id %>
+  <div class="small-10 columns end" >
+    <%= f.label :item_id, t('manager.main_processes.form.description') %>
+    <%= f.select :item_id, options_for_select(main_process_items, @main_process.item_id),
+                   :prompt => t('manager.main_processes.form.prompt'), label: false,
+                   placeholder: t('manager.main_processes.form.description') %>
+  </div>
+  <div class="row">
+    <div class="small-7 columns" >
+      <%= label_tag t('manager.main_processes.form.items.description')%>
+      <%= text_field_tag(:item_description) %>
+    </div>
   </div>
 
-  <div class="small-12 column" ></div>
   <div class="small-1 column">
     <%= f.label :order, t('manager.main_processes.form.order') %>
     <%= f.text_field :order, label: false,
@@ -32,3 +26,4 @@
     <%= f.submit(t("actions.#{action_name}"), class: 'button tiny hollow') %>
   </div>
 <% end %>
+

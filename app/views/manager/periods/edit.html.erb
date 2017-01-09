@@ -1,20 +1,7 @@
-<div class="row">
-  <div class="small-12 columns">
-    <div class="small-8 columns">
-      <h2><%= t("manager.periods.#{action_name}.title") %>  </h2>
-    </div>
-    <div  class="small-1 columns">
-      <%= render "shared/back" %>
-    </div>
-  </div>
-</div>
-
-<div class="expanded highlight padding">
- <h3> <%= @period.organization_type.description %> / <%= @period.description %></h3>
-</div>
-
-<div class="row">
-  <div class="small-12 column">
-    <%= render "form" %>
-  </div>
+<%= render partial: 'manager/shared/header',
+           locals: {title: t("manager.periods.#{action_name}.title"),
+                    button: nil, path: nil, modifiable: true,
+                    period: @period, main_process: nil, sub_process: nil, indicator: nil, indicator_metric: nil  } %>
+<div class="small-12 column">
+  <%= render "form" %>
 </div>

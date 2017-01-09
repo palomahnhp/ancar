@@ -1,14 +1,10 @@
-<%= render "shared/back" %>
+<%= render partial: 'manager/shared/header',
+           locals: {title: t("manager.sub_processes.#{action_name}.title"),
+                    button: t("manager.sub_processes.index.create"),
+                    path: nil, modifiable: @main_process.modifiable?,
+                    period: @main_process.period, main_process: @main_process, sub_process: nil, indicator: nil,
+                    indicator_metric: nil} %>
 
-<div class="row">
-  <div class="small-12 column">
-    <h2><%= t("manager.sub_processes.new.title") %></h2>
-  </div>
-  <div class="highlight small-12 column">
-    <h5><%= @period.description %></h5>
-    <h5><%= @main_process.order %>. <%= @main_process.item.description %></h5>
-  </div>
-  <div class="small-12 column">
+<div class="small-12 column">
     <%= render "form" %>
-  </div>
 </div>

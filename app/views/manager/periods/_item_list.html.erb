@@ -19,19 +19,19 @@
              <div> <%= t('manager.periods.index.data_collect') %>
                 de <strong> <%= period.opened_at %> </strong>
                  a <strong> <%= period.closed_at %> </strong>
-          </div>
+            </div>
           <% if period.open_entry? %>
-            <h5><%= t('manager.periods.index.entry_opened') %></h5>
+            <strong><%= t('manager.periods.index.entry_opened') %></strong>
           <% elsif period.close_entry? %>
-            <h5><%= t('manager.periods.index.entry_closed') %></h5>
+            <strong><%= t('manager.periods.index.entry_closed') %></strong>
+          <% else %>
+            <strong><%= t('manager.periods.index.entry_not_open_yet') %></strong>
           <% end %>
-        </td>
-        <td class="small-2 columns end">
+          </td>
+          <td class="small-2 columns end">
           <%= link_to manager_main_processes_path(
                 commit: t('manager.main_processes.index.submit'),
-                period_id: period.id, organization_type_id: period.organization_type_id,
-                modifiable: period.modifiable?,
-                eliminable: period.eliminable?),
+                period_id: period.id, organization_type_id: period.organization_type_id),
                 id: "index_#{period.id}",
                 class: 'button float-right tiny hollow' do %>
                   <span class="icon-tag"></span>
@@ -39,14 +39,14 @@
                 <% end %>
         </td>
         <% if period.modifiable? %>
-        <td class="small-2 columns end">
-          <%= link_to edit_manager_period_path(period),
-              id: "edit_#{period.id}",
-              class: 'edit-banner button float-right tiny hollow' do %>
-               <span class="icon-edit"></span>
-                <%= t('manager.periods.index.button.edit') %>
-          <% end %>
-        </td>
+          <td class="small-2 columns end">
+            <%= link_to edit_manager_period_path(period),
+                id: "edit_#{period.id}",
+                class: 'edit-banner button float-right tiny hollow' do %>
+                 <span class="icon-edit"></span>
+                  <%= t('manager.periods.index.button.edit') %>
+            <% end %>
+          </td>
         <% end %>
 
         <% if period.modifiable?%>
@@ -61,6 +61,7 @@
                         <% end %>
           </td>
         <% end %>
+       </div>
       </tr>
     <% end %>
   <% end %>

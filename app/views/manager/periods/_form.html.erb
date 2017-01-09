@@ -4,7 +4,8 @@
 
   <div class="row">
     <div class="small-12 medium-4 column"><h4><%= f.label :organization_type_id, t('manager.periods.form.organization_type') %></h4>
-      <%= f.select :organization_type_id, options_for_select(@organization_types, @period.organization_type_id), label: false, placeholder: t('manager.periods.form.organization_type') %>
+      <%= f.select :organization_type_id, options_for_select(@organization_types, @period.organization_type_id),
+                   prompt: t('manager.periods.form.organization_type'), label: false, placeholder: t('manager.periods.form.organization_type') %>
     </div>
     <div class="small-12 columns"></div>
     <div class="small-8 columns">
@@ -16,13 +17,15 @@
     <div class="small-12 columns"><h6><%= t('manager.periods.form.dates') %> </h6>
       <div class="small-3 columns">
         <%= f.label :started_at, t('manager.periods.form.started_at') %>
-        <%= f.datetime_field :started_at, label: false,
-                          placeholder: t('manager.periods.form.started_at'),
-                          id: 'started_at' %>
+        <%= f.date_field :started_at, label: false,
+                              class: 'date-format',
+                              placeholder: t('manager.periods.form.started_at'),
+                              id: 'started_at', dateFormat:"d-mm-y" %>
+
       </div>
       <div class="small-3 columns end">
         <%= f.label :ended_at, t('manager.periods.form.ended_at') %>
-        <%= f.datetime_field :ended_at, label: false,
+        <%= f.date_field :ended_at, label: false,
                         placeholder: t('manager.periods.form.ended_at'),
                         id: 'ended_at' %>
       </div>
@@ -31,13 +34,13 @@
     <div class="small-12 column"><h6><%= t('manager.periods.form.data_collect') %> </h6>
       <div class="small-3 columns end">
         <%= f.label :opened_at, t('manager.periods.form.opened_at') %>
-        <%= f.datetime_field :opened_at, label: false,
+        <%= f.date_field :opened_at, label: false,
                           placeholder: t('manager.periods.form.opened_at'),
                           id: 'opened_at' %>
       </div>
       <div class="small-3 columns end">
         <%= f.label :closed_at, t('manager.periods.form.closed_at') %>
-        <%= f.datetime_field :closed_at, label: false,
+        <%= f.date_field :closed_at, label: false,
                           placeholder: t('manager.periods.form.closed_at'),
                           id: 'closed_at' %>
       </div>

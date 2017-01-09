@@ -8,6 +8,7 @@ es:
               blank: Hay que indicar una organización
             description:
               blank: Hay que incluir una descripción
+              too_short: La descripción es demasiado corta
             opened_at:
               blank: Fecha de apertura obligatoria
             closed_at:
@@ -32,22 +33,19 @@ es:
               blank: Hay que incluir una métrica
             order:
               blank: Hay que incluir el número de orden
-            metric_id:
-              blank: Hay que incluir una métrica
-            indicator_metrics:
-              too_long: Hay más de una métrica
-              too_short: Debe haber por lo menos una métrica
-            source_id:
-              blank: Hay que incluir una fuente
-              too_long: Hay más de una fuente
-            indicator_sources:
-              too_long: Hay más de una fuente
-              too_short: Debe haber por lo menos una fuente
         entry_indicator:
           attributes:
             indicator_source:
               too_long: Hay más de una fuente
               too_short: Debe haber por lo menos una fuente
             indicator_metric:
+              too_long: Hay más de una métrica
+              too_short: Debe haber por lo menos una métrica
+        indicator_metric:
+          attributes:
+            source_id:
+              blank: "Es obligatorio indicar una fuente"
+            metric_id:
+              blank: Hay que incluir una métrica
               too_long: Hay más de una métrica
               too_short: Debe haber por lo menos una métrica

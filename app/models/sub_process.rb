@@ -8,7 +8,9 @@ class SubProcess < ActiveRecord::Base
   belongs_to :item, -> { where item_type: "sub_process" }
 
   validates :main_process_id, presence: true
+  validates :unit_type_id, presence: true
   validates :item_id, presence: true
+  validates :order, presence: true
 
   def copy(mp_id, current_user_login)
     sp = SubProcess.create(self.attributes.merge(id: nil, main_process_id: mp_id, updated_by: current_user_login))
@@ -20,4 +22,17 @@ class SubProcess < ActiveRecord::Base
    def is_empty?
      self.tasks.count == 0
    end
+
+  def period
+    main_process.period
+  end
+
+  def modifiable?
+    period.modifiable?
+  end
+
+  def eliminable?
+    period.eliminable?
+  end
+
 end

@@ -21,9 +21,6 @@ class Indicator < ActiveRecord::Base
 
   def copy(tk_id, current_user_login)
     i = Indicator.create(self.attributes.merge(id: nil, task_id: tk_id, updated_by: current_user_login))
-    indicator_sources.each do |is|
-      is.copy(i.id)
-    end
     indicator_metrics.each do |im|
       im.copy(i.id)
     end
@@ -33,4 +30,23 @@ class Indicator < ActiveRecord::Base
     true
   end
 
+  def sub_process
+    task.sub_process
+  end
+
+  def main_process
+    sub_process.main_process
+  end
+
+  def period
+    main_process.period
+  end
+
+  def modifiable?
+    period.modifiable?
+  end
+
+  def eliminable?
+    period.eliminable?
+  end
 end

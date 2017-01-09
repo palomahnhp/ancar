@@ -8,6 +8,7 @@ class MainProcess < ActiveRecord::Base
 
   validates :period_id, presence: true
   validates :item_id, presence: true
+  validates :order, presence: true
 
   def copy(periodo_destino_id, current_user_login)
     mp = MainProcess.create(self.attributes.merge(id: nil, period_id: periodo_destino_id, updated_by: current_user_login))
@@ -18,5 +19,13 @@ class MainProcess < ActiveRecord::Base
 
   def is_empty?
    self.sub_processes.count == 0
+  end
+
+  def modifiable?
+    period.modifiable?
+  end
+
+  def eliminable?
+    period.eliminable?
   end
 end

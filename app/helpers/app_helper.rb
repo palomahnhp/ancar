@@ -18,6 +18,7 @@ module AppHelper
     end
     return description
   end
+
   def source_id(indicator)
     indicator.indicator_sources.take.nil? ? "-" : indicator.indicator_sources.take.source_id
   end

@@ -79,8 +79,6 @@ describe "Period" do
       expect(period).to be_valid
     end
 
-    it "is modifiable"
-    it "is eliminable"
   end
 
 end

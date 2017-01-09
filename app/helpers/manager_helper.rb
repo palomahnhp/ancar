@@ -12,33 +12,67 @@ module ManagerHelper
     @periods.collect { |v| [ v.description, v.id ] }
   end
 
+  def unit_type_descriptions
+    UnitType.all.collect { |v| [ v.description, v.id ] }
+  end
+
   def main_process_items
-    mp = MainProcess.all.uniq.pluck(:id)
-    items_not_used = Item.where(item_type: "main_process").where.not(id: mp)
-    items_not_used.collect  { |v| [ v.id, v.id ] }
+    select_process_items('main_process')
+  end
+
+  def sub_process_items
+    select_process_items('sub_process')
   end
 
   def indicator_items
-    select_items("indicator")
+    select_process_items('indicator')
+    items_not_used = Item.where(item_type: 'indicator').order(:description)
+    items_not_used.collect  { |v| [ v.description, v.id] }
+  end
+
+  def select_process_items(class_name)
+    items_not_used = Item.where(item_type: class_name).order(:description)
+    items_not_used.collect  { |v| [ v.description, v.id] }
+  end
+
+  def metric_selected
+    params[:metric_id].nil? ? "" : params[:metric_id]
+  end
+
+  def source_selected
+    is = IndicatorSource.find_by_indicator_metric_id(params[:id])
+    is.nil? ? " " : is.source_id
   end
 
   def metric_items
-    select_items("metric")
+    select_items('metric')
+  end
+
+  def source_items
+    select_items('source')
+  end
+
+  def total_indicator_type_items
+    select_items('total_indicator_type')
   end
 
   def select_items(class_name)
     items_not_used = Item.where(item_type: class_name).order(:description)
-    items_not_used.collect  { |v| [ v.description, v.id ] }
+    items_not_used.collect  { |v| [ v.description, Object.const_get(class_name.camelize).find_by_item_id(v.id).id] }
   end
 
-  def total_check(indicator_metric_id, item_summary_type_id)
-    summary_type = @summary_types.find_by_item_id(item_summary_type_id)
+  def total_check(indicator_metric_id, summary_type_id)
+    summary_type = SummaryType.find(summary_type_id)
     total_indicators = summary_type.total_indicators.find_by_indicator_metric_id(indicator_metric_id)
     if total_indicators.nil?
       '-'
     else
       total_indicators.in_out.nil? ? 'X' : total_indicators.in_out
     end
+  end
+
+  def main_process_period_id
+    @main_process.period_id.nil? ? params[:period_id] : @main_process.period_id
   end
 
   def unit_type_description(id)
@@ -62,16 +96,16 @@ module ManagerHelper
     end
   end
 
-  def summary_type_selected(indicator_metric_id, item_summary_type_id)
-    summary_type = @summary_types.find_by_item_id(item_summary_type_id)
+  def summary_type_selected(indicator_metric_id, summary_type_id)
+    summary_type = SummaryType.find(summary_type_id)
     ti = summary_type.total_indicators.find_by_indicator_metric_id(indicator_metric_id)
     if ti.nil?
       in_out = "-"
     elsif
       in_out = ti.in_out.nil? ? 'A' : ti.in_out
     end
-    t("manager.indicators.total_indicator_type.#{in_out}")
-  end
+    TotalIndicatorType.find_by_acronym(in_out).id
+   end
 
   private
     def namespace
