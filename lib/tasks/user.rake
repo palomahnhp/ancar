@@ -13,6 +13,34 @@ namespace :user do
     end
   end
 
+  desc 'Añadir roles rolify a usuarios preexistentes'
+  task add_roles: :environment do
+
+    User.all.each do |u|
+      puts "#{u.login} => #{u.role}"
+      case u.role
+        when nil
+          u.user_organizations.each do |uo|
+            rol = u.add_role :unit_user, uo.organization
+            puts "       =>#{rol.inspect}"
+          end
+        when 1
+          u.user_organizations.each do |uo|
+            rol = u.add_role :validator, uo.organization
+            puts "       =>#{rol.inspect}"
+          end
+        when 2
+          rol = u.add_role :manager, Organization
+          puts "       =>#{rol.inspect}"
+        when 3
+          rol = u.add_role :admin
+          puts "       =>#{rol.inspect}"
+          rol = u.add_role :manager
+          puts "       =>#{rol.inspect}"
+      end
+    end
+  end
+
 private
 
   def create_user(f)
