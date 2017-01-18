@@ -2,11 +2,6 @@ require 'rails_helper'
 include CommonActions
 
 feature "User access" do
-  background do
-    create_organizations
-    period = create_period
-    create_process(period)
-  end
 
   describe 'admin' do
     it 'has rol with global scope' do
@@ -74,7 +69,7 @@ feature "User access" do
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
       expect(page).not_to have_content "Distritos"
-      expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS"
+      expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA"
       expect(page).to have_content "Periodo"
     end
 

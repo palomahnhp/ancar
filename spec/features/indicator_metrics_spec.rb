@@ -1,11 +1,6 @@
 require 'rails_helper'
 
   feature 'Indicator metrics Maintenance' do
-    background do
-      create_organizations
-      period = create_period
-      create_process(period)
-    end
 
     describe 'edit a indicator_metric' do
       it 'show the correct fields' do

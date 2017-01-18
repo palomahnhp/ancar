@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th> <%= t('admin.roles.role.role') %> </th>
+      <th> <%= t('admin.roles.role.resource') %> </th>
+      <th> <%= t('admin.roles.role.item') %> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.filter_roles(params[:role]).each do |role| %>
+    <tr>
+      <td> <%= t("admin.roles.role.name.#{role.name}") %> </td>
+      <td> <%= role.resource_type_description %></td>
+      <td> <%= role.resource_id_description %> </td>
+      <td> <%= link_to t('admin.roles.remove_resource'), remove_resource_admin_role_path(role), class: "button hollow" %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

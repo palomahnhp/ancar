@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h2><%= t("admin.users.edit.title") %></h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="radius secondary label">
+    <h4><%= @user.login %> <%= @user.full_name %></h4>
+  </div>
+</div>
+
+
+<%= form_for [:admin, @user] do |f| %>
+    <%= render 'shared/errors', resource: @user %>
+
+    <div class="row">
+      <br>
+      <%= hidden_field_tag :status, @user.status %>
+      <%= f.submit @user.change_status, class: 'button hollow'%>
+    </div>
+
+
+    <div class="row">
+    <br>
+    <table>
+      <tr>
+        <td><%= t("admin.users.edit.position") %></td>
+        <td>  <strong><%= @user.official_position %> </strong></td>
+      </tr>
+      <tr>
+        <td> <%= t("admin.users.edit.unit") %> </td>
+        <td> <strong><%= @user.organization_description %> </strong> </td>
+      </tr>
+      <tr>
+        <td> <%= t("admin.users.edit.phone") %> </td>
+        <td> <strong><%= @user.phone %> </strong> </td>
+      </tr>
+      <tr>
+        <td> <%= t('admin.users.edit.email') %> </td>
+        <td> <strong><%= @user.email %> </strong> </td>
+      </tr>
+      <tr>
+        <td> <%= t("admin.users.edit.created_at") %> </td>
+        <td> <strong><%= @user.created_at %> </strong> </td>
+      </tr>
+      <tr>
+        <td> <%= t("admin.users.edit.status") %> </td>
+        <td class="red" <%= @user.status.downcase %>"> <%= @user.status %> </td>
+      </tr>
+
+      <% unless @user.inactivated_at.nil? %>
+        <tr>
+          <td> <%= t("admin.users.edit.inactivated_at") %> </td>
+          <td> <strong><%= @user.inactivated_at %> </strong> </td>
+        </tr>
+      <% end %>
+
+      <% if @user.has_any_role? %>
+       <%= render 'admin/shared/roles' %>
+      <% end %>
+    </table>
+  </div>
+
+</div>
+<% end %>

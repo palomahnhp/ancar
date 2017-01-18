@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 feature 'MainProcesses Maintenance' do
-  background do
-    create_organizations
-    period = create_period
-    create_process(period)
-  end
 
   describe 'Index of main_procesess' do
     it 'show empty list of processes ' do

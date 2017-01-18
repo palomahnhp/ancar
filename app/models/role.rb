@@ -9,4 +9,20 @@ class Role < ActiveRecord::Base
             :allow_nil => true
 
   scopify
+
+  def resource_id_description
+    case resource_type
+      when 'Organization'
+        Organization.find(resource_id).nil? ? 'Todos' : Organization.find(resource_id).description
+      when nil
+        'Todos'
+      else
+        resource_id
+    end
+  end
+
+  def resource_type_description
+    resource_type.nil? ? 'Todos' : I18n.t("admin.roles.role.resources.#{resource_type}")
+  end
+
 end

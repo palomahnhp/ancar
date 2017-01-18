@@ -22,6 +22,7 @@
 //= require dropdown
 //= require prevent_double_submission
 //= require forms
+//= require date_picker
 
 var initialize_modules = function() {
   App.Dropdown.initialize();

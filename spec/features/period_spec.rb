@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 feature 'Periods Maintenance' do
-  background do
-    create_organizations
-    period = create_period
-    create_process(period)
-  end
 
   describe 'Index of periods' do
     it 'has correct buttons for opened period ' do
@@ -239,18 +234,6 @@ feature 'Periods Maintenance' do
       expect(page).to have_link('Editar', count: 3)
       expect(page).to have_link('Eliminar', count: 3)
 
-      within('tr#indicator_metric_4') do
-        within('td#summary_type_1') do
-          expect(page).to have_content 'E'
-        end
-        within('td#summary_type_2') do
-          expect(page).to have_content '-'
-        end
-        within('td#summary_type_3') do
-          expect(page).to have_content 'U'
-        end
-      end
-
       within('tr#indicator_metric_5') do
         within('td#summary_type_1') do
           expect(page).to have_content '-'
@@ -260,6 +243,18 @@ feature 'Periods Maintenance' do
         end
         within('td#summary_type_3') do
           expect(page).to have_content '-'
+        end
+      end
+
+      within('tr#indicator_metric_6') do
+        within('td#summary_type_1') do
+          expect(page).to have_content 'E'
+        end
+        within('td#summary_type_2') do
+          expect(page).to have_content '-'
+        end
+        within('td#summary_type_3') do
+          expect(page).to have_content 'U'
         end
       end
     end

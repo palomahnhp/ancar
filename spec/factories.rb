@@ -4,12 +4,16 @@ FactoryGirl.define do
   end
 
   factory :user do
-    sequence(:login) { |n| "usu00#{n}" }
+    login  "USU" + Faker::Number.number(3)
     sequence(:name) { |n| "Nombre#{n}" }
     sequence(:surname)  { |n| "Apellido_1_#{n}" }
     sequence(:second_surname) { |n| "Apellido_2_#{n}" }
-    sequence(:pernr) { |n| }
-    sequence(:uweb_id)  { |n| }
+    pernr Faker::Number.number(8)
+    uweb_id  Faker::Number.number(8)
+
+    trait :inactive do
+      intactivated_at = Time.now - 1.month
+    end
 
     trait :with_one_organization do
       after :create do |user|

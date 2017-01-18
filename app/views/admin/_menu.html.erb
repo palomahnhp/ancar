@@ -1,50 +1,81 @@
 <nav class="admin-sidebar">
-
-  <ul id="admin_menu">
-    <li>
-      <%= link_to t("admin.dashboard.index.title"), admin_root_path %>
+  <%= link_to t("admin.dashboard.index.title"), admin_root_path %>
+  <ul id="admin_menu" class="vertical menu" data-accordion-menu>
+    <li id="users">
+      <a href="#">
+        <span class="icon-user"></span>
+        <%= t('admin.menu.group.users') %>
+      </a>
+      <ul class="menu vertical nested">
+        <li <%= "class=active" if controller_name == "users" && params[:role].nil?  %>>
+          <%= link_to admin_users_path do %>
+             <%= t("admin.menu.users") %>
+         <% end %>
+        <li <%= "class=active" if controller_name == "roles" && params[:role] == 'unit_user' %>>
+          <%= link_to admin_roles_index_path(role: 'unit_user') do %>
+              <%= t("admin.menu.roles.unit_users") %>
+          <% end %>
+        <li <%= "class=active" if controller_name == "roles" && params[:role] == 'validator' %>>
+          <%= link_to admin_roles_index_path(role: 'validator') do %>
+              <%= t("admin.menu.roles.validators") %>
+          <% end %>
+        </li>
+        <li <%= "class=active" if controller_name == "roles" && params[:role] == 'manager' %>>
+          <%= link_to admin_roles_index_path(role: 'manager') do %>
+              <%= t("admin.menu.roles.managers") %>
+          <% end %>
+        <li <%= "class=active" if controller_name == "roles" && params[:rol] == 'admin' %>>
+        <%= link_to admin_roles_index_path(role: 'admin') do %>
+            <%= t("admin.menu.roles.admins") %>
+        <% end %>
+      </ul>
     </li>
-
-    <li <%= "class=active" if controller_name == "organization_types" %>>
-      <%= link_to admin_organization_types_path do %>
+    <li id="organizations">
+      <a href="#">
         <span class="icon-organizations"></span>
-        <%= t("admin.menu.organization_types") %>
-      <% end %>
+        <%= t('admin.menu.group.units') %>
+      </a>
+      <ul class="menu vertical nested">
+        <li <%= "class=active" if controller_name == "organization_types" %>>
+          <%= link_to admin_organization_types_path do %>
+            <%= t("admin.menu.organization_types") %>
+          <% end %>
+        </li>
+
+        <li <%= "class=active" if controller_name == "unit_types" %>>
+          <%= link_to admin_unit_types_path do %>
+            <%= t("admin.menu.unit_types") %>
+          <% end %>
+        </li>
+
+        <li <%= "class=active" if controller_name == "organizations" %>>
+          <%= link_to admin_organizations_path do %>
+            <%= t("admin.menu.organizations") %>
+          <% end %>
+        </li>
+
+        <li <%= "class=active" if controller_name == "units" %>>
+          <%= link_to admin_units_path do %>
+            <%= t("admin.menu.units") %>
+          <% end %>
+        </li>
+      </ul>
     </li>
 
-    <li <%= "class=active" if controller_name == "unit_types" %>>
-      <%= link_to admin_unit_types_path do %>
-        <span class="icon-organizations"></span>
-        <%= t("admin.menu.unit_types") %>
-      <% end %>
-    </li>
-
-    <li <%= "class=active" if controller_name == "organizations" %>>
-      <%= link_to admin_organizations_path do %>
-        <span class="icon-organizations"></span>
-        <%= t("admin.menu.organizations") %>
-      <% end %>
-    </li>
-
-    <li <%= "class=active" if controller_name == "units" %>>
-      <%= link_to admin_units_path do %>
-        <span class="icon-organizations"></span>
-        <%= t("admin.menu.units") %>
-      <% end %>
-    </li>
-
-    <li <%= 'class=active' if controller_name == 'settings' %>>
+    <li id="settings" <%= 'class=active' if controller_name == 'settings' %>>
       <%= link_to admin_root_path do %>
         <span class="icon-settings"></span>
         <%= t("admin.menu.settings") %>
       <% end %>
     </li>
 
-    <li <%= "class=active" if controller_name == "stats" %>>
-      <%= link_to admin_stats_path do %>
+    <li id="stats" <%= "class=active" if controller_name == "stats" %>>
+      <%= link_to admin_root_path do %>
         <span class="icon-stats"></span>
         <%= t("admin.menu.stats") %>
       <% end %>
     </li>
+
   </ul>
 </nav>
+

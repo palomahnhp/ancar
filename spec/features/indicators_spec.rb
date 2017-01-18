@@ -1,11 +1,7 @@
 require 'rails_helper'
 
 feature 'Indicators Maintenance' do
-  background do
-    create_organizations
-    period = create_period
-    create_process(period)
-  end
+
 
   describe 'index of indicators' do
 

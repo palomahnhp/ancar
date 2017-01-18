@@ -34,6 +34,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     I18n.locale = :en
     load "#{Rails.root}/db/seeds.rb"
+    load "#{Rails.root}/db/test_seeds.rb"
   end
 
   config.before(:each, type: :feature) do

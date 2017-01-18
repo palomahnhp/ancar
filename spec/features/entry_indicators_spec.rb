@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 feature "Entry Indicators" do
-  background do
-    create_organizations
-    period = create_period
-    create_process(period)
-  end
 
   describe "datos de unidad " do
     it 'primera unidad de la organización' do
