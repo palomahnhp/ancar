@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <%= render 'shared/back' %>
+
+  <div class="small-12 columns">
+    <div class="small-10 columns">
+      <h2><%= t("admin.users.index.title") %></h2>
+    </div>
+  </div>
+</div>
+
+<%= render 'shared/filter_subnav', i18n_namespace: "admin.users.index" %>
+
+<h3><%= page_entries_info @users, :entry_name => 'usuario'%></h3>
+<!--%= render 'item_list' %-->
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t("admin.users.index.row.login") %></th>
+      <th><%= t("admin.users.index.row.name") %></th>
+      <th><%= t("admin.users.index.row.position") %></th>
+      <th><%= t("admin.users.index.row.unit") %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td>
+        <%= link_to user.login, edit_admin_user_path(user) %>
+      </td>
+      <td>
+        <%= link_to user.full_name, edit_admin_user_path(user) %>
+      </td>
+      <td> <%= user.official_position %> </td>
+      <td> <%= user.organization_description %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="row">
+    <div class="small-12 columns">
+      <%= paginate @users %>
+    </div>
+</div>

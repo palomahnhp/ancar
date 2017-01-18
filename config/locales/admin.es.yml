@@ -11,6 +11,15 @@ es:
       units: Unidades
       settings: Configuración global
       stats: Estadísticas
+      users: "Usuarios"
+      group:
+        units: "Organizaciones"
+        users: "Usuarios y perfiles"
+      roles:
+        unit_users: "Rol gestor"
+        validators: "Rol validador"
+        managers: "Rol supervisor"
+        admins: "Rol administrador"
     organizations:
       index:
         title: Organizaciones
@@ -23,3 +32,61 @@ es:
     unit_types:
       index:
         title: Tipos de unidades
+    users:
+      index:
+        title: "Usuarios"
+        row:
+          login: "Login"
+          name: "Nombre"
+          position: "Puesto"
+          unit: "Unidad"
+      edit:
+        title: "Usuarios"
+        created_at: "Fecha de alta:"
+        position: "Puesto"
+        unit: "Unidad"
+        phone: "Teléfono"
+        email: "Correo electrónico"
+        inactivated_at: "Fecha de baja"
+        button:
+          activate: "Activar"
+          inactivate: "Dar de baja"
+        status: "Estado"
+        message:
+          Alta: Se ha desactivado el usuario
+          Baja: Se ha activado el usuario
+          error: "Error creando usuario"
+      status:
+        active: "Alta"
+        inactive: "Baja"
+    roles:
+      index:
+        title:
+          unit_user: Gestor de unidad
+          validator: Validador de unidad
+          admin: Administrador
+          manager: Supervisor
+      search:
+        login_placeholder: "Introduce el usuario"
+        search: "Buscar"
+        user_not_found: Usuario no encontrado
+      action:
+        add: "Añadir rol"
+        delete: "Eliminar rol"
+        add_resource: "Añadir recurso"
+      role:
+        role: "Rol"
+        resource: "Recurso"
+        item: "Item"
+        resources:
+          Organization: Organización
+          Unit: Unidad
+        name:
+          manager: Supervisor
+          validator: Validador
+          admin: Administrador
+          unit_user: Gestor de unidad
+      add_resource:
+        title: "Añadir recurso"
+        resource: "Añadir permisos a unidad"
+      remove_resource: "-"

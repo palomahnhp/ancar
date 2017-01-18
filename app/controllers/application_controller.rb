@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include HasFilters
   include CanCan::ControllerAdditions
 
   rescue_from CanCan::AccessDenied do |exception|

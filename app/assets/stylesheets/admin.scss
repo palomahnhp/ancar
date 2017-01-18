@@ -12,6 +12,7 @@
 
 $admin-color: #CF3638;
 
+
 body.admin {
 
   header {
@@ -27,9 +28,27 @@ body.admin {
     height: auto;
   }
 
-.no_use {
   margin-top: 0;
+  }
+
+.status{
+  .activo{
+    color: green;
+  }
+  .inactivo{
+    color:red;
+  }
 }
+.no_use {
+  .panel {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #d8d8d8;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    background: #f2f2f2;
+    color: #333333;
+  }
 
   form {
 
@@ -42,9 +61,9 @@ body.admin {
     }
 
     .checkbox {
-    font-size: $small-font-size;
-    color: green;
-   }
+      font-size: $small-font-size;
+      color: green;
+    }
 
     .panel {
       background: #F8F8F8;
@@ -129,7 +148,6 @@ body.admin {
 @include breakpoint(medium) {
 
   tr {
-
     .on-hover-block {
       display: none;
     }
@@ -146,7 +164,6 @@ body.admin {
 @include breakpoint(medium) {
 
   tr {
-
     .on-hover {
       display: none;
     }

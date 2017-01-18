@@ -1,18 +1,15 @@
 class User < ActiveRecord::Base
   rolify
-  #has_many :organizations, through: :user_organizations
-  has_one :administrator
-  has_one :valuator
-  has_one :manager
-  has_many :user_organizations
-  has_many :manager_organization_types
-  has_many :organizations, through: :user_organizations
+
+  belongs_to :organization
 
   validates :login, presence: true, uniqueness: true
   validates :uweb_id, uniqueness: true
   validates :pernr, uniqueness: true
 
-#  enum role: [:user, :validator, :manager, :admin]
+  default_scope  { order(:login)} #  Overriding default_scope: unscoped
+  scope :active,         -> { where(inactivated_at: nil) }
+  scope :inactive,       -> { where.not(inactivated_at: nil) }
 
   def uweb_update!(uweb_data)
     if login == uweb_data[:login]
@@ -32,11 +29,19 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    name = name.nil? ? "" : name
-    surname = surname.nil? ? "" : surname
-    second_surname = second_surname.nil? ? "" : second_surname
+    name = self.name.nil? ? "" : self.name
+    surname = self.surname.nil? ? "" : self.surname
+    second_surname = self.second_surname.nil? ? "" : self.second_surname
 
     name + " " + surname + " " + second_surname
+  end
+
+  def status
+    inactivated_at.nil? ? I18n.t('admin.users.status.active') : I18n.t('admin.users.status.inactive')
+  end
+
+  def change_status
+    inactivated_at.nil? ? I18n.t('admin.users.edit.button.inactivate') : I18n.t('admin.users.edit.button.activate')
   end
 
   def has_organizations?(organization_type_id = 0)
@@ -78,5 +83,13 @@ class User < ActiveRecord::Base
     else
      @organization_types ||= OrganizationType.with_roles([:admin, :manager, :visitor], self)
     end
+  end
+
+  def organization_description
+    self.organization.nil? ? '' : self.organization.description
+  end
+
+  def filter_roles(role)
+    role.nil? ? self.roles :  self.roles.where(name: role)
   end
 end
