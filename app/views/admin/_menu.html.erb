@@ -12,20 +12,20 @@
              <%= t("admin.menu.users") %>
          <% end %>
         <li <%= "class=active" if controller_name == "roles" && params[:role] == 'unit_user' %>>
-          <%= link_to admin_roles_index_path(role: 'unit_user') do %>
+          <%= link_to admin_roles_index_path(role_name: 'unit_user') do %>
               <%= t("admin.menu.roles.unit_users") %>
           <% end %>
         <li <%= "class=active" if controller_name == "roles" && params[:role] == 'validator' %>>
-          <%= link_to admin_roles_index_path(role: 'validator') do %>
+          <%= link_to admin_roles_index_path(role_name: 'validator') do %>
               <%= t("admin.menu.roles.validators") %>
           <% end %>
         </li>
         <li <%= "class=active" if controller_name == "roles" && params[:role] == 'manager' %>>
-          <%= link_to admin_roles_index_path(role: 'manager') do %>
+          <%= link_to admin_roles_index_path(role_name: 'manager') do %>
               <%= t("admin.menu.roles.managers") %>
           <% end %>
         <li <%= "class=active" if controller_name == "roles" && params[:rol] == 'admin' %>>
-        <%= link_to admin_roles_index_path(role: 'admin') do %>
+        <%= link_to admin_roles_index_path(role_name: 'admin') do %>
             <%= t("admin.menu.roles.admins") %>
         <% end %>
       </ul>

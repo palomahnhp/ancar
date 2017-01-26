@@ -1,33 +1,22 @@
 class Admin::RolesController < Admin::BaseController
 
-  before_action :set_user, only: [:create, :destroy, :add_resource, :remove_resource]
-  before_action :set_role, only: [:remove_resource]
+  before_action :set_user, only: [:create, :create, :destroy]
+  before_action :set_role, only: [:destroy]
 
   def index
-    @users = User.active.with_role(params[:role], :any).page(params[:page]) # load_filtered_roles
-  end
-
-  def load_filtered_roles
-
-    case params[:role]
-      when "unit_user"  then User.active.with_role(:unit_user, :any).page(params[:page])
-      when "validator"  then User.active.with_role(:validator, :any).page(params[:page])
-      when "manager"    then User.active.with_role(:manager, :any).page(params[:page])
-      when "admin"      then User.active.with_role(:admin, :any).page(params[:page])
-     end
+    @users = User.active.with_role(params[:role_name], :any).page(params[:page]).distinct
   end
 
   def search
     search =  params[:search].split(/ /)
-    login =           search.count == 1 ? search[0].upcase : ''
-    first_word  =           search.count == 1 ? '%' + search[0].upcase + '%' : ''
-    second_word =        search.count > 1 ?  '%' + search[1].upcase + '%' : ''
-    third_word  = search.count > 2 ?  '%' + search[2].upcase + '%' : ''
-
-#   @roles = User.where(login: params[:search] || name: full_name[0])
-    @users = User.where("login = ? or name like ? or surname like ? or surname like ? or second_surname like ? or second_surname like ?
-                         or second_surname like ? ",
-                        login, first_word, first_word, second_word, first_word, second_word, third_word)
+    login = (search.count == 1 ? search[0] : '').downcase
+    first_word  = (search.count == 1 ? '%' + search[0] + '%' : '').downcase
+    second_word =  (search.count > 1 ?  '%' + search[1] + '%' : '').downcase
+    third_word  = (search.count > 2 ?  '%' + search[2] + '%' : '').downcase
+    @users = User.active.where('(lower(login) = ? or lower(name) like ? or lower(surname) like ? or lower(surname) like ?
+                              or lower(second_surname) like ? or lower(second_surname) like ?
+                              or lower(second_surname) like ?)',
+                              login, first_word, first_word, second_word, first_word, second_word, third_word)
 
     respond_to do |format|
       if @users
@@ -38,45 +27,43 @@ class Admin::RolesController < Admin::BaseController
     end
   end
 
-  def create
-    @user.add_role params[:role] unless scope_organization
-    @user.add_role params[:role], scope_organization if scope_organization
-    redirect_to admin_roles_path(role: params[:role])
-  end
-
   def destroy
-    @user.revoke params[:role], :any
-    redirect_to admin_roles_path(role: params[:role])
+    @user.revoke @role.name, (Object.const_get @role.resource_type).find(@role.resource_id) unless @role.resource_type.nil?
+    @user.revoke @role.name if @role.resource_type.nil?
+    redirect_to admin_roles_path(role_name: @role.name, user_id: @user.id )
   end
 
-  def add_resource
-    if params[:commit]
-      if @user.add_role params[:role], (Object.const_get params[:resource_type]).find(params[:resource_id])
-        render :add_resource
+  def create
+    unless  params[:add_resource]
+      @user.add_role params[:role_name] unless scope_organization
+      @user.add_role params[:role_name], scope_organization if scope_organization
+      redirect_to admin_roles_path(role_name: params[:role_name])
+    end
+
+    if params[:add_resource] == 'new'
+      render :create
+    elsif params[:add_resource] == t('admin.roles.add_resource.submit')
+      if @user.add_role params[:role_name], (Object.const_get params[:resource_type]).find(params[:resource_id])
+        render :create
       end
     end
-    @roles = @user.roles params[:role]
-    @role = nil
   end
 
-  def remove_resource
-
-  end
 
   private
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(params[:user_id])
     end
 
     def set_role
-      @role = @user.roles.find(params[:role])
+      @role = @user.roles.find(params[:id])
     end
 
     def scope_organization
-      if params[:role] == 'unit_user' || params[:role] == 'validator'
+      if params[:role_name] == 'unit_user' || params[:role_name] == 'validator'
         @user.organization
-      elsif params[:role] == 'manager'
-        @user.organization.organization_type
+      elsif params[:role_name] == 'manager'
+        @user.organization.nil? ? false : @user.organization.organization_type
       end
     end
 end

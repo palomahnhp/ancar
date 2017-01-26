@@ -3,23 +3,17 @@
     <table>
       <% users.each do |user| %>
       <tr>
-        <td>
-          <%= user.login %>
-        </td>
-        <td>
-          <%= user.full_name %>
-        </td>
-        <td>
-          <%= user.official_position %>
-        </td>
+        <td id= "login"> <%= user.login %> </td>
+        <td id="name">   <%= user.full_name %> </td>
+        <td id="position"> <%= user.official_position %> </td>
         <td class="text-right">
           <% if user.persisted? and user.has_role? params[:role], :any %>
               <%= link_to t('admin.roles.action.delete'),
-                          admin_role_path(user.id, role: params[:role]),
+                          admin_role_path(params[:role], role_name: params[:role_name], user_id: user.id),
                           method: :delete,
                           class: "button hollow alert" %>
           <% else %>
-              <%= link_to t('admin.roles.action.add'),{ controller: "admin/roles", action: :create, id: user.id, role: params[:role] },
+              <%= link_to t('admin.roles.action.add'),{ controller: "admin/roles", action: :create,  user_id: user.id, role_name: params[:role_name] },
                           method: :post, class: "button success hollow" %>
           <% end %>
         </td>

@@ -86,7 +86,9 @@ es:
           validator: Validador
           admin: Administrador
           unit_user: Gestor de unidad
+          no_name: ""
       add_resource:
         title: "Añadir recurso"
         resource: "Añadir permisos a unidad"
+        submit: "+"
       remove_resource: "-"
