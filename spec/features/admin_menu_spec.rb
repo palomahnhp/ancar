@@ -123,12 +123,27 @@ feature 'Admin dashboard' do
       find('#resource_id').find(:xpath, 'option[3]').select_option
 
       expect(page).not_to have_css('td', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS')
+
       find('input[name="add_resource"]').click
+
       expect(page).to have_css('td', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS')
 
     end
 
-    scenario 'Eliminar recursos'
-    scenario 'Eliminar roles'
+    scenario 'Eliminar recursos', :js do
+      click_link 'Usuarios y perfiles'
+      click_link 'Rol gestor'
+
+      fill_in 'search', with: 'Usu'
+      find('input[name="commit"]').click
+
+      click_link('Añadir rol', match: :first)
+      click_link 'Añadir recurso'
+      find('#resource_id').find(:xpath, 'option[3]').select_option
+      find('input[name="add_resource"]').click
+      find("td#button_destroy", match: :first).click_link '-'
+
+    end
+   scenario 'Eliminar roles'
   end
 end

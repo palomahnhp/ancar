@@ -17,7 +17,6 @@ class Admin::RolesController < Admin::BaseController
                               or lower(second_surname) like ? or lower(second_surname) like ?
                               or lower(second_surname) like ?)',
                               login, first_word, first_word, second_word, first_word, second_word, third_word)
-
     respond_to do |format|
       if @users
         format.js
@@ -28,27 +27,45 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def destroy
-    @user.revoke @role.name, (Object.const_get @role.resource_type).find(@role.resource_id) unless @role.resource_type.nil?
-    @user.revoke @role.name if @role.resource_type.nil?
-    redirect_to admin_roles_path(role_name: @role.name, user_id: @user.id )
+    if @role.resource_type.nil?
+      @user.revoke @role.name
+    else
+      resource_class = sanitize_resource_type(@role.resource_type)
+      if resource_class.nil?
+        flash[:error] = t('admin.roles.destroy_resource.error')
+        redirect_to admin_roles_path(role_name: @role.name, user_id: @user.id )
+      end
+      @user.revoke @role.name, resource_class.find(@role.resource_id)
+      redirect_to admin_roles_path(role_name: @role.name, user_id: @user.id )
+     end
   end
 
   def create
-    unless  params[:add_resource]
-      @user.add_role params[:role_name] unless scope_organization
-      @user.add_role params[:role_name], scope_organization if scope_organization
-      redirect_to admin_roles_path(role_name: params[:role_name])
-    end
 
-    if params[:add_resource] == 'new'
-      render :create
-    elsif params[:add_resource] == t('admin.roles.add_resource.submit')
-      if @user.add_role params[:role_name], (Object.const_get params[:resource_type]).find(params[:resource_id])
+    case params[:add_resource]
+      when nil
+        if scope_organization
+          @user.add_role params[:role_name], scope_organization
+        else
+          @user.add_role params[:role_name]
+        end
+        redirect_to admin_roles_path(role_name: params[:role_name])
+      when 'new'
         render :create
-      end
+      when  t('admin.roles.add_resource.submit')
+        resource_class = sanitize_resource_type(params[:resource_type])
+        if resource_class.nil?
+          flash[:error] = t('admin.roles.add_resource.error')
+          render :create
+        else
+          resource_id = params[:resource_id]
+          role_name = params[:role_name]
+          if @user.add_role role_name, resource_class.find(resource_id)
+            render :create
+          end
+        end
     end
   end
-
 
   private
     def set_user
@@ -66,4 +83,11 @@ class Admin::RolesController < Admin::BaseController
         @user.organization.nil? ? false : @user.organization.organization_type
       end
     end
+
+   def sanitize_resource_type(resource_type)
+     [Organization, Unit, OrganizationType].find do |resource_class|
+       resource_class.name == resource_type
+     end
+   end
+
 end
