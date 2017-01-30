@@ -86,7 +86,12 @@ en:
           validator: Validador
           admin: Administrador
           unit_user: Gestor de unidad
+          no_name: ''
       add_resource:
-        title: "Añadir recurso"
+        title: "Añadir recurso al rol: "
         resource: "Añadir permisos a unidad"
+        submit: "+"
+        error: "Error añadiendo un recurso a ese role"
       remove_resource: "-"
+      destroy_resource:
+        error: "Error elimando recurso del rol"

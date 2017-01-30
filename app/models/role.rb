@@ -25,4 +25,11 @@ class Role < ActiveRecord::Base
     resource_type.nil? ? 'Todos' : I18n.t("admin.roles.role.resources.#{resource_type}")
   end
 
+  def no_empty_name
+    if name.empty?
+      I18n.t("admin.roles.role.name.no_name")
+    else
+      I18n.t("admin.roles.role.name.#{name}")
+    end
+  end
 end

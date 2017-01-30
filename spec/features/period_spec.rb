@@ -246,7 +246,7 @@ feature 'Periods Maintenance' do
         end
       end
 
-      within('tr#indicator_metric_6') do
+      within('tr#indicator_metric_4') do
         within('td#summary_type_1') do
           expect(page).to have_content 'E'
         end

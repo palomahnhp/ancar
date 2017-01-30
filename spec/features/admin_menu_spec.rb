@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Admin dashboard' do
 
   background do
-    admin = create(:admin)
+    admin = create(:admin, name: 'Administrador', surname: 'Activo' )
     login_as_authenticated_user(admin)
     visit admin_root_path
   end
@@ -44,6 +44,9 @@ feature 'Admin dashboard' do
     background do
       1.upto(4) do
         create(:user, login: "USU" + Faker::Number.number(3),
+                      name: "Usuario",
+                      surname: "Activo",
+                      second_surname: "Apellido 2_" + Faker::Number.number(3),
                       uweb_id:  Faker::Number.number(8),
                       pernr: Faker::Number.number(8))
       end
@@ -51,6 +54,9 @@ feature 'Admin dashboard' do
         create(:user, login: "USU" + Faker::Number.number(3),
                uweb_id:  Faker::Number.number(8),
                pernr: Faker::Number.number(8),
+               name: "Usuario",
+               surname: "Inactivo",
+               second_surname: "Apellido 2_" + Faker::Number.number(3),
                inactivated_at: Time.now - 1.month)
       end
     end
@@ -76,8 +82,68 @@ feature 'Admin dashboard' do
     end
 
     scenario 'Activar, desactivar usuarios'
-    scenario 'Añadir roles'
-    scenario 'Añadir recursos'
-    scenario 'Eliminar recursos'
+
+    scenario 'Añadir roles', :js  do
+      click_link 'Usuarios y perfiles'
+      click_link 'Rol gestor'
+
+      fill_in 'search', with: 'Usu'
+      find('input[name="commit"]').click
+
+      expect(page).to have_content('Activo', count: 4)
+      expect(page).not_to have_content('Inactivo', count: 4)
+
+      click_link('Añadir rol', match: :first)
+
+      expect(page).to have_content 'There is 1 usuario'
+      expect(page).to have_current_path(admin_roles_path, only_path: true)
+      expect(page).to have_content('Usuario Activo', count: 1)
+    end
+
+    scenario 'Añadir recursos', :js do
+
+      click_link 'Usuarios y perfiles'
+      click_link 'Rol gestor'
+
+      fill_in 'search', with: 'Usu'
+      find('input[name="commit"]').click
+
+      click_link('Añadir rol', match: :first)
+      click_link 'Añadir recurso'
+
+      expect(page).to have_content 'Añadir recurso'
+      expect(page).to have_current_path(admin_roles_path, only_path: true)
+
+      expect(page).to have_css("option", :count => 3)
+
+      expect(page).to have_css('option', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA')
+      expect(page).to have_css('option', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE CENTRO')
+      expect(page).to have_css('option', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS')
+
+      find('#resource_id').find(:xpath, 'option[3]').select_option
+
+      expect(page).not_to have_css('td', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS')
+
+      find('input[name="add_resource"]').click
+
+      expect(page).to have_css('td', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS')
+
+    end
+
+    scenario 'Eliminar recursos', :js do
+      click_link 'Usuarios y perfiles'
+      click_link 'Rol gestor'
+
+      fill_in 'search', with: 'Usu'
+      find('input[name="commit"]').click
+
+      click_link('Añadir rol', match: :first)
+      click_link 'Añadir recurso'
+      find('#resource_id').find(:xpath, 'option[3]').select_option
+      find('input[name="add_resource"]').click
+      find("td#button_destroy", match: :first).click_link '-'
+
+    end
+   scenario 'Eliminar roles'
   end
 end

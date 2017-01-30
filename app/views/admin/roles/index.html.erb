@@ -1,7 +1,7 @@
-<h2><%= t("admin.roles.index.title.#{params[:role]}") %></h2>
+<h2><%= t("admin.roles.index.title.#{params[:role_name]}") %></h2>
 
 <div class="row">
-  <%= form_tag search_admin_roles_path(role: params[:role]), method: :get, remote: true  do %>
+  <%= form_tag search_admin_roles_path(role_name: params[:role_name]), method: :get, remote: true  do %>
       <div class="small-12 medium-6 column">
         <%= text_field_tag :search, '', placeholder: t('admin.roles.search.login_placeholder') %>
       </div>
@@ -31,20 +31,21 @@
           <%= user.organization_description %>
         </td>
         <td class="text-right">
-          <% if user.persisted? and user.has_role? params[:role], :any %>
+          <% if user.has_role? params[:role_name], :any %>
               <%= link_to t("admin.roles.action.add_resource"),
-                          { controller: "admin/roles", action: :add_resource, id: user.id, role: params[:role], },
+                          {controller: "admin/roles", action: :create, role_name: params[:role_name], user_id: user.id, add_resource: 'new' },
                           method: :post, class: "button success hollow"
               %>
 
               <%= link_to t("admin.roles.action.delete"),
-                          admin_role_path(user.id, role: params[:role]),
+                          admin_role_path(user.roles.where(name: params[:role_name]).first, role_name: params[:role_name], user_id: user.id),
                           method: :delete,
                           class: "button hollow alert"
               %>
 
           <% else %>
-              <%= link_to t("admin.roles.action.add"), { controller: "admin/roles", action: :create, id: user.id, role: params[:role] },
+              <%= link_to t("admin.roles.action.add"),
+                          { controller: "admin/roles", action: :create, role_name: params[:role_name], user_id: user.id },
                           method: :post, class: "button success hollow"
               %>
           <% end %>

@@ -457,7 +457,6 @@ header {
     display: inline-block;
     font-weight: bold;
     margin-right: $line-height/2;
-    position: relative;
     text-align: left;
 
     @include breakpoint(medium) {

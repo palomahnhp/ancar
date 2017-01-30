@@ -17,7 +17,7 @@ FactoryGirl.define do
 
     trait :with_one_organization do
       after :create do |user|
-        organization = Organization.find_by_organization_type_id(1)
+        organization = Organization.where(organization_type_id: 1).first
         user.add_role(:unit_user, organization)
       end
     end

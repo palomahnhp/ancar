@@ -7,12 +7,17 @@
     </tr>
   </thead>
   <tbody>
-    <% @user.filter_roles(params[:role]).each do |role| %>
-    <tr>
-      <td> <%= t("admin.roles.role.name.#{role.name}") %> </td>
-      <td> <%= role.resource_type_description %></td>
+    <% @user.filter_roles(params[:role_name]).each do |role| %>
+    <tr id="user">
+      <td> <%=role.no_empty_name %> </td>
+      <td> <%= role.resource_type_description %> </td>
       <td> <%= role.resource_id_description %> </td>
-      <td> <%= link_to t('admin.roles.remove_resource'), remove_resource_admin_role_path(role), class: "button hollow" %> </td>
+      <td id= "button_destroy">
+        <%= link_to t('admin.roles.remove_resource'),
+                    admin_role_path(role.id, user_id: @user.id,
+                                    remove_resource: [role.resource_type, role.resource_id] ),
+                       action: :destroy, method: :delete, class: "button hollow"  %>
+      </td>
     </tr>
     <% end %>
   </tbody>
