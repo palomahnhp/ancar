@@ -9,4 +9,7 @@ class OrganizationType < ActiveRecord::Base
   validates :description, presence: true
   validates :acronym, presence: true
 
+  def authorized_organization_types
+    current_user.auth_organization_types.collect { |v| [ v.description, v.id ] }
+  end
 end

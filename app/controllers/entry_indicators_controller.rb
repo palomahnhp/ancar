@@ -4,13 +4,8 @@ class EntryIndicatorsController < ApplicationController
   def index
     if params[:organization_id] && params[:period_id]
       initialize_instance_vars
-      if @main_processes.empty?
+      if @period.main_processes.empty?
         render :index, notice: t(".no_main_processes")
-      # else # if period_is_modifiable?
-      #   if params[:unit_id]
-      #     unit = Unit.find(params[:unit_id])
-      #   else
-      #     unit = Unit.where(organization_id: params[:organization_id]).take
       else
         entry_indicator = EntryIndicator.first.nil? ? EntryIndicator.create(unit_id:@unit.id) : EntryIndicator.first
         redirect_to edit_entry_indicator_path(entry_indicator.id, unit_id: @unit.id, period_id: params[:period_id],
@@ -28,8 +23,8 @@ class EntryIndicatorsController < ApplicationController
     @all_entry_indicators_cumplimented = @all_assigned_employess_cumplimented = true
     params.keys.each do |key|
       case key
-       when 'SubProcess'
-         update_assigned_employess(params[key])
+       when 'Indicator'
+         update_assigned_employess(key)
        when 'IndicatorMetric'
          update_entry_indicators(params[key])
         else
@@ -46,43 +41,30 @@ class EntryIndicatorsController < ApplicationController
   end
 
   private
-
     def entry_indicator_params
       params.require(:entry_indicator).permit(:amount, :unit_id, :period_id, :indicator_metric, :indicator_source)
-    end
-
-    def organizations_select_options
-      current_user.auth_organizations.collect { |v| [ v.description, v.id ] }
-    end
-
-    def organization_types_options
-      current_user.auth_organization_types.collect { |v| [ v.description, v.id ] }
     end
 
     def initialize_instance_vars
       if params[:organization_id]
         @organization = Organization.find(params[:organization_id])
-        @organization_type = @organization.organization_type
         @units = @organization.units.order(:order).to_a
       end
       if params[:period_id]
         @period = Period.find(params[:period_id]) if params[:period_id]
-        @main_processes = MainProcess.where(period_id: @period.id).order(:order).includes(:item, :sub_processes,
-          :indicators)
       end
       if params[:unit_id]
         @unit = Unit.find(params[:unit_id])
       else
         @unit = @units.first
       end
-      @official_groups = OfficialGroup.all
     end
 
-    def update_assigned_employess(sub_processes)
-      sub_processes.each do |sp|
-        grupos = sp[1]
-        process_id = sp[0].to_i
-        type = :SubProcess
+    def update_assigned_employess(process)
+      params[process].each do |pr|
+        grupos = pr[1]
+        process_id = pr[0].to_i
+        type = process
         grupos.keys.each do |grupo|
           quantity = grupos[grupo]
           official_group_id = OfficialGroup.find_by_name(grupo).id

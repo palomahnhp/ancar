@@ -47,6 +47,10 @@ class Period < ActiveRecord::Base
 
   end
 
+  def self.select_options
+    self.all.collect { |v| [ v.description, v.id ] }
+  end
+
   private
 
   def started_at_before_ended_at
