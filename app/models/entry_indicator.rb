@@ -21,4 +21,5 @@ class EntryIndicator < ActiveRecord::Base
     val.sub!(',', '.') if val.is_a?(String)
     self['amount'] = val
   end
+
 end
