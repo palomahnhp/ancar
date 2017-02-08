@@ -28,7 +28,7 @@ end
 # '2. Create period'
 period = Period.create(description: 'Periodo de análisis de datos', organization_type_id: organization_type.id,
                         started_at: (Time.now - 1.year).beginning_of_year, ended_at: (Time.now - 1.year).end_of_year,
-                        opened_at:  (Time.now - 1.year).end_of_year + 1.day, closed_at:  (Time.now - 1.year).end_of_year + 1.month)
+                        opened_at:  (Time.now + 1.month), closed_at: (Time.now + 1.month))
 
 # '4 Crear procesos'
 
