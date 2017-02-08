@@ -5,7 +5,7 @@
     <%= hidden_field_tag :indicator_id, params[:indicator_id] %>
 
     <%= f.label :metric_id, t('manager.indicator_metrics.form.metric') %>
-    <%= f.select :metric_id, options_for_select(metric_items, metric_selected), :prompt => t('manager.indicator_metrics.form.metric'),
+    <%= f.select :metric_id, options_for_select(metric_items, @indicator_metric.metric_id), :prompt => t('manager.indicator_metrics.form.metric'),
                    label: false, placeholder: t('manager.indicator_metrics.form.metric') %>
   </div>
 

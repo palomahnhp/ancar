@@ -3,22 +3,22 @@
 <table>
   <tr>
     <th><%= t('.indicator') %></th>
-    <th><%= t('.metric') %></th>
-    <th><%= t('.source') %></th>
+    <th class="text-left"><%= t('.metric') %></th>
+    <th class="text-left"><%= t('.source') %></th>
     <th class="text-center" colspan="<%= SummaryType.all.count %>"><%= t('.totals') %></th>
     <th colspan="2"></th>
   </tr>
   <tr>
       <th colspan="3"></th>
       <% SummaryType.all.each do |summary_type|%>
-        <th ><%= summary_type.item.description %></th>
+        <th class="text-left"><%= summary_type.item.description %></th>
       <% end %>
     <th colspan="2"></th>
   </tr>
 
   <% @indicators.each do  |indicator|%>
     <tr rowspan="indicator.indicator_metrics.count" id="<%= dom_id(indicator) %>">
-      <td colspan="5">
+      <td colspan="4">
         <% if indicator.description.nil? %>
           <strong> <%= indicator.main_process.order %>.<%= indicator.sub_process.order %>.<%= indicator.order %>. <%= indicator.item.description %></strong>
         <% else %>
