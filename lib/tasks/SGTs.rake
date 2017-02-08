@@ -102,7 +102,7 @@ namespace :SGT do
     source.save
 
     indicator_metric = indicator.indicator_metrics.find_or_create_by(metric_id: metric.id)
-    indicator_source = indicator.indicator_sources.find_or_create_by(source_id: source.id)
+    indicator_source = indicator_metric.indicator_sources.find_or_create_by(source_id: source.id)
 
     # entry_indicators
     cantidad = row[@columns["cantidad"]-1]

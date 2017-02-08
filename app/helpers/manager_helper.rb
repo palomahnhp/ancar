@@ -35,10 +35,6 @@ module ManagerHelper
     items_not_used.collect  { |v| [ v.description, v.id] }
   end
 
-  def metric_selected
-    params[:metric_id].nil? ? "" : params[:metric_id]
-  end
-
   def source_selected
     is = IndicatorSource.find_by_indicator_metric_id(params[:id])
     is.nil? ? " " : is.source_id

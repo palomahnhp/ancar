@@ -292,6 +292,23 @@ ActiveRecord::Schema.define(version: 20170116125437) do
   add_index "tasks", ["item_id"], name: "index_tasks_on_item_id", using: :btree
   add_index "tasks", ["sub_process_id"], name: "index_tasks_on_sub_process_id", using: :btree
 
+  create_table "tmp_ind_e_s_import", id: false, force: :cascade do |t|
+    t.integer "pr_id",              null: false
+    t.string  "pr_desc"
+    t.string  "sp_ord",             null: false
+    t.string  "sub_desc"
+    t.integer "dep_ord",            null: false
+    t.string  "dp_desc"
+    t.integer "ind_met",            null: false
+    t.string  "ind_desc"
+    t.string  "met_desc"
+    t.string  "P",        limit: 1
+    t.string  "S",        limit: 1
+    t.string  "U",        limit: 1
+    t.string  "G",        limit: 1
+    t.string  "N",        limit: 1
+  end
+
   create_table "total_indicator_types", force: :cascade do |t|
     t.integer  "item_id"
     t.string   "acronym"
@@ -369,8 +386,6 @@ ActiveRecord::Schema.define(version: 20170116125437) do
     t.datetime "updated_at",        null: false
     t.integer  "role"
     t.datetime "inactivated_at"
-    t.string   "unit_description"
-    t.integer  "unit_id"
     t.integer  "organization_id"
   end
 
