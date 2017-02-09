@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
     end
 
     def authenticated_uweb?
-      if params[:development] == 'LOCAL'
+      if Setting['user_test'] == params[:user_test]
         user = User.find_by_login(params[:login])
         if user
           session[:user_id] = user.id
