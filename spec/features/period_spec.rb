@@ -12,7 +12,7 @@ feature 'Periods Maintenance' do
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
 
-      expect(page).to have_content I18n.t('manager.periods.index.entry_opened')
+      expect(page).to have_content I18n.t('manager.periods.index.entry_not_open_yet')
       expect(page).to have_link 'ver procesos'
       expect(page).to have_link 'editar'
       expect(page).to have_link 'eliminar'
@@ -243,18 +243,6 @@ feature 'Periods Maintenance' do
         end
         within('td#summary_type_3') do
           expect(page).to have_content '-'
-        end
-      end
-
-      within('tr#indicator_metric_4') do
-        within('td#summary_type_1') do
-          expect(page).to have_content 'E'
-        end
-        within('td#summary_type_2') do
-          expect(page).to have_content '-'
-        end
-        within('td#summary_type_3') do
-          expect(page).to have_content 'U'
         end
       end
     end
