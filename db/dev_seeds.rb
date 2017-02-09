@@ -98,10 +98,10 @@ periodo = Period.create!(organization_type_id: to1.id, description: 'PERIODO DE 
         puts "     #{ind.item.description}"
         # indicator_metrics
         (1..rand(1..2)).each do |i|
-          ind.indicator_metrics.create!(metric_id: rand(1..Metric.count))
+          im = ind.indicator_metrics.create!(metric_id: rand(1..Metric.count))
           # indicator_source
           (1..rand(1..3)).each do |i|
-            i.indicator_sources.create!(source_id: rand(1..Source.count), indicator_id: ind.id)
+            im.indicator_sources.create!(source_id: rand(1..Source.count), indicator_id: ind.id)
           end
         end
       end
