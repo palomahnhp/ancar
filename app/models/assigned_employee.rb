@@ -4,7 +4,7 @@ class AssignedEmployee < ActiveRecord::Base
   belongs_to :official_group
   belongs_to :period
 
-  validates_inclusion_of :staff_of_type, in: ["Unit", "SubProcess", "Indicator"]
+  validates_inclusion_of :staff_of_type, in: ["Unit", "Indicator", "UnitCorrected"]
 
   def copy(period_destino_id, current_user_login)
     AssignedEmployee.create(self.attributes.merge(id: nil, period_id: period_destino_id, updated_at: current_user_login))
@@ -14,4 +14,17 @@ class AssignedEmployee < ActiveRecord::Base
     val.sub!(',', '.') if val.is_a?(String)
     self['quantity'] = val
   end
+
+  def self.exceeded_staff_for_unit(unit_id, period_id)
+    message = []
+    OfficialGroup.all.each do |official_group|
+      unless AssignedEmployee.where(staff_of_type: 'Indicator', unit_id: unit_id, period_id: period_id,
+                                       official_group: official_group.id).sum(:quantity) >
+                AssignedEmployee.where(staff_of_type: 'Unit', staff_of_id: unit_id, unit_id: unit_id, period_id: period_id,
+                                       official_group: official_group.id).sum(:quantity)
+        message << official_group.description
+      end
+    end
+  end
+
 end

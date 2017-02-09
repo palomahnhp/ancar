@@ -95,3 +95,8 @@ es:
       remove_resource: "-"
       destroy_resource:
         error: "Error elimando recurso del rol"
+  entry_indicators:
+    updates:
+      assigned_employees:
+        excedeed:
+          official_group: "Revise la asignación de efectivos a los subprocesos, supera a los asignados a la unidad para los grupos: &{groups}."

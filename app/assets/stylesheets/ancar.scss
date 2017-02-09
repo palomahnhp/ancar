@@ -89,14 +89,21 @@
       padding-top: 0;
       &.indicador_size{
        font-size: rem-calc(14);
-    }
+      }
     }
 
     input {
       font-size: rem-calc(12);
       height: auto !important;
       margin: rem-calc(6) 0 !important;
-      width: rem-calc(60);
+      &.amount{
+        width: rem-calc(60);
+      }
+      &.group{
+        width: rem-calc(30);
+        align: center;
+      }
+
     }
   }
 

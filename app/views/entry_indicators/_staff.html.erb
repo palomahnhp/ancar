@@ -1,33 +1,45 @@
 <div class="staff">
-  <table id='<%= "staff_#{of}" %>', class="margin text-center">
-    <thead>
-      <tr>
-        <th class="text-center" colspan="5"> <%= (t(".#{process.class.name}.title")) %></th>
-      </tr>
-      <tr>
-        <% @official_groups.each do |gr| %>
-          <th class="text-center"><%= gr.name %></th>
-        <% end %>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <% @official_groups.each do |gr| %>
-          <td>
-            <% group_value = get_staff(of, process, gr, unit, period) %>
-            <% if @period.open_entry? && of == "SubProcess"%>
-              <%= text_field_tag("SubProcess[#{process.id}][#{gr.name}]", group_value, class: "inline", placeholder: gr.name) %>
-            <% else %>
+  <% if type == 'all' %>
+    <table id='<%= "staff_#{of}" %>', class="margin text-center">
+      <thead>
+        <tr>
+          <th class="text-center" colspan="5"> <%= (t(".#{of}.title")) %></th>
+        </tr>
+        <tr>
+          <% OfficialGroup.all.each do |gr| %>
+            <th class="text-center"><%= gr.name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% OfficialGroup.all.each do |gr| %>
+            <td>
               <% if of == "SubProcess" %>
-                <%=  group_value %>
+                <%=  get_staff(of, process, gr, unit, period) %>
               <% else %>
-                <strong><%=  group_value %></strong>
+                <strong><%=  get_staff(of, process, gr, unit, period) %></strong>
               <% end %>
-            <% end %>
-          </td>
+            </td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  <% elsif type == 'header' %>
+        <% OfficialGroup.all.each do |gr| %>
+            <th class="text-center"><%= gr.name %></th>
         <% end %>
-      </tr>
-    </tbody>
-  </table>
+  <% elsif type == 'data' %>
+    <% OfficialGroup.all.each do |gr| %>
+      <td>
+        <% if @period.open_entry? %>
+          <%= text_field_tag("Indicator[#{process.id}][#{gr.name}]",
+                             get_staff(of, process, gr, unit, period),
+                             class: "inline group", placeholder: gr.name) %>
+        <% else %>
+          <%=  get_staff(of, process, gr, unit, period) %>
+        <% end %>
+      </td>
+    <% end %>
+  <% end %>
 </div>

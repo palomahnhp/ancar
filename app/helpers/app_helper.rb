@@ -28,8 +28,14 @@ module AppHelper
 #  end
 
   def get_staff(type, proc, group, unit, period)
-    ae = AssignedEmployee.where(staff_of_id: proc.id, staff_of_type: type, official_group_id: group.id, unit_id: unit.id, period_id: period.id).first
-    return ae.nil? ? nil : format_number(ae.quantity)
+    if type == 'SubProcess'
+      ids = proc.indicators.ids
+      type = 'Indicator'
+    else
+      ids =  proc.id
+    end
+    ae = AssignedEmployee.where(staff_of_id: ids, staff_of_type: type, official_group_id: group.id, unit_id: unit.id, period_id: period.id).sum(:quantity)
+    return ae.nil? ? nil : format_number(ae)
   end
 
   def get_amount(im, unit)
