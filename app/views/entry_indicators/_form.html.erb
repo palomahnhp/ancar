@@ -1,25 +1,21 @@
-<div id="myModal" class="small reveal" data-reveal="" aria-labelledby="modalTitle" aria-hidden="true" role="dialog" style="display: none; opacity: 1; visibility: hidden; top: 194px;">
-  <h2 id="modalTitle">Awesome. I have it.</h2>
-  <p class="lead">Your couch.  It is mine.</p>
-  <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
-  <button class="close-button" data-close aria-label="Close modal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+<% if @groups_excedeed %>
+  <%= render "staff_excedeed_modal" %>
+<% end %>
 
 <div id="unit" class="unit text-center small-12 columns">
   <h3>
     <%= @unit.description_sap %>
   </h3>
 </div>
-<%= form_tag(updates_entry_indicators_path, method: 'post') do %>
+
+<%= form_tag(updates_entry_indicators_path, method: 'post', name: "entryIndicatorsForm") do %>
   <div class="row">
     <% if @period.open_entry? %>
+      <%= hidden_field_tag(:justification) %>
       <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>
       <div class="small-12 medium-4 columns">
-        <br>
         <%= submit_tag('Actualizar indicadores', class: 'button hollow large') %>
       </div>
     <% else %>

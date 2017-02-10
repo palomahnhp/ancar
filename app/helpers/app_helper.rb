@@ -27,17 +27,6 @@ module AppHelper
 #    indicator.indicator_metrics.take.nil? ? "-" : indicator.indicator_metrics.take.source_id
 #  end
 
-  def get_staff(type, proc, group, unit, period)
-    if type == 'SubProcess'
-      ids = proc.indicators.ids
-      type = 'Indicator'
-    else
-      ids =  proc.id
-    end
-    ae = AssignedEmployee.where(staff_of_id: ids, staff_of_type: type, official_group_id: group.id, unit_id: unit.id, period_id: period.id).sum(:quantity)
-    return ae.nil? ? nil : format_number(ae)
-  end
-
   def get_amount(im, unit)
     ei = EntryIndicator.where(indicator_metric_id: im.id, unit_id: unit.id).first
     return ei.nil? ? nil : format_number(ei.amount)

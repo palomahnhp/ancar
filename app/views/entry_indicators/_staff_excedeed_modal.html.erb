@@ -1,0 +1,39 @@
+<div id="myModal" class="large reveal warning callout" data-reveal aria-labelledby="modalTitle"
+     aria-hidden="true"  role="dialog" style="opacity: 1; visibility: hidden; top: 194px;">
+  <h2 id="modalTitle">Exceso de efectivos asignados</h2>
+  <p class="lead">Los efectivos asignados a los subprocesos superan los efectivos asignados a esta unidad para:
+    <strong><%= @groups_excedeed %></strong></p>
+  <% unless has_justification?(@unit.id, @period.id) %>
+    <p> Si se trata de un <strong>error</strong> cierre la ventana, pulsando el aspa de la parte superior derecha y corriga los datos erróneos.</p>
+    <p>Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a lo indicados
+      en el cuadro <strong><em>EFECTIVOS UNIDAD</em></strong>, puede modificarlos, para adecuarlos a los que realmente han
+      participado en estos procesos, pulsando en el botón <strong><em><%= t("entry_indicators.form.assigned_employees.update.button") %></em></strong>,
+      lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios
+      quedarán pendientes de verificación por el resposable.</p>
+      <a class="hollow button" data-close"><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
+  <% else %>
+      <button class="hollow button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true"><%= t("entry_indicators.form.assigned_employees.close.button") %></span>
+      </button>
+  <% end %>
+
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="secondary callout reveal" id="justifiyModal" data-reveal>
+  <h2><%= t("entry_indicators.form.assigned_employees.update.justification.title") %></h2>
+  <button class="close-button" data-close aria-label="Close reveal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <form name="justificationForm">
+    <textarea name="justification" placeholder="<%= t("entry_indicators.form.assigned_employees.update.justification.label") %>" rows="4" ></textarea>
+    <a class="hollow button" onclick="setJustification()" data-close ><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
+  </form>
+  <script>
+      function setJustification(){
+          document.entryIndicatorsForm.justification.value=document.justificationForm.justification.value
+      }
+  </script>
+</div>

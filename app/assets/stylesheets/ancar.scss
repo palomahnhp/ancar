@@ -112,6 +112,12 @@
   margin: 0;
   font-size: rem-calc(14);
 
+  .input-staff {
+    &.invisible{
+      display:none;
+    }
+  }
+
   thead {
     border: 1px solid $cobalto;
   }
@@ -127,9 +133,10 @@
   }
 
   tr {
-   background-color: #efe7c9;
-   font-size: rem-calc(16);
+    background-color: #efe7c9;
+    font-size: rem-calc(16);
   }
+
 
   tr:last-child td {
     border-bottom: 1px solid $cobalto;

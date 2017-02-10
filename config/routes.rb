@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'assigned_employee/justify'
+
   namespace :admin do
   get 'roles/index'
   end

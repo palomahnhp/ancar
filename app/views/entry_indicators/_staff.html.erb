@@ -23,6 +23,22 @@
             </td>
           <% end %>
         </tr>
+
+        <% if of == "Unit" %>
+          <tr  class="input-staff <%= "invisible" unless input_staff_visible?(process.id) %>">
+             <th class="text-center" colspan="5">
+                <a class="text-left <%= staff_justification_class(process.id) %>"  href="#">Efectivos reales - justificación</a>
+            </th>
+          </tr>
+          <tr  class="input-staff <%=  "invisible" unless input_staff_visible?(process.id) %>">
+              <% OfficialGroup.all.each do |gr| %>
+                  <td>
+                    <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", get_staff("UnitJustified", process, gr, unit, period),
+                                       class: "inline group", placeholder: gr.name) %>
+                  </td>
+              <% end %>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   <% elsif type == 'header' %>

@@ -39,6 +39,14 @@ es:
       indicator: Indicador
       metric: Métrica
       source: Fuente
+      assigned_employees:
+        update:
+          button: "Cambiar efectivos"
+          justification:
+            title: "Justificar modificación de efectivos"
+            label: "Justifica la modificación de efectivos a realizar"
+        close:
+          button: "Cerrar"
     index:
       no_main_processes: No hay indicadores para este periodo.
       select: Seleccionar
