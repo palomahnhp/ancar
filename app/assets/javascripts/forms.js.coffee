@@ -22,4 +22,5 @@ App.Forms =
     App.Forms.disableEnter()
     App.Forms.submitOnChange()
     App.Forms.toggleLink()
+    $('#myModal').foundation("open");
     false

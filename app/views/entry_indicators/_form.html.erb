@@ -1,25 +1,52 @@
-<div id="myModal" class="small reveal" data-reveal="" aria-labelledby="modalTitle" aria-hidden="true" role="dialog" style="display: none; opacity: 1; visibility: hidden; top: 194px;">
-  <h2 id="modalTitle">Awesome. I have it.</h2>
-  <p class="lead">Your couch.  It is mine.</p>
-  <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
-  <button class="close-button" data-close aria-label="Close modal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+<% if @groups_excedeed %>
+    <div id="myModal" class="large reveal warning callout" data-reveal="" aria-labelledby="modalTitle" aria-hidden="true"
+         role="dialog" style="opacity: 1; visibility: hidden; top: 194px;">
+      <h2 id="modalTitle">Exceso de efectivos asignados</h2>
+      <p class="lead">Los efectivos asignados a los subprocesos superan los efectivos asignados a esta unidad.</p>
+      <p> Si se trata de un <strong>error</strong> cierre la ventana, pulsando el aspa de la parte superior derecha y corriga los datos erróneos.</p>
+      <p>Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a lo indicados
+        en el cuadro <strong><em>EFECTIVOS UNIDAD</em></strong>, puede modificarlos, para adecuarlos a los que realmente han
+        participado en estos procesos, pulsando en el botón <strong><em><%= t("entry_indicators.form.assigned_employees.update.button") %></em></strong>,
+        lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios
+        quedarán pendientes de verificación por el resposable.</p>
+      <a class="hollow button" data-open="justifiyModal"><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
 
-<div id="unit" class="unit text-center small-12 columns">
+    <div class="secondary callout reveal" id="justifiyModal" data-reveal>
+      <h2><%= t("entry_indicators.form.assigned_employees.update.justification.title") %></h2>
+      <button class="close-button" data-close aria-label="Close reveal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <form name="justificationForm">
+        <textarea name="justification" placeholder="<%= t("entry_indicators.form.assigned_employees.update.justification.label") %>" rows="4" ></textarea>
+        <a class="hollow button" onclick="setJustification()" data-close ><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
+      </form>
+      <script>
+        function setJustification(){
+          document.entryIndicatorsForm.justification.value=document.justificationForm.justification.value
+
+        }
+      </script>
+    </div>
+ <% end %>
+
+ <div id="unit" class="unit text-center small-12 columns">
   <h3>
     <%= @unit.description_sap %>
   </h3>
 </div>
-<%= form_tag(updates_entry_indicators_path, method: 'post') do %>
+<%= form_tag(updates_entry_indicators_path, method: 'post', name: "entryIndicatorsForm") do %>
   <div class="row">
     <% if @period.open_entry? %>
+      <%= hidden_field_tag(:justification) %>
       <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>
       <div class="small-12 medium-4 columns">
-        <br>
         <%= submit_tag('Actualizar indicadores', class: 'button hollow large') %>
       </div>
     <% else %>

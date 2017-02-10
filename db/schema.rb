@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116125437) do
+ActiveRecord::Schema.define(version: 20170210074430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,16 @@ ActiveRecord::Schema.define(version: 20170116125437) do
     t.string   "staff_of_type"
     t.integer  "unit_id"
     t.string   "updated_by"
-    t.decimal  "quantity",          precision: 5, scale: 2
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.decimal  "quantity",             precision: 5, scale: 2
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "period_id"
+    t.text     "justification"
+    t.date     "justified_at"
+    t.string   "justified_by"
+    t.boolean  "pending_verification"
+    t.date     "verified_at"
+    t.string   "verified_by"
   end
 
   add_index "assigned_employees", ["official_group_id"], name: "index_assigned_employees_on_official_group_id", using: :btree

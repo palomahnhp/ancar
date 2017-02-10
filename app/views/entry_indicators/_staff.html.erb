@@ -23,6 +23,18 @@
             </td>
           <% end %>
         </tr>
+          <tr class="input-staff">
+            <th class="text-center" colspan="5">Efectivos ajustados</th>
+          </tr>
+          <tr  class="input-staff">
+            <% OfficialGroup.all.each do |gr| %>
+                <td>
+                  <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", get_staff(of, process, gr, unit, period),
+                                     class: "inline group", placeholder: gr.name) %>
+                </td>
+            <% end %>
+          </tr>
+        </span>
       </tbody>
     </table>
   <% elsif type == 'header' %>

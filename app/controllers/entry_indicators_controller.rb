@@ -1,6 +1,7 @@
 class EntryIndicatorsController < ApplicationController
   before_action :require_user, only: [:index]
   before_action :initialize_instance_vars, only: [:index, :edit, :updates ]
+  respond_to :html, :js
 
   def index
     if params[:organization_id] && params[:period_id]
@@ -22,20 +23,20 @@ class EntryIndicatorsController < ApplicationController
          flash[:error] = t('entry_indicators.updates.no_key')
       end
     end
-    groups_excedeed = AssignedEmployee.exceeded_staff_for_unit(@unit.id, @period.id).empty?
-    case
-      when !groups_excedeed.nil?
-        respond_to do |format|
-          format.js { render "staff_excedeed" }
-        end
-        flash[:alert] = t('entry_indicators.updates.assigned_employees.excedeed.official_group')
-      when all_cumplimented?
+
+    @groups_excedeed = AssignedEmployee.exceeded_staff_for_unit(@unit.id, @period.id).present?
+    if @groups_excedeed
+      render :edit
+    else
+      if all_cumplimented?
         flash[:notice] = t('entry_indicators.updates.success')
       else
         flash[:alert] = t('entry_indicators.updates.incomplete')
+      end
+      redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
+      organization_id: @organization.id)
     end
-    redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
-       organization_id: @organization.id)
+
   end
 
   private
@@ -57,6 +58,7 @@ class EntryIndicatorsController < ApplicationController
         @unit = @units.first
       end
     end
+
 
     def update_assigned_employess(process)
       params[process].each do |pr|
@@ -89,7 +91,7 @@ class EntryIndicatorsController < ApplicationController
           EntryIndicator.where(unit_id: @unit.id, indicator_metric_id: indicator_metric_id).delete_all
         else
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-          ei.indicator_source_id = IndicatorSource.where(indicator_id: IndicatorMetric.find(indicator_metric_id).indicator.id).take.id
+          ei.indicator_source_id = IndicatorSource.where(indicator_metric: indicator_metric_id).take.id
           ei.amount = amount
           ei.period_id = @period.id
           ei.updated_by = current_user.login
