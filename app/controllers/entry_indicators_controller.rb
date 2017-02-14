@@ -59,7 +59,6 @@ class EntryIndicatorsController < ApplicationController
       end
     end
 
-
     def update_assigned_employess(process)
       params[process].each do |pr|
         grupos = pr[1]
