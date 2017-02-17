@@ -2,7 +2,12 @@ namespace :SGT do
   require 'spreadsheet'
 
   desc "Importar datos de la SGT"
-#  rake SGT:import file=/home/phn001/Documents/ANCAR/SGTs/DatosSGTs-2016-T1.xls period=78
+  task :initialize => :environment do
+
+  end
+
+  desc "Importar datos de la SGT"
+ #  rake SGT:import file=/home/phn001/Documents/ANCAR/SGTs/DatosSGTs-2016-T1.xls period=78
   task :import => :environment do
     file = ENV['file'] or raise "Hay que indicar un fichero file=fichero"
     period_id = ENV['period'] or raise "Hay que indicar el id del periodo a cargar period=id"

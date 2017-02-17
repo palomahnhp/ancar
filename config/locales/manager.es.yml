@@ -10,7 +10,9 @@ es:
     indicators:
       create:
         success: El indicador se ha creado correctmete.
-        title: Crear indicador
+        title:
+          indicator: Crear indicador
+          task: Crear Tarea/acción
       delete:
         message:
           empty: ¿Desea borrar este indicador?
@@ -19,7 +21,9 @@ es:
         error: Error eliminando indicador
         success: Se ha eliminado el Indicador correctamente
       edit:
-        title: Editar indicador
+        title:
+          indicator: Editar indicador
+          task: Editar Tarea/acción
       form:
         description: Descripción
         order: Orden
@@ -27,18 +31,28 @@ es:
           description: "Si no existe la descripción en la caja superior escribala aquí"
       index:
         empty: No hay indicadores definidos
-        title: Indicadores
-        create: Incluir un indicador
+        title:
+          indicators: Indicador
+          tasks: Tarea/acción
+        create:
+          indicators: Añadir indicador
+          tasks: Añadir tarea/acción
         submit: submit
       new:
-        title: Crear indicadores
+        title:
+          indicators: Crear indicadores
+          tasks: Crear tarea/acción
       update:
         success: El registro se ha actualizado correctamente.
       show:
         title: Indicador
       item_list:
-        indicator: indicadores
-        metric: Métrica
+        indicator:
+          indicators: Indicadores
+          tasks: Tarea/acción
+        metric:
+          indicators:  Métrica
+          tasks: Indicador
         source: Fuente
         totals: Totalizadores
       total_indicator_type:
@@ -85,9 +99,15 @@ es:
         success: El registro se ha actualizado correctamente.
       index:
         empty: No hay procesos para este periodo
-        create: Incluir procesos
-        title: Procesos
-        sub_processes: Ver subprocesos
+        create_button:
+          main_processes: Añadir proceso
+          competential_blocks: Añadir bloque competencial
+        title:
+          main_processes: Procesos
+          competential_blocks: Bloques competenciales
+        sub_processes:
+          main_processes: Ver subprocesos
+          competential_blocks: Ver procesos
         submit: submit
         select_organization_type: Seleccionar la Organización
         select_period: Seleccionar el periodo
@@ -170,8 +190,12 @@ es:
       index:
         create: Incluir subprocesos
         empty: No hay subprocesos definidos
-        indicators: Ver indicadores
-        title: Subprocesos
+        indicators:
+          sub_processes: Ver indicadores
+          main_processes: ver subprocesos
+        title:
+          sub_processes: Subprocesos
+          main_processes: Procesos
         submit: submit
       form:
         unit_type: Unidad

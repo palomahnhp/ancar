@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :process_name do
+    
+  end
   factory :role do
 
   end

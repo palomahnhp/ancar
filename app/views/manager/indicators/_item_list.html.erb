@@ -2,8 +2,8 @@
 <br>
 <table>
   <tr>
-    <th><%= t('.indicator') %></th>
-    <th class="text-left"><%= t('.metric') %></th>
+    <th><%= t("manager.indicators.item_list.indicator.#{process_name(@sub_process.main_process.period, controller_name)}") %></th>
+    <th class="text-left"><%= t("manager.indicators.item_list.metric.#{process_name(@sub_process.main_process.period, controller_name)}") %></th>
     <th class="text-left"><%= t('.source') %></th>
     <th class="text-center" colspan="<%= SummaryType.all.count %>"><%= t('.totals') %></th>
     <th colspan="2"></th>

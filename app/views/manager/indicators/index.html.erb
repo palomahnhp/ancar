@@ -1,6 +1,6 @@
 <%= render partial: 'manager/shared/header',
-           locals: {title: t("manager.indicators.#{action_name}.title"),
-                    button: t("manager.indicators.index.create"),
+           locals: {title: t("manager.indicators.#{action_name}.title.#{process_name(@sub_process.main_process.period, controller_name)}"),
+                    button: t("manager.indicators.index.create.#{process_name(@sub_process.main_process.period, controller_name)}"),
                     path: new_manager_indicator_path(sub_process_id: @sub_process.id),
                     modifiable: @sub_process.modifiable?,
                     period: @sub_process.main_process.period, main_process: @sub_process.main_process,

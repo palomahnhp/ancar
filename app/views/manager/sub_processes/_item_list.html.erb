@@ -23,7 +23,7 @@
             id: "index_#{sub_process.id}",
             class: 'button small float-right hollow' do %>
               <span class="icon-tag"></span>
-              <%= t("manager.sub_processes.index.indicators") %>
+              <%= t("manager.sub_processes.index.indicators.#{process_name(@main_process.period, controller_name)}") %>
         <% end %>
       </td>
       <td>
