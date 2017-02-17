@@ -112,12 +112,6 @@
   margin: 0;
   font-size: rem-calc(14);
 
-  .input-staff {
-    &.invisible{
-      display:none;
-    }
-  }
-
   thead {
     border: 1px solid $cobalto;
   }

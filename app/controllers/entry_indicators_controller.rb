@@ -1,14 +1,13 @@
 class EntryIndicatorsController < ApplicationController
   before_action :require_user, only: [:index]
   before_action :initialize_instance_vars, only: [:index, :edit, :updates ]
-  respond_to :html, :js
 
   def index
-    if params[:organization_id] && params[:period_id]
+#    if params[:organization_id] && params[:period_id]
       if @period.main_processes.empty?
         render :index, notice: t("entry_indicators.index.no_main_processes")
       end
-    end
+#    end
   end
 
   def updates
@@ -26,7 +25,7 @@ class EntryIndicatorsController < ApplicationController
 
     @groups_excedeed = AssignedEmployee.exceeded_staff_for_unit(@unit.id, @period.id)
     if @groups_excedeed.present?
-      render :edit
+      render :index
     else
       if all_cumplimented?
         flash[:notice] = t('entry_indicators.updates.success')

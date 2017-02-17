@@ -4,8 +4,8 @@ module AssignedEmployeeHelper
     params[:justification] || AssignedEmployee.where(unit_id: unit_id, staff_of_type: 'UnitJustified').count > 0
   end
 
-  def staff_justification_class(unit_id)
-    if AssignedEmployee.where(unit_id: unit_id).justification_verified.count == 0
+  def staff_justification_class(unit_id, period_id)
+    if AssignedEmployee.where(unit_id: unit_id, period_id: period_id, staff_of_type: 'UnitJustified').no_justification_verified.count == 0
       "icon-check"
     else
       "icon-x"
