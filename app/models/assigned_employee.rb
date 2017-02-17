@@ -27,6 +27,7 @@ class AssignedEmployee < ActiveRecord::Base
         message << official_group.description
       end
     end
+    return message
   end
 
     def exceed_staff(type)
