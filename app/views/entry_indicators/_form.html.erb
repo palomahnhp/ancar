@@ -1,7 +1,7 @@
-
 <% if @groups_excedeed %>
-    <div id="myModal" class="large reveal warning callout"
-          data-reveal style="visibility: visible; display: inline-block; opacity: 1;" >
+  <div class="reveal-overlay" style="display:inline" >
+    <div id="myModal" class="large reveal warning callout" data-open="myModal" aria-labelledby="modalTitle"
+         aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
       <h2 id="modalTitle">Exceso de efectivos asignados</h2>
       <p class="lead">Los efectivos asignados a los subprocesos superan los efectivos asignados a esta unidad para:
         <strong><%= @groups_excedeed %></strong></p>
@@ -12,34 +12,47 @@
             participado en estos procesos, pulsando en el botón <strong><em><%= t("entry_indicators.form.assigned_employees.update.button") %></em></strong>,
             lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios
             quedarán pendientes de verificación por el resposable.</p>
-          <a class="hollow button" data-close"><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
+          <a class="hollow button" onclick="closeModal()"> <%= t("entry_indicators.form.assigned_employees.update.button") %></a>
       <% else %>
-          <button class="hollow button" data-close aria-label="Close modal" type="button">
+          <button class="hollow button" onclick="openJustification()" aria-label="Close modal" type="button">
             <span aria-hidden="true"><%= t("entry_indicators.form.assigned_employees.close.button") %></span>
           </button>
       <% end %>
-      <button class="close-button" data-close aria-label="Close modal" type="button">
+      <button class="close-button" onclick="closeModal()" aria-label="Close modal" type="button">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-
-    <div class="secondary callout reveal" id="justifiyModal" data-reveal>
+    <div class="secondary callout reveal" id="justifyModal" >
       <h2><%= t("entry_indicators.form.assigned_employees.update.justification.title") %></h2>
-      <button class="close-button" data-close aria-label="Close reveal" type="button">
+      <button class="close-button" onclick="closeModal()" aria-label="Close reveal" type="button">
         <span aria-hidden="true">&times;</span>
       </button>
 
       <form name="justificationForm">
         <textarea name="justification" placeholder="<%= t("entry_indicators.form.assigned_employees.update.justification.label") %>" rows="4" ></textarea>
-        <a class="hollow button" onclick="setJustification()" data-close ><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
+        <a class="hollow button" onclick="setJustification()"><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
       </form>
-      <script>
 
+      <script>
           function setJustification(){
+              console.log("pasa por aqui")
               document.entryIndicatorsForm.justification.value=document.justificationForm.justification.value
+              $("#justifyModal").hide()
+              $(".reveal-overlay").hide()
+          }
+
+          function openJustification() {
+            $("#myModal").hide()
+            $("#justifyModal").show()
+          }
+
+          function closeModal() {
+              $("#myModal").hide()
+              $(".reveal-overlay").hide()
           }
       </script>
     </div>
+  </div>
 <% end %>
 
 <div id="unit" class="unit text-center small-12 columns">
