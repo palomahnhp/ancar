@@ -3,7 +3,7 @@
     <table id='<%= "staff_#{of}" %>', class="margin text-center">
       <thead>
         <tr>
-          <th class="text-center" colspan="5"> <%= (t(".#{of}.title")) %></th>
+          <th class="text-center" colspan="5"> <%= (t("entry_indicators.staff.title.#{process_name(@period, of)}")) %></th>
         </tr>
         <tr>
           <% OfficialGroup.all.each do |gr| %>

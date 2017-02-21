@@ -47,10 +47,10 @@ en:
       select_unit: Seleccionar una unidad
       title: Hoja de identificación de procesos en
     staff:
-      SubProcess:
-        title: EFECTIVOS SUBPROCESO
-      Unit:
-        title: EFECTIVOS UNIDAD
+      title:
+        MainProcesses: EFECTIVOS PROCESO
+        SubProcess: EFECTIVOS SUBPROCESO
+        Unit: EFECTIVOS UNDAD
     updates:
       incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
       no_key: Falta parametro key

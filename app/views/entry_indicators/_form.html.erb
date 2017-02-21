@@ -1,17 +1,3 @@
-<div id="myModal" class="small reveal" data-reveal="" aria-labelledby="modalTitle" aria-hidden="true" role="dialog" style="display: none; opacity: 1; visibility: hidden; top: 194px;">
-  <h2 id="modalTitle">Awesome. I have it.</h2>
-  <p class="lead">Your couch.  It is mine.</p>
-  <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
-  <button class="close-button" data-close aria-label="Close modal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-
-<div id="unit" class="unit text-center small-12 columns">
-  <h3>
-    <%= @unit.description_sap %>
-  </h3>
-</div>
 <%= form_tag(updates_entry_indicators_path, method: 'post') do %>
   <div class="row">
     <% if @period.open_entry? %>
@@ -29,7 +15,6 @@
       <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period, type: 'all' %>
     </div>
   </div>
-
   <% @period.main_processes.each do |main_process| %>
     <% if sub_processes_unit(main_process, @unit).count > 0 %>
       <div class="main_process small-12 columns">
@@ -40,24 +25,33 @@
           <caption class="sub_process"><%= main_process.order%>.<%= sub_process.order%>.&nbsp;<%= sub_process.item.description %></caption>
           <thead>
             <tr>
-              <th><strong><%= t('.indicator') %></strong></th>
-              <th><strong><%= t('.source') %></strong></th>
-              <th><strong><%= t('.metric') %></strong></th>
-              <th class="text-center amount"><strong><%= t('.amount') %></strong></th>
+              <th><strong><%= t("entry_indicators.form.indicator.#{process_name(@period, 'indicators')}") %> </strong></th>
+              <th><strong><%= t("entry_indicators.form.metric") %></strong></th>
+              <th colspan="6"><strong><%= t("entry_indicators.form.source") %></strong></th>
               <%= render 'staff', of: 'Indicator', type: 'header' %>
+              <th class="text-center amount"><strong><%= t('.amount') %></strong></th>
             </tr>
           </thead>
           <% sub_process.indicators.each do |indicator| %>
             <tr>
-              <td colspan ="4" id="<%= "indicator_col_#{indicator.id}" %>"> <strong> <%= description(0, indicator.item_id) %> </strong></td>
-              <%= render 'staff', of: 'Indicator', process: indicator, unit: @unit, period: @period, type: 'data' %>
+              <td class="moderation-description" colspan ="8" id="<%= "indicator_col_#{indicator.id}" %>">
+                <% if indicator.description.nil? %>
+                    <strong> <%= indicator.order %>. <%= indicator.item.description %></strong>
+                <% else %>
+                    <br>
+                    <div class="moderation-description">
+                      <%= simple_format (indicator.description) %>
+                    </div>
+                <% end %>
+              </td>
+                <%= render 'staff', of: 'Indicator', process: indicator, unit: @unit, period: @period, type: 'data' %>
             </tr>
             <tr>
               <% indicator.indicator_metrics.order(:id).each_with_index do |indicator_metric, index| %>
               <%= hidden_field_tag(:indicator_metric_id, indicator_metric.id) %>
               <td colspan = "1"></td>
-              <td id="<%= "source_col_#{source_id(indicator)}" %>"> <%= sources_description(indicator.sources) %></td>
               <td id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
+              <td colspan ="11" id="<%= "source_col_#{source_id(indicator_metric)}" %>"> <%= sources_description(indicator_metric) %></td>
               <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
                 <% amount_value = get_amount(indicator_metric, @unit) %>
                 <% if @period.open_entry? %>
@@ -66,17 +60,15 @@
                   <%= amount_value %>
                 <% end %>
               </td>
-              <td colspan ="5"></td>
             </tr>
             <% end %>
           <% end %>
 
         </table>
-      <div class="columns medium-offset-8 medium-4 small-12">
-          <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
+        <div class="columns medium-offset-8 medium-4 small-12">
+            <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
         </div>
       <% end %>
-
     <% end %>
   <% end %>
 

@@ -1,13 +1,19 @@
-<div class="row unit_nav">
-  <div class="length-12 small-12 columns">
-    <ul>
-      <% @units.each do |unit| %>
-        <li>
-          <%= link_to unit.description_sap,
-                  current_path_with_query_params(unit_id: unit.id) %>
-        </li>
-      <% end %>
-    </ul>
+<% if @units.count > 1 %>
+  <div class="row unit_nav">
+    <div class="length-12 small-12 columns">
+      <ul>
+        <% @units.each do |unit| %>
+          <li>
+            <%= link_to unit.description_sap,
+                    current_path_with_query_params(unit_id: unit.id) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
-</div>
-
+  <div id="unit" class="unit text-center small-12 columns">
+    <h3>
+      <%= @unit.description_sap %>
+    </h3>
+  </div>
+<% end %>

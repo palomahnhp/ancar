@@ -103,11 +103,6 @@ module ManagerHelper
     TotalIndicatorType.find_by_acronym(in_out).id
    end
 
-  def process_name(period, process)
-    process_name = period.organization_type.process_names.find_by_model(process)
-    process_name.nil? ? process : process_name.name
-  end
-
   private
     def namespace
       controller.class.parent.name.downcase
