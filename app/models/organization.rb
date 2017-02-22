@@ -8,4 +8,7 @@ class Organization < ActiveRecord::Base
     self.all.collect { |v| [ v.description, v.id ] }
   end
 
+  def organizations_authorizated
+    current_user.auth_organizations.collect { |v| [ v.description, v.id ] }
+  end
 end

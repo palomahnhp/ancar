@@ -35,7 +35,8 @@
                 id: "index_#{period.id}",
                 class: 'button float-right tiny hollow' do %>
                   <span class="icon-tag"></span>
-                  <%= t('manager.periods.index.button.processes') %>
+                  <%= t("manager.periods.index.button.processes",
+                        process_name: t("manager.process_name.plural.#{process_name(period, 'main_processes')}")) %>
                 <% end %>
         </td>
         <% if period.modifiable? %>
