@@ -11,95 +11,41 @@ namespace :SGT do
 
   desc "Importar plantilla de SGT"
   task :plantilla => :environment do
-
+    file = '/home/phn001/Documents/ANCAR/DatosCargas/SGTs/Plantilla_SGT_Cargas.xls'
+    libro = Spreadsheet.open file
+    hoja = libro.worksheet 1
     period_id = 7
     updated_by = 'inititalize'
 
-    unit_id = 185 # Emergencias
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 30
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 11
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 35
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 66
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 56
-    ae.save
+    (hoja.rows).each  do |row|
+      break if row.idx == 11
+      if row.idx > 2
+        puts "#{row[0]} #{row[1]}"
+        unit =  Unit.find_by_sap_id(row[1])
+        ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit",
+                                                staff_of_id: unit.id,
+                                                period_id: period_id, unit_id: unit.id, updated_by: updated_by)
+        ae.quantity = row[2]
+        ae.save
+        ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit.id, period_id: period_id, unit_id: unit.id, updated_by: updated_by)
+        ae.quantity = row[3]
+        ae.save
 
-    unit_id = 180 # Medio Ambiente
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 37
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 17
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 33
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 77
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 56
-    ae.save
+        ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit.id, period_id: period_id, unit_id: unit.id, updated_by: updated_by)
+        ae.quantity = row[4]
+        ae.save
 
-    unit_id = 181 # Hacienda
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 22
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 7
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 28
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 43
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 23
-    ae.save
+        ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit.id, period_id: period_id, unit_id: unit.id, updated_by: updated_by)
+        ae.quantity = row[5]
+        ae.save
 
-    unit_id = 184 # Cultura
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 21
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 6
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 23
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 71
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 100
-    ae.save
+        ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit.id, period_id: period_id, unit_id: unit.id, updated_by: updated_by)
+        ae.quantity = row[6]
+        ae.save
 
-    unit_id = 183 # Derecho sociales
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 37
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 17
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 33
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 77
-    ae.save
-    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
-    ae.quantity = 56
-    ae.save
-
+      end
+    end
+  puts 'Finaliza proceso de carga de plantilla'
   end
 
   desc "Eliminar datos de un periodo"
