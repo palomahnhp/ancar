@@ -88,6 +88,7 @@ feature 'MainProcesses Maintenance' do
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
       click_link 'ver procesos'
+
       click_link 'Incluir procesos'
       fill_in 'Núm. orden', with: 1
 
@@ -106,6 +107,7 @@ feature 'MainProcesses Maintenance' do
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
       click_link 'ver procesos'
+
       click_link 'Incluir procesos'
 
       click_button 'Crear'
@@ -143,6 +145,7 @@ feature 'MainProcesses Maintenance' do
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
       click_link 'ver procesos'
+
       click_link 'Incluir procesos'
 
       fill_in 'item_description', with: 'Nueva descripción'
@@ -162,6 +165,7 @@ feature 'MainProcesses Maintenance' do
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
       click_link 'ver procesos'
+
       click_link 'Incluir procesos'
 
       find('#main_process_item_id').find(:xpath, 'option[2]').select_option
@@ -291,8 +295,7 @@ feature 'MainProcesses Maintenance' do
       click_link 'ver procesos'
 
       click_link('Eliminar', match: :first)
-
-      expect(page).to have_content "Proceso eliminado"
+      expect(page).to have_content "Item eliminado"
       expect(page).to have_content "2. AUTORIZACIONES Y CONCESIONES"
       expect(page).not_to have_content "1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS"
 

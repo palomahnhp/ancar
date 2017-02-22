@@ -27,7 +27,9 @@ feature 'Indicators Maintenance' do
       expect(page).to have_content 'Periodo: Periodo de análisis de datos'
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
       expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+
       expect(page).to have_content 'Indicadores'
+
       expect(page).to have_content 'Métrica'
       expect(page).to have_content 'Fuente'
       expect(page).to have_content 'Totalizadores'
@@ -86,7 +88,7 @@ feature 'Indicators Maintenance' do
         click_link "Ver indicadores"
       end
 
-      expect(page).to have_link 'Añadir métrica'
+      expect(page).to have_link 'Incluir métrica'
       expect(page).to have_link('Editar', count: 3)
       expect(page).to have_link('Eliminar', count: 3)
     end
@@ -300,7 +302,8 @@ feature 'Indicators Maintenance' do
       within('#indicator_1') do
         click_link 'Eliminar'
       end
-      expect(page).to have_content 'Se ha eliminado el Indicador correctamente'
+
+      expect(page).to have_content 'Se ha eliminado correctamente el item'
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
       expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
       expect(page).not_to have_content '1.1.1. Expedientes urbanísticos'

@@ -37,8 +37,8 @@ es:
     form:
       amount: Cantidad
       indicator:
-        indicators: Indicador
-        tasks: Tarea/acción
+        Indicators: Indicador
+        Tasks: Tarea/acción
       metric: Métrica
       source: Fuente
     index:

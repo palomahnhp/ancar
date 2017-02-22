@@ -9,50 +9,36 @@ en:
       period: 'Periodo:'
     indicators:
       create:
-        success: Se ha creado correctamente.
-        title:
-          indicator: Crear indicador
-          task: Crear Tarea/acción
+        success: "Se ha creado correctamente."
+        title: "Crear %{process_name}"
       delete:
         message:
-          empty: ¿Desea borrar este indicador?
-          no_empty: ¿Desea borrar este indicadoro y sus subprocesos e indicadores?
+          empty: "¿Desea borrar este %{process_name}?"
+          no_empty: "¿Desea borrar este %{process_name} y su contenido?"
       destroy:
-        error: Error eliminando indicador
-        success: Se ha eliminado el correctamente
+        error: "Se ha producido un error al eliminar el item"
+        success: "Se ha eliminado correctamente el item"
       edit:
-        title:
-          indicator: Editar indicador
-          task: Editar Tarea/acción
+        title: "Editar %{process_name}"
       form:
         description: Descripción
         order: Orden
         items:
           description: "Si no existe la descripción en la caja superior escribala aquí"
       index:
-        empty: No hay indicadores definidos
-        title:
-          indicators: Indicador
-          tasks: Tarea/acción
-        create:
-          indicators: Añadir indicador
-          tasks: Añadir tarea/acción
+        empty: "No hay %{process_name} definidos"
+        title: "%{process_name}"
+        create: "Incluir %{process_name}"
         submit: submit
       new:
-        title:
-          indicators: Crear indicadores
-          tasks: Crear tarea/acción
+        title: "Crear %{process_name}"
       update:
         success: El registro se ha actualizado correctamente.
       show:
-        title: Indicador
+        title: "%{process_name}"
       item_list:
-        indicator:
-          indicators: indicadores
-          tasks: tarea/acción
-        metric:
-          indicators:  Métrica
-          tasks: Indicador
+        indicator: "%{process_name}"
+        metric: Métrica
         source: Fuente
         totals: Totalizadores
       total_indicator_type:
@@ -84,30 +70,24 @@ en:
       periods: Configurar Periodos
     main_processes:
       create:
-        success: El proceso se ha creado correctamente.
-        title: Crear proceso
+        success: "El item se ha creado correctamente."
+        title: "Crear %{process_name}"
       delete:
         message:
-          empty: ¿Desea borrar este proceso?
-          no_empty: ¿Desea borrar este proceso y sus subprocesos e indicadores?
+          empty: "¿Desea borrar este %{process_name}?"
+          no_empty: "¿Desea borrar este %{process_name} y su contenido?"
       destroy:
-        error: Error eliminando proceso
-        success: Proceso eliminado
+        error: "Error eliminando item"
+        success: "Item eliminado "
       edit:
-        title: Editar proceso
+        title: "Editar %{process_name}"
       update:
         success: El registro se ha actualizado correctamente.
       index:
-        empty: No hay procesos para este periodo
-        create_button:
-          main_processes: Incluir procesos
-          competential_blocks: Incluir bloques competenciales
-        title:
-          main_processes: Procesos
-          competential_blocks: Bloques competenciales
-        sub_processes:
-          main_processes: Ver subprocesos
-          competential_blocks: ver bloques competenciales
+        empty: "No hay %{process_name} para este periodo"
+        create_button: "Incluir %{process_name}"
+        title: "%{process_name}"
+        sub_processes: "Ver %{process_name}"
         submit: submit
         select_organization_type: Seleccionar la Organización
         select_period: Seleccionar el periodo
@@ -118,11 +98,11 @@ en:
         items:
           description: "Si no existe la descripción en la caja superior escriba aquí la nueva descripción"
       new:
-        title: Crear procesos
+        title: "Crear %{process_name}"
       update:
         success: El registro se ha actualizado correctamente.
       show:
-        title: Procesos
+        title: "%{process_name}"
     periods:
       create:
         success:
@@ -133,7 +113,7 @@ en:
       delete:
         message:
          empty: ¿Desea borrar este periodo?
-         no_empty:  ¿Desea borrar este periodo y sus procesos, subprocesos e indicadores?
+         no_empty:  ¿Desea borrar este periodo y todo su contenido?
       destroy:
         success: Se ha eliminado el Periodo correctamente
         error: Se ha producido un error a eliminar el Periodo
@@ -146,7 +126,7 @@ en:
           create: Crear un periodo
           edit: editar
           delete: eliminar
-          processes: ver procesos
+          processes: "ver %{process_name}"
         data_collect: Periodo de mecanización
         empty: No se ha creado ningún periodo
         entry_opened: No modificable - abierta entrada de datos
@@ -178,24 +158,20 @@ en:
     sub_processes:
       delete:
         message:
-         empty: ¿Desea borrar este subproceso?
-         no_empty: ¿Desea borrar este subproceso y sus tareas e indicadores?
+         empty: "¿Desea borrar este %{process_name}?"
+         no_empty: "¿Desea borrar este %{process_name} y su contenido?"
       destroy:
-        error: Error eliminando subproceso
-        success: Subproceso eliminado
+        error: "Error eliminando %{process_name}"
+        success: "Item eliminado"
       edit:
-        title: Editar subproceso
+        title: "Editar %{process_name}"
       update:
         success: El registro se ha actualizado correctamente.
       index:
-        create: Incluir subprocesos
-        empty: No hay subprocesos definidos
-        indicators:
-          sub_processes: Ver indicadores
-          main_processes: ver subprocesos
-        title:
-          sub_processes: Subprocesos
-          main_processes: Procesos
+        create: "Incluir %{process_name}"
+        empty: "No hay %{process_name} definidos"
+        indicators: "Ver %{process_name}"
+        title: "%{process_name}"
         submit: submit
       form:
         unit_type: Unidad
@@ -204,13 +180,13 @@ en:
         items:
           description: "Si no existe la descripción en la caja superior escribala aquí"
       new:
-        title: Crear subproceso
+        title: "Crear %{process_name}"
       update:
         success: El registro se ha actualizado correctamente.
       show:
         title: Indicador
       create:
-        success: "El subproceso se ha creado correctamente"
+        success: "Item creado correctamente"
     tasks:
       create:
         success: La tarea se ha creado correctamente
@@ -243,11 +219,23 @@ en:
     indicator:
       index:
         indicator_metric:
-          create: "Añadir métrica"
+          create: 'Incluir métrica'
     indicators_metrics:
       create:
         title: la métrica
       destroy:
-        success: "destroy"
-        error: "destroy"
-
+        success: 'Se ha eliminado correctmente la métrica'
+        error: "Error eliminando la métrica"
+    process_name:
+      plural:
+        Indicators: indicadores
+        Tasks: tareas/acciones
+        SubProcesses: subprocesos
+        MainProcesses: procesos
+        CompetentialBlocks: bloques competenciales
+      singular:
+        Indicators: indicador
+        Tasks: tarea/acción
+        SubProcesses: subproceso
+        MainProcesses: proceso
+        CompetentialBlocks: bloque competencial

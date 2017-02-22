@@ -36,7 +36,9 @@ en:
   entry_indicators:
     form:
       amount: Cantidad
-      indicator: Indicador
+      indicator:
+        Indicators: Indicador
+        Tasks: Tarea/acción
       metric: Métrica
       source: Fuente
     index:
@@ -50,7 +52,7 @@ en:
       title:
         MainProcesses: EFECTIVOS PROCESO
         SubProcess: EFECTIVOS SUBPROCESO
-        Unit: EFECTIVOS UNDAD
+        Unit: EFECTIVOS UNIDAD
     updates:
       incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
       no_key: Falta parametro key

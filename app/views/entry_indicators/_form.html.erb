@@ -34,7 +34,7 @@
           </thead>
           <% sub_process.indicators.each do |indicator| %>
             <tr>
-              <td class="moderation-description" colspan ="8" id="<%= "indicator_col_#{indicator.id}" %>">
+              <td colspan ="8" id="<%= "indicator_col_#{indicator.id}" %>">
                 <% if indicator.description.nil? %>
                     <strong> <%= indicator.order %>. <%= indicator.item.description %></strong>
                 <% else %>

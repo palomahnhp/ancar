@@ -18,7 +18,7 @@ feature 'SubProcesses Maintenance' do
       expect(page).to have_content 'Periodo: Periodo de análisis de datos'
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
 
-      expect(page).to have_content 'No hay subprocesos definidos'
+      expect(page).to have_content 'No hay subprocesos para este periodo'
     end
 
     it 'show list of sub_processes ' do
@@ -51,7 +51,7 @@ feature 'SubProcesses Maintenance' do
       click_link 'ver procesos'
       click_link('Ver subprocesos', match: :first)
 
-      expect(page).to have_link 'Incluir subprocesos'
+      expect(page).to have_link 'Incluir subproceso'
       expect(page).to have_link 'Ver indicadores'
 
       expect(page).to have_link('Editar', count: 2)
@@ -75,7 +75,7 @@ feature 'SubProcesses Maintenance' do
       click_link 'ver procesos'
       click_link('Ver subprocesos', match: :first)
 
-      expect(page).not_to have_link 'Incluir subprocesos'
+      expect(page).not_to have_link 'Incluir subproceso'
       expect(page).to have_link 'Ver indicadores'
 
       expect(page).not_to have_link 'Editar'
@@ -97,7 +97,7 @@ feature 'SubProcesses Maintenance' do
       click_link 'ver procesos'
       click_link('Ver subprocesos', match: :first)
 
-      click_link 'Incluir subprocesos'
+      click_link 'Incluir subproceso'
 
       find('#sub_process_item_id').find(:xpath, 'option[2]').select_option
       fill_in 'Núm. orden', with: 9
@@ -118,7 +118,7 @@ feature 'SubProcesses Maintenance' do
       click_link 'Configurar Periodos'
       click_link 'ver procesos'
       click_link('Ver subprocesos', match: :first)
-      click_link 'Incluir subprocesos'
+      click_link 'Incluir subproceso'
 
       fill_in 'Núm. orden', with: 9
       click_button 'Crear'
@@ -138,7 +138,7 @@ feature 'SubProcesses Maintenance' do
       click_link 'ver procesos'
       click_link('Ver subprocesos', match: :first)
 
-      click_link 'Incluir subprocesos'
+      click_link 'Incluir subproceso'
 
       find('#sub_process_unit_type_id').find(:xpath, 'option[3]').select_option
       find('#sub_process_item_id').find(:xpath, 'option[3]').select_option
@@ -161,7 +161,7 @@ feature 'SubProcesses Maintenance' do
       click_link 'ver procesos'
       click_link('Ver subprocesos', match: :first)
 
-      click_link 'Incluir subprocesos'
+      click_link 'Incluir subproceso'
 
       find('#sub_process_unit_type_id').find(:xpath, 'option[3]').select_option
       fill_in 'item_description', with: 'Nueva descripción'
@@ -255,7 +255,7 @@ feature 'SubProcesses Maintenance' do
       click_link('Ver subprocesos', match: :first)
       click_link('Eliminar', match: :first)
 
-      expect(page).to have_content "Subproceso eliminado"
+      expect(page).to have_content "Item eliminado"
       expect(page).to have_content "1. 2. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO"
       expect(page).not_to have_content "1. 1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO"
     end

@@ -22,20 +22,19 @@ class EntryIndicatorsController < ApplicationController
          flash[:error] = t('entry_indicators.updates.no_key')
       end
     end
-    groups_excedeed = AssignedEmployee.exceeded_staff_for_unit(@unit.id, @period.id).empty?
-    case
-      when !groups_excedeed.nil?
-        respond_to do |format|
-          format.js { render "staff_excedeed" }
-        end
-        flash[:alert] = t('entry_indicators.updates.assigned_employees.excedeed.official_group')
-      when all_cumplimented?
+
+    @groups_excedeed = AssignedEmployee.exceeded_staff_for_unit(@unit.id, @period.id)
+    if @groups_excedeed.present?
+      render :index
+    else
+      if all_cumplimented?
         flash[:notice] = t('entry_indicators.updates.success')
       else
         flash[:alert] = t('entry_indicators.updates.incomplete')
+      end
+      redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
+                                        organization_id: @organization.id)
     end
-    redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
-       organization_id: @organization.id)
   end
 
   private

@@ -9,6 +9,99 @@ namespace :SGT do
     ProcessName.find_or_create_by(organization_type_id: 2, model: "indicator_metrics", name: "indicators")
   end
 
+  desc "Importar plantilla de SGT"
+  task :plantilla => :environment do
+
+    period_id = 7
+    updated_by = 'inititalize'
+
+    unit_id = 185 # Emergencias
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 30
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 11
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 35
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 66
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 56
+    ae.save
+
+    unit_id = 180 # Medio Ambiente
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 37
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 17
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 33
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 77
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 56
+    ae.save
+
+    unit_id = 181 # Hacienda
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 22
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 7
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 28
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 43
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 23
+    ae.save
+
+    unit_id = 184 # Cultura
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 21
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 6
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 23
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 71
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 100
+    ae.save
+
+    unit_id = 183 # Derecho sociales
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 1, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 37
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 2, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 17
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 3, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 33
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 4, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 77
+    ae.save
+    ae = AssignedEmployee.find_or_create_by(official_group_id: 5, staff_of_type: "Unit", staff_of_id: unit_id, period_id: period_id, unit_id: unit_id, updated_by: updated_by)
+    ae.quantity = 56
+    ae.save
+
+  end
+
   desc "Eliminar datos de un periodo"
   #  rake SGT:destroy period=10
   task :empty  => :environment do
@@ -57,7 +150,7 @@ namespace :SGT do
     puts unit_description if @unit_id_ant != unit_id
     @unit_id_ant = unit_id
     @unit_type = UnitType.find_or_create_by(organization_type_id: @period.organization_type.id,
-                                            description: "Secretarías Generales Técnicas")
+                                            description: "SECRETARIA GENERAL TECNICA")
     if @unit_type.changed?
       @unit_type.updated_by = @updated_by
       @unit_type.save
@@ -88,7 +181,6 @@ namespace :SGT do
     if proceso.item.changed?
       proceso.item.updated_by = @updated_by
       proceso.item.save
-      subprocess_order = 0
     end
     proceso.order = process_order
     proceso.updated_by = @updated_by
@@ -96,7 +188,7 @@ namespace :SGT do
 
 
     # sub_process
-    subprocess_order += 1
+    subprocess_order = row[@columns["Proceso_orden"]-1]
     subprocess_description = row[@columns["Proceso_descripcion"]-1]
     subproceso = proceso.sub_processes.find_or_create_by(
         item_id: Item.find_or_create_by(item_type: "sub_process", description: subprocess_description).id,
@@ -115,7 +207,7 @@ namespace :SGT do
     metrica = row[@columns["vTodoTareaIndicadorSGT.descripcion"]-1]
     fuente = row[@columns["Fuente.descripcion"]-1]
     especificacion = row[@columns["fuenteTexto"]-1]
-    especificacion.empty? ? has_specification = false : has_specification = true
+    has_specification = especificacion.nil? ? false : true
 
     task = subproceso.tasks.find_or_create_by(item_id: Item.find_or_create_by(item_type: "task", description: "Tarea").id)
     indicator_item = indicador[0..100]
@@ -156,8 +248,8 @@ namespace :SGT do
     source.updated_by = @updated_by
     source.save
 
-    indicator_metric = indicator.indicator_metrics.find_or_create_by(metric_id: metric.id, updated_by: @updated_by)
-    indicator_source = indicator_metric.indicator_sources.find_or_create_by(source_id: source.id, updated_by: @updated_by )
+    indicator_metric = indicator.indicator_metrics.find_or_create_by(metric_id: metric.id)
+    indicator_source = indicator_metric.indicator_sources.find_or_create_by(source_id: source.id)
 
     # entry_indicators
     cantidad = row[@columns["cantidad"]-1]
@@ -172,7 +264,7 @@ namespace :SGT do
     amount = cantidad.to_i
     entry_indicator = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric.id)
     entry_indicator.specifications = nil
-    unless especificacion.empty?
+    unless especificacion.nil?
       entry_indicator.specifications = especificacion
     end
     entry_indicator.amount = amount

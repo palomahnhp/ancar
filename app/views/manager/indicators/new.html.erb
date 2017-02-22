@@ -1,5 +1,6 @@
 <%= render partial: 'manager/shared/header',
-           locals: {title: t("manager.indicators.#{action_name}.title#{process_name(@period, controller_name)}"),
+           locals: {title: t("manager.indicators.#{action_name}.title",
+                             process_name:t("manager.process_name.plural.#{process_name(@sub_process.main_process.period, controller_name)}")),
                     button: nil, path: nil, modifiable: true,
                     period: @sub_process.main_process.period, main_process: @sub_process.main_process,
                     sub_process: @sub_process, indicator: nil, indicator_metric: nil  } %>

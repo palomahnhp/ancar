@@ -1,6 +1,8 @@
 <%= render partial: 'manager/shared/header',
-           locals: {title: t("manager.indicators.#{action_name}.title.#{process_name(@sub_process.main_process.period, controller_name)}"),
-                    button: t("manager.indicators.index.create.#{process_name(@sub_process.main_process.period, controller_name)}"),
+           locals: {title: t("manager.indicators.#{action_name}.title",
+                             process_name: t("manager.process_name.plural.#{process_name(@sub_process.main_process.period, controller_name)}")).capitalize,
+                    button: t("manager.indicators.index.create",
+                              process_name: t("manager.process_name.plural.#{process_name(@sub_process.main_process.period, controller_name)}")),
                     path: new_manager_indicator_path(sub_process_id: @sub_process.id),
                     modifiable: @sub_process.modifiable?,
                     period: @sub_process.main_process.period, main_process: @sub_process.main_process,
@@ -8,7 +10,9 @@
 
 <div>
   <% if @indicators.nil? || @indicators.empty? %>
-    <strong> <%=t('manager.indicators.index.empty') %> </strong>
+    <strong> <%=t('manager.indicators.index.empty',
+                  process_name: t("manager.process_name.plural.#{process_name(@sub_process.main_process.period, controller_name)}")) %>
+    </strong>
   <% else %>
     <%= render 'item_list' %>
   <% end %>
