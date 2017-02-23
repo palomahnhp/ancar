@@ -20,17 +20,19 @@ class AssignedEmployee < ActiveRecord::Base
   def self.exceeded_staff_for_unit(unit_id, period_id)
     message = []
     OfficialGroup.all.each do |official_group|
-      unless AssignedEmployee.where(staff_of_type: 'Indicator', unit_id: unit_id, period_id: period_id,
-                                    official_group: official_group.id).sum(:quantity) >
-          AssignedEmployee.where(staff_of_type: 'Unit', staff_of_id: unit_id, unit_id: unit_id, period_id: period_id,
-                                 official_group: official_group.id).sum(:quantity)
-        message << official_group.description
+      if AssignedEmployee.where(staff_of_type: "Unit", staff_of_id: unit_id, unit_id: unit_id, period_id: period_id,
+                                official_group: official_group.id).sum(:quantity).to_f <
+          AssignedEmployee.where(staff_of_type: 'Indicator', unit_id: unit_id, period_id: period_id,
+                                 official_group: official_group.id).sum(:quantity).to_f
+        if AssignedEmployee.where(staff_of_type: "UnitJustified", staff_of_id: unit_id, unit_id: unit_id, period_id: period_id,
+                                  official_group: official_group.id).sum(:quantity).to_f <
+            AssignedEmployee.where(staff_of_type: 'Indicator', unit_id: unit_id, period_id: period_id,
+                                   official_group: official_group.id).sum(:quantity).to_f
+          message << official_group.description
+        end
       end
     end
     return message
   end
 
-    def exceed_staff(type)
-
-    end
 end

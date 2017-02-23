@@ -12,6 +12,15 @@ module AssignedEmployeeHelper
     end
   end
 
+  def staff_justification_text(unit_id, period_id)
+    if AssignedEmployee.where(unit_id: unit_id, period_id: period_id, staff_of_type: 'UnitJustified').no_justification_verified.count == 0
+      "Efectivos reales. Verificados"
+    else
+      "Efectivos reales. Pte. verificación"
+    end
+  end
+
+
   def get_staff(type, proc, group, unit, period)
     if type == 'SubProcess'
       ids = proc.indicators.ids

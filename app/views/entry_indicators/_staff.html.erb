@@ -28,7 +28,7 @@
           <% if input_staff_visible?(process.id) %>
             <tr>
                <th class="text-center" colspan="5">
-                  <a class="text-left <%= staff_justification_class(process.id, period.id) %>"  href="#">Efectivos reales - justificación</a>
+                  <a class="text-left <%= staff_justification_class(process.id, period.id) %>"  href="#"><%= staff_justification_text(process.id, period.id) %></a>
               </th>
             </tr>
             <tr>

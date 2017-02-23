@@ -12,9 +12,9 @@
             participado en estos procesos, pulsando en el botón <strong><em><%= t("entry_indicators.form.assigned_employees.update.button") %></em></strong>,
             lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios
             quedarán pendientes de verificación por el resposable.</p>
-          <a class="hollow button" onclick="closeModal()"> <%= t("entry_indicators.form.assigned_employees.update.button") %></a>
+          <a class="hollow button" onclick="openJustification()"> <%= t("entry_indicators.form.assigned_employees.update.button") %></a>
       <% else %>
-          <button class="hollow button" onclick="openJustification()" aria-label="Close modal" type="button">
+          <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
             <span aria-hidden="true"><%= t("entry_indicators.form.assigned_employees.close.button") %></span>
           </button>
       <% end %>
@@ -55,16 +55,11 @@
   </div>
 <% end %>
 
-<div id="unit" class="unit text-center small-12 columns">
-  <h3>
-    <%= @unit.description_sap %>
-  </h3>
-</div>
-
-<%= form_tag(updates_entry_indicators_path, method: 'post') do %>
+<%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm') do %>
   <div class="row">
     <% if @period.open_entry? %>
-      <%= hidden_field_tag(:unit_id, @unit.id) %>
+        <%= hidden_field_tag(:justification) %>
+        <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>
       <div class="small-12 medium-4 columns">
