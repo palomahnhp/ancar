@@ -3,10 +3,12 @@ namespace :SGT do
 
   desc "Importar datos de la SGT"
   task :initialize => :environment do
-    ProcessName.find_or_create_by(organization_type_id: 2, model: "main_processes", name: "competential_blocks")
-    ProcessName.find_or_create_by(organization_type_id: 2, model: "sub_processes", name: "main_processes")
-    ProcessName.find_or_create_by(organization_type_id: 2, model: "indicators", name: "tasks")
-    ProcessName.find_or_create_by(organization_type_id: 2, model: "indicator_metrics", name: "indicators")
+    puts a= ProcessName.create(organization_type_id: 2, model: "main_processes", name: "competential_blocks", updated_by: 'initialize').errors.messages
+
+    puts ProcessName.find_or_create_by(organization_type_id: 2, model: "sub_processes", name: "main_processes", updated_by: 'initialize').model
+    puts ProcessName.find_or_create_by(organization_type_id: 2, model: "indicators", name: "tasks", updated_by: 'initialize').model
+    puts ProcessName.find_or_create_by(organization_type_id: 2, model: "indicator_metrics", name: "indicators", updated_by: 'initialize').model
+    puts 'Termina el proceso'
   end
 
   desc "Importar plantilla de SGT"
