@@ -10,17 +10,23 @@ module AppHelper
     end
   end
 
-  def sources_description(sources)
+  def sources_description(indicator_metric)
     description = ''
-    sources.all.each do |source|
+    indicator_metric.indicator_sources.all.each do |indicator_source|
       description += ', ' unless description == ''
-      description += source.item.description.to_s
+      description += indicator_source.source.item.description.to_s
+      specification = indicator_metric.entry_indicators.where(unit_id: @unit.id).take.nil? ? nil :
+          indicator_metric.entry_indicators.where(unit_id: @unit.id).take.specifications
+      unless specification.nil?
+        description += ': '
+        description += specification
+      end
     end
     return description
   end
 
-  def source_id(indicator)
-    indicator.indicator_sources.take.nil? ? "-" : indicator.indicator_sources.take.source_id
+  def source_id(indicator_metric)
+    indicator_metric.indicator_sources.take.nil? ? "-" : indicator_metric.indicator_sources.take.source_id
   end
 
 #  def metric_id
@@ -37,7 +43,6 @@ module AppHelper
     description(0, Metric.find(im.metric_id).item_id)
   end
 
-
   def current_path_with_query_params(query_parameters)
     url_for(request.query_parameters.merge(query_parameters))
   end
@@ -49,6 +54,11 @@ module AppHelper
   def format_number(num)
     number_to_currency(num, {:unit => '', :separator => ',', :delimiter =>
   '.', :precision => 2})
+  end
+
+  def process_name(period, process)
+    process_name = period.organization_type.process_names.find_by_model(process.snakecase.pluralize)
+    process_name.nil? ? process.camelize : process_name.name.camelize
   end
 
 end

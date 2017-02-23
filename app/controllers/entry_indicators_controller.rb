@@ -35,7 +35,6 @@ class EntryIndicatorsController < ApplicationController
       redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
       organization_id: @organization.id)
     end
-
   end
 
   private

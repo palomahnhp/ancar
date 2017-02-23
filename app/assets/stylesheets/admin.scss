@@ -295,6 +295,10 @@ body.admin {
   overflow: hidden;
   max-width: rem-calc(700);
 
+  p{
+    font-size: $small-font-size;
+  }
+
   &:hover {
     max-height: rem-calc(1000);
     transition: max-height 0.9s;

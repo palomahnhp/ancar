@@ -1,4 +1,3 @@
-
   <table id="main_processes_list">
     <% @main_processes.each do  |main_process|%>
       <tr id="<%= dom_id(main_process) %>">
@@ -13,7 +12,8 @@
               id: "index_#{main_process.id}",
               class: 'button small float-right hollow' do %>
                 <span class="icon-tag"></span>
-                <%= t("manager.main_processes.index.sub_processes") %>
+                <%= t("manager.main_processes.index.sub_processes",
+                      process_name: t("manager.process_name.plural.#{process_name(@period, "SubProcesses")}")) %>
           <% end %>
         </td>
         <td>

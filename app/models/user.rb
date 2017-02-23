@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   belongs_to :organization
 
   validates :login, presence: true, uniqueness: true
-  validates :uweb_id, uniqueness: true
-  validates :pernr, uniqueness: true
+#  validates :uweb_id, uniqueness: true
+#  validates :pernr, uniqueness: true
 
   default_scope  { order(:login)} #  Overriding default_scope: unscoped
   scope :active,         -> { where(inactivated_at: nil) }

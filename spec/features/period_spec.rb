@@ -226,7 +226,7 @@ feature 'Periods Maintenance' do
       expect(page).to have_content 'Métrica'
       expect(page).to have_content 'Fuente'
       expect(page).to have_content 'Totalizadores'
-      expect(page).to have_link 'Añadir métrica'
+      expect(page).to have_link 'Incluir métrica'
       expect(page).to have_content '1.1.1. Contratos Menores'
       expect(page).to have_content 'Nº de Contratos recibidos'
       expect(page).to have_content 'Nº de Contratos tramitados'

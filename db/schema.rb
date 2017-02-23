@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20170210074430) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +193,17 @@ ActiveRecord::Schema.define(version: 20170210074430) do
   add_index "periods", ["description"], name: "index_periods_on_description", using: :btree
   add_index "periods", ["organization_type_id"], name: "index_periods_on_organization_type_id", using: :btree
   add_index "periods", ["started_at"], name: "index_periods_on_started_at", using: :btree
+
+  create_table "process_names", force: :cascade do |t|
+    t.integer  "organization_type_id"
+    t.string   "model"
+    t.string   "name"
+    t.string   "updated_by"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "process_names", ["organization_type_id"], name: "index_process_names_on_organization_type_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -427,6 +440,7 @@ ActiveRecord::Schema.define(version: 20170210074430) do
   add_foreign_key "metrics", "items"
   add_foreign_key "organizations", "organization_types"
   add_foreign_key "periods", "organization_types"
+  add_foreign_key "process_names", "organization_types"
   add_foreign_key "sources", "items"
   add_foreign_key "sub_processes", "items"
   add_foreign_key "sub_processes", "main_processes"

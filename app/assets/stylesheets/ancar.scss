@@ -131,7 +131,6 @@
     font-size: rem-calc(16);
   }
 
-
   tr:last-child td {
     border-bottom: 1px solid $cobalto;
     padding-bottom: rem-calc(10);
@@ -148,7 +147,6 @@
 }
 
 .unit_nav {
-  margin-top: rem-calc(50);
   padding:  rem-calc(12) rem-calc(12) 0 rem-calc(12);
   font-size: rem-calc(11);
 
@@ -172,7 +170,7 @@
 .summary{
   margin-top: rem-calc(12);
   background: lighten($verde, 35%);
-  color: blank;
+  color: black;
   text-align: left;
   box-shadow: 0 1px 3px 0 $border;
   padding: rem-calc(2) rem-calc(2) rem-calc(2) rem-calc(2);
