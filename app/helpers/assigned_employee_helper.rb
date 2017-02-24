@@ -21,11 +21,14 @@ module AssignedEmployeeHelper
   end
 
   def get_staff(type, proc, group, unit, period)
+    ids =  proc.id
     if type == 'SubProcess'
-      ids = proc.indicators.ids
-      type = 'Indicator'
-    else
-      ids =  proc.id
+      # unicamente el periodo de Distrito 2015 tiene datos en subprocesos en lugar de en indicadores
+      period_2015 = Period.find_by_description('PERIODO DE ANÁLISIS: AÑO 2015')
+      if period != period_2015
+        ids = proc.indicators.ids
+        type = 'Indicator'
+      end
     end
     ae = AssignedEmployee.where(staff_of_id: ids, staff_of_type: type, official_group_id: group.id, unit_id: unit.id, period_id: period.id).count
     if ae > 0
