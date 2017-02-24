@@ -4,8 +4,8 @@
 // 02. Ficha de indicadores
 // 03. Resumen de procesos
 // 04. Manager:
-
-// 01. Welcome
+// 05. Reveal:
+//
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 .note{
@@ -134,11 +134,16 @@
   tr:last-child td {
     border-bottom: 1px solid $cobalto;
     padding-bottom: rem-calc(10);
- }
+  }
 
   tbody {
     border: 2px solid $cobalto !important;
   }
+}
+
+.input_staff {
+  margin-bottom: 0 !important;
+  height: rem-calc(30) !important;
 }
 
 .group {
@@ -294,4 +299,9 @@
 }
 
 #item_desc {
+}
+
+// 05. Reveal
+.reveal-show {
+  display: inline;
 }

@@ -24,14 +24,12 @@ class EntryIndicatorsController < ApplicationController
     end
 
     @groups_excedeed = AssignedEmployee.exceeded_staff_for_unit(@unit.id, @period.id)
-    if @groups_excedeed.present?
+    @entry_incomplete = !(@entry_indicators_cumplimented && @employess_cumplimented)
+
+    if @groups_excedeed.present? || @entry_incomplete
       render :index
     else
-      if all_cumplimented?
-        flash[:notice] = t('entry_indicators.updates.success')
-      else
-        flash[:alert] = t('entry_indicators.updates.incomplete')
-      end
+      flash[:notice] = t('entry_indicators.updates.success')
       redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
       organization_id: @organization.id)
     end
@@ -78,7 +76,7 @@ class EntryIndicatorsController < ApplicationController
             ae.updated_by = current_user.login
             ae.justified_by = current_user.login
             ae.justified_at = Time.now
-            ae.justification = params[:justification]
+            ae.justification = params[:justification] unless params[:justification].empty?
             ae.save
           end
         end

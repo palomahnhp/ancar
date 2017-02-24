@@ -1,25 +1,24 @@
 module AssignedEmployeeHelper
 
   def input_staff_visible?(unit_id)
-    params[:justification] || AssignedEmployee.where(unit_id: unit_id, staff_of_type: 'UnitJustified').count > 0
+    (params[:justification] && !params[:justification].empty?) || AssignedEmployee.where(unit_id: unit_id, staff_of_type: 'UnitJustified').count > 0
   end
 
-  def staff_justification_class(unit_id, period_id)
+  def staff_verified_class(unit_id, period_id)
     if AssignedEmployee.where(unit_id: unit_id, period_id: period_id, staff_of_type: 'UnitJustified').no_justification_verified.count == 0
-      "icon-check"
+      "success"
     else
-      "icon-x"
+      "warning"
     end
   end
 
-  def staff_justification_text(unit_id, period_id)
+  def staff_verified_text(unit_id, period_id)
     if AssignedEmployee.where(unit_id: unit_id, period_id: period_id, staff_of_type: 'UnitJustified').no_justification_verified.count == 0
-      "Efectivos reales. Verificados"
+      "Modificación verificada"
     else
-      "Efectivos reales. Pte. verificación"
+      "Pendiente de verificación"
     end
   end
-
 
   def get_staff(type, proc, group, unit, period)
     if type == 'SubProcess'
@@ -44,4 +43,8 @@ module AssignedEmployeeHelper
     AssignedEmployee.where(staff_of_type: "UnitJustified", staff_of_id: unit_id, unit_id: unit_id, period_id: period_id).count > 0
   end
 
+  def  justification_text(unit_id, period_id)
+    ae = AssignedEmployee.where(staff_of_type: "UnitJustified", staff_of_id: unit_id, unit_id: unit_id, period_id: period_id).take
+    ae.nil? ? '' : ae.justification
+  end
 end

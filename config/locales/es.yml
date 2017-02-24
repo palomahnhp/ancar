@@ -49,6 +49,8 @@ es:
             label: "Justifica la modificación de efectivos a realizar"
         close:
           button: "Cerrar"
+      entry_indicators:
+        incomplete: "Datos incompletos"
     index:
       no_main_processes: No hay indicadores para este periodo.
       select: Seleccionar
@@ -61,10 +63,16 @@ es:
         MainProcesses: EFECTIVOS PROCESO
         SubProcess: EFECTIVOS SUBPROCESO
         Unit: EFECTIVOS UNIDAD
+      input:
+        header: "Efectivos reales"
+        link: Ver justificación
+      justification:
+        modal:
+          title: "Justificación"
     updates:
-      incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
-      no_key: Falta parametro key
-      success: Se han actualizado correctamente los indicadores de esta unidad.
+      incomplete: 'Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.'
+      no_key: 'Falta parametro key'
+      success: 'Se han actualizado correctamente los indicadores de esta unidad.'
   form:
     error: error impidió
     errors: errores impidieron
