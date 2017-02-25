@@ -215,8 +215,8 @@ feature 'Periods Maintenance' do
         click_link "Ver subprocesos"
       end
 
+      save_and_open_page
       click_link("Ver indicadores", :match => :first)
-
       expect(page).to have_selector('tr', count: 5)
       expect(page).to have_content 'Organización: Secretarías Generales Técnicas'
       expect(page).to have_content 'Periodo: Nuevo Periodo de Distritos 1999'

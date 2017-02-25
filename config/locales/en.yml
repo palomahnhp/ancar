@@ -60,9 +60,9 @@ en:
       title: Hoja de identificación de procesos en
     staff:
       title:
-        MainProcesses: EFECTIVOS PROCESO
-        SubProcess: EFECTIVOS SUBPROCESO
-        Unit: EFECTIVOS UNIDAD
+         MainProcesses: "Puestos por proceso"
+         SubProcess:  "Puestos por subproceso"
+         Unit: "Puestos ocupados a 31 diciembre"
       input:
         header: "Efectivos reales"
         link: Ver justificación
@@ -70,12 +70,8 @@ en:
         modal:
           title: "Justificación"
     updates:
-      incomplete: Se han actualizado correctamente los indicadores de esta unidad. Quedan indicadores pendientes de cumplimentación.
       no_key: Falta parametro key
       success: Se han actualizado correctamente los indicadores de esta unidad.
-      assigned_employees:
-        excedeed:
-          official_group: "Revise la asignación de efectivos a los subprocesos, supera a los asignados a la unidad para los grupos: &{groups}."
   form:
     error: error impidió
     errors: errores impidieron
@@ -97,7 +93,7 @@ en:
       copyright: "© Copyrigth  %{year} Ayuntamiento de Madrid"
       legal_warning: Aviso legal
       process_text: Consulta y modificación de indicatores
-      process_title: Indicadores
+      process_title: Procesos y subprocesos
     header:
       administracion: Administrador
       gestion: Supervisor
@@ -125,7 +121,7 @@ en:
       print_button: Imprimir esta información
     target_blank_html: " (se abre en ventana nueva)"
   subnavigation_menu:
-    entry_indicators: Indicadores
+    entry_indicators: Procesos y subprocesos
     instructions: Instrucciones
     process_summary: Resumen por proceso
     subprocess_summary: Resumen por subproceso

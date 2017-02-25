@@ -85,6 +85,7 @@ class EntryIndicatorsController < ApplicationController
 
     def update_entry_indicators(indicator_metrics)
       indicator_metrics.each do |im|
+        validate_in_out_stock
         indicator_metric_id = im[0].to_i
         amount = im[1]
         if amount.empty?
@@ -103,5 +104,9 @@ class EntryIndicatorsController < ApplicationController
 
     def all_cumplimented?
       @entry_indicators_cumplimented && @employess_cumplimented
+    end
+
+    def validate_in_out_stock
+      @errors_in_ot_stock = []
     end
 end
