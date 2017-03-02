@@ -35,4 +35,11 @@ class AssignedEmployee < ActiveRecord::Base
     return message
   end
 
+  def self.staff_quantity(type, unit_id)
+     where(staff_of_type: type.class.name, staff_of: type.id, unit_id: unit_id).sum(:quantity)
+  end
+
+  def self.no_unit_justified(unit_id, period_id)
+    AssignedEmployee.where(staff_of_type: "UnitJustified", staff_of_id: unit_id, unit_id: unit_id, period_id: period_id).count == 0
+  end
 end

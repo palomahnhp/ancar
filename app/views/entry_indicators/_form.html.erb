@@ -1,78 +1,11 @@
-<% if (!@groups_excedeed.nil? && !@groups_excedeed.empty?) ||  @entry_incomplete %>
-  <script>
-      function setJustification(){
-          console.log("pasa por aqui")
-          document.entryIndicatorsForm.justification.value=document.justificationForm.justification.value
-          $("#justifyModal").hide()
-          $(".reveal-overlay").hide()
-      }
-
-      function openJustification() {
-          $("#myModal").hide()
-          $("#justifyModal").show()
-      }
-
-      function openIncomplete() {
-          $("#entryIncompleteModal").show()
-      }
-
-      function closeModal() {
-          $("#myModal").hide()
-          $(".reveal-overlay").hide()
-      }
-  </script>
-
-  <div class="reveal-overlay" style="display:inline" >
-    <div id="myModal" class="large reveal warning callout" data-open="myModal" aria-labelledby="modalTitle"
-         aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
-      <% if !@groups_excedeed.empty? %>
-        <h2 id="modalTitle">Exceso de efectivos asignados</h2>
-        <p class="lead">Los efectivos asignados a los subprocesos superan los efectivos asignados a esta unidad para:
-          <strong><%= @groups_excedeed %></strong></p>
-        <% unless has_justification?(@unit.id, @period.id) %>
-            <p> Si se trata de un <strong>error</strong> cierre la ventana, pulsando el aspa de la parte superior derecha y corriga los datos erróneos.</p>
-            <p>Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a lo indicados
-              en el cuadro <strong><em>EFECTIVOS UNIDAD</em></strong>, puede modificarlos, para adecuarlos a los que realmente han
-              participado en estos procesos, pulsando en el botón <strong><em><%= t("entry_indicators.form.assigned_employees.update.button") %></em></strong>,
-              lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios
-              quedarán pendientes de verificación por el resposable.</p>
-            <a class="hollow button" onclick="openJustification()"> <%= t("entry_indicators.form.assigned_employees.update.button") %></a>
-        <% else %>
-            <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
-              <span aria-hidden="true"><%= t("entry_indicators.form.assigned_employees.close.button") %></span>
-            </button>
-        <% end %>
-      <% elsif @entry_incomplete%>
-          <h2 id="modalTitle"><%= t("entry_indicators.form.entry_indicators.incomplete") %></h2>
-          <p> Se han guardado los datos, pero faltan indicadores por cumplimentar (efectivos o cantidad). </p>
-          <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
-            <span aria-hidden="true"><%= t("entry_indicators.form.assigned_employees.close.button") %></span>
-          </button>
-      <% end %>
-      <button class="close-button" onclick="closeModal()" aria-label="Close modal" type="button">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="secondary callout reveal" id="justifyModal" >
-      <h2><%= t("entry_indicators.form.assigned_employees.update.justification.title") %></h2>
-      <button class="close-button" onclick="closeModal()" aria-label="Close reveal" type="button">
-        <span aria-hidden="true">&times;</span>
-      </button>
-
-      <form name="justificationForm">
-        <textarea name="justification" placeholder="<%= t("entry_indicators.form.assigned_employees.update.justification.label") %>" rows="4" >
-          <%=  justification_text(@unit.id, @period.id) %>
-        </textarea>
-        <a class="hollow button" onclick="setJustification()"><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
-      </form>
-    </div>
-  </div>
+<% if @input_error %>
+  <%= render 'staff_excedeed_modal' %>
 <% end %>
 
-<%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm') do %>
+<%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm', id: 'entryIndicatorsForm') do %>
   <div class="row">
     <% if @period.open_entry? %>
-        <%= hidden_field_tag(:justification) %>
+        <%= hidden_field_tag(:justification)  %>
         <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>
@@ -127,7 +60,7 @@
               <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
                 <% amount_value = get_amount(indicator_metric, @unit) %>
                 <% if @period.open_entry? %>
-                  <%= text_field_tag("IndicatorMetric[#{indicator_metric.id}]", amount_value, class: 'inline amount', placeholder: t('.amount')) %>
+                  <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]", amount_value, class: 'inline amount', placeholder: t('.amount')) %>
                 <% else %>
                   <%= amount_value %>
                 <% end %>

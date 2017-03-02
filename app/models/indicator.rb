@@ -49,4 +49,13 @@ class Indicator < ActiveRecord::Base
   def eliminable?
     period.eliminable?
   end
+
+  def amount(unit_id)
+    amount = 0
+    self.indicator_metrics.each do |indicator_metric|
+      amount += indicator_metric.amount(unit_id)
+    end
+    return amount
+  end
+
 end

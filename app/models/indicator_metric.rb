@@ -43,5 +43,8 @@ class IndicatorMetric < ActiveRecord::Base
     period.eliminable?
   end
 
+  def amount(unit_id)
+    self.entry_indicators.where(unit_id: unit_id).sum(:amount)
+  end
 end
 

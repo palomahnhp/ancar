@@ -2,6 +2,7 @@ class Period < ActiveRecord::Base
   resourcify
   has_many :main_processes, :dependent => :destroy
   has_many :assigned_employees, :dependent => :destroy
+  has_many :entry_indicators, :dependent => :destroy
 
   belongs_to :organization_type
 

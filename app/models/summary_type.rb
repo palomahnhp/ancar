@@ -3,5 +3,9 @@ class SummaryType < ActiveRecord::Base
   has_many :total_indicators
 
   default_scope { where(active: true) }
+  scope :process, -> { where(acronym: 'P') }
+  scope :sub_process, -> { where(acronym: 'S') }
+  scope :stock, -> { where(acronym: 'U') }
+
 
 end

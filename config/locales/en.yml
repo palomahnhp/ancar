@@ -41,16 +41,28 @@ en:
         Tasks: Tarea/acción
       metric: Métrica
       source: Fuente
-      assigned_employees:
-        update:
-          button: "Cambiar efectivos"
-          justification:
-            title: "Justificar modificación de efectivos"
-            label: "Justifica la modificación de efectivos a realizar"
-        close:
-          button: "Cerrar"
-      entry_indicators:
-        incomplete: "Datos incompletos"
+      update:
+        button: "Cambiar efectivos"
+        justification:
+          title: "Justificar modificación de efectivos"
+          label: "Justifica la modificación de efectivos a realizar"
+      close:
+        button: "Cerrar"
+      error:
+        title:
+          groups_excedeed: "Exceso de efectivos asignados"
+          entry_incomplete: "Datos incompletos"
+          errors_in_out_stock: "Error en procesos de entrada/salida"
+          entry_without_staff:  "Incongruencia en cantidades/puestos de indicadores"
+        p1:
+          groups_excedeed: "Los efectivos asignados a los subprocesos superan los efectivos asignados a esta unidad para:"
+          errors_in_out_stock: "Es mayor el número de salidas que el de entradas"
+          entry_incomplete: "Se han guardado los datos, pero faltan indicadores por cumplimentar (efectivos o cantidad)."
+          entry_without_staff: "Los indicadores no tienen asociados puestos pero si tienen tareas cumplimentadas con cantidades superiores a 0."
+        p2:
+          groups_excedeed_html: "Si se trata de un <strong>error</strong> cierre la ventana, pulsando el aspa de la parte superior derecha y corriga los datos erróneos."
+        p3:
+          groups_excedeed_html: Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a lo indicados en el cuadro <strong><em>EFECTIVOS UNIDAD</em></strong>, puede modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> COREGIR ERROR </em></strong>, lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios quedarán pendientes de verificación por el resposable.
     index:
       no_main_processes: No hay indicadores para este periodo.
       select: Seleccionar
@@ -60,9 +72,9 @@ en:
       title: Hoja de identificación de procesos en
     staff:
       title:
-         MainProcesses: "Puestos por proceso"
-         SubProcess:  "Puestos por subproceso"
-         Unit: "Puestos ocupados a 31 diciembre"
+        MainProcesses: "Puestos por proceso"
+        SubProcess:  "Puestos por subproceso"
+        Unit: "Puestos ocupados a 31 diciembre"
       input:
         header: "Efectivos reales"
         link: Ver justificación
@@ -70,8 +82,8 @@ en:
         modal:
           title: "Justificación"
     updates:
-      no_key: Falta parametro key
-      success: Se han actualizado correctamente los indicadores de esta unidad.
+      no_key: 'Falta parametro key'
+      success: 'Se han actualizado correctamente los indicadores de esta unidad.'
   form:
     error: error impidió
     errors: errores impidieron

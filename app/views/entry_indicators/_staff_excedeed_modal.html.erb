@@ -1,39 +1,82 @@
-<div id="myModal" class="large reveal warning callout" data-reveal aria-labelledby="modalTitle"
-     aria-hidden="true"  role="dialog" style="opacity: 1; visibility: hidden; top: 194px;">
-  <h2 id="modalTitle">Exceso de efectivos asignados</h2>
-  <p class="lead">Los efectivos asignados a los subprocesos superan los efectivos asignados a esta unidad para:
-    <strong><%= @groups_excedeed %></strong></p>
-  <% unless has_justification?(@unit.id, @period.id) %>
-    <p> Si se trata de un <strong>error</strong> cierre la ventana, pulsando el aspa de la parte superior derecha y corriga los datos erróneos.</p>
-    <p>Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a lo indicados
-      en el cuadro <strong><em>EFECTIVOS UNIDAD</em></strong>, puede modificarlos, para adecuarlos a los que realmente han
-      participado en estos procesos, pulsando en el botón <strong><em><%= t("entry_indicators.form.assigned_employees.update.button") %></em></strong>,
-      lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios
-      quedarán pendientes de verificación por el resposable.</p>
-      <a class="hollow button" data-close"><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
-  <% else %>
-      <button class="hollow button" data-close aria-label="Close modal" type="button">
-        <span aria-hidden="true"><%= t("entry_indicators.form.assigned_employees.close.button") %></span>
-      </button>
-  <% end %>
+<script>
+    function setJustification(){
+        $("#justification").attr('value', $("#input_justification").val())
+        $("#justifyModal").hide()
+        $(".reveal-overlay").hide()
+        $("#entryIndicatorsForm").submit()
+    }
 
-  <button class="close-button" data-close aria-label="Close modal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+    function openJustification() {
+        $("#myModal").hide()
+        $("#justifyModal").show()
+    }
 
-<div class="secondary callout reveal" id="justifiyModal" data-reveal>
-  <h2><%= t("entry_indicators.form.assigned_employees.update.justification.title") %></h2>
-  <button class="close-button" data-close aria-label="Close reveal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  <form name="justificationForm">
-    <textarea name="justification" placeholder="<%= t("entry_indicators.form.assigned_employees.update.justification.label") %>" rows="4" ></textarea>
-    <a class="hollow button" onclick="setJustification()" data-close ><%= t("entry_indicators.form.assigned_employees.update.button") %></a>
-  </form>
-  <script>
-      function setJustification(){
-          document.entryIndicatorsForm.justification.value=document.justificationForm.justification.value
-      }
-  </script>
+    function openIncomplete() {
+        $("#entryIncompleteModal").show()
+    }
+
+    function closeModal() {
+        $("#myModal").hide()
+        $(".reveal-overlay").hide()
+    }
+
+    function closeJustification() {
+        $("#myModal").hide()
+        $(".reveal-overlay").hide()
+    }
+
+</script>
+
+<div class="reveal-overlay" style="display:inline" >
+  <div id="myModal" class="large reveal warning callout" data-open="myModal" aria-labelledby="modalTitle"
+       aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
+    <% if !@groups_excedeed.empty? %>
+        <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.groups_excedeed")%> </h2>
+        <p class="lead"><%= t("entry_indicators.form.error.p1.groups_excedeed")%>
+          <strong><%= @groups_excedeed %></strong></p>
+        <% unless has_justification?(@unit.id, @period.id) %>
+            <p><%= t("entry_indicators.form.error.p2.groups_excedeed_html")%></p>
+            <p><%= t("entry_indicators.form.error.p3.groups_excedeed_html")%></p>
+            <a class="hollow button" onclick="openJustification()"> <%= t("entry_indicators.form.update.button") %></a>
+        <% else %>
+            <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
+              <span aria-hidden="true"><%= t("entry_indicators.form.close.button") %></span>
+            </button>
+        <% end %>
+    <% elsif @entry_incomplete %>
+        <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.entry_incomplete") %></h2>
+        <p> <%= t("entry_indicators.form.error.p1.entry_incomplete") %> </p>
+        <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
+          <span aria-hidden="true"><%= t("entry_indicators.form.close.button") %></span>
+        </button>
+    <% elsif !@errors_in_out_stock.empty? %>
+        <h2 id="modalTile"><%= t("entry_indicators.form.error.title.errors_in_out_stock") %></h2>
+        <p> <%= t("entry_indicators.form.error.p1.errors_in_out_stock") %></p>
+        <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
+          <span aria-hidden="true"><%= t("entry_indicators.form.close.button") %></span>
+        </button>
+    <% elsif !@entry_without_staff.empty? %>
+        <h2 id="modalTile"><%= t("entry_indicators.form.error.title.errors_in_out_stock") %></h2>
+        <p> <%= t("entry_indicators.form.error.p1.errors_in_out_stock") %></p>
+        <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
+          <span aria-hidden="true"><%= t("entry_indicators.form.close.button") %></span>
+        </button>
+    <% end %>
+    <button class="close-button" onclick="closeModal()" aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="secondary callout reveal" id="justifyModal" >
+    <h2><%= t("entry_indicators.form.update.justification.title") %></h2>
+    <button class="close-button" onclick="closeJustification()" aria-label="Close reveal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <form name="justificationForm">
+        <textarea name="input_justification" id="input_justification" placeholder="<%= t("entry_indicators.form.update.justification.label") %>" rows="4" >
+          <%=  justification_text(@unit.id, @period.id) %>
+        </textarea>
+      <a class="hollow button" onclick="setJustification()"><%= t("entry_indicators.form.update.button") %></a>
+    </form>
+  </div>
 </div>
