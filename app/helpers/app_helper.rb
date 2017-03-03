@@ -61,4 +61,12 @@ module AppHelper
     process_name.nil? ? process.camelize : process_name.name.camelize
   end
 
+  def entry_staff_error
+    description = ""
+    @entry_without_staff.each do |entry_error|
+      description  +=  Indicator.find(entry_error[0]).item.description + " - "
+    end
+    return description
+  end
+
 end
