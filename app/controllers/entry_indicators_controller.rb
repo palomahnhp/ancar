@@ -10,13 +10,15 @@ class EntryIndicatorsController < ApplicationController
 
   def updates
     @entry_indicators_cumplimented = @employess_cumplimented = true
-    unless params[:justification].present?
+    if params[:justification].present?
+      AssignedEmployeesChange.update(@period, @unit, params[:justification], current_user)
+    else
       params.keys.each do |key|
         case key
         when 'Indicator', 'Unit'
-          @employess_cumplimented = AssignedEmployee.update(@period, @unit, key, params[key], current_user, params[:justification])
+          @employess_cumplimented = AssignedEmployee.update(@period, @unit, key, params[key], current_user)
         when 'IndicatorMetric'
-          update_entry_indicators(params[key])
+          @entry_indicators_cumplimented = update_indicator_metrics(params[key])
         else
           flash[:error] = t('entry_indicators.updates.no_key')
         end
@@ -34,9 +36,29 @@ class EntryIndicatorsController < ApplicationController
   end
 
   private
-
   def entry_indicator_params
       params.require(:entry_indicator).permit(:amount, :unit_id, :period_id, :indicator_metric, :indicator_source)
+  end
+
+  def update_indicator_metrics(indicator_metrics)
+    Indicator.includes(indicator_metrics: [:entry_indicators, :total_indicators])
+    indicator_metrics.each do |indicator|
+      indicator[1].each do |im|
+        indicator_metric_id = im[0].to_i
+        amount = im[1]
+        if amount.empty?
+          @entry_indicators_cumplimented = false
+          EntryIndicator.where(unit_id: @unit.id, indicator_metric_id: indicator_metric_id).delete_all
+        else
+          ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
+#            ei.indicator_source_id = IndicatorSource.where(indicator_metric_id: indicator_metric_id).take.id
+          ei.amount = amount
+          ei.period_id = @period.id
+          ei.updated_by = current_user.login
+          ei.save
+        end
+      end
+    end
   end
 
   def initialize_instance_vars
@@ -58,28 +80,7 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def has_justification?
-    (params[:justification] != "" && AssignedEmployee.no_unit_justified(@unit.id, @period.id))
-  end
-
-  def update_entry_indicators(indicator_metrics)
-    Indicator.includes(indicator_metrics: [:entry_indicators, :total_indicators])
-    indicator_metrics.each do |indicator|
-      indicator[1].each do |im|
-        indicator_metric_id = im[0].to_i
-        amount = im[1]
-        if amount.empty?
-          @entry_indicators_cumplimented = false
-          EntryIndicator.where(unit_id: @unit.id, indicator_metric_id: indicator_metric_id).delete_all
-        else
-          ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-#            ei.indicator_source_id = IndicatorSource.where(indicator_metric_id: indicator_metric_id).take.id
-          ei.amount = amount
-          ei.period_id = @period.id
-          ei.updated_by = current_user.login
-          ei.save
-        end
-      end
-    end
+    (params[:justification] != ""  && AssignedEmployeesChange.unit_justified(@unit.id, @period.id))
   end
 
   def validate_input

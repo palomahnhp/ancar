@@ -1,22 +1,22 @@
 module AssignedEmployeeHelper
 
-  def input_staff_visible?(unit_id)
-    (params[:justification] && !params[:justification].empty?) || AssignedEmployee.where(unit_id: unit_id, staff_of_type: 'UnitJustified').count > 0
+  def input_staff_visible?(unit_id, period_id)
+    (params[:justification] && !params[:justification].empty?) || AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
   end
 
   def staff_verified_class(unit_id, period_id)
-    if AssignedEmployee.where(unit_id: unit_id, period_id: period_id, staff_of_type: 'UnitJustified').no_justification_verified.count == 0
-      "success"
-    else
+    if AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).not_verified.count > 0
       "warning"
+    else
+      "success"
     end
   end
 
   def staff_verified_text(unit_id, period_id)
-    if AssignedEmployee.where(unit_id: unit_id, period_id: period_id, staff_of_type: 'UnitJustified').no_justification_verified.count == 0
-      "Modificación verificada"
+    if AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).not_verified.count > 0
+      t('AssignedEmployeesChange.text.not_verified')
     else
-      "Pendiente de verificación"
+      t('AssignedEmployeesChange.text.verified')
     end
   end
 
@@ -43,11 +43,11 @@ module AssignedEmployeeHelper
   end
 
   def has_justification?(unit_id, period_id)
-    AssignedEmployee.where(staff_of_type: "UnitJustified", staff_of_id: unit_id, unit_id: unit_id, period_id: period_id).count > 0
+    AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
   end
 
   def  justification_text(unit_id, period_id)
-    ae = AssignedEmployee.where(staff_of_type: "UnitJustified", staff_of_id: unit_id, unit_id: unit_id, period_id: period_id).take
+    ae = AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).take
     ae.nil? ? '' : ae.justification
   end
 end

@@ -5,7 +5,7 @@
 <%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm', id: 'entryIndicatorsForm') do %>
   <div class="row">
     <% if @period.open_entry? %>
-        <%= hidden_field_tag(:justification)  %>
+        <%= hidden_field_tag(:justification)  if @groups_excedeed %>
         <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>

@@ -39,11 +39,7 @@ class AssignedEmployee < ActiveRecord::Base
      where(staff_of_type: type.class.name, staff_of: type.id, unit_id: unit_id).sum(:quantity)
   end
 
-  def self.no_unit_justified(unit_id, period_id)
-    AssignedEmployee.where(staff_of_type: "UnitJustified", staff_of_id: unit_id, unit_id: unit_id, period_id: period_id).count == 0
-  end
-
-  def self.update(period, unit, type, process, current_user, justification)
+  def self.update(period, unit, type, process, current_user)
     employess_cumplimented = true
     process.each do |pr|
       grupos = pr[1]
@@ -62,9 +58,6 @@ class AssignedEmployee < ActiveRecord::Base
           ae = AssignedEmployee.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period.id, unit_id: unit.id)
           ae.quantity = quantity
           ae.updated_by = current_user.login
-          ae.justified_by = current_user.login
-          ae.justified_at = Time.now
-          ae.justification = justification unless justification.empty?
           ae.save
         end
       end

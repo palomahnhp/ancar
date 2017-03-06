@@ -13,14 +13,14 @@ namespace :SGT do
 
   desc "Importar plantilla de SGT"
   task :plantilla => :environment do
-    file = '/home/phn001/Documents/ANCAR/DatosCargas/SGTs/Plantilla_SGT_Cargas.xls'
+    file = '/home/phn001/Documents/ANCAR/DatosCargas/SGTs/DatosXLS/Plantilla_SGT_Cargas.xls'
     libro = Spreadsheet.open file
     hoja = libro.worksheet 1
-    period_id = XXX
+    period_id = 14
     updated_by = 'inititalize'
 
     (hoja.rows).each  do |row|
-      break if row.idx == 11
+      break if row.idx == 1
       if row.idx > 2
         puts "#{row[0]} #{row[1]}"
         unit =  Unit.find_by_sap_id(row[1])

@@ -24,7 +24,7 @@
           <% end %>
         </tr>
         <% if of == "Unit" %>
-          <% if input_staff_visible?(process.id) %>
+          <% if input_staff_visible?(process.id, period.id) %>
             <tr>
                <th class="text-center" colspan="5">
                  <%= t("entry_indicators.staff.input.header") %>

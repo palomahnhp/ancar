@@ -24,7 +24,6 @@
         $("#myModal").hide()
         $(".reveal-overlay").hide()
     }
-
 </script>
 
 <div class="reveal-overlay" style="display:inline" >
@@ -51,14 +50,13 @@
         </button>
     <% elsif !@entry_without_staff.empty? %>
         <h2 id="modalTile"><%= t("entry_indicators.form.error.title.entry_without_staff") %></h2>
-        <p> <%= t("entry_indicators.form.error.p1.entry_without_staff") %></p>
-        <p> <%= t("entry_indicators.form.error.p2.entry_without_staff", indicator: entry_staff_error) %></p>
+        <p> <%= t("entry_indicators.form.error.p1.entry_without_staff", indicator: entry_staff_error) %></p>
         <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
           <span aria-hidden="true"><%= t("entry_indicators.form.close.button") %></span>
         </button>
   <% elsif !@errors_in_out_stock.empty? %>
         <h2 id="modalTile"><%= t("entry_indicators.form.error.title.errors_in_out_stock") %></h2>
-        <p> <%= t("entry_indicators.form.error.p1.errors_in_out_stock") %></p>
+        <p> <%= t("entry_indicators.form.error.p1.errors_in_out_stock", sub_process: in_out_error) %></p>
         <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
         <span aria-hidden="true"><%= t("entry_indicators.form.close.button") %></span>
         </button>

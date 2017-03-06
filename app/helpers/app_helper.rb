@@ -62,11 +62,19 @@ module AppHelper
   end
 
   def entry_staff_error
-    description = ""
+    description = " / "
     @entry_without_staff.each do |entry_error|
-      description  +=  Indicator.find(entry_error[0]).item.description + " - "
+      description  +=  Indicator.find(entry_error[0]).item.description + " / "
     end
     return description
   end
 
+    def in_out_error
+      description = "\r\n"
+      @errors_in_out_stock.each do |e|
+        description  += "#{SubProcess.find(e[0]).item.description}-  salida: #{e[1][0]} entrada: #{e[1][1]} stock: #{e[1][2]} \r\n"
+      end
+      return description
+
+    end
 end
