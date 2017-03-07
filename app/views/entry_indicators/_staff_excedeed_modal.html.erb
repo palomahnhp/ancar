@@ -35,7 +35,7 @@
           <strong><%= @groups_excedeed %></strong></p>
         <% unless has_justification?(@unit.id, @period.id) %>
             <p><%= t("entry_indicators.form.error.p2.groups_excedeed_html")%></p>
-            <p><%= t("entry_indicators.form.error.p3.groups_excedeed_html")%></p>
+            <p><%= t('entry_indicators.form.error.p3.groups_excedeed_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
             <a class="hollow button" onclick="openJustification()"> <%= t("entry_indicators.form.update.button") %></a>
         <% else %>
             <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">

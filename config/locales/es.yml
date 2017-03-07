@@ -42,29 +42,29 @@ es:
       metric: Métrica
       source: Fuente
       update:
-        button: "Cambiar efectivos"
+        button: "Cambiar plantilla"
         justification:
-          title: "Justificar modificación de efectivos"
-          label: "Justifica la modificación de efectivos a realizar"
+          title: "Justificar modificación de plantilla"
+          label: "Justifica la modificación de plantilla a realizar"
       close:
         button: "Cerrar"
       error:
         title:
-          groups_excedeed: "Exceso de efectivos asignados"
+          groups_excedeed: "Exceso de plantilla asignada"
           entry_incomplete: "Datos incompletos"
           errors_in_out_stock: "Error en procesos de entrada/salida"
-          entry_without_staff:  "Incongruencia en cantidades/puestos de indicadores"
+          entry_without_staff:  "Inconsistencia entre cantidades/puestos de indicadores/tareas"
         p1:
-          groups_excedeed: "Los efectivos asignados a los subprocesos superan los efectivos asignados a esta unidad para:"
-          errors_in_out_stock: "Es mayor la cantidad cumplimentada en los procesos de salida que en los de entrada: %{sub_process}"
-          entry_incomplete: "Se han guardado los datos, pero faltan indicadores por cumplimentar (efectivos o cantidad)."
-          entry_without_staff: "Hay indicadores que no tienen asociados puestos pero si tienen tareas cumplimentadas con cantidades superiores a 0: %{indicator}"
+          groups_excedeed: "La plantilla asignada a los subprocesos/procesos supera la plantilla asignada a esta unidad para:"
+          errors_in_out_stock: "Es mayor la cantidad cumplimentada en los indicadores/tareas de salida que en los de entrada: %{sub_process}"
+          entry_incomplete: "Se han guardado los datos, pero faltan indicadores/tareas por cumplimentar (plantilla o cantidad)."
+          entry_without_staff: "Hay indicadores/tareas que no tienen asociada plantilla pero si tienen cumplimentadas cantidades superiores a 0 o indicadores/tareas con cantidades pero sin plantilla asignada: %{indicator}"
         p2:
           groups_excedeed_html: "Si se trata de un <strong>error</strong> cierra la ventana, pulsando el aspa de la parte superior derecha y corrije los datos erróneos."
         p3:
-          groups_excedeed_html: Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a los indicados en el cuadro <strong><em>Puestos ocupados a 31 de diciembre</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em style="color=blue"> Actualizar indicadores</em></strong>, lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dichos cambios. Estos cambios quedarán pendientes de verificación por el supervisor.
+          groups_excedeed_html: "Si no es un error y la plantilla que ha participado en los procesos de la unidad es mayor a la indicada en el cuadro <strong><em> 'Puestos ocupados a 31 de diciembre'</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em style='color=blue'> Actualizar indicadores</em></strong>, lo que permitirá modificar la plantilla de la unidad y añadir una justificación a dichos cambios. Estos cambios quedarán pendientes de verificación por el supervisor."
     index:
-      no_main_processes: No hay indicadores para este periodo.
+      no_main_processes: No hay procesos para este periodo.
       select: Seleccionar
       select_organization_type: Selecciona una organización
       select_period: Seleccionar periodo
@@ -73,17 +73,17 @@ es:
     staff:
       title:
         MainProcesses: "Puestos por proceso"
-        SubProcess:  "Puestos por subproceso"
+        SubProcess:  "Puestos por subproceso/proceso"
         Unit: "Puestos ocupados a 31 diciembre"
       input:
-        header: "Efectivos reales"
+        header: "Plantilla real"
         link: Ver justificación
       justification:
         modal:
           title: "Justificación"
     updates:
       no_key: 'Falta parametro key'
-      success: 'Se han actualizado correctamente los indicadores de esta unidad.'
+      success: 'Se han actualizado correctamente los indicadores/tareas de esta unidad.'
   form:
     error: error impidió
     errors: errores impidieron
@@ -109,7 +109,7 @@ es:
     header:
       administracion: Administrador
       gestion: Supervisor
-      logo: Direccion General de Planificacion i18n
+      logo: Direccion General de Planificacion
       open: Abierto
       open_data: Open data
       open_gov: Gobierno abierto
@@ -161,5 +161,5 @@ es:
               blank: "Es obligatorio indicar una fuente"
   AssignedEmployeesChange:
     text:
-      verified: "Modificación verificada"
-      not_verified: "Pendiente de verificación"
+      verified: "Modificación de plantilla verificada"
+      not_verified: "Modificación de plantilla pendiente de verificación"

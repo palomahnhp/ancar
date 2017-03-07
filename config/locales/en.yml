@@ -62,7 +62,7 @@ en:
         p2:
           groups_excedeed_html: "Si se trata de un <strong>error</strong> cierre la ventana, pulsando el aspa de la parte superior derecha y corriga los datos erróneos."
         p3:
-          groups_excedeed_html: Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a lo indicados en el cuadro <strong><em>EFECTIVOS UNIDAD</em></strong>, puede modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> COREGIR ERROR </em></strong>, lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios quedarán pendientes de verificación por el resposable.
+          groups_excedeed_html: "Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a lo indicados en el cuadro <strong><em>EFECTIVOS UNIDAD</em></strong>, puede modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> COREGIR ERROR </em></strong>, lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios quedarán pendientes de verificación por el resposable."
     index:
       no_main_processes: No hay indicadores para este periodo.
       select: Seleccionar
