@@ -6,7 +6,7 @@ feature "Entry Indicators" do
     it 'primera unidad de la organización' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
       click_link('Periodo de análisis de datos', :match => :first)
       within('div#unit') do
         expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS JURIDICOS'
@@ -18,7 +18,7 @@ feature "Entry Indicators" do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
 
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
       click_link('Periodo de análisis de datos', :match => :first)
       click_link 'SECRETARIA DE DISTRITO'
       within('div#unit') do
@@ -35,7 +35,7 @@ feature "Entry Indicators" do
 
       period = Period.first
       add_staff("Unit", unit.id, unit.id, period, 1, 0.5, 1, 0.5)
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
         click_link 'Periodo de análisis de datos'
@@ -59,7 +59,7 @@ feature "Entry Indicators" do
 
       period = Period.first
 
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
         click_link 'Periodo de análisis de datos'
@@ -77,7 +77,7 @@ feature "Entry Indicators" do
 
       period = Period.first
 
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
         click_link 'Periodo de análisis de datos'
@@ -92,7 +92,7 @@ feature "Entry Indicators" do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
 
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
       click_link('Periodo de análisis de datos', :match => :first)
       expect(page).to have_content "Contratos Menores"
 
@@ -115,7 +115,7 @@ feature "Entry Indicators" do
         add_staff("Indicator", indicator.id, unit.id, period, rand(9), rand(99), rand(99), rand(99))
       end
 
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
         click_link 'Periodo de análisis de datos'
@@ -139,7 +139,7 @@ feature "Entry Indicators" do
       indicators.each do |indicator|
         add_staff('Indicator', indicator.id, unit.id, period, rand(9), rand(99), rand(99), rand(99))
       end
-      click_link('Indicadores', :match => :first)
+      click_link('Procesos y subprocesos', :match => :first)
 
       within("#organization_#{organization.id}") do
         click_link 'Periodo de análisis de datos'

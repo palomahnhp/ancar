@@ -32,7 +32,7 @@ feature "User access" do
 
       login_as_authenticated_user(manager)
 
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
 
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
@@ -52,7 +52,7 @@ feature "User access" do
     it 'has no role' do
       user = create(:user)
       login_as_authenticated_user(user)
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
 
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
@@ -64,7 +64,7 @@ feature "User access" do
       user = create(:user, :with_one_organization)
 
       login_as_authenticated_user(user)
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
 
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
@@ -76,7 +76,7 @@ feature "User access" do
     it 'has roles with more than one Organizations' do
       user = create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
-      click_link("Indicadores", :match => :first)
+      click_link("Procesos y subprocesos", :match => :first)
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
       expect(page).not_to have_content "Distritos"

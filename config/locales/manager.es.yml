@@ -169,7 +169,6 @@ es:
         success: El registro se ha actualizado correctamente.
       index:
         create: "Incluir %{process_name}"
-        empty: "No hay %{process_name} definidos"
         indicators: "Ver %{process_name}"
         title: "%{process_name}"
         submit: submit

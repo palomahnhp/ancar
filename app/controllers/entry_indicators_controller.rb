@@ -3,84 +3,47 @@ class EntryIndicatorsController < ApplicationController
   before_action :initialize_instance_vars, only: [:index, :edit, :updates ]
 
   def index
-    if params[:organization_id] && params[:period_id]
-      if @period.main_processes.empty?
-        render :index, notice: t("entry_indicators.index.no_main_processes")
-      end
+    if @period.main_processes.empty?
+      render :index, notice: t("entry_indicators.index.no_main_processes")
     end
   end
 
   def updates
     @entry_indicators_cumplimented = @employess_cumplimented = true
-    params.keys.each do |key|
-      case key
-       when 'Indicator'
-         update_assigned_employess(key)
-       when 'IndicatorMetric'
-         update_entry_indicators(params[key])
+    if params[:justification].present?
+      AssignedEmployeesChange.update(@period, @unit, params[:justification], current_user)
+    else
+      params.keys.each do |key|
+        case key
+        when 'Indicator', 'Unit'
+          @employess_cumplimented = AssignedEmployee.update(@period, @unit, key, params[key], current_user)
+        when 'IndicatorMetric'
+          @entry_indicators_cumplimented = update_indicator_metrics(params[key])
         else
-         flash[:error] = t('entry_indicators.updates.no_key')
+          flash[:error] = t('entry_indicators.updates.no_key')
+        end
       end
+      @input_error = validate_input
     end
 
-    @groups_excedeed = AssignedEmployee.exceeded_staff_for_unit(@unit.id, @period.id)
-    if @groups_excedeed.present?
+    if @input_error || has_justification?
       render :index
     else
-      if all_cumplimented?
-        flash[:notice] = t('entry_indicators.updates.success')
-      else
-        flash[:alert] = t('entry_indicators.updates.incomplete')
-      end
+      flash[:notice] = t('entry_indicators.updates.success')
       redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
-                                        organization_id: @organization.id)
+      organization_id: @organization.id)
     end
   end
 
   private
-    def entry_indicator_params
+  def entry_indicator_params
       params.require(:entry_indicator).permit(:amount, :unit_id, :period_id, :indicator_metric, :indicator_source)
-    end
+  end
 
-    def initialize_instance_vars
-      if params[:organization_id]
-        @organization = Organization.find(params[:organization_id])
-        @units = @organization.units.order(:order).to_a
-      end
-      if params[:period_id]
-        @period = Period.find(params[:period_id]) if params[:period_id]
-      end
-      if params[:unit_id]
-        @unit = Unit.find(params[:unit_id])
-      else
-        @unit = @units.first
-      end
-    end
-
-    def update_assigned_employess(process)
-      params[process].each do |pr|
-        grupos = pr[1]
-        process_id = pr[0].to_i
-        type = process
-        grupos.keys.each do |grupo|
-          quantity = grupos[grupo]
-          official_group_id = OfficialGroup.find_by_name(grupo).id
-          if quantity.empty?
-            @employess_cumplimented = false
-            AssignedEmployee.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id).delete_all
-          else
-            ae = AssignedEmployee.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id)
-            ae.official_group_id = official_group_id
-            ae.quantity = quantity
-            ae.updated_by = current_user.login
-            ae.save
-          end
-        end
-      end
-    end
-
-    def update_entry_indicators(indicator_metrics)
-      indicator_metrics.each do |im|
+  def update_indicator_metrics(indicator_metrics)
+    Indicator.includes(indicator_metrics: [:entry_indicators, :total_indicators])
+    indicator_metrics.each do |indicator|
+      indicator[1].each do |im|
         indicator_metric_id = im[0].to_i
         amount = im[1]
         if amount.empty?
@@ -88,7 +51,7 @@ class EntryIndicatorsController < ApplicationController
           EntryIndicator.where(unit_id: @unit.id, indicator_metric_id: indicator_metric_id).delete_all
         else
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-          ei.indicator_source_id = IndicatorSource.where(indicator_id: IndicatorMetric.find(indicator_metric_id).indicator.id).take.id
+#            ei.indicator_source_id = IndicatorSource.where(indicator_metric_id: indicator_metric_id).take.id
           ei.amount = amount
           ei.period_id = @period.id
           ei.updated_by = current_user.login
@@ -96,8 +59,43 @@ class EntryIndicatorsController < ApplicationController
         end
       end
     end
+  end
 
-    def all_cumplimented?
-      @entry_indicators_cumplimented && @employess_cumplimented
+  def initialize_instance_vars
+    if params[:organization_id]
+      @organization = Organization.find(params[:organization_id])
+      @units = @organization.units.order(:order).to_a
     end
+    if params[:period_id]
+      @period = Period.includes(:assigned_employees, :entry_indicators, main_processes: [sub_processes: [tasks: [indicators:[
+      indicator_metrics: [metric: [:item]],
+      indicator_sources: [source: [:item]],
+      total_indicators: [:summary_type] ]]]]).find(params[:period_id]) if params[:period_id]
+    end
+    if params[:unit_id]
+      @unit = Unit.find(params[:unit_id])
+    else
+      @unit = @units.first
+    end
+  end
+
+  def has_justification?
+    (params[:justification] != ""  && AssignedEmployeesChange.unit_justified(@unit.id, @period.id))
+  end
+
+  def validate_input
+    @errors_in_out_stock  = SubProcess.validate_in_out_stock(@period, @unit)
+    @groups_excedeed      = AssignedEmployee.exceeded_staff_for_unit(@period, @unit)
+    @entry_incomplete     = entry_incompleted?
+    @entry_without_staff  = Indicator.validate_staff_for_entry(@period, @unit)
+    return @groups_excedeed.present? || @entry_incomplete || @errors_in_out_stock.present? || @entry_without_staff.present?
+  end
+
+  def entry_incompleted?
+      !(@entry_indicators_cumplimented && @employess_cumplimented)
+  end
+
 end
+
+
+

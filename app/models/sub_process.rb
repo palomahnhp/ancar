@@ -35,4 +35,38 @@ class SubProcess < ActiveRecord::Base
     period.eliminable?
   end
 
+  def self.validate_in_out_stock(period, unit)
+    errors_in_out_stock = Hash.new
+    period.main_processes.each do |main_process|
+      main_process.sub_processes.each do |sub_process|
+        stock = sub_process.get_stock(unit.id)
+        unless stock == 0
+          in_amount = sub_process.get_amount('type_in', unit.id)
+          out_amount = sub_process.get_amount('type_out', unit.id)
+          errors_in_out_stock[sub_process.id] = [out_amount, in_amount, stock]  if out_amount > stock + in_amount
+        end
+      end
+    end
+    return errors_in_out_stock
+  end
+
+  def get_amount(type,  unit_id)
+    in_amount = 0
+    ti = TotalIndicator.for_sub_process.send(type).where(indicator_metric: IndicatorMetric.where(indicator_id: self.indicators.ids))
+    in_amount = 0
+    ti.each do |total_indicator|
+      in_amount += total_indicator.indicator_metric.amount(unit_id)
+    end
+    return in_amount
+  end
+
+  def get_stock(unit_id)
+    stock = 0
+    self.indicators.each do |indicator|
+      ti = TotalIndicator.for_stock.where(indicator_metric: indicator.indicator_metrics.ids).take
+      stock += ti.indicator_metric.entry_indicators.where(unit_id: unit_id).sum(:amount)  unless ti.nil?
+    end
+    return stock
+  end
+
 end

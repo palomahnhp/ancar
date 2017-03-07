@@ -49,4 +49,30 @@ class Indicator < ActiveRecord::Base
   def eliminable?
     period.eliminable?
   end
+
+  def amount(unit_id)
+    amount = 0
+    self.indicator_metrics.each do |indicator_metric|
+      amount += indicator_metric.amount(unit_id)
+    end
+    return amount
+  end
+
+  def self.validate_staff_for_entry(period, unit)
+    entry_without_staff = Hash.new
+    period.main_processes.each do |main_process|
+      main_process.sub_processes.each do |sub_process|
+        staff_quantity = indicator_amount = 0
+        sub_process.tasks.each do |task|
+          task.indicators.each do |indicator|
+            indicator_amount   = indicator.amount(unit.id)
+            staff_quantity     = AssignedEmployee.staff_quantity(indicator, unit.id)
+            entry_without_staff[indicator.id] = [indicator_amount, staff_quantity] if (staff_quantity == 0 && indicator_amount > 0) || (staff_quantity > 0 && indicator_amount == 0)
+          end
+        end
+      end
+    end
+    return entry_without_staff
+  end
+
 end

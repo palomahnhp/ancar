@@ -13,7 +13,7 @@ module CommonActions
   end
 
   def user_with_global_scope
-    click_link("Indicadores", :match => :first)
+    click_link("Procesos y subprocesos", :match => :first)
 
     expect(page).to have_content "Hoja de identificación de procesos"
     expect(page).to have_content "Selección de unidad a tratar"
