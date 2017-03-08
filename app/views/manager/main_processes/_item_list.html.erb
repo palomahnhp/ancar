@@ -1,9 +1,21 @@
   <table id="main_processes_list">
     <% @main_processes.each do  |main_process|%>
+      <% if @organization_before.nil? || @organization_before != main_process.organization_group %>
+          <tr>
+            <td class="expanded highlight">
+              <%= main_process.organization_group %>
+            </td>
+            <td class="expanded highlight"></td>
+            <td class="expanded highlight"></td>
+            <td class="expanded highlight"></td>
+          </tr>
+          <% @organization_before = main_process.organization_group %>
+      <% end %>
+
       <tr id="<%= dom_id(main_process) %>">
         <td>
           <div class="admin-list small-12 medium-14 column">
-            <%= main_process.order %>. <%= description(0, main_process.item_id) %>
+            <%= main_process.order %>. <%= main_process.item.description %>
           </div>
         </td>
         <td>

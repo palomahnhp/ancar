@@ -2,20 +2,20 @@
 <br>
 <table>
   <% @sub_processes.each do  |sub_process|%>
-    <% if @unit_type_before != unit_type_description(sub_process.unit_type_id) %>
+    <% if @unit_type_before != sub_process.unit_type.description %>
       <tr>
         <td class="expanded highlight">
-          <%= unit_type_description(sub_process.unit_type_id) %>
+          <%= sub_process.unit_type.description %>
         </td>
         <td class="expanded highlight"></td>
         <td class="expanded highlight"></td>
         <td class="expanded highlight"></td>
       </tr>
-      <% @unit_type_before = unit_type_description(sub_process.unit_type_id)%>
+      <% @unit_type_before = sub_process.unit_type.description%>
     <% end %>
     <tr id="<%= dom_id(sub_process) %>">
       <td class="admin-list">
-        <%= sub_process.main_process.order %>. <%= sub_process.order %>. <%= description(0, sub_process.item_id) %>
+        <%= sub_process.main_process.order %>. <%= sub_process.order %>. <%= sub_process.item.description %>
       </td>
       <td>
         <%= link_to manager_indicators_path(commit: t("manager.indicators.index.submit"),

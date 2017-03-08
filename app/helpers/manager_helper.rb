@@ -8,14 +8,6 @@ module ManagerHelper
     @organization_types.collect { |v| [ v.description, v.id ] }
   end
 
-  def period_select_options
-    @periods.collect { |v| [ v.description, v.id ] }
-  end
-
-  def unit_type_descriptions
-    UnitType.all.collect { |v| [ v.description, v.id ] }
-  end
-
   def main_process_items
     select_process_items('main_process')
   end
@@ -69,11 +61,6 @@ module ManagerHelper
 
   def main_process_period_id
     @main_process.period_id.nil? ? params[:period_id] : @main_process.period_id
-  end
-
-  def unit_type_description(id)
-    # noinspection RailsChecklist05
-    @unit_type_description = UnitType.find(id).description
   end
 
   def delete_msg(class_name, eliminable, modifiable, empty)

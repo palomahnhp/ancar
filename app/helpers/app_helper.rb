@@ -47,10 +47,6 @@ module AppHelper
     url_for(request.query_parameters.merge(query_parameters))
   end
 
-  def sub_processes_unit(main_process, unit)
-    main_process.sub_processes.where(unit_type_id: unit.unit_type_id).order(:order)
-  end
-
   def format_number(num)
     number_to_currency(num, {:unit => '', :separator => ',', :delimiter =>
   '.', :precision => 2})

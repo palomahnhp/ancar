@@ -11,6 +11,29 @@ namespace :SGT do
     puts 'Termina el proceso'
   end
 
+
+  desc "Bloques competenciales Específicos por organización"
+  task :bloques_especificos => :environment do
+    puts "Empieza la reestructuración de bloques competecenciales específicos"
+    bloques = bloque_competencial_especifico
+
+    OrganizationType.find_by_acronym('SGT').periods.each do |period|
+      bloques.each do |bloque|
+        period.main_processes.each do |main_process|
+          puts "#{bloque[0]} #{main_process.item.description}"
+          if main_process.item.description == bloque[0]
+            organizacion = Organization.find_by_description(bloque[1])
+            main_process.organization_id = organizacion.id
+            main_process.save
+            puts "Se asigna #{bloque[0]} a #{organizacion.description}"
+          end
+        end
+      end
+    end
+
+    puts 'Termina el proceso'
+  end
+
   desc "Importar plantilla de SGT"
   task :plantilla => :environment do
     file = '/home/phn001/Documents/ANCAR/DatosCargas/SGTs/DatosXLS/Plantilla_SGT_Cargas.xls'
@@ -247,6 +270,18 @@ namespace :SGT do
       "AGF SGT EQUIDAD, DCHOS SOCIALES Y EMPLEO" => "SECRETARIA GENERAL TECNICA DE EQUIDAD DERECHOS SOCIALES Y EMPLEO",
       "AGA SGT CULTURA Y DEPORTES" => "SECRETARIA GENERAL TECNICA AREA DE GOBIERNO DE CULTURA Y DEPORTES",
       "AGE SGT ECONOMIA Y HACIENDA" => "SECRETARIA GENERAL TECNICA AREA DE GOBIERNO DE ECONOMIA Y HACIENDA"
+    }
+  end
+
+  def bloque_competencial_especifico
+    {
+        "ESPECIFICOS" => "...",
+        "DESARROLLO URBANO SOSTENIBLE" => "SECRETARIA GENERAL TECNICA DEL AREA DE GOBIERNO DE DESARROLLO URBANO SOSTENIBLE",
+        "MEDIO AMBIENTE Y MOVILIDAD" => "SECRETARIA GENERAL TECNICA AG MEDIO AMBIENTE Y MOVILIDAD",
+        "SEGURIDAD Y SALUD" => "SECRETARIA GENERAL TECNICA A.G. SALUD, SEGURIDAD Y EMERGENCIAS",
+        "GERENCIA DE LA CIUDAD" => "SECRETARIA GENERAL TECNICA GERENCIA DE LA CIUDAD",
+        "CULTURA Y DEPORTES" => "SECRETARIA GENERAL TECNICA AREA DE GOBIERNO DE CULTURA Y DEPORTES",
+        "ECONOMIA Y HACIENDA" => "SECRETARIA GENERAL TECNICA AREA DE GOBIERNO DE ECONOMIA Y HACIENDA"
     }
   end
 end

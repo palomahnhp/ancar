@@ -6,10 +6,9 @@
 
   <div class="small-10 columns" >
     <%= f.label :unit_type_id, t('manager.sub_processes.form.unit_type') %>
-    <%= f.select :unit_type_id, options_for_select(unit_type_descriptions, @sub_process.unit_type_id),
+    <%= f.select :unit_type_id, options_for_select(UnitType.select_options(@sub_process.main_process.period.organization_type), @sub_process.unit_type_id),
                    :prompt => t('manager.sub_processes.form.unit_type'), label: false,
                    placeholder: t('manager.sub_processes.form.unit_type') %>
-
   </div>
 
   <div class="small-10 columns end">
