@@ -163,3 +163,7 @@ en:
     text:
       verified: "Modificación verificada"
       not_verified: "Pendiente de verificación"
+  manager:
+    main_processes:
+      form:
+        organization: "Organización"

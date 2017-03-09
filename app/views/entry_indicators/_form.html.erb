@@ -21,11 +21,11 @@
     </div>
   </div>
   <% @period.main_processes.each do |main_process| %>
-    <% if sub_processes_unit(main_process, @unit).count > 0 %>
+    <% if main_process.show_in_entry(@unit) %>
       <div class="main_process small-12 columns">
         <h5><%= main_process.order%>.&nbsp;<%= main_process.item.description %></h5>
       </div>
-      <% sub_processes_unit(main_process, @unit).each do |sub_process| %>
+      <% main_process.sub_processes_unit(@unit).each do |sub_process| %>
         <table class="indicator" >
           <caption class="sub_process"><%= main_process.order%>.<%= sub_process.order%>.&nbsp;<%= sub_process.item.description %></caption>
           <thead>

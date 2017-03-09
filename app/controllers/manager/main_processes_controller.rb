@@ -74,7 +74,7 @@ class Manager::MainProcessesController < Manager::BaseController
 
   private
     def main_process_params
-      params.require(:main_process).permit(:period_id, :item_id, :order)
+      params.require(:main_process).permit(:period_id, :item_id, :order, :organization_id)
     end
 
     def redirect_to_index(msg)

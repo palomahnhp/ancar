@@ -1,7 +1,5 @@
 class Manager::PeriodsController < Manager::BaseController
 
-  before_action :organization_types, only: [:edit, :new, :create, :update]
-  before_action :get_periods, only: [:edit, :new, :create]
   before_action :find_period, only: [:edit, :update, :destroy]
 
   def index
@@ -65,12 +63,5 @@ class Manager::PeriodsController < Manager::BaseController
       @period = Period.find(params[:id])
     end
 
-    def organization_types
-      @organization_types = OrganizationType.all.map { |type| [type.description, type.id] }
-    end
-
-    def get_periods
-      @periods_from = Period.all.order(:ended_at).map { |type| [type.description, type.id] }
-    end
 
 end
