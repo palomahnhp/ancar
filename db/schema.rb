@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20170307125659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "adminpack"
 
   create_table "assigned_employees", force: :cascade do |t|
     t.integer  "official_group_id"
@@ -141,14 +140,12 @@ ActiveRecord::Schema.define(version: 20170307125659) do
     t.string   "updated_by"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "unit_id"
     t.integer  "organization_id"
   end
 
   add_index "main_processes", ["item_id"], name: "index_main_processes_on_item_id", using: :btree
   add_index "main_processes", ["organization_id"], name: "index_main_processes_on_organization_id", using: :btree
   add_index "main_processes", ["period_id"], name: "index_main_processes_on_period_id", using: :btree
-  add_index "main_processes", ["unit_id"], name: "index_main_processes_on_unit_id", using: :btree
 
   create_table "manager_organization_types", force: :cascade do |t|
     t.integer "user_id"
@@ -455,7 +452,6 @@ ActiveRecord::Schema.define(version: 20170307125659) do
   add_foreign_key "main_processes", "items"
   add_foreign_key "main_processes", "organizations"
   add_foreign_key "main_processes", "periods"
-  add_foreign_key "main_processes", "units"
   add_foreign_key "manager_organization_types", "organization_types"
   add_foreign_key "manager_organization_types", "users"
   add_foreign_key "metrics", "items"

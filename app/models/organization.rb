@@ -5,12 +5,12 @@ class Organization < ActiveRecord::Base
   has_many :users
   has_many :main_processes
 
-  def self.select_options
-    self.all.collect { |v| [ v.description, v.id ] }
-  end
-
-  def self.select_options(organization_type)
-    self.where(id: OrganizationType.find(organization_type).organizations.ids).collect { |v| [ v.description, v.id ] }
+  def self.select_options(organization_type=nil)
+    if organization_type.present?
+      self.where(id: OrganizationType.find(organization_type).organizations.ids).collect { |v| [ v.description, v.id ] }
+    else
+      self.all.collect { |v| [ v.description, v.id ] }
+    end
   end
 
   def organizations_authorizated
