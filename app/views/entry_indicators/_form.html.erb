@@ -20,7 +20,7 @@
       <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period, type: 'all' %>
     </div>
   </div>
-  <% @period.main_processes.each do |main_process| %>
+  <% @period.main_processes.order(:order).each do |main_process| %>
     <% if main_process.show_in_entry(@unit) %>
       <div class="main_process small-12 columns">
         <h5><%= main_process.order%>.&nbsp;<%= main_process.item.description %></h5>

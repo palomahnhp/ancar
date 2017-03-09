@@ -12,21 +12,7 @@ class Manager::IndicatorMetricsController < Manager::BaseController
   def create
     @indicator = Indicator.find(params[:indicator_id])
     @indicator_metric = @indicator.indicator_metrics.new(indicator_metric_params)
-
-    if !params[:source_id].empty? && @indicator_metric.save
-      @indicator_metric.indicator_sources.destroy_all
-      @indicator_source = @indicator_metric.indicator_sources.find_or_create_by!(source_id: params[:source_id])
-      @indicator_source.indicator_id =  @indicator.id
-      update_total_indicators_summary_types
-      redirect_to_index(t('manager.indicator_metrics.create.success'))
-    else
-      if params[:source_id].nil? || params[:source_id].empty?
-        @indicator_metric.valid?
-        @indicator_metric.errors[:source_id] =
-            t('activerecord.errors.models.indicator_metric.attributes.source_id.blank')
-      end
-      render :new
-    end
+    resource_update(:new)
   end
 
   def update
@@ -34,21 +20,7 @@ class Manager::IndicatorMetricsController < Manager::BaseController
 
     @indicator_metric  = IndicatorMetric.find(params[:id])
     @indicator_metric.assign_attributes(indicator_metric_params)
-
-    if !params[:source_id].empty? && @indicator_metric.save
-      @indicator_metric.indicator_sources.destroy_all
-      @indicator_source = @indicator_metric.indicator_sources.find_or_create_by!(source_id: params[:source_id])
-      @indicator_source.indicator_id =  @indicator.id
-      update_total_indicators_summary_types
-      redirect_to_index(t('manager.indicator_metrics.update.success'))
-    else
-      if params[:source_id].nil? || params[:source_id].empty?
-        @indicator_metric.valid?
-        @indicator_metric.errors[:source_id] =
-            t('activerecord.errors.models.indicator_metric.attributes.source_id.blank')
-      end
-      render :edit
-    end
+    resource_update(:edit)
     update_total_indicators_summary_types
   end
 
@@ -74,13 +46,7 @@ class Manager::IndicatorMetricsController < Manager::BaseController
       if params[summary_type.item.description].nil? || params[summary_type.item.description].empty?
         summary_type.total_indicators.find_by_indicator_metric_id(@indicator_metric.id).delete unless summary_type.total_indicators.find_by_indicator_metric_id(@indicator_metric.id).nil?
       else
-        # Si es númerico es el id #new
-        if params[summary_type.item.description] == params[summary_type.item.description]
-          tit = TotalIndicatorType.find(params[summary_type.item.description]).acronym
-        else
-          # si es cadena es item.description #edit
-          tit = TotalIndicatorType.find(@total_indicator_types.to_h[params[summary_type.item.description.to_sym]]).acronym
-        end
+        tit = TotalIndicatorType.find(params[summary_type.item.description]).acronym
         ti = summary_type.total_indicators.find_or_create_by(indicator_metric_id: @indicator_metric.id,
                                                              indicator_type: summary_type.acronym)
         ti.in_out =  tit
@@ -96,5 +62,21 @@ class Manager::IndicatorMetricsController < Manager::BaseController
                                         indicator_id: @indicator.id), notice: msg
   end
 
+    def resource_update(render_to)
+      if !params[:source_id].empty? && @indicator_metric.save
+        @indicator_metric.indicator_sources.destroy_all
+        @indicator_source = @indicator_metric.indicator_sources.find_or_create_by!(source_id: params[:source_id])
+        @indicator_source.indicator_id =  @indicator.id
+        update_total_indicators_summary_types
+        redirect_to_index(t('manager.indicator_metrics.create.success'))
+      else
+        if params[:source_id].nil? || params[:source_id].empty?
+          @indicator_metric.valid?
+          @indicator_metric.errors[:source_id] =
+              t('activerecord.errors.models.indicator_metric.attributes.source_id.blank')
+        end
+        render render_to
+      end
+    end
 
 end
