@@ -11,7 +11,6 @@ class MainProcess < ActiveRecord::Base
   validates :item_id, presence: true
   validates :order, presence: true
 
-
   def copy(periodo_destino_id, current_user_login)
     mp = MainProcess.create(self.attributes.merge(id: nil, period_id: periodo_destino_id, updated_by: current_user_login))
     self.sub_processes.each do |sp|
