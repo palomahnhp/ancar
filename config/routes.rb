@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :user_access
   resources :entry_indicators, only: [:edit, :index] do
     collection do
-      post 'updates'
+      post 'update'
     end
   end
 

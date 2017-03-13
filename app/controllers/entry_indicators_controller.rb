@@ -1,11 +1,23 @@
 class EntryIndicatorsController < ApplicationController
   before_action :require_user, only: [:index]
-  before_action :initialize_instance_vars, only: [:index, :edit, :updates ]
+  before_action :initialize_instance_vars, only: [:index, :edit, :update ]
 
   def index
     if @period.main_processes.empty?
       render :index, notice: t("entry_indicators.index.no_main_processes")
     end
+  end
+
+  def update
+    self.params[:submit]
+  end
+
+  def change_staff
+
+  end
+
+  def close_enter
+
   end
 
   def updates
@@ -94,6 +106,7 @@ class EntryIndicatorsController < ApplicationController
   def entry_incompleted?
       !(@entry_indicators_cumplimented && @employess_cumplimented)
   end
+
 
 end
 
