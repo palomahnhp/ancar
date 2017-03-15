@@ -1,13 +1,15 @@
 <br>
-  <div class="small-12  columns">
-    <div class="small-12 medium-2 columns">
-      <%= submit_tag(t("entry_indicators.form.button1"), class: 'button hollow large', submit: "updates") %>
-    </div>
-    <div class="small-12 medium-3 columns">
-      <%= submit_tag(t("entry_indicators.form.button2"), class: 'button hollow large', submit: "close_entry") %>
-    </div>
-    <div class="small-12 medium-2 end columns">
-      <%= submit_tag(t("entry_indicators.form.button3"), class: 'button hollow large', submit: "change_staff") %>
-    </div>
+
+  <div class="small-12 medium-2 columns">
+    <%= submit_tag(t("entry_indicators.form.button1"), class: 'button hollow large', name: "updates") %>
   </div>
+  <div class="small-12 medium-3 columns end ">
+    <%= submit_tag(t("entry_indicators.form.button2"), class: 'button hollow large', name:  "close_entry") %>
+  </div>
+  <% unless has_justification?(@unit.id, @period.id) %>
+    <div class="small-12 medium-2 end columns">
+      <%= submit_tag(t("entry_indicators.form.button3"), class: 'button hollow large', name:  "change_staff") %>
+    </div>
+  <% end %>
+
 

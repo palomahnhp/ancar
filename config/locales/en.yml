@@ -48,20 +48,25 @@ en:
           label: "Justifica la modificación de efectivos a realizar"
       close:
         button: "Cerrar"
+      cancel:
+        button: "Cancelar"
       error:
         title:
           groups_excedeed: "Exceso de efectivos asignados"
-          entry_incomplete: "Datos incompletos"
+          entry_incomplete: "Error: datos incompletos"
           errors_in_out_stock: "Error en procesos de entrada/salida"
           entry_without_staff:  "Inconsistencia en cantidades/puestos de indicadores"
         p1:
           groups_excedeed: "Los efectivos asignados a los subprocesos superan los efectivos asignados a esta unidad para:"
           errors_in_out_stock: "Es mayor la cantidad cumplimentada en los procesos de salida que en los de entrada: %{sub_process}"
-          entry_incomplete: "Se han guardado los datos, pero faltan indicadores por cumplimentar (efectivos o cantidad)."
+          entry_incomplete: "Error al cerrar la entrada de datos: faltan indicadores por cumplimentar (efectivos o cantidad)."
           entry_without_staff: "Hay indicadores que no tienen asociados puestos pero si tienen tareas cumplimentadas con cantidades superiores a 0: %{indicator}"
+          change_staff: "Cambio de plantilla asignada"
         p2:
+          change_staff: "Si se trata de un <strong>error</strong> cierra la ventana, pulsando el aspa de la parte superior derecha y corrije los datos erróneos."
           groups_excedeed_html: "Si se trata de un <strong>error</strong> cierre la ventana, pulsando el aspa de la parte superior derecha y corriga los datos erróneos."
         p3:
+          change_staff: "parrrafo 3 "
           groups_excedeed_html: "Si no es un error y los efectivos que han participado en los procesos de la unidad son mayores a lo indicados en el cuadro <strong><em>EFECTIVOS UNIDAD</em></strong>, puede modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> COREGIR ERROR </em></strong>, lo que permitirá modificar los efectivos de la unidad y añadir una justificación a dicho cambios. Estos cambios quedarán pendientes de verificación por el resposable."
       button1: "Guardar datos"
       button2: "Cerrar entrada de datos"

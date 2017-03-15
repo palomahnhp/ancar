@@ -1,8 +1,8 @@
 <% if @input_error %>
-  <%= render 'staff_excedeed_modal' %>
+  <%= render 'errors_modal' %>
 <% end %>
 
-<%= form_tag(update_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm', id: 'entryIndicatorsForm') do %>
+<%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm', id: 'entryIndicatorsForm') do %>
   <div class="row">
     <% if @period.open_entry? %>
       <%= hidden_field_tag(:justification)  if @groups_excedeed %>
