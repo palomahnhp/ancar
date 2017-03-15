@@ -39,7 +39,7 @@ module AssignedEmployeeHelper
       if type == "UnitJustified"
           ae = AssignedEmployee.where(staff_of_type: 'Unit', official_group_id: group.id, unit_id: unit.id, period_id: period.id).sum(:quantity)
       elsif type == 'UnitAssigned'
-        ae = AssignedEmployee.where(official_group_id: group.id, unit_id: unit.id, period_id: period.id).sum(:quantity)
+        ae = AssignedEmployee.where(staff_of_type: 'Indicator', official_group_id: group.id, unit_id: unit.id, period_id: period.id).sum(:quantity)
       end
     end
     return ae.nil? ? nil : format_number(ae)
@@ -47,6 +47,10 @@ module AssignedEmployeeHelper
 
   def has_justification?(unit_id, period_id)
     AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
+  end
+
+  def justification_verified?(unit_id, period_id)
+    AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).not_verified.count == 0
   end
 
   def  justification_text(unit_id, period_id)

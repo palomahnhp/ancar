@@ -33,28 +33,7 @@
             <% end %>
           </tr>
           <% if input_staff_visible?(process.id, period.id) %>
-            <tr>
-               <th class="text-center" colspan="5">
-                 <%= t("entry_indicators.staff.input.header") %>
-                 ->  <a class="text-left small"  href="#" data-open="showJustification"><%= t('entry_indicators.staff.input.link') %></a>
-              </th>
-           </tr>
-          <tr>
-            <% OfficialGroup.all.each do |gr| %>
-              <td>
-                <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", get_staff("UnitJustified", process, gr, unit, period),
-                                   class: "input_staff", placeholder: gr.name) %>
-              </td>
-            <% end %>
-          </tr>
-          <div class="reveal callout <%= staff_verified_class(process.id, period.id)%> " id="showJustification" data-reveal>
-            <h4> <%= t("entry_indicators.staff.justification.modal.title") %> </h4>
-            <div class="lead "><%= staff_verified_text(process.id, period.id) %></div>
-            <p><%= justification_text(@unit.id, @period.id) %></p>
-            <button class="close-button warning" data-close aria-label="Close modal" type="button">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+            <%= render 'real_staff', process: unit, unit: unit, period: period%>
          <% end %>
       <% end %>
       </tbody>

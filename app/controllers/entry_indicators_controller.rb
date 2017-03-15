@@ -30,20 +30,20 @@ class EntryIndicatorsController < ApplicationController
 
   def update_entry
     @entry_indicators_cumplimented = @employess_cumplimented = true
-    unless params[:change_staff]
+    if params[:change_staff]
+      @change_staff = true
+    else
       params.keys.each do |key|
         case key
-        when 'Indicator', 'Unit'
-          @employess_cumplimented = assigned_employees_update(key, params[key])
-        when 'IndicatorMetric'
+            when 'Indicator', 'Unit'
+            @employess_cumplimented = assigned_employees_update(key, params[key])
+            when 'IndicatorMetric'
             @entry_indicators_cumplimented = update_indicator_metrics(params[key])
-        else
-            flash[:error] = t('entry_indicators.updates.no_key')
+            else
+          flash[:error] = t('entry_indicators.updates.no_key')
         end
       end
-    else
-      @change_staff = true
-     end
+    end
     @input_error = validate_input
   end
 
