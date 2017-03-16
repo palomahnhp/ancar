@@ -3,7 +3,7 @@ class AssignedEmployeesChange < ActiveRecord::Base
   belongs_to :unit
 
   scope :not_verified,  -> { where(:verified_at => nil) }
-  scope :verified,      -> { where(:verified_at => !nil) }
+#  scope :verified,      -> { where(:verified_at => !nil) }
 
   def self.unit_justified(unit_id, period_id)
     AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0

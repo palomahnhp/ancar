@@ -52,7 +52,7 @@ DatabaseCleaner.clean_with :truncation
   OfficialGroup.create!(name: "A2", description: "Grupo A2")
   OfficialGroup.create!(name: "C1", description: "Grupo C1")
   OfficialGroup.create!(name: "C2", description: "Grupo C2")
-  OfficialGroup.create!(name: "E",  description: "Grupo E")
+  OfficialGroup.create!(name: "Agrup.",  description: "Agrupación de Categorias Profesionales")
 
 # puts "Cargando SummaryTypes y TotalIndicatorTypes
   process     = Item.create!(item_type: "summary_type", description: "Proceso", updated_by: "initialize")

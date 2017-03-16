@@ -38,31 +38,4 @@ class AssignedEmployee < ActiveRecord::Base
   def self.staff_quantity(type, unit_id)
      where(staff_of_type: type.class.name, staff_of: type.id, unit_id: unit_id).sum(:quantity)
   end
-
-  def self.update(period, unit, type, process, current_user)
-    employess_cumplimented = true
-    process.each do |pr|
-      grupos = pr[1]
-      process_id = pr[0].to_i
-      if type == "Unit"
-        type = "UnitJustified"
-      end
-      grupos.keys.each do |grupo|
-        quantity = grupos[grupo]
-        official_group_id = OfficialGroup.find_by_name(grupo).id
-
-        if quantity.empty?
-          employess_cumplimented = false
-          AssignedEmployee.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period.id, unit_id: unit.id).delete_all
-        else
-          ae = AssignedEmployee.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period.id, unit_id: unit.id)
-          ae.quantity = quantity
-          ae.updated_by = current_user.login
-          ae.save
-        end
-      end
-    end
-    return employess_cumplimented
-  end
-
 end
