@@ -118,5 +118,9 @@ require 'rails_helper'
         end
       end
     end
+
+    describe 'Validations' do
+      it
+    end
   end
 

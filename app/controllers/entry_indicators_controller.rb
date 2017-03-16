@@ -11,6 +11,8 @@ class EntryIndicatorsController < ApplicationController
   def updates
     if params[:justification].present?
       change_staff
+    elsif params[:delete_justification].present?
+      delete_change
     else
       update_entry
     end
@@ -28,6 +30,10 @@ class EntryIndicatorsController < ApplicationController
     AssignedEmployeesChange.update(@period, @unit, params[:justification], current_user)
   end
 
+  def delete_change
+    AssignedEmployeesChange.where(period: @period, unit: @unit).delete_allALL
+  end
+
   def update_entry
     @entry_indicators_cumplimented = @employess_cumplimented = true
     if params[:change_staff]
@@ -36,11 +42,11 @@ class EntryIndicatorsController < ApplicationController
       params.keys.each do |key|
         case key
             when 'Indicator', 'Unit'
-            @employess_cumplimented = assigned_employees_update(key, params[key])
+              @employess_cumplimented = assigned_employees_update(key, params[key])
             when 'IndicatorMetric'
-            @entry_indicators_cumplimented = update_indicator_metrics(params[key])
+              @entry_indicators_cumplimented = update_indicator_metrics(params[key])
             else
-          flash[:error] = t('entry_indicators.updates.no_key')
+              flash[:error] = t('entry_indicators.updates.no_key')
         end
       end
     end
@@ -97,20 +103,20 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def validate_input
-    @errors_in_out_stock  = SubProcess.validate_in_out_stock(@period, @unit)
+    @errors_in_out_stock  = SubProcess.validate_in_out_stock(@period, @unit)  if params[:close_entry].present?
     @groups_excedeed      = AssignedEmployee.exceeded_staff_for_unit(@period, @unit)
-    @entry_incomplete     = entry_incompleted?
+    @entry_incomplete     = entry_incompleted?  if params[:close_entry].present?
     @entry_without_staff  = Indicator.validate_staff_for_entry(@period, @unit)
-    @no_change_unit_staff    = change_unit_staff?
-    return @change_staff || @groups_excedeed.present? || @entry_incomplete || @errors_in_out_stock.present? || @entry_without_staff.present?
+    @no_changes_unit_staff = changed_unit_staff?
+    return @no_changes_unit_staff || @change_staff || @groups_excedeed.present? || @entry_incomplete || @errors_in_out_stock.present? || @entry_without_staff.present?
   end
 
   def entry_incompleted?
-    !(@entry_indicators_cumplimented && @employess_cumplimented) if params[:close_entry].present?
+    !(@entry_indicators_cumplimented && @employess_cumplimented)
   end
 
-  def change_unit_staff?
-    !AssignedEmployeesChange.where(period: @period, unit_id: @unit.id).empty?  && AssignedEmployee.where(period: @period, unit_id: @unit.id).empty?
+  def changed_unit_staff?
+    (!AssignedEmployeesChange.where(period: @period, unit_id: @unit.id).empty?  && AssignedEmployee.where(staff_of_type: 'UnitJustified', period: @period, unit_id: @unit.id).empty?) if params[:close_entry].present?
   end
 
   def assigned_employees_update(type, process)

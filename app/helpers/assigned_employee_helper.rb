@@ -50,7 +50,7 @@ module AssignedEmployeeHelper
   end
 
   def justification_verified?(unit_id, period_id)
-    AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).not_verified.count == 0
+    @justification_verified ||= AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).not_verified.count == 0
   end
 
   def  justification_text(unit_id, period_id)

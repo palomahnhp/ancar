@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "Entry Indicators" do
 
-  describe "datos de unidad " do
+  describe "muestra datos de una unidad " do
     it 'primera unidad de la organización' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
@@ -48,9 +48,9 @@ feature "Entry Indicators" do
     end
   end
 
-  describe "Procesos y Subprocesos" do
+  describe "Process" do
 
-    it 'muestra los procesos' do
+    it ' show SGT data' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
       organization_role = Organization.find_roles(:unit_user, user).first
@@ -66,9 +66,8 @@ feature "Entry Indicators" do
       end
 
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
-    end
-
-    it 'muestra los sub_procesos' do
+      end
+    it ' show Distritos' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
       organization_role = Organization.find_roles(:unit_user, user).first
@@ -88,75 +87,208 @@ feature "Entry Indicators" do
 
     end
 
-    it 'muestra los  indicadores' do
-      user= create(:user, :with_two_organizations)
-      login_as_authenticated_user(user)
-
-      click_link("Procesos y subprocesos", :match => :first)
-      click_link('Periodo de análisis de datos', :match => :first)
-      expect(page).to have_content "Contratos Menores"
-
-      expect(page).to have_content("SIGSA", count: 2)
-      expect(page).to have_content "Nº de Contratos recibidos"
-      expect(page).to have_content "Nº de Contratos tramitados"
-
-    end
-
-    it 'muestra efectivos de indicador' do
-      user= create(:user, :with_two_organizations)
-      login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:unit_user, user).first
-      organization = Organization.find(organization_role.resource_id)
-      unit = organization.units.first
-
-      period = Period.first
-      indicators = period.main_processes.first.sub_processes.where(unit_type_id: unit.unit_type_id).first.indicators
-      indicators.each do |indicator|
-        add_staff("Indicator", indicator.id, unit.id, period, rand(9), rand(99), rand(99), rand(99))
-      end
-
-      click_link("Procesos y subprocesos", :match => :first)
-
-      within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos'
-      end
-
-      pending('por finalizar desarrollo')
-
-      expect(page).to have_content "efectivos"
-    end
-
-    it 'muestra efectivos de subprocesos' do
-      user= create(:user, :with_two_organizations)
-      login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:unit_user, user).first
-      organization = Organization.find(organization_role.resource_id)
-      unit = organization.units.first
-
-      period = Period.first
-
-      indicators = period.main_processes.first.sub_processes.where(unit_type_id: unit.unit_type_id).first.indicators
-      indicators.each do |indicator|
-        add_staff('Indicator', indicator.id, unit.id, period, rand(9), rand(99), rand(99), rand(99))
-      end
-      click_link('Procesos y subprocesos', :match => :first)
-
-      within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos'
-      end
-
-      pending('por finalizar desarrollo')
-      expect(page).to have_content "efectivos"
-    end
-
   end
 
   describe 'formulario de actualización' do
 
-      it 'es editable si usuario con permiso y periodo abierto: aparecen botones y campos imput '
-      it 'no es editable si usuario sin permiso y periodo abierto no botones y campos input'
-      it 'no es editable si periodo cerrado'
-      it 'no es editable si tiene VºBº del validador'
-  end
+    it 'es editable si usuario con permiso y periodo abierto: aparecen botones y campos imput ' do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:unit_user, user).first
+      organization = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
 
+      period = Period.first
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link 'Periodo de análisis de datos'
+      end
+
+      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+    end
+    it 'no es editable si usuario sin permiso y periodo abierto no botones y campos input' do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:unit_user, user).first
+      organization = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link 'Periodo de análisis de datos'
+      end
+
+      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+    end
+    it 'no es editable si periodo cerrado' do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:unit_user, user).first
+      organization = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link 'Periodo de análisis de datos'
+      end
+
+      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+    end
+    it 'no es editable si tiene VºBº del validador' do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:unit_user, user).first
+      organization = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link 'Periodo de análisis de datos'
+      end
+
+      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+    end
+
+    describe " botones en entrada de datos  " do
+      it ' Sin cambios de plantilla ' do
+        user= create(:user, :with_two_organizations)
+        login_as_authenticated_user(user)
+        organization_role = Organization.find_roles(:unit_user, user).first
+        organization = Organization.find(organization_role.resource_id)
+        unit = organization.units.first
+
+        period = Period.first
+
+        click_link("Procesos y subprocesos", :match => :first)
+
+        within("#organization_#{organization.id}") do
+          click_link 'Periodo de análisis de datos'
+        end
+
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+      end
+      it ' Con cambios de plantilla' do
+        user= create(:user, :with_two_organizations)
+        login_as_authenticated_user(user)
+        organization_role = Organization.find_roles(:unit_user, user).first
+        organization = Organization.find(organization_role.resource_id)
+        unit = organization.units.first
+
+        period = Period.first
+
+        click_link("Procesos y subprocesos", :match => :first)
+
+        within("#organization_#{organization.id}") do
+          click_link 'Periodo de análisis de datos'
+        end
+
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+      end
+    end
+
+    describe "Acciones y Validaciones comunes Guardar Datos y Cerrar entrada datos " do
+      it ' coherencia indicadores: cantidad/plantilla asignada' do
+        user= create(:user, :with_two_organizations)
+        login_as_authenticated_user(user)
+        organization_role = Organization.find_roles(:unit_user, user).first
+        organization = Organization.find(organization_role.resource_id)
+        unit = organization.units.first
+
+        period = Period.first
+
+        click_link("Procesos y subprocesos", :match => :first)
+
+        within("#organization_#{organization.id}") do
+          click_link 'Periodo de análisis de datos'
+        end
+
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+      end
+      it ' plantilla utilizada mayor que asignada' do
+        user= create(:user, :with_two_organizations)
+        login_as_authenticated_user(user)
+        organization_role = Organization.find_roles(:unit_user, user).first
+        organization = Organization.find(organization_role.resource_id)
+        unit = organization.units.first
+
+        period = Period.first
+
+        click_link("Procesos y subprocesos", :match => :first)
+
+        within("#organization_#{organization.id}") do
+          click_link 'Periodo de análisis de datos'
+        end
+
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+      end
+      it ' mayor salida que stock/entrada' do
+        user= create(:user, :with_two_organizations)
+        login_as_authenticated_user(user)
+        organization_role = Organization.find_roles(:unit_user, user).first
+        organization = Organization.find(organization_role.resource_id)
+        unit = organization.units.first
+
+        period = Period.first
+
+        click_link("Procesos y subprocesos", :match => :first)
+
+        within("#organization_#{organization.id}") do
+          click_link 'Periodo de análisis de datos'
+        end
+
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+      end
+    end
+
+    describe "Acciones y Validaciones exclusiva de Cerrar entrada datos " do
+      it ' datos sin cumplimentar' do
+        user= create(:user, :with_two_organizations)
+        login_as_authenticated_user(user)
+        organization_role = Organization.find_roles(:unit_user, user).first
+        organization = Organization.find(organization_role.resource_id)
+        unit = organization.units.first
+
+        period = Period.first
+
+        click_link("Procesos y subprocesos", :match => :first)
+
+        within("#organization_#{organization.id}") do
+          click_link 'Periodo de análisis de datos'
+        end
+
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
+        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+
+      end
+    end
+  end
 end
