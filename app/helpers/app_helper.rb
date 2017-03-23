@@ -48,6 +48,7 @@ module AppHelper
   end
 
   def format_number(num)
+    num = 0 if num.nil?
     number_to_currency(num, {:unit => '', :separator => ',', :delimiter =>
   '.', :precision => 2})
   end

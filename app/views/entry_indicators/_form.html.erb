@@ -31,7 +31,9 @@
               <th><strong><%= t("entry_indicators.form.indicator.#{process_name(@period, 'indicators')}") %> </strong></th>
               <th><strong><%= t("entry_indicators.form.metric") %></strong></th>
               <th colspan="6"><strong><%= t("entry_indicators.form.source") %></strong></th>
-              <%= render 'staff', of: 'Indicator', type: 'header' %>
+              <% official_groups.each do |gr| %>
+                  <th class="text-center"><%= gr.name %></th>
+              <% end %>
               <th class="text-center amount"><strong><%= t('.amount') %></strong></th>
             </tr>
           </thead>

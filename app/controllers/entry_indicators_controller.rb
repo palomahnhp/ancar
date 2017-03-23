@@ -17,7 +17,7 @@ class EntryIndicatorsController < ApplicationController
       update_entry
     end
 
-    if @input_error || has_justification? #|| params[:justification]
+    if @input_error || has_justification?
       render :index
     else
       flash[:notice] = t('entry_indicators.updates.success')
