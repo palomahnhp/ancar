@@ -8,10 +8,10 @@
   <% OfficialGroup.all.each do |gr| %>
       <td>
         <% unless justification_verified?(unit.id, period.id) %>
-          <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", get_staff("UnitJustified", process, gr, unit, period),
+          <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", display_staff('UnitJustified', process, unit, period, gr.id, 4),
                            class: "input_staff", placeholder: gr.name) %>
         <% else %>
-          <%= get_staff("UnitJustified", process, gr, unit, period) %>
+          <%= get_staff("UnitJustified", process, unit, period) %>
         <% end %>
       </td>
   <% end %>

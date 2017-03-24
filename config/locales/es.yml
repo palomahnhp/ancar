@@ -60,7 +60,7 @@ es:
           entry_without_staff:  "Inconsistencia entre cantidades/puestos de indicadores/tareas"
           no_change_staff: "¿Deseas cancelar el cambio de la plantilla?"
         p1:
-          change_staff: "La plantilla asignada a los subprocesos/procesos supera la plantilla asignada a esta unidad para:"
+          change_staff: "Para cambiar la plantilla asignada a una unidad se debe justificar previamente"
           groups_excedeed: "La plantilla asignada a los subprocesos/procesos supera la plantilla asignada a esta unidad para:"
           errors_in_out_stock: "Es mayor la cantidad cumplimentada en los indicadores/tareas de salida que en los de entrada: %{sub_process}"
           entry_incomplete: "Error al cerrar la entrada de datos: faltan indicadores por cumplimentar (efectivos o cantidad)."
@@ -69,7 +69,7 @@ es:
         p2:
           change_staff_html: "Pulsa el botón <strong><em style='color=blue'> Justificar cambio</em></strong>, para añadir una justificación y posteriormente realizar los cambios de la plantilla. Estos cambios quedarán pendientes de verificación por el supervisor."
           groups_excedeed_html: "Si se trata de un <strong>error</strong> cierra la ventana, pulsando el aspa de la parte superior derecha y corrije los datos erróneos."
-          no_change_staff_html: "Pulse <strong><em>Eliminar justificación</em></strong> para realizar el cambio o <strong><em>Cancelar</strong></em> si no desea harcelo, en este caso se eliminará la justificación proporcionada con anterioridad"
+          no_change_staff_html: "Pulse <strong><em>Continuar</em></strong> si aún desea realizar el cambio o <strong><em>Eliminar justificación</strong></em> si no desea harcelo, en este caso se eliminará la justificación proporcionada con anterioridad"
         p3:
           groups_excedeed_html: "Si no es un error y la plantilla que ha participado en los procesos de la unidad es mayor a la indicada en el cuadro <strong><em> 'Puestos ocupados a 31 de diciembre'</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em style='color=blue'> Cambiar plantilla</em></strong>, lo que permitirá modificar la plantilla de la unidad y añadir una justificación a dichos cambios. Estos cambios quedarán pendientes de verificación por el supervisor."
       button1: "Grabar datos"

@@ -37,14 +37,11 @@
 <div class="reveal-overlay" style="display:inline" >
   <div id="myModal" class="large reveal warning callout" data-open="myModal" aria-labelledby="modalTitle"
        aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
-    <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.change_staff")%> </h2>
     <%  case %>
     <% when  @change_staff %>
-        <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.change_staff")%> </h2>
-        <p class="lead"><%= t("entry_indicators.form.error.p1.change_staff")%>
-          <strong><%= @groups_excedeed %></strong>
-        </p>
-        <p><%= t("entry_indicators.form.error.p1.change_staff")%></p>
+        <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.change_staff")%></h2>
+        <p class="lead"><%= t("entry_indicators.form.error.p1.change_staff")%> </p>
+        <p><%= t("entry_indicators.form.error.p2.change_staff_html")%></p>
         <a class="hollow button" onclick="openJustification()"> <%= t("entry_indicators.form.validation_button.justificate") %></a>
         <a class="hollow button" onclick="closeModal()"> <%= t("entry_indicators.form.validation_button.cancel") %></a>
     <% when !@groups_excedeed.empty? %>
