@@ -31,7 +31,7 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def delete_change
-    AssignedEmployeesChange.where(period: @period, unit: @unit).delete_allALL
+    AssignedEmployeesChange.where(period: @period, unit: @unit).delete_all
   end
 
   def update_entry

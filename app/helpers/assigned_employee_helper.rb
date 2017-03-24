@@ -31,7 +31,7 @@ module AssignedEmployeeHelper
       ids = []
       ids <<  proc.id
     end
-    if type == 'Unit'
+    if type == 'Unit' || type == 'UnitJustified'
       @unit_assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id).order(:official_group_id).
           group(:staff_of_type, :official_group_id).
           pluck(:staff_of_type, :official_group_id, 0 , 'count(id)', 'sum(quantity)')
@@ -40,13 +40,17 @@ module AssignedEmployeeHelper
       elsif class_of == 'Assigned'
         return_array = @unit_assigned_employees.select{ |t| t[0] == 'Indicator'}
       end
-    else
-     @assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id).order(:official_group_id).
+    elsif type = 'Indicator'
+     @assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id, staff_of_type: 'Indicator').order(:official_group_id).
         group(:staff_of_id, :staff_of_type, :official_group_id).
         pluck(:staff_of_id, :staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)')
      return_array = @assigned_employees.select{ |t| ids.include?(t[0])  }
     end
      return return_array
+  end
+
+  def display_staff(of, process, unit, period, gr_id, pos, class_type = '')
+    get_staff(of, process, unit, period, class_type)[gr_id - 1].nil? ? nil : get_staff(of, process, unit, period, class_type )[gr_id - 1][pos]
   end
 
   def has_justification?(unit_id, period_id)
