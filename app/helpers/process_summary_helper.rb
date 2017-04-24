@@ -2,13 +2,13 @@ module ProcessSummaryHelper
   def summary_indicators(id)
     # noinspection RailsChecklist05
     ps = SummaryProcess.find_by(process_type: @type, process_id: id)
-    ps.summary_process_indicators.select(:indicator, :metric).distinct if !ps.nil?
+    ps.summary_process_indicators.select(:indicator, :metric).distinct unless ps.nil?
   end
 
   def summary_details(id)
     # noinspection RailsChecklist05
     ps = SummaryProcess.find_by(process_type: @type, process_id: id)
-    ps.summary_process_details.order(unit_id: :asc) if !ps.nil?
+    ps.summary_process_details.order(unit_id: :asc) unless ps.nil?
   end
 
   def distrito(id)

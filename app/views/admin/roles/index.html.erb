@@ -15,7 +15,7 @@
 
 <h3><%= page_entries_info @users, :entry_name => 'usuario' %></h3>
 
-<table id="managers">
+<table id="supervisors">
   <% @users.each do |user| %>
       <tr>
         <td>
@@ -32,21 +32,21 @@
         </td>
         <td class="text-right">
           <% if user.has_role? params[:role_name], :any %>
-              <%= link_to t("admin.roles.action.add_resource"),
-                          {controller: "admin/roles", action: :create, role_name: params[:role_name], user_id: user.id, add_resource: 'new' },
-                          method: :post, class: "button success hollow"
+              <%= link_to t('admin.roles.action.add_resource'),
+                          {controller: 'admin/roles', action: :create, role_name: params[:role_name], user_id: user.id, add_resource: 'new' },
+                          method: :post, class: 'button success hollow'
               %>
 
-              <%= link_to t("admin.roles.action.delete"),
+              <%= link_to t('admin.roles.action.delete'),
                           admin_role_path(user.roles.where(name: params[:role_name]).first, role_name: params[:role_name], user_id: user.id),
                           method: :delete,
-                          class: "button hollow alert"
+                          class: 'button hollow alert'
               %>
 
           <% else %>
-              <%= link_to t("admin.roles.action.add"),
-                          { controller: "admin/roles", action: :create, role_name: params[:role_name], user_id: user.id },
-                          method: :post, class: "button success hollow"
+              <%= link_to t('admin.roles.action.add'),
+                          {controller: 'admin/roles', action: :create, role_name: params[:role_name], user_id: user.id },
+                          method: :post, class: 'button success hollow'
               %>
           <% end %>
         </td>

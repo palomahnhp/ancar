@@ -1,0 +1,9 @@
+<%= render partial: 'supervisor/shared/header',
+           locals: {title: t("supervisor.main_processes.#{action_name}.title",
+                             process_name:t("supervisor.process_name.plural.#{process_name(@sub_process.main_process.period, controller_name)}")),
+                    button: nil, path: nil, modifiable: true,
+                    period: @sub_process.main_process.period, main_process: @sub_process.main_process,
+                    sub_process: @sub_process, indicator: nil, indicator_metric: nil  } %>
+<div class="small-12 column">
+  <%= render 'form' %>
+</div>

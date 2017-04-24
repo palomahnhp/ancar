@@ -165,7 +165,7 @@ puts '12. Creando usuarios '
                       uweb_id: rand(70000..90000), pernr: rand(70000..90000),
                       official_position: Faker::Company.profession)
 
-  user.add_role :manager
+  user.add_role :validator
   puts " #{user.login}"
 
   user = User.create!(login: 'VAL001', name: 'Usuario', surname: 'Validador', second_surname: 'Distrito 1',

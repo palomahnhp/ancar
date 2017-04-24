@@ -1,0 +1,56 @@
+<div class="expanded highlight padding">
+ <h3> <%= @organization_type.description %> / <%= @period.description %></h3>
+ <h4> <%= @main_process.item.description %></h4>
+ <h4> <%= @sub_process.item.description %></h4>
+</div>
+
+  <table>
+    <% @tasks.each do  |task|%>
+      <tr id="<%= dom_id(task) %>">
+        <td style="width: 50%">
+          <div class="admin-list small-12 medium14 column">
+            <%= # noinspection RailsChecklist05
+                Item.find(task.item_id).description %>
+          </div>
+        </td>
+        <td>
+          <div class="admin-list column">
+            <%= link_to  supervisor_indicators_path(commit: t('supervisor.tasks.index.submit'),
+                task_id: task.id,
+                sub_process_id: task.sub_process_id),
+              id: "index_#{task.id}",
+              class: 'button small float-right hollow' do %>
+              <span class="icon-tag"></span>
+                     <%= t('supervisor.tasks.index.indicators') %>
+            <% end %>
+          </div>
+        </td>
+        <td>
+          <% if task.modifiable? == true %>
+            <%= link_to edit_supervisor_task_path(task, period_id: params[:period_id],
+                  organization_type_id: params[:organization_type_id],
+                  main_process_id: params[:main_process_id],
+                  sub_process_id: params[:sub_process_id]),
+                id: "edit_#{task.id}",
+                class: 'button small float-right tiny hollow' do %>
+                <span class="icon-edit"></span>
+                <%= t('actions.edit') %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if task.modifiable? == true %>
+            <% msg = delete_msg(task.class.name.pluralize.underscore, task.sub_process.main_process.period.eliminable?,
+                                task.sub_process.main_process.period.modifiable?, task.is_empty? ) %>
+            <%= link_to supervisor_task_path(task), method: :delete,
+              data: {confirm: msg},
+                id: "delete_#{task.id}",
+                class: 'button small alert float-right tiny hollow' do %>
+                <span class="icon-box"></span>
+                <%= t('actions.delete') %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>

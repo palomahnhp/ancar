@@ -21,7 +21,7 @@ class Admin::RolesController < Admin::BaseController
       if @users
         format.js
       else
-        format.js { render "user_not_found" }
+        format.js { render 'user_not_found' }
       end
     end
   end
@@ -79,7 +79,7 @@ class Admin::RolesController < Admin::BaseController
     def scope_organization
       if params[:role_name] == 'unit_user' || params[:role_name] == 'validator'
         @user.organization
-      elsif params[:role_name] == 'manager'
+      elsif params[:role_name] == 'supervisor'
         @user.organization.nil? ? false : @user.organization.organization_type
       end
     end

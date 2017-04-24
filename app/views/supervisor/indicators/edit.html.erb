@@ -1,0 +1,12 @@
+<%= render partial: 'supervisor/shared/header',
+           locals: {title: t("supervisor.indicators.#{action_name}.title",
+                             process_name: t("supervisor.process_name.singular.#{process_name(@indicator.task.sub_process.main_process.period, controller_name)}")),
+                    button: t("supervisor.indicators.index.create#{process_name(@indicator.task.sub_process.main_process.period, controller_name)}"),
+                    path: nil,
+                    modifiable: @indicator.modifiable?,
+                    period: @indicator.task.sub_process.main_process.period,
+                    main_process: @indicator.task.sub_process.main_process, sub_process: @indicator.task.sub_process,
+                    indicator: @indicator, indicator_metric: nil } %>
+<div class="small-12 column">
+  <%= render 'form' %>
+</div>

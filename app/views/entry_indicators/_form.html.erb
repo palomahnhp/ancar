@@ -6,7 +6,7 @@
   <div class="row">
     <% if @period.open_entry? %>
       <%= hidden_field_tag(:delete_justification)  if @no_changes_unit_staff %>
-      <%= hidden_field_tag(:justification)  if @groups_excedeed %>
+      <%= hidden_field_tag(:justification)  if @groups_exceeded %>
       <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>
@@ -29,8 +29,8 @@
           <thead>
             <tr>
               <th><strong><%= t("entry_indicators.form.indicator.#{process_name(@period, 'indicators')}") %> </strong></th>
-              <th><strong><%= t("entry_indicators.form.metric") %></strong></th>
-              <th colspan="6"><strong><%= t("entry_indicators.form.source") %></strong></th>
+              <th><strong><%= t('entry_indicators.form.metric') %></strong></th>
+              <th colspan="6"><strong><%= t('entry_indicators.form.source') %></strong></th>
               <% official_groups.each do |gr| %>
                   <th class="text-center"><%= gr.name %></th>
               <% end %>

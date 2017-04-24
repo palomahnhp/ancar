@@ -11,7 +11,7 @@ class Indicator < ActiveRecord::Base
   has_many :sources, through: :indicator_sources
 
   belongs_to :task
-  belongs_to :item, -> { where item_type: "indicator" }
+  belongs_to :item, -> { where item_type: 'indicator' }
 
   validates :item_id, presence: true
   validates :order, presence: true
@@ -56,6 +56,10 @@ class Indicator < ActiveRecord::Base
       amount += indicator_metric.amount(unit_id)
     end
     return amount
+  end
+
+  def self.description(id)
+    Indicator.find(id).item.description
   end
 
   def self.validate_staff_for_entry(period, unit)

@@ -1,48 +1,46 @@
 <div class="staff">
-   <% unless of == 'Indicator'  %>
-      <table id='<%= "staff_#{of}" %>', class="margin text-center" >
-        <thead>
-          <tr>
-            <% official_groups.each do |gr| %>
-                <th class="text-center"><%= gr.name %></th>
-            <% end %>
-          </tr>
-          <tr>
-            <th class="text-center" colspan="5"> <%= (t("entry_indicators.staff.title.#{process_name(@period, of)}")) %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <% official_groups.each do |gr| %>
-                <td>  <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, 4)) %></strong>  </td>
-            <% end %>
-          </tr>
-          <% if of == 'Unit' %>
-            <th class="text-center" colspan="5"> Puestos asignados a procesos</th>
-            <tr>
-              <% official_groups.each do |gr| %>
-                  <td>  <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, 4, 'Assigned')) %></strong>  </td>
-            <% end %>
-            </tr>
-            <% if input_staff_visible?(process.id, period.id) %>
-                <%= render 'real_staff', process: unit, unit: unit, period: period %>
-            <% end %>
-
-          <% end %>
-        </tbody>
-      </table>
-      <% else %>
-        <% official_groups.each do |gr| %>
-          <td>
-            <% if @period.open_entry? %>
-              <%= text_field_tag("Indicator[#{process.id}][#{gr.name}]", display_staff(of, process, unit, period, gr.id, 4),
-                                     class: "inline group", placeholder: gr.name) %>
-              <% else %>
-                <%=  format_number(display_staff(of, process, unit, period, gr.id, 4 )) %>
-            <% end %>
-         </td>
+  <% if of == 'Indicator'  %>
+    <% official_groups.each do |gr| %>
+      <td>
+        <% if @period.open_entry? %>
+            <%= text_field_tag("Indicator[#{process.id}][#{gr.name}]", display_staff(of, process, unit, period, gr.id, 4),
+                               class: 'inline group', placeholder: gr.name) %>
+        <% else %>
+            <%=  format_number(display_staff(of, process, unit, period, gr.id, 4 )) %>
         <% end %>
-   <% end %>
+      </td>
+    <% end %>
+  <% else %>
+    <table id="staff_<%=of%>", class="margin text-center" >
+      <thead>
+        <tr>
+          <% official_groups.each do |gr| %>
+              <th class="text-center"><%= gr.name %></th>
+          <% end %>
+        </tr>
+        <tr>
+          <th class="text-center" colspan="5"> <%= (t("entry_indicators.staff.title.#{process_name(@period, of)}")) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% official_groups.each do |gr| %>
+              <td>  <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, 4)) %></strong>  </td>
+          <% end %>
+        </tr>
+        <% if of == 'Unit' %>
+          <th class="text-center" colspan="5"> <%= t('entry_indicators.staff.process_staff') %></th>
+          <tr>
+            <% official_groups.each do |gr| %>
+                <td> <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, 4, 'Assigned')) %></strong>  </td>
+          <% end %>
+          </tr>
+          <% if input_staff_visible?(process.id, period.id) %>
+              <%= render 'real_staff', process: unit, unit: unit, period: period %>
+          <% end %>
 
-
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>

@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
   has_many :indicators, :dependent => :destroy
   belongs_to :sub_process
-  belongs_to :item, -> { where item_type: "task" }
+  belongs_to :item, -> { where item_type: 'task' }
 
   validates :sub_process_id, presence: true
   validates :item_id, presence: true

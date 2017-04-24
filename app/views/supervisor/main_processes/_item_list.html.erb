@@ -1,0 +1,54 @@
+  <table id="main_processes_list">
+    <% @main_processes.each do  |main_process|%>
+      <% if @organization_before.nil? || @organization_before != main_process.organization_group %>
+          <tr>
+            <td class="expanded highlight">
+              <%= main_process.organization_group %>
+            </td>
+            <td class="expanded highlight"></td>
+            <td class="expanded highlight"></td>
+            <td class="expanded highlight"></td>
+          </tr>
+          <% @organization_before = main_process.organization_group %>
+      <% end %>
+
+      <tr id="<%= dom_id(main_process) %>">
+        <td>
+          <div class="admin-list small-12 medium-14 column">
+            <%= main_process.order %>. <%= main_process.item.description %>
+          </div>
+        </td>
+        <td>
+          <%= link_to supervisor_sub_processes_path(commit: t('supervisor.main_processes.index.submit'),
+              main_process_id: main_process.id),
+              id: "index_#{main_process.id}",
+              class: 'button small float-right hollow' do %>
+                <span class="icon-tag"></span>
+                <%= t('supervisor.main_processes.index.sub_processes',
+                      process_name: t("supervisor.process_name.plural.#{process_name(@period, 'SubProcesses')}")) %>
+          <% end %>
+        </td>
+        <td>
+          <% if main_process.modifiable? == true %>
+            <%= link_to edit_supervisor_main_process_path(main_process),
+                id: "edit_#{main_process.id}",
+                class: 'button small float-right hollow' do %>
+                  <span class="icon-edit"></span>
+                  <%= t('actions.edit') %>
+                <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if main_process.modifiable? == true %>
+            <% msg = delete_msg(main_process.class.name.pluralize.underscore, main_process.eliminable?, main_process.modifiable?, main_process.is_empty? ) %>
+            <%= link_to supervisor_main_process_path(main_process),
+                        method: :delete, data: {confirm: msg}, id: "delete_#{main_process.id}",
+                        class: 'button small alert float-right hollow' do %>
+                          <span class="icon-box"></span>
+                          <%= t('actions.delete') %>
+                        <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>

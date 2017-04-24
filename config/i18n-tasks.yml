@@ -23,7 +23,7 @@ data:
     # - "<%#= %x[bundle show vagrant].chomp %>/templates/locales/%{locale}.yml"
     - config/locales/%{locale}.yml
     - config/locales/admin.%{locale}.yml
-    - config/locales/manager.%{locale}.yml
+    - config/locales/supervisor.%{locale}.yml
 
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
   # `i18n-tasks normalize -p` will force move the keys according to these rules
@@ -99,7 +99,7 @@ ignore_unused:
   - 'helpers.page_entries_info.*' # kaminari
   - 'views.pagination.*' # kaminari
   - 'shared.suggest.*'
-  - 'manager.process_name.*'
+  - 'supervisor.process_name.*'
   - 'entry_indicators.staff.title.*'
   - 'entry_indicators.form.indicator.*'
   - 'entry_indicators.form.indicator.*'

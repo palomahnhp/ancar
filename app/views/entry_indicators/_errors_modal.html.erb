@@ -1,106 +1,103 @@
 <script>
     function setJustification(){
-        $("#justification").attr('value', $("#input_justification").val())
-        $("#change_staff").attr('value', 'change staff')
-        $("#justifyModal").hide()
-        $(".reveal-overlay").hide()
-        $("#entryIndicatorsForm").submit()
+        $("#justification").attr('value', $("#input_justification").val());
+        $("#change_staff").attr('value', 'change staff');
+        $("#justifyModal").hide();
+        $(".reveal-overlay").hide();
+        $("#entryIndicatorsForm").submit();
     }
 
     function deleteJustification(){
-        $("#delete_justification").attr('value', true)
-        $("#justifyModal").hide()
-        $(".reveal-overlay").hide()
-        $("#entryIndicatorsForm").submit()
+        $("#delete_justification").attr('value', true);
+        $("#justifyModal").hide();
+        $(".reveal-overlay").hide();
+        $("#entryIndicatorsForm").submit();
     }
 
     function openJustification() {
-        $("#myModal").hide()
-        $("#justifyModal").show()
-    }
-
-    function openIncomplete() {
-        $("#entryIncompleteModal").show()
+        $("#myModal").hide();
+        $("#justifyModal").show();
     }
 
     function closeModal() {
-        $("#myModal").hide()
-        $(".reveal-overlay").hide()
+        $("#myModal").hide();
+        $(".reveal-overlay").hide();
     }
 
     function closeJustification() {
-        $("#myModal").hide()
-        $(".reveal-overlay").hide()
+        $("#myModal").hide();
+        $(".reveal-overlay").hide();
     }
 </script>
 
 <div class="reveal-overlay" style="display:inline" >
   <div id="myModal" class="large reveal warning callout" data-open="myModal" aria-labelledby="modalTitle"
        aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
-    <%  case %>
+    <% case %>
     <% when  @change_staff %>
-        <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.change_staff")%></h2>
-        <p class="lead"><%= t("entry_indicators.form.error.p1.change_staff")%> </p>
-        <p><%= t("entry_indicators.form.error.p2.change_staff_html")%></p>
-        <a class="hollow button" onclick="openJustification()"> <%= t("entry_indicators.form.validation_button.justificate") %></a>
-        <a class="hollow button" onclick="closeModal()"> <%= t("entry_indicators.form.validation_button.cancel") %></a>
-    <% when !@groups_excedeed.empty? %>
-      <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.groups_excedeed")%> </h2>
-      <p class="lead"><%= t("entry_indicators.form.error.p1.groups_excedeed")%>
-        <strong><%= @groups_excedeed %></strong>
+        <h2 id="modalTitle"><%= t('entry_indicators.form.error.title.change_staff')%></h2>
+        <p class="lead"><%= t('entry_indicators.form.error.p1.change_staff')%> </p>
+        <p><%= t('entry_indicators.form.error.p2.change_staff_html')%></p>
+        <a class="hollow button" onclick="openJustification()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
+        <a class="hollow button" onclick="closeModal()"> <%= t('entry_indicators.form.validation_button.cancel') %></a>
+    <% when !@groups_exceeded.empty? %>
+      <h2 id="modalTitle"><%= t('entry_indicators.form.error.title.groups_exceeded')%> </h2>
+      <p class="lead"><%= t('entry_indicators.form.error.p1.groups_exceeded')%>
+        <strong><%= @groups_exceeded %></strong>
       </p>
-      <% unless has_justification?(@unit.id, @period.id) %>
-          <p><%= t("entry_indicators.form.error.p2.groups_excedeed_html")%></p>
-          <p><%= t('entry_indicators.form.error.p3.groups_excedeed_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
-          <a class="hollow button" onclick="openJustification()"> <%= t("entry_indicators.form.validation_button.justificate") %></a>
-          <a class="hollow button" onclick="closeModal()"> <%= t("entry_indicators.form.validation_button.cancel") %></a>
-      <% else %>
-          <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
-            <span aria-hidden="true"><%= t("entry_indicators.form.validation_button.close") %></span>
-          </button>
-      <% end %>
-    <% when @entry_incomplete %>
-        <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.entry_incomplete") %></h2>
-        <p> <%= t("entry_indicators.form.error.p1.entry_incomplete") %> </p>
+
+      <% if has_justification?(@unit.id, @period.id) %>
         <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
-          <span aria-hidden="true"><%= t("entry_indicators.form.validation_button.close") %></span>
+          <span aria-hidden="true"><%= t('entry_indicators.form.validation_button.close') %></span>
+        </button>
+      <% else %>
+        <p><%= t('entry_indicators.form.error.p2.groups_exceeded_html')%></p>
+        <p><%= t('entry_indicators.form.error.p3.groups_exceeded_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
+        <a class="hollow button" onclick="openJustification()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
+        <a class="hollow button" onclick="closeModal()"> <%= t('entry_indicators.form.validation_button.cancel') %></a>
+  <% end %>
+    <% when @entry_incomplete %>
+        <h2 id="modalTitle"><%= t('entry_indicators.form.error.title.entry_incomplete') %></h2>
+        <p> <%= t('entry_indicators.form.error.p1.entry_incomplete') %> </p>
+        <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
+          <span aria-hidden="true"><%= t('entry_indicators.form.validation_button.close') %></span>
         </button>
     <% when !@entry_without_staff.empty? %>
-        <h2 id="modalTile"><%= t("entry_indicators.form.error.title.entry_without_staff") %></h2>
-        <p> <%= t("entry_indicators.form.error.p1.entry_without_staff", indicator: entry_staff_error) %></p>
+        <h2 id="modalTile"><%= t('entry_indicators.form.error.title.entry_without_staff') %></h2>
+        <p> <%= t('entry_indicators.form.error.p1.entry_without_staff', indicator: entry_staff_error) %></p>
         <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
-          <span aria-hidden="true"><%= t("entry_indicators.form.validation_button.close") %></span>
+          <span aria-hidden="true"><%= t('entry_indicators.form.validation_button.close') %></span>
         </button>
     <% when !@errors_in_out_stock.empty? %>
-        <h2 id="modalTile"><%= t("entry_indicators.form.error.title.errors_in_out_stock") %></h2>
-        <p> <%= t("entry_indicators.form.error.p1.errors_in_out_stock", sub_process: in_out_error) %></p>
+        <h2 id="modalTile"><%= t('entry_indicators.form.error.title.errors_in_out_stock') %></h2>
+        <p> <%= t('entry_indicators.form.error.p1.errors_in_out_stock', sub_process: in_out_error) %></p>
         <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
-        <span aria-hidden="true"><%= t("entry_indicators.form.validation_button.close") %></span>
+        <span aria-hidden="true"><%= t('entry_indicators.form.validation_button.close') %></span>
         </button>
     <% when @no_changes_unit_staff %>
-        <h2 id="modalTitle"><%= t("entry_indicators.form.error.title.no_change_staff")%> </h2>
-        <p class="lead"><%= t("entry_indicators.form.error.p1.no_change_staff")%></p>
-        <p class="lead"><%= t("entry_indicators.form.error.p2.no_change_staff_html")%></p>
+        <h2 id="modalTitle"><%= t('entry_indicators.form.error.title.no_change_staff')%> </h2>
+        <p class="lead"><%= t('entry_indicators.form.error.p1.no_change_staff')%></p>
+        <p class="lead"><%= t('entry_indicators.form.error.p2.no_change_staff_html')%></p>
 
-        <a class="hollow button" onclick="deleteJustification()"> <%= t("entry_indicators.form.validation_button.delete_justification") %></a>
-        <a class="hollow button" onclick="closeModal()"> <%= t("entry_indicators.form.validation_button.continue") %></a>
+        <a class="hollow button" onclick="deleteJustification()"> <%= t('entry_indicators.form.validation_button.delete_justification') %></a>
+        <a class="hollow button" onclick="closeModal()"> <%= t('entry_indicators.form.validation_button.continue') %></a>
     <% end %>
     <button class="close-button" onclick="closeModal()" aria-label="Close modal" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="secondary callout reveal" id="justifyModal" >
-    <h2><%= t("entry_indicators.form.update.justification.title") %></h2>
+    <h2><%= t('entry_indicators.form.update.justification.title') %></h2>
     <button class="close-button" onclick="closeJustification()" aria-label="Close reveal" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
 
     <form name="justificationForm">
-        <textarea name="input_justification" id="input_justification" placeholder="<%= t("entry_indicators.form.update.justification.label") %>" rows="4" >
+        <textarea name="input_justification" id="input_justification" placeholder="<%= t('entry_indicators.form.update.justification.label') %>" rows="4" >
           <%=  justification_text(@unit.id, @period.id) %>
         </textarea>
-      <a class="hollow button" onclick="setJustification()"><%= t("entry_indicators.form.validation_button.justificate") %></a>
-      <a class="hollow button" onclick="closeJustification()"><%= t("entry_indicators.form.validation_button.cancel") %></a>
+      <a class="hollow button" onclick="setJustification()"><%= t('entry_indicators.form.validation_button.justificate') %></a>
+      <a class="hollow button" onclick="closeJustification()"><%= t('entry_indicators.form.validation_button.cancel') %></a>
     </form>
   </div>
 </div>

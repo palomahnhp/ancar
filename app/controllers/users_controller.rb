@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user.surname = user[:apellido1_usuario]
     @user.second_surname = user[:apellido2_usuario]
     @user.document_number = user[:dni]
-    @user.document_type = " "
+    @user.document_type = ' '
     @user.phone = user[:telefono]
     @user.pernr = user[:numero_personal]
     @user.email = user[:mail]

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="small-12 columns">
-    <h2><%= t("admin.users.edit.title") %></h2>
+    <h2><%= t('admin.users.edit.title') %></h2>
   </div>
 </div>
 
@@ -22,18 +22,18 @@
 
 
     <div class="row">
-    <br>
-    <table>
+      <br>
+      <table>
       <tr>
-        <td><%= t("admin.users.edit.position") %></td>
+        <td><%= t('admin.users.edit.position') %></td>
         <td>  <strong><%= @user.official_position %> </strong></td>
       </tr>
       <tr>
-        <td> <%= t("admin.users.edit.unit") %> </td>
+        <td> <%= t('admin.users.edit.unit') %> </td>
         <td> <strong><%= @user.organization_description %> </strong> </td>
       </tr>
       <tr>
-        <td> <%= t("admin.users.edit.phone") %> </td>
+        <td> <%= t('admin.users.edit.phone') %> </td>
         <td> <strong><%= @user.phone %> </strong> </td>
       </tr>
       <tr>
@@ -41,17 +41,17 @@
         <td> <strong><%= @user.email %> </strong> </td>
       </tr>
       <tr>
-        <td> <%= t("admin.users.edit.created_at") %> </td>
+        <td> <%= t('admin.users.edit.created_at') %> </td>
         <td> <strong><%= @user.created_at %> </strong> </td>
       </tr>
       <tr>
-        <td> <%= t("admin.users.edit.status") %> </td>
-        <td class="red" <%= @user.status.downcase %>"> <%= @user.status %> </td>
+        <td> <%= t('admin.users.edit.status') %> </td>
+        <td class="red <%= @user.status.downcase" %>> <%= @user.status %> </td>
       </tr>
 
       <% unless @user.inactivated_at.nil? %>
         <tr>
-          <td> <%= t("admin.users.edit.inactivated_at") %> </td>
+          <td> <%= t('admin.users.edit.inactivated_at') %> </td>
           <td> <strong><%= @user.inactivated_at %> </strong> </td>
         </tr>
       <% end %>
@@ -60,7 +60,6 @@
        <%= render 'admin/shared/roles' %>
       <% end %>
     </table>
-  </div>
+    </div>
 
-</div>
 <% end %>

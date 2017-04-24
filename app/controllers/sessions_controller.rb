@@ -1,21 +1,21 @@
-require "uweb_authenticator"
+require 'uweb_authenticator'
 class SessionsController < ApplicationController
 
   def create
     destroy_session
     if authenticated_uweb?
-      Rails.logger.info { "  INFO - SessionControler#create: Sesión creada - #{params}" }
+      Rails.logger.info { "  INFO - SessionController#create: Sesión creada - #{params}" }
       redirect_to root_path
     else
       Rails.logger.error { "  ERROR - SessionControler#create: Sesión ERROR - #{params}" }
-      redirect_to root_path, notice: "Usuario no autorizado"
+      redirect_to root_path, notice: 'Usuario no autorizado'
     end
   end
 
   def destroy
     current_user.login
     destroy_session
-    redirect_to root_path, notice: "Se ha cerrado la sesión: usuario desconectado"
+    redirect_to root_path, notice: 'Se ha cerrado la sesión: usuario desconectado'
   end
 
   private

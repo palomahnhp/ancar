@@ -1,0 +1,12 @@
+<%= render partial: 'supervisor/shared/header',
+           locals: {title: t("supervisor.periods.#{action_name}.title"), button: t('supervisor.periods.index.button.create'),
+                    path: new_supervisor_period_path, modifiable: true,
+                    period: nil, main_process: nil, sub_process: nil, indicator: nil, indicator_metric: nil} %>
+
+<div>
+  <% if @periods.nil? || @periods.empty? %>
+    <strong> <%=t('supervisor.periods.index.empty') %> </strong>
+  <% else %>
+    <%=  render 'item_list' %>
+  <% end %>
+</div>

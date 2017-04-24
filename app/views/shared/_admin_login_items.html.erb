@@ -2,19 +2,19 @@
 
   <% if current_user.has_role? :admin %>
     <li>
-      <%= link_to t('layouts.header.administracion'), admin_root_path %>
-    </li>
-  <% end %>
-
-  <% if (current_user.has_role? :manager, :any) || (current_user.has_role? :manager) %>
-    <li>
-      <%= link_to t('layouts.header.gestion'), manager_root_path %>
+      <%= link_to t('layouts.header.administration'), admin_root_path %>
     </li>
   <% end %>
 
   <% if (current_user.has_role? :validator, :any) || (current_user.has_role? :validator) %>
     <li>
-      <%= link_to t('layouts.header.validacion'), root_path %>
+      <%= link_to t('layouts.header.management'), supervisor_root_path %>
+    </li>
+  <% end %>
+
+  <% if (current_user.has_role? :validator, :any) || (current_user.has_role? :validator) %>
+    <li>
+      <%= link_to t('layouts.header.validation'), root_path %>
     </li>
   <% end %>
 

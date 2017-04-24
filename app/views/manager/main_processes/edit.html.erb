@@ -1,9 +1,0 @@
-<%= render partial: 'manager/shared/header',
-           locals: {title: t("manager.main_processes.#{action_name}.title",
-                             process_name:t("manager.process_name.plural.#{process_name(@main_process.period, controller_name)}")),
-                    button: nil, path: nil, modifiable: true,
-                    period: @main_process.period, main_process: @main_process, sub_process: nil,
-                    indicator: nil, indicator_metric: nil  } %>
-<div class="small-12 column">
-  <%= render "form" %>
-</div>

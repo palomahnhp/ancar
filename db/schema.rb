@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307125659) do
+ActiveRecord::Schema.define(version: 20170331095153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "adminpack"
+
+  create_table "approval", force: :cascade do |t|
+    t.integer "subject_id"
+    t.string  "subject_type"
+    t.string  "approved_by"
+    t.date    "approved_at"
+    t.text    "comments"
+  end
 
   create_table "assigned_employees", force: :cascade do |t|
     t.integer  "official_group_id"
@@ -52,18 +60,6 @@ ActiveRecord::Schema.define(version: 20170307125659) do
   add_index "assigned_employees_changes", ["period_id"], name: "index_assigned_employees_changes_on_period_id", using: :btree
   add_index "assigned_employees_changes", ["unit_id"], name: "index_assigned_employees_changes_on_unit_id", using: :btree
   add_index "assigned_employees_changes", ["verified_at"], name: "index_assigned_employees_changes_on_verified_at", using: :btree
-
-  create_table "entry_indicator_sources", force: :cascade do |t|
-    t.integer  "entry_indicator_id"
-    t.integer  "source_id"
-    t.decimal  "amount",             precision: 12, scale: 2
-    t.string   "uupdates_by"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-  end
-
-  add_index "entry_indicator_sources", ["entry_indicator_id"], name: "index_entry_indicator_sources_on_entry_indicator_id", using: :btree
-  add_index "entry_indicator_sources", ["source_id"], name: "index_entry_indicator_sources_on_source_id", using: :btree
 
   create_table "entry_indicators", force: :cascade do |t|
     t.integer  "unit_id"
@@ -147,14 +143,6 @@ ActiveRecord::Schema.define(version: 20170307125659) do
   add_index "main_processes", ["item_id"], name: "index_main_processes_on_item_id", using: :btree
   add_index "main_processes", ["organization_id"], name: "index_main_processes_on_organization_id", using: :btree
   add_index "main_processes", ["period_id"], name: "index_main_processes_on_period_id", using: :btree
-
-  create_table "manager_organization_types", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "organization_type_id"
-  end
-
-  add_index "manager_organization_types", ["organization_type_id"], name: "index_manager_organization_types_on_organization_type_id", using: :btree
-  add_index "manager_organization_types", ["user_id"], name: "index_manager_organization_types_on_user_id", using: :btree
 
   create_table "metrics", force: :cascade do |t|
     t.integer  "item_id"
@@ -326,23 +314,6 @@ ActiveRecord::Schema.define(version: 20170307125659) do
   add_index "tasks", ["item_id"], name: "index_tasks_on_item_id", using: :btree
   add_index "tasks", ["sub_process_id"], name: "index_tasks_on_sub_process_id", using: :btree
 
-  create_table "tmp_ind_e_s_import", id: false, force: :cascade do |t|
-    t.integer "pr_id",              null: false
-    t.string  "pr_desc"
-    t.string  "sp_ord",             null: false
-    t.string  "sub_desc"
-    t.integer "dep_ord",            null: false
-    t.string  "dp_desc"
-    t.integer "ind_met",            null: false
-    t.string  "ind_desc"
-    t.string  "met_desc"
-    t.string  "P",        limit: 1
-    t.string  "S",        limit: 1
-    t.string  "U",        limit: 1
-    t.string  "G",        limit: 1
-    t.string  "N",        limit: 1
-  end
-
   create_table "total_indicator_types", force: :cascade do |t|
     t.integer  "item_id"
     t.string   "acronym"
@@ -396,14 +367,6 @@ ActiveRecord::Schema.define(version: 20170307125659) do
   add_index "units", ["organization_id"], name: "index_units_on_organization_id", using: :btree
   add_index "units", ["unit_type_id"], name: "index_units_on_unit_type_id", using: :btree
 
-  create_table "user_organizations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "organization_id"
-  end
-
-  add_index "user_organizations", ["organization_id"], name: "index_user_organizations_on_organization_id", using: :btree
-  add_index "user_organizations", ["user_id"], name: "index_user_organizations_on_user_id", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "login"
     t.integer  "uweb_id"
@@ -435,8 +398,6 @@ ActiveRecord::Schema.define(version: 20170307125659) do
   add_foreign_key "assigned_employees", "units"
   add_foreign_key "assigned_employees_changes", "periods"
   add_foreign_key "assigned_employees_changes", "units"
-  add_foreign_key "entry_indicator_sources", "entry_indicators"
-  add_foreign_key "entry_indicator_sources", "sources"
   add_foreign_key "entry_indicators", "indicator_metrics"
   add_foreign_key "entry_indicators", "indicator_sources"
   add_foreign_key "entry_indicators", "periods"
@@ -453,8 +414,6 @@ ActiveRecord::Schema.define(version: 20170307125659) do
   add_foreign_key "main_processes", "items"
   add_foreign_key "main_processes", "organizations"
   add_foreign_key "main_processes", "periods"
-  add_foreign_key "manager_organization_types", "organization_types"
-  add_foreign_key "manager_organization_types", "users"
   add_foreign_key "metrics", "items"
   add_foreign_key "organizations", "organization_types"
   add_foreign_key "periods", "organization_types"
@@ -477,6 +436,4 @@ ActiveRecord::Schema.define(version: 20170307125659) do
   add_foreign_key "unit_types", "organization_types"
   add_foreign_key "units", "organizations"
   add_foreign_key "units", "unit_types"
-  add_foreign_key "user_organizations", "organizations"
-  add_foreign_key "user_organizations", "users"
 end

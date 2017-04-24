@@ -26,7 +26,7 @@ module AppHelper
   end
 
   def source_id(indicator_metric)
-    indicator_metric.indicator_sources.take.nil? ? "-" : indicator_metric.indicator_sources.take.source_id
+    indicator_metric.indicator_sources.take.nil? ? '-' : indicator_metric.indicator_sources.take.source_id
   end
 
 #  def metric_id
@@ -59,9 +59,9 @@ module AppHelper
   end
 
   def entry_staff_error
-    description = " / "
+    description = ' / '
     @entry_without_staff.each do |entry_error|
-      description  +=  Indicator.find(entry_error[0]).item.description + " / "
+      description += Indicator.description(entry_error[0]) + ' / '
     end
     return description
   end
@@ -69,7 +69,7 @@ module AppHelper
     def in_out_error
       description = "\r\n"
       @errors_in_out_stock.each do |e|
-        description  += "#{SubProcess.find(e[0]).item.description}-  salida: #{e[1][0]} entrada: #{e[1][1]} stock: #{e[1][2]} \r\n"
+        description  += "#{SubProcess.description(e[0])}-  salida: #{e[1][0]} entrada: #{e[1][1]} stock: #{e[1][2]} \r\n"
       end
       return description
 

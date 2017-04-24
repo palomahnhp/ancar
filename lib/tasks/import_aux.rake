@@ -221,7 +221,7 @@ private
           @sp = SubProcess.create!(unit_type_id: @ut.id,
                       main_process_id: @mp.id, item_id: id, order:@order, updated_by: "import")
         else
-          write_log("*** ERROR fuerce: #{@fuerce}: SubProcess no existe: #{@¢ell_sub_process}, proceso: @mp.item.description ", "sub_process")
+          write_log("*** ERROR fuerce: #{@fuerce}: SubProcess no existe: proceso: #{@mp.item.description} sub_process item_id #{id}" )
         end
       end
 

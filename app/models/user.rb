@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
   rolify
-
   belongs_to :organization
-
   validates :login, presence: true, uniqueness: true
 #  validates :uweb_id, uniqueness: true
 #  validates :pernr, uniqueness: true
+
+  ROLES =%w[admin, validator, validator, validator, viewer]
 
   default_scope  { order(:login)} #  Overriding default_scope: unscoped
   scope :active,         -> { where(inactivated_at: nil) }
@@ -29,11 +29,11 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    name = self.name.nil? ? "" : self.name
-    surname = self.surname.nil? ? "" : self.surname
-    second_surname = self.second_surname.nil? ? "" : self.second_surname
+    name = self.name.nil? ? '' : self.name
+    surname = self.surname.nil? ? '' : self.surname
+    second_surname = self.second_surname.nil? ? '' : self.second_surname
 
-    name + " " + surname + " " + second_surname
+    name + ' ' + surname + ' ' + second_surname
   end
 
   def status
@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
   def auth_organizations(organization_type_id = 0)
     if organization_type_id != 0
       # global roles
-      if self.has_any_role? :admin, :manager, :visitor
+      if self.has_any_role? :admin, :validator, :visitor
         @organizations ||= Organization.where(organization_type_id: organization_type_id).distinct
       # scoped roles
       else
@@ -71,17 +71,17 @@ class User < ActiveRecord::Base
          end
       end
     else
-      @organizations ||= Organization.with_roles([:unit_user, :admin, :manager, :visitor], self).distinct
+      @organizations ||= Organization.with_roles([:unit_user, :admin, :validator, :visitor], self).distinct
     end
   end
 
   def auth_organization_types
     # global roles
-    if self.has_any_role? :admin, :manager, :visitor
+    if self.has_any_role? :admin, :validator, :visitor
       @organization_types ||= OrganizationType.all
     # scoped roles
     else
-     @organization_types ||= OrganizationType.with_roles([:admin, :manager, :visitor], self)
+     @organization_types ||= OrganizationType.with_roles([:admin, :validator, :visitor], self)
     end
   end
 

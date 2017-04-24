@@ -42,7 +42,7 @@ class Period < ActiveRecord::Base
       mp.copy(self.id, current_user_login)
     end
 
-    p.assigned_employees.where(staff_of_type: "Unit").each do |ae|
+    p.assigned_employees.where(staff_of_type: 'Unit').each do |ae|
       ae.copy(self.id, current_user_login)
     end
 
@@ -52,18 +52,22 @@ class Period < ActiveRecord::Base
     self.all.order(:ended_at).collect { |v| [ v.description, v.id ] }
   end
 
+  def self.look_up_description(description)
+    self.find_by_description(description)
+  end
+
   private
 
   def started_at_before_ended_at
-    errors.add(:ended_at, I18n.t("manager.periods.validate.period.ended_at")) if (started_at.present? &&  ended_at.present? && started_at > ended_at)
+    errors.add(:ended_at, I18n.t('supervisor.periods.validate.period.ended_at')) if (started_at.present? &&  ended_at.present? && started_at > ended_at)
   end
 
   def opened_at_before_closed_at
-    errors.add(:closed_at, I18n.t("manager.periods.validate.period.closed_at")) if (opened_at.present? && closed_at.present? && opened_at > closed_at)
+    errors.add(:closed_at, I18n.t('supervisor.periods.validate.period.closed_at')) if (opened_at.present? && closed_at.present? && opened_at > closed_at)
   end
 
   def ended_at_before_opened_at
-    errors.add(:ended_at, I18n.t("manager.periods.validate.period.opened_at")) if (ended_at.present? && opened_at.present? && ended_at > opened_at)
+    errors.add(:ended_at, I18n.t('supervisor.periods.validate.period.opened_at')) if (ended_at.present? && opened_at.present? && ended_at > opened_at)
   end
 
 end

@@ -4,7 +4,6 @@ class OrganizationType < ActiveRecord::Base
   has_many :periods
   has_many :unit_types
   has_many :main_processes, through: :periods
-  has_many :users, through: :manager_organization_types
   has_many :process_names
 
   validates :description, presence: true

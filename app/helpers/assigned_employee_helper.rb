@@ -6,9 +6,9 @@ module AssignedEmployeeHelper
 
   def staff_verified_class(unit_id, period_id)
     if AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).not_verified.count > 0
-      "warning"
+      'warning'
     else
-      "success"
+      'success'
     end
   end
 
@@ -22,7 +22,7 @@ module AssignedEmployeeHelper
 
   def get_staff(type, proc, unit, period, class_of = '')
 
-    @period_2015 ||= Period.find_by_description('PERIODO DE ANÁLISIS: AÑO 2015')
+    @period_2015 ||= Period.look_up_description('PERIODO DE ANÁLISIS: AÑO 2015')
 
     if type == 'SubProcess' &&  period != @period_2015
       ids = proc.indicators.ids
@@ -40,7 +40,7 @@ module AssignedEmployeeHelper
       elsif class_of == 'Assigned'
         return_array = @unit_assigned_employees.select{ |t| t[0] == 'Indicator'}
       end
-    elsif type = 'Indicator'
+    elsif type == 'Indicator'
      @assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id, staff_of_type: 'Indicator').order(:official_group_id).
         group(:staff_of_id, :staff_of_type, :official_group_id).
         pluck(:staff_of_id, :staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)')

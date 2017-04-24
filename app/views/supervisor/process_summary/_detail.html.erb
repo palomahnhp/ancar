@@ -1,0 +1,95 @@
+<table class="indicators">
+  <thead>
+    <tr>
+      <th><%= t('supervisor.process_summary.detail.indicators') %></th>
+      <th><%= t('supervisor.process_summary.detail.metrics') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% spi = summary_indicators(pid) %>
+    <% if spi %>
+      <% spi.each do |i| %>
+        <tr>
+          <td><%= i.indicator %></td>
+          <td><%= i.metric %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="2" class="success callout"><%=I18n.t('process_summary.no_indicators')%> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('supervisor.process_summary.detail.district') %></th>
+      <th class="text-right"><%= t('supervisor.process_summary.detail.indicator') %></th>
+      <th class="text-right">A1</th>
+      <th class="text-right">A2</th>
+      <th class="text-right">C1</th>
+      <th class="text-right">C2</th>
+      <th class="text-right">E</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% spd = summary_details(pid) %>
+    <% if spd %>
+      <% spd.each do |d| %>
+        <tr>
+          <td><%= distrito(d.unit_id) %></td>
+          <td class="text-right"><%= number_with_delimiter(d.amount, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.A1, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.A2, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.C1, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.C2, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(d.E, delimiter: '.', separator: ',') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <table class="stats">
+   <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><strong><%= t('supervisor.process_summary.detail.total') %></strong></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'amount', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'A1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'A2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'C1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'C2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('total', 'E', spd), delimiter: '.', separator: ',') %></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('supervisor.process_summary.detail.media') %></strong></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'amount', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'A1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'A2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'C1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'C2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('average', 'E', spd), delimiter: '.', separator: ',') %></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('supervisor.process_summary.detail.mediana') %></strong></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'amount', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'A1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'A2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'C1', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'C2', spd), delimiter: '.', separator: ',') %></td>
+        <td class="text-right"><%= number_with_delimiter(stats('median', 'E', spd), delimiter: '.', separator: ',') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

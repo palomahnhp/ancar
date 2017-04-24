@@ -6,9 +6,9 @@ module CommonActions
     visit sign_in_path(login: login, clave_usuario: user_key, fecha_conexion: date)
   end
 
-  def login_as_manager
-    manager = create(:manager)
-    login_as(manager.user)
+  def login_as_supervisor
+    supervisor = create(:validator)
+    login_as(supervisor.user)
     visit management_sign_in_path
   end
 

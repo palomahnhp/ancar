@@ -4,10 +4,10 @@ class Ability
   def initialize(user)
     if user.has_role? :admin
       can :manage, :all
-    elsif user.has_role? :manager
+    elsif user.has_role? :validator
       can :read, EntryIndicator
-      can :manage, OrganizationType, :id => OrganizationType.with_role(:manager, user).pluck(:id)
-      can :manage, Period, :organizations_type_id => OrganizationType.with_role(:manager, user).pluck(:id)
+      can :manage, OrganizationType, :id => OrganizationType.with_role(:validator, user).pluck(:id)
+      can :manage, Period, :organizations_type_id => OrganizationType.with_role(:validator, user).pluck(:id)
     elsif user.has_role? :viewer
       can :read, :all
     else

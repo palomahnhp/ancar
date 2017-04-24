@@ -21,10 +21,10 @@ describe User do
     it "is true when the user is a validator"
   end
 
-  describe "is_manager?" do
-    it "is false when the user is not a manager"
+  describe "is_supervisor?" do
+    it "is false when the user is not a validator"
 
-    it "is true when the user is a manager"
+    it "is true when the user is a validator"
   end
 
   describe "administrator?" do

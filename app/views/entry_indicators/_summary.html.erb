@@ -2,14 +2,14 @@
 <div class="row">
   <div class="medium-12 small-12 columns">
     <div class="summary medium-5 small-5 columns">
-         NUM PROCESOS     : <%=  @total_main_processes %><br>
-         NUM SUBPROCESOS  : <%=  @total_sub_processes %>
-         NUM INDICADORES  : <%=  @total_indicadores %>
-         TOTAL INDICADORES: <%=  @suma_indicadores %>
+      <%= t('entry_indicators.summary.process_number') %> : <%=  @total_main_processes %><br>
+      <%= t('entry_indicators.summary.subprocess_number') %> : <%=  @total_sub_processes %>
+      <%= t('entry_indicators.summary.indicators_number') %> : <%=  @total_indicadores %>
+      <%= t('entry_indicators.summary.indicators_total') %> : <%=  @suma_indicadores %>
     </div>
     <div class="staff medium-3 small-3 columns">
       <div class="row header">
-        <div id="title" class="medium-12 small-12 columns">TOTAL EFECTIVOS
+        <div id="title" class="medium-12 small-12 columns"> <%= t('entry_indicators.summary.staff_total') %>
           <div id="title" class="medium-2 small-2 columns"></div>
           <div class="medium-10 small-10 columns">
             <div class="row" id="header">
@@ -21,7 +21,7 @@
                 <% end %>
               </div>
             <div class="row">
-              <div class="medium-1 small-1 columns"> </div>
+              <div class="medium-1 small-1 columns">
                   <div class="medium-2 small-2 columns">
                     <%= @total_staff_sub_process_A1 %>
                   </div>

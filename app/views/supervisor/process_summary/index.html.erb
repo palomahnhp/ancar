@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="corporativo small-12 columns">
+    <h3><%= t('supervisor.process_summary.process.indicators') %></h3>
+    <h4><%= @period.description %></h4>
+    <h4><%= @organization_type.description %></h4>
+  </div>
+</div>
+
+<div class="row">
+  <%= render 'card' %>
+</div>

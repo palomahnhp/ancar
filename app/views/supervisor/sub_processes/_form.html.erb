@@ -1,0 +1,38 @@
+<%= render 'shared/errors', resource: @sub_process %>
+
+<%= form_for [:supervisor, @sub_process] do |f| %>
+  <br>
+  <%= f.hidden_field :main_process_id, value: @sub_process.main_process.id %>
+
+  <div class="small-10 columns" >
+    <%= f.label :unit_type_id, t('supervisor.sub_processes.form.unit_type') %>
+    <%= f.select :unit_type_id, options_for_select(UnitType.select_options(@sub_process.main_process.period.organization_type), @sub_process.unit_type_id),
+                   :prompt => t('supervisor.sub_processes.form.unit_type'), label: false,
+                   placeholder: t('supervisor.sub_processes.form.unit_type') %>
+  </div>
+
+  <div class="small-10 columns end">
+    <%= f.label :item_id, t('supervisor.sub_processes.form.description') %>
+    <%= f.select :item_id, options_for_select(sub_process_items, @sub_process.item_id),
+                   :prompt => t('supervisor.sub_processes.form.description'), label: false,
+                   placeholder: t('supervisor.sub_processes.form.description') %>
+
+  </div>
+
+  <div class="row">
+    <div class="small-7 columns" >
+      <%= label_tag t('supervisor.sub_processes.form.items.description')%>
+      <%= text_field_tag(:item_description) %>
+    </div>
+  </div>
+
+  <div class="small-12 column" ></div>
+  <div class="small-1 column">
+    <%= f.label :order, t('supervisor.sub_processes.form.order') %>
+    <%= f.text_field :order, label: false,
+        placeholder: t('supervisor.sub_processes.form.order') %>
+  </div>
+  <div class="actions small-12 column">
+    <%= f.submit t("actions.#{action_name}"), class: 'button tiny hollow'%>
+  </div>
+<% end %>

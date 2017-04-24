@@ -1,0 +1,21 @@
+<%= render partial: 'supervisor/shared/header',
+           locals: {title: t("supervisor.sub_processes.#{action_name}.title",
+                             process_name: t("supervisor.process_name.plural.#{process_name(@main_process.period, controller_name)}")).capitalize,
+                    button: t('supervisor.sub_processes.index.create',
+                              process_name: t("supervisor.process_name.singular.#{process_name(@main_process.period, controller_name)}")),
+                    path: new_supervisor_sub_process_path(period_id: params['period_id'],
+                                                       organization_type_id: params['organization_type_id'],
+                                                       main_process_id: params['main_process_id']),
+                    modifiable: @main_process.modifiable?,
+                    period: @main_process.period, main_process: @main_process, sub_process: nil, indicator: nil,
+                    indicator_metric: nil} %>
+
+<div>
+  <% if @sub_processes.nil? || @sub_processes.empty? %>
+    <strong>  <%= t('supervisor.main_processes.index.empty',
+                    process_name: t("supervisor.process_name.plural.#{process_name(@main_process.period, controller_name)}")) %>
+    </strong>
+  <% else %>
+    <%=  render 'item_list' %>
+  <% end %>
+</div>

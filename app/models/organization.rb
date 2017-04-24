@@ -7,7 +7,7 @@ class Organization < ActiveRecord::Base
 
   def self.select_options(organization_type=nil)
     if organization_type.present?
-      self.where(id: OrganizationType.find(organization_type).organizations.ids).collect { |v| [ v.description, v.id ] }
+      self.where(id: OrganizationType.find(organization_type.id).organizations.ids).collect { |v| [ v.description, v.id ] }
     else
       self.all.collect { |v| [ v.description, v.id ] }
     end

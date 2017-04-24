@@ -14,16 +14,16 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    if params["login"]
-      user = User.find_by_login(params["login"].downcase)
+    if params['login']
+      user = User.find_by_login(params['login'].downcase)
       if user
         session[:user_id]  = user.id
       end
     end
 
-    if !current_user
+    unless current_user
        if self.controller_name  !=  'welcome'
-          redirect_to root_url, notice: "Usuario no conectado"
+          redirect_to root_url, notice: t('application.require_user.no_connect')
        end
     end
 #   redirect_to root_url unless current_user

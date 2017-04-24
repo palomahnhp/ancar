@@ -11,10 +11,10 @@
               <%= link_to t('admin.roles.action.delete'),
                           admin_role_path(params[:role], role_name: params[:role_name], user_id: user.id),
                           method: :delete,
-                          class: "button hollow alert" %>
+                          class: 'button hollow alert' %>
           <% else %>
-              <%= link_to t('admin.roles.action.add'),{ controller: "admin/roles", action: :create,  user_id: user.id, role_name: params[:role_name] },
-                          method: :post, class: "button success hollow" %>
+              <%= link_to t('admin.roles.action.add'),{controller: 'admin/roles', action: :create, user_id: user.id, role_name: params[:role_name] },
+                          method: :post, class: 'button success hollow' %>
           <% end %>
         </td>
       </tr>

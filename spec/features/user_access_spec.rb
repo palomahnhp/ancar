@@ -11,26 +11,26 @@ feature "User access" do
     end
   end
 
-  describe 'manager' do
+  describe 'validator' do
     it 'has rol with global scope' do
-      manager = create(:manager_global)
-      login_as_authenticated_user(manager)
+      supervisor = create(:supervisor_global)
+      login_as_authenticated_user(supervisor)
       user_with_global_scope
     end
 
     it 'has role with all OrganizationType' do
-      manager = create(:manager_with_all_organization_types)
-      login_as_authenticated_user(manager)
+      supervisor = create(:supervisor_with_all_organization_types)
+      login_as_authenticated_user(supervisor)
 
       user_with_global_scope
     end
 
     it 'has role with one OrganizationType' do
-      manager = create(:manager)
+      supervisor = create(:validator)
 
-      manager.add_role(:manager, OrganizationType.first)
+      supervisor.add_role(:validator, OrganizationType.first)
 
-      login_as_authenticated_user(manager)
+      login_as_authenticated_user(supervisor)
 
       click_link("Procesos y subprocesos", :match => :first)
 

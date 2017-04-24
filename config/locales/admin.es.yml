@@ -18,7 +18,7 @@ es:
       roles:
         unit_users: "Rol gestor"
         validators: "Rol validador"
-        managers: "Rol supervisor"
+        supervisors: "Rol supervisor"
         admins: "Rol administrador"
     organizations:
       index:
@@ -65,7 +65,7 @@ es:
           unit_user: Gestor de unidad
           validator: Validador de unidad
           admin: Administrador
-          manager: Supervisor
+          supervisor: Supervisor
       search:
         login_placeholder: "Introduce el usuario"
         search: "Buscar"
@@ -82,7 +82,7 @@ es:
           Organization: Organización
           Unit: Unidad
         name:
-          manager: Supervisor
+          supervisor: Supervisor
           validator: Validador
           admin: Administrador
           unit_user: Gestor de unidad
@@ -95,3 +95,5 @@ es:
       remove_resource: "-"
       destroy_resource:
         error: "Error elimando recurso del rol"
+    shared:
+      in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"

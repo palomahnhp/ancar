@@ -4,12 +4,12 @@
 
   <div class="small-12 columns">
     <div class="small-10 columns">
-      <h2><%= t("admin.users.index.title") %></h2>
+      <h2><%= t('admin.users.index.title') %></h2>
     </div>
   </div>
 </div>
 
-<%= render 'shared/filter_subnav', i18n_namespace: "admin.users.index" %>
+<%= render 'shared/filter_subnav', i18n_namespace: 'admin.users.index' %>
 
 <h3><%= page_entries_info @users, :entry_name => 'usuario'%></h3>
 <!--%= render 'item_list' %-->
@@ -17,10 +17,10 @@
 <table>
   <thead>
     <tr>
-      <th><%= t("admin.users.index.row.login") %></th>
-      <th><%= t("admin.users.index.row.name") %></th>
-      <th><%= t("admin.users.index.row.position") %></th>
-      <th><%= t("admin.users.index.row.unit") %></th>
+      <th><%= t('admin.users.index.row.login') %></th>
+      <th><%= t('admin.users.index.row.name') %></th>
+      <th><%= t('admin.users.index.row.position') %></th>
+      <th><%= t('admin.users.index.row.unit') %></th>
     </tr>
   </thead>
   <tbody>

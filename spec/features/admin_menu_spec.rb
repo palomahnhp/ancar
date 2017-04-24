@@ -17,7 +17,7 @@ feature 'Admin dashboard' do
         expect(page).to have_content 'Rol administrador'
         expect(page).to have_content 'Rol validador'
         expect(page).to have_content 'Rol gestor'
-        expect(page).to have_content 'Rol supervisor'
+        expect(page).to have_content 'Rol validador'
       end
 
       within("li#organizations") do

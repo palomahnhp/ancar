@@ -16,7 +16,7 @@
         <%= link_to t('admin.roles.remove_resource'),
                     admin_role_path(role.id, user_id: @user.id,
                                     remove_resource: [role.resource_type, role.resource_id] ),
-                       action: :destroy, method: :delete, class: "button hollow"  %>
+                       action: :destroy, method: :delete, class: 'button hollow' %>
       </td>
     </tr>
     <% end %>

@@ -28,7 +28,7 @@ es:
       index:
         empty: "No hay %{process_name} definidos"
         title: "%{process_name}"
-        create: "Añadir %{process_name}"
+        create: "Incluir %{process_name}"
         submit: submit
       new:
         title: "Crear %{process_name}"
@@ -85,7 +85,7 @@ es:
         success: El registro se ha actualizado correctamente.
       index:
         empty: "No hay %{process_name} para este periodo"
-        create_button: "Añadir %{process_name}"
+        create_button: "Incluir %{process_name}"
         title: "%{process_name}"
         sub_processes: "Ver %{process_name}"
         submit: submit
@@ -218,7 +218,7 @@ es:
     indicator:
       index:
         indicator_metric:
-          create: 'Añadir métrica'
+          create: 'Incluir métrica'
     indicators_metrics:
       create:
         title: la métrica

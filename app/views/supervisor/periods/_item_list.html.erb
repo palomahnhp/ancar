@@ -1,0 +1,66 @@
+<table>
+  <% if @periods.nil? %>
+    <h1><%= t('supervisor.periods.index.no_data') %></h1>
+  <% else %>
+    <% @periods.each do |period| %>
+      <tr id="<%= dom_id(period) %>" >
+        <td>
+          <div>
+            <%= t('supervisor.periods.index.organization_type') %>
+            <strong> <%= period.organization_type.description %> </strong>
+          </div>
+          <div>
+            <%= t('supervisor.periods.index.period') %>
+            <strong> <%= period.description %> </strong>
+            de <%= period.started_at  %> a <%= period.ended_at %>
+           </div>
+           <div> <%= t('supervisor.periods.index.data_collect') %>
+              de <strong> <%= period.opened_at %> </strong>
+               a <strong> <%= period.closed_at %> </strong>
+          </div>
+          <% if period.open_entry? %>
+            <strong><%= t('supervisor.periods.index.entry_opened') %></strong>
+          <% elsif period.close_entry? %>
+            <strong><%= t('supervisor.periods.index.entry_closed') %></strong>
+          <% else %>
+            <strong><%= t('supervisor.periods.index.entry_not_open_yet') %></strong>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to supervisor_main_processes_path(
+              commit: t('supervisor.main_processes.index.submit'),
+              period_id: period.id, organization_type_id: period.organization_type_id),
+              id: "index_#{period.id}",
+              class: 'button float-right tiny hollow' do %>
+                <span class="icon-tag"></span>
+                <%= t('supervisor.periods.index.button.processes',
+                      process_name: t("supervisor.process_name.plural.#{process_name(period, 'main_processes')}")) %>
+              <% end %>
+        </td>
+        <% if period.modifiable? %>
+        <td>
+          <%= link_to edit_supervisor_period_path(period),
+              id: "edit_#{period.id}",
+              class: 'edit-banner button float-right tiny hollow' do %>
+               <span class="icon-edit"></span>
+                <%= t('supervisor.periods.index.button.edit') %>
+              <% end %>
+        </td>
+      <% end %>
+
+        <% if period.modifiable?%>
+          <% msg = delete_msg(period.class.name.pluralize.underscore, period.eliminable?, period.modifiable?, period.is_empty? ) %>
+          <td>
+            <%= link_to supervisor_period_path(period), method: :delete,
+                        data: {confirm: msg},
+                        id: "delete_#{period.id}",
+                        class: 'delete-banner button alert float-right tiny hollow end' do %>
+                          <span class="icon-box"></span>
+                          <%= t('supervisor.periods.index.button.delete') %>
+                        <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

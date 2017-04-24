@@ -45,7 +45,20 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :manager do
+  namespace :validator do
+    root to: "dashboard#index"
+    resources :users
+    resources :approval
+    resources :roles, only: [:index, :create, :destroy] do
+      member do
+        post 'add_resource'
+        get  'remove_resource'
+      end
+      get :search, on: :collection
+    end
+  end
+
+  namespace :supervisor do
     root to: "dashboard#index"
       resources :sources
       resources :process_summary
@@ -60,7 +73,7 @@ Rails.application.routes.draw do
           post 'edit'
          end
       end
-      resources :sub_processes  do
+        resources :sub_processes  do
         member do
           post 'edit'
          end

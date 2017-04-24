@@ -2,13 +2,13 @@
   <div class="row">
     <div  class="small-12 columns">
       <div class="external-links small-2 columns end">
-        <%= link_to "Ayre", setting["ayre_url"], class: ("selected") %>
+        <%= link_to 'Ayre', setting['ayre_url'], class: ('selected') %>
       </div>
       <div class="external-links small-10 columns end ">
       <%= if current_user
             current_user.full_name
           else
-            "No se ha iniciado sesión: usuario no conectado"
+            t('shared.top_links.no_user')
           end  %>
        </div>
     </div>

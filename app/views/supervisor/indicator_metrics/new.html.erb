@@ -1,0 +1,11 @@
+<%= render partial: 'supervisor/shared/header',
+           locals: {title: t("supervisor.indicator_metrics.#{action_name}.title"),
+                    button: nil,
+                    path: nil,
+                    modifiable: @indicator_metric.modifiable?,
+                    period: @indicator_metric.indicator.period, main_process: @indicator_metric.indicator.main_process,
+                    sub_process: @indicator_metric.indicator.sub_process,
+                    indicator: @indicator_metric.indicator, indicator_metric: nil  } %>
+<div>
+  <%= render 'form' %>
+</div>

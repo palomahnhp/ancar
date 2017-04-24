@@ -33,7 +33,7 @@ namespace :user do
         when 'Admin'
           rol = user.add_role :admin
         when 'Supervisor'
-          rol = user.add_role :manager, organization_type
+          rol = user.add_role :validator, organization_type
         when 'Validador'
           rol = user.add_role :validator, organizacion
         when 'Usuario'
@@ -60,12 +60,12 @@ namespace :user do
             puts "       =>#{rol.inspect}"
           end
         when 2
-          rol = u.add_role :manager, Organization
+          rol = u.add_role :validator, Organization
           puts "       =>#{rol.inspect}"
         when 3
           rol = u.add_role :admin
           puts "       =>#{rol.inspect}"
-          rol = u.add_role :manager
+          rol = u.add_role :validator
           puts "       =>#{rol.inspect}"
       end
     end

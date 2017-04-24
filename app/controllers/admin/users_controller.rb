@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::BaseController
       redirect_to admin_users_path, notice: t("admin.users.edit.message.#{params[:status]}")
     else
       render :edit
-      redirect_to admin_users_path, notice: t("admin.users.edit.message.error")
+      redirect_to admin_users_path, notice: t('admin.users.edit.message.error')
     end
   end
 
@@ -43,9 +43,9 @@ class Admin::UsersController < Admin::BaseController
 
   def load_filtered_users
     case params[:filter]
-      when "all"        then User.page(params[:page])
-      when "actives"    then User.active.page(params[:page])
-      when "inactives"  then User.inactive.page(params[:page])
+      when 'all' then User.page(params[:page])
+      when 'actives' then User.active.page(params[:page])
+      when 'inactives' then User.inactive.page(params[:page])
       else
         User.active.page(params[:page])
     end
