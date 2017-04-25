@@ -38,19 +38,23 @@ module AssignedEmployeeHelper
       if class_of.empty?
         return_array = @unit_assigned_employees.select{ |t| t[0] == type }
       elsif class_of == 'Assigned'
-        return_array = @unit_assigned_employees.select{ |t| t[0] == 'Indicator'}
+        return_array = @unit_assigned_employees.select{ |t| ( t[0] == 'SubProcess' || t[0] == 'Indicator')}
       end
     elsif type == 'Indicator'
      @assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id, staff_of_type: 'Indicator').order(:official_group_id).
         group(:staff_of_id, :staff_of_type, :official_group_id).
-        pluck(:staff_of_id, :staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)')
-     return_array = @assigned_employees.select{ |t| ids.include?(t[0])  }
+        pluck(:staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)', :staff_of_id)
+     return_array = @assigned_employees.select{ |t| ids.include?(t[4])  }
     end
      return return_array
   end
 
   def display_staff(of, process, unit, period, gr_id, pos, class_type = '')
-    get_staff(of, process, unit, period, class_type)[gr_id - 1].nil? ? nil : get_staff(of, process, unit, period, class_type )[gr_id - 1][pos]
+    puts "process #{process.id} grupo #{gr_id} pos #{pos}" if of == "indicator"
+    staff = get_staff(of, process, unit, period, class_type)
+    puts "staff => #{staff} "
+    staff = staff.present? ? staff.select{|st| st[1] == gr_id} : nil
+    staff.present? ? staff.first[pos] : nil
   end
 
   def has_justification?(unit_id, period_id)

@@ -130,7 +130,7 @@ class EntryIndicatorsController < ApplicationController
       grupos.keys.each do |grupo|
         quantity = grupos[grupo]
         official_group_id = OfficialGroup.find_by_name(grupo).id
-        if quantity.empty?
+        if !quantity.present?
           employees_cumplimented = false
           delete_assigned_employee(official_group_id, type, process_id)
         else

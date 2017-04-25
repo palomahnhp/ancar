@@ -34,6 +34,20 @@ FactoryGirl.define do
       end
     end
 
+    trait :SGT do
+      after :create do |user|
+        organization = Organization.where(organization_type: OrganizationType.find_by_description('Secretarías Generales Técnicas')).first
+        user.add_role(:unit_user, organization)
+      end
+    end
+
+    trait :distrito do
+      after :create do |user|
+        organization = Organization.where(organization_type: OrganizationType.find_by_description('Distritos')).first
+        user.add_role(:unit_user, organization)
+      end
+    end
+
     factory :admin do
         sequence(:login) { |n| "adm00#{n}" }
         after :create do |user|
