@@ -74,4 +74,8 @@ module AppHelper
       return description
 
     end
+
+    def pos_amount(of)
+      (of == 'SubProcess' || of == 'Indicator' ) ? 3 : 4
+    end
 end

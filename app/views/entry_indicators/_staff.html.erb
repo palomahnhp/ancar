@@ -6,7 +6,7 @@
             <%= text_field_tag("Indicator[#{process.id}][#{gr.name}]", display_staff(of, process, unit, period, gr.id, 3),
                                class: 'inline group', placeholder: gr.name) %>
         <% else %>
-            <%=  format_number(display_staff(of, process, unit, period, gr.id, 3 )) %>
+            <%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of) )) %>
         <% end %>
       </td>
     <% end %>
@@ -25,14 +25,14 @@
       <tbody>
         <tr>
           <% official_groups.each do |gr| %>
-              <td>  <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, 4)) %></strong>  </td>
+              <td>  <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of))) %></strong>  </td>
           <% end %>
         </tr>
         <% if of == 'Unit' %>
           <th class="text-center" colspan="5"> <%= t('entry_indicators.staff.process_staff') %></th>
           <tr>
             <% official_groups.each do |gr| %>
-                <td> <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, 4, 'Assigned')) %></strong>  </td>
+                <td> <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of), 'Assigned')) %></strong>  </td>
           <% end %>
           </tr>
           <% if input_staff_visible?(process.id, period.id) %>
