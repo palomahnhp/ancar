@@ -61,6 +61,7 @@ en:
           errors_in_out_stock: "Error en procesos de entrada/salida"
           entry_without_staff:  "Inconsistencia entre cantidades/puestos de indicadores/tareas"
           no_change_staff: "¿Deseas cancelar el cambio de la plantilla?"
+          staff_underused: "Efectivos de la unidad no asignados a tareas"
         p1:
           change_staff: "Para cambiar la plantilla asignada a una unidad se debe justificar previamente"
           groups_exceeded: "La plantilla asignada a los subprocesos/procesos supera la plantilla asignada a esta unidad para:"
@@ -68,12 +69,16 @@ en:
           entry_incomplete: "Error al cerrar la entrada de datos: faltan indicadores por cumplimentar (efectivos o cantidad)."
           entry_without_staff: "Hay indicadores/tareas que no tienen asociada plantilla pero si tienen cumplimentadas cantidades superiores a 0 o indicadores/tareas con cantidades pero sin plantilla asignada: %{indicator}"
           no_change_staff: "Se ha justificado un cambio de plantilla que no se ha realizado."
+          staff_underused: "La plantilla asignada a los subprocesos/procesos es inferior a la plantilla asignada a esta unidad para:"
         p2:
           change_staff_html: "Pulsa el botón <strong><em style='color=blue'> Justificar cambio</em></strong>, para añadir una justificación y posteriormente realizar los cambios de la plantilla. Estos cambios quedarán pendientes de verificación por el supervisor."
           groups_exceeded_html: "Si se trata de un <strong>error</strong> cierra la ventana, pulsando el aspa de la parte superior derecha y corrije los datos erróneos."
           no_change_staff_html: "Pulse <strong><em>Continuar</em></strong> si aún desea realizar el cambio o <strong><em>Eliminar justificación</strong></em> si no desea harcelo, en este caso se eliminará la justificación proporcionada con anterioridad"
+          groups_exceeded_html: "Si se trata de un <strong>error</strong> cierra la ventana, pulsando el aspa de la parte superior derecha y corrije los datos erróneos."
+          staff_underused_html: "Si se trata de un <strong>error</strong> cierra la ventana, pulsando el aspa de la parte superior derecha y corrije los datos erróneos."
         p3:
           groups_exceeded_html: "Si no es un error y la plantilla que ha participado en los procesos de la unidad es mayor a la indicada en el cuadro <strong><em> 'Puestos ocupados a 31 de diciembre'</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em style='color=blue'> Cambiar plantilla</em></strong>, lo que permitirá modificar la plantilla de la unidad y añadir una justificación a dichos cambios. Estos cambios quedarán pendientes de verificación por el supervisor."
+          staff_underused_html: "Si no es un error y la plantilla que ha participado en los procesos de la unidad es menor a la indicada en el cuadro <strong><em> 'Puestos ocupados a 31 de diciembre'</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em style='color=blue'> Cambiar plantilla</em></strong>, lo que permitirá modificar la plantilla de la unidad y añadir una justificación a dichos cambios. Estos cambios quedarán pendientes de verificación por el supervisor."
       button1: "Grabar datos"
       button2: "Finalizar entrada de datos"
       button3: "Cambiar plantilla"
@@ -176,8 +181,8 @@ en:
     organization_group:
       generic: "GENÉRICOS"
   shared:
-     print:
-       print_button: "Imprimir"
-     target_blank_html: " (se abre en ventana nueva)"
-     top_links:
-       no_user: "No hay usuario conectado"
+    print:
+      print_button: "Imprimir"
+    target_blank_html: " (se abre en ventana nueva)"
+    top_links:
+      no_user: "No hay usuario conectado"

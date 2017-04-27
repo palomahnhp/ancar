@@ -35,7 +35,47 @@ class AssignedEmployee < ActiveRecord::Base
     return message
   end
 
+  def self.underused_staff_for_unit(period, unit)
+    message = []
+    OfficialGroup.all.each do |official_group|
+      if (self.staff_from_unit(unit, period, official_group) > self.staff_from_indicator(unit, period, official_group))
+        if self.staff_from_unit_justificated(unit, period, official_group) > 0
+          if self.staff_from_unit_justificated(unit, period, official_group) > self.staff_from_indicator(unit, period, official_group)
+            message << official_group.description
+          end
+        else
+           message << official_group.description
+        end
+      end
+    end
+    return message
+  end
+
   def self.staff_quantity(type, unit_id)
      where(staff_of_type: type.class.name, staff_of: type.id, unit_id: unit_id).sum(:quantity)
   end
+
+  private
+
+    def self.staff_from_unit(unit, period, official_group)
+      @staff_from_unit ||= staff_from('Unit', unit, period, official_group, unit.id)
+    end
+
+    def self.staff_from_indicator(unit, period, official_group)
+      @staff_from_indicator ||= staff_from('Indicator', unit, period, official_group)
+    end
+
+    def self.staff_from_unit_justificated(unit, period, official_group)
+      @staff_from_unit_justificated ||= staff_from('UnitJustified', unit, period, official_group, unit.id)
+    end
+
+    def self.staff_from(where, unit, period, official_group, id = nil )
+      if id.nil?
+        self.where(staff_of_type: where, unit_id: unit.id, period_id: period.id,
+                   official_group: official_group.id).sum(:quantity).to_f
+      else
+        self.where(staff_of_type: where, staff_of_id: id, unit_id: unit.id, period_id: period.id,
+                               official_group: official_group.id).sum(:quantity).to_f
+      end
+    end
 end

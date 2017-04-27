@@ -1,6 +1,28 @@
 /* Styles for print */
-@media print {
-    table, table tr, table th, table td {
-        border: 1px solid black !important;
-    }
+
+table, table tr, table th, table td {
+    border: 1px solid #6f6f6f !important;
+    border-spacing: 0 !important;
+    border-collapse: collapse !important;
 }
+
+.hide-for-print {
+    display: none !important;
+}
+
+table caption {
+    text-align: left !important;
+}
+
+input {
+    border:0 !important;
+}
+
+table {
+    table-layout: fixed !important;
+    width: 100% !important;
+}
+
+table.indicator th.indicator-description {
+     width: 55% !important;
+ }

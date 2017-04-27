@@ -88,8 +88,13 @@
       font-size: rem-calc(12);
       padding-bottom: rem-calc(5);
       padding-top: 0;
+
       &.indicador_size{
        font-size: rem-calc(14);
+      }
+
+      &.indicator-description {
+        width: 40%;
       }
     }
 
@@ -302,10 +307,6 @@
 // 06. Print
 
 @media print {
-  table, table tr, table th, table td {
-    border: 1px solid black !important;
-  }
-
   @for $i from 1 through $grid-column-count {
     .medium-#{$i} {
       width: percentage($i / $grid-column-count);

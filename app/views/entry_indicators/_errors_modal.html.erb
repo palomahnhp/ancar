@@ -40,6 +40,21 @@
         <p><%= t('entry_indicators.form.error.p2.change_staff_html')%></p>
         <a class="hollow button" onclick="openJustification()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
         <a class="hollow button" onclick="closeModal()"> <%= t('entry_indicators.form.validation_button.cancel') %></a>
+    <% when !@staff_underused.empty? %>
+        <h2 id="modalTitle"><%= t('entry_indicators.form.error.title.staff_underused')%> </h2>
+        <p class="lead"><%= t('entry_indicators.form.error.p1.staff_underused')%>
+          <strong><%= @staff_underused %></strong>
+        </p>
+        <% if has_justification?(@unit.id, @period.id) %>
+            <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
+              <span aria-hidden="true"><%= t('entry_indicators.form.validation_button.close') %></span>
+            </button>
+        <% else %>
+            <p><%= t('entry_indicators.form.error.p2.staff_underused_html')%></p>
+            <p><%= t('entry_indicators.form.error.p3.staff_underused_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
+            <a class="hollow button" onclick="openJustification()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
+            <a class="hollow button" onclick="closeModal()"> <%= t('entry_indicators.form.validation_button.cancel') %></a>
+        <% end %>
     <% when !@groups_exceeded.empty? %>
       <h2 id="modalTitle"><%= t('entry_indicators.form.error.title.groups_exceeded')%> </h2>
       <p class="lead"><%= t('entry_indicators.form.error.p1.groups_exceeded')%>
@@ -55,7 +70,7 @@
         <p><%= t('entry_indicators.form.error.p3.groups_exceeded_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
         <a class="hollow button" onclick="openJustification()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
         <a class="hollow button" onclick="closeModal()"> <%= t('entry_indicators.form.validation_button.cancel') %></a>
-  <% end %>
+      <% end %>
     <% when @entry_incomplete %>
         <h2 id="modalTitle"><%= t('entry_indicators.form.error.title.entry_incomplete') %></h2>
         <p> <%= t('entry_indicators.form.error.p1.entry_incomplete') %> </p>
@@ -68,7 +83,7 @@
         <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
           <span aria-hidden="true"><%= t('entry_indicators.form.validation_button.close') %></span>
         </button>
-    <% when !@errors_in_out_stock.empty? %>
+    <% when !@errors_in_out_stock.present? %>
         <h2 id="modalTile"><%= t('entry_indicators.form.error.title.errors_in_out_stock') %></h2>
         <p> <%= t('entry_indicators.form.error.p1.errors_in_out_stock', sub_process: in_out_error) %></p>
         <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">

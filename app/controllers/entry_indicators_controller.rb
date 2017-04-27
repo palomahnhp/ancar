@@ -105,10 +105,12 @@ class EntryIndicatorsController < ApplicationController
   def validate_input
     @errors_in_out_stock  = SubProcess.validate_in_out_stock(@period, @unit)  if params[:close_entry].present?
     @groups_exceeded      = AssignedEmployee.exceeded_staff_for_unit(@period, @unit)
+    @staff_underused      = AssignedEmployee.underused_staff_for_unit(@period, @unit)
     @entry_incomplete     = entry_incompleted?  if params[:close_entry].present?
     @entry_without_staff  = Indicator.validate_staff_for_entry(@period, @unit)
     @no_changes_unit_staff = changed_unit_staff?
-    return @no_changes_unit_staff || @change_staff || @groups_exceeded.present? || @entry_incomplete || @errors_in_out_stock.present? || @entry_without_staff.present?
+    return @no_changes_unit_staff || @change_staff || @groups_exceeded.present? || @staff_underused ||
+        @entry_incomplete || @errors_in_out_stock.present? || @entry_without_staff.present?
   end
 
   def entry_incompleted?

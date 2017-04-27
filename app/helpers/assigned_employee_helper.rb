@@ -50,9 +50,7 @@ module AssignedEmployeeHelper
   end
 
   def display_staff(of, process, unit, period, gr_id, pos, class_type = '')
-    puts "process #{process.id} grupo #{gr_id} pos #{pos}" if of == "indicator"
     staff = get_staff(of, process, unit, period, class_type)
-    puts "staff => #{staff} "
     staff = staff.present? ? staff.select{|st| st[1] == gr_id} : nil
     staff.present? ? staff.first[pos] : nil
   end
