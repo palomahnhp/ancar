@@ -20,59 +20,48 @@
   </div>
   <% @period.main_processes.order(:order).each do |main_process| %>
     <% if main_process.show_in_entry(@unit) %>
-      <div class="main_process small-12 columns">
+      <div class="main-process small-12 columns">
         <h5><%= main_process.order%>.&nbsp;<%= main_process.item.description %></h5>
       </div>
       <% main_process.sub_processes_unit(@unit).each do |sub_process| %>
-        <table class="indicator" >
-          <caption class="sub_process"><%= main_process.order%>.<%= sub_process.order%>.&nbsp;<%= sub_process.item.description %></caption>
+        <table class="sub-process-tab" >
+          <caption class="sub-process"><%= main_process.order%>.<%= sub_process.order%>.&nbsp;<%= sub_process.item.description %></caption>
           <thead>
             <tr>
               <th class="indicator-description"><strong><%= t("entry_indicators.form.indicator.#{process_name(@period, 'indicators')}") %> </strong></th>
               <% official_groups.each do |gr| %>
                   <th class="text-center"><%= gr.name %></th>
               <% end %>
-              <th><strong><%= t('entry_indicators.form.metric') %></strong></th>
-              <th><strong><%= t('entry_indicators.form.source') %></strong></th>
-              <th class="text-center amount"><strong><%= t('.amount') %></strong></th>
             </tr>
           </thead>
-          <% sub_process.indicators.each do |indicator| %>
-            <tr>
-              <td id="<%= "indicator_col_#{indicator.id}" %>">
-                <% if indicator.description.nil? %>
-                    <strong> <%= indicator.order %>. <%= indicator.item.description %></strong>
-                <% else %>
-                    <br>
-                    <div class="moderation-description">
-                      <%= simple_format (indicator.description) %>
-                    </div>
-                <% end %>
-              </td>
-                <%= render 'staff', of: 'Indicator', process: indicator, unit: @unit, period: @period, type: 'data' %>
-            </tr>
-            <tr>
-              <% indicator.indicator_metrics.order(:id).each_with_index do |indicator_metric, index| %>
-              <%= hidden_field_tag(:indicator_metric_id, indicator_metric.id) %>
-              <td colspan = "6"></td>
-              <td id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
-              <td id="<%= "source_col_#{source_id(indicator_metric)}" %>"> <%= sources_description(indicator_metric) %></td>
-              <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
-                <% amount_value = get_amount(indicator_metric, @unit) %>
-                <% if @period.open_entry? %>
-                  <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]", amount_value, class: 'inline amount', placeholder: t('.amount')) %>
-                <% else %>
-                  <%= amount_value %>
-                <% end %>
-              </td>
-            </tr>
+          <tbody>
+            <% sub_process.indicators.each do |indicator| %>
+              <tr id="indicator-row">
+                <td class="indicator-description" id="<%= "indicator_col_#{indicator.id}" %>">
+                  <% if indicator.description.nil? %>
+                      <strong> <%= indicator.order %>. <%= indicator.item.description %></strong>
+                  <% else %>
+                      <br>
+                      <div class="moderation-description">
+                        <%= simple_format (indicator.description) %>
+                      </div>
+                  <% end %>
+                </td>
+                <%= render 'staff_indicator', process: indicator, unit: @unit, period: @period, type: 'data' %>
+              </tr>
+              <tr>
+                <td colspan="6">
+                  <%= render 'table_indicator_metric', indicator: indicator, period: @period %>
+                </td>
+              </tr>
             <% end %>
-          <% end %>
+          </tbody>
         </table>
         <div class="columns medium-offset-8 medium-4 small-12">
             <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
         </div>
       <% end %>
+
     <% end %>
   <% end %>
 

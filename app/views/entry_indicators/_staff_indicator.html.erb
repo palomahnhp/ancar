@@ -1,0 +1,12 @@
+<div class="staff">
+  <% official_groups.each do |gr| %>
+    <td>
+      <% if @period.open_entry? %>
+          <%= text_field_tag("Indicator[#{process.id}][#{gr.name}]", display_staff('Indicator', process, unit, period, gr.id, 3),
+                             class: 'inline group', placeholder: gr.name) %>
+      <% else %>
+          <%=  format_number(display_staff('Indicator', process, unit, period, gr.id, pos_amount(of) )) %>
+      <% end %>
+    </td>
+  <% end %>
+</div>

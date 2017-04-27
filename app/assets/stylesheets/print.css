@@ -1,5 +1,7 @@
 /* Styles for print */
 
+/* Entry indicators */
+
 table, table tr, table th, table td {
     border: 1px solid #6f6f6f !important;
     border-spacing: 0 !important;
@@ -23,6 +25,52 @@ table {
     width: 100% !important;
 }
 
-table.indicator th.indicator-description {
-     width: 55% !important;
+th.indicator-description {
+  width: 55% !important;
+  background-color: #CCCCCC !important;
  }
+
+th.indicator-metric td.indicator-metric {
+    text-align: left !important;
+    padding-left: 50px !important;
+    border-spacing: 0 !important;
+    border-collapse: collapse !important;
+}
+
+input.group {
+  width: 10% !important;
+  font-size: 12px !important;
+  height: auto !important;
+  margin: 6px 0 !important;
+}
+
+.corporativo {
+  clear: left;
+  display: block !important;
+  border: 1px solid #6f6f6f !important;
+  background-color: #CCCCCC;
+  text-align: center !important;
+  margin-top: 25px;
+}
+
+.main-process{
+  display: block !important;
+  border: 1px solid #6f6f6f !important;
+  background-color: #06425C !important;
+  text-align: center !important;
+  color: white;
+  margin-top: 100px !important;
+}
+
+.sub-process {
+  color: white !important;;
+  background: #0C766E !important;
+}
+
+.unit{
+    display: block !important;
+    border: 1px solid #06425C !important;
+    background-color: #e0cbba !important;
+    text-align: center !important;
+    margin: 25px !important;
+}

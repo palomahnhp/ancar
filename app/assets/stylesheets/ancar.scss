@@ -56,7 +56,7 @@
   border: 1px solid $brand;
 }
 
-.main_process {
+.main-process {
   color: white;
   background: $cobalto;
   box-shadow: 0 0 0 2px $cobalto;
@@ -65,14 +65,14 @@
   padding-bottom: 0;
   }
 
-.sub_process {
+.sub-process {
   color: white;
   background: lighten($turquesa, 5%);
   padding: rem-calc(12);
   text-align: left;
   }
 
-  table.indicator {
+  table.sub-process-tab {
     margin-bottom: 0;
 
     thead {
@@ -89,30 +89,65 @@
       padding-bottom: rem-calc(5);
       padding-top: 0;
 
-      &.indicador_size{
-       font-size: rem-calc(14);
-      }
-
       &.indicator-description {
-        width: 40%;
+        width: 70%;
+        font-size: rem-calc(16);
+        background-color: #E9E9E9;
       }
     }
 
     input {
-      font-size: rem-calc(12);
+      font-size: rem-calc(14);
       height: auto !important;
       margin: rem-calc(6) 0 !important;
-      &.amount{
-        width: rem-calc(60);
-      }
       &.group{
-        width: rem-calc(30);
+        width: rem-calc(40);
         align: center;
       }
 
     }
   }
 
+table.indicator_metric {
+  margin-bottom: 0;
+
+  thead {
+    border-bottom: 2px solid $cobalto;
+  }
+
+  td {
+    border: none;
+    background-color: white;
+  }
+
+  th, td {
+    padding: rem-calc(12) rem-calc(6);
+
+    &.indicator-metric {
+      width: 60%;
+      padding-left: rem-calc(50);
+      text-align: left;
+    }
+    &.indicator-source {
+      width: 30%;
+    }
+  }
+
+  td {
+    font-size: rem-calc(12);
+    padding-bottom: rem-calc(5);
+    padding-top: 0;
+  }
+
+  input {
+    font-size: rem-calc(12);
+    height: auto !important;
+    margin: rem-calc(6) 0 !important;
+    &.amount{
+      width: rem-calc(60);
+    }
+  }
+}
 .staff {
 
   margin: 0;
@@ -202,14 +237,14 @@
     margin-bottom: rem-calc(80);
   }
 
-  .main_process {
+  .main-process {
    color: $body    ;
    background: $cobalto;
    padding: rem-calc(12);
    padding-bottom: 0;
   }
 
-  .sub_process {
+  .sub-process {
     color: white;
     background: lighten($turquesa, 5%);
     padding: rem-calc(12);
