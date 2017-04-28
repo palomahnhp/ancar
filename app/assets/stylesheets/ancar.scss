@@ -52,6 +52,7 @@
   color: black;
   box-shadow: 0 1px 3px 0 $border;
   margin: 0;
+  margin-bottom: 15px;
   padding-top: rem-calc(12);
   border: 1px solid $brand;
 }
@@ -148,48 +149,40 @@ table.indicator_metric {
     }
   }
 }
-.staff {
 
+table.staff {
   margin: 0;
   font-size: rem-calc(14);
+  border: 1px solid #2E2F30 !important;
+  margin-bottom: 25px;
 
-  thead {
-    border: 1px solid $cobalto;
-  }
-
-  td {
-    border: 1px solid $border;
-  }
-
-  th {
-    background: $body;
-    border-top: 1px solid $cobalto;
-    border-bottom: 1px solid $cobalto;
+  caption{
+    background-color: #D27B0E;
+    border: 1px solid #2E2F30 !important;
+    font-size: medium;
   }
 
   tr {
-    background-color: #efe7c9;
-    font-size: rem-calc(16);
+    border: 1px solid #2E2F30 !important;
   }
 
-  tr:last-child td {
-    border-bottom: 1px solid $cobalto;
-    padding-bottom: rem-calc(10);
+  th {
+    font-size: medium;
+    border: 1px solid #2E2F30 !important;
   }
 
-  tbody {
-    border: 2px solid $cobalto !important;
+  td {
+    border: 1px solid #adadad !important;
   }
-}
 
-.input_staff {
-  margin-bottom: 0 !important;
-  height: rem-calc(30) !important;
-}
+  .input_staff {
+    margin-bottom: 0 !important;
+    height: rem-calc(30) !important;
+  }
 
-.group {
-  padding: 0;
-  margin: 0;
+  .staff-col{
+    width: 40%;
+  }
 }
 
 .unit_nav {

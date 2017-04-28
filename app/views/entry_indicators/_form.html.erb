@@ -4,6 +4,10 @@
 
 <%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm', id: 'entryIndicatorsForm') do %>
   <div class="row">
+    <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period, type: 'all' %>
+    <div class="small-12 medium-4 columns float-right">
+      <%= submit_tag(t('entry_indicators.form.print'), class: "button hollow large icon-print:before", onclick: 'window.print()') %>
+    </div>
     <% if @period.open_entry? %>
       <%= hidden_field_tag(:delete_justification)  if @no_changes_unit_staff %>
       <%= hidden_field_tag(:justification)  if @groups_exceeded %>
@@ -11,12 +15,8 @@
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>
       <%= render 'buttons' %>
-    <% else %>
-        <div class="small-12 medium-4 columns">  </div>
-    <% end %>
-    <div class="columns medium-4 small-12">
-      <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period, type: 'all' %>
-    </div>
+  <% end %>
+
   </div>
   <% @period.main_processes.order(:order).each do |main_process| %>
     <% if main_process.show_in_entry(@unit) %>
@@ -61,7 +61,6 @@
             <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
         </div>
       <% end %>
-
     <% end %>
   <% end %>
 

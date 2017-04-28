@@ -82,6 +82,7 @@ es:
       button1: "Grabar datos"
       button2: "Finalizar entrada de datos"
       button3: "Cambiar plantilla"
+      print: "Imprimir"
     index:
       no_main_processes: No hay procesos para este periodo.
       select: Seleccionar
@@ -93,7 +94,8 @@ es:
       title:
         MainProcesses: "Puestos por proceso"
         SubProcess:  "Puestos por subproceso/proceso"
-        Unit: "Puestos ocupados a 31 diciembre"
+        Unit: "a 31 diciembre"
+        Unit: "a 31 diciembre"
       input:
         header: "Plantilla real"
         link: Ver justificación

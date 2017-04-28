@@ -1,27 +1,27 @@
-<tr>
-  <th class="text-center" colspan="5">
+<% if input_staff_visible?(process.id, period.id) %>
+  <tr>
+    <th class="text-center">
     <%= t('entry_indicators.staff.input.header') %>
     ->  <a class="text-left small"  href="#" data-open="showJustification"><%= t('entry_indicators.staff.input.link') %></a>
-  </th>
-</tr>
-<tr>
-  <% OfficialGroup.all.each do |gr| %>
+    </th>
+    <% OfficialGroup.all.each do |gr| %>
       <td>
-        <% if justification_verified?(unit.id, period.id) %>
-          <%= get_staff('UnitJustified', process, unit, period) %>
-        <% else %>
-            <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", display_staff('UnitJustified', process, unit, period, gr.id, 4),
-                               class: 'input_staff', placeholder: gr.name) %>
-        <% end %>
+       <% if justification_verified?(unit.id, period.id) %>
+         <%= get_staff('UnitJustified', process, unit, period) %>
+       <% else %>
+         <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", display_staff('UnitJustified', process, unit, period, gr.id, 4),
+         class: 'input_staff', placeholder: gr.name) %>
+       <% end %>
       </td>
-  <% end %>
-</tr>
+    <% end %>
+  </tr>
 
-<div class="reveal callout <%= staff_verified_class(process.id, period.id)%> " id="showJustification" data-reveal>
-  <h4> <%= t('entry_indicators.staff.justification.modal.title') %> </h4>
-  <div class="lead "><%= staff_verified_text(process.id, period.id) %></div>
-  <p><%= justification_text(unit.id, period.id) %></p>
-  <button class="close-button warning" data-close aria-label="Close modal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+  <div class="reveal callout <%= staff_verified_class(process.id, period.id)%> " id="showJustification" data-reveal>
+    <h4> <%= t('entry_indicators.staff.justification.modal.title') %> </h4>
+    <div class="lead "><%= staff_verified_text(process.id, period.id) %></div>
+    <p><%= justification_text(unit.id, period.id) %></p>
+    <button class="close-button warning" data-close aria-label="Close modal" type="button">
+     <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
