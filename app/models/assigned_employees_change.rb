@@ -25,9 +25,16 @@ class AssignedEmployeesChange < ActiveRecord::Base
     self.create(period_id: period_id, unit_id: unit_id, justified_by: current_user.login)
   end
 
-  def change_justification(period, unit, justification, current_user)
-    unless justification.empty?
-     AssignedEmployeesChange.find_or_create_by(period_id: period.id, unit_id: unit.id, justification: justification, updated_by: current_user)
+  def self.change_justification(period_id, unit_id, justification, current_user)
+    if justification.empty?
+     true
+    else
+      change_reg = self.find_or_create_by(period_id: period_id, unit_id: unit_id)
+      change_reg.assign_attributes(justification: justification, justified_by: current_user.login)
+      if change_reg.changed?
+         change_reg.save
+      end
+      false
     end
   end
 end

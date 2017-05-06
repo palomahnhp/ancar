@@ -73,13 +73,18 @@
       <% end %>
     <% if @input_errors[:incomplete_staff_unit].present? %>
         <li class="modal-error-title">
-          <p class="modal-error-title"><%= t('entry_indicators.form.error.title.no_change_staff')%> </p>
-          <p><%= t('entry_indicators.form.error.p1.no_change_staff')%></p>
-          <p><%= t('entry_indicators.form.error.p2.no_change_staff_html')%></p>
-
-          <a class="hollow button" onclick="deleteJustification()"> <%= t('entry_indicators.form.validation_button.cancel_justification') %></a>
+          <p class="modal-error-title"><%= t('entry_indicators.form.error.title.incomplete_staff')%> </p>
+          <p><%= t('entry_indicators.form.error.p1.incomplete_staff')%></p>
+          <p><%= t('entry_indicators.form.error.p2.incomplete_staff_html')%></p>
         </li>
      <% end %>
+    <% if @input_errors[:justification_blank] %>
+        <li class="modal-error-title">
+          <p class="modal-error-title"><%= t('entry_indicators.form.error.title.no_justification')%> </p>
+          <p><%= t('entry_indicators.form.error.p1.no_justification')%></p>
+          <p><%= t('entry_indicators.form.error.p2.no_justification_html')%></p>
+        </li>
+    <% end %>
     <% if @input_errors[:cancel_change].present? %>
       <li class="modal-error-title">
         <p class="modal-error-title"><%= t('entry_indicators.form.error.title.no_change_staff')%> </p>

@@ -90,12 +90,4 @@ module AssignedEmployeeHelper
     AssignedEmployee.where(official_group_id: official_group_id, staff_of_type: 'Unit', staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id).sum(:quantity) == quantity.to_f
   end
 
-  def get_assigned_employee(official_group_id, type, process_id)
-    AssignedEmployee.get_by_group(official_group_id, type, process_id)
-  end
-
-  def delete_assigned_employee(official_group_id, type, process_id, period_id, unit_id)
-    AssignedEmployee.delete_all_by_group(official_group_id, type, process_id, period.id, unit.id)
-  end
-
 end

@@ -4,7 +4,7 @@
 
 <%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm', id: 'entryIndicatorsForm') do %>
   <% if @period.open_entry? %>
-      <%= hidden_field_tag(:cancel_change)%>
+      <%= hidden_field_tag(:cancel_change) %>
       <%= hidden_field_tag(:open_change)%>
       <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>

@@ -21,15 +21,14 @@ class AssignedEmployee < ActiveRecord::Base
     message = []
 
     OfficialGroup.all.each do |official_group|
-      staff_real= self.staff_from_unit_justificated(unit, period, official_group)
       staff_indicator = self.staff_from_indicator(unit, period, official_group)
-      staff_unit = self.staff_from_unit(unit, period, official_group)
-
-      if staff_real.present?
+      if AssignedEmployeesChange.unit_justified(unit.id, period.id)
+        staff_real= self.staff_from_unit_justificated(unit, period, official_group)
         unless staff_real == staff_indicator
           message << official_group.description
         end
       elsif
+      staff_unit = self.staff_from_unit(unit, period, official_group)
         unless staff_unit == staff_indicator
           message << official_group.description
         end
@@ -42,17 +41,16 @@ class AssignedEmployee < ActiveRecord::Base
      where(staff_of_type: type.class.name, staff_of: type.id, unit_id: unit_id).sum(:quantity)
   end
 
-  def self.cancel(period, unit)
-    self.where(period: period, unit_id: unit.id, staff_of_type: "UnitJustified").delete_all
-
+  def self.cancel(period_id, unit_id)
+    self.where(period_id: period_id, unit_id: unit_id, staff_of_type: "UnitJustified").delete_all
   end
 
   def self.delete_all_by_group(official_group_id, type, process_id, period_id, unit_id)
     self.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id).delete_all
   end
 
-  def get_by_group(official_group_id, type, process_id)
-    self.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id)
+  def self.get_by_group(official_group_id, type, process_id, period_id, unit_id)
+    self.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id)
   end
 
   private
@@ -78,4 +76,5 @@ class AssignedEmployee < ActiveRecord::Base
                                official_group: official_group.id).sum(:quantity).to_f
       end
     end
+
 end

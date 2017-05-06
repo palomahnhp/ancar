@@ -4,7 +4,7 @@
     <%= submit_tag(t('entry_indicators.form.button.save'), class: 'button hollow', name: 'updates') %>
     <%= submit_tag(t('entry_indicators.form.button.end'), class: 'button hollow', name: 'close_entry')%>
     <% if input_staff_visible?(@unit.id, @period.id) %>
-      <%= submit_tag(t("entry_indicators.form.validation.button.cancel_change"), class: 'button hollow', name: "change_staff") %>
+      <%= submit_tag(t("entry_indicators.form.validation.button.cancel_change"), class: 'button hollow', name: "cancel_change") %>
     <% end %>
   <% end %>
 </span>
