@@ -16,4 +16,18 @@ class AssignedEmployeesChange < ActiveRecord::Base
     ae.justification = justification
     ae.save
   end
+
+  def self.cancel(period, unit)
+     self.where(period: period, unit: unit).delete_all
+  end
+
+  def self.initialize_change(period_id, unit_id, current_user)
+    self.create(period_id: period_id, unit_id: unit_id, justified_by: current_user.login)
+  end
+
+  def change_justification(period, unit, justification, current_user)
+    unless justification.empty?
+     AssignedEmployeesChange.find_or_create_by(period_id: period.id, unit_id: unit.id, justification: justification, updated_by: current_user)
+    end
+  end
 end

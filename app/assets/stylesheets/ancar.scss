@@ -22,7 +22,6 @@
 }
 
 .welcome_logo {
-  float: center;
   padding: rem-calc(120) rem-calc(120) 0 rem-calc(200);
   width: rem-calc(300);
   height: rem-calc(300);
@@ -30,12 +29,13 @@
   margin-bottom: rem-calc(20);
 }
 
-// 02. Ficha de indicadores
+// 02. Entry indicators
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-.ficha_indicadores {
-   margin: rem-calc(12) 0;
-}
+  entry-indicators-buttons {
+    margin-top: 20px;
+    color: red;
+  }
 
 .corporativo {
   background: $brand;
@@ -52,14 +52,13 @@
   color: black;
   box-shadow: 0 1px 3px 0 $border;
   margin: 0;
-  margin-bottom: 15px;
   padding-top: rem-calc(12);
-  border: 1px solid $brand;
+  border: 1px solid $cobalto;
 }
 
 .main-process {
   color: white;
-  background: $cobalto;
+  background: $brand;
   box-shadow: 0 0 0 2px $cobalto;
   margin-bottom: rem-calc(20);
   padding: rem-calc(12);
@@ -76,12 +75,7 @@
   table.sub-process-tab {
     margin-bottom: 0;
 
-    thead {
-      border-bottom: 2px solid $cobalto;
-    }
-
     th, td {
-      border: 1px solid $border;
       padding: rem-calc(12) rem-calc(6);
     }
 
@@ -89,11 +83,11 @@
       font-size: rem-calc(12);
       padding-bottom: rem-calc(5);
       padding-top: 0;
+      background-color: #E9E9E9;
 
       &.indicator-description {
         width: 70%;
         font-size: rem-calc(16);
-        background-color: #E9E9E9;
       }
     }
 
@@ -105,15 +99,19 @@
         width: rem-calc(40);
         align: center;
       }
-
     }
   }
 
-table.indicator_metric {
-  margin-bottom: 0;
+tr {
+  &#indicator-row{
+    border-top: 2px solid #A2A2A2;
+  }
+}
 
-  thead {
-    border-bottom: 2px solid $cobalto;
+table.indicator-metric {
+  margin-bottom: 0;
+  thead tr{
+      border: 0;
   }
 
   td {
@@ -129,6 +127,7 @@ table.indicator_metric {
       padding-left: rem-calc(50);
       text-align: left;
     }
+
     &.indicator-source {
       width: 30%;
     }
@@ -150,29 +149,48 @@ table.indicator_metric {
   }
 }
 
-table.staff {
+.staff {
   margin: 0;
   font-size: rem-calc(14);
-  border: 1px solid #2E2F30 !important;
-  margin-bottom: 25px;
+  display: block;
 
-  caption{
-    background-color: #D27B0E;
-    border: 1px solid #2E2F30 !important;
-    font-size: medium;
+  td.justification {
+    border-top: 2px solid $cobalto;
   }
 
-  tr {
-    border: 1px solid #2E2F30 !important;
+  caption {
+    font-size: 1.2rem;
+  }
+
+  thead {
+    border: 1px solid #A2A2A2;
+  }
+
+  tbody {
+    border: 2px solid #A2A2A2 !important;
   }
 
   th {
-    font-size: medium;
-    border: 1px solid #2E2F30 !important;
+    background: $body;
+    border: 1px solid $cobalto;
+  }
+
+  th.position{
+    width:  35%;
+  }
+
+  tr {
+    background-color: #efe7c9;
+    font-size: rem-calc(16);
+  }
+
+  tr:last-child td {
+    border-bottom: 1px solid $cobalto;
+    padding-bottom: rem-calc(10);
   }
 
   td {
-    border: 1px solid #adadad !important;
+    border: 1px solid $border;
   }
 
   .input_staff {
@@ -180,9 +198,15 @@ table.staff {
     height: rem-calc(30) !important;
   }
 
-  .staff-col{
-    width: 40%;
+  .justification{
+    height: 100px;
   }
+}
+
+
+.group {
+  padding: 0;
+  margin: 0;
 }
 
 .unit_nav {
@@ -204,6 +228,22 @@ table.staff {
   }
 }
 
+  .modal-title{
+    font-size: rem-calc(40);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: rem-calc(40);
+  }
+
+  .modal-error-title{
+    font-size: rem-calc(20);
+    font-weight: bold;
+  }
+
+   li.modal-error{
+     font-weight: normal;
+     font-style: normal;
+   }
 // 03. Resumen de procesos
 
 .summary{
@@ -232,7 +272,7 @@ table.staff {
 
   .main-process {
    color: $body    ;
-   background: $cobalto;
+   background: $brand;
    padding: rem-calc(12);
    padding-bottom: 0;
   }

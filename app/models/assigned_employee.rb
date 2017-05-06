@@ -17,34 +17,21 @@ class AssignedEmployee < ActiveRecord::Base
     self['quantity'] = val
   end
 
-  def self.exceeded_staff_for_unit(period, unit)
+  def self.staff_for_unit(period, unit)
     message = []
+
     OfficialGroup.all.each do |official_group|
-      if AssignedEmployee.where(staff_of_type: 'Unit', staff_of_id: unit.id, unit_id: unit.id, period_id: period.id,
-                                official_group: official_group.id).sum(:quantity).to_f <
-          AssignedEmployee.where(staff_of_type: 'Indicator', unit_id: unit.id, period_id: period.id,
-                                 official_group: official_group.id).sum(:quantity).to_f
-        if AssignedEmployee.where(staff_of_type: 'UnitJustified', staff_of_id: unit.id, unit_id: unit.id, period_id: period.id,
-                                  official_group: official_group.id).sum(:quantity).to_f <
-            AssignedEmployee.where(staff_of_type: 'Indicator', unit_id: unit.id, period_id: period.id,
-                                   official_group: official_group.id).sum(:quantity).to_f
+      staff_real= self.staff_from_unit_justificated(unit, period, official_group)
+      staff_indicator = self.staff_from_indicator(unit, period, official_group)
+      staff_unit = self.staff_from_unit(unit, period, official_group)
+
+      if staff_real.present?
+        unless staff_real == staff_indicator
           message << official_group.description
         end
-      end
-    end
-    return message
-  end
-
-  def self.underused_staff_for_unit(period, unit)
-    message = []
-    OfficialGroup.all.each do |official_group|
-      if (self.staff_from_unit(unit, period, official_group) > self.staff_from_indicator(unit, period, official_group))
-        if self.staff_from_unit_justificated(unit, period, official_group) > 0
-          if self.staff_from_unit_justificated(unit, period, official_group) > self.staff_from_indicator(unit, period, official_group)
-            message << official_group.description
-          end
-        else
-           message << official_group.description
+      elsif
+        unless staff_unit == staff_indicator
+          message << official_group.description
         end
       end
     end
@@ -55,18 +42,31 @@ class AssignedEmployee < ActiveRecord::Base
      where(staff_of_type: type.class.name, staff_of: type.id, unit_id: unit_id).sum(:quantity)
   end
 
+  def self.cancel(period, unit)
+    self.where(period: period, unit_id: unit.id, staff_of_type: "UnitJustified").delete_all
+
+  end
+
+  def self.delete_all_by_group(official_group_id, type, process_id, period_id, unit_id)
+    self.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id).delete_all
+  end
+
+  def get_by_group(official_group_id, type, process_id)
+    self.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id)
+  end
+
   private
 
     def self.staff_from_unit(unit, period, official_group)
-      @staff_from_unit ||= staff_from('Unit', unit, period, official_group, unit.id)
+      staff_from('Unit', unit, period, official_group, unit.id)
     end
 
     def self.staff_from_indicator(unit, period, official_group)
-      @staff_from_indicator ||= staff_from('Indicator', unit, period, official_group)
+      staff_from('Indicator', unit, period, official_group)
     end
 
     def self.staff_from_unit_justificated(unit, period, official_group)
-      @staff_from_unit_justificated ||= staff_from('UnitJustified', unit, period, official_group, unit.id)
+      staff_from('UnitJustified', unit, period, official_group, unit.id)
     end
 
     def self.staff_from(where, unit, period, official_group, id = nil )

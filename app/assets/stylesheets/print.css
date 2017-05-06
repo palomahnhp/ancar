@@ -48,10 +48,9 @@ input.group {
   clear: left;
   display: block !important;
   border: 1px solid #6f6f6f !important;
-  background-color: #06425C !important;
+  background-color: #CCCCCC;
   text-align: center !important;
-  margin-top: 25px !important;
-  color: white !important;
+  margin-top: 25px;
 }
 
 .main-process{
@@ -59,21 +58,19 @@ input.group {
   border: 1px solid #6f6f6f !important;
   background-color: #06425C !important;
   text-align: center !important;
-  color: white !important;
-  margin-top: 50px !important;
+  color: white;
+  margin-top: 100px !important;
 }
 
 .sub-process {
   color: white !important;;
   background: #0C766E !important;
-  margin-top: 10px !important;
 }
 
 .unit{
-  display: block !important;
-  border: 1px solid #06425C !important;
-  background-color: #e0cbba !important;
-  text-align: center !important;
-  margin: 45px !important;
-  width: 85% !important;
+    display: block !important;
+    border: 1px solid #06425C !important;
+    background-color: #e0cbba !important;
+    text-align: center !important;
+    margin: 25px !important;
 }

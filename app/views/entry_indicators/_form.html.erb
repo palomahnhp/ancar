@@ -1,23 +1,25 @@
-<% if @input_error %>
+<% if @input_errors[:num_errors] && @input_errors[:num_errors] > 0 %>
   <%= render 'errors_modal' %>
 <% end %>
 
 <%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm', id: 'entryIndicatorsForm') do %>
-  <div class="row">
-    <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period, type: 'all' %>
-    <div class="small-12 medium-4 columns float-right">
-      <%= submit_tag(t('entry_indicators.form.print'), class: "button hollow large icon-print:before", onclick: 'window.print()') %>
-    </div>
-    <% if @period.open_entry? %>
-      <%= hidden_field_tag(:delete_justification)  if @no_changes_unit_staff %>
-      <%= hidden_field_tag(:justification)  if @groups_exceeded %>
+  <% if @period.open_entry? %>
+      <%= hidden_field_tag(:cancel_change)%>
+      <%= hidden_field_tag(:open_change)%>
       <%= hidden_field_tag(:unit_id, @unit.id) %>
       <%= hidden_field_tag(:period_id, @period.id) %>
       <%= hidden_field_tag(:organization_id, @organization.id) %>
-      <%= render 'buttons' %>
   <% end %>
-
+  <div class="row">
+    <br>
+    <div class="small-12 medium-6 columns">
+      <%= render 'buttons' %>
+    </div>
+    <div class="columns medium-6 small-12">
+      <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period, type: 'all' %>
+    </div>
   </div>
+  <div class="small-12 medium-3 columns"> </div>
   <% @period.main_processes.order(:order).each do |main_process| %>
     <% if main_process.show_in_entry(@unit) %>
       <div class="main-process small-12 columns">
@@ -57,15 +59,15 @@
             <% end %>
           </tbody>
         </table>
-        <div class="columns medium-offset-8 medium-4 small-12">
+        <div class="row">
+          <div class="small-12 medium-6 columns"></div>
+          <div class="columns medium-6 small-12">
             <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
+          </div>
         </div>
       <% end %>
     <% end %>
   <% end %>
-
-  <% if @period.open_entry? %>
-    <%= render 'buttons' %>
-   <% end %>
-
 <% end %>
+
+<a href="#" class="icon-angle-up"><%= t('entry_indicators.form.button.go_top') %></a>

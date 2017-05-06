@@ -6,11 +6,12 @@ class Ability
       can :manage, :all
     elsif user.has_role? :validator
       can :read, EntryIndicator
-      can :manage, OrganizationType, :id => OrganizationType.with_role(:validator, user).pluck(:id)
-      can :manage, Period, :organizations_type_id => OrganizationType.with_role(:validator, user).pluck(:id)
+      can :read, Organization, :id => Organization.with_role(:validator, user).pluck(:id)
+      can :read, Period, :organizations_type_id => OrganizationType.with_role(:validator, user).pluck(:id)
+    elsif user.has_role? :unit_user
+      can :read, Organization, :id => Organization.with_role(:validator, user).pluck(:id)
+      can :manage, :all
     elsif user.has_role? :viewer
-      can :read, :all
-    else
       can :manage, :all
     end
   end

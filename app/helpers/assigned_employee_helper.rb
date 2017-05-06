@@ -1,7 +1,7 @@
 module AssignedEmployeeHelper
 
   def input_staff_visible?(unit_id, period_id)
-    (params[:justification] && !params[:justification].empty?) || AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
+    (params[:justification] && !params[:justification].present?) || AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
   end
 
   def staff_verified_class(unit_id, period_id)
@@ -41,18 +41,36 @@ module AssignedEmployeeHelper
         return_array = @unit_assigned_employees.select{ |t| ( t[0] == 'SubProcess' || t[0] == 'Indicator')}
       end
     elsif type == 'Indicator'
-     @assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id, staff_of_type: 'Indicator').order(:official_group_id).
+      @assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id, staff_of_type: 'Indicator').order(:official_group_id).
         group(:staff_of_id, :staff_of_type, :official_group_id).
         pluck(:staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)', :staff_of_id)
-     return_array = @assigned_employees.select{ |t| ids.include?(t[4])  }
+      return_array = @assigned_employees.select{ |t| ids.include?(t[4])  }
+     elsif type == 'SubProcess'
+       @sp_assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id, staff_of_type: 'SubProcess').order(:official_group_id).
+           group(:staff_of_id, :staff_of_type, :official_group_id).
+           pluck(:staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)', :staff_of_id)
+       return_array = @sp_assigned_employees.select{ |t| ids.include?(t[4])  }
+
     end
      return return_array
   end
 
   def display_staff(of, process, unit, period, gr_id, pos, class_type = '')
+    quantity = 0
     staff = get_staff(of, process, unit, period, class_type)
-    staff = staff.present? ? staff.select{|st| st[1] == gr_id} : nil
-    staff.present? ? staff.first[pos] : nil
+    if staff.present?
+      staff = staff.select{|st| st[1] == gr_id}
+      if staff.present?
+        if of == "SubProcess"
+          staff.map{ |st| quantity += st[3]}
+        else
+          quantity = staff.first[pos]
+        end
+      end
+    else
+      quantity = nil
+    end
+     return quantity
   end
 
   def has_justification?(unit_id, period_id)
@@ -68,7 +86,16 @@ module AssignedEmployeeHelper
     ae.nil? ? '' : ae.justification
   end
 
-  def official_groups
-    @official_groups ||=  OfficialGroup.all
+  def quantity_equal?(official_group_id, type, process_id, quantity)
+    AssignedEmployee.where(official_group_id: official_group_id, staff_of_type: 'Unit', staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id).sum(:quantity) == quantity.to_f
   end
+
+  def get_assigned_employee(official_group_id, type, process_id)
+    AssignedEmployee.get_by_group(official_group_id, type, process_id)
+  end
+
+  def delete_assigned_employee(official_group_id, type, process_id, period_id, unit_id)
+    AssignedEmployee.delete_all_by_group(official_group_id, type, process_id, period.id, unit.id)
+  end
+
 end

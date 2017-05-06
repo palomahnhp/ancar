@@ -9,52 +9,73 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def updates
-    if params[:justification].present?
-      change_staff
-    elsif params[:delete_justification].present?
-      delete_change
+    if params[:cancel_change].present?
+      cancel_change(period_id, unit_id)
+    elsif params[:open_change].present?
+      open_change(@period.id, @unit.id, current_user)
     else
       update_entry
     end
 
-    if @input_error || has_justification?
+    if @input_errors[:num_errors] && @input_errors[:num_errors] > 0
       render :index
     else
-      flash[:notice] = t('entry_indicators.updates.success')
+      if params[:close_entry].present?
+        flash[:notice] = t('entry_indicators.updates.success.validation')
+      elsif params[:cancel_change].present?
+        flash[:notice] = t('entry_indicators.updates.success.change')
+      else
+        flash[:notice] = t('entry_indicators.updates.success.save')
+      end
       redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
       organization_id: @organization.id)
     end
   end
 
-  def change_staff
-    AssignedEmployeesChange.update(@period, @unit, params[:justification], current_user)
-  end
-
-  def delete_change
-    AssignedEmployeesChange.where(period: @period, unit: @unit).delete_all
-  end
 
   def update_entry
     @entry_indicators_cumplimented = @employees_cumplimented = true
-    if params[:change_staff]
-      @change_staff = true
-    else
-      params.keys.each do |key|
-        case key
-            when 'Indicator', 'Unit'
-              @employees_cumplimented = assigned_employees_update(key, params[key])
-            when 'IndicatorMetric'
-              @entry_indicators_cumplimented = update_indicator_metrics(params[key])
-            else
-              flash[:error] = t('entry_indicators.updates.no_key')
-        end
+
+    params.keys.each do |key|
+      case key
+          when 'Indicator', 'Unit'
+            @employees_cumplimented = assigned_employees_update(key, params[key])
+          when 'IndicatorMetric'
+            @entry_indicators_cumplimented = update_indicator_metrics(params[key])
+          when 'justification'
+            @justification_changed = change_justification(period_id, unit_id, current_user)
+          else
+            flash[:error] = t('entry_indicators.updates.no_key')
       end
     end
-    @input_error = validate_input
+    validate_input
   end
 
   private
-  def entry_indicator_params
+
+    def validate_input
+      if params[:close_entry].present?
+        @input_errors[:assignated_staff]     = AssignedEmployee.staff_for_unit(@period, @unit)
+        @input_errors[:entry_without_staff]  = Indicator.validate_staff_for_entry(@period, @unit)
+        @input_errors[:entry_incomplete]     = entry_incompleted?
+        @input_errors[:in_out_stock]         = SubProcess.validate_in_out_stock(@period, @unit)
+        @input_errors[:incomplete_staff_entry] = @incomplete_staff_entry
+      end
+      @input_errors[:incomplete_staff_unit]  = @incomplete_staff_unit
+      @input_errors[:justification_blank]    = @justification_blank
+      if @input_errors[:justification_blank] || @input_errors[:incomplete_staff_unit].count == OfficialGroup.count
+        @input_errors[:cancel_change] = true
+        @input_errors[:incomplete_staff_unit]  = nil
+        @input_errors[:justification_blank]    = nil
+        @input_errors[:assignated_staff] = nil
+      end
+
+#   @input_errors[:no_changes_unit_staff] = changed_unit_staff?
+#   @input_errors[:delete_justification] = changed_unit_staff?
+      @input_errors[:num_errors] = @input_errors.select{|error| @input_errors[error].present?}.count
+    end
+
+    def entry_indicator_params
     params.require(:entry_indicator).permit(:amount, :unit_id, :period_id, :indicator_metric, :indicator_source)
   end
 
@@ -81,6 +102,10 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def initialize_instance_vars
+    @input_errors = Hash.new()
+    @incomplete_staff_unit = [] if
+    @incomplete_staff_entry = {}
+
     if params[:organization_id]
       @organization = Organization.find(params[:organization_id])
       @units = @organization.units.order(:order).to_a
@@ -99,30 +124,16 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def has_justification?
-    (params[:justification] != '' && AssignedEmployeesChange.unit_justified(@unit.id, @period.id))
-  end
-
-  def validate_input
-    @errors_in_out_stock  = SubProcess.validate_in_out_stock(@period, @unit)  if params[:close_entry].present?
-    @groups_exceeded      = AssignedEmployee.exceeded_staff_for_unit(@period, @unit)
-    @staff_underused      = AssignedEmployee.underused_staff_for_unit(@period, @unit)
-    @entry_incomplete     = entry_incompleted?  if params[:close_entry].present?
-    @entry_without_staff  = Indicator.validate_staff_for_entry(@period, @unit)
-    @no_changes_unit_staff = changed_unit_staff?
-    return @no_changes_unit_staff || @change_staff || @groups_exceeded.present? || @staff_underused ||
-        @entry_incomplete || @errors_in_out_stock.present? || @entry_without_staff.present?
+    (params[:justification].present?  && AssignedEmployeesChange.unit_justified(@unit.id, @period.id))
   end
 
   def entry_incompleted?
-    !(@entry_indicators_cumplimented && @employees_cumplimented)
-  end
-
-  def changed_unit_staff?
-    (!AssignedEmployeesChange.where(period: @period, unit_id: @unit.id).empty?  && AssignedEmployee.where(staff_of_type: 'UnitJustified', period: @period, unit_id: @unit.id).empty?) if params[:close_entry].present?
+    !(@entry_indicators_cumplimented && @incomplete_staff_entry)
   end
 
   def assigned_employees_update(type, process)
     employees_cumplimented = true
+    # Actualizar
     process.each do |pr|
       grupos = pr[1]
       process_id = pr[0].to_i
@@ -134,33 +145,37 @@ class EntryIndicatorsController < ApplicationController
         official_group_id = OfficialGroup.find_by_name(grupo).id
         if !quantity.present?
           employees_cumplimented = false
-          delete_assigned_employee(official_group_id, type, process_id)
-        else
-          unless type == 'UnitJustified' && quantity_equal?(official_group_id, type, process_id, quantity)
-            ae = get_assigned_employee(official_group_id, type, process_id)
-            ae.quantity = quantity
-            ae.updated_by = current_user.login
-            ae.save
+          if type == 'UnitJustified'
+            @incomplete_staff_unit <<  grupo
+          elsif
+            @incomplete_staff_entry[process_id.to_s] = []
+            @incomplete_staff_entry[process_id.to_s] << grupo
           end
+          delete_assigned_employee(official_group_id, type, process_id, @period.id, @unit.id)
+        else
+          ae = get_assigned_employee(official_group_id, type, process_id)
+          ae.quantity = quantity
+          ae.updated_by = current_user.login
+          ae.save
         end
       end
     end
     return employees_cumplimented
   end
 
-  def quantity_equal?(official_group_id, type, process_id, quantity)
-    AssignedEmployee.where(official_group_id: official_group_id, staff_of_type: 'Unit', staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id).sum(:quantity) == quantity.to_f
+  def open_change(period_id, unit_id, current_user)
+    AssignedEmployeesChange.initialize_change(period_id, unit_id, current_user)
   end
 
-  def get_assigned_employee(official_group_id, type, process_id)
-    AssignedEmployee.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id)
+  def change_justification(period_id, unit_id, justification, current_user)
+    AssignedEmployeesChange.change_justification(period_id, unit_id, justification, current_user)
   end
 
-  def delete_assigned_employee(official_group_id, type, process_id)
-    AssignedEmployee.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id).delete_all
+  def cancel_change(period_id, unit_id)
+    AssignedEmployeesChange.cancel(period_id, unit_id)
+    AssignedEmployee.cancel(period_id, unit_id)
   end
-end
 
-
+ end
 
 

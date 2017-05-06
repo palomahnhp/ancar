@@ -1,11 +1,15 @@
-<span class=" hide-for-print">
- <br>
-  <div class="small-12 medium-2 columns">
-    <%= submit_tag(t('entry_indicators.form.button1'), class: 'button hollow large', name: 'updates') %>
-  </div>
-  <div class="small-12 medium-3 columns end ">
-    <%= submit_tag(t('entry_indicators.form.button2'), class: 'button hollow large', name: 'close_entry') %>
-  </div>
+<span class="hide-for-print entry-indicators-buttons">
+  <% if @period.open_entry? %>
+    <br>
+    <%= submit_tag(t('entry_indicators.form.button.save'), class: 'button hollow', name: 'updates') %>
+    <%= submit_tag(t('entry_indicators.form.button.end'), class: 'button hollow', name: 'close_entry')%>
+    <% if input_staff_visible?(@unit.id, @period.id) %>
+      <%= submit_tag(t("entry_indicators.form.validation.button.cancel_change"), class: 'button hollow', name: "change_staff") %>
+    <% end %>
+  <% end %>
 </span>
+<br>
+<%= submit_tag(t('entry_indicators.form.button.print'), class:"icon-print button hollow", name: 'print', onclick: "window.print()") %>
+
 
 
