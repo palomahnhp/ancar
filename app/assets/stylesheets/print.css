@@ -1,5 +1,13 @@
 /* Styles for print */
 
+.logo-gif {
+    display: block;
+}
+
+.hide-for-print {
+    display: none !important;
+}
+
 /* Entry indicators */
 
 table, table tr, table th, table td {
@@ -8,27 +16,23 @@ table, table tr, table th, table td {
     border-collapse: collapse !important;
 }
 
-.hide-for-print {
-    display: none !important;
+table {
+    table-layout: fixed !important;
+    width: 100% !important;
 }
 
 table caption {
     text-align: left !important;
 }
 
-input {
-    border:0 !important;
-}
-
-table {
-    table-layout: fixed !important;
-    width: 100% !important;
-}
-
 th.indicator-description {
   width: 55% !important;
   background-color: #CCCCCC !important;
  }
+
+th.indicator-group {
+  background-color: #CCCCCC !important;
+}
 
 th.indicator-metric td.indicator-metric {
     text-align: left !important;
@@ -37,34 +41,30 @@ th.indicator-metric td.indicator-metric {
     border-collapse: collapse !important;
 }
 
-input.group {
-  width: 10% !important;
-  font-size: 12px !important;
-  height: auto !important;
-  margin: 6px 0 !important;
-}
-
+/*  headers */
 .corporativo {
-  clear: left;
-  display: block !important;
-  border: 1px solid #6f6f6f !important;
-  background-color: #CCCCCC;
-  text-align: center !important;
-  margin-top: 25px;
+    clear: left;
+    display: block !important;
+    border: 1px solid #6f6f6f !important;
+    background-color: #06425C !important;
+    color: white !important;
+    text-align: center !important;
+    margin-top: 25px;
 }
 
 .main-process{
-  display: block !important;
-  border: 1px solid #6f6f6f !important;
-  background-color: #06425C !important;
-  text-align: center !important;
-  color: white;
-  margin-top: 100px !important;
+    page-break-before: always;
+    display: block !important;
+    border: 1px solid #6f6f6f !important;
+    background-color: #06425C !important;
+    text-align: center !important;
+    color: white;
+    margin-top: 100px !important;
 }
 
 .sub-process {
-  color: white !important;;
-  background: #0C766E !important;
+    color: white !important;;
+    background: #0C766E !important;
 }
 
 .unit{
@@ -73,4 +73,94 @@ input.group {
     background-color: #e0cbba !important;
     text-align: center !important;
     margin: 25px !important;
+}
+
+/* input */
+
+input {
+    border:0 !important;
+    padding-left: 5px !important;
+    width: 50px !important;
+    background-color: inherit;
+}
+
+/* indicator row */
+.indicator-row{
+    background-color: #eeeeee !important;
+}
+
+.indicator_staff_quantity, .indicator-metric-amount {
+    text-align: center !important;
+}
+
+/* indicator-metric table  */
+
+.indicator-metric, .indicator-source{
+    width: 45%;
+}
+
+
+/* staff table unit sub-process*/
+table.staff {
+    margin-bottom: 20px !important;;
+    width: 65% !important;
+    margin-left: 125px  !important;
+}
+
+caption.staff {
+    margin-top: 20px;
+    text-align: center  !important;
+    font-weight: bold  !important;
+    border: 1px solid #6f6f6f !important;
+    background-color: #eeeeee !important;
+    width: 100% !important;
+}
+
+th.staff td.staff {
+    padding-left: 15px !important;
+    padding-right: 5px !important;
+    border-spacing: 0 !important;
+    border-collapse: collapse !important;
+}
+
+.staff-td {
+    text-align: right !important;
+    border: 1px solid #06425C !important;
+}
+
+.staff-th {
+text-align: left !important;
+background-color: #eeeeee !important;
+padding-left: 5px !important;
+border-spacing: 0 !important;
+border-collapse: collapse !important;
+}
+
+.staff-th-position {
+text-align: left !important;
+background-color: #EEEEEE !important;
+padding-left: 5px !important;
+border-spacing: 0 !important;
+border-collapse: collapse !important;
+width: 90px !important;
+}
+
+/* justification */
+.justification {
+    text-align: center !important;
+    background-color: #EEEEEE !important;
+    margin-top: 10px !important;
+    padding: 0 !important;
+}
+
+textarea.justification {
+    width: 95% !important;
+    border: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* notice */
+#notice{
+    display: none !important;
 }

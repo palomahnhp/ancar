@@ -54,15 +54,11 @@ module AppHelper
     process_name.nil? ? process.camelize : process_name.name.camelize
   end
 
-  def entry_staff_error(entry_without_staff)
-    description = ' '
-    entry_without_staff.each do |entry_error|
-      description += "<li> #{Indicator.description(entry_error[0])}=> cantidad: #{entry_error[1][0].to_f} puesto asignado #{entry_error[1][1].to_f} </li>"
-    end
-    return description
+  def entry_staff_error(entry_error)
+    description = "#{Indicator.description(entry_error[0])}=> cantidad: #{entry_error[1][0].to_f} puesto asignado #{entry_error[1][1].to_f}"
   end
 
-    def in_out_error(errors_in_out_stock)
+  def in_out_error(errors_in_out_stock)
       description = "\r\n"
       errors_in_out_stock.each do |e|
         description  += "#{SubProcess.description(e[0])}-  salida: #{e[1][0]} entrada: #{e[1][1]} stock: #{e[1][2]} \r\n"

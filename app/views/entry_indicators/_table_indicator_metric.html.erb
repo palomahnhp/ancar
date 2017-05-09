@@ -12,7 +12,7 @@
       <tr>
         <td class="indicator-metric" id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
         <td id="<%= "source_col_#{source_id(indicator_metric)}" %>"> <%= sources_description(indicator_metric) %></td>
-        <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center">
+        <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
           <% amount_value = get_amount(indicator_metric, @unit) %>
           <% if @period.open_entry? %>
             <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]", amount_value, class: 'inline amount', placeholder: t('.amount')) %>

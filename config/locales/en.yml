@@ -62,6 +62,8 @@ en:
           entry_without_staff:  "Inconsistencia entre cantidades/puestos de indicadores/tareas"
           no_change_staff: "¿Deseas cancelar el cambio de la plantilla?"
           staff_underused: "Efectivos de la unidad no asignados a tareas"
+          incomplete_staff_entry: "Falta por cumplimentar algún grupo de los puestos ajustados para la unidad"
+          incomplete_staff_entry: "Falta por cumplimentar los puestos en algún grupo"
         p1:
           change_staff: "Para cambiar la plantilla asignada a una unidad se debe justificar previamente"
           groups_exceeded: "La plantilla asignada a los subprocesos/procesos supera la plantilla asignada a esta unidad para:"

@@ -1,9 +1,9 @@
 <tr>
-  <th class="text-center" >
+  <th class="staff-th text-center" >
     <%= t('entry_indicators.staff.input.header') %>
   </th>
   <% OfficialGroup.all.each do |gr| %>
-      <td>
+      <td class="staff-td">
         <% if justification_verified?(unit.id, period.id) %>
           <%= get_staff('UnitJustified', process, unit, period) %>
         <% else %>

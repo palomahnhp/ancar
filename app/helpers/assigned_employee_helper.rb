@@ -66,9 +66,10 @@ module AssignedEmployeeHelper
         else
           quantity = staff.first[pos]
         end
+      else
+        quantity = nil
       end
     else
-      quantity = nil
     end
      return quantity
   end

@@ -27,7 +27,7 @@
         <li class="modal-error-title">
           <p class="modal-error-title"><%= t('entry_indicators.form.error.title.assigned_staff')%> </p>
           <p><%= t('entry_indicators.form.error.p1.assigned_staff')%>
-            <ul>
+            <ul class="error-detail">
               <% @input_errors[:assignated_staff].each do |error| %>
               <li class="modal-error">
                 <%= error %>
@@ -51,7 +51,14 @@
       <% if @input_errors[:entry_without_staff].present? %>
         <li class="modal-error-title">
           <p class="modal-error-title"><%= t('entry_indicators.form.error.title.entry_without_staff') %></p>
-          <p> <%= t('entry_indicators.form.error.p1.entry_without_staff_html', indicator: entry_staff_error(@input_errors[:entry_without_staff])) %></p>
+          <p> <%= t('entry_indicators.form.error.p1.entry_without_staff_html') %></p>
+          <ul  class="error-detail">
+            <% @input_errors[:entry_without_staff].each do |error| %>
+              <li class>
+                <%= "#{Indicator.description(error[0])}=> cantidad: #{error[1][0].to_f} puesto asignado #{error[1][1].to_f}" %>
+              </li>
+            <% end %>
+           </ul>
         </li>
       <% end %>
 
@@ -64,18 +71,23 @@
 
       <% if @input_errors[:incomplete_staff_entry].present? %>
         <li class="modal-error-title">
-          <p class="modal-error-title"><%= t('entry_indicators.form.error.title.no_change_staff')%> </p>
-          <p><%= t('entry_indicators.form.error.p1.no_change_staff')%></p>
-          <p><%= t('entry_indicators.form.error.p2.no_change_staff_html')%></p>
+          <p class="modal-error-title"><%= t('entry_indicators.form.error.title.incomplete_staff_entry')%> </p>
+          <p><%= t('entry_indicators.form.error.p1.incomplete_staff_entry')%></p>
+          <ul  class="error-detail">
+            <% @input_errors[:incomplete_staff_entry].each do |error| %>
+                <li class>
+                  <%= "#{Indicator.description(error[0])}=> grupo: #{error[1]}" %>
 
-          <a class="hollow button" onclick="deleteJustification()"> <%= t('entry_indicators.form.validation_button.cancel_justification') %></a>
+                </li>
+            <% end %>
+          </ul>
         </li>
       <% end %>
     <% if @input_errors[:incomplete_staff_unit].present? %>
         <li class="modal-error-title">
-          <p class="modal-error-title"><%= t('entry_indicators.form.error.title.incomplete_staff')%> </p>
-          <p><%= t('entry_indicators.form.error.p1.incomplete_staff')%></p>
-          <p><%= t('entry_indicators.form.error.p2.incomplete_staff_html')%></p>
+          <p class="modal-error-title"><%= t('entry_indicators.form.error.title.incomplete_staff_unit')%> </p>
+          <p><%= t('entry_indicators.form.error.p1.incomplete_staff_unit')%></p>
+          <p><%= t('entry_indicators.form.error.p2.incomplete_staff_unit_html')%></p>
         </li>
      <% end %>
     <% if @input_errors[:justification_blank] %>
@@ -101,6 +113,5 @@
     </button>
 
   </div>
-
 
 </div>

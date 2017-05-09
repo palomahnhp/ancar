@@ -97,13 +97,14 @@
       margin: rem-calc(6) 0 !important;
       &.group{
         width: rem-calc(40);
+        width: rem-calc(40);
         align: center;
       }
     }
   }
 
 tr {
-  &#indicator-row{
+  &.indicator-row{
     border-top: 2px solid #A2A2A2;
   }
 }
@@ -139,13 +140,21 @@ table.indicator-metric {
     padding-top: 0;
   }
 
+  .indicator-metric-amount {
+    width: rem-calc(60);
+    text-align: right;
+    color: red;
+  }
+
   input {
     font-size: rem-calc(12);
     height: auto !important;
     margin: rem-calc(6) 0 !important;
-    &.amount{
+    &.amount {
       width: rem-calc(60);
+      text-align: right;
     }
+
   }
 }
 
@@ -240,10 +249,11 @@ table.indicator-metric {
     font-weight: bold;
   }
 
-   li.modal-error{
+   ul.error-detail{
      font-weight: normal;
-     font-style: normal;
+     font-size: medium;
    }
+
 // 03. Resumen de procesos
 
 .summary{
