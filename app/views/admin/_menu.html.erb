@@ -11,9 +11,9 @@
           <%= link_to admin_users_path do %>
              <%= t('admin.menu.users') %>
          <% end %>
-        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'unit_user' %>>
-          <%= link_to admin_roles_index_path(role_name: 'unit_user') do %>
-              <%= t('admin.menu.roles.unit_users') %>
+        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'interlocutor' %>>
+          <%= link_to admin_roles_index_path(role_name: 'interlocutor') do %>
+              <%= t('admin.menu.roles.interlocutors') %>
           <% end %>
         <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'validator' %>>
           <%= link_to admin_roles_index_path(role_name: 'validator') do %>

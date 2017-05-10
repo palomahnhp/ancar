@@ -155,7 +155,7 @@ es:
       process_title: Procesos y subprocesos
     header:
       administration: Administración
-      management: Supervisión
+      supervision: Supervisión
       logo: Direccion General de Planificacion i18n
       open: Abierto
       open_data: Open data
@@ -176,7 +176,7 @@ es:
       project: Actualización no permitida.
   user_access:
     index:
-      no_auth_units: No tienes unidades autorizadas
+      no_auth_units: "No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones"
       select: Selección de unidad a tratar
       title: Hoja de identificación de procesos
   welcome:

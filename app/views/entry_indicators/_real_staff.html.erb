@@ -4,11 +4,11 @@
   </th>
   <% OfficialGroup.all.each do |gr| %>
       <td class="staff-td">
-        <% if justification_verified?(unit.id, period.id) %>
-          <%= get_staff('UnitJustified', process, unit, period) %>
-        <% else %>
+        <% if (can? :updates, @organization)   %>
             <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", display_staff('UnitJustified', process, unit, period, gr.id, 4),
                                class: 'input_staff', placeholder: gr.name) %>
+      <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>
+            <%= format_number(display_staff('UnitJustified', process, unit, period, gr.id, 4)) %>
         <% end %>
       </td>
   <% end %>
@@ -16,11 +16,11 @@
 <tr>
  <td colspan="6" class="text-center justification">
    <h5> <%= t('entry_indicators.staff.justification.title') %> </h5>
-   <% if justification_verified?(unit.id, period.id) %>
-       <p><%= justification_text(unit.id, period.id) %></p>
-   <% else %>
+   <% if (can? :updates, @organization)  %>
        <%= text_area_tag(:justification, justification_text(@unit.id, @period.id), class: 'justification') %>
-   <% end %>
+   <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>
+       <p><%= justification_text(unit.id, period.id) %></p>
+ <% end %>
 
  </td>
 </tr>

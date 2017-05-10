@@ -30,7 +30,7 @@ feature "Entry Indicators" do
     it 'muestra efectivos de unidad' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:unit_user, user).first
+      organization_role = Organization.find_roles(:interlocutor, user).first
       organization = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
@@ -55,7 +55,7 @@ feature "Entry Indicators" do
       user= create(:user, :SGT)
       login_as_authenticated_user(user)
 
-      organization_role = Organization.find_roles(:unit_user, user).first
+      organization_role = Organization.find_roles(:interlocutor, user).first
 
       organization = Organization.find(organization_role.resource_id)
       unit = organization.units.first
@@ -81,7 +81,7 @@ feature "Entry Indicators" do
     it ' show Distritos data' do
       user= create(:user, :distrito)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:unit_user, user).first
+      organization_role = Organization.find_roles(:interlocutor, user).first
       organization = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
@@ -105,7 +105,7 @@ feature "Entry Indicators" do
     it 'es editable si usuario con permiso y periodo abierto: aparecen botones y campos imput ' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:unit_user, user).first
+      organization_role = Organization.find_roles(:interlocutor, user).first
       organization = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
@@ -124,7 +124,7 @@ feature "Entry Indicators" do
     it 'no es editable si usuario sin permiso y periodo abierto no botones y campos input' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:unit_user, user).first
+      organization_role = Organization.find_roles(:interlocutor, user).first
       organization = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
@@ -143,7 +143,7 @@ feature "Entry Indicators" do
     it 'no es editable si periodo cerrado' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:unit_user, user).first
+      organization_role = Organization.find_roles(:interlocutor, user).first
       organization = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
@@ -162,7 +162,7 @@ feature "Entry Indicators" do
     it 'no es editable si tiene VºBº del validador' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:unit_user, user).first
+      organization_role = Organization.find_roles(:interlocutor, user).first
       organization = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
@@ -183,7 +183,7 @@ feature "Entry Indicators" do
       it ' Sin cambios de plantilla ' do
         user= create(:user, :with_two_organizations)
         login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:unit_user, user).first
+        organization_role = Organization.find_roles(:interlocutor, user).first
         organization = Organization.find(organization_role.resource_id)
         unit = organization.units.first
 
@@ -203,7 +203,7 @@ feature "Entry Indicators" do
       it ' Con cambios de plantilla' do
         user= create(:user, :with_two_organizations)
         login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:unit_user, user).first
+        organization_role = Organization.find_roles(:interlocutor, user).first
         organization = Organization.find(organization_role.resource_id)
         unit = organization.units.first
 
@@ -225,7 +225,7 @@ feature "Entry Indicators" do
       it ' coherencia indicadores: cantidad/plantilla asignada' do
         user= create(:user, :with_two_organizations)
         login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:unit_user, user).first
+        organization_role = Organization.find_roles(:interlocutor, user).first
         organization = Organization.find(organization_role.resource_id)
         unit = organization.units.first
 
@@ -244,7 +244,7 @@ feature "Entry Indicators" do
       it ' plantilla utilizada mayor que asignada' do
         user= create(:user, :with_two_organizations)
         login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:unit_user, user).first
+        organization_role = Organization.find_roles(:interlocutor, user).first
         organization = Organization.find(organization_role.resource_id)
         unit = organization.units.first
 
@@ -263,7 +263,7 @@ feature "Entry Indicators" do
       it ' mayor salida que stock/entrada' do
         user= create(:user, :with_two_organizations)
         login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:unit_user, user).first
+        organization_role = Organization.find_roles(:interlocutor, user).first
         organization = Organization.find(organization_role.resource_id)
         unit = organization.units.first
 
@@ -285,7 +285,7 @@ feature "Entry Indicators" do
       it ' datos sin cumplimentar' do
         user= create(:user, :with_two_organizations)
         login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:unit_user, user).first
+        organization_role = Organization.find_roles(:interlocutor, user).first
         organization = Organization.find(organization_role.resource_id)
         unit = organization.units.first
 

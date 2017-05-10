@@ -23,25 +23,6 @@
     <p class="modal-title"><%= t('entry_indicators.form.error.title.global')%> </p>
     <p><%= t('entry_indicators.form.error.p1.global')%></p>
     <ol>
-      <% if @input_errors[:assignated_staff].present? %>
-        <li class="modal-error-title">
-          <p class="modal-error-title"><%= t('entry_indicators.form.error.title.assigned_staff')%> </p>
-          <p><%= t('entry_indicators.form.error.p1.assigned_staff')%>
-            <ul class="error-detail">
-              <% @input_errors[:assignated_staff].each do |error| %>
-              <li class="modal-error">
-                <%= error %>
-              </li>
-              <% end %>
-            </ul>
-          </p>
-          <% unless has_justification?(@unit.id, @period.id) %>
-            <p><%= t('entry_indicators.form.error.p2.assigned_staff_html')%></p>
-            <p><%= t('entry_indicators.form.error.p3.assigned_staff_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
-            <a class="hollow button" onclick="openChange()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
-          <% end %>
-        </li>
-      <% end %>
       <% if @input_errors[:entry_incomplete].present? %>
          <li class="modal-error-title" >
             <p class="modal-error-title"> <%= t('entry_indicators.form.error.title.entry_incomplete') %></p>
@@ -68,7 +49,6 @@
           <p> <%= t('entry_indicators.form.error.p1.errors_in_out_stock', sub_process: in_out_error(@input_errors[:in_out_stock])) %></p>
         </li>
       <% end %>
-
       <% if @input_errors[:incomplete_staff_entry].present? %>
         <li class="modal-error-title">
           <p class="modal-error-title"><%= t('entry_indicators.form.error.title.incomplete_staff_entry')%> </p>
@@ -90,6 +70,26 @@
           <p><%= t('entry_indicators.form.error.p2.incomplete_staff_unit_html')%></p>
         </li>
      <% end %>
+      <% if @input_errors[:assignated_staff].present? %>
+          <li class="modal-error-title">
+            <p class="modal-error-title"><%= t('entry_indicators.form.error.title.assigned_staff')%> </p>
+            <p><%= t('entry_indicators.form.error.p1.assigned_staff')%>
+            <ul class="error-detail">
+              <% @input_errors[:assignated_staff].each do |error| %>
+                  <li class="modal-error">
+                    <%= error %>
+                  </li>
+              <% end %>
+            </ul>
+            </p>
+            <% unless has_justification?(@unit.id, @period.id) %>
+                <p><%= t('entry_indicators.form.error.p2.assigned_staff_html')%></p>
+                <p><%= t('entry_indicators.form.error.p3.assigned_staff_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
+                <a class="hollow button" onclick="openChange()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
+            <% end %>
+          </li>
+      <% end %>
+
     <% if @input_errors[:justification_blank] %>
         <li class="modal-error-title">
           <p class="modal-error-title"><%= t('entry_indicators.form.error.title.no_justification')%> </p>

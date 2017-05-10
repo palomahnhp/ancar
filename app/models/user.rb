@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 #  validates :uweb_id, uniqueness: true
 #  validates :pernr, uniqueness: true
 
-  ROLES =%w[admin, validator, validator, validator, viewer]
+  ROLES = [:admin, :supervisor, :reader, :validator, :interlocutor]
 
   default_scope  { order(:login)} #  Overriding default_scope: unscoped
   scope :active,         -> { where(inactivated_at: nil) }
@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
   def auth_organizations(organization_type_id = 0)
     if organization_type_id != 0
       # global roles
-      if self.has_any_role? :admin, :validator, :visitor
+      if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
         @organizations ||= Organization.where(organization_type_id: organization_type_id).distinct
       # scoped roles
       else
@@ -71,17 +71,17 @@ class User < ActiveRecord::Base
          end
       end
     else
-      @organizations ||= Organization.with_roles([:unit_user, :admin, :validator, :visitor], self).distinct
+      @organizations ||= Organization.with_roles(ROLES, self).distinct
     end
   end
 
   def auth_organization_types
     # global roles
-    if self.has_any_role? :admin, :validator, :visitor
+    if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
       @organization_types ||= OrganizationType.all
     # scoped roles
     else
-     @organization_types ||= OrganizationType.with_roles([:admin, :validator, :visitor], self)
+     @organization_types ||= OrganizationType.with_roles(ROLES, self)
     end
   end
 

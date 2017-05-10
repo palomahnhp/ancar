@@ -16,7 +16,7 @@ feature 'Admin dashboard' do
         expect(page).to have_content 'Usuarios'
         expect(page).to have_content 'Rol administrador'
         expect(page).to have_content 'Rol validador'
-        expect(page).to have_content 'Rol gestor'
+        expect(page).to have_content 'Rol interlocutor'
         expect(page).to have_content 'Rol validador'
       end
 
@@ -85,7 +85,7 @@ feature 'Admin dashboard' do
 
     scenario 'Añadir roles', :js  do
       click_link 'Usuarios y perfiles'
-      click_link 'Rol gestor'
+      click_link 'Rol interlocutor'
 
       fill_in 'search', with: 'Usu'
       find('input[name="commit"]').click
@@ -103,7 +103,7 @@ feature 'Admin dashboard' do
     scenario 'Añadir recursos', :js do
 
       click_link 'Usuarios y perfiles'
-      click_link 'Rol gestor'
+      click_link 'Rol interlocutor'
 
       fill_in 'search', with: 'Usu'
       find('input[name="commit"]').click
@@ -132,7 +132,7 @@ feature 'Admin dashboard' do
 
     scenario 'Eliminar recursos', :js do
       click_link 'Usuarios y perfiles'
-      click_link 'Rol gestor'
+      click_link 'Rol interlocutor'
 
       fill_in 'search', with: 'Usu'
       find('input[name="commit"]').click

@@ -31,8 +31,7 @@ module AssignedEmployeesActions
   end
 
   def delete_entry_indicators(unit_id, indicator_metric_id)
-    EntryIndicator.deled_by_indicator_metric(unit_id, indicator_metric_id)
+    EntryIndicator.delete_by_indicator_metric(unit_id, indicator_metric_id)
   end
-
 
 end

@@ -14,6 +14,16 @@
   font-style: italic;
 }
 
+.ancar-error{
+  display:block;
+  margin-top: 80px;
+  margin-left: 100px;
+  width: 75%;
+  heigth:auto;
+  padding: 20px;
+  background-color: lightcoral;
+  text-align: center;
+}
 
 .welcome {
   background: #F2F3F4;
@@ -143,7 +153,6 @@ table.indicator-metric {
   .indicator-metric-amount {
     width: rem-calc(60);
     text-align: right;
-    color: red;
   }
 
   input {
@@ -162,6 +171,7 @@ table.indicator-metric {
   margin: 0;
   font-size: rem-calc(14);
   display: block;
+  margin-bottom: 25px;
 
   td.justification {
     border-top: 2px solid $cobalto;
@@ -169,6 +179,7 @@ table.indicator-metric {
 
   caption {
     font-size: 1.2rem;
+    margin-bottom: 5px;
   }
 
   thead {

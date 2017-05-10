@@ -77,7 +77,7 @@ class Admin::RolesController < Admin::BaseController
     end
 
     def scope_organization
-      if params[:role_name] == 'unit_user' || params[:role_name] == 'validator'
+      if params[:role_name] == 'interlocutor' || params[:role_name] == 'validator'
         @user.organization
       elsif params[:role_name] == 'supervisor'
         @user.organization.nil? ? false : @user.organization.organization_type

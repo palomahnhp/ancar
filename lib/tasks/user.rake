@@ -37,7 +37,7 @@ namespace :user do
         when 'Validador'
           rol = user.add_role :validator, organizacion
         when 'Usuario'
-          rol = user.add_role :unit_user, organizacion
+          rol = user.add_role :interlocutor, organizacion
       end
       puts "       =>#{rol.inspect}"
     end
@@ -51,7 +51,7 @@ namespace :user do
       case u.role
         when nil
           u.user_organizations.each do |uo|
-            rol = u.add_role :unit_user, uo.organization
+            rol = u.add_role :interlocutor, uo.organization
             puts "       =>#{rol.inspect}"
           end
         when 1

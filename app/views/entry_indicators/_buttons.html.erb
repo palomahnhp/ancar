@@ -1,5 +1,5 @@
 <span class="hide-for-print entry-indicators-buttons">
-  <% if @period.open_entry? %>
+  <% if @period.open_entry? && (can? :updates, @organization)  %>
     <br>
     <%= submit_tag(t('entry_indicators.form.button.save'), class: 'button hollow', name: 'updates') %>
     <%= submit_tag(t('entry_indicators.form.button.end'), class: 'button hollow', name: 'close_entry')%>
@@ -10,6 +10,3 @@
   <br>
   <%= submit_tag(t('entry_indicators.form.button.print'), class:"icon-print button hollow", name: 'print', onclick: "window.print()") %>
 </span>
-
-
-

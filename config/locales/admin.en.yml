@@ -16,7 +16,7 @@ en:
         units: "Organizaciones"
         users: "Usuarios y perfiles"
       roles:
-        unit_users: "Rol gestor"
+        interlocutors: "Rol interlocutor"
         validators: "Rol validador"
         supervisors: "Rol supervisor"
         admins: "Rol administrador"
@@ -62,7 +62,7 @@ en:
     roles:
       index:
         title:
-          unit_user: Gestor de unidad
+          interlocutor: Interlocutor
           validator: Validador de unidad
           admin: Administrador
           supervisor: Supervisor
@@ -85,7 +85,7 @@ en:
           supervisor: Supervisor
           validator: Validador
           admin: Administrador
-          unit_user: Gestor de unidad
+          interlocutor: Interlocutor de unidad
           no_name: ''
       add_resource:
         title: "Añadir recurso al rol: "

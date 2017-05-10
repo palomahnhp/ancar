@@ -62,7 +62,7 @@ module AssignedEmployeeHelper
       staff = staff.select{|st| st[1] == gr_id}
       if staff.present?
         if of == "SubProcess"
-          staff.map{ |st| quantity += st[3]}
+          staff.map{ |st| quantity += st[3] unless st[3].nil? }
         else
           quantity = staff.first[pos]
         end

@@ -26,7 +26,7 @@ class EntryIndicatorsController < ApplicationController
         flash[:notice] = t('entry_indicators.updates.success.validation')
       elsif params[:cancel_change].present?
         flash[:notice] = t('entry_indicators.updates.success.change')
-      else
+      elsif params[:save_change].present?
         flash[:notice] = t('entry_indicators.updates.success.save')
       end
       redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
@@ -53,7 +53,6 @@ class EntryIndicatorsController < ApplicationController
   end
 
   private
-
     def validate_input
       if params[:close_entry].present?
         @input_errors[:assignated_staff]     = AssignedEmployee.staff_for_unit(@period, @unit)
@@ -82,12 +81,11 @@ class EntryIndicatorsController < ApplicationController
       Indicator.includes(indicator_metrics: [:entry_indicators, :total_indicators])
 
       indicator_metrics.each do |indicator|
-
         indicator[1].each do |im|
           indicator_metric_id = im[0].to_i
           amount = im[1]
           if amount.empty?
-            delete_entry_indicators(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
+            delete_entry_indicators(@unit.id, indicator_metric_id)
             @entry_indicators_cumplimented = false
           else
             ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
