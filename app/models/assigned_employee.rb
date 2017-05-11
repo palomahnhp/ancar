@@ -17,17 +17,19 @@ class AssignedEmployee < ActiveRecord::Base
     self['quantity'] = val
   end
 
-  def self.exceeded_staff_for_unit(period, unit)
+  def self.staff_for_unit(period, unit)
     message = []
+
     OfficialGroup.all.each do |official_group|
-      if AssignedEmployee.where(staff_of_type: 'Unit', staff_of_id: unit.id, unit_id: unit.id, period_id: period.id,
-                                official_group: official_group.id).sum(:quantity).to_f <
-          AssignedEmployee.where(staff_of_type: 'Indicator', unit_id: unit.id, period_id: period.id,
-                                 official_group: official_group.id).sum(:quantity).to_f
-        if AssignedEmployee.where(staff_of_type: 'UnitJustified', staff_of_id: unit.id, unit_id: unit.id, period_id: period.id,
-                                  official_group: official_group.id).sum(:quantity).to_f <
-            AssignedEmployee.where(staff_of_type: 'Indicator', unit_id: unit.id, period_id: period.id,
-                                   official_group: official_group.id).sum(:quantity).to_f
+      staff_indicator = self.staff_from_indicator(unit, period, official_group)
+      if AssignedEmployeesChange.unit_justified(unit.id, period.id)
+        staff_real= self.staff_from_unit_justificated(unit, period, official_group)
+        unless staff_real == staff_indicator
+          message << official_group.description
+        end
+      elsif
+      staff_unit = self.staff_from_unit(unit, period, official_group)
+        unless staff_unit == staff_indicator
           message << official_group.description
         end
       end
@@ -38,4 +40,41 @@ class AssignedEmployee < ActiveRecord::Base
   def self.staff_quantity(type, unit_id)
      where(staff_of_type: type.class.name, staff_of: type.id, unit_id: unit_id).sum(:quantity)
   end
+
+  def self.cancel(period_id, unit_id)
+    self.where(period_id: period_id, unit_id: unit_id, staff_of_type: "UnitJustified").delete_all
+  end
+
+  def self.delete_all_by_group(official_group_id, type, process_id, period_id, unit_id)
+    self.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id).delete_all
+  end
+
+  def self.get_by_group(official_group_id, type, process_id, period_id, unit_id)
+    self.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id)
+  end
+
+  private
+
+    def self.staff_from_unit(unit, period, official_group)
+      staff_from('Unit', unit, period, official_group, unit.id)
+    end
+
+    def self.staff_from_indicator(unit, period, official_group)
+      staff_from('Indicator', unit, period, official_group)
+    end
+
+    def self.staff_from_unit_justificated(unit, period, official_group)
+      staff_from('UnitJustified', unit, period, official_group, unit.id)
+    end
+
+    def self.staff_from(where, unit, period, official_group, id = nil )
+      if id.nil?
+        self.where(staff_of_type: where, unit_id: unit.id, period_id: period.id,
+                   official_group: official_group.id).sum(:quantity).to_f
+      else
+        self.where(staff_of_type: where, staff_of_id: id, unit_id: unit.id, period_id: period.id,
+                               official_group: official_group.id).sum(:quantity).to_f
+      end
+    end
+
 end

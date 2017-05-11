@@ -1,27 +1,27 @@
 <tr>
-  <th class="text-center" colspan="5">
+  <th class="staff-th text-center" >
     <%= t('entry_indicators.staff.input.header') %>
-    ->  <a class="text-left small"  href="#" data-open="showJustification"><%= t('entry_indicators.staff.input.link') %></a>
   </th>
-</tr>
-<tr>
   <% OfficialGroup.all.each do |gr| %>
-      <td>
-        <% if justification_verified?(unit.id, period.id) %>
-          <%= get_staff('UnitJustified', process, unit, period) %>
-        <% else %>
+      <td class="staff-td">
+        <% if (can? :updates, @organization)   %>
             <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", display_staff('UnitJustified', process, unit, period, gr.id, 4),
                                class: 'input_staff', placeholder: gr.name) %>
+      <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>
+            <%= format_number(display_staff('UnitJustified', process, unit, period, gr.id, 4)) %>
         <% end %>
       </td>
   <% end %>
 </tr>
+<tr>
+ <td colspan="6" class="text-center justification">
+   <h5> <%= t('entry_indicators.staff.justification.title') %> </h5>
+   <% if (can? :updates, @organization)  %>
+       <%= text_area_tag(:justification, justification_text(@unit.id, @period.id), class: 'justification') %>
+   <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>
+       <p><%= justification_text(unit.id, period.id) %></p>
+ <% end %>
 
-<div class="reveal callout <%= staff_verified_class(process.id, period.id)%> " id="showJustification" data-reveal>
-  <h4> <%= t('entry_indicators.staff.justification.modal.title') %> </h4>
-  <div class="lead "><%= staff_verified_text(process.id, period.id) %></div>
-  <p><%= justification_text(unit.id, period.id) %></p>
-  <button class="close-button warning" data-close aria-label="Close modal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+ </td>
+</tr>
+

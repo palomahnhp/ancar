@@ -5,13 +5,12 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
     elsif user.has_role? :validator
-      can :read, EntryIndicator
-      can :manage, OrganizationType, :id => OrganizationType.with_role(:validator, user).pluck(:id)
-      can :manage, Period, :organizations_type_id => OrganizationType.with_role(:validator, user).pluck(:id)
-    elsif user.has_role? :viewer
-      can :read, :all
-    else
-      can :manage, :all
+      can :read, Organization, :id => Organization.with_role(:validator, user).pluck(:id)
+      can :validate, Period, :organizations_id => Organization.with_role(:validator, user).pluck(:id)
+    elsif user.has_role? :interlocutor, :any
+      can :updates, Organization, :id => Organization.with_role(:interlocutor, user).pluck(:id)
+    elsif user.has_role? :reader, :any
+      can :read, Organization, :id => Organization.with_role(:reader, user).pluck(:id)
     end
   end
     #

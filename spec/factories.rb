@@ -21,16 +21,30 @@ FactoryGirl.define do
     trait :with_one_organization do
       after :create do |user|
         organization = Organization.where(organization_type_id: 1).first
-        user.add_role(:unit_user, organization)
+        user.add_role(:interlocutor, organization)
       end
     end
 
     trait :with_two_organizations do
       after :create do |user|
         organization = Organization.where(organization_type_id: 1).first
-        user.add_role(:unit_user, organization)
+        user.add_role(:interlocutor, organization)
         organization = Organization.where(organization_type_id: 1).last
-        user.add_role(:unit_user, organization)
+        user.add_role(:interlocutor, organization)
+      end
+    end
+
+    trait :SGT do
+      after :create do |user|
+        organization = Organization.where(organization_type: OrganizationType.find_by_description('Secretarías Generales Técnicas')).first
+        user.add_role(:interlocutor, organization)
+      end
+    end
+
+    trait :distrito do
+      after :create do |user|
+        organization = Organization.where(organization_type: OrganizationType.find_by_description('Distritos')).first
+        user.add_role(:interlocutor, organization)
       end
     end
 

@@ -1,20 +1,14 @@
 <% if current_user %>
 
-  <% if current_user.has_role? :admin %>
+  <% if current_user.has_role? :admin, :any %>
     <li>
       <%= link_to t('layouts.header.administration'), admin_root_path %>
     </li>
   <% end %>
 
-  <% if (current_user.has_role? :validator, :any) || (current_user.has_role? :validator) %>
+  <% if (current_user.has_role? :supervisor, :any) %>
     <li>
-      <%= link_to t('layouts.header.management'), supervisor_root_path %>
-    </li>
-  <% end %>
-
-  <% if (current_user.has_role? :validator, :any) || (current_user.has_role? :validator) %>
-    <li>
-      <%= link_to t('layouts.header.validation'), root_path %>
+      <%= link_to t('layouts.header.supervision'), supervisor_root_path %>
     </li>
   <% end %>
 

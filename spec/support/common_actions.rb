@@ -33,6 +33,7 @@ module CommonActions
     resource_model ||= "(.*)"
     /\d errors? prevented this #{resource_model} from being saved:/
   end
+
   def add_staff(staff_of_type, staff_of_id, unit_id, period, grupoA1, grupoA2, grupoC1, grupoC2 )
     group = OfficialGroup.find_by_name("A1")
     AssignedEmployee.create!(staff_of_type: staff_of_type, staff_of_id: staff_of_id,

@@ -176,7 +176,7 @@ puts '12. Creando usuarios '
   user = User.create!(login: 'USU001', name: 'Usuario', surname: 'Distrito', second_surname: '1',
                       uweb_id: rand(70000..90000), pernr: rand(70000..90000),
                       official_position: Faker::Company.profession)
-  user.add_role(:user, Organization.where(organization_type: to1.id).first)
+  user.add_role(:interlocutor, Organization.where(organization_type: to1.id).first)
   puts " #{user.login}"
 
   user = User.create!(login: 'VAL002', name: 'Usuario', surname: 'Validador', second_surname: 'Distrito 2',
@@ -187,7 +187,7 @@ puts '12. Creando usuarios '
   user = User.create!(login: 'USU002', name: 'Usuario', surname: 'Distrito', second_surname: '2',
                       uweb_id: rand(70000..90000), pernr: rand(70000..90000),
                       official_position: Faker::Company.profession)
-  user.add_role(:user, Organization.where(organization_type: to1.id).second)
+  user.add_role(:interlocutor, Organization.where(organization_type: to1.id).second)
   puts " #{user.login}"
 
 

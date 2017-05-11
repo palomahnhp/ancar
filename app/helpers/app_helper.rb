@@ -29,10 +29,6 @@ module AppHelper
     indicator_metric.indicator_sources.take.nil? ? '-' : indicator_metric.indicator_sources.take.source_id
   end
 
-#  def metric_id
-#    indicator.indicator_metrics.take.nil? ? "-" : indicator.indicator_metrics.take.source_id
-#  end
-
   def get_amount(im, unit)
     ei = EntryIndicator.where(indicator_metric_id: im.id, unit_id: unit.id).first
     return ei.nil? ? nil : format_number(ei.amount)
@@ -58,20 +54,25 @@ module AppHelper
     process_name.nil? ? process.camelize : process_name.name.camelize
   end
 
-  def entry_staff_error
-    description = ' / '
-    @entry_without_staff.each do |entry_error|
-      description += Indicator.description(entry_error[0]) + ' / '
-    end
-    return description
+  def entry_staff_error(entry_error)
+    description = "#{Indicator.description(entry_error[0])}=> cantidad: #{entry_error[1][0].to_f} puesto asignado #{entry_error[1][1].to_f}"
   end
 
-    def in_out_error
+  def in_out_error(errors_in_out_stock)
       description = "\r\n"
-      @errors_in_out_stock.each do |e|
+      errors_in_out_stock.each do |e|
         description  += "#{SubProcess.description(e[0])}-  salida: #{e[1][0]} entrada: #{e[1][1]} stock: #{e[1][2]} \r\n"
       end
       return description
 
     end
+
+    def pos_amount(of)
+      (of == 'SubProcess' || of == 'Indicator' ) ? 3 : 4
+    end
+
+    def official_groups
+      @official_groups ||=  OfficialGroup.all
+    end
+
 end

@@ -1,7 +1,8 @@
 require 'database_cleaner'
 
-# '1 Create_organizations'
-organization_type = OrganizationType.first
+puts 'Test_seed - inicialización datos Distritos'
+# '1 Create_organizations '
+organization_type = OrganizationType.find_by_acronym("JD")
 organization_data = [
 ["JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA","10000003", "1"],
 ["JUNTA MUNICIPAL DEL DISTRITO DE CENTRO","10000003", "3"],
@@ -26,7 +27,7 @@ organization_data.each do |data|
 end
 
 # '2. Create period'
-period = Period.create(description: 'Periodo de análisis de datos', organization_type_id: organization_type.id,
+period = Period.create(description: 'Periodo de análisis de datos Distritos', organization_type_id: organization_type.id,
                         started_at: (Time.now - 1.year).beginning_of_year, ended_at: (Time.now - 1.year).end_of_year,
                         opened_at:  (Time.now + 1.month), closed_at: (Time.now + 1.month))
 
@@ -83,4 +84,87 @@ mp2 = MainProcess.create!(period_id: period.id,
 item_id: Item.create!(item_type: "main_process", description: "AUTORIZACIONES Y CONCESIONES").id,
 order: "2")
 
+puts 'Test_seed - inicialización datos SGT '
+
+# '1 Create_organizations'
+organization_type = OrganizationType.find_by_acronym("SGT")
+
+# '2. Create period'
+period = Period.create(description: "Periodo de análisis de datos SGT #{organization_type.id}", organization_type_id: organization_type.id,
+                       started_at: (Time.now - 1.year).beginning_of_year, ended_at: (Time.now - 1.year).end_of_year,
+                       opened_at:  (Time.now + 1.month), closed_at: (Time.now + 1.month))
+
+# '3. Create organizations'
+organization_data = [
+    ["SECRETARIA GENERAL TECNICA DEL AREA DE GOBIERNO DE DESARROLLO URBANO SOSTENIBLE","10005748", "1"],
+    ["SECRETARIA GENERAL TECNICA AG MEDIO AMBIENTE Y MOVILIDAD","10005782", "3"],
+    ["SECRETARIA GENERAL TECNICA GERENCIA DE LA CIUDAD","10005875", "2"] ]
+
+ut = UnitType.create!(description: 'SECRETARIA GENERAL TECNICA', organization_type_id: organization_type.id, order: 1, updated_by: 'seed')
+
+organization_data.each do |data|
+  organization = Organization.create!(organization_type_id: organization_type.id,
+                                      description: data[0],
+                                      sap_id: data[1],
+                                      order: data[2] )
+  sap_id = 10200200
+
+  UnitType.where(organization_type_id: organization_type.id).order(:id).each_with_index do |unit_type, index|
+    Unit.create!(unit_type_id: unit_type.id, organization_id: organization.id,
+                 description_sap: unit_type.description, sap_id: sap_id + index, order: index + 1)
+  end
+
+
+  # '4 Crear bloques competenciales'
+
+  mp1 = MainProcess.create!(period_id: period.id, item_id: Item.create!(item_type: "main_process",
+                                                                        description: "RÉGIMEN JURÍDICO").id,
+                            order: "1")
+  sp1 = SubProcess.create!(main_process_id: mp1.id, unit_type_id: ut.id,
+                           item_id: Item.create!(item_type: "sub_process",
+                                                 description: "ASUNTOS JUNTA GOBIERNO, PLENO Y COMISIONES DEL PLENO").id,
+                           order: "1")
+  sp2 = SubProcess.create!(main_process_id: mp1.id, unit_type_id: ut.id,
+                           item_id: Item.create!(item_type: "sub_process",
+                                                 description: "PROYECTOS NORMATIVOS").id,
+                           order: "2")
+
+  task_item = Item.create!(item_type: "task", description: "TAREA")
+  task = Task.create!(sub_process_id: sp1.id, item_id: task_item.id, order: "1")
+
+  indicator_item = Item.create!(item_type: "indicator", description: "- Revisión jurídica, preparación de documentación y petición de inforems de los asuntos a tratar en la Comisión Preparatoria ..
+")
+  indicator = Indicator.create!(task_id: task.id, item_id: indicator_item.id, order: "1")
+  metric_item = Item.create!(item_type: "metric", description: "Nº informes solicitados por otras Áreas de Gobierno")
+  metric = Metric.create!(item_id: metric_item.id)
+  indicator_metric = IndicatorMetric.create!(indicator_id: indicator.id, metric_id: metric.id)
+
+  source_item = Item.create!(item_type: "source", description: "Elaboración propia")
+  source = Source.create!(item_id: source_item.id)
+  indicator_source = IndicatorSource.create!(indicator_id: indicator.id, indicator_metric_id: indicator_metric.id, source_id: source.id)
+
+
+  metric_item = Item.create!(item_type: "metric", description: "Nº de asuntos tratados en la Junta de Gobierno")
+  metric = Metric.create!(item_id: metric_item.id)
+  indicator_metric = IndicatorMetric.create!(indicator_id: indicator.id, metric_id: metric.id)
+  indicator_source = IndicatorSource.create!(indicator_id: indicator.id, indicator_metric_id: indicator_metric.id, source_id: source.id)
+
+  # SP2
+  task = Task.create!(sub_process_id: sp2.id, item_id: task_item.id, order: "1")
+  indicator_item = Item.create!(item_type: "indicator", description: "Preparación revisión y tramitación de proyectos normativos ....")
+  indicator = Indicator.create!(task_id: task.id, item_id: indicator_item.id, order: "1")
+  metric_item = Item.create!(item_type: "metric", description: "Nº de proyectos de otras Áreas")
+  metric = Metric.create!(item_id: metric_item.id)
+  indicator_metric = IndicatorMetric.create!(indicator_id: indicator.id, metric_id: metric.id)
+
+  source_item = Item.create!(item_type: "source", description: "Elaboración Propia")
+  source = Source.create!(item_id: source_item.id)
+  indicator_source = IndicatorSource.create!(indicator_id: indicator.id, indicator_metric_id: indicator_metric.id, source_id: source.id)
+
+  mp2 = MainProcess.create!(period_id: period.id,
+                            item_id: Item.create!(item_type: "main_process", description: "RÉGIMEN INTERIOR").id,
+                            order: "2")
+
+
+end
 
