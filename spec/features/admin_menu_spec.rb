@@ -114,7 +114,7 @@ feature 'Admin dashboard' do
       expect(page).to have_content 'Añadir recurso'
       expect(page).to have_current_path(admin_roles_path, only_path: true)
 
-      expect(page).to have_css("option", :count => 3)
+      expect(page).to have_css("option", :count => 6)
 
       expect(page).to have_css('option', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA')
       expect(page).to have_css('option', visible: true, text: 'JUNTA MUNICIPAL DEL DISTRITO DE CENTRO')

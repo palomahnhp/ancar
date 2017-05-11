@@ -68,7 +68,6 @@ feature "User access" do
 
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
-      expect(page).not_to have_content "Distritos"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA"
       expect(page).to have_content "Periodo"
     end
@@ -77,9 +76,9 @@ feature "User access" do
       user = create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
       click_link("Procesos y subprocesos", :match => :first)
+      save_and_open_page
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
-      expect(page).not_to have_content "Distritos"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS"
       expect(page).to have_content "Periodo"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA"
