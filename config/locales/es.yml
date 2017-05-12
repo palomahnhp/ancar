@@ -92,6 +92,7 @@ es:
         save: 'Guardar datos'
         end: 'Finalizar entrada de datos'
         go_top: 'Inicio'
+        approval: "Validar"
       validation_button:
         cancel_justification: "Cancelar ajuste"
         justificate: "Justificar cambio"

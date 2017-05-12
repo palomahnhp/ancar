@@ -11,6 +11,9 @@
         <%= hidden_field_tag(:open_change)%>
   <% end %>
   <div class="row">
+    <% if current_user.has_role? :validator, @organization %>
+        <%= render 'approval' %>
+    <% end %>
     <br>
     <div class="small-12 medium-6 columns">
       <%= render 'buttons' %>

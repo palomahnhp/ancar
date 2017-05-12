@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="small-12 columns">
+    <% if @approval %>
+      <div class="medium-8 small-12 columns approval">
+        <h3 class="approved"> Datos validados </h3>
+        <p> Fecha: <%=  @approval.approval_at %></p>
+        <p> Validador: <%=  @approval.approval_by %></p>
+      </div>
+    <% else %>
+      <div class="medium-8 small-12 columns approval">
+        <p  class="pending"> Datos pendientes de validación</p>
+      </div>
+    <%end %>
+  </div>
+  </div>
+</div>

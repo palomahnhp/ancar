@@ -1,5 +1,6 @@
 class EntryIndicatorsController < ApplicationController
   include AssignedEmployeesActions
+  include ApprovalsActions
 
   before_action :require_user, only: [:index]
   before_action :initialize_instance_vars, only: [:index, :edit, :updates ]
@@ -15,6 +16,8 @@ class EntryIndicatorsController < ApplicationController
       cancel_change(@period.id, @unit.id)
     elsif params[:open_change].present?
       open_change(@period.id, @unit.id, current_user)
+    elsif params[:approval].present?
+      approval
     else
       update_entry
     end
@@ -34,6 +37,11 @@ class EntryIndicatorsController < ApplicationController
     end
   end
 
+  def approval
+    validate_input
+  end
+
+  private
   def update_entry
     @entry_indicators_cumplimented = @employees_cumplimented = true
 
@@ -52,8 +60,7 @@ class EntryIndicatorsController < ApplicationController
     validate_input
   end
 
-  private
-    def validate_input
+  def validate_input
       if params[:close_entry].present?
         @input_errors[:assignated_staff]     = AssignedEmployee.staff_for_unit(@period, @unit)
         @input_errors[:entry_without_staff]  = Indicator.validate_staff_for_entry(@period, @unit)
@@ -61,6 +68,12 @@ class EntryIndicatorsController < ApplicationController
         @input_errors[:in_out_stock]         = SubProcess.validate_in_out_stock(@period, @unit)
         @input_errors[:incomplete_staff_entry] = @incomplete_staff_entry
       end
+
+      if params[:approval].present?
+        @input_errors[:entry_incomplete]     = !(@entry_indicators_cumplimented && @incomplete_staff_entry)
+        @entry_indicators_cumplimented = entry_indicators_cumplimented?
+      end
+
       @input_errors[:incomplete_staff_unit]  = @incomplete_staff_unit
       @input_errors[:justification_blank]    = @justification_blank
       if @input_errors[:justification_blank] && @input_errors[:incomplete_staff_unit].count == OfficialGroup.count
@@ -68,8 +81,8 @@ class EntryIndicatorsController < ApplicationController
         @input_errors[:incomplete_staff_unit]  = nil
         @input_errors[:justification_blank]    = nil
         @input_errors[:assignated_staff] = nil
-      end
 
+      end
       @input_errors[:num_errors] = @input_errors.select{|error| @input_errors[error].present?}.count
     end
 
@@ -119,6 +132,7 @@ class EntryIndicatorsController < ApplicationController
       else
         @unit = @units.first
       end
+      @approval = get_approval(@period, @unit)
     end
 
     def entry_incompleted?
@@ -155,6 +169,18 @@ class EntryIndicatorsController < ApplicationController
         end
       end
       return employees_cumplimented
+    end
+
+    def entry_indicators_cumplimented?
+      indicators_period = @period.indicators(@unit)
+      indicators_period.each do |indicator_subprocess|
+        indicator_subprocess.each do |indicator|
+            indicator.indicator_metrics.each do |indicator_metric|
+              return false if indicator_metric.entry_indicators.nil?
+            end
+        end
+      end
+      return true
     end
 
  end

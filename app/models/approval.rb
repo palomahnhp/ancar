@@ -1,8 +1,10 @@
 class Approval < ActiveRecord::Base
 
-  belongs_to :subject, polymorphic: true
+  belongs_to :period
+  belongs_to :unit
 
-  validates :subject_id, presence: true
-  validates :subject_type, presence: true
+  def self.by_period_and_unit(period, unit)
+    Approval.where(period: period, unit: unit).take
+  end
 
 end

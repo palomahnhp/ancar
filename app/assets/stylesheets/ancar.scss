@@ -223,6 +223,26 @@ table.indicator-metric {
   }
 }
 
+.approval {
+  display: block;
+  margin-top: rem-calc(20);
+  margin-left: rem-calc(200);
+  margin-botton: rem-calc(20);
+  text-align: center;
+  padding-top: 10px ;
+
+}
+p.approved{
+  background-color: #cbffd0;
+  border: 1px solid #bcbcbc;
+  padding: 10px ;
+}
+
+p.pending {
+  background-color: lightpink;
+  border: 1px solid #bcbcbc;
+  padding: 10px ;
+}
 
 .group {
   padding: 0;
