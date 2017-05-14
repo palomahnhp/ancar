@@ -1,6 +1,6 @@
 <tr>
   <th class="staff-th text-center" >
-    <%= t('entry_indicators.staff.input.header') %>
+    <%= t("entry_indicators.staff.input.#{process_name(@period,'AssignedEmployee')}.header") %>
   </th>
   <% OfficialGroup.all.each do |gr| %>
       <td class="staff-td">
@@ -15,7 +15,7 @@
 </tr>
 <tr>
  <td colspan="6" class="text-center justification">
-   <h5> <%= t('entry_indicators.staff.justification.title') %> </h5>
+   <h5> <%= t("entry_indicators.staff.justification.#{process_name(@period,'AssignedEmployee')}.title") %> </h5>
    <% if (can? :updates, @organization)  %>
        <%= text_area_tag(:justification, justification_text(@unit.id, @period.id), class: 'justification') %>
    <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>
