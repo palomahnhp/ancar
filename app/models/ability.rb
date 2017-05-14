@@ -7,7 +7,7 @@ class Ability
     end
     if user.has_role? :supevisor, :any
       can :read, OrganizationType, :id => Organization.with_role(:validator, user).pluck(:id)
-      can :read, Organization, id => Organization.where(organization_type_id: OrganizationType.with_role(:supervisor, user).pluck(:id)
+      can :read, Organization, id => Organization.where(organization_type_id: OrganizationType.with_role(:supervisor, user)).pluck(:id)
     end
     if user.has_role? :validator, :any
       can :read, Organization, :id => Organization.with_role(:validator, user).pluck(:id)
@@ -18,7 +18,7 @@ class Ability
     end
     if user.has_role? :reader, :any
       can :read, OrganizationType, :id => OrganizationType.with_role(:reader, user).pluck(:id)
-      can :read, Organization, :id => Organization.where(organization_type_id: OrganizationType.with_role(:supervisor, user).pluck(:id)
+      can :read, Organization, :id => Organization.where(organization_type_id: OrganizationType.with_role(:supervisor, user)).pluck(:id)
     end
   end
     #

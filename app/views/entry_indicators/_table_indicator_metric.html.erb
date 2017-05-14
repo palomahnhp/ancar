@@ -15,7 +15,7 @@
         <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
           <% amount_value = get_amount(indicator_metric, @unit) %>
           <% if @period.open_entry? && (can? :updates, @organization)  %>
-            <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]", amount_value, class: 'inline amount', placeholder: t('.amount')) %>
+            <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]", amount_value, class: 'inline amount', placeholder: t('entry_indicators.table_indicator_metric.amount')) %>
           <% else %>
             <%= amount_value %>
           <% end %>

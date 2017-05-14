@@ -11,10 +11,6 @@ en:
       create:
         success: "Se ha creado correctamente."
         title: "Crear %{process_name}"
-      delete:
-        message:
-          empty: "¿Desea borrar este %{process_name}?"
-          no_empty: "¿Desea borrar este %{process_name} y su contenido?"
       destroy:
         error: "Se ha producido un error al eliminar el item"
         success: "Se ha eliminado correctamente el item"
@@ -71,10 +67,6 @@ en:
       create:
         success: "El item se ha creado correctamente."
         title: "Crear %{process_name}"
-      delete:
-        message:
-          empty: "¿Desea borrar este %{process_name}?"
-          no_empty: "¿Desea borrar este %{process_name} y su contenido?"
       destroy:
         error: "Error eliminando item"
         success: "Item eliminado "
@@ -109,10 +101,6 @@ en:
           no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
         error:
           processes_copy: Se ha creado el periodo correctamente. Se está reañozando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
-      delete:
-        message:
-         empty: ¿Desea borrar este periodo?
-         no_empty:  ¿Desea borrar este periodo y todo su contenido?
       destroy:
         success: Se ha eliminado el Periodo correctamente
         error: Se ha producido un error a eliminar el Periodo
@@ -155,10 +143,6 @@ en:
           closed_at: Fecha de cierre no puede ser anterior a fecha de apertura
           opened_at: Fecha de apertura no puede ser anterior a la fecha de finalización del periodo
     sub_processes:
-      delete:
-        message:
-         empty: "¿Desea borrar este %{process_name}?"
-         no_empty: "¿Desea borrar este %{process_name} y su contenido?"
       destroy:
         error: "Error eliminando %{process_name}"
         success: "Item eliminado"
@@ -188,10 +172,6 @@ en:
     tasks:
       create:
         success: La tarea se ha creado correctamente
-      delete:
-        message:
-          empty: ¿Desea borrar esta tarea?
-          no_empty: ¿Desea borrar esta tarea y sus indicadores?
       destroy:
         error: Error eliminando tarea
         success: Tarea eliminada

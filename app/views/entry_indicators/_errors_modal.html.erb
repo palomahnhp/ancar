@@ -84,7 +84,7 @@
             </p>
             <% unless has_justification?(@unit.id, @period.id) %>
                 <p><%= t('entry_indicators.form.error.p2.assigned_staff_html')%></p>
-                <p><%= t('entry_indicators.form.error.p3.assigned_staff_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
+                <p><%= t('entry_indicators.form.error.p3.assigned_staff_html', box_title: t("entry_indicators.staff.title.#{process_name(@period,'AssignedEmployee')}.Unit") )%></p>
                 <a class="hollow button" onclick="openChange()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
             <% end %>
           </li>
