@@ -10,10 +10,9 @@
         <%= hidden_field_tag(:cancel_change) %>
         <%= hidden_field_tag(:open_change)%>
   <% end %>
+
+  <%= render 'approval' %>
   <div class="row">
-    <% if current_user.has_role? :validator, @organization %>
-        <%= render 'approval' %>
-    <% end %>
     <br>
     <div class="small-12 medium-6 columns">
       <%= render 'buttons' %>
@@ -44,7 +43,7 @@
               <tr class="indicator-row">
                 <td class="indicator-description" id="<%= "indicator_col_#{indicator.id}" %>">
                   <% if indicator.description.nil? %>
-                      <strong> <%= indicator.order %>. <%= indicator.item.description %></strong>
+                      <strong> <%= indicator.item.description %></strong>
                   <% else %>
                       <br>
                       <div class="moderation-description">
@@ -73,4 +72,4 @@
   <% end %>
 <% end %>
 
-<a href="#" class="icon-angle-up hide-for-print"><%= t('entry_indicators.form.button.go_top') %></a>
+<a href="#" class="icon-angle-up hide-for-print"> <%= t('entry_indicators.form.button.go_top') %> </a>

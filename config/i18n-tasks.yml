@@ -24,6 +24,8 @@ data:
     - config/locales/%{locale}.yml
     - config/locales/admin.%{locale}.yml
     - config/locales/supervisor.%{locale}.yml
+    - config/locales/rails.%{locale}.yml
+
 
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
   # `i18n-tasks normalize -p` will force move the keys according to these rules
@@ -91,18 +93,34 @@ ignore_missing:
   - 'errors.messages.taken'
   - 'devise.failure.invalid'
   - 'devise.registrations.destroyed'
+  - 'date.*'
+
 ## Consider these keys used:
 ignore_unused:
+  - 'date.*'
   - 'activerecord.*'
   - 'activemodel.*'
   - 'unauthorized.*'
+  - 'time.*'
+  - 'datetime.*'
+  - 'support.*'
+  - 'number.*'
+  - 'helpers.select.*'
+  - 'helpers.submit.*'
+  - 'errors.*'
   - 'helpers.page_entries_info.*' # kaminari
   - 'views.pagination.*' # kaminari
   - 'shared.suggest.*'
   - 'supervisor.process_name.*'
   - 'entry_indicators.staff.title.*'
+  - 'entry_indicators.staff.assigned.*'
+  - 'entry_indicators.staff.input.*'
+  - 'entry_indicators.staff.justification.*'
   - 'entry_indicators.form.indicator.*'
   - 'entry_indicators.form.indicator.*'
+  - 'entry_indicators.form.error.p1.global.*'
+
+
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

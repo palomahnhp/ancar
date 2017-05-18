@@ -75,4 +75,11 @@ module AppHelper
       @official_groups ||=  OfficialGroup.all
     end
 
+  def user_type(current_user)
+    if current_user.has_role? :interlocutor, :any
+      'interlocutor'
+    else
+      'no_interlocutor'
+    end
+  end
 end

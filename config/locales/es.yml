@@ -43,59 +43,52 @@ es:
         Tasks: Tarea/acción
       metric: Métrica
       source: Fuente
-      update:
-        justification:
-          title: "Justificar ajuste puestos"
-          label: "Justifica el ajuste de puestos a realizar"
-      validation:
-        button:
-          cancel: "Cancelar"
-          close: "Cerrar"
-          continue: "Continuar"
-          fix: "Corregir"
-          cancel_change: "Cancelar ajuste"
-          justificate: "Justificar ajuste"
-      error:
-        title:
-          change_staff: 'Cambio de la puestos asignada a esta unidad'
-          assigned_staff: 'Error en la asignación de los puestos'
-          entry_incomplete: 'Datos incompletos'
-          errors_in_out_stock: 'Error en procesos de entrada/salida'
-          entry_without_staff: 'Inconsistencia entre cantidades y puestos de indicadores/tareas'
-          no_change_staff: 'Ajuste de los puestos asignados a la unidad'
-          global: 'Error/es detectado/s al validar los datos de la unidad'
-          no_justification: "Falta justificación del cambio de puestos"
-          incomplete_staff_unit: "Falta por cumplimentar algún grupo de los puestos de la unidad"
-          incomplete_staff_entry: "Falta por cumplimentar los puestos en algún grupo"
-
-        p1:
-          change_staff: 'Para cambiar los puestos asignados a una unidad se debe justificar previamente'
-          assigned_staff: 'Los puestos asignados a los subprocesos/procesos no coinciden con la puestos asignados a esta unidad para:'
-          errors_in_out_stock: 'Es mayor la cantidad cumplimentada en los indicadores/tareas de salida que en los de entrada: %{sub_process}'
-          entry_incomplete: 'Quedan indicadores por cumplimentar: puestos o cantidad.'
-          entry_without_staff_html: "Hay indicadores/tareas que no tienen asignados puestos pero si tienen cumplimentadas cantidades o indicadores/tareas con cantidades pero sin puestos asignados:"
-          no_change_staff: 'No se han incluido valores para los puestos y se ha dejado vacia la justificación para el cambio de puestos.'
-          global: 'Pulsa el botón "Corregir" para volver a la ficha de la unidad y corregir los errores listados a continuación:'
-          no_justification: "Debe incluir una justificación del cambio de puestos"
-          incomplete_staff_entry: "Debe cumplimentar los puestos en todos los grupos en los indicadores"
-          incomplete_staff_unit: "Debe cumplimentar los puestos de la unidad para todos los grupos en "
-        p2:
-          change_staff_html: 'Pulsa el botón <strong><em>Justificar cambio</em></strong>, para añadir una justificación y posteriormente realizar los cambios de los puestos. Estos cambios quedarán pendientes de verificación por el supervisor.'
-          assigned_staff_html: 'Si se trata de un <strong>error</strong> pulsa el botón "Corregir" para volver a la pantalla de entrada de datos.'
-          no_change_staff_html: 'Pulse <strong><em>Corregir</em></strong> si aún desea realizar el cambio o <strong><em>Cancelar ajuste</strong></em> si no desea continuar con el ajuste de puestos'
-          no_justification_html: 'Pulse "Corregir" y luego "<strong><em>Cancelar ajuste</strong></em> si no desea continuar con el ajuste de puestos'
-          incomplete_staff_unit_html: 'Pulse "Corregir" y luego "<strong><em>Cancelar ajuste</strong></em> si no desea continuar con el ajuste de puestos'
-        p3:
-          assigned_staff_html: 'Si no es un error y se deben ajustar los puestos que aparecen en la tabla <strong><em> "Puestos asignados a 31 de diciembre"</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> Adecuar puestos</em></strong>, lo que permitirá modificar los puestos y añadir una justificación a dichos cambios.'
       button:
         print: 'Imprimir'
         save: 'Guardar datos'
-        end: 'Finalizar entrada de datos'
+        end: 'Validar entrada de datos'
         go_top: 'Inicio'
-        approval: "Validar"
-      validation_button:
-        cancel_justification: "Cancelar ajuste"
-        justificate: "Justificar cambio"
+        approval:
+          inicio: "Validar datos"
+          ok: "Visto bueno"
+          cancel: "Cancelar el VºBº"
+          update: "Modificar observaciones"
+        cancel_change: "Cancelar ajuste"
+        justificate: "Justificar ajuste"
+        fix: "Corregir"
+      error:
+        title:
+          assigned_staff: 'Error en la asignación de plantila/puestos'
+          entry_without_staff: 'Inconsistencia entre cantidades y plantilla/puestos de indicadores/tareas'
+          no_change_staff: 'Ajuste de plantilla/puestos asignados a la unidad'
+          no_justification: "Falta justificación del cambio de plantilla/puestos"
+          incomplete_staff_unit: "Falta por cumplimentar algún grupo de plantilla/puestos de la unidad"
+          incomplete_staff_entry: "Falta por cumplimentar plantilla/puestos en algún grupo"
+          entry_incomplete: 'Datos incompletos'
+          errors_in_out_stock: 'Error en procesos de entrada/salida'
+          global: 'Errores al validar los datos de la unidad'
+        p1:
+          assigned_staff: 'La/os plantilla/puestos asignados a los subprocesos/procesos no coinciden con la/os plantilla/puestos asignados a esta unidad para:'
+          errors_in_out_stock: 'Es mayor la cantidad cumplimentada en los indicadores/tareas de salida que en los de entrada: %{sub_process}'
+          entry_incomplete: 'Quedan indicadores por cumplimentar: plantilla/puestos o cantidad.'
+          entry_without_staff_html: "Hay indicadores/tareas que no tienen asignados plantilla/puestos pero si tienen cumplimentadas cantidades o indicadores/tareas con cantidades pero sin puestos asignados:"
+          no_change_staff: 'No se han incluido valores para la/os plantilla/puestos y se ha dejado vacia la justificación para el cambio de puestos.'
+          no_justification: "Debe incluir una justificación del cambio de plantilla/puestos"
+          incomplete_staff_entry: "Debe cumplimentar la/os plantilla/puestos en todos los grupos en los indicadores"
+          incomplete_staff_unit: "Debe cumplimentar la/os plantilla/puestos de la unidad para todos los grupos en "
+          global:
+            interlocutor: 'Pulsa el botón "Corregir" para volver a la ficha de la unidad y corregir los errores listados a continuación:'
+            no_interlocutor: 'No es posible el Visto Bueno ya que se han detectado errores en los datos de esta unidad.'
+        p2:
+          no_change_staff_html: 'Pulse <strong><em>Corregir</em></strong> si aún desea realizar el cambio o <strong><em>Cancelar ajuste</strong></em> si no desea continuar con el ajuste de puestos'
+          no_justification_html: 'Pulse "Corregir" y luego "<strong><em>Cancelar ajuste</strong></em> si no desea continuar con el ajuste de puestos'
+          incomplete_staff_unit_html: 'Pulse "Corregir" y luego "<strong><em>Cancelar ajuste</strong></em> si no desea continuar con el ajuste de puestos'
+          assigned_staff_html: 'Si se trata de un <strong>error</strong> pulsa el botón "Corregir" para volver a la pantalla de entrada de datos.'
+          incomplete_staff_unit_html: 'Pulse "Corregir" y luego "<strong><em>Cancelar ajuste</strong></em> si no desea continuar con el ajuste de puestos'
+        p3:
+          assigned_staff_html: 'Si no es un error y se debe/n ajustar la/os plantilla/puestos que aparecen en la tabla <strong><em> "Puestos asignados a 31 de diciembre"</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> Adecuar puestos</em></strong>, lo que permitirá modificar los puestos y añadir una justificación a dichos cambios.'
+    table_indicator_metric:
+        amount: Cantidad
     index:
       no_main_processes: 'No hay procesos para este periodo.'
       select: 'Seleccionar'
@@ -105,19 +98,27 @@ es:
       title: 'Hoja de identificación de procesos en'
     staff:
       title:
-        MainProcesses: 'Puestos por proceso'
-        SubProcess: 'Puestos por subproceso/proceso'
-        Unit: 'Puestos de la unidad'
+        Positions:
+          MainProcesses: 'Puestos por proceso'
+          Unit: 'Puestos de la unidad'
+        Staff:
+          SubProcess: 'Plantilla por subproceso'
+          Unit: 'Plantilla de la unidad'
       input:
-        header: 'Puestos ajustados'
-        link: 'Ver justificación'
+        Positions:
+          header: 'Puestos ajustados'
+        Staff:
+          header: 'Plantilla ajustada'
       justification:
-        modal:
-          title: 'Justificación'
-        title: 'Justificación del cambio de puestos'
-      process_staff: 'Puestos asignados a procesos'
+        Positions:
+          title: 'Justificación del cambio de puestos'
+        Staff:
+          title: 'Justificación del cambio de plantilla'
       assigned:
-        column_header: 'Puestos asignados'
+        Positions:
+          column_header: 'Puestos asignados'
+        Staff:
+          column_header: 'Plantilla asignada'
         initial: 'a 31 de diciembre'
         process: 'a procesos'
     updates:
@@ -125,13 +126,23 @@ es:
       success:
         validation: 'Se han guardado los datos, no se ha detectado ningún error tras las validaciones efectuadas'
         save: 'Se han guardado los datos, no se han realizado validaciones de consistencia de los datos. Para realizarlas utiliza el botón "Finalizar entrada de datos".'
-        change: "Ajsute de puestos cancelado"
+        change: "Ajsute de plantilla/puestos cancelado"
     summary:
       process_number: 'NUM. PROCESOS'
       subprocess_number: 'NUM. SUBPROCESOS'
       indicators_number: "NUM. INDICADORES"
       indicators_total: "SUMA INDICADORES"
       staff_total: "TOTAL EFECTIVOS"
+    approval:
+      approved_html: "Visto bueno a los datos de esta hoja"
+      comments: "Observaciones:"
+      pending:
+        title: "Datos pendientes de Visto Bueno"
+        text_html: "Para dar el VºBº a los datos de esta unidad basta con pulsar el botón  <strong>Validar datos </strong>. <br> El sistema realizará unas validaciones de los datos previas al visto bueno. Una vez hecho esto los datos de esta unidad no podrán modificarse"
+      success:
+        validation: "Los datos han pasado las validaciones, se puede dar el VºBº"
+        update: "Visto bueno actualizado correctamente"
+        cancel: "Se ha eliminado el VªBª, se pueden modificar los datos de la unidad"
   form:
     error: error impidió
     errors: errores impidieron
@@ -161,7 +172,6 @@ es:
       open: Abierto
       open_data: Open data
       open_gov: Gobierno abierto
-      validation: Validación
   process_summary:
     no_indicators: No se han incluido indicadores para el resumen de este proceso
   subnavigation_menu:
@@ -193,8 +203,8 @@ es:
               blank: "Es obligatorio indicar una fuente"
   AssignedEmployeesChange:
     text:
-      verified: "Ajusto de puestos verificado"
-      not_verified: "Ajuste de puestos pendiente de verificación"
+      verified: "Ajusto de plantilla/puestos verificado"
+      not_verified: "Ajuste de plantilla/puestos pendiente de verificación"
   supervisor:
     main_processes:
       form:

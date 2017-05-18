@@ -49,7 +49,7 @@ class Period < ActiveRecord::Base
 
   def indicators(unit)
     indicators = []
-    self.main_processes.each do |main_process|
+    self.main_processes.where("organization_id IS ? OR organization_id = ?", nil, unit.organization_id).each do |main_process|
       main_process.sub_processes_unit(unit).each do |sub_process|
         indicators << sub_process.indicators
       end

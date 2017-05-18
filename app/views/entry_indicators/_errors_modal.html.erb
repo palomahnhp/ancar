@@ -20,8 +20,9 @@
 <div class="reveal-overlay validation-error" style="display:inline" >
   <div id="myModal" class="large reveal warning callout" data-open="myModal" aria-labelledby="modalTitle"
        aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
+
     <p class="modal-title"><%= t('entry_indicators.form.error.title.global')%> </p>
-    <p><%= t('entry_indicators.form.error.p1.global')%></p>
+    <p><%= t("entry_indicators.form.error.p1.global.#{user_type(current_user)}")%></p>
     <ol>
       <% if @input_errors[:entry_incomplete].present? %>
          <li class="modal-error-title" >
@@ -84,8 +85,9 @@
             </p>
             <% unless has_justification?(@unit.id, @period.id) %>
                 <p><%= t('entry_indicators.form.error.p2.assigned_staff_html')%></p>
-                <p><%= t('entry_indicators.form.error.p3.assigned_staff_html', box_title: t('entry_indicators.staff.title.Unit') )%></p>
-                <a class="hollow button" onclick="openChange()"> <%= t('entry_indicators.form.validation_button.justificate') %></a>
+                <p><%= t('entry_indicators.form.error.p3.assigned_staff_html',
+                         box_title: t("entry_indicators.staff.title.#{process_name(@period,'AssignedEmployee')}.Unit")) %></p>
+                <a class="hollow button" onclick="openChange()"> <%= t('entry_indicators.form.button.justificate') %></a>
             <% end %>
           </li>
       <% end %>
@@ -103,13 +105,13 @@
         <p><%= t('entry_indicators.form.error.p1.no_change_staff')%></p>
         <p><%= t('entry_indicators.form.error.p2.no_change_staff_html')%></p>
 
-        <a class="hollow button" onclick="cancelChange()"> <%= t('entry_indicators.form.validation.button.cancel_change') %></a>
+        <a class="hollow button" onclick="cancelChange()"> <%= t('entry_indicators.form.button.cancel_change') %></a>
       </li>
       <% end %>
     </ol>
 
     <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
-      <span aria-hidden="true"><%= t('entry_indicators.form.validation.button.fix') %></span>
+      <span aria-hidden="true"><%= t('entry_indicators.form.button.fix') %></span>
     </button>
 
   </div>

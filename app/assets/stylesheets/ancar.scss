@@ -98,6 +98,7 @@
       &.indicator-description {
         width: 70%;
         font-size: rem-calc(16);
+        padding-left: rem-calc(10);
       }
     }
 
@@ -163,7 +164,6 @@ table.indicator-metric {
       width: rem-calc(60);
       text-align: right;
     }
-
   }
 }
 
@@ -225,23 +225,51 @@ table.indicator-metric {
 
 .approval {
   display: block;
+  border: 1px solid #bcbcbc;
+  background-color: #eeeeee;
+  width: 70%;
+  margin-left: rem-calc(180);
   margin-top: rem-calc(20);
-  margin-left: rem-calc(200);
   margin-botton: rem-calc(20);
+  padding-top: rem-calc(10) ;
+  line-height: rem-calc(2) ;
+}
+
+p.approval-data, p.approval-comment, p#pending-title  {
+  font-weight: bold;
+}
+
+p#pending-title {
   text-align: center;
-  padding-top: 10px ;
-
 }
+
+p.approval-data {
+  padding-left: rem-calc(150);
+}
+
 p.approved{
-  background-color: #cbffd0;
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline;
+  text-align: center;
+  padding: 10px ;
+}
+
+div.approval-pending {
+  display: block;
+  border: 1px solid #bcbcbc;
+  background-color: lightpink;
+  width: 70%;
+  margin-left: rem-calc(180);
+  margin-top: rem-calc(20);
+  margin-botton: rem-calc(20);
+  padding-top: 10px ;
   border: 1px solid #bcbcbc;
   padding: 10px ;
 }
 
-p.pending {
-  background-color: lightpink;
-  border: 1px solid #bcbcbc;
-  padding: 10px ;
+input.approval-comment {
+  min-height: rem-calc(50);
 }
 
 .group {

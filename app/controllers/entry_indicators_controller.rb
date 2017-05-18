@@ -22,7 +22,7 @@ class EntryIndicatorsController < ApplicationController
       update_entry
     end
 
-    if @input_errors[:num_errors] && @input_errors[:num_errors] > 0
+    if (@input_errors[:num_errors] && @input_errors[:num_errors] > 0) || @approval.present?
       render :index
     else
       if params[:close_entry].present?
@@ -38,7 +38,22 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def approval
-    validate_input
+    if params[:approval] == "Validar datos"
+      validate_input
+      if @input_errors[:num_errors] == 0
+        @approval = Approval.new(period: @period, unit: @unit, approval_by: current_user.login, official_position: current_user.official_position)
+        flash[:notice] = t('entry_indicators.approval.success.validation')
+      end
+    end
+    if params[:approval] == "Visto bueno" || params[:approval] == "Modificar observaciones"
+      @approval = set_approval(@period, @unit, params[:comments], current_user)
+      flash[:notice] = t('entry_indicators.approval.success.update')
+    end
+    if params[:approval] == "Cancelar el VºBº"
+      @approval = delete_approval(@period, @unit)
+      flash[:notice] = t('entry_indicators.approval.success.cancel')
+    end
+
   end
 
   private
@@ -61,7 +76,7 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def validate_input
-      if params[:close_entry].present?
+      if params[:close_entry].present? || params[:approval].present?
         @input_errors[:assignated_staff]     = AssignedEmployee.staff_for_unit(@period, @unit)
         @input_errors[:entry_without_staff]  = Indicator.validate_staff_for_entry(@period, @unit)
         @input_errors[:entry_incomplete]     = entry_incompleted?
@@ -70,8 +85,7 @@ class EntryIndicatorsController < ApplicationController
       end
 
       if params[:approval].present?
-        @input_errors[:entry_incomplete]     = !(@entry_indicators_cumplimented && @incomplete_staff_entry)
-        @entry_indicators_cumplimented = entry_indicators_cumplimented?
+        @input_errors[:entry_incomplete]     = !(entry_indicators_cumplimented? && @incomplete_staff_entry.blank?)
       end
 
       @input_errors[:incomplete_staff_unit]  = @incomplete_staff_unit
@@ -81,7 +95,6 @@ class EntryIndicatorsController < ApplicationController
         @input_errors[:incomplete_staff_unit]  = nil
         @input_errors[:justification_blank]    = nil
         @input_errors[:assignated_staff] = nil
-
       end
       @input_errors[:num_errors] = @input_errors.select{|error| @input_errors[error].present?}.count
     end
@@ -151,7 +164,7 @@ class EntryIndicatorsController < ApplicationController
         grupos.keys.each do |grupo|
           quantity = grupos[grupo]
           official_group_id = OfficialGroup.find_by_name(grupo).id
-          if !quantity.present?
+          if quantity.blank?
             employees_cumplimented = false
             if type == 'UnitJustified'
               @incomplete_staff_unit <<  grupo
@@ -176,7 +189,7 @@ class EntryIndicatorsController < ApplicationController
       indicators_period.each do |indicator_subprocess|
         indicator_subprocess.each do |indicator|
             indicator.indicator_metrics.each do |indicator_metric|
-              return false if indicator_metric.entry_indicators.nil?
+              return false if indicator_metric.entry_indicators.where(unit: @unit).blank?
             end
         end
       end
