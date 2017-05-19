@@ -46,7 +46,7 @@ module SupervisorHelper
 
   def select_items(class_name)
     items_not_used = Item.where(item_type: class_name).order(:description)
-    items_not_used.collect  { |v| [ v.description, Object.const_get(class_name.camelize).find_by_item_id(v.id).id] }
+    items_not_used.collect  { |v| [ v.description, Object.const_get(class_name.camelize).find_by_item_id(v.id).id ] if Object.const_get(class_name.camelize).find_by_item_id(v.id).present? }
   end
 
   def total_check(indicator_metric_id, summary_type_id)
