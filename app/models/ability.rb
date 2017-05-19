@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     if user.has_role? :admin
       can :manage, :all
-      end
+    end
 
     if user.has_role? :supervisor, :any
       can :read, OrganizationType, :id => OrganizationType.with_role(:supervisor, user).pluck(:id)

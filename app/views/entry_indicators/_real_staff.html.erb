@@ -20,8 +20,7 @@
        <%= text_area_tag(:justification, justification_text(@unit.id, @period.id), class: 'justification') %>
    <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>
        <p><%= justification_text(unit.id, period.id) %></p>
- <% end %>
-
+   <% end %>
  </td>
 </tr>
 
