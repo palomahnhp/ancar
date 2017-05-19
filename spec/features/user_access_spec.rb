@@ -56,7 +56,7 @@ feature "User access" do
 
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
-      expect(page).to have_content "No tienes unidades autorizadas"
+      expect(page).to have_content "No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones"
 
     end
 
@@ -68,7 +68,6 @@ feature "User access" do
 
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
-      expect(page).not_to have_content "Distritos"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA"
       expect(page).to have_content "Periodo"
     end
@@ -79,7 +78,6 @@ feature "User access" do
       click_link("Procesos y subprocesos", :match => :first)
       expect(page).to have_content "Hoja de identificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
-      expect(page).not_to have_content "Distritos"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS"
       expect(page).to have_content "Periodo"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA"

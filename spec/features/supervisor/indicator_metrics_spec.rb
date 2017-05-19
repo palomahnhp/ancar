@@ -35,12 +35,12 @@ require 'rails_helper'
         expect(page).to have_content 'Nº de Contratos recibidos'
 
         metric = page.find_field('indicator_metric_metric_id')
-        expect(metric.text).to eq 'Nº de Contratos recibidos Nº de Contratos tramitados Nº de Expedientes'
+        expect(metric.text).to eq 'Nº de asuntos tratados en la Junta de Gobierno Nº de Contratos recibidos Nº de Contratos tramitados Nº de Expedientes Nº de proyectos de otras Áreas Nº informes solicitados por otras Áreas de Gobierno'
         expect(metric.tag_name).to eq('select')
         expect(metric.value).to eq('1')
 
         source = page.find_field('source_id')
-        expect(source.text).to eq 'FuentePLYCA SIGSA'
+        expect(source.text).to eq 'FuenteElaboración propia Elaboración Propia PLYCA SIGSA'
         expect(source.tag_name).to eq('select')
         expect(source.value).to eq('1')
 

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="small-12 columns">
+    <% if @approval.present? %>
+      <div class="medium-8 small-12 columns approval">
+        <p class="approved">  <%= t('entry_indicators.approval.approved_html', organization: @organization.description, period: @period.description) %> </p>
+        <p  class="approval-data"> El/la <%= @approval.official_position %> <br>
+                               <%= User.find_by_login(@approval.approval_by).full_name %> <br>
+                               <%= (l @approval.approval_at, format: :long) if @approval.approval_at.present? %></p>
+        <p class="approval-comment"> <%= t('entry_indicators.approval.comments') %></p>
+        <% if current_user.has_role? :validator, @organization %>
+           <%= text_area_tag(:comments, @approval.comment , class: 'approval-comment') %>
+           <div class="approval-buttons hide-for-print" >
+             <% if @approval.id.nil? %>
+               <%= submit_tag(t('entry_indicators.form.button.approval.ok'), class: 'button', name: 'approval') %>
+             <% else %>
+               <%= submit_tag(t('entry_indicators.form.button.approval.update'), class: 'button', name: 'approval') %>
+             <% end %>
+             <%= submit_tag(t('entry_indicators.form.button.approval.cancel'), class: 'button', name: 'approval') %>
+           </div>
+        <% else %>
+           <p class="approval_comment"><%=  @approval.comment %> </p>
+        <% end %>
+      </div>
+    <% else %>
+      <% if current_user.has_role? :validator, @organization %>
+         <div class="medium-8 small-12 columns approval-pending">
+            <p id="pending-title"> <%= t('entry_indicators.approval.pending.title') %> </p>
+            <p id="pending-text"> <%= t('entry_indicators.approval.pending.text_html') %> </p>
+         </div>
+       <% end %>
+    <% end %>
+  </div>
+</div>

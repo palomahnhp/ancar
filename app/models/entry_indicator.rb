@@ -23,7 +23,7 @@ class EntryIndicator < ActiveRecord::Base
   end
 
   def self.delete_by_indicator_metric(unit_id, indicator_metric_id)
-    EntryIndicator.where(unit_id: unit_id, indicator_metric_id: indicator_metric_id).delete_all
+    self.where(unit_id: unit_id, indicator_metric_id: indicator_metric_id).delete_all
   end
 
 end

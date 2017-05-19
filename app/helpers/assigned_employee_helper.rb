@@ -1,7 +1,8 @@
 module AssignedEmployeeHelper
 
   def input_staff_visible?(unit_id, period_id)
-    (params[:justification] && !params[:justification].present?) || AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
+    (params[:justification] && params[:justification].blank?) || AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
+
   end
 
   def staff_verified_class(unit_id, period_id)

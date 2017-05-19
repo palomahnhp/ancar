@@ -45,7 +45,16 @@ class Period < ActiveRecord::Base
     p.assigned_employees.where(staff_of_type: 'Unit').each do |ae|
       ae.copy(self.id, current_user_login)
     end
+  end
 
+  def indicators(unit)
+    indicators = []
+    self.main_processes.where("organization_id IS ? OR organization_id = ?", nil, unit.organization_id).each do |main_process|
+      main_process.sub_processes_unit(unit).each do |sub_process|
+        indicators << sub_process.indicators
+      end
+    end
+    return indicators
   end
 
   def self.select_options

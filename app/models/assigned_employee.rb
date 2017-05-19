@@ -25,12 +25,24 @@ class AssignedEmployee < ActiveRecord::Base
       if AssignedEmployeesChange.unit_justified(unit.id, period.id)
         staff_real= self.staff_from_unit_justificated(unit, period, official_group)
         unless staff_real == staff_indicator
-          message << official_group.description
+          if unit.organization.organization_type.acronym == Setting['no_validation_lower_staff']
+            if staff_real < staff_indicator
+              message << official_group.description
+            end
+          else
+            message << official_group.description
+          end
         end
-      elsif
-      staff_unit = self.staff_from_unit(unit, period, official_group)
+      else
+       staff_unit = self.staff_from_unit(unit, period, official_group)
         unless staff_unit == staff_indicator
-          message << official_group.description
+          if unit.organization.organization_type.acronym == Setting['no_validation_lower_staff']
+            if staff_unit < staff_indicator
+              message << official_group.description
+            end
+          else
+            message << official_group.description
+          end
         end
       end
     end

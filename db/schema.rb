@@ -11,19 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331095153) do
+ActiveRecord::Schema.define(version: 20170516115330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "adminpack"
 
-  create_table "approval", force: :cascade do |t|
-    t.integer "subject_id"
-    t.string  "subject_type"
-    t.string  "approved_by"
-    t.date    "approved_at"
-    t.text    "comments"
+  create_table "approvals", force: :cascade do |t|
+    t.integer  "period_id"
+    t.integer  "unit_id"
+    t.text     "comment"
+    t.string   "approval_by"
+    t.date     "approval_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "official_possition"
+    t.string   "official_position"
   end
+
+  add_index "approvals", ["period_id"], name: "index_approvals_on_period_id", using: :btree
+  add_index "approvals", ["unit_id"], name: "index_approvals_on_unit_id", using: :btree
 
   create_table "assigned_employees", force: :cascade do |t|
     t.integer  "official_group_id"
@@ -393,6 +400,8 @@ ActiveRecord::Schema.define(version: 20170331095153) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "approvals", "periods"
+  add_foreign_key "approvals", "units"
   add_foreign_key "assigned_employees", "official_groups"
   add_foreign_key "assigned_employees", "periods"
   add_foreign_key "assigned_employees", "units"

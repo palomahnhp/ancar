@@ -48,7 +48,6 @@ Rails.application.routes.draw do
   namespace :validator do
     root to: "dashboard#index"
     resources :users
-    resources :approval
     resources :roles, only: [:index, :create, :destroy] do
       member do
         post 'add_resource'

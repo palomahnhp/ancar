@@ -2,7 +2,6 @@ require 'rails_helper'
 
 feature 'Indicators Maintenance' do
 
-
   describe 'index of indicators' do
 
     it 'listado de indicadores' do
@@ -88,7 +87,7 @@ feature 'Indicators Maintenance' do
         click_link "Ver indicadores"
       end
 
-      expect(page).to have_link 'Incluir métrica'
+      expect(page).to have_link 'Añadir métrica'
       expect(page).to have_link('Editar', count: 3)
       expect(page).to have_link('Eliminar', count: 3)
     end
@@ -187,7 +186,7 @@ feature 'Indicators Maintenance' do
       expect(page).to have_content '1.1.1. Contratos Menores'
 
       description = page.find_field('indicator_item_id')
-      expect(description.text).to eq 'Contratos Menores Expedientes urbanísticos'
+      expect(description.text).to eq 'Contratos Menores Expedientes urbanísticos Preparación revisión y tramitación de proyectos normativos .... - Revisión jurídica, preparación de documentación y petición de inforems de los asuntos a tratar en la Comisión Preparatoria ..'
       expect(description.tag_name).to eq('select')
       expect(description.value).to eq('15')
 

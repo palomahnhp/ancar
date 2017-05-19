@@ -19,11 +19,13 @@
   margin-top: 80px;
   margin-left: 100px;
   width: 75%;
-  heigth:auto;
+  height:auto;
   padding: 20px;
   background-color: lightcoral;
   text-align: center;
 }
+
+// 01 Welcome
 
 .welcome {
   background: #F2F3F4;
@@ -98,6 +100,7 @@
       &.indicator-description {
         width: 70%;
         font-size: rem-calc(16);
+        padding-left: rem-calc(10);
       }
     }
 
@@ -118,7 +121,6 @@ tr {
     border-top: 2px solid #A2A2A2;
   }
 }
-
 table.indicator-metric {
   margin-bottom: 0;
   thead tr{
@@ -163,7 +165,6 @@ table.indicator-metric {
       width: rem-calc(60);
       text-align: right;
     }
-
   }
 }
 
@@ -216,6 +217,7 @@ table.indicator-metric {
   .input_staff {
     margin-bottom: 0 !important;
     height: rem-calc(30) !important;
+
   }
 
   .justification{
@@ -223,6 +225,55 @@ table.indicator-metric {
   }
 }
 
+.approval {
+  display: block;
+  border: 1px solid #bcbcbc;
+  background-color: #eeeeee;
+  width: 70%;
+  margin-left: rem-calc(180);
+  margin-top: rem-calc(20);
+  margin-botton: rem-calc(20);
+  padding-top: rem-calc(10) ;
+  line-height: rem-calc(2) ;
+}
+
+p.approval-data, p.approval-comment, p#pending-title  {
+  font-weight: bold;
+}
+
+p#pending-title {
+  text-align: center;
+}
+
+p.approval-data {
+  padding-left: rem-calc(150);
+}
+
+p.approved{
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline;
+  text-align: center;
+  padding: 10px ;
+}
+
+div.approval-pending {
+  display: block;
+  border: 1px solid #bcbcbc;
+  background-color: lightpink;
+  width: 70%;
+  margin-left: rem-calc(180);
+  margin-top: rem-calc(20);
+  margin-botton: rem-calc(20);
+  padding-top: 10px ;
+  border: 1px solid #bcbcbc;
+  padding: 10px ;
+}
+
+input.approval-comment {
+  min-height: rem-calc(50);
+
+}
 
 .group {
   padding: 0;
@@ -392,15 +443,3 @@ table.indicator-metric {
 .reveal-show {
   display: inline;
 }
-
-// 06. Print
-
-@media print {
-  @for $i from 1 through $grid-column-count {
-    .medium-#{$i} {
-      width: percentage($i / $grid-column-count);
-    }
-  }
-
-}
-
