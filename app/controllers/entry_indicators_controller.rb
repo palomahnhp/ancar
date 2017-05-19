@@ -2,6 +2,7 @@ class EntryIndicatorsController < ApplicationController
   include AssignedEmployeesActions
   include ApprovalsActions
 
+
   before_action :require_user, only: [:index]
   before_action :initialize_instance_vars, only: [:index, :edit, :updates ]
 
@@ -16,6 +17,7 @@ class EntryIndicatorsController < ApplicationController
       cancel_change(@period.id, @unit.id)
     elsif params[:open_change].present?
       open_change(@period.id, @unit.id, current_user)
+
     elsif params[:approval].present?
       approval
     else
@@ -23,6 +25,7 @@ class EntryIndicatorsController < ApplicationController
     end
 
     if (@input_errors[:num_errors] && @input_errors[:num_errors] > 0) || @approval.present?
+
       render :index
     else
       if params[:close_entry].present?
@@ -75,8 +78,10 @@ class EntryIndicatorsController < ApplicationController
     validate_input
   end
 
+
   def validate_input
       if params[:close_entry].present? || params[:approval].present?
+
         @input_errors[:assignated_staff]     = AssignedEmployee.staff_for_unit(@period, @unit)
         @input_errors[:entry_without_staff]  = Indicator.validate_staff_for_entry(@period, @unit)
         @input_errors[:entry_incomplete]     = entry_incompleted?
@@ -84,7 +89,7 @@ class EntryIndicatorsController < ApplicationController
         @input_errors[:incomplete_staff_entry] = @incomplete_staff_entry
       end
 
-      if params[:approval].present?
+    if params[:approval].present?
         @input_errors[:entry_incomplete]     = !(entry_indicators_cumplimented? && @incomplete_staff_entry.blank?)
       end
 
@@ -145,6 +150,7 @@ class EntryIndicatorsController < ApplicationController
       else
         @unit = @units.first
       end
+
       @approval = get_approval(@period, @unit)
     end
 

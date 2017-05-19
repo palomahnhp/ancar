@@ -19,7 +19,7 @@
   margin-top: 80px;
   margin-left: 100px;
   width: 75%;
-  heigth:auto;
+  height:auto;
   padding: 20px;
   background-color: lightcoral;
   text-align: center;
@@ -119,7 +119,6 @@ tr {
     border-top: 2px solid #A2A2A2;
   }
 }
-
 table.indicator-metric {
   margin-bottom: 0;
   thead tr{
@@ -216,12 +215,12 @@ table.indicator-metric {
   .input_staff {
     margin-bottom: 0 !important;
     height: rem-calc(30) !important;
+
   }
 
   .justification{
     height: 100px;
   }
-}
 
 .approval {
   display: block;
@@ -270,6 +269,7 @@ div.approval-pending {
 
 input.approval-comment {
   min-height: rem-calc(50);
+
 }
 
 .group {
