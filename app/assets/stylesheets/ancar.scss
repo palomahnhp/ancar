@@ -25,6 +25,8 @@
   text-align: center;
 }
 
+// 01 Welcome
+
 .welcome {
   background: #F2F3F4;
   text-align: center;
@@ -440,15 +442,3 @@ input.approval-comment {
 .reveal-show {
   display: inline;
 }
-
-// 06. Print
-
-@media print {
-  @for $i from 1 through $grid-column-count {
-    .medium-#{$i} {
-      width: percentage($i / $grid-column-count);
-    }
-  }
-
-}
-

@@ -12,10 +12,12 @@ feature 'Periods Maintenance' do
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
 
-      expect(page).to have_content I18n.t('supervisor.periods.index.entry_not_open_yet')
-      expect(page).to have_link 'ver procesos'
-      expect(page).to have_link 'editar'
-      expect(page).to have_link 'eliminar'
+      within("#period_1") do
+        expect(page).to have_content I18n.t('supervisor.periods.index.entry_not_open_yet')
+        expect(page).to have_link 'ver procesos'
+        expect(page).to have_link 'editar'
+        expect(page).to have_link 'eliminar'
+      end
     end
 
     it "has correct buttons for closed period " do
@@ -33,10 +35,12 @@ feature 'Periods Maintenance' do
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
 
-      expect(page).to have_content I18n.t('supervisor.periods.index.entry_closed')
-      expect(page).to have_link 'ver procesos'
-      expect(page).not_to have_link 'editar'
-      expect(page).not_to have_link 'eliminar'
+      within("#period_1") do
+        expect(page).to have_content I18n.t('supervisor.periods.index.entry_closed')
+        expect(page).to have_link 'ver procesos'
+        expect(page).not_to have_link 'editar'
+        expect(page).not_to have_link 'eliminar'
+      end
 
     end
 
@@ -55,11 +59,12 @@ feature 'Periods Maintenance' do
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
 
-      expect(page).to have_content I18n.t('supervisor.periods.index.entry_not_open_yet')
-      expect(page).to have_link 'ver procesos'
-      expect(page).to have_link 'editar'
-      expect(page).to have_link 'eliminar'
-
+      within("#period_1") do
+        expect(page).to have_content I18n.t('supervisor.periods.index.entry_not_open_yet')
+        expect(page).to have_link 'ver procesos'
+        expect(page).to have_link 'editar'
+        expect(page).to have_link 'eliminar'
+      end
     end
 
   end
@@ -84,10 +89,9 @@ feature 'Periods Maintenance' do
       fill_in 'closed_at', with: (Time.now).end_of_month
 
       click_button 'Crear'
-
       expect(page).to have_content 'Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".'
 
-      within("#period_2") do
+      within("#period_3") do
         click_link "ver procesos"
       end
 
@@ -111,7 +115,7 @@ feature 'Periods Maintenance' do
       fill_in 'opened_at', with: (Time.now - 1.days).beginning_of_month
       fill_in 'closed_at', with: (Time.now + 15.days).end_of_month
 
-      page.select "Periodo de análisis de datos", :from => 'period_id'
+      page.select "Periodo de análisis de datos Distritos", :from => 'period_id'
 
       click_button 'Crear'
 
@@ -127,7 +131,7 @@ feature 'Periods Maintenance' do
       click_link 'Configurar Periodos'
       click_link 'Crear un periodo'
 
-      page.select 'Secretarías Generales Técnicas', :from => 'period_organization_type_id'
+      page.select 'Distritos', :from => 'period_organization_type_id'
 
       fill_in 'period_description', with: 'Nuevo Periodo de Distritos 1999'
       fill_in 'started_at', with: (Time.now - 1.year).beginning_of_year
@@ -135,14 +139,14 @@ feature 'Periods Maintenance' do
       fill_in 'opened_at', with: (Time.now - 1.days).beginning_of_month
       fill_in 'closed_at', with: (Time.now + 15.days).end_of_month
 
-      page.select "Periodo de análisis de datos", :from => 'period_id'
+      page.select "Periodo de análisis de datos Distritos", :from => 'period_id'
 
       click_button 'Crear'
 
-      within("#period_2") do
+      within("#period_3") do
         click_link "ver procesos"
       end
-      save_and_open_page
+
       expect(page).to have_selector('tr', count: 3)
       expect(page).to have_content 'GENÉRICOS'
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
@@ -162,28 +166,28 @@ feature 'Periods Maintenance' do
 
       page.select 'Secretarías Generales Técnicas', :from => 'period_organization_type_id'
 
-      fill_in 'period_description', with: 'Nuevo Periodo de Distritos 1999'
+      fill_in 'period_description', with: 'Nuevo Periodo de análisis de datos SGT'
       fill_in 'started_at', with: (Time.now - 1.year).beginning_of_year
       fill_in 'ended_at', with: (Time.now - 1.year).end_of_year
       fill_in 'opened_at', with: (Time.now - 1.days).beginning_of_month
       fill_in 'closed_at', with: (Time.now + 15.days).end_of_month
 
-      page.select "Periodo de análisis de datos", :from => 'period_id'
+      page.select "Periodo de análisis de datos SGT 2", :from => 'period_id'
 
       click_button 'Crear'
 
-      within("#period_2") do
+      within("#period_3") do
         click_link "ver procesos"
       end
-
-      within("#main_process_3") do
+      within("#main_process_6") do
         click_link "Ver subprocesos"
       end
-save_and_open_page
+
       expect(page).to have_selector('tr', count: 3)
-      expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS JURIDICOS'
-      expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-      expect(page).to have_content '2. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+      expect(page).to have_content 'Nuevo Periodo de análisis de datos SGT'
+      expect(page).to have_content '1. RÉGIMEN JURÍDICO SECRETARIA GENERAL TECNICA'
+      expect(page).to have_content '1. 1. ASUNTOS JUNTA GOBIERNO, PLENO Y COMISIONES DEL PLENO'
+      expect(page).to have_content '1. 2. PROYECTOS NORMATIVOS'
       expect(page).to have_link('Editar', count: 2)
       expect(page).to have_link('Eliminar', count: 2)
     end
@@ -196,7 +200,8 @@ save_and_open_page
       click_link 'Configurar Periodos'
       click_link 'Crear un periodo'
 
-      page.select 'Secretarías Generales Técnicas', :from => 'period_organization_type_id'
+      page.select "Distritos", :from => 'period_organization_type_id'
+      page.select "Periodo de análisis de datos Distritos", :from => 'period_id'
 
       fill_in 'period_description', with: 'Nuevo Periodo de Distritos 1999'
       fill_in 'started_at', with: (Time.now - 1.year).beginning_of_year
@@ -204,21 +209,19 @@ save_and_open_page
       fill_in 'opened_at', with: (Time.now - 1.days).beginning_of_month
       fill_in 'closed_at', with: (Time.now + 15.days).end_of_month
 
-      page.select "Periodo de análisis de datos", :from => 'period_id'
-
       click_button 'Crear'
-
-      within("#period_2") do
+      within("#period_3") do
         click_link "ver procesos"
       end
 
-      within("#main_process_3") do
+      within("#main_process_6") do
         click_link "Ver subprocesos"
       end
 
       click_link("Ver indicadores", :match => :first)
+
       expect(page).to have_selector('tr', count: 5)
-      expect(page).to have_content 'Organización: Secretarías Generales Técnicas'
+      expect(page).to have_content 'Organización: Distritos'
       expect(page).to have_content 'Periodo: Nuevo Periodo de Distritos 1999'
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
       expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -226,7 +229,7 @@ save_and_open_page
       expect(page).to have_content 'Métrica'
       expect(page).to have_content 'Fuente'
       expect(page).to have_content 'Totalizadores'
-      expect(page).to have_link 'Incluir métrica'
+      expect(page).to have_link 'Añadir métrica'
       expect(page).to have_content '1.1.1. Contratos Menores'
       expect(page).to have_content 'Nº de Contratos recibidos'
       expect(page).to have_content 'Nº de Contratos tramitados'
@@ -234,12 +237,12 @@ save_and_open_page
       expect(page).to have_link('Editar', count: 3)
       expect(page).to have_link('Eliminar', count: 3)
 
-      within('tr#indicator_metric_5') do
-        within('td#summary_type_1') do
-          expect(page).to have_content '-'
-        end
+      within('tr#indicator_metric_8') do
         within('td#summary_type_2') do
           expect(page).to have_content 'S'
+        end
+        within('td#summary_type_1') do
+          expect(page).to have_content '-'
         end
         within('td#summary_type_3') do
           expect(page).to have_content '-'

@@ -10,7 +10,8 @@ feature "Welcome screen" do
   scenario 'si hay usuario conectado muestra nombre' do
     user = create(:user)
     login_as_authenticated_user(user)
-    expect(page).to have_content("Nombre1 Apellido_1_1 Apellido_2_1")
+
+    expect(page).to have_content("#{user.name} #{user.surname} #{user.second_surname}")
   end
 
 end

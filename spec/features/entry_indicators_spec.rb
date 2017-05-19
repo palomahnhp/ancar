@@ -7,7 +7,6 @@ feature "Entry Indicators" do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
       click_link("Procesos y subprocesos", :match => :first)
-      save_and_open_page
       click_link('Periodo de análisis de datos Distritos', :match => :first)
       within('div#unit') do
         expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS JURIDICOS'
@@ -70,11 +69,11 @@ feature "Entry Indicators" do
       expect(page).to have_content 'SECRETARIA GENERAL TECNICA DEL AREA DE GOBIERNO DE DESARROLLO URBANO SOSTENIBLE'
       expect(page).to have_content '1. RÉGIMEN JURÍDICO'
       expect(page).to have_content '1.1. ASUNTOS JUNTA GOBIERNO, PLENO Y COMISIONES DEL PLENO'
-      expect(page).to have_content  '1. - Revisión jurídica, preparación de documentación y petición de inforems de los asuntos a tratar en la Comisión Preparatoria ..'
+      expect(page).to have_content  '- Revisión jurídica, preparación de documentación y petición de inforems de los asuntos a tratar en la Comisión Preparatoria ..'
       expect(page).to have_content 'Nº informes solicitados por otras Áreas de Gobierno'
       expect(page).to have_content 'Nº de asuntos tratados en la Junta de Gobierno'
       expect(page).to have_content '1.2. PROYECTOS NORMATIVOS'
-      expect(page).to have_content '1. Preparación revisión y tramitación de proyectos normativos ...'
+      expect(page).to have_content 'Preparación revisión y tramitación de proyectos normativos ...'
       expect(page).to have_content 'Nº de proyectos de otras Áreas	Elaboración Propia'
   end
 

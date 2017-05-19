@@ -127,7 +127,7 @@ class EntryIndicatorsController < ApplicationController
 
     def initialize_instance_vars
       @input_errors = Hash.new()
-      @incomplete_staff_unit = [] if
+      @incomplete_staff_unit = []
       @incomplete_staff_entry = {}
 
       if params[:organization_id]

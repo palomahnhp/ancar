@@ -94,6 +94,13 @@ ignore_missing:
   - 'devise.failure.invalid'
   - 'devise.registrations.destroyed'
   - 'date.*'
+  - 'time.*'
+  - 'datetime.*'
+  - 'support.*'
+  - 'number.*'
+  - 'helpers.select.*'
+  - 'helpers.submit.*'
+  - 'errors.*'
 
 ## Consider these keys used:
 ignore_unused:

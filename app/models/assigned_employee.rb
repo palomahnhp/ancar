@@ -26,8 +26,9 @@ class AssignedEmployee < ActiveRecord::Base
         staff_real= self.staff_from_unit_justificated(unit, period, official_group)
         unless staff_real == staff_indicator
           if unit.organization.organization_type.acronym == Setting['no_validation_lower_staff']
-            staff_real > staff_indicator
-            message << official_group.description
+            if staff_real < staff_indicator
+              message << official_group.description
+            end
           else
             message << official_group.description
           end

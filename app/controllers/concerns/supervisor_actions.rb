@@ -14,7 +14,7 @@ module SupervisorActions
       Metric.create(item_id: item).id
     end
 
-    def source_new(description, class_name)
+    def source_new(description, _class_name)
       item = item_new(description, Source.name.underscore)
       Source.create(item_id: item).id
     end

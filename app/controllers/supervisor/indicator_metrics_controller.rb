@@ -21,7 +21,7 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
     @indicator_metric  = IndicatorMetric.find(params[:id])
     @indicator_metric.assign_attributes(indicator_metric_params)
     resource_update(:edit)
-    update_total_indicators_summary_types
+    update_summary_types
   end
 
   def destroy

@@ -52,7 +52,6 @@ en:
           inicio: "Validar datos"
           ok: "Visto bueno"
           cancel: "Cancelar el VºBº"
-          cancelar: "Eliminar"
           update: "Modificar observaciones"
         cancel_change: "Cancelar ajuste"
         justificate: "Justificar ajuste"
@@ -136,7 +135,6 @@ en:
       staff_total: "TOTAL EFECTIVOS"
     approval:
       approved_html: "Visto bueno a los datos de esta hoja"
-      date: "Fecha de validación:"
       comments: "Observaciones:"
       pending:
         title: "Datos pendientes de Visto Bueno"

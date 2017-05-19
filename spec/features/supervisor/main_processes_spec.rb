@@ -11,7 +11,7 @@ feature 'MainProcesses Maintenance' do
 
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
 
       expect(page).to have_content 'Organización: Distritos'
       expect(page).to have_content 'Periodo: Periodo de análisis de datos'
@@ -27,7 +27,7 @@ feature 'MainProcesses Maintenance' do
 
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
 
       expect(page).to have_content 'Organización: Distritos'
       expect(page).to have_content 'Periodo: Periodo de análisis de datos'
@@ -44,9 +44,9 @@ feature 'MainProcesses Maintenance' do
 
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
 
-      expect(page).to have_link 'Incluir procesos'
+      expect(page).to have_link 'Añadir procesos'
       expect(page).to have_link 'Ver subprocesos'
       expect(page).to have_link 'Editar'
       expect(page).to have_link 'Eliminar'
@@ -66,11 +66,11 @@ feature 'MainProcesses Maintenance' do
 
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
 
-      expect(page).not_to have_link 'Incluir procesos'
-
-      expect(page).to have_link 'Ver subprocesos'
+      within("#period_#{period.id}") do
+        click_link("ver procesos", :match => :first)
+      end
+      expect(page).to have_content 'Ver subprocesos'
       expect(page).not_to have_link 'Editar'
       expect(page).not_to have_link 'Eliminar'
 
@@ -87,9 +87,8 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
-
-      click_link 'Incluir procesos'
+      click_link("ver procesos", :match => :first)
+      click_link 'Añadir procesos'
       fill_in 'Núm. orden', with: 1
 
       click_button 'Crear'
@@ -106,9 +105,9 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
 
-      click_link 'Incluir procesos'
+      click_link 'Añadir procesos'
 
       click_button 'Crear'
 
@@ -124,8 +123,8 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
-      click_link 'Incluir procesos'
+      click_link("ver procesos", :match => :first)
+      click_link 'Añadir procesos'
 
       find('#main_process_item_id').find(:xpath, 'option[2]').select_option
       fill_in 'Núm. orden', with: 9
@@ -144,9 +143,9 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
 
-      click_link 'Incluir procesos'
+      click_link 'Añadir procesos'
 
       fill_in 'item_description', with: 'Nueva descripción'
       fill_in 'Núm. orden', with: 9
@@ -164,9 +163,9 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
 
-      click_link 'Incluir procesos'
+      click_link 'Añadir procesos'
 
       find('#main_process_item_id').find(:xpath, 'option[2]').select_option
       fill_in 'item_description', with: 'Nueva descripción'
@@ -190,7 +189,7 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
       click_link('Editar', match: :first)
 
       fill_in 'Núm. orden', with: ""
@@ -207,7 +206,7 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
       click_link('Editar', match: :first)
 
       fill_in 'Núm. orden', with: "4"
@@ -227,7 +226,7 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
       click_link('Editar', match: :first)
 
       find('#main_process_item_id').find(:xpath, 'option[1]').select_option
@@ -247,7 +246,7 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
       click_link('Editar', match: :first)
 
       fill_in 'item_description', with: 'Nueva descripción'
@@ -267,7 +266,7 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link("ver procesos", :match => :first)
       click_link('Editar', match: :first)
 
       find('#main_process_item_id').find(:xpath, 'option[2]').select_option
@@ -292,8 +291,7 @@ feature 'MainProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
-
+      click_link("ver procesos", :match => :first)
       click_link('Eliminar', match: :first)
       expect(page).to have_content "Item eliminado"
       expect(page).to have_content "2. AUTORIZACIONES Y CONCESIONES"

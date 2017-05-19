@@ -11,7 +11,7 @@ feature 'SubProcesses Maintenance' do
 
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match:  :first)
       click_link('Ver subprocesos', match: :first)
 
       expect(page).to have_content 'Organización: Distritos'
@@ -29,7 +29,7 @@ feature 'SubProcesses Maintenance' do
 
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match:  :first)
       click_link('Ver subprocesos', match: :first)
 
       expect(page).to have_content 'Organización: Distritos'
@@ -48,7 +48,7 @@ feature 'SubProcesses Maintenance' do
 
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match:  :first)
       click_link('Ver subprocesos', match: :first)
 
       expect(page).to have_link 'Incluir subproceso'
@@ -72,7 +72,10 @@ feature 'SubProcesses Maintenance' do
 
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+
+      within("#period_#{period.id}") do
+        click_link('ver procesos', match:  :first)
+      end
       click_link('Ver subprocesos', match: :first)
 
       expect(page).not_to have_link 'Incluir subproceso'
@@ -94,7 +97,7 @@ feature 'SubProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match:  :first)
       click_link('Ver subprocesos', match: :first)
 
       click_link 'Incluir subproceso'
@@ -116,7 +119,7 @@ feature 'SubProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match: :first)
       click_link('Ver subprocesos', match: :first)
       click_link 'Incluir subproceso'
 
@@ -135,17 +138,15 @@ feature 'SubProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match:  :first)
       click_link('Ver subprocesos', match: :first)
 
       click_link 'Incluir subproceso'
 
       find('#sub_process_unit_type_id').find(:xpath, 'option[3]').select_option
-      find('#sub_process_item_id').find(:xpath, 'option[3]').select_option
+      find('#sub_process_item_id').find(:xpath, 'option[5]').select_option
       fill_in 'Núm. orden', with: 3
-
       click_button 'Crear'
-
       expect(page).to have_content I18n.t("supervisor.sub_processes.create.success")
       expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS TECNICOS'
       expect(page).to have_content '1. 3. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
@@ -158,7 +159,7 @@ feature 'SubProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match:  :first)
       click_link('Ver subprocesos', match: :first)
 
       click_link 'Incluir subproceso'
@@ -166,7 +167,6 @@ feature 'SubProcesses Maintenance' do
       find('#sub_process_unit_type_id').find(:xpath, 'option[3]').select_option
       fill_in 'item_description', with: 'Nueva descripción'
       fill_in 'Núm. orden', with: 3
-
       click_button 'Crear'
 
       expect(page).to have_content I18n.t("supervisor.sub_processes.create.success")
@@ -184,7 +184,7 @@ feature 'SubProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match:  :first)
       click_link('Ver subprocesos', match: :first)
 
       click_link('Editar', match: :first)
@@ -203,7 +203,7 @@ feature 'SubProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match: :first)
       click_link('Ver subprocesos', match: :first)
       click_link('Editar', match: :first)
 
@@ -225,7 +225,7 @@ feature 'SubProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match: :first)
       click_link('Ver subprocesos', match: :first)
       click_link('Editar', match: :first)
 
@@ -251,7 +251,7 @@ feature 'SubProcesses Maintenance' do
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
       click_link 'Configurar Periodos'
-      click_link 'ver procesos'
+      click_link('ver procesos', match: :first)
       click_link('Ver subprocesos', match: :first)
       click_link('Eliminar', match: :first)
 
