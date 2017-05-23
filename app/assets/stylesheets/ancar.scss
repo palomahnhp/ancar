@@ -12,7 +12,7 @@
 .note{
   font-size: $small-font-size;
   font-style: italic;
-}
+ }
 
 .ancar-error{
   display:block;
@@ -23,7 +23,7 @@
   padding: 20px;
   background-color: lightcoral;
   text-align: center;
-}
+ }
 
 // 01 Welcome
 
@@ -31,7 +31,7 @@
   background: #F2F3F4;
   text-align: center;
   margin-bottom: rem-calc(12);
-}
+ }
 
 .welcome_logo {
   padding: rem-calc(120) rem-calc(120) 0 rem-calc(200);
@@ -39,15 +39,15 @@
   height: rem-calc(300);
   margin-top: rem-calc(12);
   margin-bottom: rem-calc(20);
-}
+ }
 
 // 02. Entry indicators
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  entry-indicators-buttons {
+.entry-indicators-buttons {
     margin-top: 20px;
     color: red;
-  }
+ }
 
 .corporativo {
   background: $brand;
@@ -59,14 +59,14 @@
   margin-bottom: rem-calc(12);
   }
 
-.unit{
+.unit {
   background: $body;
   color: black;
   box-shadow: 0 1px 3px 0 $border;
   margin: 0;
   padding-top: rem-calc(12);
   border: 1px solid $cobalto;
-}
+  }
 
 .main-process {
   color: white;
@@ -84,45 +84,39 @@
   text-align: left;
   }
 
-  table.sub-process-tab {
-    margin-bottom: 0;
+table.sub-process-tab {
+  margin-bottom: 0;
 
-    th, td {
-      padding: rem-calc(12) rem-calc(6);
-    }
+  th, td {
+    padding: rem-calc(12) rem-calc(6);
+  }
 
-    td {
-      font-size: rem-calc(12);
-      padding-bottom: rem-calc(5);
-      padding-top: 0;
-      background-color: #E9E9E9;
+  td {
+    font-size: rem-calc(12);
+    padding-bottom: rem-calc(5);
+    padding-top: 0;
+    background-color: #E9E9E9;
 
-      &.indicator-description {
-        width: 70%;
-        font-size: rem-calc(16);
-        padding-left: rem-calc(10);
-      }
-    }
-
-    input {
-      font-size: rem-calc(14);
-      height: auto !important;
-      margin: rem-calc(6) 0 !important;
-      &.group{
-        width: rem-calc(40);
-        width: rem-calc(40);
-        align: center;
-      }
+    &.indicator-description {
+      width: 70%;
+      font-size: rem-calc(16);
+      padding-left: rem-calc(10);
     }
   }
 
-tr {
-  &.indicator-row{
-    border-top: 2px solid #A2A2A2;
+  input {
+    font-size: rem-calc(14);
+    height: auto !important;
+    margin: rem-calc(6) 0 !important;
+    &.group{
+      width: rem-calc(40);
+    }
   }
 }
+
 table.indicator-metric {
   margin-bottom: 0;
+
   thead tr{
       border: 0;
   }
