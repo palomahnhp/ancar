@@ -1,26 +1,28 @@
-<div class="dashboard">
+<section class="dashboard">
   <h2><%= t('supervisor.dashboard.index.title') %></h2>
-
   <p>Desde aquí puedes definir los parámetros para estructurar la recogida de datos mediante las siguientes acciones:</p>
-
-  <h5>Periodos</h5>
-  <p>Esta acción permite abrir nuevos periodos para la recogida de información.
-  Los periodos son independientes para cada uno de los tipos de unidades: SGT, JD, etc. (Los tipos de unidades se administran desde este otra opción de este menú).
-  Por cada periodo se define: </p>
   <ul>
-    <li> &nbsp;el tipo de unidad al que aplica</li>
-    <li> &nbsp;el periodo al que corresponden los datos</li>
-    <li> &nbsp;las fechas de inicio y fin de recogida de datos, cuando en la aplicación quedará abierta la recogida de dattos las unidades</li>
-  </ul>
-  <p>Al crear un nuevo periodo se permite utilizar como modelo un periodo anterior y modificar unicamente los datos que varíancon la siguente opción del menu.
-  </p>
+    <li>
+      <h3>Periodos</h3>
+      <p>Esta acción permite abrir nuevos periodos para la recogida de información.
+      Los periodos son independientes para cada uno de los tipos de unidades: SGT, JD, etc. (Los tipos de unidades se administran desde este otra opción de este menú).
+      Por cada periodo se define: </p>
+      <ul>
+        <li> &nbsp;el tipo de unidad al que aplica</li>
+        <li> &nbsp;el periodo al que corresponden los datos</li>
+        <li> &nbsp;las fechas de inicio y fin de recogida de datos, cuando en la aplicación quedará abierta la recogida de dattos las unidades</li>
+      </ul>
+      <p>Al crear un nuevo periodo se permite utilizar como modelo un periodo anterior y modificar unicamente los datos que varíancon la siguente opción del menu.
+      </p>
 
-    <h5>Procesos, subprocesos, tareas e indicadores</h5>
+      <h5>Procesos, subprocesos, tareas e indicadores</h5>
       <p>Estas opciones permiten <strong> añadir, eliminar o modificar</strong> los distintos items que se utilizaran en el análisis de la carga de trabajo de las unidades. Para cada tipo de unidad se puedan incluir items distintos</p>
       <p>Hay que tener en cuenta que estos datos son modificables unicamente si el periodo aún no está abierto a la introducción de datos por las unidades</p>
+    </li>
+    <li>
+      <h3>Informes </h3>
+      <p> Resumenes de los indicadores de las distintas tareas agreagados por proceso o subprocesos y por organización </p>
+    </li>
+  </ul>
 
-  <h3>Efectivos </h3>
-    <p><strong>Opcion pendiente de desarrollo</strong>
-    <p>Esta opción permitira modificar los efectivos asignados a cada unidad a una fecha dada y para un periodo de entrada de datos determinado</p>
-
-</div>
+</section>
