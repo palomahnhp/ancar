@@ -53,6 +53,7 @@ en:
           ok: "Visto bueno"
           cancel: "Cancelar el VºBº"
           update: "Modificar observaciones"
+          pdf: "Abrir PDF"
         cancel_change: "Cancelar ajuste"
         justificate: "Justificar ajuste"
         fix: "Corregir"

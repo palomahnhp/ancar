@@ -14,14 +14,14 @@
         <tr>
           <th class="icon-calendar staff-th"> <%= (t("entry_indicators.staff.assigned.initial")) %></th>
           <% official_groups.each do |gr| %>
-              <td class=" staff-td">  <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of))) %></strong>  </td>
+              <td id="<%= "#{of}_#{process.id}" %>" class=" staff-td">  <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of))) %></strong>  </td>
           <% end %>
         </tr>
       <% end %>
       <tr>
         <th class="icon-user staff-th"> <%= t('entry_indicators.staff.assigned.process') %></th>
         <% official_groups.each do |gr| %>
-            <td  class=" staff-td"> <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of), 'Assigned')) %></strong>  </td>
+            <td  id="<%= "#{of}_#{process.id}" %>" class=" staff-td"> <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of), 'Assigned')) %></strong>  </td>
       <% end %>
       </tr>
       <% if of == 'Unit' %>

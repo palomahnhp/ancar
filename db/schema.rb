@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516115330) do
+ActiveRecord::Schema.define(version: 20170528100739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "adminpack"
 
   create_table "approvals", force: :cascade do |t|
     t.integer  "period_id"
@@ -23,9 +22,8 @@ ActiveRecord::Schema.define(version: 20170516115330) do
     t.text     "comment"
     t.string   "approval_by"
     t.date     "approval_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "official_possition"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "official_position"
   end
 
@@ -247,10 +245,11 @@ ActiveRecord::Schema.define(version: 20170516115330) do
     t.integer  "main_process_id"
     t.integer  "unit_type_id"
     t.integer  "item_id"
-    t.string   "order"
+    t.string   "order_char"
     t.string   "updated_by"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "order"
   end
 
   add_index "sub_processes", ["item_id"], name: "index_sub_processes_on_item_id", using: :btree

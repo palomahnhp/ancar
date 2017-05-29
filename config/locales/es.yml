@@ -41,6 +41,11 @@ es:
       indicator:
         Indicators: Indicador
         Tasks: Tarea/acción
+        sub_process:
+          total: "Total Subprocesos"
+      main_process:
+        MainProcesses: Procesos
+        CompetentialBlocks: Bloques competenciales
       metric: Métrica
       source: Fuente
       button:
@@ -49,10 +54,13 @@ es:
         end: 'Validar entrada de datos'
         go_top: 'Inicio'
         approval:
-          inicio: "Validar datos"
+          init: "Visto bueno"
           ok: "Visto bueno"
           cancel: "Cancelar el VºBº"
           update: "Modificar observaciones"
+          pdf: "Abrir PDF"
+          download_pdf: "Generar PDF completo"
+          download_abstract: "Generar PDF Resumen"
         cancel_change: "Cancelar ajuste"
         justificate: "Justificar ajuste"
         fix: "Corregir"

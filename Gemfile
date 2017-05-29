@@ -62,6 +62,12 @@ gem 'spreadsheet', '~> 1.1', '>= 1.1.2'
 # Create beautiful Javascript charts with one line of Ruby
 gem "chartkick"
 
+# Wicked PDF uses the shell utility wkhtmltopdf to serve a PDF file to a user from HTML.
+gem 'wicked_pdf'
+
+# Because wicked_pdf is a wrapper for wkhtmltopdf, you'll need to install that, too.
+gem 'wkhtmltopdf-binary'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

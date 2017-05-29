@@ -3,71 +3,74 @@
 <% end %>
 
 <%= form_tag(updates_entry_indicators_path, method: 'post', name: 'entryIndicatorsForm', id: 'entryIndicatorsForm') do %>
-    <%= hidden_field_tag(:unit_id, @unit.id) %>
-    <%= hidden_field_tag(:period_id, @period.id) %>
-    <%= hidden_field_tag(:organization_id, @organization.id) %>
-    <% if @period.open_entry? && (can? :updates, @organization) %>
-        <%= hidden_field_tag(:cancel_change) %>
-        <%= hidden_field_tag(:open_change)%>
+  <%= hidden_field_tag(:unit_id, @unit.id) %>
+  <%= hidden_field_tag(:period_id, @period.id) %>
+  <%= hidden_field_tag(:organization_id, @organization.id) %>
+  <% if @period.open_entry? && (can? :updates, @organization) %>
+    <%= hidden_field_tag(:cancel_change) %>
+    <%= hidden_field_tag(:open_change)%>
   <% end %>
   <%= render 'approval' %>
   <div class="row">
     <br>
-    <div class="small-12 medium-6 columns">
-      <%= render 'buttons' %>
-    </div>
-    <div class="columns medium-6 small-12">
-      <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period, type: 'all' %>
+    <div class="small-12 columns">
+      <div class="small-12 medium-6 columns">
+        <%= render 'buttons' %>
+      </div>
+      <div class="columns medium-6 small-12">
+        <%= render 'staff', of: 'Unit', process: @unit, unit: @unit, period: @period, type: 'all' %>
+      </div>
     </div>
   </div>
-  <div class="small-12 medium-3 columns"> </div>
-  <% @period.main_processes.order(:order).each do |main_process| %>
-    <% if main_process.show_in_entry(@unit) %>
-      <div class="main-process small-12 columns">
-        <h5><%= main_process.order%>.&nbsp;<%= main_process.item.description %></h5>
-      </div>
-      <% main_process.sub_processes_unit(@unit).each do |sub_process| %>
-        <table class="sub-process-tab" >
-          <caption class="sub-process"><%= main_process.order%>.<%= sub_process.order%>.&nbsp;<%= sub_process.item.description %></caption>
-          <thead>
-            <tr>
-              <th class="indicator-description"><strong><%= t("entry_indicators.form.indicator.#{process_name(@period, 'indicators')}") %> </strong></th>
-              <% official_groups.each do |gr| %>
-                  <th class="text-center indicator-group"><%= gr.name %></th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <% sub_process.indicators.each do |indicator| %>
-              <tr class="indicator-row">
-                <td class="indicator-description" id="<%= "indicator_col_#{indicator.id}" %>">
-                  <% if indicator.description.nil? %>
-                      <strong> <%= indicator.item.description %></strong>
-                  <% else %>
-                      <br>
-                      <div class="moderation-description">
-                        <%= simple_format (indicator.description) %>
-                      </div>
-                  <% end %>
-                </td>
-                <%= render 'staff_indicator', process: indicator, unit: @unit, period: @period, type: 'data' %>
-              </tr>
-              <tr>
-                <td colspan="6">
-                  <%= render 'table_indicator_metric', indicator: indicator, period: @period %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <div class="row">
-          <div class="small-12 medium-6 columns"></div>
-          <div class="columns medium-6 small-12">
-            <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
-          </div>
+  <div class="row">
+    <% @period.main_processes.order(:order).each do |main_process| %>
+      <% if main_process.show_in_entry(@unit) %>
+        <div class="main-process small-12 columns">
+          <h5><%= main_process.order%>.&nbsp;<%= main_process.item.description %></h5>
         </div>
+        <% main_process.sub_processes_unit(@unit).each do |sub_process| %>
+          <table class="sub-process-tab" >
+            <caption class="sub-process"><%= main_process.order%>.<%= sub_process.order%>.&nbsp;<%= sub_process.item.description %></caption>
+            <thead>
+              <tr>
+                <th class="indicator-description"><strong><%= t("entry_indicators.form.indicator.#{process_name(@period, 'indicators')}") %> </strong></th>
+                <% official_groups.each do |gr| %>
+                    <th class="text-center indicator-group"><%= gr.name %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% sub_process.indicators.each do |indicator| %>
+                <tr class="indicator-row">
+                  <td class="indicator-description" id="<%= "indicator_col_#{indicator.id}" %>">
+                    <% if indicator.description.nil? %>
+                        <strong> <%= indicator.item.description %></strong>
+                    <% else %>
+                        <br>
+                        <div class="moderation-description">
+                          <%= simple_format (indicator.description) %>
+                        </div>
+                    <% end %>
+                  </td>
+                  <%= render 'staff_indicator', process: indicator, unit: @unit, period: @period, type: 'data' %>
+                </tr>
+                <tr>
+                  <td colspan="6">
+                    <%= render 'table_indicator_metric', indicator: indicator, period: @period %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="small-12 medium-6 columns"></div>
+            <div class="columns medium-6 small-12">
+              <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
+  </div>
 <% end %>
 <a href="#" class="icon-angle-up hide-for-print"> <%= t('entry_indicators.form.button.go_top') %> </a>

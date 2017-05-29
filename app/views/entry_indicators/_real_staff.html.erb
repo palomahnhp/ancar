@@ -3,8 +3,8 @@
     <%= t("entry_indicators.staff.input.#{process_name(@period,'AssignedEmployee')}.header") %>
   </th>
   <% OfficialGroup.all.each do |gr| %>
-      <td class="staff-td">
-        <% if (can? :updates, @organization)   %>
+      <td  id="<%= "#{'UnitJustified'}_#{process.id}" %>" class="staff-td">
+        <% if (can? :updates, @organization)  && @approval.blank? %>
             <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", display_staff('UnitJustified', process, unit, period, gr.id, 4),
                                class: 'input_staff', placeholder: gr.name) %>
       <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>

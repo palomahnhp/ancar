@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" >
+<head>
+  <meta charset="utf-8" />
+  <title><%= "Visto Bueno de #{@unit.description_sap}" %></title>
+  <%= wicked_pdf_stylesheet_link_tag 'application' -%>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="wrapper">
+  <main class="row abstract" >
+    <div class="corporativo medium-12 small-12 columns">
+      <h3> <%= @organization.description %> </h3>
+      <h4><%= @period.description %> </h4>
+    </div>
+    <% if @units.count > 1 %>
+      <div id="unit" class="unit text-center small-12 columns">
+        <h5>
+          <%= @unit.description_sap %>
+        </h5>
+      </div>
+    <% end %>
+    <table class="staff">
+      <thead>
+        <tr>
+          <th class="validated-abstract"><%=t("entry_indicators.form.main_process.#{process_name(@period, 'main_processes')}") %></th>
+          <% official_groups.each do |gr| %>
+              <th><%= gr.name%> </th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @period.main_processes.order(:order).each do |mp| %>
+          <% if mp.show_in_entry(@unit) %>
+            <tr>
+              <th><%= mp.order %> . <%= mp.item.description %></th>
+              <% official_groups.each do |gr| %>
+                <td> <%= format_number(display_staff('MainProcess', mp, @unit, @period, gr.id, 4)) %>  </td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th class="text-right">Total</th>
+        <% official_groups.each do |gr| %>
+          <td>
+            <% if input_staff_visible?(@unit.id, @period.id) %>
+              <%= format_number(display_staff('UnitJustified', @unit, @unit, @period, gr.id, 4)) %>
+            <% else %>
+              <%= format_number(display_staff('Unit', @unit, @unit, @period, gr.id, 4)) %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+      </tfoot>
+    </table>
+  </main>
+  <div class="row">
+    <div class="small-12 columns">
+        <p class="pdf-approved">  <%= t('entry_indicators.approval.approved_html',
+                                        organization: @organization.description,
+                                        period: @period.description) %>: </p>
+      <hr>
+        <p class="pdf-approval-data">
+          <span class="pdf-approval-name"> <%= User.find_by_login(@approval.approval_by).full_name %></span> <br>
+          <%= @approval.official_position %> <br>
+          <%= (l @approval.approval_at, format: :long) if @approval.approval_at.present? %></p>
+        <hr>
+        <p class="pdf-approval-comment-title"> <%= t('entry_indicators.approval.comments') %></p>
+        <p class="pdf-approval-comment"><%=  @approval.comment %> </p>
+    </div>
+  </div>
+
+</div>
+</body>
+
+</html>
+

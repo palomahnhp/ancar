@@ -8,8 +8,8 @@
       <%= submit_tag(t("entry_indicators.form.button.cancel_change"), class: 'button hollow', name: "cancel_change") %>
     <% end %>
   <% end %>
-  <% if (current_user.has_role? :validator, @organization)  && @approval.blank?  %>
-     <%= submit_tag(t('entry_indicators.form.button.approval.inicio'), class: 'button hollow', name: 'approval') %>
+  <% if (current_user.has_role? :validator, @organization)  && @approval.blank?  && @period.open_entry? %>
+     <%= submit_tag(t('entry_indicators.form.button.approval.init'), class: 'button hollow', name: 'approval') %>
   <% end %>
 
   <%= submit_tag(t('entry_indicators.form.button.print'), class:"icon-print button hollow", name: 'print', onclick: "window.print()") %>

@@ -4,12 +4,58 @@ class EntryIndicatorsController < ApplicationController
 
 
   before_action :require_user, only: [:index]
-  before_action :initialize_instance_vars, only: [:index, :edit, :updates ]
+  before_action :initialize_instance_vars, only: [:index, :edit, :updates, :download_validation, :validated_abstract]
 
   def index
-    if @period.main_processes.empty?
-      render :index, notice: t('entry_indicators.index.no_main_processes')
-    end
+
+  end
+
+  def download_validation
+  #  pdf = WickedPdf.new.pdf_from_string(render_to_string("entry_indicators/index", layout: false))
+    body_html   = render_to_string("entry_indicators/index.pdf" )
+    pdf = WickedPdf.new.pdf_from_string(
+        body_html,
+        margin: {
+            bottom: 20,
+            top: 30
+        },
+        outline: {
+            outline: true,
+            outline_depth: 3 },
+        footer: {
+            margin: {top: 30 },
+            left:   "",
+            right: 'Pág. [page] / [topage]',
+            center:  "" ,
+            font_name: 'Arial',
+            font_size: 8
+        },
+    )
+    send_data pdf, :filename => "Ficha_attachment.pdf",
+                   :type => "application/pdf",
+                   :disposition => "inline",
+                   layouts: "layouts/pdf.html.erb"
+  end
+
+  def validated_abstract
+    body_html   = render_to_string("entry_indicators/validated_abstract.pdf" )
+    pdf = WickedPdf.new.pdf_from_string(
+        body_html,
+#        orientation: 'Landscape',
+        margin: { bottom: 20, top: 15 },
+        footer: {
+            margin: {top: -30 },
+#            left:   "\n#{@period.description}\n#{@unit.description_sap}",
+            right: 'Pág. [page] / [topage]',
+            center:  "" ,
+            font_name: 'Arial',
+            font_size: 8
+        },
+    )
+    send_data pdf, :filename => "Digest#{@unit.description_sap}.pdf",
+              :type => "application/pdf",
+              :disposition => "inline",
+              layouts: "layouts/pdf.html.erb"
   end
 
   def updates
@@ -41,7 +87,7 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def approval
-    if params[:approval] == "Validar datos"
+    if params[:approval] == t('entry_indicators.form.button.approval.init')
       validate_input
       if @input_errors[:num_errors] == 0
         @approval = Approval.new(period: @period, unit: @unit, approval_by: current_user.login, official_position: current_user.official_position)
@@ -180,7 +226,7 @@ class EntryIndicatorsController < ApplicationController
             end
             delete_assigned_employee(official_group_id, type, process_id, @period.id, @unit.id)
           else
-            ae = get_assigned_employee(official_group_id, type, process_id, @period.id, @unit.id)
+            ae = set_assigned_employee(official_group_id, type, process_id, @period.id, @unit.id)
             ae.quantity = quantity
             ae.updated_by = current_user.login
             ae.save

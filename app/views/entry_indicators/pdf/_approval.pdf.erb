@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="small-12 columns">
+    <% if @approval.present? %>
+      <div class="medium-8 small-12 columns pdf-approval">
+        <p class="pdf-approved">  <%= t('entry_indicators.approval.approved_html',
+                                    organization: @organization.description,
+                                    period: @period.description) %>: </p>
+        <p class="pdf-approval-data">
+          <span class="pdf-approval-name"> <%= User.find_by_login(@approval.approval_by).full_name %></span> <br>
+          <%= @approval.official_position %> <br>
+          <%= (l @approval.approval_at, format: :long) if @approval.approval_at.present? %></p>
+        <hr>
+        <p class="pdf-approval-comment-title"> <%= t('entry_indicators.approval.comments') %></p>
+        <p class="pdf-approval-comment"><%=  @approval.comment %> </p>
+       </div>
+    <% else %>
+      <% if current_user.has_role? :validator, @organization %>
+         <div class="medium-8 small-12 columns approval-pending">
+            <p id="pending-title"> <%= t('entry_indicators.approval.pending.title') %> </p>
+            <p id="pending-text"> <%= t('entry_indicators.approval.pending.text_html') %> </p>
+         </div>
+       <% end %>
+    <% end %>
+  </div>
+</div>

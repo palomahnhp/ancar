@@ -9,6 +9,9 @@
 //
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
+main {
+  margin-left: 10px;
+}
 .note{
   font-size: $small-font-size;
   font-style: italic;
@@ -45,9 +48,8 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 .entry-indicators-buttons {
-    margin-top: 20px;
-    color: red;
- }
+  margin-top: 20px;
+}
 
 .corporativo {
   background: $brand;
@@ -57,7 +59,7 @@
   padding: rem-calc(12);
   padding-bottom: 0;
   margin-bottom: rem-calc(12);
-  }
+}
 
 .unit {
   background: $body;
@@ -75,18 +77,17 @@
   margin-bottom: rem-calc(20);
   padding: rem-calc(12);
   padding-bottom: 0;
-  }
+}
 
 .sub-process {
   color: white;
   background: lighten($turquesa, 5%);
   padding: rem-calc(12);
   text-align: left;
-  }
+}
 
 table.sub-process-tab {
   margin-bottom: 0;
-
   th, td {
     padding: rem-calc(12) rem-calc(6);
   }
@@ -108,9 +109,16 @@ table.sub-process-tab {
     font-size: rem-calc(14);
     height: auto !important;
     margin: rem-calc(6) 0 !important;
-    &.group{
+    &.group {
       width: rem-calc(40);
+      text-align: center;
     }
+  }
+}
+
+tr {
+  &.indicator-row {
+    border-top: 2px solid #A2A2A2;
   }
 }
 
@@ -118,7 +126,7 @@ table.indicator-metric {
   margin-bottom: 0;
 
   thead tr{
-      border: 0;
+    border: 0;
   }
 
   td {
@@ -190,7 +198,7 @@ table.indicator-metric {
     border: 1px solid $cobalto;
   }
 
-  th.position{
+  th.position {
     width:  35%;
   }
 
@@ -211,7 +219,6 @@ table.indicator-metric {
   .input_staff {
     margin-bottom: 0 !important;
     height: rem-calc(30) !important;
-
   }
 
   .justification{
@@ -224,9 +231,9 @@ table.indicator-metric {
   border: 1px solid #bcbcbc;
   background-color: #eeeeee;
   width: 70%;
+  margin-bottom: rem-calc(20);
   margin-left: rem-calc(180);
   margin-top: rem-calc(20);
-  margin-botton: rem-calc(20);
   padding-top: rem-calc(10) ;
   line-height: rem-calc(2) ;
 }
@@ -258,9 +265,7 @@ div.approval-pending {
   width: 70%;
   margin-left: rem-calc(180);
   margin-top: rem-calc(20);
-  margin-botton: rem-calc(20);
-  padding-top: 10px ;
-  border: 1px solid #bcbcbc;
+  margin-bottom: rem-calc(20);
   padding: 10px ;
 }
 
@@ -293,26 +298,26 @@ input.approval-comment {
   }
 }
 
-  .modal-title{
-    font-size: rem-calc(40);
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: rem-calc(40);
-  }
+.modal-title {
+  font-size: rem-calc(40);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: rem-calc(40);
+}
 
-  .modal-error-title{
-    font-size: rem-calc(20);
-    font-weight: bold;
-  }
+.modal-error-title {
+  font-size: rem-calc(20);
+  font-weight: bold;
+}
 
-   ul.error-detail{
-     font-weight: normal;
-     font-size: medium;
-   }
+ul.error-detail {
+  font-weight: normal;
+  font-size: medium;
+}
 
 // 03. Resumen de procesos
 
-.summary{
+.summary {
   margin-top: rem-calc(12);
   background: lighten($verde, 35%);
   color: black;
@@ -337,7 +342,7 @@ input.approval-comment {
   }
 
   .main-process {
-   color: $body    ;
+   color: $body;
    background: $brand;
    padding: rem-calc(12);
    padding-bottom: 0;
@@ -361,7 +366,7 @@ input.approval-comment {
         background: white;
       }
 
-      &::before {
+      &:before {
         font-size: rem-calc(24);
         font-weight: bold;
         margin-top: -14px;
@@ -436,4 +441,85 @@ input.approval-comment {
 // 05. Reveal
 .reveal-show {
   display: inline;
+}
+// 06. PDF
+
+.pdf-description {
+//  max-height: rem-calc(65);
+  overflow: hidden;
+  max-width: rem-calc(700);
+  font-size: 8px !important;
+
+}
+
+.pdf-approval {
+    border: 1px solid #1a1a1a;
+    width: 100%;
+    padding-top: rem-calc(10) ;
+}
+
+.pdf-approval-data {
+  font-size: 10px;
+  padding-left: 20px;
+
+  .pdf-approval-name {
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+.pdf-approved {
+  text-decoration: underline;
+  text-align: left;
+  font-size: 12px;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.pdf-approval-comment-title {
+  font-size: 10px;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.pdf-approval-comment {
+  font-size: 10px;
+  padding-left: 25px;
+}
+
+.pdf-total-subprocess {
+  font-weight: bold;
+  text-align: right;
+}
+
+.pdf-indicator-description {
+  font-size: 10px !important;
+}
+
+
+.abstract {
+  .table {
+
+  }
+
+  td {
+    font-size: 10px;
+    padding-left: 10px;
+  }
+
+  th {
+    font-size: 10px;
+    text-align: left;
+    width: 9%;
+  }
+
+  .validated-abstract {
+    width: 60%;
+  }
+
+  .unit {
+    margin-top: 50px;
+  }
+  table, tr, td, th, tbody, thead, tfoot {
+    page-break-inside: avoid !important;
+  }
 }

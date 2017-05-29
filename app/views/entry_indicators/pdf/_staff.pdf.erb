@@ -1,0 +1,34 @@
+<div class="staff">
+  <table class="staff" id="staff_<%=of%>">
+    <thead>
+      <caption class="staff">  <%= (t("entry_indicators.staff.title.#{process_name(@period,'AssignedEmployee')}.#{of}")) %></caption>
+      <tr>
+        <th class="position staff-th-position"> <%= (t("entry_indicators.staff.assigned.#{process_name(@period,'AssignedEmployee')}.column_header")) %></th>
+        <% official_groups.each do |gr| %>
+            <th class="text-center staff-th"><%= gr.name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if of == 'Unit' %>
+        <tr>
+          <th class="icon-calendar staff-th"> <%= (t("entry_indicators.staff.assigned.initial")) %></th>
+          <% official_groups.each do |gr| %>
+              <td class=" staff-td">  <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of))) %></strong>  </td>
+          <% end %>
+        </tr>
+      <% end %>
+      <tr>
+        <th class="icon-user staff-th"> <%= t('entry_indicators.staff.assigned.process') %></th>
+        <% official_groups.each do |gr| %>
+            <td  class=" staff-td"> <strong><%=  format_number(display_staff(of, process, unit, period, gr.id, pos_amount(of), 'Assigned')) %></strong>  </td>
+      <% end %>
+      </tr>
+      <% if of == 'Unit' %>
+        <% if input_staff_visible?(process.id, period.id) %>
+            <%= render 'real_staff', process: unit, unit: unit, period: period %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

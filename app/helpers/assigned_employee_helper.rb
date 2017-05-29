@@ -25,7 +25,7 @@ module AssignedEmployeeHelper
 
     @period_2015 ||= Period.look_up_description('PERIODO DE ANÁLISIS: AÑO 2015')
 
-    if type == 'SubProcess' &&  period != @period_2015
+    if (type == 'SubProcess' &&  period != @period_2015) || type == 'MainProcess'
       ids = proc.indicators.ids
       type = 'Indicator'
     else
@@ -46,12 +46,11 @@ module AssignedEmployeeHelper
         group(:staff_of_id, :staff_of_type, :official_group_id).
         pluck(:staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)', :staff_of_id)
       return_array = @assigned_employees.select{ |t| ids.include?(t[4])  }
-     elsif type == 'SubProcess'
+    elsif type == 'SubProcess'
        @sp_assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id, staff_of_type: 'SubProcess').order(:official_group_id).
            group(:staff_of_id, :staff_of_type, :official_group_id).
            pluck(:staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)', :staff_of_id)
        return_array = @sp_assigned_employees.select{ |t| ids.include?(t[4])  }
-
     end
      return return_array
   end
@@ -62,7 +61,7 @@ module AssignedEmployeeHelper
     if staff.present?
       staff = staff.select{|st| st[1] == gr_id}
       if staff.present?
-        if of == "SubProcess"
+        if of == "SubProcess" || of == "MainProcess"
           staff.map{ |st| quantity += st[3] unless st[3].nil? }
         else
           quantity = staff.first[pos]

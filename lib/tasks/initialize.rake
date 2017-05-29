@@ -71,6 +71,13 @@ namespace :initialize do
       end
     end
   end
+
+  task sub_process_order: :environment do
+    SubProcess.all.each do |sp|
+      sp.order = sp.order_char
+      sp.save
+    end
+  end
 end
 
 private

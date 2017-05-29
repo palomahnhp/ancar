@@ -1,0 +1,26 @@
+<table class="indicator-metric">
+  <thead>
+    <tr>
+      <th class="indicator-metric"><strong><%= t('entry_indicators.form.metric') %></strong></th>
+      <th  class="indicator-source"><strong><%= t('entry_indicators.form.source') %></strong></th>
+      <th class="text-center amount"><strong><%= t('entry_indicators.form.amount') %></strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% indicator.indicator_metrics.order(:id).each_with_index do |indicator_metric, index| %>
+      <%= hidden_field_tag(:indicator_metric_id, indicator_metric.id) %>
+      <tr>
+        <td class="indicator-metric" id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
+        <td id="<%= "source_col_#{source_id(indicator_metric)}" %>"> <%= sources_description(indicator_metric) %></td>
+        <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
+          <% amount_value = get_amount(indicator_metric, @unit) %>
+          <% if @period.open_entry? && (can? :updates, @organization)  && @approval.blank?%>
+            <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]", amount_value, class: 'inline amount', placeholder: t('entry_indicators.table_indicator_metric.amount')) %>
+          <% else %>
+            <%= amount_value %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

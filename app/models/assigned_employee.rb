@@ -61,7 +61,7 @@ class AssignedEmployee < ActiveRecord::Base
     self.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id).delete_all
   end
 
-  def self.get_by_group(official_group_id, type, process_id, period_id, unit_id)
+  def self.set_by_group(official_group_id, type, process_id, period_id, unit_id)
     self.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id)
   end
 

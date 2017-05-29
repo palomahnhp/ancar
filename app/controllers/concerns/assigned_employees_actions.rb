@@ -26,8 +26,8 @@ module AssignedEmployeesActions
     AssignedEmployee.delete_all_by_group(official_group_id, type, process_id, period_id, unit_id)
   end
 
-  def get_assigned_employee(official_group_id, type, process_id, period_id, unit_id)
-    AssignedEmployee.get_by_group(official_group_id, type, process_id, period_id, unit_id)
+  def set_assigned_employee(official_group_id, type, process_id, period_id, unit_id)
+    AssignedEmployee.set_by_group(official_group_id, type, process_id, period_id, unit_id)
   end
 
   def delete_entry_indicators(unit_id, indicator_metric_id)
