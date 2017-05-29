@@ -8,8 +8,8 @@
 #
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
 
-if Rails.env.staging? || Rails.env.production?
-  exe_path = Rails.root.join('bin', 'wkhtmltopdf-amd64').to_s
+if Rails.env.staging? || Rails.env.production?  || Rails.env.preproduction?
+  exe_path = Rails.root.join('bin', 'wkhtmltopdf_linux_amd64').to_s
 else
 #  exe_path = COMMUNITYFOREM::CONFIG::WKHTMTTOPDF_PATH "#{ENV['GEM_HOME']}/gems/wkhtmltopdf-binary-#{Gem.loaded_specs['wkhtmltopdf-binary'].version}/bin/wkhtmltopdf_linux_x86"
   exe_path = "#{ENV['GEM_HOME']}/gems/wkhtmltopdf-binary-#{Gem.loaded_specs['wkhtmltopdf-binary'].version}/bin/wkhtmltopdf_linux_amd64"
@@ -26,5 +26,4 @@ WickedPdf.config = {
 
   # Layout file to be used for all PDFs
   # (but can be overridden in `render :pdf` calls)
-   layout: 'layouts/pdf.html.erb',
 }
