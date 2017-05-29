@@ -38,6 +38,10 @@ th.indicator-metric td.indicator-metric {
     text-align: left !important;
     padding-left: 50px !important;
     border-spacing: 0 !important;
+
+}
+
+table.indicator-metric {
     border-collapse: collapse !important;
 }
 
@@ -203,7 +207,7 @@ div.approval-pending {
     border: 1px solid #bcbcbc !important;
     background-color: lightpink !important;
     width: 70% !important;
-    margin-left: 180 !important;
+    margin-left: 100px !important;
     margin-top: 20px !important;
     margin-botton: 20px  !important;
     padding-top: 10px  !important;

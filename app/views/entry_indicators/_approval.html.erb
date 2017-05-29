@@ -8,25 +8,25 @@
                                <%= (l @approval.approval_at, format: :long) if @approval.approval_at.present? %></p>
         <p class="approval-comment"> <%= t('entry_indicators.approval.comments') %></p>
         <% if (current_user.has_role? :validator, @organization) & @period.open_entry? %>
-           <%= text_area_tag(:comments, @approval.comment , class: 'approval-comment') %>
+           <%= text_area_tag(:comments, @approval.comment, class:"approval-comment") %>
            <div class="approval-buttons hide-for-print" >
              <% if @approval.id.nil? %>
                <%= submit_tag(t('entry_indicators.form.button.approval.ok'), class: 'button', name: 'approval') %>
              <% else %>
                <%= submit_tag(t('entry_indicators.form.button.approval.update'), class: 'button', name: 'approval') %>
-             <% end %>
-             <%= submit_tag(t('entry_indicators.form.button.approval.cancel'), class: 'button', name: 'approval') %>
+               <%= link_to(t('entry_indicators.form.button.approval.download_abstract'),
+                             validated_abstract_entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
+                                                                      organization_id: @organization.id),  class: 'button', target:'_blank') %>
+           <% end %>
+             <%= submit_tag(t('entry_indicators.form.button.approval.cancel'),  class: 'button', name: 'approval') %>
            </div>
         <% else %>
               <p class="approval_comment"><%=  @approval.comment %> </p>
         <% end %>
-        <%= link_to(t('entry_indicators.form.button.approval.download_abstract'),
-                    validated_abstract_entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
-                                                             organization_id: @organization.id),  class: 'button') %>
       </div>
     <% else %>
       <% if (current_user.has_role? :validator, @organization)  & @period.open_entry? %>
-         <div class="medium-8 small-12 columns approval-pending">
+         <div class="hide-for-print medium-8 small-12 columns approval-pending ">
             <p id="pending-title"> <%= t('entry_indicators.approval.pending.title') %> </p>
             <p id="pending-text"> <%= t('entry_indicators.approval.pending.text_html') %> </p>
          </div>

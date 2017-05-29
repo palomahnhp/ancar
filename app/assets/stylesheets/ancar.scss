@@ -235,7 +235,6 @@ table.indicator-metric {
   margin-left: rem-calc(180);
   margin-top: rem-calc(20);
   padding-top: rem-calc(10) ;
-  line-height: rem-calc(2) ;
 }
 
 p.approval-data, p.approval-comment, p#pending-title  {
@@ -269,9 +268,8 @@ div.approval-pending {
   padding: 10px ;
 }
 
-input.approval-comment {
-  min-height: rem-calc(50);
-
+textarea.approval-comment {
+  min-height: rem-calc(100);
 }
 
 .group {
