@@ -43,7 +43,16 @@
       </tbody>
       <tfoot>
       <tr>
-        <th class="text-right">Total</th>
+        <th class="text-right">Total asignados procesos </th>
+        <% official_groups.each do |gr| %>
+            <td>
+              <%= format_number(display_staff('Unit', @unit, @unit, @period, gr.id, 4, 'Assigned')) %>
+             </td>
+        <% end %>
+      </tr>
+
+      <tr>
+        <th class="text-right">Total asignados a la unidad a 31-12 </th>
         <% official_groups.each do |gr| %>
           <td>
             <% if input_staff_visible?(@unit.id, @period.id) %>

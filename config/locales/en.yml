@@ -41,6 +41,11 @@ en:
       indicator:
         Indicators: Indicador
         Tasks: Tarea/acción
+        sub_process:
+          total: "Total Subprocesos"
+      main_process:
+        MainProcesses: Procesos
+        CompetentialBlocks: Bloques competenciales
       metric: Métrica
       source: Fuente
       button:
@@ -49,11 +54,13 @@ en:
         end: 'Validar entrada de datos'
         go_top: 'Inicio'
         approval:
-          inicio: "Validar datos"
+          init: "Validar datos"
           ok: "Visto bueno"
           cancel: "Cancelar el VºBº"
           update: "Modificar observaciones"
           pdf: "Abrir PDF"
+          download_pdf: "Generar PDF completo"
+          download_abstract: "Generar PDF Resumen"
         cancel_change: "Cancelar ajuste"
         justificate: "Justificar ajuste"
         fix: "Corregir"
@@ -139,7 +146,7 @@ en:
       comments: "Observaciones:"
       pending:
         title: "Datos pendientes de Visto Bueno"
-        text_html: "Para dar el VºBº a los datos de esta unidad basta con pulsar el botón  <strong>Validar datos </strong>. <br> El sistema realizará unas validaciones de los datos previas al visto bueno. Una vez hecho esto los datos de esta unidad no podrán modificarse"
+        text_html: "Para dar el VºBº a los datos de esta unidad basta con pulsar el botón  <strong>Validar datos </strong>. <br> El sistema realizará unas validaciones de los datos previas al visto bueno. <br> Una vez dado el Visto bueno los datos de esta unidad no podrán modificarse"
       success:
         validation: "Los datos han pasado las validaciones, se puede dar el VºBº"
         update: "Visto bueno actualizado correctamente"

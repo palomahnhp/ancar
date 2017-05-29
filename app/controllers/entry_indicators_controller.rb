@@ -52,10 +52,9 @@ class EntryIndicatorsController < ApplicationController
             font_size: 8
         },
     )
-    send_data pdf, :filename => "Digest#{@unit.description_sap}.pdf",
+    send_data pdf, :filename => "VistoBueno_#{@unit.description_sap}.pdf",
               :type => "application/pdf",
-              :disposition => "inline",
-              layouts: "layouts/pdf.html.erb"
+              :disposition => "inline"
   end
 
   def updates
@@ -94,11 +93,11 @@ class EntryIndicatorsController < ApplicationController
         flash[:notice] = t('entry_indicators.approval.success.validation')
       end
     end
-    if params[:approval] == "Visto bueno" || params[:approval] == "Modificar observaciones"
+    if params[:approval] == t('entry_indicators.form.button.approval.ok') || params[:approval] == t('entry_indicators.form.button.approval.update')
       @approval = set_approval(@period, @unit, params[:comments], current_user)
       flash[:notice] = t('entry_indicators.approval.success.update')
     end
-    if params[:approval] == "Cancelar el VºBº"
+    if params[:approval] == t('entry_indicators.form.button.approval.cancel')
       @approval = delete_approval(@period, @unit)
       flash[:notice] = t('entry_indicators.approval.success.cancel')
     end

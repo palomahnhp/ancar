@@ -42,7 +42,7 @@
       <![endif]-->
 
       <% if notice %>
-      <div id="notice " data-alert class="row" data-closable>
+      <div id="notice hide-for-print" data-alert class="row" data-closable>
         <div class="callout success">
           <button class="close-button" aria-label="<%= t('application.close') %>" type="button" data-close>
             <span aria-hidden="true">&times;</span>
@@ -52,7 +52,7 @@
       </div>
       <% end %>
       <% if alert %>
-      <div id="alert" data-alert class="row" data-closable>
+      <div id="alert hide-for-print" data-alert class="row" data-closable>
         <div class="callout alert">
           <button class="close-button" aria-label="<%= t('application.close') %>" type="button" data-close>
             <span aria-hidden="true">&times;</span>
