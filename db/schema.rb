@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528100739) do
+ActiveRecord::Schema.define(version: 20170530100448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "adminpack"
 
   create_table "approvals", force: :cascade do |t|
     t.integer  "period_id"
@@ -65,6 +66,17 @@ ActiveRecord::Schema.define(version: 20170528100739) do
   add_index "assigned_employees_changes", ["period_id"], name: "index_assigned_employees_changes_on_period_id", using: :btree
   add_index "assigned_employees_changes", ["unit_id"], name: "index_assigned_employees_changes_on_unit_id", using: :btree
   add_index "assigned_employees_changes", ["verified_at"], name: "index_assigned_employees_changes_on_verified_at", using: :btree
+
+  create_table "docs", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "url"
+    t.string   "format"
+    t.string   "role"
+    t.string   "updated_by"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "entry_indicators", force: :cascade do |t|
     t.integer  "unit_id"

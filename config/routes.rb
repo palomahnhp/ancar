@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :units
   resources :instructions
+  resources :docs
 
   namespace :admin do
     root to: "dashboard#index"

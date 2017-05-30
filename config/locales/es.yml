@@ -187,6 +187,7 @@ es:
     instructions: Instrucciones
     process_summary: Resumen por proceso
     subprocess_summary: Resumen por subproceso
+    documentation: "Manuales"
   unauthorized:
     manage:
       all: Acción no autorizada.
