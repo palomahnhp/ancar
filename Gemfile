@@ -20,7 +20,7 @@ gem 'turbolinks', '2.5.3' # Following links in your web application faster.
 gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease.
 gem 'initialjs-rails', '0.2.0.1'
 
-# bundle exec rake doc:rails generates the API under doc/api.
+# bundle exec rake index.html.erb:rails generates the API under index.html.erb/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
