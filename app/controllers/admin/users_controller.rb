@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::BaseController
   has_filters %w{actives inactives all}
 
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :update, :destroy, :ws_update ]
 
   def index
     @users = load_filtered_users
@@ -26,7 +26,13 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
-  def destroy
+  def ws_update
+    if @user.uweb_update! && @user.directory_update!
+      flash[:notice] = t('admin.users_controller.uweb_update.success', user: @user.login)
+    else
+      flash[:alert] = t('admin.users_controller.uweb_update.error', user: @user.login)
+    end
+    redirect_to admin_users_path
   end
 
   private

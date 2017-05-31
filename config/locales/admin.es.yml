@@ -18,6 +18,7 @@ es:
       roles:
         interlocutors: "Rol interlocutor"
         validators: "Rol validador"
+        readers: "Rol Consulta"
         supervisors: "Rol supervisor"
         admins: "Rol administrador"
     organizations:
@@ -40,6 +41,8 @@ es:
           name: "Nombre"
           position: "Puesto"
           unit: "Unidad"
+          organization: "Organización"
+          actions: Acciones
       edit:
         title: "Usuarios"
         created_at: "Fecha de alta:"

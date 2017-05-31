@@ -1,4 +1,4 @@
-require 'uweb_authenticator'
+require 'uweb_api'
 class SessionsController < ApplicationController
 
   def create
@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
           return false
         end
       end
-      if uw_user = UwebAuthenticator.new(params).auth
+      if uw_user = UwebApi.new(params).auth
         user = User.find_or_create_by(login: uw_user[:login])
         if user.uweb_update!(uw_user)
           session[:user_id] = user.id

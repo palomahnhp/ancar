@@ -23,30 +23,35 @@
 
     <div class="row">
       <br>
-      <table>
+      <table class="edit-user">
       <tr>
-        <td><%= t('admin.users.edit.position') %></td>
+        <th><%= t('admin.users.edit.position') %></th>
         <td>  <strong><%= @user.official_position %> </strong></td>
       </tr>
       <tr>
-        <td> <%= t('admin.users.edit.unit') %> </td>
-        <td> <strong><%= @user.organization_description %> </strong> </td>
+        <th> <%= t('admin.users.edit.unit') %> </th>
+        <td> <strong><%= @user.sap_den_unit %> </strong> </td>
       </tr>
       <tr>
-        <td> <%= t('admin.users.edit.phone') %> </td>
+        <th> <%= t('admin.users.edit.organization') %> </th>
+        <td> <strong><%= @user.sap_den_organization %> </strong> </td>
+       </tr>
+
+      <tr>
+        <th> <%= t('admin.users.edit.phone') %> </th>
         <td> <strong><%= @user.phone %> </strong> </td>
       </tr>
       <tr>
-        <td> <%= t('admin.users.edit.email') %> </td>
+        <th> <%= t('admin.users.edit.email') %> </th>
         <td> <strong><%= @user.email %> </strong> </td>
       </tr>
       <tr>
-        <td> <%= t('admin.users.edit.created_at') %> </td>
+        <th> <%= t('admin.users.edit.created_at') %> </th>
         <td> <strong><%= @user.created_at %> </strong> </td>
       </tr>
       <tr>
-        <td> <%= t('admin.users.edit.status') %> </td>
-        <td class="red <%= @user.status.downcase" %>> <%= @user.status %> </td>
+        <th> <%= t('admin.users.edit.status') %> </th>
+        <td class="red <%= @user.status.downcase %>"> <%= @user.status %> </td>
       </tr>
 
       <% unless @user.inactivated_at.nil? %>

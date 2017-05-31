@@ -1,4 +1,4 @@
-class UwebAuthenticator
+class UwebApi
 
   def initialize(data={})
     @user_params = {login: data[:login], user_key: data[:clave_usuario], date: data[:fecha_conexion], development: data[:development]}.with_indifferent_access
@@ -19,16 +19,20 @@ class UwebAuthenticator
     false
   end
 
+  def get_user
+    @uweb_user if user_data
+  end
+
   private
 
     def user_exists?
       response = client.call(:get_status_user_data, message: { ub: {user_key: @user_params[:user_key], date: @user_params[:date]} }).body
       parsed_response = parser.parse((response[:get_status_user_data_response][:get_status_user_data_return]))
-      Rails.logger.info('  INFO - UwebAuthenticator#user_exists? ') { "Llamada UWEB: get_status_user_data - #{parsed_response}" }
+      Rails.logger.info('  INFO - UwebApi#user_exists? ') { "Llamada UWEB: get_status_user_data - #{parsed_response}" }
       @uweb_user = uweb_user(parsed_response)
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
     rescue Savon::Error => e
-      Rails.logger.error { "  ERROR - UwebAuthenticator#user_exists? #{e}" }
+      Rails.logger.error { "  ERROR - UwebApi#user_exists? #{e}" }
       false
     end
 
@@ -50,30 +54,29 @@ class UwebAuthenticator
     def user_data
       response = client.call(:get_user_data_by_login, message: { ub: {login: @user_params[:login]} }).body
       parsed_response = parser.parse((response[:get_user_data_by_login_response][:get_user_data_by_login_return]))
-      Rails.logger.info { "  INFO - UwebAuthenticator#uweb_user: UWEB: get_user_data - #{parsed_response}" }
+      Rails.logger.info { "  INFO - UwebApi#uweb_user: UWEB: get_user_data - #{parsed_response}" }
       @uweb_user = uweb_user(parsed_response)
-
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
     rescue Savon::Error => e
-       Rails.logger.error { "  ERROR - UwebAuthenticator#user_data? #{e}" }
+       Rails.logger.error { "  ERROR - UwebApi#user_data? #{e}" }
        false
     end
 
     def application_authorized?
       response = client.call(:get_applications_user_list, message: { ub: {user_key: @user_params[:user_key]} }).body
       parsed_response = parser.parse((response[:get_applications_user_list_response][:get_applications_user_list_return]))
-      Rails.logger.info { "  INFO - UwebAuthenticator#application_authorized?: Llamada UWEB: application_user_list - #{parsed_response}" }
+      Rails.logger.info { "  INFO - UwebApi#application_authorized?: Llamada UWEB: application_user_list - #{parsed_response}" }
       aplication_value = parsed_response["APLICACIONES"]["APLICACION"]
 
       # aplication_value from UWEB can be an array of hashes or a hash ()
       aplication_value.include?( {"CLAVE_APLICACION" => application_key}) # || aplication_value["CLAVE_APLICACION"] == application_key
     rescue Savon::Error => e
-      Rails.logger.error { "  ERROR - UwebAuthenticator#application_authorized?: #{e}" }
+      Rails.logger.error { "  ERROR - UwebApi#application_authorized?: #{e}" }
       false
     end
 
     def client
-      Rails.logger.info { "  INFO - UwebAuthenticator#client: creación cliente UWEB WSDL :  #{Rails.application.secrets.uweb_wsdl}" }
+      Rails.logger.info { "  INFO - UwebApi#client: creación cliente UWEB WSDL :  #{Rails.application.secrets.uweb_wsdl}" }
       @client ||= Savon.client(wsdl: Rails.application.secrets.uweb_wsdl,
                                raise_errors: true)
     end
@@ -83,7 +86,7 @@ class UwebAuthenticator
     end
 
     def application_key
-      Rails.logger.info { "  INFO - UwebAuthenticator#application_key: Aplicación UWEB :  #{Rails.application.secrets.uweb_application_key.to_s}" }
+      Rails.logger.info { "  INFO - UwebApi#application_key: Aplicación UWEB :  #{Rails.application.secrets.uweb_application_key.to_s}" }
       Rails.application.secrets.uweb_application_key.to_s
     end
 end

@@ -73,14 +73,19 @@ class Admin::RolesController < Admin::BaseController
     end
 
     def set_role
-      @role = @user.roles.find(params[:id])
+      @role = @user.rolesden.find(params[:id])
     end
 
     def scope_organization
       if params[:role_name] == 'interlocutor' || params[:role_name] == 'validator'
-        @user.organization
+        if Organization.find(@user.sap_id_organization)
+          @user.sap_id_organization
+        else
+          false
+        end
       elsif params[:role_name] == 'supervisor'
-        @user.organization.nil? ? false : @user.organization.organization_type
+        "#{@user.organization.nil? ? false : @user.den_organization}"
+        # todo buscar organizationType
       end
     end
 

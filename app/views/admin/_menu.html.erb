@@ -11,23 +11,38 @@
           <%= link_to admin_users_path do %>
              <%= t('admin.menu.users') %>
          <% end %>
+        </li>
+
         <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'interlocutor' %>>
           <%= link_to admin_roles_index_path(role_name: 'interlocutor') do %>
               <%= t('admin.menu.roles.interlocutors') %>
           <% end %>
+        </li>
+
         <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'validator' %>>
           <%= link_to admin_roles_index_path(role_name: 'validator') do %>
               <%= t('admin.menu.roles.validators') %>
           <% end %>
         </li>
-        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'supervisor' %>>
+
+        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'consultor' %> >
+          <%= link_to admin_roles_index_path(role_name: 'supervisor') do %>
+              <%= t('admin.menu.roles.readers') %>
+          <% end %>
+        </li>
+
+        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'supervisor' %> >
           <%= link_to admin_roles_index_path(role_name: 'supervisor') do %>
               <%= t('admin.menu.roles.supervisors') %>
           <% end %>
+        </li>
+
         <li <%= 'class=active' if controller_name == 'roles' && params[:rol] == 'admin' %>>
-        <%= link_to admin_roles_index_path(role_name: 'admin') do %>
-            <%= t('admin.menu.roles.admins') %>
-        <% end %>
+          <%= link_to admin_roles_index_path(role_name: 'admin') do %>
+              <%= t('admin.menu.roles.admins') %>
+          <% end %>
+        </li>
+
       </ul>
     </li>
     <li id="organizations">

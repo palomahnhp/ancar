@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530100448) do
+ActiveRecord::Schema.define(version: 20170531105311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -397,11 +397,15 @@ ActiveRecord::Schema.define(version: 20170530100448) do
     t.string   "phone"
     t.string   "official_position"
     t.string   "email"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "role"
     t.datetime "inactivated_at"
     t.integer  "organization_id"
+    t.integer  "sap_id_unit"
+    t.string   "sap_den_unit"
+    t.integer  "sap_id_organization"
+    t.string   "sap_den_organization"
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|

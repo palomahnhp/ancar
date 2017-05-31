@@ -35,7 +35,11 @@ Rails.application.routes.draw do
     resources :unit_types
     resources :organizations
     resources :units
-    resources :users
+    resources :users do
+      member do
+        get 'ws_update'
+      end
+    end
     resources :stats
     resources :in_works
     resources :roles, only: [:index, :create, :destroy] do

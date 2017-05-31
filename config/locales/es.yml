@@ -31,6 +31,13 @@ es:
     units:
       index:
         title: Unidades
+    users_controller:
+      uweb_update:
+        success: "Actualizados los datos del usuario %{user}"
+        error: "Error al actualiza los datos del usuario %{user}"
+    users:
+      edit:
+        organization: "Organización"
   application:
     close: Salir
     require_user:
