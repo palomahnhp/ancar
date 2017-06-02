@@ -40,9 +40,9 @@
   </thead>
   <tbody>
   <% @users.each do |user| %>
-    <tr id="#{user.login}">
+    <tr >
       <td>
-        <%= link_to user.login, edit_admin_user_path(user) %>
+        <%= link_to user.login, edit_admin_user_path(user), id: "#{user.login}" %>
       </td>
       <td>
         <%= user.full_name%>
@@ -51,8 +51,11 @@
       <td> <%= user.sap_den_unit %> </td>
       <td> <%= user.sap_den_organization %> </td>
       <td>
-        <%= link_to("", edit_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login), title: 'Detalle del usuario', class: "icon-search") %>
-        <%= link_to("", ws_update_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login), title: 'Actualizar usuario', class: "icon-edit") %>
+        <%= link_to("", admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login), title: 'Detalle del usuario', class: "icon-search") %>
+        <%= link_to("", edit_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login), title: 'Permisos', class: "icon-user") %>
+        <%= link_to("", ws_update_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login), title: 'Actualizar datos', class: "icon-external") %>
+        <%= link_to("", admin_user_path(user), method: :delete, class: 'icon-deleted', title: 'Baja del usuario')
+        %>
       </td>
     </tr>
   <% end %>

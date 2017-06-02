@@ -12,13 +12,31 @@
       <td> <%=role.no_empty_name %> </td>
       <td> <%= role.resource_type_description %> </td>
       <td> <%= role.resource_id_description %> </td>
-      <td id= "button_destroy">
-        <%= link_to t('admin.roles.remove_resource'),
-                    admin_role_path(role.id, user_id: @user.id,
-                                    remove_resource: [role.resource_type, role.resource_id] ),
-                       action: :destroy, method: :delete, class: 'button hollow' %>
-      </td>
+      <% if params[:action] == 'edit' %>
+        <td id= "button_destroy">
+          <%= link_to t('admin.roles.remove_resource'),
+                      admin_role_path(role.id, user_id: @user.id,
+                                      remove_resource: [role.resource_type, role.resource_id] ),
+                         action: :destroy, method: :delete, class: 'button hollow' %>
+        </td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= form_tag(action: 'roles') do %>
+    <%= hidden_field_tag :role_name, params[:role_name] %>
+    <%= hidden_field_tag :user_id, @user.id %>
+    <%= hidden_field_tag :resource_type, 'Organization' %>
+
+    <%= label_tag :resource_id, t('admin.roles.add_resource.resource') %>
+    <div class="small-6 columns">
+      <%= select_tag :resource_id, options_for_select(Organization.select_options),
+                     label: false, placeholder: t('admin.roles.add_resource.resource') %>
+    </div>
+    <div class="small-6 columns">
+      <%= submit_tag t('admin.roles.add_resource.submit'), class: 'button hollow success', :name => 'add_resource' %>
+    </div>
+<% end %>
+

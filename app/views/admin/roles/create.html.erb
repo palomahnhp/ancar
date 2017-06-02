@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h2><%= t('admin.roles.add_resource.title') %>  <%= t("admin.roles.index.title.#{params[:role_name]}")%></h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <div class="small-8 columns radius secondary label">
+      <h4><%= @user.login %> <%= @user.full_name %></h4>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <br>
+  <table>
+    <tr>
+      <td><%= t('admin.users.edit.position') %></td>
+      <td id="position">  <strong><%= @user.official_position %> </strong></td>
+    </tr>
+    <tr>
+      <td> <%= t('admin.users.edit.unit') %> </td>
+      <td id="organization"> <strong><%= @user.organization_description %> </strong> </td>
+    </tr>
+  </table>
+
+  <%= render 'admin/shared/roles' %>
+  <%= form_tag(action: 'create') do %>
+
+      <%= hidden_field_tag :role_name, params[:role_name] %>
+      <%= hidden_field_tag :user_id, @user.id %>
+      <%= hidden_field_tag :resource_type, 'Organization' %>
+
+      <%= label_tag :resource_id, t('admin.roles.add_resource.resource') %>
+      <div class="small-6 columns">
+        <%= select_tag :resource_id, options_for_select(Organization.select_options),
+                       label: false, placeholder: t('admin.roles.add_resource.resource') %>
+      </div>
+      <div class="small-6 columns">
+        <%= submit_tag t('admin.roles.add_resource.submit'), class: 'button hollow success', :name => 'add_resource' %>
+      </div>
+  <% end %>
+
+</div>

@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::BaseController
   has_filters %w{all interlocutor validator consultor supervisor admin no_role inactive }
 
-  before_action :set_user, only: [:edit, :update, :destroy, :ws_update ]
+  before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles ]
 
   def index
     @users = load_filtered_users
@@ -12,7 +12,9 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
+  end
 
+  def show
   end
 
   def create
@@ -26,7 +28,7 @@ class Admin::UsersController < Admin::BaseController
       render :new
     else
       @user = User.create(user_params)
-      redirect_to admin_users_path(filter: 'no_role')
+      redirect_to admin_users_path(filter: 'no_role', anchor: @user.login)
     end
   end
 
@@ -70,6 +72,33 @@ class Admin::UsersController < Admin::BaseController
       end
     end
   end
+
+  def roles
+    case params[:add_resource]
+      when nil
+        if scope_organization.present?
+          @user.add_role params[:role_name], scope_organization
+        else
+          @user.add_role params[:role_name]
+        end
+        redirect_to admin_roles_path(role_name: params[:role_name])
+      when 'new'
+        render :edit
+      when  t('admin.roles.add_resource.submit')
+        resource_class = sanitize_resource_type(params[:resource_type])
+        if resource_class.nil?
+          flash[:error] = t('admin.roles.add_resource.error')
+          render :edit
+        else
+          resource_id = params[:resource_id]
+          role_name = params[:role_name]
+          if @user.add_role role_name, resource_class.find(resource_id)
+            render :edit
+          end
+        end
+    end
+  end
+
   private
 
   def set_user
@@ -90,6 +119,23 @@ class Admin::UsersController < Admin::BaseController
       when 'no_role'   then User.active.page(params[:page]).has_role(nil).distinct
       else
         User.active.with_role(params[:filter],:any).page(params[:page]).distinct
+    end
+  end
+
+
+  def set_role
+    @role = @user.roles.find(params[:id])
+  end
+
+  def scope_organization
+    if params[:role_name] == 'interlocutor' || params[:role_name] == 'validator'
+      organization = Organization.find_by_sap_id(@user.sap_id_organization)
+    end
+  end
+
+  def sanitize_resource_type(resource_type)
+    [Organization, Unit, OrganizationType].find do |resource_class|
+      resource_class.name == resource_type
     end
   end
 
