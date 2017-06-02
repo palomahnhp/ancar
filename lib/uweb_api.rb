@@ -48,13 +48,13 @@ class UwebApi
       user[:email]    = parsed_response["USUARIO"]["MAIL"]
       user[:official_position] = parsed_response["USUARIO"]["CARGO"]
       user[:pernr]    = parsed_response["USUARIO"]["NUM_PERSONAL"]
+      user[:active]    = parsed_response["USUARIO"]["BAJA_LOGICA"] == '0' ? true : false
       return user
     end
 
     def user_data
       response = client.call(:get_user_data_by_login, message: { ub: {login: @user_params[:login]} }).body
       parsed_response = parser.parse((response[:get_user_data_by_login_response][:get_user_data_by_login_return]))
-      Rails.logger.info { "  INFO - UwebApi#uweb_user: UWEB: get_user_data - #{parsed_response}" }
       @uweb_user = uweb_user(parsed_response)
       @user_params[:login] == parsed_response["USUARIO"]["LOGIN"]
     rescue Savon::Error => e
@@ -65,9 +65,7 @@ class UwebApi
     def application_authorized?
       response = client.call(:get_applications_user_list, message: { ub: {user_key: @user_params[:user_key]} }).body
       parsed_response = parser.parse((response[:get_applications_user_list_response][:get_applications_user_list_return]))
-      Rails.logger.info { "  INFO - UwebApi#application_authorized?: Llamada UWEB: application_user_list - #{parsed_response}" }
       aplication_value = parsed_response["APLICACIONES"]["APLICACION"]
-
       # aplication_value from UWEB can be an array of hashes or a hash ()
       aplication_value.include?( {"CLAVE_APLICACION" => application_key}) # || aplication_value["CLAVE_APLICACION"] == application_key
     rescue Savon::Error => e
@@ -76,7 +74,6 @@ class UwebApi
     end
 
     def client
-      Rails.logger.info { "  INFO - UwebApi#client: creación cliente UWEB WSDL :  #{Rails.application.secrets.uweb_wsdl}" }
       @client ||= Savon.client(wsdl: Rails.application.secrets.uweb_wsdl,
                                raise_errors: true)
     end

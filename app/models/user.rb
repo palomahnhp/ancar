@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
   rolify
   belongs_to :organization
-  validates :login, presence: true, uniqueness: true
+  validates :login, presence: true, uniqueness: true,
+            format: { with: /\A[a-zA-Z]{3}\d{3}\z/, message: "No es un código ayre válido, debe tener tres letras y tres números"}
+
 #  validates :uweb_id, uniqueness: true
 #  validates :pernr, uniqueness: true
 
@@ -10,25 +12,36 @@ class User < ActiveRecord::Base
   default_scope  { order(:login)} #  Overriding default_scope: unscoped
   scope :active,         -> { where(inactivated_at: nil) }
   scope :inactive,       -> { where.not(inactivated_at: nil) }
+  scope :has_role, lambda{|role| includes(:roles).where(:roles => { :name=> role })}
 
-  def uweb_update!()
+  def login=(val)
+    self[:login] = val.upcase
+  end
+
+  def uweb_update
     uweb_data = UwebApi.new(login: self.login).get_user
-
-    if uweb_data.present? && login == uweb_data[:login]
+    if uweb_data.present? && login == uweb_data[:login] && uweb_data[:active]
       self.uweb_id = uweb_data[:uweb_id]
       self.phone = uweb_data[:phone]
       self.email = uweb_data[:email]
       self.pernr = uweb_data[:pernr]
-      self.save
-     else
-       false
-     end
+    else
+      false
+    end
   end
 
-  def directory_update!()
+  def uweb_update!
+    if self.uweb_update
+      self.save
+    else
+      false
+    end
+  end
+
+  def directory_update
     data  = DirectoryApi.new.employees_data(pernr: self.pernr)
 
-    user_data = data['EMPLEADOS_ACTIVOS']['EMPLEADO']
+    user_data = data['EMPLEADOS_ACTIVOS']['EMPLEADO'] if data['EMPLEADOS_ACTIVOS'].present?
     if user_data.present?
       self.document_number = user_data['NIF']
       self.name = fix_encoding(user_data['NOMBRE'])
@@ -45,6 +58,13 @@ class User < ActiveRecord::Base
         self.sap_id_organization = unit_data['AREA']
         self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
       end
+    else
+      false
+    end
+  end
+
+  def directory_update!
+    if self.directory_update
       self.save
     else
       false
@@ -118,5 +138,9 @@ class User < ActiveRecord::Base
 
   def fix_encoding(element)
     element.encode('ISO-8859-1').force_encoding("utf-8")
+  end
+
+  def has_role(role)
+
   end
 end

@@ -44,7 +44,7 @@ class Admin::RolesController < Admin::BaseController
 
     case params[:add_resource]
       when nil
-        if scope_organization
+        if scope_organization.present?
           @user.add_role params[:role_name], scope_organization
         else
           @user.add_role params[:role_name]
@@ -78,14 +78,7 @@ class Admin::RolesController < Admin::BaseController
 
     def scope_organization
       if params[:role_name] == 'interlocutor' || params[:role_name] == 'validator'
-        if Organization.find(@user.sap_id_organization)
-          @user.sap_id_organization
-        else
-          false
-        end
-      elsif params[:role_name] == 'supervisor'
-        "#{@user.organization.nil? ? false : @user.den_organization}"
-        # todo buscar organizationType
+        organization = Organization.find_by_sap_id(@user.sap_id_organization)
       end
     end
 

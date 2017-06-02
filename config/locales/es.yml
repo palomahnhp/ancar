@@ -234,3 +234,14 @@ es:
     target_blank_html: " (se abre en ventana nueva)"
     top_links:
       no_user: "No hay usuario conectado"
+  users:
+    index:
+      filter:
+        interlocutor: Interlocutores
+        validator: Validadores
+        consultor: Consultores
+        supervisor: Supervisores
+        admin: Administradores
+        all: Todos
+        inactive: Inactivos
+        no_role: Sin autorizaciones

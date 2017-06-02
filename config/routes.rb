@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       member do
         get 'ws_update'
       end
+      get :search, on: :collection
     end
     resources :stats
     resources :in_works
@@ -47,7 +48,6 @@ Rails.application.routes.draw do
         post 'add_resource'
         get  'remove_resource'
       end
-
       get :search, on: :collection
     end
   end

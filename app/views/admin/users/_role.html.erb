@@ -1,0 +1,24 @@
+<div class="small-12 column">
+  <table>
+    <% users.each do |user| %>
+    <tr>
+      <td id= "login"> <%= user.login %> </td>
+      <td id="name">   <%= user.full_name %> </td>
+      <td id="position"> <%= user.official_position %> </td>
+      <td class="text-right">
+        <% if user.persisted? and user.has_role? params[:role], :any %>
+            <%= link_to t('admin.roles.action.delete'),
+                        admin_role_path(params[:role], role_name: params[:role_name], user_id: user.id),
+                        method: :delete,
+                        class: 'button hollow alert' %>
+        <% else %>
+            <%= link_to t('admin.roles.action.add'),{controller: 'admin/roles', action: :create, user_id: user.id, role_name: params[:role_name] },
+                        method: :post, class: 'button success hollow' %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+
+

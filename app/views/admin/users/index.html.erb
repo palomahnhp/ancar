@@ -1,13 +1,28 @@
-<div class="row">
+<div>
   <%= render 'shared/back' %>
+  <h2><%= t('admin.users.index.title') %></h2>
+</div>
+<div class="row">
   <div class="small-12 columns">
-    <div class="small-10 columns">
-      <h2><%= t('admin.users.index.title') %></h2>
+    <div class="small-12 medium-10 columns">
+      <%= form_tag search_admin_users_path(role_name: params[:role_name]), method: :get, remote: true  do %>
+          <div class="small-12 medium-8 column">
+            <%= text_field_tag :search, '', placeholder: t('admin.users.search.login_placeholder') %>
+          </div>
+          <div class="small-12 medium-4 column">
+            <%= submit_tag t('admin.roles.search.search'), class: 'button' %>
+          </div>
+      <% end %>
     </div>
+      <div class="small-12 medium-2 column end">
+        <%= link_to t('admin.roles.index.new'),  new_admin_user_path ,class: 'hollow button' %>
+      </div>
   </div>
 </div>
 
-<%= render 'shared/filter_subnav', i18n_namespace: 'admin.users.index' %>
+<div id="search-result" class="row"></div>
+
+<%= render 'shared/filter_subnav', i18n_namespace: 'users.index' %>
 
 <h3><%= page_entries_info @users, :entry_name => 'usuario'%></h3>
 <!--%= render 'item_list' %-->
@@ -25,7 +40,7 @@
   </thead>
   <tbody>
   <% @users.each do |user| %>
-    <tr>
+    <tr id="#{user.login}">
       <td>
         <%= link_to user.login, edit_admin_user_path(user) %>
       </td>
@@ -36,8 +51,8 @@
       <td> <%= user.sap_den_unit %> </td>
       <td> <%= user.sap_den_organization %> </td>
       <td>
-        <%= link_to("", edit_admin_user_path(user), title: 'Detalle del usuario', class: "icon-search") %>
-        <%= link_to("", ws_update_admin_user_path(user), title: 'Actualizar usuario', class: "icon-edit") %>
+        <%= link_to("", edit_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login), title: 'Detalle del usuario', class: "icon-search") %>
+        <%= link_to("", ws_update_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login), title: 'Actualizar usuario', class: "icon-edit") %>
       </td>
     </tr>
   <% end %>

@@ -35,7 +35,7 @@ es:
         title: Tipos de unidades
     users:
       index:
-        title: "Usuarios"
+        title: "Gestión de usuarios"
         row:
           login: "Login"
           name: "Nombre"
@@ -62,6 +62,18 @@ es:
       status:
         active: "Alta"
         inactive: "Baja"
+      search:
+        user_not_found: "Usuario no encontrado, para dar de alta un nuevo usuario utiliza el botón de Alta de usuario"
+        login_placeholder: "Introduce el usuario a buscar"
+      new:
+        login_placeholder: "Código ayre"
+        title: "Alta de usuario"
+      form:
+        new: "Crear usuario"
+        ws_update: "Buscar datos"
+      create:
+        alert: "Usuario no existe en ayre o está en baja lógica"
+        notice: 'Se ha recuperado la información del usuario ayre'
     roles:
       index:
         title:
@@ -69,6 +81,7 @@ es:
           validator: Validador de unidad
           admin: Administrador
           supervisor: Supervisor
+        new: "Alta de usuario"
       search:
         login_placeholder: "Introduce el usuario"
         search: "Buscar"
@@ -98,5 +111,7 @@ es:
       remove_resource: "-"
       destroy_resource:
         error: "Error elimando recurso del rol"
+      new:
+        search: "Alta"
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
