@@ -1,0 +1,36 @@
+<div class="row">
+  <h3><%= t('supervisor.report.process.indicators') %></h3>
+  <div class="report-header small-12 columns">
+    <h4>Periodo: <%= @period.description %></h4>
+    <h4><%= @period.organization_type.description %></h4>
+    <h5>Datos corresponden: <%= (l @period.started_at) %> a <%= (l @period.ended_at) %> </h5>
+   </div>
+</div>
+
+<% @period.main_processes.each do |mp| %>
+  <div class="card">
+    <div class="main_process medium-12">
+      <strong class="title">
+        <%= link_to "+", supervisor_report_path(@period.id, main_process: mp.id), remote: true %>
+        <%= mp.order %>  <%= mp.item.description %>
+      </strong>
+    </div>
+  </div>
+    <% if params[:type] == :sub_process %>
+      <div >
+        <% mp.sub_processes.each do |sp| %>
+            <div>
+              <%= link_to "+", supervisor_report_path(@period.id, sub_process: sp.id), remote: true %>
+              <h5><%= sp.order %> <%= sp.item.description %></h5>
+            </div>
+              <div id="detail-content" class="card-content" >
+                Aqui
+              </div>
+            </div>
+        <% end %>
+      </div>
+    <% elsif  params[:type] == :sub_process %>
+      <div id="detail-content"> Aqui </div>
+    <% end %>
+
+<% end %>

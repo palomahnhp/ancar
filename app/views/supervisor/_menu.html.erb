@@ -14,7 +14,16 @@
         <%= t('subnavigation_menu.reports') %>
       </a>
       <ul class="menu vertical nested">
-
+        <li id="option-report-process" <%= 'class=active' if controller_name == 'reports' && params[:type] == 'process'  %>>
+          <%= link_to select_period_supervisor_reports_path(type: :main_process) do %>
+              <%= t('subnavigation_menu.report') %>
+          <% end %>
+        </li>
+        <li id="option-report-subprocess" <%= 'class=active' if controller_name == 'reports' && params[:type] == 'sub_process'  %> >
+          <%= link_to select_period_supervisor_reports_path(type: :sub_process) do %>
+              <%= t('subnavigation_menu.subprocess_summary') %>
+          <% end %>
+        </li>
         <li id="option-report-process" <%= 'class=active' if controller_name == 'reports' && params[:type] == 'process'  %>>
           <%= link_to supervisor_process_summary_index_path(type: 'MainProcess') do %>
               <%= t('subnavigation_menu.process_summary') %>
@@ -25,6 +34,7 @@
               <%= t('subnavigation_menu.subprocess_summary') %>
           <% end %>
         </li>
+
       </ul>
     </li>
 

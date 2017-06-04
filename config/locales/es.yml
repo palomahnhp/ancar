@@ -180,6 +180,7 @@ es:
     process_summary: Resumen por proceso
     subprocess_summary: Resumen por subproceso
     reports: "Informes"
+    report: "Resumen por procesos/bloque competencial"
   unauthorized:
     manage:
       all: Acción no autorizada.
@@ -210,6 +211,11 @@ es:
     main_processes:
       form:
         organization: "Organización"
+    report:
+      process:
+        indicators: "Resumen por periodo"
+      select_period:
+        title: Selección de periodos
   main_process:
     organization_group:
       generic: "GENÉRICOS"

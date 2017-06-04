@@ -61,6 +61,11 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
       resources :sources
       resources :process_summary
+      resources :reports do
+        collection do
+          get 'select_period'
+        end
+      end
       resources :periods
       resources :indicators  do
         member do

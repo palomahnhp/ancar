@@ -4,14 +4,13 @@
 // 02. Sidebar
 // 03. List elements
 // 04. Stats
-// 05. Management
+// 05. Supervisor
 //
 
 // 01. Global styles
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 $admin-color: #CF3638;
-
 
 body.admin {
 
@@ -432,4 +431,22 @@ table.investment-projects-summary {
   td.total-price {
     white-space: nowrap;
   }
+}
+
+// 05 Supervisor
+
+div.select-period {
+  margin-top: rem-calc(20);
+  table caption {
+    border: 1px solid darkgrey;
+  }
+}
+
+.select-period {
+  padding-left: 15px;
+}
+
+.report-header {
+  border: 1px solid darkgrey;
+  text-align: center;
 }

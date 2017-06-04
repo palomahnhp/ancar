@@ -58,31 +58,31 @@ class User < ActiveRecord::Base
   end
 
   def auth_organizations(organization_type_id = 0)
-    if organization_type_id != 0
-      # global roles
-      if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
-        @organizations ||= Organization.where(organization_type_id: organization_type_id).distinct
-      # scoped roles
-      else
-         organization_type_roles = OrganizationType.applied_roles
-         user_roles = self.roles
-         if (organization_type_roles.ids).map{ |id| (user_roles.ids).include? id}
-           @organizations ||= Organization.where(organization_type_id: organization_type_id)
-         end
-      end
+    if organization_type_id.present?
+      organizations = auth_organization_by_organization_type(organization_type_id)
     else
-      @organizations ||= Organization.with_roles(ROLES, self).distinct
+      organizations = Organization.with_roles(ROLES, self).distinct
     end
+    return organizations
+  end
+
+  def auth_organization_types_organizations(organization_types)
+    organizations = []
+    organization_types.each do |organization_type|
+      auth_organization_by_organization_type(organization_type.id).map{|organization| organizations << organization}
+    end
+    return organizations
   end
 
   def auth_organization_types
     # global roles
     if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
-      @organization_types ||= OrganizationType.all
+      organization_types = OrganizationType.all
     # scoped roles
     else
-     @organization_types ||= OrganizationType.with_roles(ROLES, self)
+      organization_types = OrganizationType.with_roles(ROLES, self)
     end
+    return organization_types
   end
 
   def organization_description
@@ -91,5 +91,19 @@ class User < ActiveRecord::Base
 
   def filter_roles(role)
     role.nil? ? self.roles :  self.roles.where(name: role)
+  end
+
+  private
+  def auth_organization_by_organization_type(organization_type_id)
+    # global roles
+    if self.has_any_role? :admin, :supervisor, :reader
+      return Organization.where(organization_type_id: organization_type_id).distinct
+    else # scoped roles
+      organization_type_roles = OrganizationType.applied_roles
+      user_roles = self.roles
+      if (organization_type_roles.ids).map{ |id| (user_roles.ids).include? id}
+        return Organization.where(organization_type_id: organization_type_id)
+      end
+    end
   end
 end

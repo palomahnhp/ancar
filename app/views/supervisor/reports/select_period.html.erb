@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h3><%= t('supervisor.report.select_period.title') %></h3>
+  </div>
+</div>
+
+<div class="row select-period">
+    <% @organization_types.each do |organization_type| %>
+      <table class="hover">
+      <caption>
+        <%= organization_type.description %>
+      </caption>
+      <tr>
+        <th> Periodo  </th>
+        <th> Datos correspondientes a </th>
+        <th> Recogida de datos  </th>
+      </tr>
+      <% organization_type.periods.each do |period| %>
+        <tr class="select-period ">
+          <td> <%= link_to period.description, supervisor_reports_path(id: period.id, type: params[:type]) %> </td>
+          <td> de <%= (l period.started_at) %> a <%= (l period.ended_at) %> </td>
+          <td> de <%= (l period.opened_at) %> a <%= (l period.closed_at) %> </td>
+        </tr>
+      <% end %>
+  </table>
+  <% end %>
+</div>
