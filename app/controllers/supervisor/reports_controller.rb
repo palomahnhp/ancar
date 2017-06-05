@@ -14,7 +14,6 @@ class Supervisor::ReportsController < Supervisor::BaseController
     class_name = params[:type].to_s.camelize
     class_name = Object.const_get(class_name)
     @process = class_name.find(params[:process])
-
     respond_to do |format|
       format.js
     end

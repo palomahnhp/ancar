@@ -1,1 +1,1 @@
-$("#detail-content").html("<%= render 'detail',  process: @process %>");
+$("#detail-content-<%= @process.id %>").html("<%= j render 'detail',  process: @process %>");

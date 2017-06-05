@@ -23,12 +23,12 @@
               <%= link_to "+", supervisor_report_path(@period.id, type: params[:type], process: sp.id), remote: true %>
               <h5><%= sp.order %> <%= sp.item.description %></h5>
             </div>
-              <div id="detail-content" class="card-content" > </div>
+              <div id="detail-content-<%= sp.id %>" class="card-content" > </div>
             </div>
         <% end %>
       </div>
     <% elsif  params[:type].to_sym == :main_process %>
-      <div id="detail-content">  </div>
+      <div id="detail-content-<%= mp.id %>">  </div>
     <% end %>
 
 <% end %>
