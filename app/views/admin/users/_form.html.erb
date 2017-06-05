@@ -47,10 +47,7 @@
               <td> <strong><%= @user.inactivated_at %> </strong> </td>
             </tr>
         <% end %>
-
-        <% if @user.has_any_role? %>
-            <%= render 'admin/shared/roles' %>
-        <% end %>
+        <%= render 'admin/shared/roles' %>
       </table>
     </div>
 <% end %>

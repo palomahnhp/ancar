@@ -17,6 +17,33 @@ class Admin::UsersController < Admin::BaseController
   def show
   end
 
+  def destroy
+    if @user.inactivate!
+      flash[:notice] = t('admin.users.destroy.notice', user: @user.login)
+    else
+      flash[:alert] = t('admin.users.destroy.alert', user: @user.login)
+    end
+    if params[:caller_action].present?
+      render params[:caller_action]
+    else
+      redirect_to admin_users_path(filter: params[:filter], page: params[:page])
+    end
+  end
+
+  def activate
+    if @user.activate!
+      flash[:notice] = t('admin.users.activate.notice', user: @user.login)
+    else
+      flash[:alert] = t('admin.users.activate.alert', user: @user.login)
+    end
+    if params[:caller_action].present?
+      render params[:caller_action]
+    else
+      redirect_to admin_users_path(filter: params[:filter], page: params[:page])
+    end
+  end
+
+
   def create
     if params[:commit] == "Buscar datos"
       @user = User.new(user_params)
@@ -28,7 +55,7 @@ class Admin::UsersController < Admin::BaseController
       render :new
     else
       @user = User.create(user_params)
-      redirect_to admin_users_path(filter: 'no_role', anchor: @user.login)
+      redirect_to admin_users_path(anchor: @user.login, page: @user.page)
     end
   end
 
@@ -51,7 +78,11 @@ class Admin::UsersController < Admin::BaseController
     else
       flash[:alert] = t('admin.users_controller.uweb_update.error', user: @user.login)
     end
-    redirect_to admin_users_path(filter: params[:filter], page: params[:page])
+    if params[:caller_action].present?
+      render params[:caller_action]
+    else
+     redirect_to admin_users_path(filter: params[:filter], page: params[:page])
+    end
   end
 
   def search
@@ -115,7 +146,7 @@ class Admin::UsersController < Admin::BaseController
     filter = params[:filter].nil? ? 'all' : params[:filter]
     case filter
       when 'all'       then User.active.page(params[:page]).distinct
-      when 'inactives' then User.inactive.page(params[:page]).distinct
+      when 'inactive' then User.inactive.page(params[:page]).distinct
       when 'no_role'   then User.active.page(params[:page]).has_role(nil).distinct
       else
         User.active.with_role(params[:filter],:any).page(params[:page]).distinct

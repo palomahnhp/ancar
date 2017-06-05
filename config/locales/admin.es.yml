@@ -34,6 +34,12 @@ es:
       index:
         title: Tipos de unidades
     users:
+      activate:
+        alert: "No se ha podido reactivar el usuario %{user} "
+        notice: "El usuario %{user} se ha activado"
+      destroy:
+        alert: "No se ha podido dar de baja el usuario %{user} "
+        notice: "El usuario %{user} se ha dado de baja"
       index:
         title: "Gestión de usuarios"
         row:
@@ -43,6 +49,8 @@ es:
           unit: "Unidad"
           organization: "Organización"
           actions: Acciones
+        search:
+          show: "Ver"
       edit:
         title: "Usuarios"
         created_at: "Fecha de alta:"
@@ -113,5 +121,6 @@ es:
         error: "Error elimando recurso del rol"
       new:
         search: "Alta"
+      no_role: "Este usuario no tiene asignado ningún rol"
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"

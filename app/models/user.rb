@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   rolify
+  paginates_per 25
   belongs_to :organization
   validates :login, presence: true, uniqueness: true,
             format: { with: /\A[a-zA-Z]{3}\d{3}\z/, message: "No es un código ayre válido, debe tener tres letras y tres números"}
@@ -16,6 +17,18 @@ class User < ActiveRecord::Base
 
   def login=(val)
     self[:login] = val.upcase
+  end
+
+  def inactivate!
+    self.inactivated_at =  Time.now
+    self.save
+    self.uweb_off!
+    self.delete_roles
+  end
+
+  def page(per_page = 25)
+    position = User.where("login <= ?", self.login).count
+    (position.to_f/per_page).ceil
   end
 
   def uweb_update
@@ -36,6 +49,18 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def uweb_on!
+    # alta acceso
+  end
+
+  def uweb_off!
+    # baja acceso
+  end
+
+  def uweb?
+    # tiene  acceso?
   end
 
   def directory_update
@@ -142,5 +167,10 @@ class User < ActiveRecord::Base
 
   def has_role(role)
 
+  end
+
+  def delete_roles
+     self.roles = []
+     self.roles
   end
 end

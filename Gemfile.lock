@@ -438,6 +438,7 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry
+  bcrypt
   browser
   bullet
   byebug
@@ -501,4 +502,4 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 BUNDLED WITH
-   1.12.5
+   1.14.4
