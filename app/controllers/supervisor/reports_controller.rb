@@ -11,12 +11,10 @@ class Supervisor::ReportsController < Supervisor::BaseController
   end
 
   def show
-    if params[:type] == :main_process
-      @process = MainProcess.find(params[:main_process])
-    end
-    if params[:type] == :sub_process
-      @process = SubProcess.find(params[:sub_process])
-    end
+    class_name = params[:type].to_s.camelize
+    class_name = Object.const_get(class_name)
+    @process = class_name.find(params[:process])
+
     respond_to do |format|
       format.js
     end

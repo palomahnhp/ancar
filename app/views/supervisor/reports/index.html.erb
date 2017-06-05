@@ -11,26 +11,24 @@
   <div class="card">
     <div class="main_process medium-12">
       <strong class="title">
-        <%= link_to "+", supervisor_report_path(@period.id, main_process: mp.id), remote: true %>
+        <%= link_to "+", supervisor_report_path(@period.id, type: params[:type], process: mp.id), remote: true %>
         <%= mp.order %>  <%= mp.item.description %>
       </strong>
     </div>
   </div>
-    <% if params[:type] == :sub_process %>
+    <% if params[:type].to_sym == :sub_process %>
       <div >
         <% mp.sub_processes.each do |sp| %>
             <div>
-              <%= link_to "+", supervisor_report_path(@period.id, sub_process: sp.id), remote: true %>
+              <%= link_to "+", supervisor_report_path(@period.id, type: params[:type], process: sp.id), remote: true %>
               <h5><%= sp.order %> <%= sp.item.description %></h5>
             </div>
-              <div id="detail-content" class="card-content" >
-                Aqui
-              </div>
+              <div id="detail-content" class="card-content" > </div>
             </div>
         <% end %>
       </div>
-    <% elsif  params[:type] == :sub_process %>
-      <div id="detail-content"> Aqui </div>
+    <% elsif  params[:type].to_sym == :main_process %>
+      <div id="detail-content">  </div>
     <% end %>
 
 <% end %>

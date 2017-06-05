@@ -216,6 +216,16 @@ es:
         indicators: "Resumen por periodo"
       select_period:
         title: Selección de periodos
+      detail:
+        organization: "ORGANIZACIÓN"
+    reports:
+      detail:
+        indicators: "INDICADORES"
+        metrics: "MÉTRICAS"
+        indicator: "INDICATOR"
+    reposts:
+      detail:
+        metrics: "mÉTRICA"
   main_process:
     organization_group:
       generic: "GENÉRICOS"
