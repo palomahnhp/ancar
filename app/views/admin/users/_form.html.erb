@@ -17,37 +17,29 @@
         </tr>
         <tr>
           <th> <%= t('admin.users.edit.unit') %> </th>
-          <td> <strong><%= @user.sap_den_unit %> </strong> </td>
-        </tr>
-        <tr>
-          <th> <%= t('admin.users.edit.organization') %> </th>
-          <td> <strong><%= @user.sap_den_organization %> </strong> </td>
+          <td> <strong><%= @user.sap_den_unit %> /  <%= @user.sap_den_organization %> </strong> </td>
         </tr>
 
         <tr>
-          <th> <%= t('admin.users.edit.phone') %> </th>
-          <td> <strong><%= @user.phone %> </strong> </td>
-        </tr>
-        <tr>
-          <th> <%= t('admin.users.edit.email') %> </th>
-          <td> <strong><%= @user.email %> </strong> </td>
+          <th> <%= t('admin.users.edit.contact') %> </th>
+          <td> <%= @user.phone %> / <%= @user.email %> </td>
         </tr>
         <tr>
           <th> <%= t('admin.users.edit.created_at') %> </th>
-          <td> <strong><%= @user.created_at %> </strong> </td>
+          <td> <%= l @user.created_at %>  </td>
+        </tr>
+        <tr>
+          <% unless @user.inactivated_at.nil? %>
+              <th> <%= t('admin.users.edit.inactivated_at') %> </th>
+              <td> <%= l @user.inactivated_at %>  </td>
+          <% end %>
         </tr>
         <tr>
           <th> <%= t('admin.users.edit.status') %> </th>
           <td class="red <%= @user.status.downcase %>"> <%= @user.status %> </td>
         </tr>
-
-        <% unless @user.inactivated_at.nil? %>
-            <tr>
-              <td> <%= t('admin.users.edit.inactivated_at') %> </td>
-              <td> <strong><%= @user.inactivated_at %> </strong> </td>
-            </tr>
-        <% end %>
-        <%= render 'admin/shared/roles' %>
       </table>
     </div>
 <% end %>
+
+<%= render 'admin/shared/roles' %>

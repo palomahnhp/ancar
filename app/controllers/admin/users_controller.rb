@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::BaseController
   has_filters %w{all interlocutor validator consultor supervisor admin no_role inactive }
 
-  before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles ]
+  before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles, :activate ]
 
   def index
     @users = load_filtered_users
@@ -23,11 +23,7 @@ class Admin::UsersController < Admin::BaseController
     else
       flash[:alert] = t('admin.users.destroy.alert', user: @user.login)
     end
-    if params[:caller_action].present?
-      render params[:caller_action]
-    else
-      redirect_to admin_users_path(filter: params[:filter], page: params[:page])
-    end
+     redirect_to edit_admin_user_path(@user)
   end
 
   def activate
@@ -36,13 +32,12 @@ class Admin::UsersController < Admin::BaseController
     else
       flash[:alert] = t('admin.users.activate.alert', user: @user.login)
     end
-    if params[:caller_action].present?
-      render params[:caller_action]
+    if params[:caller_page].present?
+      render :edit
     else
       redirect_to admin_users_path(filter: params[:filter], page: params[:page])
     end
   end
-
 
   def create
     if params[:commit] == "Buscar datos"
@@ -78,8 +73,8 @@ class Admin::UsersController < Admin::BaseController
     else
       flash[:alert] = t('admin.users_controller.uweb_update.error', user: @user.login)
     end
-    if params[:caller_action].present?
-      render params[:caller_action]
+    if params[:caller_page].present?
+      render params[:caller_page]
     else
      redirect_to admin_users_path(filter: params[:filter], page: params[:page])
     end
@@ -105,7 +100,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def roles
-    case params[:add_resource]
+    case params[:add_role]
       when nil
         if scope_organization.present?
           @user.add_role params[:role_name], scope_organization
@@ -115,16 +110,16 @@ class Admin::UsersController < Admin::BaseController
         redirect_to admin_roles_path(role_name: params[:role_name])
       when 'new'
         render :edit
-      when  t('admin.roles.add_resource.submit')
+      when t('admin.roles.add_role.submit')
         resource_class = sanitize_resource_type(params[:resource_type])
         if resource_class.nil?
           flash[:error] = t('admin.roles.add_resource.error')
           render :edit
         else
           resource_id = params[:resource_id]
-          role_name = params[:role_name]
+          role_name = User::ROLES[params[:role].to_i]
           if @user.add_role role_name, resource_class.find(resource_id)
-            render :edit
+            redirect_to edit_admin_user_path(@user)
           end
         end
     end

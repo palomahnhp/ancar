@@ -42,7 +42,7 @@
   <% @users.each do |user| %>
     <tr >
       <td>
-        <%= link_to user.login, edit_admin_user_path(user), id: "#{user.login}" %>
+        <%= link_to user.login, admin_user_path(user), id: "#{user.login}" %>
       </td>
       <td>
         <%= user.full_name%>
@@ -55,7 +55,7 @@
                     title: 'Detalle del usuario', class: "icon-search") %>
         <%= link_to("", edit_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login),
                     title: 'Modificar el usuario y añadir permisos', class: "icon-edit") %>
-        <%= link_to("", ws_update_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login, caller_action: params[:action]),
+        <%= link_to("", ws_update_admin_user_path(user, filter: params[:filter], page: params[:page], tr_id: user.login,  caller_page: params[:action]),
                     title: 'Actualizar puesto y organización', class: "icon-external") %>
         <% if user.active? %>
           <%= link_to("", admin_user_path(user), method: :delete, class: 'icon-deleted', title: 'Baja/desactivación del usuario')%>

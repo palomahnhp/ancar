@@ -56,6 +56,7 @@ es:
         created_at: "Fecha de alta:"
         position: "Puesto"
         unit: "Unidad"
+        contact: "Datos de contacto"
         phone: "Teléfono"
         email: "Correo electrónico"
         inactivated_at: "Fecha de baja"
@@ -82,6 +83,31 @@ es:
       create:
         alert: "Usuario no existe en ayre o está en baja lógica"
         notice: 'Se ha recuperado la información del usuario ayre'
+      roles:
+        role:
+          role: "Rol"
+          resource: "Recurso"
+          item: "Item"
+          resources:
+            Organization: Organización
+            Unit: Unidad
+          name:
+            supervisor: Supervisor de tipo de organización
+            validator: Validador de organización
+            reader: Consultor
+            admin: Administrador
+            interlocutor: Interlocutor de organización
+            no_name: ""
+        add_role: "Añadir rol"
+        title: "Añadir permisos al usuario"
+        add_resource:
+          resource: "Añadir permisos a unidad"
+          submit: "+"
+          error: "Error añadiendo un recurso a ese role"
+        remove_resource: "-"
+        destroy_resource:
+          error: "Error elimando recurso del rol"
+        no_role: "Este usuario no tiene asignado ningún rol"
     roles:
       index:
         title:
@@ -106,16 +132,20 @@ es:
           Organization: Organización
           Unit: Unidad
         name:
-          supervisor: Supervisor
-          validator: Validador
+          supervisor: Supervisor de tipo de organización
+          validator: Validador de organización
+          reader: Consultor
           admin: Administrador
-          interlocutor: Interlocutor de unidad
+          interlocutor: Interlocutor de organización
           no_name: ""
-      add_resource:
-        title: "Añadir recurso al rol: "
-        resource: "Añadir permisos a unidad"
+      add_role:
+        title: "Añadir rol: "
+        resource: "Añadir ámbito"
         submit: "+"
-        error: "Error añadiendo un recurso a ese role"
+        error: "Error añadiendo el rol"
+        select:
+          role: "Selecciona el rol a añadir"
+          organization: "Selecciona la unidad que se autoriza"
       remove_resource: "-"
       destroy_resource:
         error: "Error elimando recurso del rol"

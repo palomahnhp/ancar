@@ -5,8 +5,12 @@
       <h4><%= @user.login %> <%= @user.full_name %></h4>
     </div>
     <div class="small-6 columns">
-      <%= link_to(" Actualizar datos ", ws_update_admin_user_path(@user, tr_id: @user.login, caller_action: params[:action]), title: 'Actualizar puesto y organización', class: "icon-external button hollow") %>
-      <%= link_to(" Dar de baja ", admin_user_path(@user), method: :delete, class: 'icon-deleted button hollow alert', title: 'Baja del usuario') %>
+      <%= link_to(" Actualizar datos ", ws_update_admin_user_path(@user, tr_id: @user.login,  caller_page: 'edit'), title: 'Actualizar puesto y organización', class: "icon-external button hollow") %>
+      <% if @user.active? %>
+        <%= link_to(" Dar de baja ", admin_user_path(@user, caller_page: 'edit'), method: :delete, class: 'icon-deleted button hollow alert', title: 'Baja/desactivación del usuario') %>
+    <% else %>
+        <%= link_to(" Activar el usuario ", activate_admin_user_path(@user,  caller_page: 'edit'), class: 'icon-activate button hollow alert', title: 'Activar el usuario') %>
+      <% end %>
     </div>
   </div>
 </div>

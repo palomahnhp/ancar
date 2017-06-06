@@ -38,7 +38,8 @@ Rails.application.routes.draw do
     resources :users do
       member do
         get 'ws_update'
-        get 'roles'
+        post 'roles'
+        get 'activate'
       end
       get :search, on: :collection
     end

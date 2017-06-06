@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 #  validates :uweb_id, uniqueness: true
 #  validates :pernr, uniqueness: true
 
-  ROLES = [:admin, :supervisor, :reader, :validator, :interlocutor]
+  ROLES = [:interlocutor, :validator, :reader, :supervisor, :admin  ]
 
   default_scope  { order(:login)} #  Overriding default_scope: unscoped
   scope :active,         -> { where(inactivated_at: nil) }
@@ -21,9 +21,17 @@ class User < ActiveRecord::Base
 
   def inactivate!
     self.inactivated_at =  Time.now
-    self.save
-    self.uweb_off!
-    self.delete_roles
+    if self.save &&  self.uweb_off! && self.delete_roles
+      return true
+    end
+  end
+
+  def activate!
+    self.inactivated_at =  nil
+    if self.save &&  self.uweb_on!
+      return true
+    end
+
   end
 
   def page(per_page = 25)
@@ -53,9 +61,11 @@ class User < ActiveRecord::Base
 
   def uweb_on!
     # alta acceso
+    true
   end
 
   def uweb_off!
+    true
     # baja acceso
   end
 
@@ -106,6 +116,10 @@ class User < ActiveRecord::Base
 
   def status
     inactivated_at.nil? ? I18n.t('admin.users.status.active') : I18n.t('admin.users.status.inactive')
+  end
+
+  def active?
+    inactivated_at.nil? ? true : false
   end
 
   def change_status
@@ -173,4 +187,9 @@ class User < ActiveRecord::Base
      self.roles = []
      self.roles
   end
+
+  def self.roles_select_options
+    ROLES.map.with_index { |r, i| [  I18n.t("admin.users.roles.role.name.#{r.to_s}"), i ] }
+  end
+
 end
