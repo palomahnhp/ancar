@@ -1,49 +1,11 @@
 <nav class="admin-sidebar">
   <%= link_to t('admin.dashboard.index.title'), admin_root_path %>
   <ul id="admin_menu" class="vertical menu" data-accordion-menu>
-    <li id="users">
-      <a href="#">
-        <span class="icon-user"></span>
-        <%= t('admin.menu.group.users') %>
-      </a>
-      <ul class="menu vertical nested">
-        <li <%= 'class=active' if controller_name == 'users' && params[:role].nil?  %>>
-          <%= link_to admin_users_path do %>
-             <%= t('admin.menu.users') %>
-         <% end %>
-        </li>
-
-        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'interlocutor' %>>
-          <%= link_to admin_roles_index_path(role_name: 'interlocutor') do %>
-              <%= t('admin.menu.roles.interlocutors') %>
-          <% end %>
-        </li>
-
-        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'validator' %>>
-          <%= link_to admin_roles_index_path(role_name: 'validator') do %>
-              <%= t('admin.menu.roles.validators') %>
-          <% end %>
-        </li>
-
-        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'consultor' %> >
-          <%= link_to admin_roles_index_path(role_name: 'supervisor') do %>
-              <%= t('admin.menu.roles.readers') %>
-          <% end %>
-        </li>
-
-        <li <%= 'class=active' if controller_name == 'roles' && params[:role] == 'supervisor' %> >
-          <%= link_to admin_roles_index_path(role_name: 'supervisor') do %>
-              <%= t('admin.menu.roles.supervisors') %>
-          <% end %>
-        </li>
-
-        <li <%= 'class=active' if controller_name == 'roles' && params[:rol] == 'admin' %>>
-          <%= link_to admin_roles_index_path(role_name: 'admin') do %>
-              <%= t('admin.menu.roles.admins') %>
-          <% end %>
-        </li>
-
-      </ul>
+    <li id="users" <%= 'class=active' if controller_name == 'users' && params[:role].nil?  %>>
+      <%= link_to admin_users_path do %>
+          <span class="icon-user"></span>
+          <%= t('admin.menu.users') %>
+      <% end %>
     </li>
     <li id="organizations">
       <a href="#">

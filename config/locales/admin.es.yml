@@ -130,6 +130,7 @@ es:
         item: "Item"
         resources:
           Organization: Organización
+          OrganizationType: Tipo de organización
           Unit: Unidad
         name:
           supervisor: Supervisor de tipo de organización
@@ -143,6 +144,7 @@ es:
         resource: "Añadir ámbito"
         submit: "+"
         error: "Error añadiendo el rol"
+        success: "Se ha añadido el rol"
         select:
           role: "Selecciona el rol a añadir"
           organization: "Selecciona la unidad que se autoriza"
@@ -152,5 +154,8 @@ es:
       new:
         search: "Alta"
       no_role: "Este usuario no tiene asignado ningún rol"
+      add_resource:
+        resource: "Añadir permisos a unidad"
+        organization_type: "Añadir permisos por tipo de organización"
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"

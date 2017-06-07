@@ -1,15 +1,15 @@
 <div class="row">
   <div class="small-12 columns">
-    <p><%= render 'shared/back' %><br></p>
+    <p><%= render 'back', login: @user.login, filter: params[:filter], page: params[:page] %><br></p>
     <div class="radius secondary label  small-6 columns">
       <h4><%= @user.login %> <%= @user.full_name %></h4>
     </div>
     <div class="small-6 columns">
-      <%= link_to(" Actualizar datos ", ws_update_admin_user_path(@user, tr_id: @user.login,  caller_page: 'edit'), title: 'Actualizar puesto y organización', class: "icon-external button hollow") %>
+      <%= link_to(" Actualizar datos ", ws_update_admin_user_path(@user, login: @user.login, filter: params[:filter], page: params[:page]), title: 'Actualizar puesto y organización', class: "icon-external button hollow") %>
       <% if @user.active? %>
-        <%= link_to(" Dar de baja ", admin_user_path(@user, caller_page: 'edit'), method: :delete, class: 'icon-deleted button hollow alert', title: 'Baja/desactivación del usuario') %>
-    <% else %>
-        <%= link_to(" Activar el usuario ", activate_admin_user_path(@user,  caller_page: 'edit'), class: 'icon-activate button hollow alert', title: 'Activar el usuario') %>
+        <%= link_to(" Dar de baja ", admin_user_path(@user, login: @user.login, filter: params[:filter], page: params[:page]), method: :delete, class: 'icon-deleted button hollow alert', title: 'Baja/desactivación del usuario') %>
+      <% else %>
+        <%= link_to(" Activar el usuario ", activate_admin_user_path(@user, login: @user.login, filter: params[:filter], page: params[:page]), class: 'icon-activate button hollow alert', title: 'Activar el usuario') %>
       <% end %>
     </div>
   </div>

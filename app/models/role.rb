@@ -11,14 +11,7 @@ class Role < ActiveRecord::Base
   scopify
 
   def resource_id_description
-    case resource_type
-      when 'Organization'
-        Organization.find(resource_id).nil? ? 'Todos' : Organization.find(resource_id).description
-      when nil
-        'Todos'
-      else
-        resource_id
-    end
+    resource_type.nil? ? resource_id : (Object.const_get resource_type).find(resource_id).description
   end
 
   def resource_type_description

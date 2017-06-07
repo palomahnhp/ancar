@@ -1,11 +1,12 @@
 <div class="row">
   <div class="small-12 columns">
-    <p><%= render 'shared/back' %><br></p>
+    <p><%= render 'back', login: @user.login, filter: params[:filter], page: params[:page] %><br></p>
     <div class="radius secondary label small-6 columns">
       <h4><%= @user.login %> <%= @user.full_name %></h4>
     </div>
     <div class="small-6 medium-2 columns">
-      <%= link_to(" Editar", edit_admin_user_path(@user, tr_id: @user.login), title: 'Detalle del usuario', class: "icon-search button hollow") %>
+      <%= link_to(" Editar", edit_admin_user_path(@user, login: @user.login, filter: params[:filter], page: params[:page]),
+                  title: 'Detalle del usuario', class: "icon-search button hollow") %>
     </div>
   </div>
 </div>
