@@ -4,6 +4,6 @@ class AddColsToUsers < ActiveRecord::Migration
     add_column :users, :sap_den_unit, :string
     add_column :users, :sap_id_organization, :integer
     add_column :users, :sap_den_organization, :string
-    delete_column :users, :roles
+    remove_column :users, :roles
   end
 end
