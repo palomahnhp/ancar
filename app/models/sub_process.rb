@@ -75,4 +75,12 @@ class SubProcess < ActiveRecord::Base
     return stock
   end
 
+  def indicators
+    indicators = indicators_return = []
+    self.tasks.map{|tk| indicators << tk.indicators.to_a}
+    indicators.each do |ind|
+      indicators_return  << ind.to_a
+    end
+    return indicators_return
+  end
 end

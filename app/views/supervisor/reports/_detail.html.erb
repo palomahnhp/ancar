@@ -1,95 +1,99 @@
-<% if @no_existe.present? %>
 <table class="indicators">
+  <caption> @process.description </caption>
   <thead>
   <tr>
     <th><%= t('supervisor.reports.detail.indicators') %></th>
     <th><%= t('supervisor.reports.detail.metrics') %></th>
   </tr>
   </thead>
+
   <tbody>
-  <% if @process.sub_processes.present? %>
-      <% process.sub_processes.each do |sp| %>
-          <% sp.indicators.each do |i| %>
-            <tr>
-              <td><%= i.item.description %></td>
-              <td><%= i.indicator_metrics.first.metric.item.description %></td>
-            </tr>
-          <% end %>
-      <% end %>
-  <% else %>
+  <% if @process.total_indicators.present? %>
+    <% process.indicators.each do |active_record| %>
+      <% active_record.each do |indicator| %>
       <tr>
-        <td colspan="2" class="success callout"><%=I18n.t('process_summary.no_indicators')%> </td>
+        <td><%= indicator.item.description %></td>
+        <td>
+          <%= indicator.indicator_metrics.each do |im| %>
+            <br><%= im.metric.item.description %>
+          <% end %>
+        </td>
       </tr>
+      <% end %>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="2" class="success callout"><%=I18n.t('process_summary.no_indicators')%> </td>
+    </tr>
   <% end %>
   </tbody>
 </table>
 
 <table>
   <thead>
-  <tr>
-    <th><%= t('supervisor.report.detail.organization') %></th>
-    <th class="text-right"><%= t('supervisor.reports.detail.indicator') %></th>
-    <%= official_groups.each do |gr| %>
-      <th class="text-right"><%= gr.name %></th>
-    <% end %>>
-  </tr>
+    <tr>
+      <th><%= t('supervisor.report.detail.organization') %></th>
+      <th class="text-right"><%= t('supervisor.reports.detail.indicator') %></th>
+      <%= official_groups.each do |gr| %>
+        <th class="text-right"><%= gr.name %></th>
+      <% end %>>
+    </tr>
   </thead>
   <tbody>
-  <% if process.sub_processes.present? %>
+    <% if process.sub_processes.present? %>
       <% process.sub_processes.each do |sp| %>
-          <tr>
-            <td>Jm Distrito </td>
-            <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
-            <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
-            <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
-            <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
-            <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
-            <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
-          </tr>
-      <% end %>
-      </tbody>
-      </table>
-      <table class="stats">
-        <thead>
         <tr>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><strong><%= t('supervisor.process_summary.detail.total') %></strong></td>
-          <td class="text-right"><%= number_with_delimiter(444, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(333, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(222, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(111, delimiter: '.', separator: ',') %></td>
+          <td>Jm Distrito </td>
           <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(234, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
+          <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
         </tr>
-        <tr>
-          <td><strong><%= t('supervisor.process_summary.detail.media') %></strong></td>
-          <td class="text-right"><%= number_with_delimiter(111, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(222, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(333, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(444, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(555, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(666, delimiter: '.', separator: ',') %></td>
-        </tr>
-        <tr>
-          <td><strong><%= t('supervisor.process_summary.detail.mediana') %></strong></td>
-          <td class="text-right"><%= number_with_delimiter(9, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(3, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(45, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(99, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(6, delimiter: '.', separator: ',') %></td>
-          <td class="text-right"><%= number_with_delimiter(6, delimiter: '.', separator: ',') %></td>
-        </tr>
-  <% end %>
+      <% end %>
+    <% end %>
   </tbody>
-  </table>
-<% end %>
+</table>
+<table class="stats">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><%= t('supervisor.process_summary.detail.total') %></strong></td>
+      <td class="text-right"><%= number_with_delimiter(444, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(333, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(222, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(111, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(123, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(234, delimiter: '.', separator: ',') %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t('supervisor.process_summary.detail.media') %></strong></td>
+      <td class="text-right"><%= number_with_delimiter(111, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(222, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(333, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(444, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(555, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(666, delimiter: '.', separator: ',') %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t('supervisor.process_summary.detail.mediana') %></strong></td>
+      <td class="text-right"><%= number_with_delimiter(9, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(3, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(45, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(99, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(6, delimiter: '.', separator: ',') %></td>
+      <td class="text-right"><%= number_with_delimiter(6, delimiter: '.', separator: ',') %></td>
+    </tr>
+  </tbody>
+</table>

@@ -79,4 +79,11 @@ class Indicator < ActiveRecord::Base
     return entry_without_staff
   end
 
+  def indicator_metrics(ti = false)
+    if ti
+     self.indicator_metrics.select{|im| im.total_indicator}
+    else
+     self.indicator_metrics
+    end
+  end
 end

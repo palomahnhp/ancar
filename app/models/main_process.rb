@@ -42,4 +42,13 @@ class MainProcess < ActiveRecord::Base
   def organization_group
     self.organization_id.nil? ? I18n.t('main_process.organization_group.generic'): Organization.find(organization_id).description
   end
+
+  def indicators
+    indicators = indicators_return = []
+    self.sub_processes.to_a.map{|sp| indicators << sp.indicators}
+    indicators.each do |ind|
+      indicators_return  << ind.to_a
+    end
+    return indicators_return
+  end
 end

@@ -32,4 +32,5 @@ class Task < ActiveRecord::Base
   def eliminable?
     period.eliminable?
   end
+
 end
