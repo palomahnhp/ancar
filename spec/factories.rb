@@ -49,24 +49,27 @@ FactoryGirl.define do
     end
 
     factory :admin do
-        sequence(:login) { |n| "adm00#{n}" }
-        after :create do |user|
-          user.add_role(:admin)
-        end
+      after :create do |user|
+        user.add_role(:admin)
+      end
     end
 
     factory :supervisor_global do
-        sequence(:login) { |n| "man00#{n}" }
-        after(:create) {|user| user.add_role(:validator)}
+      after(:create) do |user|
+        user.add_role(:supervisor)
+      end
     end
 
     factory :supervisor_with_all_organization_types do
-        sequence(:login) { |n| "man00#{n}" }
-        after(:create) {|user| user.add_role(:validator, OrganizationType)}
+      after(:create) do |user|
+        user.add_role(:supervisor, OrganizationType)
+      end
     end
 
     factory :validator do
-      sequence(:login) { |n| "man00#{n}" }
+      after(:create) do |user|
+        user.add_role(:validator, Organization.first)
+      end
     end
   end
 

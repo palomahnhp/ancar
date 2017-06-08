@@ -65,9 +65,9 @@ class Admin::UsersController < Admin::BaseController
 
   def ws_update
     if @user.uweb_update! && @user.directory_update!
-      flash[:notice] = t('admin.users_controller.uweb_update.success', user: @user.login)
+      flash[:notice] = t('admin.users.uweb_update.success', user: @user.login)
     else
-      flash[:alert] = t('admin.users_controller.uweb_update.error', user: @user.login)
+      flash[:alert] = t('admin.users.uweb_update.error', user: @user.login)
     end
     redirect_to edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
   end

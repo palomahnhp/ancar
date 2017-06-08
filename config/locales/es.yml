@@ -8,36 +8,6 @@ es:
     new: Crear
     update: Editar
     show: "Ver"
-  admin:
-    dashboard:
-      index:
-        title: Configuración de la aplicación
-    menu:
-      organization_types: Tipos de organizaciones
-      organizations: Organizaciones
-      settings: Configuración global
-      stats: Estadísticas
-      unit_types: Tipos de unidades
-      units: Unidades
-    organization_types:
-      index:
-        title: Tipos de organizaciones
-    organizations:
-      index:
-        title: Organizaciones
-    unit_types:
-      index:
-        title: Tipos de unidades
-    units:
-      index:
-        title: Unidades
-    users_controller:
-      uweb_update:
-        success: "Actualizados los datos del usuario %{user}"
-        error: "Error al actualiza los datos del usuario %{user}"
-    users:
-      edit:
-        organization: "Organización"
   application:
     close: Salir
     require_user:
@@ -65,8 +35,6 @@ es:
           ok: "Visto bueno"
           cancel: "Cancelar el VºBº"
           update: "Modificar observaciones"
-          pdf: "Abrir PDF"
-          download_pdf: "Generar PDF completo"
           download_abstract: "Generar PDF Resumen"
         cancel_change: "Cancelar ajuste"
         justificate: "Justificar ajuste"
@@ -105,7 +73,6 @@ es:
     table_indicator_metric:
         amount: Cantidad
     index:
-      no_main_processes: 'No hay procesos para este periodo.'
       select: 'Seleccionar'
       select_organization_type: 'Selecciona una organización'
       select_period: 'Seleccionar periodo'
@@ -234,14 +201,3 @@ es:
     target_blank_html: " (se abre en ventana nueva)"
     top_links:
       no_user: "No hay usuario conectado"
-  users:
-    index:
-      filter:
-        interlocutor: Interlocutores
-        validator: Validadores
-        consultor: Consultores
-        supervisor: Supervisores
-        admin: Administradores
-        all: Todos
-        inactive: Inactivos
-        no_role: Sin autorizaciones

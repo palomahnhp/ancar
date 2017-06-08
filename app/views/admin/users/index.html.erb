@@ -21,7 +21,7 @@
 
 <div id="search-result" class="row"></div>
 
-<%= render 'shared/filter_subnav', i18n_namespace: 'users.index' %>
+<span id="user_tabs"><%= render 'shared/filter_subnav', i18n_namespace: 'admin.users.index' %></span>
 
 <h3><%= page_entries_info @users, :entry_name => 'usuario'%></h3>
 <!--%= render 'item_list' %-->
