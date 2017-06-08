@@ -1,7 +1,8 @@
 class DirectoryApi
 
   def client
-    @directory_client ||= Savon.client(wsdl: Rails.application.secrets.directorio_wsdl,encoding: 'ISO-8859-1', raise_errors: true)
+    Rails.logger.info { "  INFO - DirectoryApii#wsd: :  #{Rails.application.secrets.directorio_wsdl.to_s}" }
+    @directory_client ||= Savon.client(wsdl: Rails.application.secrets.directorio_wsdl, encoding: 'ISO-8859-1', raise_errors: true)
   end
 
   def get_units(cod_organico)
@@ -42,8 +43,8 @@ class DirectoryApi
   end
 
   def application_key
-    Rails.logger.info { "  INFO - UwebApi#application_key: Aplicación UWEB :  #{Rails.application.secrets.uweb_application_key.to_s}" }
-    Rails.application.secrets.uweb_application_key.to_s
+    Rails.logger.info { "  INFO - DirectoryApii#application_key: :  #{Rails.application.secrets.directorio_application_key.to_s}" }
+    Rails.application.secrets.directorio_application_key.to_s
   end
 
 end
