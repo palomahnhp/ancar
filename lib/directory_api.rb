@@ -9,6 +9,11 @@ class DirectoryApi
     request(:buscar_dependencias, message_params)
   end
 
+  def get_unit_data(id)
+    message_params = { aplicacion: Rails.application.secrets.directorio_application_key, id: id}
+    request(:consulta_datos_dependencia, message_params)
+  end
+
   def hierarchical_search(id_unidad, query_type)
     query_type_int = {only_sons: 1, all_down: 2, all_up: 3}[query_type]
     message_params = { aplicacion: Rails.application.secrets.directorio_application_key,
@@ -37,7 +42,8 @@ class DirectoryApi
   end
 
   def application_key
-    Rails.logger.info { "  INFO - UwebAuthenticator#application_key: Aplicación UWEB :  #{Rails.application.secrets.uweb_application_key.to_s}" }
+    Rails.logger.info { "  INFO - UwebApi#application_key: Aplicación UWEB :  #{Rails.application.secrets.uweb_application_key.to_s}" }
     Rails.application.secrets.uweb_application_key.to_s
   end
+
 end

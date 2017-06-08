@@ -38,22 +38,37 @@
     <% if params[:action] == 'edit' && @user.active?%>
       <caption><%= t('admin.users.roles.title') %></caption>
       <%= form_tag(controller: 'users', action: 'roles') do %>
-          <%= hidden_field_tag :resource_type, 'Organization' %>
          <tr>
            <td>
             <%= label_tag :role, t('admin.users.roles.add_role') %>
-            <%= select_tag :role, options_for_select(User.roles_select_options, include_blank: t('admin.roles.add_role.select.role') ),
-                             label: false, placeholder: t('admin.roles.add_role.title') %>
+            <%= select_tag(:role, options_for_select(roles_select_options(@user, Organization)),
+                             label: false, placeholder: t('admin.roles.add_role.title')) %>
             </td>
             <td>
               <%= label_tag :resource_id, t('admin.roles.add_resource.resource') %>
-              <%= select_tag :resource_id, options_for_select(Organization.select_options, {include_blank: t('admin.roles.add_role.select.organization') }),
-                             label: false, placeholder: t('admin.roles.add_role.resource') %>
+              <%= select_tag(:resource_id, grouped_options_for_select(resources_select_options(@user, Organization)),
+                     label: false) %>
+            </td>
+
+            <td>
+              <%= submit_tag t('admin.roles.add_role.submit'), class: 'button hollow success small', :name => 'Organization' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= label_tag :role, t('admin.users.roles.add_role') %>
+              <%= select_tag(:role, options_for_select(roles_select_options(@user, OrganizationType)),
+                             label: false, placeholder: t('admin.roles.add_role.title') ) %>
             </td>
             <td>
-              <%= submit_tag t('admin.roles.add_role.submit'), class: 'button hollow success small', :name => 'add_role' %>
+              <%= label_tag :resource_id, t('admin.roles.add_resource.organization_type') %>
+              <%= select_tag(:resource_id, grouped_options_for_select(resources_select_options(@user, OrganizationType)),
+                             label: false, placeholder: t('admin.roles.add_role.resource'))%>
             </td>
-         </tr>
+            <td>
+              <%= submit_tag t('admin.roles.add_role.submit'), class: 'button hollow success small', :name => 'OrganizationType' %>
+            </td>
+          </tr>
       <% end %>
     <% end %>
   </table>

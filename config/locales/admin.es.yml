@@ -14,12 +14,6 @@ es:
       users: "Usuarios"
       group:
         units: "Organizaciones"
-        users: "Usuarios y perfiles"
-      roles:
-        interlocutors: "Rol interlocutor"
-        validators: "Rol validador"
-        supervisors: "Rol supervisor"
-        admins: "Rol administrador"
     organizations:
       index:
         title: Organizaciones
@@ -33,20 +27,35 @@ es:
       index:
         title: Tipos de unidades
     users:
+      activate:
+        alert: "No se ha podido reactivar el usuario %{user} "
+        notice: "El usuario %{user} se ha activado"
+      destroy:
+        alert: "No se ha podido dar de baja el usuario %{user} "
+        notice: "El usuario %{user} se ha dado de baja"
       index:
-        title: "Usuarios"
+        filter:
+          all: Todos
+          interlocutor: Interlocutores
+          validator: Validadores
+          reader: Consultores
+          supervisor: Supervisores
+          admin: Administradores
+          no_role: Sin autorizaciones
+          inactive: Inactivos
+        title: "Gestión de usuarios"
         row:
           login: "Login"
           name: "Nombre"
           position: "Puesto"
           unit: "Unidad"
+          organization: "Organización"
+          actions: Acciones
       edit:
-        title: "Usuarios"
         created_at: "Fecha de alta:"
         position: "Puesto"
         unit: "Unidad"
-        phone: "Teléfono"
-        email: "Correo electrónico"
+        contact: "Datos de contacto"
         inactivated_at: "Fecha de baja"
         button:
           activate: "Activar"
@@ -59,6 +68,35 @@ es:
       status:
         active: "Alta"
         inactive: "Baja"
+      search:
+        user_not_found: "Usuario no encontrado, para dar de alta un nuevo usuario utiliza el botón de Alta de usuario"
+        login_placeholder: "Introduce el usuario a buscar"
+      new:
+        title: "Alta de usuario"
+      form:
+        new: "Crear usuario"
+        ws_update: "Buscar datos"
+      create:
+        alert: "Usuario no existe en ayre o está en baja lógica"
+      roles:
+        role:
+          role: "Rol"
+          resource: "Recurso"
+          item: "Item"
+          name:
+            supervisor: Supervisor de tipo de organización
+            validator: Validador de organización
+            reader: Consultor
+            admin: Administrador
+            interlocutor: Interlocutor de organización
+            no_name: ""
+        add_role: "Añadir rol"
+        title: "Añadir permisos al usuario"
+        remove_resource: "-"
+        no_role: "Este usuario no tiene asignado ningún rol"
+      uweb_update:
+        success: "Datos del usuario actualizados correctamente"
+        error: "Error actualizando los datos del usuario"
     roles:
       index:
         title:
@@ -66,34 +104,37 @@ es:
           validator: Validador de unidad
           admin: Administrador
           supervisor: Supervisor
+        new: "Alta de usuario"
       search:
         login_placeholder: "Introduce el usuario"
         search: "Buscar"
-        user_not_found: Usuario no encontrado
       action:
         add: "Añadir rol"
         delete: "Eliminar rol"
         add_resource: "Añadir recurso"
       role:
-        role: "Rol"
-        resource: "Recurso"
-        item: "Item"
         resources:
           Organization: Organización
+          OrganizationType: Tipo de organización
           Unit: Unidad
         name:
-          supervisor: Supervisor
-          validator: Validador
+          supervisor: Supervisor de tipo de organización
+          validator: Validador de organización
+          reader: Consultor
           admin: Administrador
-          interlocutor: Interlocutor de unidad
+          interlocutor: Interlocutor de organización
           no_name: ""
-      add_resource:
-        title: "Añadir recurso al rol: "
-        resource: "Añadir permisos a unidad"
+      add_role:
+        title: "Añadir rol: "
+        resource: "Añadir ámbito"
         submit: "+"
-        error: "Error añadiendo un recurso a ese role"
-      remove_resource: "-"
-      destroy_resource:
-        error: "Error elimando recurso del rol"
+        error: "Error añadiendo el rol"
+        success: "Se ha añadido el rol"
+        select:
+          role: "Selecciona el rol a añadir"
+          organization: "Selecciona la unidad que se autoriza"
+      add_resource:
+        resource: "Añadir permisos a unidad"
+        organization_type: "Añadir permisos por tipo de organización"
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"

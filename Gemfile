@@ -29,7 +29,7 @@ gem 'rolify', '~> 5.1'
 gem 'faraday', '~> 0.9.2'
 gem 'cancancan' # simple authorization solution for Rails which is decoupled from user roles.
 
-# Use ActiveModel has_secure_password
+gem 'bcrypt' # hashing algorithm
 gem 'kaminari' # A Scope & Engine based paginator
 
 gem 'responders' # A set of responders modules to dry up your Rails 4.2+ app.

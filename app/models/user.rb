@@ -1,31 +1,109 @@
 class User < ActiveRecord::Base
   rolify
+  paginates_per 25
   belongs_to :organization
-  validates :login, presence: true, uniqueness: true
+  validates :login, presence: true, uniqueness: true,
+            format: { with: /\A[a-zA-Z]{3}\d{3}\z/, message: "No es un código ayre válido, debe tener tres letras y tres números"}
+
 #  validates :uweb_id, uniqueness: true
 #  validates :pernr, uniqueness: true
 
-  ROLES = [:admin, :supervisor, :reader, :validator, :interlocutor]
+  ROLES = [:interlocutor, :validator, :reader, :supervisor, :admin  ]
 
   default_scope  { order(:login)} #  Overriding default_scope: unscoped
   scope :active,         -> { where(inactivated_at: nil) }
   scope :inactive,       -> { where.not(inactivated_at: nil) }
+  scope :has_role, lambda{|role| includes(:roles).where(:roles => { :name=> role })}
 
-  def uweb_update!(uweb_data)
-    if login == uweb_data[:login]
+  def login=(val)
+    self[:login] = val.upcase
+  end
+
+  def inactivate!
+    self.inactivated_at =  Time.now
+    if self.save &&  self.uweb_off! && self.delete_roles
+      return true
+    end
+  end
+
+  def activate!
+    self.inactivated_at =  nil
+    if self.save &&  self.uweb_on!
+      return true
+    end
+
+  end
+
+  def page(per_page = 25)
+    position = User.where("login <= ?", self.login).count
+    (position.to_f/per_page).ceil
+  end
+
+  def uweb_update
+    uweb_data = UwebApi.new(login: self.login).get_user
+    if uweb_data.present? && login == uweb_data[:login] && uweb_data[:active]
       self.uweb_id = uweb_data[:uweb_id]
-      self.name = uweb_data[:name]
-      self.surname = uweb_data[:surname]
-      self.second_surname = uweb_data[:second_surname]
-      self.document_number = uweb_data[:document]
       self.phone = uweb_data[:phone]
       self.email = uweb_data[:email]
-      self.official_position = uweb_data[:official_position]
       self.pernr = uweb_data[:pernr]
+    else
+      false
+    end
+  end
+
+  def uweb_update!
+    if self.uweb_update
       self.save
-     else
-       false
-     end
+    else
+      false
+    end
+  end
+
+  def uweb_on!
+    # alta acceso
+    true
+  end
+
+  def uweb_off!
+    true
+    # baja acceso
+  end
+
+  def uweb?
+    # tiene  acceso?
+  end
+
+  def directory_update
+    data  = DirectoryApi.new.employees_data(pernr: self.pernr)
+
+    user_data = data['EMPLEADOS_ACTIVOS']['EMPLEADO'] if data['EMPLEADOS_ACTIVOS'].present?
+    if user_data.present?
+      self.document_number = user_data['NIF']
+      self.name = fix_encoding(user_data['NOMBRE'])
+      self.surname = fix_encoding(user_data['APELLIDO1'])
+      self.second_surname = fix_encoding(user_data['APELLIDO2'])
+      self.document_number = user_data['NIF']
+      self.official_position = fix_encoding(user_data['DENOMINACION_PUESTO'])
+      self.sap_den_unit = fix_encoding(user_data['DEN_UNIDAD_FUNCIONAL'])
+      self.sap_id_unit = user_data['ID_UNIDAD_FUNCIONAL']
+
+      data  = DirectoryApi.new.get_unit_data(self.sap_id_unit)
+      unit_data = data['UNIDAD_ORGANIZATIVA']
+      if unit_data.present?
+        self.sap_id_organization = unit_data['AREA']
+        self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
+      end
+    else
+      false
+    end
+  end
+
+  def directory_update!
+    if self.directory_update
+      self.save
+    else
+      false
+    end
   end
 
   def full_name
@@ -38,6 +116,10 @@ class User < ActiveRecord::Base
 
   def status
     inactivated_at.nil? ? I18n.t('admin.users.status.active') : I18n.t('admin.users.status.inactive')
+  end
+
+  def active?
+    inactivated_at.nil? ? true : false
   end
 
   def change_status
@@ -92,4 +174,31 @@ class User < ActiveRecord::Base
   def filter_roles(role)
     role.nil? ? self.roles :  self.roles.where(name: role)
   end
+
+  def fix_encoding(element)
+    element.encode('ISO-8859-1').force_encoding("utf-8")
+  end
+
+  def has_role(role)
+
+  end
+
+  def delete_roles
+     self.roles = []
+     self.roles
+  end
+
+  def self.roles_select_options(class_name =  '' )
+    roles = ROLES.map.with_index { |r, i| [  I18n.t("admin.users.roles.role.name.#{r.to_s}"), i ] }.to_h
+    if class_name == Organization
+     roles.delete(I18n.t("admin.users.roles.role.name.#{:admin.to_s}"))
+     roles.delete(I18n.t("admin.users.roles.role.name.#{:supervisor.to_s}"))
+    elsif class_name == OrganizationType
+      roles.delete(I18n.t("admin.users.roles.role.name.#{:interlocutor.to_s}"))
+      roles.delete(I18n.t("admin.users.roles.role.name.#{:validator.to_s}"))
+      roles.delete(I18n.t("admin.users.roles.role.name.#{:reader.to_s}"))
+    end
+    return roles
+  end
+
 end

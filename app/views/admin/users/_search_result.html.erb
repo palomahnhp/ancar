@@ -1,0 +1,17 @@
+<div class="small-12 column">
+  <table id="search-result-table">
+    <% users.each do |user| %>
+      <tr>
+        <td class="text-right">
+          <%= link_to( "", admin_user_path(user, tr_id: user.login), title: 'Detalle del usuario', class: "icon-search") %>
+        </td>
+        <td id="login"> <%= user.login %></td>
+        <td id="name">  <%= user.full_name %>  </td>
+        <td id="position"> <%= user.official_position %>  </td>
+        <td id="position"> <%= user.sap_den_organization %>  </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+

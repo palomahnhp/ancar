@@ -26,7 +26,6 @@ data:
     - config/locales/supervisor.%{locale}.yml
     - config/locales/rails.%{locale}.yml
 
-
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
   # `i18n-tasks normalize -p` will force move the keys according to these rules
   write:
@@ -101,6 +100,7 @@ ignore_missing:
   - 'helpers.select.*'
   - 'helpers.submit.*'
   - 'errors.*'
+  - 'admin.users.index.filter.*'
 
 ## Consider these keys used:
 ignore_unused:
@@ -126,7 +126,8 @@ ignore_unused:
   - 'entry_indicators.form.indicator.*'
   - 'entry_indicators.form.indicator.*'
   - 'entry_indicators.form.error.p1.global.*'
-
+  - 'entry_indicators.form.main_process.*'
+  - 'admin.users.index.filter.*'
 
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
