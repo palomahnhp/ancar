@@ -196,7 +196,6 @@ class User < ActiveRecord::Base
     elsif class_name == OrganizationType
       roles.delete(I18n.t("admin.users.roles.role.name.#{:interlocutor.to_s}"))
       roles.delete(I18n.t("admin.users.roles.role.name.#{:validator.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:reader.to_s}"))
     end
     return roles
   end

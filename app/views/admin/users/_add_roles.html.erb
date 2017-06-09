@@ -21,9 +21,8 @@
             <% if params[:action] == 'edit' %>
               <td id= "button_destroy">
                 <%= link_to t('admin.users.roles.remove_resource'),
-                        admin_role_path(role.id, user_id: @user.id,
-                               remove_resource: [role.resource_type, role.resource_id] ),
-                               action: :destroy, method: :delete, class: 'button hollow  small' %>
+                        remove_role_admin_user_path(id: @user, role: role),
+                               class: 'button hollow  small' %>
               </td>
             <% end %>
           </tr>
@@ -40,13 +39,13 @@
       <%= form_tag(controller: 'users', action: 'roles') do %>
          <tr>
            <td>
-            <%= label_tag :role, t('admin.users.roles.add_role') %>
-            <%= select_tag(:role, options_for_select(roles_select_options(@user, Organization)),
+            <%= label_tag :role_1, t('admin.users.roles.add_role') %>
+            <%= select_tag(:role_1, options_for_select(roles_select_options(@user, Organization)),
                              label: false, placeholder: t('admin.roles.add_role.title')) %>
             </td>
             <td>
-              <%= label_tag :resource_id, t('admin.roles.add_resource.resource') %>
-              <%= select_tag(:resource_id, grouped_options_for_select(resources_select_options(@user, Organization)),
+              <%= label_tag :resource_id_1, t('admin.roles.add_resource.resource') %>
+              <%= select_tag(:resource_id_1, grouped_options_for_select(resources_select_options(@user, Organization)),
                      label: false) %>
             </td>
 
@@ -56,13 +55,13 @@
           </tr>
           <tr>
             <td>
-              <%= label_tag :role, t('admin.users.roles.add_role') %>
-              <%= select_tag(:role, options_for_select(roles_select_options(@user, OrganizationType)),
+              <%= label_tag :role_2, t('admin.users.roles.add_role') %>
+              <%= select_tag(:role_2, options_for_select(roles_select_options(@user, OrganizationType)),
                              label: false, placeholder: t('admin.roles.add_role.title') ) %>
             </td>
             <td>
-              <%= label_tag :resource_id, t('admin.roles.add_resource.organization_type') %>
-              <%= select_tag(:resource_id, grouped_options_for_select(resources_select_options(@user, OrganizationType)),
+              <%= label_tag :resource_id_2, t('admin.roles.add_resource.organization_type') %>
+              <%= select_tag(:resource_id_2, grouped_options_for_select(resources_select_options(@user, OrganizationType)),
                              label: false, placeholder: t('admin.roles.add_role.resource'))%>
             </td>
             <td>

@@ -40,18 +40,13 @@ Rails.application.routes.draw do
         get 'ws_update'
         post 'roles'
         get 'activate'
+        get 'remove_role'
       end
       get :search, on: :collection
     end
     resources :stats
     resources :in_works
-    resources :roles, only: [:index, :create, :destroy] do
-      member do
-        post 'add_resource'
-        get  'remove_resource'
-      end
-      get :search, on: :collection
-    end
+
   end
 
   namespace :validator do
