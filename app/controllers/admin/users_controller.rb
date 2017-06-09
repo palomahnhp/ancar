@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::BaseController
   has_filters %w{all interlocutor validator consultor supervisor admin no_role inactive }
 
-  before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles, :activate ]
+  before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles, :activate, :remove_role ]
 
   def index
     @users = load_filtered_users
@@ -23,7 +23,22 @@ class Admin::UsersController < Admin::BaseController
     else
       flash[:alert] = t('admin.users.destroy.alert', user: @user.login)
     end
-     redirect_to edit_admin_user_path(@user,filter: params[:filter], page: params[:page])
+     redirect_to edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
+  end
+
+  def remove_role
+    role = Role.find(params[:role])
+    if role.resource_type.nil?
+      @user.revoke role.name
+    else
+      resource_class = sanitize_resource_type(role.resource_type)
+      if resource_class.nil?
+        flash[:error] = t('admin.users.destroy_resource.error')
+        redirect_to admin_roles_path(role_name: role.name, user_id: @user.id )
+      end
+      @user.revoke role.name, resource_class.find(role.resource_id)
+      redirect_to edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
+    end
   end
 
   def activate
@@ -92,10 +107,19 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def roles
-    resource_class= params[:OrganizationType].present? ? OrganizationType : Organization
-    resource_id = params[:resource_id].to_i
+    if params[:Organization].present?
+      resource_class= Organization
+      resource_id = params[:resource_id_1].to_i
+      role_id = params[:role_1].to_i
+    end
+    if params[:OrganizationType].present?
+      resource_class= OrganizationType
+      resource_id = params[:resource_id_2].to_i
+      role_id = params[:role_2].to_i
+    end
+
     if resource_id > 0
-      role_name = User::ROLES[params[:role].to_i]
+      role_name = User::ROLES[role_id]
       if @user.add_role role_name, resource_class.find(resource_id)
         flash[:notice] = t('admin.roles.add_role.success')
       end
@@ -127,7 +151,6 @@ class Admin::UsersController < Admin::BaseController
         User.active.with_role(params[:filter],:any).page(params[:page]).distinct
     end
   end
-
 
   def set_role
     @role = @user.roles.find(params[:id])
