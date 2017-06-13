@@ -78,6 +78,11 @@ namespace :initialize do
       sp.save
     end
   end
+
+  task imported_sources: :environment do
+    Source.where(item_id: Item.where(description: ["SIGSA", "SAP RRHH", "PLYCA", "SAP ECO FIN", "PLATEA", "Catálogo", "Inventario" ]).ids).
+        map{|s| s.update_attribute(:imported, true)}
+  end
 end
 
 private
@@ -87,5 +92,9 @@ private
         mp.order = mp.order.to_s.rjust(2, '0')
         mp.save
       end
+    end
+
+    def sources_imported
+      return ["SIGSA", "SAP RRHH", "PLYCA", "SAP ECO FIN", "PLATEA", "Catálogo", "Inventario" ]
     end
   end

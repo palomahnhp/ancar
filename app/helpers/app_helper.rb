@@ -104,4 +104,13 @@ module AppHelper
       roles << r
     end
   end
+
+  def source_editable?(indicator_metric, period)
+     if setting['imported_sources_no_editable'].present? && eval(setting['imported_sources_no_editable']) && period.organization_type.acronym == 'SGT'
+      indicator_metric.indicator_sources.map{ |i_s|  return !i_s.source.imported.present? }
+     else
+       true
+     end
+  end
+
 end
