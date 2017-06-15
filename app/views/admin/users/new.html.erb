@@ -1,5 +1,5 @@
 <div>
-  <p><%= render 'back'%><br></p>
+  <p><%= render 'back', login: @user.login, filter: params[:filter], page: params[:page] %><br></p>
   <h2><%= t('admin.users.new.title') %></h2>
 
   <%= form_for [:admin, @user] do |f| %>
