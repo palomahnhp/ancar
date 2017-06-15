@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::BaseController
   has_filters %w{all interlocutor validator consultor supervisor admin no_role inactive }
 
-  before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles, :activate, :remove_role ]
+  before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles, :activate, :remove_role, :uweb_auth ]
 
   def index
     @users = load_filtered_users
@@ -18,7 +18,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    if @user.inactivate!
+    if @user.inactivate!(current_user.uweb_id)
       flash[:notice] = t('admin.users.destroy.notice', user: @user.login)
     else
       flash[:alert] = t('admin.users.destroy.alert', user: @user.login)
@@ -42,7 +42,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def activate
-    if @user.activate!
+    if @user.activate!((current_user.uweb_id))
       flash[:notice] = t('admin.users.activate.notice', user: @user.login)
     else
       flash[:alert] = t('admin.users.activate.alert', user: @user.login)
@@ -73,9 +73,18 @@ class Admin::UsersController < Admin::BaseController
       flash[:notice] =  t("admin.users.edit.message.#{params[:status]}")
     else
 #      render :edit
-      flas[:notice] =  t('admin.users.edit.message.error')
+      flas[:alert] =  t('admin.users.edit.message.error')
     end
     redirect_to admin_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
+  end
+
+  def uweb_auth
+    if @user.uweb_on!(current_user.uweb_id)
+      flash[:notice] =  t('admin.users.uweb_auth.message.success')
+    else
+      flash[:alert] =  t('admin.users.uweb_auth.message.error')
+    end
+    redirect_to edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
   end
 
   def ws_update

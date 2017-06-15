@@ -65,6 +65,7 @@ es:
           Alta: Se ha desactivado el usuario
           Baja: Se ha activado el usuario
           error: "Error creando usuario"
+        uweb_auth: "Acceso desde ayre"
       status:
         active: "Alta"
         inactive: "Baja"
@@ -97,6 +98,10 @@ es:
       uweb_update:
         success: "Datos del usuario actualizados correctamente"
         error: "Error actualizando los datos del usuario"
+      uweb_auth:
+        message:
+          success: "Se ha añadido correctamente el acceso desde ayre"
+          error: "No se ha podido añadir el acceso desde ayre"
     roles:
       index:
         title:

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
         post 'roles'
         get 'activate'
         get 'remove_role'
+        get 'uweb_auth'
       end
       get :search, on: :collection
     end

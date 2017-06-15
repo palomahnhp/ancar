@@ -36,7 +36,19 @@
         </tr>
         <tr>
           <th> <%= t('admin.users.edit.status') %> </th>
-          <td class="red <%= @user.status.downcase %>"> <%= @user.status %> </td>
+          <td class="red <%= @user.status.downcase %>"> <%= @user.status %>      </td>
+        </tr>
+        <tr>
+          <th> <%= t('admin.users.edit.uweb_auth') %> </th>
+          <td>
+            <% if (@user.uweb_auth_at.present? && @user.active?) %>
+              <%= (l @user.uweb_auth_at) unless @user.uweb_auth_at.nil?  %>
+            <% elsif (@user.uweb_auth_at.nil? && @user.active?) %>
+              <%= link_to(" Dar acceso en ayre", uweb_auth_admin_user_path(@user, login: @user.login,
+                                                                           filter: params[:filter], page: params[:page]),
+                          class: 'icon-activate button hollow small', title: 'Dar acceso en ayre') %>
+            <% end %>
+          </td>
         </tr>
       </table>
     </div>

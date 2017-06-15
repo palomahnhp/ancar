@@ -1,7 +1,6 @@
 class DirectoryApi
 
   def client
-    Rails.logger.info { "  INFO - DirectoryApii#wsd: :  #{Rails.application.secrets.directorio_wsdl.to_s}" }
     @directory_client ||= Savon.client(wsdl: Rails.application.secrets.directorio_wsdl, encoding: 'ISO-8859-1', raise_errors: true)
   end
 
@@ -43,7 +42,6 @@ class DirectoryApi
   end
 
   def application_key
-    Rails.logger.info { "  INFO - DirectoryApii#application_key: :  #{Rails.application.secrets.directorio_application_key.to_s}" }
     Rails.application.secrets.directorio_application_key.to_s
   end
 

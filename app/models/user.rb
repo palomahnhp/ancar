@@ -19,19 +19,20 @@ class User < ActiveRecord::Base
     self[:login] = val.upcase
   end
 
-  def inactivate!
-    self.inactivated_at =  Time.now
-    if self.save &&  self.uweb_off! && self.delete_roles
-      return true
+  def inactivate!(uweb_id)
+    self.inactivated_at = Time.now
+    if self.uweb_off!(uweb_id) && self.delete_roles
+      return self.save
     end
+    false
   end
 
-  def activate!
+  def activate!(uweb_id)
     self.inactivated_at =  nil
-    if self.save &&  self.uweb_on!
-      return true
+    if self.uweb_on!(uweb_id)
+      return self.save
     end
-
+    return false
   end
 
   def page(per_page = 25)
@@ -59,14 +60,20 @@ class User < ActiveRecord::Base
     end
   end
 
-  def uweb_on!
-    # alta acceso
-    true
+  def uweb_on!(uweb_id)
+    if UwebUpdateApi.new(uweb_id).insert_profile(self)
+       self.uweb_auth_at = Time.now
+       return true
+    end
+    false
   end
 
-  def uweb_off!
-    true
-    # baja acceso
+  def uweb_off!(uweb_id)
+    if UwebUpdateApi.new(uweb_id).remove_profile(self)
+       self.uweb_auth_at = nil
+       return true
+    end
+    false
   end
 
   def uweb?
