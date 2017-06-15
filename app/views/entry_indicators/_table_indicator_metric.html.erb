@@ -14,7 +14,7 @@
         <td id="<%= "source_col_#{source_id(indicator_metric)}" %>"> <%= sources_description(indicator_metric) %></td>
         <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
           <% amount_value = get_amount(indicator_metric, @unit) %>
-          <% if @period.open_entry? && (can? :updates, @organization)  && @approval.blank?%>
+          <% if @period.open_entry? && (can? :updates, @organization)  && @approval.blank? && source_editable?(indicator_metric, @period) %>
             <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]", amount_value, class: 'inline amount', placeholder: t('entry_indicators.table_indicator_metric.amount')) %>
           <% else %>
             <%= amount_value %>
