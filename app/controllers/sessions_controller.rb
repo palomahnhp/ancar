@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
       end
       if uw_user = UwebApi.new(params).auth
         user = User.find_or_create_by(login: uw_user[:login])
-        if user.uweb_update!(uw_user)
+        if user.uweb_update!
           session[:user_id] = user.id
           Rails.logger.info { "  INFO - SessionControler#authenticated_uweb? Validación Uweb correcta para - #{user.login}" }
           return true
