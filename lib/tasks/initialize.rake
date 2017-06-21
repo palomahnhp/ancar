@@ -83,6 +83,27 @@ namespace :initialize do
     Source.where(item_id: Item.where(description: ["SIGSA", "SAP RRHH", "PLYCA", "SAP ECO FIN", "PLATEA", "Catálogo", "Inventario" ]).ids).
         map{|s| s.update_attribute(:imported, true)}
   end
+
+  task create_metrics: :environment do
+    [
+        "Número de accesos controlados en los edificios cuya gestión está encomendada a esa Secretaría General Técnica a fecha 31 de diciembre del año.",
+        "Número de edificios adscritos a Área de Gobierno a fecha 31 de diciembre del año.",
+        "Número de empleados del Área de Gobierno a fecha 31 de diciembre del año.",
+        "Número de contratos de arrendamiento de edificios gestionados por la Secretaría General Técnica a fecha 31 de diciembre del año.",
+        "Número total de equipos informáticos a fecha 31 de diciembre del año.",
+        "Número total de equipos de telefonía a fecha 31 de diciembre del año.",
+        "Número de plazas de estacionamiento del  Área de Gobierno a fecha 31 de diciembre del año.",
+        "Número de dependencias del Área de Gobierno a fecha 31 de diciembre del año.",
+        "Número total de puestos de trabajo en RPT adscritos al Área de Gobierno a fecha 31 de diciembre del año.",
+        "Número de empleados que ocupan puestos del Área de Gobierno a fecha 31 de diciembre del año, excepto los gestionados por centros directivos con competencias específicas (Policía Municipal, Bomberos y Emergencias)",
+        "Número de empleados que ocupan puestos del Área de Gobierno a fecha 31 de diciembre del año",
+        "Número de empleados con crédito horario a fecha 31 de diciembre del año.",
+        "Número de  libros y revistas existentes en el fondo bibliográfico a fecha 31 de diciembre del año."
+    ].each do |it|
+      Metric.create(item: Item.create(item_type: 'metric', description: it))
+    end
+  end
+
 end
 
 private
@@ -94,7 +115,4 @@ private
       end
     end
 
-    def sources_imported
-      return ["SIGSA", "SAP RRHH", "PLYCA", "SAP ECO FIN", "PLATEA", "Catálogo", "Inventario" ]
-    end
   end

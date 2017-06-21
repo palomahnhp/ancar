@@ -123,7 +123,6 @@ class EntryIndicatorsController < ApplicationController
     validate_input
   end
 
-
   def validate_input
       if params[:close_entry].present? || params[:approval].present?
 

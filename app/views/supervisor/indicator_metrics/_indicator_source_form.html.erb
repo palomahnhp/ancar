@@ -1,0 +1,7 @@
+<div class="small-8 columns">
+  <%= f.select :source_id, options_for_select(options_for_select(source_items(f.object.source_id), f.object.source_id)), :prompt => t('supervisor.indicator_metrics.form.source'),
+               label: false, placeholder: t('supervisor.indicator_metrics.form.source') %>
+</div>
+<div class="small-2 columns">
+   <%= link_to '-', destroy_source_supervisor_indicator_metric_path(@indicator_metric, source: f.object.source_id), method: 'put', class: 'button hollow' %>
+</div>

@@ -25,7 +25,7 @@ module AppHelper
     return description
   end
 
-  def source_id(indicator_metric)
+  def get_source_id(indicator_metric)
     indicator_metric.indicator_sources.take.nil? ? '-' : indicator_metric.indicator_sources.take.source_id
   end
 

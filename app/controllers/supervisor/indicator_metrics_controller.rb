@@ -1,4 +1,5 @@
 class Supervisor::IndicatorMetricsController < Supervisor::BaseController
+  before_action :set_indicator_metric, only: [:edit, :create, :update, :add_empty_source, :destroy, :destroy_source]
 
   def new
     @indicator = Indicator.find(params[:indicator_id])
@@ -6,28 +7,36 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
   end
 
   def edit
-    @indicator_metric  = IndicatorMetric.find(params[:id])
+
   end
 
   def create
-    @indicator = Indicator.find(params[:indicator_id])
-    @indicator_metric = @indicator.indicator_metrics.new(indicator_metric_params)
     resource_update(:new)
-  end
-
-  def update
-    @indicator = Indicator.find(params[:indicator_id])
-
-    @indicator_metric  = IndicatorMetric.find(params[:id])
-    @indicator_metric.assign_attributes(indicator_metric_params)
-    resource_update(:edit)
     update_summary_types
   end
 
-  def destroy
-    @indicator = Indicator.find(params[:indicator_id])
+  def update
+    @indicator_metric.assign_attributes(indicator_metric_params)
+    if @indicator_metric.save
+      redirect_to_index(t('supervisor.indicator_metrics.create.success'))
+    else
+      render render_to
+    end
+    update_summary_types
+  end
 
-    @indicator_metric  = IndicatorMetric.find(params[:id])
+  def add_empty_source
+    IndicatorSource.create!(indicator_metric: @indicator_metric, source: Source.find_or_create_by!(item: Item.find_or_create_by!(item_type: 'source', description: '')))
+    render :edit
+  end
+
+  def destroy_source
+    source = Source.find(params[:source])
+    IndicatorSource.delete_all(indicator_metric: @indicator_metric, source: source)
+    render :edit
+  end
+
+  def destroy
     if @indicator_metric.destroy
       msg = t('supervisor.indicators_metrics.destroy.success')
     else
@@ -38,7 +47,8 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
 
   private
   def indicator_metric_params
-    params.require(:indicator_metric).permit(:indicator_id, :metric_id, :order)
+    params.require(:indicator_metric).permit(:indicator_id, :metric_id, :order,
+                              indicator_sources_attributes: [:id, :source_id, :_destroy])
   end
 
   def update_summary_types
@@ -79,4 +89,8 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
       end
     end
 
+    def set_indicator_metric
+      @indicator_metric  = IndicatorMetric.find(params[:id])
+      @indicator = @indicator_metric.indicator
+    end
 end

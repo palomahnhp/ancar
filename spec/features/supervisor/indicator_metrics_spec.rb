@@ -39,8 +39,8 @@ require 'rails_helper'
         expect(metric.tag_name).to eq('select')
         expect(metric.value).to eq('1')
 
-        source = page.find_field('source_id')
-        expect(source.text).to eq 'FuenteElaboración propia Elaboración Propia PLYCA SIGSA'
+        source = page.find_field('indicator_metric_indicator_sources_attributes_0_source_id')
+        expect(source.text).to eq 'Elaboración propia Elaboración Propia PLYCA SIGSA'
         expect(source.tag_name).to eq('select')
         expect(source.value).to eq('1')
 
@@ -91,7 +91,9 @@ require 'rails_helper'
         end
 
         select('Nº de Contratos tramitados', :from => 'indicator_metric_metric_id')
-        select('PLYCA', :from => 'source_id')
+
+        select('PLYCA', :from => 'indicator_metric_indicator_sources_attributes_0_source_id')
+
         select('No acumula', :from => 'Proceso')
         select('Salida', :from => 'Subproceso')
 

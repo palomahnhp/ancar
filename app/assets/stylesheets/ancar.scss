@@ -571,3 +571,13 @@ ul.error-detail {
 #td_button {
   margin-left: rem_calc(50);
 }
+
+fieldset {
+  border: 1px solid $border;;
+}
+
+legend {
+  padding: 0.2em 0.5em;
+  border: 1px solid $border;;
+  text-align: left;
+}

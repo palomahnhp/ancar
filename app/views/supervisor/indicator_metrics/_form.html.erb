@@ -1,36 +1,48 @@
 <%= form_for [:supervisor, @indicator_metric] do |f| %>
   <br>
    <%= render 'shared/errors', resource: @indicator_metric %>
-  <div class="small-8 columns" >
-    <%= hidden_field_tag :indicator_id, params[:indicator_id] %>
+  <div id='indicator_sources' class="small-12 columns" >
 
-    <%= f.label :metric_id, t('supervisor.indicator_metrics.form.metric') %>
-    <%= f.select :metric_id, options_for_select(metric_items, @indicator_metric.metric_id), :prompt => t('supervisor.indicator_metrics.form.metric'),
+      <label><%= t('supervisor.indicator_metrics.form.metric') %></label>
+      <%= f.select :metric_id, options_for_select(metric_items, @indicator_metric.metric_id), :prompt => t('supervisor.indicator_metrics.form.metric'),
                    label: false, placeholder: t('supervisor.indicator_metrics.form.metric') %>
-  </div>
 
-  <div class="small-8 columns" >
-    <%= label_tag :source_id, t('supervisor.indicator_metrics.form.source') %>
-    <%= select_tag :source_id, options_for_select(source_items, source_selected), :prompt => t('supervisor.indicator_metrics.form.source'),
-                   label: false, placeholder: t('supervisor.indicator_metrics.form.source') %>
-    <small class="error  error"><%= show_errors(@indicator_metric, :source_id)%></small>
   </div>
-
-  <% if !(params[:action] == 'create' || params[:action] == 'new') %>
-    <%= render 'total_indicator_types' %>
-  <% else %>
-    <div class="small-7 columns panel">
-        <% SummaryType.all.each do |summary_type| %>
-          <div class="small-12 medium-4 columns end">
-            <%= label_tag summary_type.item.description %>
-            <%= select_tag summary_type.item.description,
-                           options_for_select(total_indicator_type_items), :prompt =>  summary_type.item.description %>
-          </div>
-        <% end %>
+  <div id='indicator_sources' class="small-12 columns" >
+    <fieldset>
+      <legend> <%= t('supervisor.indicator_metrics.form.source') %></legend>
+      <div class="row">
       </div>
-  <% end %>
+      <%= f.fields_for :indicator_sources do |indicator_source| %>
+        <%= render "indicator_source_form", f: indicator_source %>
+      <% end %>
+      <div class="small-2 columns" >
+        <%= link_to 'Añadir fuente', add_empty_source_supervisor_indicator_metric_path(@indicator_metric), method: 'put', class: 'button hollow' %>
+      </div>
+    </fieldset>
+  </div>
+  <br>
 
-  <div  class="small-12 columns"> <br> </div>
+    <div class="row">
+      <div id='total_indicators'>
+        <fieldset>
+          <legend>  <%= t('supervisor.indicator_metrics.total_indicators.title') %> </legend>
+          <% if !(params[:action] == 'create' || params[:action] == 'new') %>
+            <%= render 'total_indicator_types' %>
+          <% else %>
+            <% SummaryType.all.each do |summary_type| %>
+              <div class="small-12 columns end">
+                <%= label_tag summary_type.item.description %>
+                <%= select_tag summary_type.item.description,
+                    options_for_select(total_indicator_type_items), :prompt =>  summary_type.item.description %>
+              </div>
+            <% end %>
+          <% end %>
+        </fieldset>
+      </div>
+  </div>
+
+    <div  class="small-12 columns"> <br> </div>
 
   <div class="small-12 medium-4 columns">
     <%= f.label :order, t('supervisor.indicators.form.order') %>
