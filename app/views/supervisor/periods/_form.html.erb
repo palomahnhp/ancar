@@ -16,7 +16,7 @@
     </div>
 
     <div class="small-12 columns"><h6><%= t('supervisor.periods.form.dates') %> </h6>
-      <div class="small-3 columns">
+      <div class="small-3 columns date-format">
         <%= f.label :started_at, t('supervisor.periods.form.started_at') %>
         <%= f.date_field :started_at, label: false,
                               class: 'date-format',
@@ -24,7 +24,7 @@
                               id: 'started_at', dateFormat: 'd-mm-y' %>
 
       </div>
-      <div class="small-3 columns end">
+      <div class="small-3 columns end date-format">
         <%= f.label :ended_at, t('supervisor.periods.form.ended_at') %>
         <%= f.date_field :ended_at, label: false,
                         placeholder: t('supervisor.periods.form.ended_at'),
@@ -33,13 +33,13 @@
     </div>
 
     <div class="small-12 column"><h6><%= t('supervisor.periods.form.data_collect') %> </h6>
-      <div class="small-3 columns end">
+      <div class="small-3 columns end date-format">
         <%= f.label :opened_at, t('supervisor.periods.form.opened_at') %>
         <%= f.date_field :opened_at, label: false,
                           placeholder: t('supervisor.periods.form.opened_at'),
                           id: 'opened_at' %>
       </div>
-      <div class="small-3 columns end">
+      <div class="small-3 columns end date-format">
         <%= f.label :closed_at, t('supervisor.periods.form.closed_at') %>
         <%= f.date_field :closed_at, label: false,
                           placeholder: t('supervisor.periods.form.closed_at'),

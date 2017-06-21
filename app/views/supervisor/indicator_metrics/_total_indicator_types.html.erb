@@ -1,16 +1,11 @@
-    <div class="small-12 columns">
-      <label>  <%= t('supervisor.indicator_metrics.total_indicators.title') %> </label>
+
+<% total_indicators = @indicator_metric.total_indicators %>
+<% SummaryType.all.each do |summary_type| %>
+    <div class="small-6 medium-2 columns end">
+      <%= label_tag summary_type.item.description, summary_type.item.description %>
+      <%= select_tag summary_type.item.description,
+                     options_for_select(TotalIndicatorType.to_options,
+                                        summary_type_selected(@indicator_metric.id, summary_type.id)),
+                     label: false, placeholder: t('supervisor.indicator_metrics.form.source') %>
     </div>
-    <div class="small-12 columns">
-      <label class="note"> <%= t('supervisor.indicator_metrics.update.total_indicators') %> </label>
-    </div>
-    <% total_indicators = @indicator_metric.total_indicators %>
-    <% SummaryType.all.each do |summary_type| %>
-      <div class="small-6 medium-2 columns end">
-        <%= label_tag summary_type.item.description, summary_type.item.description %>
-        <%= select_tag summary_type.item.description,
-                   options_for_select(TotalIndicatorType.to_options,
-                                      summary_type_selected(@indicator_metric.id, summary_type.id)),
-                   label: false, placeholder: t('supervisor.indicator_metrics.form.source') %>
-    </div>
-    <% end %>
+<% end %>

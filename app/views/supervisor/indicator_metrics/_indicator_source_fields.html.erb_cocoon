@@ -1,0 +1,16 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="small-2 columns">
+        <label for="right-label" class="right inline">Seleccione</label>
+      </div>
+      <div class="small-8 columns">
+        <%= f.select :source_id, options_for_select(source_items(f.object.source_id), f.object.source_id), :prompt => t('supervisor.indicator_metrics.form.source'),
+                     label: false, placeholder: t('supervisor.indicator_metrics.form.source') %>
+      </div>
+      <div class="small-2 columns">
+        <%= link_to_remove_association '-', f, :class => "button tiny radius alert right" %>
+      </div>
+    </div>
+  </div>
+</div>

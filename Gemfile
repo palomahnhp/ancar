@@ -30,6 +30,7 @@ gem 'faraday', '~> 0.9.2'
 gem 'cancancan' # simple authorization solution for Rails which is decoupled from user roles.
 
 gem 'bcrypt' # hashing algorithm
+gem 'cocoon',  '~> 1.2'
 gem 'kaminari' # A Scope & Engine based paginator
 
 gem 'responders' # A set of responders modules to dry up your Rails 4.2+ app.

@@ -91,7 +91,12 @@ Rails.application.routes.draw do
         end
       end
       resources :indicators
-      resources :indicator_metrics
+      resources :indicator_metrics do
+        member do
+          put 'add_empty_source'
+          put 'destroy_source'
+        end
+      end
 
       resources :in_works
   end

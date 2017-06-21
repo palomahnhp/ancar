@@ -27,25 +27,22 @@ module SupervisorHelper
     items_not_used.collect  { |v| [ v.description, v.id] }
   end
 
-  def source_selected
-    is = IndicatorSource.find_by_indicator_metric_id(params[:id])
-    is.nil? ? ' ' : is.source_id
-  end
-
   def metric_items
     select_items('metric')
   end
 
-  def source_items
+  def source_items(id)
     select_items('source')
+#    source = Source.find(id)
+#    sources = source.fixed.present? ? [source.item.description, source.id] : select_items('source', id)
   end
 
   def total_indicator_type_items
     select_items('total_indicator_type')
   end
 
-  def select_items(class_name)
-    items_not_used = Item.where(item_type: class_name).order(:description)
+  def select_items(class_name, id=nil)
+    items_not_used = Item.where(item_type: class_name).active.order(:description)
     items_not_used.collect  { |v| [ v.description, Object.const_get(class_name.camelize).find_by_item_id(v.id).id ] if Object.const_get(class_name.camelize).find_by_item_id(v.id).present? }
   end
 
