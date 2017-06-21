@@ -1,5 +1,5 @@
 class Supervisor::IndicatorMetricsController < Supervisor::BaseController
-  before_action :set_indicator_metric, only: [:edit, :create, :update, :add_empty_source, :destroy, :destroy_source]
+  before_action :set_indicator_metric, only: [:edit, :update, :add_empty_source, :destroy, :destroy_source]
 
   def new
     @indicator = Indicator.find(params[:indicator_id])
@@ -11,18 +11,26 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
   end
 
   def create
-    resource_update(:new)
-    update_summary_types
+    @indicator = Indicator.find(params[:indicator_id])
+    @indicator_metric = @indicator.indicator_metrics.new
+
+    @indicator_metric.assign_attributes(indicator_metric_params)
+    if @indicator_metric.save
+      update_summary_types
+      redirect_to_index(t('supervisor.indicator_metrics.create.success'))
+    else
+      render render_to
+    end
   end
 
   def update
     @indicator_metric.assign_attributes(indicator_metric_params)
     if @indicator_metric.save
+      update_summary_types
       redirect_to_index(t('supervisor.indicator_metrics.create.success'))
     else
       render render_to
     end
-    update_summary_types
   end
 
   def add_empty_source
@@ -71,23 +79,6 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
                                         sub_process_id: @indicator.sub_process.id,
                                         indicator_id: @indicator.id), notice: msg
   end
-
-    def resource_update(render_to)
-      if !params[:source_id].empty? && @indicator_metric.save
-        @indicator_metric.indicator_sources.destroy_all
-        @indicator_source = @indicator_metric.indicator_sources.find_or_create_by!(source_id: params[:source_id])
-        @indicator_source.indicator_id =  @indicator.id
-        update_summary_types
-        redirect_to_index(t('supervisor.indicator_metrics.create.success'))
-      else
-        if params[:source_id].nil? || params[:source_id].empty?
-          @indicator_metric.valid?
-          @indicator_metric.errors[:source_id] =
-              t('activerecord.errors.models.indicator_metric.attributes.source_id.blank')
-        end
-        render render_to
-      end
-    end
 
     def set_indicator_metric
       @indicator_metric  = IndicatorMetric.find(params[:id])

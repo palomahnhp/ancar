@@ -2,7 +2,7 @@ class IndicatorMetric < ActiveRecord::Base
   belongs_to :indicator
   belongs_to :metric
 
-  has_many :indicator_sources, inverse_of: :indicator_metric
+  has_many :indicator_sources, inverse_of: :indicator_metric, :dependent => :destroy
   accepts_nested_attributes_for :indicator_sources, reject_if: :all_blank, allow_destroy: true
 
   has_many :entry_indicators, :dependent => :destroy
