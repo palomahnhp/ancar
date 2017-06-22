@@ -10,7 +10,7 @@
   </div>
   <div id='indicator_sources' class="small-12 columns" >
     <fieldset>
-      <legend> <%= t('supervisor.indicator_metrics.form.source') %></legend>
+      <legend> <%= t('supervisor.indicator_metrics.form.source.column') %></legend>
       <div class="row">
       </div>
       <%= f.fields_for :indicator_sources do |indicator_source| %>
@@ -22,7 +22,6 @@
         </div>
       <% else %>
           <p><%= t('supervisor.indicator_metrics.form.source.note') %></p>
-
       <% end %>
     </fieldset>
   </div>

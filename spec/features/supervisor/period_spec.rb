@@ -115,7 +115,7 @@ feature 'Periods Maintenance' do
       fill_in 'opened_at', with: (Time.now - 1.days).beginning_of_month
       fill_in 'closed_at', with: (Time.now + 15.days).end_of_month
 
-      page.select "Periodo de análisis de datos Distritos", :from => 'period_id'
+      page.select "Periodo de análisis de datos Distritos (Cerrado)", :from => 'period_id'
 
       click_button 'Crear'
 
@@ -139,7 +139,7 @@ feature 'Periods Maintenance' do
       fill_in 'opened_at', with: (Time.now - 1.days).beginning_of_month
       fill_in 'closed_at', with: (Time.now + 15.days).end_of_month
 
-      page.select "Periodo de análisis de datos Distritos", :from => 'period_id'
+      page.select "Periodo de análisis de datos Distritos (Cerrado)", :from => 'period_id'
 
       click_button 'Crear'
 
@@ -201,7 +201,7 @@ feature 'Periods Maintenance' do
       click_link 'Crear un periodo'
 
       page.select "Distritos", :from => 'period_organization_type_id'
-      page.select "Periodo de análisis de datos Distritos", :from => 'period_id'
+      page.select "Periodo de análisis de datos Distritos (Cerrado)", :from => 'period_id'
 
       fill_in 'period_description', with: 'Nuevo Periodo de Distritos 1999'
       fill_in 'started_at', with: (Time.now - 1.year).beginning_of_year

@@ -78,10 +78,6 @@ es:
     table_indicator_metric:
         amount: Cantidad
     index:
-      select: 'Seleccionar'
-      select_organization_type: 'Selecciona una organización'
-      select_period: 'Seleccionar periodo'
-      select_unit: 'Seleccionar una unidad'
       title: 'Hoja de identificación de procesos en'
     staff:
       title:
