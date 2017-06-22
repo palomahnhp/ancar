@@ -4,12 +4,12 @@
      <tr> <th colspan="3"><%= organization.description %></th> </tr>
     </thead>
     <tbody>
-      <% organization.organization_type.periods.order(started_at: :desc).each_with_index do |period, index| %>
+      <% organization.organization_type.periods.each_with_index do |period, index| %>
         <% if index % 3 == 0 %>
           <tr>
         <% end %>
          <td>
-            <%= link_to period.description, entry_indicators_path(organization_id: organization.id,  period_id: period.id)%>
+            <%= link_to period_status_text(period), entry_indicators_path(organization_id: organization.id,  period_id: period.id)%>
          </td>
         <% if index % 3 == 2 %>
           </tr>

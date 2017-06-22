@@ -16,6 +16,8 @@ class Period < ActiveRecord::Base
   validate :opened_at_before_closed_at
   validate :ended_at_before_opened_at
 
+  default_scope { order(organization_type_id: :asc, ended_at: :desc) }
+
   def open_entry?
     opened_at <=  DateTime.now  && closed_at >=  DateTime.now
   end

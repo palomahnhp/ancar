@@ -113,4 +113,7 @@ module AppHelper
      end
   end
 
+   def period_status_text(period)
+    period.open_entry? ? (period.description) + ' (' + t('status.open') +')' : (period.description) + ' (' + t('status.close') +')'
+   end
 end

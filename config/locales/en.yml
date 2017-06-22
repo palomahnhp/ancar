@@ -8,6 +8,11 @@ en:
     new: Crear
     update: Editar
     show: "Ver"
+    destroy_source: Editar
+    add_empty_source: Editar
+  status:
+    open: Abierto
+    close: Cerrado
   application:
     close: Salir
     require_user:
@@ -73,10 +78,6 @@ en:
     table_indicator_metric:
         amount: Cantidad
     index:
-      select: 'Seleccionar'
-      select_organization_type: 'Selecciona una organización'
-      select_period: 'Seleccionar periodo'
-      select_unit: 'Seleccionar una unidad'
       title: 'Hoja de identificación de procesos en'
     staff:
       title:

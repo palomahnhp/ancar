@@ -1,6 +1,4 @@
 <ul class="menu simple clear">
-  <li class="sr-only"><%= t("#{i18n_namespace}.filter") %>: </li>
-
   <% @valid_filters.each do |filter| %>
       <% if @current_filter == filter %>
           <li class="active"><%= t("#{i18n_namespace}.filter.#{filter}") %></li>

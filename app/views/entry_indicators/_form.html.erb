@@ -44,11 +44,11 @@
                 <tr class="indicator-row">
                   <td class="indicator-description" id="<%= "indicator_col_#{indicator.id}" %>">
                     <% if indicator.description.nil? %>
-                        <strong> <%= indicator.item.description %></strong>
+                        <strong> <%= indicator.item.description %> (id. <%= indicator.id %>)</strong>
                     <% else %>
                         <br>
                         <div class="moderation-description">
-                          <%= simple_format (indicator.description) %>
+                          <%= simple_format (indicator.description) %> <small> (id. <%= indicator.id %>)</small>
                         </div>
                     <% end %>
                   </td>
