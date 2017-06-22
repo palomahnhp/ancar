@@ -8,6 +8,11 @@ es:
     new: Crear
     update: Editar
     show: "Ver"
+    destroy_source: Editar
+    add_empty_source: Editar
+  status:
+    open: Abierto
+    close: Cerrado
   application:
     close: Salir
     require_user:

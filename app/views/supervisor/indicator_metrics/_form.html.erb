@@ -21,7 +21,7 @@
          <%= link_to 'Añadir fuente', add_empty_source_supervisor_indicator_metric_path(@indicator_metric), method: 'put', class: 'button hollow' %>
         </div>
       <% else %>
-          <p>Crear el indicador y posteriormente editar para añadir la/s fuente/s.</p>
+          <p><%= t('supervisor.indicator_metrics.form.source.note') %></p>
 
       <% end %>
     </fieldset>

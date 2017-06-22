@@ -55,6 +55,7 @@ es:
       form:
         metric: Métrica
         source: Fuente
+        source_note: "Crear el indicador y posteriormente editar para añadir la/s fuente/s."
       total_indicators:
         title: "Tipo de indicador"
       create:
