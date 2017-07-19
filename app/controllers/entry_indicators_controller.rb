@@ -159,19 +159,18 @@ class EntryIndicatorsController < ApplicationController
       indicator_metrics.each do |indicator|
         indicator[1].each do |im|
           indicator_metric_id = im[0].to_i
-
           amount = im[1]
 
           if amount.empty?
+            delete_entry_indicators(@unit.id, indicator_metric_id)
             @entry_indicators_cumplimented = false
+          else
+            ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
+            ei.amount = amount
+            ei.period_id = @period.id
+            ei.updated_by = current_user.login
+            ei.save
           end
-
-          ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-          ei.amount = amount
-          ei.period_id = @period.id
-          ei.updated_by = current_user.login
-          ei.save
-
         end
       end
       return @entry_indicators_cumplimented
