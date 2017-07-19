@@ -57,6 +57,10 @@ class Period < ActiveRecord::Base
     return indicators
   end
 
+  def is_from_SGT?
+    organization_type.is_SGT?
+  end
+
   def self.select_options
     self.all.order(:ended_at).collect { |v| [ v.description, v.id ] }
   end

@@ -25,6 +25,7 @@
   <div class="row">
     <% @period.main_processes.order(:order).each do |main_process| %>
       <% if main_process.show_in_entry(@unit) %>
+        <br>
         <div class="main-process small-12 columns">
           <h5><%= main_process.order%>.&nbsp;<%= main_process.item.description %></h5>
         </div>
@@ -62,12 +63,14 @@
               <% end %>
             </tbody>
           </table>
-          <div class="row">
-            <div class="small-12 medium-6 columns"></div>
-            <div class="columns medium-6 small-12">
-              <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
+          <% unless @period.is_from_SGT? %>
+            <div class="row">
+              <div class="small-12 medium-6 columns"> </div>
+              <div class="columns medium-6 small-12">
+                <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
+              </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

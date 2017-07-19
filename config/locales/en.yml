@@ -77,7 +77,7 @@ en:
       select_organization_type: 'Selecciona una organización'
       select_period: 'Seleccionar periodo'
       select_unit: 'Seleccionar una unidad'
-      title: 'Hoja de identificación de procesos en'
+      title: 'Hoja de modificación de procesos en'
     staff:
       title:
         Positions:
@@ -172,7 +172,7 @@ en:
     index:
       no_auth_units: "No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones"
       select: Selección de unidad a tratar
-      title: Hoja de identificación de procesos
+      title: Hoja de modificación de procesos
   welcome:
     logo_alt: Logo Gerencia de la Ciudad
     sub_title: Estudio de cargas de trabajo

@@ -72,12 +72,13 @@ es:
           assigned_staff_html: 'Si no es un error y se debe/n ajustar la/os plantilla/puestos que aparecen en la tabla <strong><em> "Puestos asignados a 31 de diciembre"</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> Adecuar puestos</em></strong>, lo que permitirá modificar los puestos y añadir una justificación a dichos cambios.'
     table_indicator_metric:
         amount: Cantidad
+        source: Fuente
     index:
       select: 'Seleccionar'
       select_organization_type: 'Selecciona una organización'
       select_period: 'Seleccionar periodo'
       select_unit: 'Seleccionar una unidad'
-      title: 'Hoja de identificación de procesos en'
+      title: 'Hoja de modificación de procesos en'
     staff:
       title:
         Positions:
@@ -172,7 +173,7 @@ es:
     index:
       no_auth_units: "No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones"
       select: Selección de unidad a tratar
-      title: Hoja de identificación de procesos
+      title: Hoja de modificación de procesos
   welcome:
     logo_alt: Logo Gerencia de la Ciudad
     sub_title: Estudio de cargas de trabajo
