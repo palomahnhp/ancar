@@ -163,8 +163,8 @@ table.indicator-metric {
     font-size: rem-calc(12);
     height: auto !important;
     margin: rem-calc(6) 0 !important;
+    width: 100%;
     &.amount {
-      width: rem-calc(60);
       text-align: right;
     }
   }

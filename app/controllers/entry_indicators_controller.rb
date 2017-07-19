@@ -2,7 +2,6 @@ class EntryIndicatorsController < ApplicationController
   include AssignedEmployeesActions
   include ApprovalsActions
 
-
   before_action :require_user, only: [:index]
   before_action :initialize_instance_vars, only: [:index, :edit, :updates, :download_validation, :validated_abstract]
 
@@ -10,59 +9,11 @@ class EntryIndicatorsController < ApplicationController
 
   end
 
-  def download_validation
-  #  pdf = WickedPdf.new.pdf_from_string(render_to_string("entry_indicators/index", layout: false))
-    body_html   = render_to_string("entry_indicators/index.pdf" )
-    pdf = WickedPdf.new.pdf_from_string(
-        body_html,
-        margin: {
-            bottom: 20,
-            top: 30
-        },
-        outline: {
-            outline: true,
-            outline_depth: 3 },
-        footer: {
-            margin: {top: 30 },
-            left:   "",
-            right: 'Pág. [page] / [topage]',
-            center:  "" ,
-            font_name: 'Arial',
-            font_size: 8
-        },
-    )
-    send_data pdf, :filename => "Ficha_attachment.pdf",
-                   :type => "application/pdf",
-                   :disposition => "inline",
-                   layouts: "layouts/pdf.html.erb"
-  end
-
-  def validated_abstract
-    body_html   = render_to_string("entry_indicators/validated_abstract.pdf" )
-    pdf = WickedPdf.new.pdf_from_string(
-        body_html,
-#        orientation: 'Landscape',
-        margin: { bottom: 20, top: 15 },
-        footer: {
-            margin: {top: -30 },
-#            left:   "\n#{@period.description}\n#{@unit.description_sap}",
-            right: 'Pág. [page] / [topage]',
-            center:  "" ,
-            font_name: 'Arial',
-            font_size: 8
-        },
-    )
-    send_data pdf, :filename => "VistoBueno_#{@unit.description_sap}.pdf",
-              :type => "application/pdf",
-              :disposition => "inline"
-  end
-
   def updates
     if params[:cancel_change].present?
       cancel_change(@period.id, @unit.id)
     elsif params[:open_change].present?
       open_change(@period.id, @unit.id, current_user)
-
     elsif params[:approval].present?
       approval
     else
@@ -103,6 +54,56 @@ class EntryIndicatorsController < ApplicationController
     end
 
   end
+
+  def download_validation
+    #  pdf = WickedPdf.new.pdf_from_string(render_to_string("entry_indicators/index", layout: false))
+    body_html   = render_to_string("entry_indicators/index.pdf" )
+    pdf = WickedPdf.new.pdf_from_string(
+        body_html,
+        margin: {
+            bottom: 20,
+            top: 30
+        },
+        outline: {
+            outline: true,
+            outline_depth: 3 },
+        footer: {
+            margin: {top: 30 },
+            left:   "",
+            right: 'Pág. [page] / [topage]',
+            center:  "" ,
+            font_name: 'Arial',
+            font_size: 8
+        },
+    )
+    send_data pdf, :filename => "Ficha_attachment.pdf",
+              :type => "application/pdf",
+              :disposition => "inline",
+              layouts: "layouts/pdf.html.erb"
+  end
+
+  def validated_abstract
+    body_html   = render_to_string("entry_indicators/validated_abstract.pdf" )
+    pdf = WickedPdf.new.pdf_from_string(
+        body_html,
+        #        orientation: 'Landscape',
+        margin: { bottom: 20, top: 15 },
+        footer: {
+            margin: {top: -30 },
+            #            left:   "\n#{@period.description}\n#{@unit.description_sap}",
+            right: 'Pág. [page] / [topage]',
+            center:  "" ,
+            font_name: 'Arial',
+            font_size: 8
+        },
+    )
+    send_data pdf, :filename => "VistoBueno_#{@unit.description_sap}.pdf",
+              :type => "application/pdf",
+              :disposition => "inline"
+  end
+
+
+
 
   private
   def update_entry
@@ -158,17 +159,19 @@ class EntryIndicatorsController < ApplicationController
       indicator_metrics.each do |indicator|
         indicator[1].each do |im|
           indicator_metric_id = im[0].to_i
+
           amount = im[1]
+
           if amount.empty?
-            delete_entry_indicators(@unit.id, indicator_metric_id)
             @entry_indicators_cumplimented = false
-          else
-            ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-            ei.amount = amount
-            ei.period_id = @period.id
-            ei.updated_by = current_user.login
-            ei.save
           end
+
+          ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
+          ei.amount = amount
+          ei.period_id = @period.id
+          ei.updated_by = current_user.login
+          ei.save
+
         end
       end
       return @entry_indicators_cumplimented
@@ -246,4 +249,4 @@ class EntryIndicatorsController < ApplicationController
       return true
     end
 
- end
+end

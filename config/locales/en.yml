@@ -42,11 +42,11 @@ en:
           update: "Modificar observaciones"
           download_abstract: "Generar PDF Resumen"
         cancel_change: "Cancelar ajuste"
-        justificate: "Justificar ajuste"
+        justificate: "Adecuar puestos"
         fix: "Corregir"
       error:
         title:
-          assigned_staff: 'Error en la asignación de plantila/puestos'
+          assigned_staff: 'Existen diferencias entre los puestos de plantilla y los asignados'
           entry_without_staff: 'Inconsistencia entre cantidades y plantilla/puestos de indicadores/tareas'
           no_change_staff: 'Ajuste de plantilla/puestos asignados a la unidad'
           no_justification: "Falta justificación del cambio de plantilla/puestos"
@@ -77,12 +77,17 @@ en:
           assigned_staff_html: 'Si no es un error y se debe/n ajustar la/os plantilla/puestos que aparecen en la tabla <strong><em> "Puestos asignados a 31 de diciembre"</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> Adecuar puestos</em></strong>, lo que permitirá modificar los puestos y añadir una justificación a dichos cambios.'
     table_indicator_metric:
         amount: Cantidad
+        source: Fuente
     index:
-      title: 'Hoja de identificación de procesos en'
+      select: 'Seleccionar'
+      select_organization_type: 'Selecciona una organización'
+      select_period: 'Seleccionar periodo'
+      select_unit: 'Seleccionar una unidad'
+      title: 'Hoja de modificación de procesos en'
     staff:
       title:
         Positions:
-          MainProcesses: 'Puestos por proceso'
+          SubProcess: 'Puestos por proceso'
           Unit: 'Puestos de la unidad'
         Staff:
           SubProcess: 'Plantilla por subproceso'
@@ -173,7 +178,7 @@ en:
     index:
       no_auth_units: "No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones"
       select: Selección de unidad a tratar
-      title: Hoja de identificación de procesos
+      title: Hoja de modificación de procesos
   welcome:
     logo_alt: Logo Gerencia de la Ciudad
     sub_title: Estudio de cargas de trabajo

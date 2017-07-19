@@ -17,4 +17,8 @@ class OrganizationType < ActiveRecord::Base
   def self.select_options
     OrganizationType.all.map { |type| [type.description, type.id] }
   end
+
+  def is_SGT?
+    acronym == 'SGT'
+  end
 end
