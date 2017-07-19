@@ -33,6 +33,8 @@ es:
       destroy:
         alert: "No se ha podido dar de baja el usuario %{user} "
         notice: "El usuario %{user} se ha dado de baja"
+      destroy_resource:
+        error: "Error al eliminar el recurso"
       index:
         filter:
           all: Todos
@@ -135,9 +137,6 @@ es:
         submit: "+"
         error: "Error añadiendo el rol"
         success: "Se ha añadido el rol"
-        select:
-          role: "Selecciona el rol a añadir"
-          organization: "Selecciona la unidad que se autoriza"
       add_resource:
         resource: "Añadir permisos a unidad"
         organization_type: "Añadir permisos por tipo de organización"
