@@ -21,11 +21,11 @@
     <tr id="<%= dom_id(indicator) %>">
       <td rowspan="indicator.indicator_metrics.count"  colspan="4">
         <% if indicator.description.nil? %>
-          <strong> <%= indicator.main_process.order %>.<%= indicator.sub_process.order %>.<%= indicator.order %>. <%= indicator.item.description %></strong>
+          <strong> <%= indicator.main_process.order %>.<%= indicator.sub_process.order %>.<%= indicator.order %>. <%= indicator.item.description %> (id. <%= indicator.id %>)</strong>
         <% else %>
           <br>
           <div class="moderation-description">
-            <%= simple_format (indicator.description) %>
+            <%= simple_format (indicator.description) %> <span class="small">(id. <%= indicator.id %>)</span>
           </div>
         <% end %>
       </td>

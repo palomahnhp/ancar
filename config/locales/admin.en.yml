@@ -33,6 +33,8 @@ en:
       destroy:
         alert: "No se ha podido dar de baja el usuario %{user} "
         notice: "El usuario %{user} se ha dado de baja"
+      destroy_resource:
+        error: "Error al eliminar el recurso"
       index:
         filter:
           all: Todos

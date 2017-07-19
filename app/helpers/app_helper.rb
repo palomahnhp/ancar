@@ -116,4 +116,9 @@ module AppHelper
   def input_allowed?(period, organization, approval, indicator_metric)
     period.open_entry? && (can? :updates, organization)  && approval.blank? && source_editable?(indicator_metric, period)
   end
+
+  def period_status_text(period)
+    period.open_entry? ? (period.description) + ' (' + t('status.open') +')' : (period.description) + ' (' + t('status.close') +')'
+  end
+
 end

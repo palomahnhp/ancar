@@ -1,26 +1,9 @@
 <div class="row " >
-  <% if @period.main_processes %>
-    <div class="corporativo medium-12 small-12 columns">
-      <h3><%= t('entry_indicators.index.title') %> <%= @period.organization_type.description %></h3>
-      <h4><%= @period.description %> </h4>
-      <h4> <%= @organization.description %> </h4>
-    </div>
-     <%= render 'unit_tabs' %>
-     <%= render 'form' %>
-
-  <% else %>
-    <div class="row select_organization ">
-        <%= render 'select_organization_types' %>
-    </div>
-    <% if @select_periods && !@select_periods.empty? %>
-      <div class="row select_organization ">
-        <%= render 'select_periods' %>
-       </div>
-    <% end %>
-    <% if @select_organizations && !@select_organizations.empty? %>
-      <div class="row select_organization ">
-       <%= render 'select_organizations' %>
-      </div>
-    <% end %>
-  <% end %>
+  <div class="corporativo medium-12 small-12 columns">
+    <h3><%= t('entry_indicators.index.title') %> <%= @period.organization_type.description %></h3>
+    <h4><%= @period.description %> </h4>
+    <h4> <%= @organization.description %> </h4>
+  </div>
+   <%= render 'unit_tabs' %>
+   <%= render 'form' %>
 </div>

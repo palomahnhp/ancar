@@ -7,7 +7,7 @@ feature "Entry Indicators" do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
       click_link("Procesos y subprocesos", :match => :first)
-      click_link('Periodo de análisis de datos Distritos', :match => :first)
+      click_link('Periodo de análisis de datos Distritos (Cerrado)', :match => :first)
       within('div#unit') do
         expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS JURIDICOS'
       end
@@ -19,7 +19,7 @@ feature "Entry Indicators" do
       login_as_authenticated_user(user)
 
       click_link("Procesos y subprocesos", :match => :first)
-      click_link('Periodo de análisis de datos Distritos', :match => :first)
+      click_link('Periodo de análisis de datos Distritos (Cerrado)', :match => :first)
       click_link 'SECRETARIA DE DISTRITO'
       within('div#unit') do
         expect(page).to have_content 'SECRETARIA DE DISTRITO'
@@ -38,7 +38,7 @@ feature "Entry Indicators" do
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos'
+        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
       end
 
       within("table#staff_Unit") do
@@ -89,7 +89,7 @@ feature "Entry Indicators" do
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos'
+        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
       end
 
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -113,7 +113,7 @@ feature "Entry Indicators" do
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos'
+        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
       end
 
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -132,7 +132,7 @@ feature "Entry Indicators" do
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos'
+        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
       end
 
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -151,7 +151,7 @@ feature "Entry Indicators" do
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos'
+        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
       end
 
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -170,7 +170,7 @@ feature "Entry Indicators" do
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos'
+        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
       end
 
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -191,7 +191,7 @@ feature "Entry Indicators" do
         click_link("Procesos y subprocesos", :match => :first)
 
         within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos'
+          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
         end
 
         expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -211,7 +211,7 @@ feature "Entry Indicators" do
         click_link("Procesos y subprocesos", :match => :first)
 
         within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos'
+          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
         end
 
         expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -233,7 +233,7 @@ feature "Entry Indicators" do
         click_link("Procesos y subprocesos", :match => :first)
 
         within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos'
+          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
         end
 
         expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -252,7 +252,7 @@ feature "Entry Indicators" do
         click_link("Procesos y subprocesos", :match => :first)
 
         within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos'
+          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
         end
 
         expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -271,7 +271,7 @@ feature "Entry Indicators" do
         click_link("Procesos y subprocesos", :match => :first)
 
         within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos'
+          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
         end
 
         expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
@@ -293,7 +293,7 @@ feature "Entry Indicators" do
         click_link("Procesos y subprocesos", :match => :first)
 
         within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos'
+          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
         end
 
         expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'

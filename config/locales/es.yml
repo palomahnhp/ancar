@@ -8,6 +8,11 @@ es:
     new: Crear
     update: Editar
     show: "Ver"
+    destroy_source: Editar
+    add_empty_source: Editar
+  status:
+    open: Abierto
+    close: Cerrado
   application:
     close: Salir
     require_user:
@@ -79,6 +84,7 @@ es:
       select_period: 'Seleccionar periodo'
       select_unit: 'Seleccionar una unidad'
       title: 'Hoja de modificación de procesos en'
+      title: 'Hoja de identificación de procesos en'
     staff:
       title:
         Positions:
