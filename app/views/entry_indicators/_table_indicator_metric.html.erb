@@ -12,11 +12,7 @@
       <tr>
         <td class="indicator-metric" id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
         <td class="indicator-metric-source"  id="<%= "source_col_#{get_source_id(indicator_metric)}" %>" >
-          <% if input_allowed?(@period, @organization, @approval, indicator_metric) && source_editable?(indicator_metric, period)%>
-             <%= text_field_tag("IndicatorSources[#{indicator_metric.id}]", sources_description(indicator_metric), class: 'inline', placeholder: t('entry_indicators.table_indicator_metric.source')) %>
-          <% else %>
             <%= sources_description(indicator_metric) %>
-          <% end %>
         </td>
         <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
           <% if input_allowed?(@period, @organization, @approval, indicator_metric) %>

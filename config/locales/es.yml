@@ -37,11 +37,11 @@ es:
           update: "Modificar observaciones"
           download_abstract: "Generar PDF Resumen"
         cancel_change: "Cancelar ajuste"
-        justificate: "Justificar ajuste"
+        justificate: "Adecuar puestos"
         fix: "Corregir"
       error:
         title:
-          assigned_staff: 'Error en la asignación de plantila/puestos'
+          assigned_staff: 'Existen diferencias entre los puestos de plantilla y los asignados'
           entry_without_staff: 'Inconsistencia entre cantidades y plantilla/puestos de indicadores/tareas'
           no_change_staff: 'Ajuste de plantilla/puestos asignados a la unidad'
           no_justification: "Falta justificación del cambio de plantilla/puestos"
@@ -82,7 +82,7 @@ es:
     staff:
       title:
         Positions:
-          MainProcesses: 'Puestos por proceso'
+          SubProcess: 'Puestos por proceso'
           Unit: 'Puestos de la unidad'
         Staff:
           SubProcess: 'Plantilla por subproceso'

@@ -1,122 +1,89 @@
 ---
 en:
-    admin:
-      dashboard:
-        index:
-          title: Configuración de la aplicación
-      menu:
-        organization_types: Tipos de organizaciones
-        unit_types: Tipos de unidades
-        organizations: Organizaciones
-        units: Unidades
-        settings: Configuración global
-        stats: Estadísticas
-        users: "Usuarios"
-        group:
-          units: "Organizaciones"
-      organizations:
-        index:
-          title: Organizaciones
-      organization_types:
-        index:
-          title: Tipos de organizaciones
-      units:
-        index:
-          title: Unidades
-      unit_types:
-        index:
-          title: Tipos de unidades
-      users:
-        activate:
-          alert: "No se ha podido reactivar el usuario %{user} "
-          notice: "El usuario %{user} se ha activado"
-        destroy:
-          alert: "No se ha podido dar de baja el usuario %{user} "
-          notice: "El usuario %{user} se ha dado de baja"
-        index:
-          filter:
-            all: Todos
-            interlocutor: Interlocutores
-            validator: Validadores
-            reader: Consultores
-            supervisor: Supervisores
-            admin: Administradores
-            no_role: Sin autorizaciones
-            inactive: Inactivos
-          title: "Gestión de usuarios"
-          row:
-            login: "Login"
-            name: "Nombre"
-            position: "Puesto"
-            unit: "Unidad"
-            organization: "Organización"
-            actions: Acciones
-        edit:
-          created_at: "Fecha de alta:"
+  admin:
+    dashboard:
+      index:
+        title: Configuración de la aplicación
+    menu:
+      organization_types: Tipos de organizaciones
+      unit_types: Tipos de unidades
+      organizations: Organizaciones
+      units: Unidades
+      settings: Configuración global
+      stats: Estadísticas
+      users: "Usuarios"
+      group:
+        units: "Organizaciones"
+    organizations:
+      index:
+        title: Organizaciones
+    organization_types:
+      index:
+        title: Tipos de organizaciones
+    units:
+      index:
+        title: Unidades
+    unit_types:
+      index:
+        title: Tipos de unidades
+    users:
+      activate:
+        alert: "No se ha podido reactivar el usuario %{user} "
+        notice: "El usuario %{user} se ha activado"
+      destroy:
+        alert: "No se ha podido dar de baja el usuario %{user} "
+        notice: "El usuario %{user} se ha dado de baja"
+      index:
+        filter:
+          all: Todos
+          interlocutor: Interlocutores
+          validator: Validadores
+          reader: Consultores
+          supervisor: Supervisores
+          admin: Administradores
+          no_role: Sin autorizaciones
+          inactive: Inactivos
+        title: "Gestión de usuarios"
+        row:
+          login: "Login"
+          name: "Nombre"
           position: "Puesto"
           unit: "Unidad"
-          contact: "Datos de contacto"
-          inactivated_at: "Fecha de baja"
-          button:
-            activate: "Activar"
-            inactivate: "Dar de baja"
-          status: "Estado"
-          message:
-            Alta: Se ha desactivado el usuario
-            Baja: Se ha activado el usuario
-            error: "Error creando usuario"
-        status:
-          active: "Alta"
-          inactive: "Baja"
-        search:
-          user_not_found: "Usuario no encontrado, para dar de alta un nuevo usuario utiliza el botón de Alta de usuario"
-          login_placeholder: "Introduce el usuario a buscar"
-        new:
-          title: "Alta de usuario"
-        form:
-          new: "Crear usuario"
-          ws_update: "Buscar datos"
-        create:
-          alert: "Usuario no existe en ayre o está en baja lógica"
-        roles:
-          role:
-            role: "Rol"
-            resource: "Recurso"
-            item: "Item"
-            name:
-              supervisor: Supervisor de tipo de organización
-              validator: Validador de organización
-              reader: Consultor
-              admin: Administrador
-              interlocutor: Interlocutor de organización
-              no_name: ""
-          add_role: "Añadir rol"
-          title: "Añadir permisos al usuario"
-          remove_resource: "-"
-          no_role: "Este usuario no tiene asignado ningún rol"
-        uweb_update:
-          success: "Datos del usuario actualizados correctamente"
-          error: "Error actualizando los datos del usuario"
+          organization: "Organización"
+          actions: Acciones
+      edit:
+        created_at: "Fecha de alta:"
+        position: "Puesto"
+        unit: "Unidad"
+        contact: "Datos de contacto"
+        inactivated_at: "Fecha de baja"
+        button:
+          activate: "Activar"
+          inactivate: "Dar de baja"
+        status: "Estado"
+        message:
+          Alta: Se ha desactivado el usuario
+          Baja: Se ha activado el usuario
+          error: "Error creando usuario"
+        uweb_auth: "Acceso desde ayre"
+      status:
+        active: "Alta"
+        inactive: "Baja"
+      search:
+        user_not_found: "Usuario no encontrado, para dar de alta un nuevo usuario utiliza el botón de Alta de usuario"
+        login_placeholder: "Introduce el usuario a buscar"
+      new:
+        title: "Alta de usuario"
+      form:
+        new: "Crear usuario"
+        ws_update: "Buscar datos"
+      create:
+        alert: "Usuario no existe en ayre o está en baja lógica"
       roles:
-        index:
-          title:
-            interlocutor: Interlocutor de unidad
-            validator: Validador de unidad
-            admin: Administrador
-            supervisor: Supervisor
-          new: "Alta de usuario"
-        search:
-          login_placeholder: "Introduce el usuario"
-          search: "Buscar"
-        action:
-          add: "Añadir rol"
-          delete: "Eliminar rol"
-          add_resource: "Añadir recurso"
         role:
-          resources:
-            Organization: Organización
-            OrganizationType: Tipo de organización
-            Unit: Unidad
+          role: "Rol"
+          resource: "Recurso"
+          item: "Item"
           name:
             supervisor: Supervisor de tipo de organización
             validator: Validador de organización
@@ -124,18 +91,55 @@ en:
             admin: Administrador
             interlocutor: Interlocutor de organización
             no_name: ""
-        add_role:
-          title: "Añadir rol: "
-          resource: "Añadir ámbito"
-          submit: "+"
-          error: "Error añadiendo el rol"
-          success: "Se ha añadido el rol"
-          select:
-            role: "Selecciona el rol a añadir"
-            organization: "Selecciona la unidad que se autoriza"
-        add_resource:
-          resource: "Añadir permisos a unidad"
-          organization_type: "Añadir permisos por tipo de organización"
-      shared:
-        in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
-
+        add_role: "Añadir rol"
+        title: "Añadir permisos al usuario"
+        remove_resource: "-"
+        no_role: "Este usuario no tiene asignado ningún rol"
+      uweb_update:
+        success: "Datos del usuario actualizados correctamente"
+        error: "Error actualizando los datos del usuario"
+      uweb_auth:
+        message:
+          success: "Se ha añadido correctamente el acceso desde ayre"
+          error: "No se ha podido añadir el acceso desde ayre"
+    roles:
+      index:
+        title:
+          interlocutor: Interlocutor de unidad
+          validator: Validador de unidad
+          admin: Administrador
+          supervisor: Supervisor
+        new: "Alta de usuario"
+      search:
+        login_placeholder: "Introduce el usuario"
+        search: "Buscar"
+      action:
+        add: "Añadir rol"
+        delete: "Eliminar rol"
+        add_resource: "Añadir recurso"
+      role:
+        resources:
+          Organization: Organización
+          OrganizationType: Tipo de organización
+          Unit: Unidad
+        name:
+          supervisor: Supervisor de tipo de organización
+          validator: Validador de organización
+          reader: Consultor
+          admin: Administrador
+          interlocutor: Interlocutor de organización
+          no_name: ""
+      add_role:
+        title: "Añadir rol: "
+        resource: "Añadir ámbito"
+        submit: "+"
+        error: "Error añadiendo el rol"
+        success: "Se ha añadido el rol"
+        select:
+          role: "Selecciona el rol a añadir"
+          organization: "Selecciona la unidad que se autoriza"
+      add_resource:
+        resource: "Añadir permisos a unidad"
+        organization_type: "Añadir permisos por tipo de organización"
+    shared:
+      in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"

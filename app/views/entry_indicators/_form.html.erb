@@ -63,14 +63,14 @@
               <% end %>
             </tbody>
           </table>
-          <% unless @period.is_from_SGT? %>
+         <!--% unless @period.is_from_SGT? %> -->
             <div class="row">
               <div class="small-12 medium-6 columns"> </div>
               <div class="columns medium-6 small-12">
                 <%= render 'staff', of: 'SubProcess', process: sub_process, unit: @unit, period: @period, type: 'all'   %>
               </div>
             </div>
-          <% end %>
+          <!--% end %-->
         <% end %>
       <% end %>
     <% end %>

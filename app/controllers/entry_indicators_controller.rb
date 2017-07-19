@@ -113,11 +113,10 @@ class EntryIndicatorsController < ApplicationController
       case key
           when 'Indicator', 'Unit'
             @employees_cumplimented = assigned_employees_update(key, params[key])
-          when 'IndicatorMetric' , 'IndicatorSources'
-            @entry_indicators_cumplimented = update_indicator_metrics(key)
+          when 'IndicatorMetric'
+            @entry_indicators_cumplimented = update_indicator_metrics(params[key])
           when 'justification'
             @justification_blank = change_justification(@period.id, @unit.id, params[:justification], current_user)
-
           else
             flash[:error] = t('entry_indicators.updates.no_key')
       end
@@ -154,42 +153,28 @@ class EntryIndicatorsController < ApplicationController
       params.require(:entry_indicator).permit(:amount, :unit_id, :period_id, :indicator_metric, :indicator_source)
     end
 
-    def update_indicator_metrics(key)
+    def update_indicator_metrics(indicator_metrics)
       Indicator.includes(indicator_metrics: [:entry_indicators, :total_indicators])
-      if key == 'IndicatorMetrics'
-        params[key].each do |indicator|
-          indicator[1].each do |im|
-            indicator_metric_id = im[0].to_i
-            amount = im[1]
-            if amount.empty?
-              @entry_indicators_cumplimented = false
-            end
 
-            ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-            ei.amount = amount
-            ei.period_id = @period.id
-            ei.updated_by = current_user.login
-            ei.save
-          end
-        end
-        return @entry_indicators_cumplimented
+      indicator_metrics.each do |indicator|
+        indicator[1].each do |im|
+          indicator_metric_id = im[0].to_i
 
-      elsif key == 'IndicatorSources'
-        params[key].each do |im|
-          im.each do |im|
-            indicator_metric_id = im[0].to_i
-            amount = im[1]
-            if amount.empty?
-              @entry_indicators_cumplimented = false
-            end
-            ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-            ei.amount = amount
-            ei.period_id = @period.id
-            ei.updated_by = current_user.login
-            ei.save
+          amount = im[1]
+
+          if amount.empty?
+            @entry_indicators_cumplimented = false
           end
+
+          ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
+          ei.amount = amount
+          ei.period_id = @period.id
+          ei.updated_by = current_user.login
+          ei.save
+
         end
       end
+      return @entry_indicators_cumplimented
     end
 
     def initialize_instance_vars
