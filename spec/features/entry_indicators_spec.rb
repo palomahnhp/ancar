@@ -63,7 +63,7 @@ feature "Entry Indicators" do
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link('Periodo de análisis de datos SGT 2')
+        click_link('Periodo de análisis de datos SGT 2 (Cerrado)')
       end
 
       expect(page).to have_content 'SECRETARIA GENERAL TECNICA DEL AREA DE GOBIERNO DE DESARROLLO URBANO SOSTENIBLE'

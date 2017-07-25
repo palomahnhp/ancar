@@ -34,7 +34,7 @@ feature "User access" do
 
       click_link("Procesos y subprocesos", :match => :first)
 
-      expect(page).to have_content "Hoja de modificación de procesos"
+      expect(page).to have_content "Hoja de medición de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
       expect(page).to have_content "Distritos"
       expect(page).not_to have_content "Secretarías Generales Técnicas"
@@ -54,7 +54,7 @@ feature "User access" do
       login_as_authenticated_user(user)
       click_link("Procesos y subprocesos", :match => :first)
 
-      expect(page).to have_content "Hoja de modificación de procesos"
+      expect(page).to have_content "Hoja de medición de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
       expect(page).to have_content "No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones"
 
@@ -66,7 +66,7 @@ feature "User access" do
       login_as_authenticated_user(user)
       click_link("Procesos y subprocesos", :match => :first)
 
-      expect(page).to have_content "Hoja de modificación de procesos"
+      expect(page).to have_content "Hoja de modificación de procesosHoja de modificación de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA"
       expect(page).to have_content "Periodo"
@@ -76,7 +76,7 @@ feature "User access" do
       user = create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
       click_link("Procesos y subprocesos", :match => :first)
-      expect(page).to have_content "Hoja de modificación de procesos"
+      expect(page).to have_content "Hoja de medición de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE BARAJAS"
       expect(page).to have_content "Periodo"
