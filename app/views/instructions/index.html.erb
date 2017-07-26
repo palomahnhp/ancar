@@ -4,6 +4,6 @@
     <h3><%= t("instructions.#{params[:organization_type]}.subtitle")%></h3>
   </div>
 </div>
-
-<%= render "#{params[:organization_type]}" %>
+<% instructions_name = params[:organization_type] %>
+<%= render instructions_name %>
 

@@ -54,6 +54,9 @@ en:
         total_indicators: "Seleccionar el/los tipo/s de procesos y el comportamiento"
       form:
         metric: Métrica
+        source:
+          column: "Fuente"
+          note: "Crear el indicador y posteriormente editar para añadir la/s fuente/s."
       total_indicators:
         title: "Tipo de indicador"
       create:

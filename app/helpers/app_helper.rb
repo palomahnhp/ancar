@@ -124,4 +124,5 @@ module AppHelper
   def link_doc_target(format)
     format == 'HTML' ? '_self' : '_blank'
   end
+
 end
