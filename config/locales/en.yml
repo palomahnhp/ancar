@@ -77,13 +77,8 @@ en:
           assigned_staff_html: 'Si no es un error y se debe/n ajustar la/os plantilla/puestos que aparecen en la tabla <strong><em> "Puestos asignados a 31 de diciembre"</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> Adecuar puestos</em></strong>, lo que permitirá modificar los puestos y añadir una justificación a dichos cambios.'
     table_indicator_metric:
         amount: Cantidad
-        source: Fuente
     index:
-      select: 'Seleccionar'
-      select_organization_type: 'Selecciona una organización'
-      select_period: 'Seleccionar periodo'
-      select_unit: 'Seleccionar una unidad'
-      title: 'Hoja de modificación de procesos en'
+      title: 'Hoja de medición de procesos en'
     staff:
       title:
         Positions:
@@ -112,7 +107,7 @@ en:
     updates:
       no_key: 'Falta parametro key'
       success:
-        validation: 'Se han guardado los datos, no se ha detectado ningún error tras las validaciones efectuadas'
+        validation: 'La entrada de datos se ha efectuado correctamene y puede ser aprobada por el validador'
         save: 'Se han guardado los datos, no se han realizado validaciones de consistencia de los datos. Para realizarlas utiliza el botón "Finalizar entrada de datos".'
         change: "Ajsute de plantilla/puestos cancelado"
     summary:
@@ -147,8 +142,9 @@ en:
       ie: Hemos detectado que estás navegando desde Internet Explorer. Para una mejor experiencia te recomendamos utilizar %{chrome} o %{firefox}.
       ie_title: Esta web no está optimizada para tu navegador
     footer:
-      FAQ_text: Instrucciones para la cumplimentación de los indicadores
-      FAQ_title: Instrucciones
+      docs:
+        text: Instrucciones y manuales para la cumplimentación de los indicadores
+        title: Instrucciones y manuales
       copyright: "© Copyrigth  %{year} Ayuntamiento de Madrid"
       legal_warning: Aviso legal
       process_text: Consulta y modificación de indicatores
@@ -164,10 +160,9 @@ en:
     no_indicators: No se han incluido indicadores para el resumen de este proceso
   subnavigation_menu:
     entry_indicators: Procesos y subprocesos
-    instructions: Instrucciones
     process_summary: Resumen por proceso
     subprocess_summary: Resumen por subproceso
-    documentation: "Manuales"
+    documentation: "Instrucciones y manuales"
   unauthorized:
     manage:
       all: Acción no autorizada.
@@ -178,7 +173,7 @@ en:
     index:
       no_auth_units: "No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones"
       select: Selección de unidad a tratar
-      title: Hoja de modificación de procesos
+      title: Hoja de medición de procesos
   welcome:
     logo_alt: Logo Gerencia de la Ciudad
     sub_title: Estudio de cargas de trabajo
@@ -192,7 +187,7 @@ en:
               blank: "Es obligatorio indicar una fuente"
   AssignedEmployeesChange:
     text:
-      verified: "Ajusto de plantilla/puestos verificado"
+      verified: "Ajuste de plantilla/puestos verificado"
       not_verified: "Ajuste de plantilla/puestos pendiente de verificación"
   supervisor:
     main_processes:
@@ -207,3 +202,13 @@ en:
     target_blank_html: " (se abre en ventana nueva)"
     top_links:
       no_user: "No hay usuario conectado"
+  instructions:
+    jd:
+      title: "Ficha de medición de procesos"
+      subtitle: "Instrucciones para la cumplimentación de datos"
+    sgt:
+      title: "Medición de procesos"
+      subtitle: "Instrucciones para la asignación de puestos a procesos y cumplimentación de indicadores por las Secretarías Generales Técnicas "
+  docs:
+    index:
+      title: "Instrucciones y manuales"

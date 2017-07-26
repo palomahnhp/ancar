@@ -1,10 +1,4 @@
 FactoryGirl.define do
-  factory :process_name do
-    
-  end
-  factory :role do
-
-  end
 
   factory :user do
     login  "USU" + Faker::Number.number(3)
@@ -16,6 +10,20 @@ FactoryGirl.define do
 
     trait :inactive do
       intactivated_at = Time.now - 1.month
+    end
+
+    trait :interlocutor_sgt do
+      after :create do |user|
+        organization = Organization.where(organization_type: OrganizationType.find_by_description('Secretarías Generales Técnicas')).take
+        user.add_role(:interlocutor, organization)
+      end
+    end
+
+    trait :interlocutor_distrito do
+      after :create do |user|
+        organization = Organization.where(organization_type: OrganizationType.find_by_description('Distritos')).take
+        user.add_role(:interlocutor, organization)
+      end
     end
 
     trait :with_one_organization do
@@ -80,7 +88,6 @@ FactoryGirl.define do
     ended_at    (Time.now - 1.year).end_of_year
     opened_at   (Time.now - 1.year).end_of_year + 1.day
     closed_at   (Time.now - 1.year).end_of_year + 1.month
-
     trait :open do
       closed_at  Time.now + 1.day
       description 'Periodo abierto'
@@ -184,6 +191,18 @@ FactoryGirl.define do
   factory :organization_type do
     sequence(:description) { |n| "Tipo de organización#{n}" }
     sequence(:acronym) { |n| "TipOrg#{n}" }
+    trait :sgts do
+      after :create do |organization_type|
+        organization_type.description  = 'Secretarías Generales Técnicas'
+        organization_type.acronym  = 'SGT'
+      end
+    end
+    trait :distritos do
+      after :create do |organization_type|
+        organization_type.description  = 'Distritos'
+        organization_type.acronym  = 'JD'
+      end
+    end
   end
 
 
@@ -194,4 +213,30 @@ FactoryGirl.define do
     sequence(:sap_id, 10200000)  { |n| "#{n}" }
   end
 
+  factory :doc do
+
+    trait :general_access do
+      name 'Documento acceso general'
+      description 'Ejemplo de documento de analísis de cargas de trabajo de las unidades municipales'
+      url 'docs/Manual de uso.pdf'
+      format 'PDF'
+    end
+
+    trait :instructions_jd do
+      name 'Instrucciones Distritos'
+      description 'Ejemplo de documento de analísis de cargas de trabajo de las unidades municipales'
+      url 'instructions?jd'
+#      organization_type_id OrganizationType.find_by_description('Distritos')
+      format 'HTML'
+      association :organization_type, :factory=> [:organization_type, :distritos]
+    end
+
+    trait :instructions_sgt do
+      name 'Instrucciones SGTs'
+      description 'Ejemplo de documento de analísis de cargas de trabajo de las unidades municipales'
+      url 'instructions?sgt'
+      format 'HTML'
+      association :organization_type, :factory=> [:organization_type, :sgts]
+    end
+  end
 end

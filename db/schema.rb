@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170620051138) do
+ActiveRecord::Schema.define(version: 20170720071607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,9 +74,12 @@ ActiveRecord::Schema.define(version: 20170620051138) do
     t.string   "format"
     t.string   "role"
     t.string   "updated_by"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "organization_type_id"
   end
+
+  add_index "docs", ["organization_type_id"], name: "index_docs_on_organization_type_id", using: :btree
 
   create_table "entry_indicators", force: :cascade do |t|
     t.integer  "unit_id"
@@ -401,7 +404,6 @@ ActiveRecord::Schema.define(version: 20170620051138) do
     t.string   "email"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.integer  "role"
     t.datetime "inactivated_at"
     t.integer  "organization_id"
     t.integer  "sap_id_unit"
@@ -425,6 +427,7 @@ ActiveRecord::Schema.define(version: 20170620051138) do
   add_foreign_key "assigned_employees", "units"
   add_foreign_key "assigned_employees_changes", "periods"
   add_foreign_key "assigned_employees_changes", "units"
+  add_foreign_key "docs", "organization_types"
   add_foreign_key "entry_indicators", "indicator_metrics"
   add_foreign_key "entry_indicators", "indicator_sources"
   add_foreign_key "entry_indicators", "periods"

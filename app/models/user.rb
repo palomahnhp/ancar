@@ -164,14 +164,30 @@ class User < ActiveRecord::Base
     end
   end
 
+  def auth_organization_types_unique?
+    auth_organization_types.size == 1
+  end
+
   def auth_organization_types
+    # global roles
+    if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
+      @organization_types ||= OrganizationType.all
+      # scoped roles
+    else
+      @organization_types ||= OrganizationType.with_roles(ROLES, self)
+    end
+    return @organization_types
+  end
+
+  def auth_organization_types_ids
     # global roles
     if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
       @organization_types ||= OrganizationType.all
     # scoped roles
     else
-     @organization_types ||= OrganizationType.with_roles(ROLES, self)
+     @organization_types ||= OrganizationType.with_roles(ROLES, self).ids + Organization.with_roles(ROLES, self).map { |o| o.organization_type.id}
     end
+    return @organization_types
   end
 
   def organization_description

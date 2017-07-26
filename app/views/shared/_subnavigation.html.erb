@@ -6,10 +6,6 @@
           <%= link_to t("subnavigation_menu.entry_indicators"), user_access_index_path, class: ("active" if controller_name == "user_access") , accesskey: "e" %>
         </li>
         <li>
-          <%= link_to t("subnavigation_menu.instructions"), instructions_path, class: ("active" if controller_name == "instructions") , accesskey: "i" %>
-        </li>
-
-        <li>
           <%= link_to t("subnavigation_menu.documentation"), docs_path, class: ("active" if controller_name == "docs"), accesskey: "d" %>
         </li>
       <% end %>

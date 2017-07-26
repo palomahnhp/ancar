@@ -6,6 +6,8 @@ class OrganizationType < ActiveRecord::Base
   has_many :main_processes, through: :periods
   has_many :process_names
 
+  has_many :docs
+
   validates :description, presence: true
   validates :acronym, presence: true
 

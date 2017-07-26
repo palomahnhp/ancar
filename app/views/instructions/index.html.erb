@@ -1,73 +1,9 @@
 <div class="row">
   <div class="small-12 columns highlight text-center">
-    <h2>FICHA DE IDENTIFICACIÓN DE PROCESOS EN LAS UNIDADES MUNICIPALES</h2>
-    <h3>INSTRUCCIONES PARA LA CUMPLIMENTACION DE LOS DATOS</h3>
+    <h2><%= t("instructions.#{params[:organization_type]}.title")%></h2>
+    <h3><%= t("instructions.#{params[:organization_type]}.subtitle")%></h3>
   </div>
 </div>
+<% instructions_name = params[:organization_type] %>
+<%= render instructions_name %>
 
-<div>
-  <div  class="row">
-    <h4> Selección del periodo </h4>
-    <ul class="disc">
-      <li>Si el Periodo tiene cerrado el plazo de mecanización solo podrá consultar los INDICADORES, no modificarlos. </li>
-      <li>Si el Periodo tiene abierto el plazo de mecanización podrá modificar los datos</li>
-      <li>sSe puden incluir todos los indicadores a excepción de los que se establezcan “pendientes de resolver a 1 de enero de año”</li>
-    </ul>
-  </div>
-
-  <div class="row"> <h4> Dedicación del subproceso al año por grupo de personal</h4>
-    <div>
-      La unidad mínima de dedicación corresponde al 5% por persona, esto es: 0,05
-        <div>
-          <strong>Ejemplo:</strong>
-          <blockquote>
-            Supbroceso: Ingresos no tributarios
-            Personas del Departamento Jurídico: 3 A1, 0 A2, 2 C1, 0 C2, 0 E
-
-            Dedicación del personal a ese subproceso:
-            <ul>
-              <li>1 A1 al 50%= 0,50</li>
-              <li>1 A1 al 40%= 0,40</li>
-              <li>1 A1 al 25%= 0,25</li>
-            </ul>
-
-            <blockquote> Total dedicación A1= 0,5+ 0,4 + 0,25 = 1,15  </blockquote>
-            <ul>
-              <li>1 C1 al 10%= 0,1</li>
-              <li>1 C1 al 5%= 0,05</li>
-            </ul>
-
-            <blockquote> Total dedicación C1= 0,1 + 0,05= 0,15</blockquote>
-          </blockquote>
-        </div>
-    </div>
-
-    <strong>Datos a cumplimentar:</strong>
-
-    <div>
-      <blockquote>
-        <h5>14.1  INGRESOS NO TRIBUTARIOS DEPARTAMENTO JURÍDICO "DEDICACIÓN DEL SUBPROCESO
-              AL AÑO POR CADA GRUPO DE PERSONAL  (unidad mínima 0,05)</h5>
-
-              TOTAL  SUBPROCESO 1.15  0   0.15  0 0
-      </blockquote>
-    </div>
-
-  <div class="row">
-s      <div>
-        En el caso de <strong> puestos abiertos a varios grupos </strong> (A1-A2, A2-C1, C1-C2) se asignará el grupo de los que tengan las personas que ocupen los puestos
-        <br> <br>
-        <strong> El personal laboral</strong> se asimilará a los grupos funcionariales por titulación de la categoría profesional.
-        <br><br>
-        La <strong> dedicación total</strong>  de los grupos de personal en todos los supbrocesos no puede exceder del total del personal en la unidad. <strong> Excepcionalmente podrá excederse </strong> cuando algunas personas se dediquen a subprocesos asignados a unidades distintas de las que está adscrita. En este caso se podrán exceder los parciales por unidad, pero en ningún caso se excederá del total de dedicación del personal para todas las unidades del Distrito
-        <br>
-
-        </div>
-        <div>
-          Por las características del estudio y los objetivos pretendidos se excluyen del análisis los cargos políticos, personal
-          directivo, personal eventual y personal del IMD.
-        </div>
-        <div> Para cualquier duda contacten con: <a href="mailto:dgplanificacinterna@madrid.es">dgplanificacinterna@madrid.es</a></div>
-      </div>
-  </div>
-</div>

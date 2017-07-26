@@ -40,7 +40,7 @@ es:
           all: Todos
           interlocutor: Interlocutores
           validator: Validadores
-          reader: Consultores
+          consultor: Consultores
           supervisor: Supervisores
           admin: Administradores
           no_role: Sin autorizaciones

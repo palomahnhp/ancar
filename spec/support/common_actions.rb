@@ -15,7 +15,7 @@ module CommonActions
   def user_with_global_scope
     click_link("Procesos y subprocesos", :match => :first)
 
-    expect(page).to have_content "Hoja de modificación de procesos"
+    expect(page).to have_content "Hoja de medición de procesos"
     expect(page).to have_content "Selección de unidad a tratar"
     expect(page).to have_content "Distritos"
     expect(page).to have_content "Secretarías Generales Técnicas"

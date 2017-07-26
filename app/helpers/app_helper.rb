@@ -121,4 +121,8 @@ module AppHelper
     period.open_entry? ? (period.description) + ' (' + t('status.open') +')' : (period.description) + ' (' + t('status.close') +')'
   end
 
+  def link_doc_target(format)
+    format == 'HTML' ? '_self' : '_blank'
+  end
+
 end
