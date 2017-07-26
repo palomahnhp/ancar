@@ -729,12 +729,13 @@ form {
 // -----------
 
 .callout {
-  font-size: $small-font-size;
+  font-size: $base-font-size;
+  font-weight: bold;
 
   &.success, &.notice {
     background-color: $success-bg;
     border-color: $success-border;
-    color: $color-success;
+    color: white;
   }
 
   &.primary {
@@ -746,7 +747,7 @@ form {
   &.warning {
     background-color: $warning-bg;
     border-color: $warning-border;
-    color: $color-warning;
+    color: white;
 
     a {
       color: $color-warning;
@@ -758,7 +759,7 @@ form {
   &.alert, &.error {
     background-color: $alert-bg;
     border-color: $alert-border;
-    color: $color-alert;
+    color: white;
   }
 
   .close {

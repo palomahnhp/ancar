@@ -3,6 +3,7 @@ module AssignedEmployeesActions
 
   def open_change(period_id, unit_id, current_user)
     AssignedEmployeesChange.initialize_change(period_id, unit_id, current_user)
+    AssignedEmployee.initialize(period_id, unit_id, current_user)
   end
 
   def change_justification(period_id, unit_id, justification, current_user)
