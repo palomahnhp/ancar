@@ -57,6 +57,14 @@ class AssignedEmployee < ActiveRecord::Base
     self.where(period_id: period_id, unit_id: unit_id, staff_of_type: "UnitJustified").delete_all
   end
 
+  def self.initialize(period_id, unit_id, user)
+    self.where(period_id: period_id, unit_id: unit_id, staff_of_type: "Unit").each do |unit_staff|
+      self.create(period_id: unit_staff.period_id, unit_id: unit_staff.unit_id, official_group_id: unit_staff.official_group_id,
+                  staff_of_id: unit_staff.staff_of_id, staff_of_type: "UnitJustified", quantity: unit_staff.quantity,
+                  updated_by: user.login)
+    end
+  end
+
   def self.delete_all_by_group(official_group_id, type, process_id, period_id, unit_id)
     self.where(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id).delete_all
   end
