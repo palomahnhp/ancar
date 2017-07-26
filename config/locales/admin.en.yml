@@ -40,7 +40,7 @@ en:
           all: Todos
           interlocutor: Interlocutores
           validator: Validadores
-          reader: Consultores
+          consultor: Consultores
           supervisor: Supervisores
           admin: Administradores
           no_role: Sin autorizaciones
@@ -137,9 +137,6 @@ en:
         submit: "+"
         error: "Error añadiendo el rol"
         success: "Se ha añadido el rol"
-        select:
-          role: "Selecciona el rol a añadir"
-          organization: "Selecciona la unidad que se autoriza"
       add_resource:
         resource: "Añadir permisos a unidad"
         organization_type: "Añadir permisos por tipo de organización"

@@ -66,7 +66,7 @@ feature "User access" do
       login_as_authenticated_user(user)
       click_link("Procesos y subprocesos", :match => :first)
 
-      expect(page).to have_content "Hoja de modificación de procesosHoja de modificación de procesos"
+      expect(page).to have_content "Hoja de medición de procesos"
       expect(page).to have_content "Selección de unidad a tratar"
       expect(page).to have_content "JUNTA MUNICIPAL DEL DISTRITO DE ARGANZUELA"
       expect(page).to have_content "Periodo"

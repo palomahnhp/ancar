@@ -176,6 +176,7 @@ class User < ActiveRecord::Base
     else
       @organization_types ||= OrganizationType.with_roles(ROLES, self)
     end
+    return @organization_types
   end
 
   def auth_organization_types_ids
@@ -186,6 +187,7 @@ class User < ActiveRecord::Base
     else
      @organization_types ||= OrganizationType.with_roles(ROLES, self).ids + Organization.with_roles(ROLES, self).map { |o| o.organization_type.id}
     end
+    return @organization_types
   end
 
   def organization_description
