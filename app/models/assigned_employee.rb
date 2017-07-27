@@ -5,6 +5,7 @@ class AssignedEmployee < ActiveRecord::Base
   belongs_to :period
 
   validates_inclusion_of :staff_of_type, in: %w[Unit Indicator UnitJustified]
+  validates_numericality_of :quantity
 
   scope :no_justification_verified,  -> { where(:verified_at => nil) }
 

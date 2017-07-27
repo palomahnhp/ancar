@@ -1,0 +1,53 @@
+﻿<div>
+  <h2><%= t('admin.entry_indicators.index.title') %></h2>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <div class="small-12 medium-10 columns">
+      <%= form_tag search_admin_entry_indicators_path, method: :post do %>
+        <div class="small-12 medium-8 column">
+          <%= label_tag :unit_id, t('admin.entry_indicators.search.units') %>
+          <%= select_tag :unit_id, options_for_select(Unit.select_options(current_user)), placeholder: t('admin.entry_indicators.search.units') %>
+        </div>
+        <div class="small-12 medium-8 column">
+          <%= label_tag :source_id, t('admin.entry_indicators.search.sources') %>
+          <%= select_tag :source_id, options_for_select(source_items(nil, true), :source_id) ,placeholder: t('admin.entry_indicators.search.sources') %>
+        </div>
+        <div class="small-12 medium-4 column">
+          <%= submit_tag t('admin.roles.search.search'), class: 'button' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= form_tag update_individual_admin_entry_indicators_path, method: :post do %>
+  <table class="hover">
+    <thead>
+      <tr>
+        <th>Indicador</th>
+        <th>Fuente</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @entry_indicators.each do |entry_indicator| %>
+        <%= fields_for "entry_indicators[]", entry_indicator do |f| %>
+          <tr>
+            <td><%=h entry_indicator.indicator_metric.metric.item.description %></td>
+            <td><%=h entry_indicator.indicator_metric.indicator_sources.take.source.item.description %></td>
+            <td>
+              <%= f.label :amount, 'Cantidad' %>
+              <%= f.text_field :amount, label: false  %>
+            </td>
+          </tr>
+    <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <p>
+    <%= submit_tag "Actualizar" %>
+  </p>
+
+<% end %>

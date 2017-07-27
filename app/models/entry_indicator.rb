@@ -15,6 +15,9 @@ class EntryIndicator < ActiveRecord::Base
   validates_associated :indicator_metric
   validates_associated :indicator_source
 
+  validates_numericality_of :amount
+
+
   scope :period, ->(id) { where(period_id: id) }
 
   def amount=(val)
@@ -24,6 +27,10 @@ class EntryIndicator < ActiveRecord::Base
 
   def self.delete_by_indicator_metric(unit_id, indicator_metric_id)
     self.where(unit_id: unit_id, indicator_metric_id: indicator_metric_id).delete_all
+  end
+
+  def fixed_sources
+     self.indicator_sources.take.source.fixed?
   end
 
 end

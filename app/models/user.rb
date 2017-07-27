@@ -164,6 +164,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def auth_units()
+    @units = self.auth_organizations.map { |o| o.units }
+  end
+
   def auth_organization_types_unique?
     auth_organization_types.size == 1
   end

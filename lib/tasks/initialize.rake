@@ -79,11 +79,6 @@ namespace :initialize do
     end
   end
 
-  task imported_sources: :environment do
-    Source.where(item_id: Item.where(description: ["SIGSA", "SAP RRHH", "PLYCA", "SAP ECO FIN", "PLATEA", "Catálogo", "Inventario" ]).ids).
-        map{|s| s.update_attribute(:imported, true)}
-  end
-
   task create_metrics: :environment do
     [
         "Número de accesos controlados en los edificios cuya gestión está encomendada a esa Secretaría General Técnica a fecha 31 de diciembre del año.",
