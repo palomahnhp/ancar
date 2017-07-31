@@ -1,6 +1,5 @@
 <span class="hide-for-print entry-indicators-buttons">
-  <% if @period.open_entry? && (can? :updates, @organization) && @approval.blank? %>
-
+  <% if (@period.open_entry? && (can? :updates, @organization) && @approval.blank?) ||  (can? :updates, @entry_indicators) %>
     <br>
     <%= submit_tag(t('entry_indicators.form.button.save'), class: 'button hollow', name: 'updates') %>
     <%= submit_tag(t('entry_indicators.form.button.end'), class: 'button hollow', name: 'close_entry')%>

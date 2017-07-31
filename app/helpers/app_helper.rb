@@ -105,16 +105,20 @@ module AppHelper
     end
   end
 
-  def source_editable?(indicator_metric, period)
-     if setting['imported_sources_no_editable'].present? && eval(setting['imported_sources_no_editable']) && period.is_from_SGT?
+  def source_editable?(indicator_metric, period, user)
+    if setting['imported_sources_no_editable'].present? && eval(setting['imported_sources_no_editable']) && period.is_from_SGT?
       indicator_metric.indicator_sources.map{ |i_s|  return !i_s.source.fixed.present? }
-     else
-       true
-     end
+    else
+      true
+    end
   end
 
-  def input_allowed?(period, organization, approval, indicator_metric)
-    period.open_entry? && (can? :updates, organization)  && approval.blank? && source_editable?(indicator_metric, period)
+  def input_allowed?(period, organization, approval, indicator_metric, user)
+    if user.has_role? :admin
+      return true
+    else
+      period.open_entry? && (can? :updates, organization)  && approval.blank? && source_editable?(indicator_metric, period, user)
+    end
   end
 
   def period_status_text(period)

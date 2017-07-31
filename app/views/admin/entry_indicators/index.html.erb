@@ -7,6 +7,10 @@
     <div class="small-12 medium-10 columns">
       <%= form_tag search_admin_entry_indicators_path, method: :post do %>
         <div class="small-12 medium-8 column">
+          <%= label_tag :period_id, t('admin.entry_indicators.search.periods') %>
+          <%= select_tag :period_id, options_for_select(Period.select_options), placeholder: t('admin.entry_indicators.search.periods') %>
+        </div>
+        <div class="small-12 medium-8 column">
           <%= label_tag :unit_id, t('admin.entry_indicators.search.units') %>
           <%= select_tag :unit_id, options_for_select(Unit.select_options(current_user)), placeholder: t('admin.entry_indicators.search.units') %>
         </div>
@@ -26,6 +30,7 @@
   <table class="hover">
     <thead>
       <tr>
+        <th>Tarea</th>
         <th>Indicador</th>
         <th>Fuente</th>
         <th>Cantidad</th>
@@ -33,16 +38,19 @@
     </thead>
     <tbody>
       <% @entry_indicators.each do |entry_indicator| %>
-        <%= fields_for "entry_indicators[]", entry_indicator do |f| %>
-          <tr>
-            <td><%=h entry_indicator.indicator_metric.metric.item.description %></td>
-            <td><%=h entry_indicator.indicator_metric.indicator_sources.take.source.item.description %></td>
-            <td>
-              <%= f.label :amount, 'Cantidad' %>
-              <%= f.text_field :amount, label: false  %>
-            </td>
-          </tr>
-    <% end %>
+        <% unless entry_indicator.nil? %>
+          <%= fields_for "entry_indicators[]", entry_indicator do |f| %>
+            <tr>
+              <td><%=h entry_indicator.indicator_metric.indicator.item.description %></td>
+              <td><%=h entry_indicator.indicator_metric.metric.item.description %></td>
+              <td><%=h entry_indicator.indicator_metric.indicator_sources.take.source.item.description %></td>
+              <td>
+                <%= f.label :amount, 'Cantidad' %>
+                <%= f.text_field :amount, label: false  %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
       <% end %>
     </tbody>
   </table>

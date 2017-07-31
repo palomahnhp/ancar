@@ -1,7 +1,7 @@
 class Admin::EntryIndicatorsController < Admin::BaseController
 
   def index
-    @entry_indicators = EntryIndicator.where(period_id: params[:period_id], unit_id: params[:unit_id]).map{|ei| ei if ei.fixed_sources?}
+    @entry_indicators = EntryIndicator.by_period_unit_and_source(params[:period_id], params[:unit_id], params[:source_id] )
   end
 
   def show
@@ -59,13 +59,14 @@ class Admin::EntryIndicatorsController < Admin::BaseController
     end
   end
 
-    def search
-      if params[:source_id].present?
-        source = params[:source_id]
-      else
-        source = Source.fixed.ids
-      end
-      period = Period.where(organization_type: Unit.find(params[:unit_id]).organization.organization_type).order(:id).last
-      redirect_to admin_entry_indicators_path(period_id: period.id, unit_id: params[:unit_id], source_id: source)
+  def search
+    source = []
+    if params[:source_id].present?
+      source = Item.find(params[:source_id]).sources.take.id
+    else
+      source = Source.fixed.ids
     end
+#    period = Period.where(organization_type: Unit.find(params[:unit_id]).organization.organization_type).order(:id).last
+    redirect_to admin_entry_indicators_path(period_id: params[:period_id], unit_id: params[:unit_id], source_id: source)
+  end
 end

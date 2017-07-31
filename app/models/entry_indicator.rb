@@ -1,10 +1,10 @@
 class EntryIndicator < ActiveRecord::Base
   resourcify
-  has_many :entry_indicator_sources
+#  has_many :entry_indicator_sources
 
   has_many :metrics, through: :indicator_metrics
   has_many :indicators, through: :indicator_metrics
-  has_many :sources, through: :entry_indicator_sources
+#  has_many :sources, through: :entry_indicator_sources
 
   belongs_to :indicator_metric
   belongs_to :indicator_source
@@ -29,8 +29,14 @@ class EntryIndicator < ActiveRecord::Base
     self.where(unit_id: unit_id, indicator_metric_id: indicator_metric_id).delete_all
   end
 
-  def fixed_sources
-     self.indicator_sources.take.source.fixed?
+  def self.by_period_unit_and_source(period, unit, source)
+    entry_indicators = where(period_id: period, unit_id: unit)
+    ei = entry_indicators.map{ |ei| ei if ei.source?(source) }
+    return ei
+  end
+
+  def source?(source)
+     source.include?(self.indicator_metric.indicator_sources.take.source.id.to_s)
   end
 
 end
