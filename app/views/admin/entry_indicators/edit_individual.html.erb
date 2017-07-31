@@ -1,0 +1,21 @@
+﻿<h3>Editar EntryIndicators</h3>
+<div class="row">
+  <div class="small-12 columns">
+    <%= form_tag update_individual_admin_entry_indicators_path, method: :post do %>
+      <table class="admin-indicator-metric">
+        <% for entry_indicator in @entry_indicators %>
+          <%= fields_for "entry_indicators[]", entry_indicator do |f| %>
+            <tr>
+              <td> <%= h entry_indicator.indicator_metric.metric.item.description %></td>
+              <td>
+                <%= f.label :amount, 'Cantidad' %>
+                <%= f.text_field :amount, label: false  %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+      <p> <%= submit_tag 'Actualizar' %>   </p>
+    <% end %>
+  </div>
+</div>

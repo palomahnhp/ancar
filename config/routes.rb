@@ -45,9 +45,16 @@ Rails.application.routes.draw do
       end
       get :search, on: :collection
     end
+
     resources :stats
     resources :in_works
-
+    resources :entry_indicators do
+      collection do
+        post 'edit_individual'
+        post 'update_individual'
+        post 'search'
+      end
+    end
   end
 
   namespace :validator do

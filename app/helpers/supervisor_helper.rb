@@ -31,10 +31,12 @@ module SupervisorHelper
     select_items('metric')
   end
 
-  def source_items(id)
-    select_items('source')
-#    source = Source.find(id)
-#    sources = source.fixed.present? ? [source.item.description, source.id] : select_items('source', id)
+  def source_items(id, fixed=false)
+    if fixed
+      Source.fixed.collect  { |v| [ v.item.description, v.item.id ]}
+    else
+      select_items('source')
+    end
   end
 
   def total_indicator_type_items

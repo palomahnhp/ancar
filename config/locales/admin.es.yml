@@ -142,3 +142,9 @@ es:
         organization_type: "Añadir permisos por tipo de organización"
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
+    entry_indicators:
+      index:
+        title: "Indicadores con fuentes fijas"
+      search:
+        units: "Unidades"
+        sources: "Fuentes"
