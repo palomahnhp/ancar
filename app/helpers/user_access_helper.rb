@@ -1,3 +1,0 @@
-module UserAccessHelper
-
-end

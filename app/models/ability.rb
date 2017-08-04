@@ -4,6 +4,9 @@ class Ability
   def initialize(user)
     if user.has_role? :admin
       can :manage, :all
+      cannot :updates, Period do |period|
+      false
+      end
     end
 
     if user.has_role? :supervisor, :any
@@ -18,6 +21,9 @@ class Ability
 
     if user.has_role? :interlocutor, :any
       can [:updates, :read], Organization, :id => Organization.with_role(:interlocutor, user).pluck(:id)
+      cannot :updates, Period do |period|
+        period.not_yet_open? || period.close_entry?
+      end
     end
 
     if user.has_role? :reader, :any

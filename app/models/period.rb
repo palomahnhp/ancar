@@ -27,7 +27,12 @@ class Period < ActiveRecord::Base
   end
 
   def modifiable?
-    !close_entry?
+#   !close_entry?
+    not_yet_open?
+  end
+
+  def not_yet_open?
+    opened_at >  DateTime.now
   end
 
   def is_empty?
