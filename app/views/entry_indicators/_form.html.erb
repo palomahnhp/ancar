@@ -45,11 +45,11 @@
                 <tr class="indicator-row">
                   <td class="indicator-description" id="<%= "indicator_col_#{indicator.id}" %>">
                     <% if indicator.description.nil? %>
-                        <strong> <%= indicator.item.description %> (id. <%= indicator.id %>)</strong>
+                        <strong> <%= main_process.order%>.<%= sub_process.order%>.<%= indicator.order %> <%= indicator.item.description %> </strong>
                     <% else %>
                         <br>
                         <div class="moderation-description">
-                          <%= simple_format (indicator.description) %> <small> (id. <%= indicator.id %>)</small>
+                          <%= simple_format (indicator.description) %>
                         </div>
                     <% end %>
                   </td>
@@ -63,7 +63,7 @@
               <% end %>
             </tbody>
           </table>
-         <% unless @period.is_from_SGT? %> >
+         <% unless @period.is_from_SGT? %>
             <div class="row">
               <div class="small-12 medium-6 columns"> </div>
               <div class="columns medium-6 small-12">
@@ -72,14 +72,14 @@
             </div>
           <% end %>
         <% end %>
-      <% end %>
-      <% if @period.is_from_SGT? %>
-        <div class="row">
-          <div class="small-12 medium-6 columns"> </div>
-          <div class="columns medium-6 small-12">
-            <%= render 'staff', of: 'MainProcess', process: main_process, unit: @unit, period: @period, type: 'all' %>
-          </div>
-        </div>
+        <% if @period.is_from_SGT? %>
+            <div class="row">
+              <div class="small-12 medium-6 columns"> </div>
+              <div class="columns medium-6 small-12">
+                <%= render 'staff', of: 'MainProcess', process: main_process, unit: @unit, period: @period, type: 'all' %>
+              </div>
+            </div>
+        <% end %>
       <% end %>
   <% end %>
 

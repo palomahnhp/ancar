@@ -122,7 +122,7 @@ module AppHelper
   end
 
   def period_status_text(period)
-    period.open_entry? ? (period.description) + ' (' + t('status.open') +')' : (period.description) + ' (' + t('status.close') +')'
+    period.open_entry? ? (period.description) + " \n(" + t('status.open') + ' de ' + (l period.opened_at) + ' a ' + (l period.ended_at) + ')' : (period.description) + ' (' + t('status.close') +')'
   end
 
   def link_doc_target(format)

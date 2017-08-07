@@ -33,10 +33,11 @@
 </section>
 
 <section id="add_role" class="row">
-  <table>
-    <% if params[:action] == 'edit' && @user.active?%>
-      <caption><%= t('admin.users.roles.title') %></caption>
-      <%= form_tag(controller: 'users', action: 'roles') do %>
+
+  <% if params[:action] == 'edit' && @user.active?%>
+    <%= form_tag(controller: 'users', action: 'roles') do %>
+       <table>
+         <caption><%= t('admin.users.roles.title') %></caption>
          <tr>
            <td>
             <%= label_tag :role_1, t('admin.users.roles.add_role') %>
@@ -48,12 +49,11 @@
               <%= select_tag(:resource_id_1, grouped_options_for_select(resources_select_options(@user, Organization)),
                      label: false) %>
             </td>
-
             <td>
               <%= submit_tag t('admin.roles.add_role.submit'), class: 'button hollow success small', :name => 'Organization' %>
             </td>
-          </tr>
-          <tr>
+         </tr>
+         <tr>
             <td>
               <%= label_tag :role_2, t('admin.users.roles.add_role') %>
               <%= select_tag(:role_2, options_for_select(roles_select_options(@user, OrganizationType)),
@@ -68,9 +68,9 @@
               <%= submit_tag t('admin.roles.add_role.submit'), class: 'button hollow success small', :name => 'OrganizationType' %>
             </td>
           </tr>
-      <% end %>
+       </table>
     <% end %>
-  </table>
+  <% end %>
 </section>
 
 

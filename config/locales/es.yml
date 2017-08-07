@@ -78,7 +78,8 @@ es:
     table_indicator_metric:
         amount: Cantidad
     index:
-      title: 'Hoja de medición de procesos en'
+      title: 'Hoja de medición de procesos'
+      no_update_role: 'Este perfil no tiene permisos para actualizar los indicadores'
     staff:
       title:
         Positions:

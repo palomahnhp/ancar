@@ -6,7 +6,7 @@ class EntryIndicatorsController < ApplicationController
   before_action :initialize_instance_vars, only: [:index, :edit, :updates, :download_validation, :validated_abstract]
 
   def index
-
+    flash[:notice] = t('entry_indicators.index.no_update_role') if (@period.open_entry? && (cannot? :updates, @organization))
   end
 
   def updates
@@ -21,7 +21,6 @@ class EntryIndicatorsController < ApplicationController
     end
 
     if (@input_errors[:num_errors] && @input_errors[:num_errors] > 0) || @approval.present?
-
       render :index
     else
       if params[:close_entry].present?
@@ -52,7 +51,6 @@ class EntryIndicatorsController < ApplicationController
       @approval = delete_approval(@period, @unit)
       flash[:notice] = t('entry_indicators.approval.success.cancel')
     end
-
   end
 
   def download_validation
@@ -101,9 +99,6 @@ class EntryIndicatorsController < ApplicationController
               :type => "application/pdf",
               :disposition => "inline"
   end
-
-
-
 
   private
   def update_entry

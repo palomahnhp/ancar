@@ -40,7 +40,7 @@ en:
       total_indicator_type:
         E: Entrada
         S: Salida
-        U: Único
+        X: Único
         A: "Acumula"
         -: No acumula
     indicator_metrics:
@@ -57,6 +57,7 @@ en:
         source:
           column: "Fuente"
           note: "Crear el indicador y posteriormente editar para añadir la/s fuente/s."
+          add: 'Añadir fuente'
       total_indicators:
         title: "Tipo de indicador"
       create:
@@ -206,6 +207,10 @@ en:
       destroy:
         success: 'Se ha eliminado correctmente la métrica'
         error: "Error eliminando la métrica"
+      add_empty_source:
+        title: Editar métrica
+      destroy_source:
+        title: Editar métrica
     process_name:
       plural:
         Indicators: indicadores
@@ -233,3 +238,7 @@ en:
           detail: "Ver detalle"
       process:
         indicators: "Indicadores por proceso"
+    delete:
+      message:
+        no_empty: "El elemento no está vacio ¿Desea eliminarlos junto a su contenido?"
+        empty: "¿Desea eliminar este elemento?"

@@ -18,13 +18,15 @@
               de <strong> <%= period.opened_at %> </strong>
                a <strong> <%= period.closed_at %> </strong>
           </div>
-          <% if period.open_entry? %>
-            <strong><%= t('supervisor.periods.index.entry_opened') %></strong>
-          <% elsif period.close_entry? %>
-            <strong><%= t('supervisor.periods.index.entry_closed') %></strong>
-          <% else %>
-            <strong><%= t('supervisor.periods.index.entry_not_open_yet') %></strong>
-          <% end %>
+          <div class="<%= period.not_yet_open? ? "period_open" : "period_closed"     %>">
+            <% if period.open_entry? %>
+              <%= t('supervisor.periods.index.entry_opened') %>
+            <% elsif period.close_entry? %>
+              <%= t('supervisor.periods.index.entry_closed') %>
+            <% elsif period.not_yet_open? %>
+              <%= t('supervisor.periods.index.entry_not_open_yet') %>
+            <% end %>
+          </div>
         </td>
         <td>
           <%= link_to supervisor_main_processes_path(
@@ -37,7 +39,7 @@
                       process_name: t("supervisor.process_name.plural.#{process_name(period, 'main_processes')}")) %>
               <% end %>
         </td>
-        <% if period.modifiable? %>
+        <% if period.modifiable? || (current_user.has_role? :admin) %>
         <td>
           <%= link_to edit_supervisor_period_path(period),
               id: "edit_#{period.id}",
@@ -48,7 +50,7 @@
         </td>
       <% end %>
 
-        <% if period.modifiable?%>
+        <% if period.modifiable?  || (current_user.has_role? :admin)%>
           <% msg = delete_msg(period.class.name.pluralize.underscore, period.eliminable?, period.modifiable?, period.is_empty? ) %>
           <td>
             <%= link_to supervisor_period_path(period), method: :delete,

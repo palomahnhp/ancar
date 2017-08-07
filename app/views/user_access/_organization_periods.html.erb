@@ -5,13 +5,16 @@
     </thead>
     <tbody>
       <% organization.organization_type.periods.each_with_index do |period, index| %>
-        <% if index % 3 == 0 %>
+        <% if index % 1 == 0 %>
           <tr>
         <% end %>
-         <td>
-            <%= link_to period_status_text(period), entry_indicators_path(organization_id: organization.id,  period_id: period.id)%>
+         <td >
+            <%= link_to period_status_text(period),
+                        entry_indicators_path(organization_id: organization.id, period_id: period.id),
+                        {class: ("period_open" if period.open_entry?) }
+            %>
          </td>
-        <% if index % 3 == 2 %>
+        <% if index % 1 == 0 %>
           </tr>
         <% end %>
       <% end %>
