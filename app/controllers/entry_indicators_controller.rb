@@ -51,7 +51,6 @@ class EntryIndicatorsController < ApplicationController
       @approval = delete_approval(@period, @unit)
       flash[:notice] = t('entry_indicators.approval.success.cancel')
     end
-
   end
 
   def download_validation

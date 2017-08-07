@@ -747,7 +747,7 @@ form {
   &.warning {
     background-color: $warning-bg;
     border-color: $warning-border;
-    color: white;
+    color: $color-warning;
 
     a {
       color: $color-warning;

@@ -13,8 +13,6 @@
 
 //= require jquery
 //= require jquery_ujs
-// require jquery-ui/datepicker
-// require jquery-ui/datepicker-es
 //= require foundation
 //= require turbolinks
 //= require initial
@@ -22,14 +20,11 @@
 //= require dropdown
 //= require prevent_double_submission
 //= require forms
-//= require datepicker
-//= require cocoon
 
 var initialize_modules = function() {
   App.Dropdown.initialize();
   App.PreventDoubleSubmission.initialize();
   App.Forms.initialize();
-  App.DatePicker.initialize();
 };
 
 $(function(){

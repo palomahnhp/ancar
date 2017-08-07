@@ -18,7 +18,7 @@
       <% end %>
       <% if @indicator_metric.id.present? %>
         <div class="small-2 columns" >
-         <%= link_to 'Añadir fuente', add_empty_source_supervisor_indicator_metric_path(@indicator_metric), method: 'put', class: 'button hollow' %>
+         <%= link_to t('supervisor.indicator_metrics.form.source.add'), add_empty_source_supervisor_indicator_metric_path(@indicator_metric), method: 'put', class: 'button hollow' %>
         </div>
       <% else %>
           <p><%= t('supervisor.indicator_metrics.form.source.note') %></p>
