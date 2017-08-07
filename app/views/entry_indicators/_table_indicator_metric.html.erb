@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <% indicator.indicator_metrics.order(:id).each_with_index do |indicator_metric, index| %>
+    <% indicator.indicator_metrics.order(:order).each_with_index do |indicator_metric, index| %>
       <%= hidden_field_tag(:indicator_metric_id, indicator_metric.id) %>
       <tr>
         <td class="indicator-metric" id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>

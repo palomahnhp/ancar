@@ -1,9 +1,10 @@
 <div class="row " >
   <div class="corporativo medium-12 small-12 columns">
-    <h3><%= t('entry_indicators.index.title') %> <%= @period.organization_type.description %></h3>
-    <h4><%= @period.description %> </h4>
+    <h3><%= t('entry_indicators.index.title') %></h3>
+    <h4><%= period_status_text(@period) %></h4>
     <h4> <%= @organization.description %> </h4>
   </div>
+
    <%= render 'unit_tabs' %>
    <%= render 'form' %>
 </div>

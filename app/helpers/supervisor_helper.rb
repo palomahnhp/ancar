@@ -64,9 +64,9 @@ module SupervisorHelper
 
   def delete_msg(class_name, eliminable, modifiable, empty)
     if modifiable && !empty
-      t("validator.#{class_name}.delete.message.no_empty")
+      t("supervisor.delete.message.no_empty")
     else
-      t("validator.#{class_name}.delete.message.empty")
+      t("supervisor.delete.message.empty")
     end
   end
 
