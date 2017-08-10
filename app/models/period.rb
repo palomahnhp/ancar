@@ -64,8 +64,8 @@ class Period < ActiveRecord::Base
     return indicators
   end
 
-  def is_from_SGT?
-    organization_type.is_SGT?
+  def is_from?(acronym)
+    organization_type.is_acronym?(acronym)
   end
 
   def self.select_options

@@ -16,12 +16,17 @@ module AppHelper
       description += ', ' unless description == ''
       description += indicator_source.source.item.description.to_s
       specification = indicator_metric.entry_indicators.where(unit_id: @unit.id).take.nil? ? nil :
-          indicator_metric.entry_indicators.where(unit_id: @unit.id).take.specifications
+      indicator_metric.entry_indicators.where(unit_id: @unit.id).take.specifications
       unless specification.nil?
         description += ': '
         description += specification
       end
     end
+    entry_indicator = indicator_metric.entry_indicators.where(unit_id: @unit.id).take
+    if entry_indicator.present? && entry_indicator.amount != entry_indicator.imported_amount && source_imported?(indicator_metric)
+      description += ' (*)'
+    end
+
     return description
   end
 
@@ -106,8 +111,14 @@ module AppHelper
   end
 
   def source_editable?(indicator_metric, period, user)
-    if setting['imported_sources_no_editable'].present? && eval(setting['imported_sources_no_editable']) && period.is_from_SGT?
-      indicator_metric.indicator_sources.map{ |i_s|  return !i_s.source.fixed.present? }
+    if source_imported?(indicator_metric) # automatic font
+      setting_key = 'imported_sources_editable.'
+      if period.is_from?('SGT')
+        setting_key  = setting_key + 'SGT'
+      elsif period.is_from?('JD')
+        setting_key  = setting_key + 'JD'
+      end
+      setting[setting_key].present? && setting[setting_key] == 'TRUE'
     else
       true
     end
@@ -127,6 +138,10 @@ module AppHelper
 
   def link_doc_target(format)
     format == 'HTML' ? '_self' : '_blank'
+  end
+
+  def source_imported?(indicator_metric)
+    indicator_metric.indicator_sources.map{ |is| return is.source.fixed? }
   end
 
 end

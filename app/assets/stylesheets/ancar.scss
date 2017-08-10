@@ -527,7 +527,6 @@ ul.error-detail {
     margin-left: rem-calc(100);
 }
 
-
 // pagination
 .pagination a, .pagination span.current, .pagination span.gap {
   float: left;
@@ -598,3 +597,6 @@ table#admin-indicator-metric {
   font-weight: bold;
   color: red;
   }
+.source-automatic {
+  color:blue;
+}

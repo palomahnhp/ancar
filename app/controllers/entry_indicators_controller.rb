@@ -101,6 +101,7 @@ class EntryIndicatorsController < ApplicationController
   end
 
   private
+
   def update_entry
     @entry_indicators_cumplimented = @employees_cumplimented = true
 
@@ -145,7 +146,7 @@ class EntryIndicatorsController < ApplicationController
     end
 
     def entry_indicator_params
-      params.require(:entry_indicator).permit(:amount, :unit_id, :period_id, :indicator_metric, :indicator_source)
+      params.require(:entry_indicator).permit(:imported_amount, :amount, :unit_id, :period_id, :indicator_metric, :indicator_source)
     end
 
     def update_indicator_metrics(indicator_metrics)
@@ -161,7 +162,8 @@ class EntryIndicatorsController < ApplicationController
             @entry_indicators_cumplimented = false
           else
             ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-            ei.amount = amount
+            ei.amount = amount.gsub(',', '.').to_f
+            ei.imported_amount = ei.amount if current_user.has_role? :admin && source_imported?(ei.indicator_metric)
             ei.period_id = @period.id
             ei.updated_by = current_user.login
             ei.save

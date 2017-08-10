@@ -20,7 +20,7 @@ class OrganizationType < ActiveRecord::Base
     OrganizationType.all.map { |type| [type.description, type.id] }
   end
 
-  def is_SGT?
-    acronym == 'SGT'
+  def is_acronym?(value)
+    acronym == value
   end
 end

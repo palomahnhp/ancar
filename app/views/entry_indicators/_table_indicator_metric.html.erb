@@ -10,13 +10,18 @@
     <% indicator.indicator_metrics.order(:order).each_with_index do |indicator_metric, index| %>
       <%= hidden_field_tag(:indicator_metric_id, indicator_metric.id) %>
       <tr>
-        <td class="indicator-metric" id="<%= "metric_col_#{indicator_metric.metric_id}" %>" ><%= get_metric(indicator_metric) %> </td>
-        <td class="indicator-metric-source"  id="<%= "source_col_#{get_source_id(indicator_metric)}" %>" >
+        <td class="indicator-metric" id="<%= "metric_col_#{indicator_metric.metric_id}" %>">
+          <%= get_metric(indicator_metric) %>
+        </td>
+        <td class="indicator-metric-source <%= "source-automatic" if source_imported?(indicator_metric) %>"
+            id="<%= "source_col_#{get_source_id(indicator_metric)}" %>" >
             <%= sources_description(indicator_metric) %>
         </td>
         <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
           <% if input_allowed?(@period, @organization, @approval, indicator_metric, current_user) %>
-            <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]", get_amount(indicator_metric, @unit), class: 'inline amount', placeholder: t('entry_indicators.table_indicator_metric.amount')) %>
+            <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]",
+                               get_amount(indicator_metric, @unit), class: 'inline amount',
+                               placeholder: t('entry_indicators.table_indicator_metric.amount')) %>
           <% else %>
             <%= get_amount(indicator_metric, @unit) %>
           <% end %>

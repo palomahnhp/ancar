@@ -35,4 +35,7 @@ module AssignedEmployeesActions
     EntryIndicator.delete_by_indicator_metric(unit_id, indicator_metric_id)
   end
 
+  def source_imported?(indicator_metric)
+    indicator_metric.indicator_sources.map{ |is| return is.source.fixed? }
+  end
 end
