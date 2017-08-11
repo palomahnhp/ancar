@@ -163,7 +163,6 @@ class EntryIndicatorsController < ApplicationController
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
           ei.amount = amount.tr(',', '.').to_f
           ei.imported_amount = ei.amount if ((current_user.has_role? :admin) && (source_imported?(ei.indicator_metric)))
-          logger.debug " -> amount = #{ei.amount}, imported_amount = #{ei.imported_amount}: imported_amount_save if admin ==  #{current_user.has_role? :admin}, && fuente es importada:  #{(source_imported?(ei.indicator_metric))} del indicator_metric = #{ei.indicator_metric.id}"
           ei.period_id = @period.id
           ei.updated_by = current_user.login
           ei.save
