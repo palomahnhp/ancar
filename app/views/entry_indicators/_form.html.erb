@@ -63,7 +63,7 @@
               <% end %>
             </tbody>
           </table>
-         <% unless @period.is_from_SGT? %>
+         <% unless @period.is_from?('SGT') %>
             <div class="row">
               <div class="small-12 medium-6 columns"> </div>
               <div class="columns medium-6 small-12">
@@ -72,7 +72,7 @@
             </div>
           <% end %>
         <% end %>
-        <% if @period.is_from_SGT? %>
+        <% if @period.is_from?('SGT') %>
             <div class="row">
               <div class="small-12 medium-6 columns"> </div>
               <div class="columns medium-6 small-12">

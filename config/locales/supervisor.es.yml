@@ -240,5 +240,5 @@ es:
         indicators: "Indicadores por proceso"
     delete:
       message:
-        no_empty: "El elemnto no está vacio ¿Desea borrar este elemento y su contenido ?"
+        no_empty: "El elemento no está vacio ¿Desea borrar este elemento y su contenido ?"
         empty: "¿Desea eliminar este elemento?"
