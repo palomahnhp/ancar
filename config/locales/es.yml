@@ -57,7 +57,7 @@ es:
           global: 'Errores al validar los datos de la unidad'
         p1:
           assigned_staff: 'La/Los plantilla/puestos asignados a los subprocesos/procesos no coinciden con la/los plantilla/puestos asignados a esta unidad para:'
-          errors_in_out_stock: 'Es mayor la cantidad cumplimentada en los indicadores/tareas de salida que en los de entrada: %{sub_process}'
+          errors_in_out_stock: 'Es mayor la cantidad cumplimentada en los indicadores/tareas de salida que en los de entrada:'
           entry_incomplete: 'Quedan indicadores por cumplimentar: plantilla/puestos o cantidad.'
           entry_without_staff_html: "Hay indicadores/tareas que no tienen asignados plantilla/puestos pero si tienen cumplimentadas cantidades o indicadores/tareas con cantidades pero sin puestos asignados:"
           no_change_staff: 'No se han incluido valores para la/los plantilla/puestos y se ha dejado vacia la justificación para el cambio de puestos.'

@@ -1,25 +1,77 @@
-<p id="notice"><%= notice %></p>
+<h2><%= t("admin.settings.index.title") %></h2>
 
-<h1>Listing Settings</h1>
-
+<h3><%= t("admin.settings.index.general.title") %></h3>
 <table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @settings.each do |setting| %>
       <tr>
-        <td><%= link_to 'Show', setting %></td>
-        <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
-        <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="small-12 medium-4">
+          <strong><%= t("admin.settings.key.value.#{setting.key}") %></strong>
+          <br><small> (<%= "#{setting.key}" %>) </small>
+        </td>
+        <td class="small-12 medium-8">
+          <%= form_for(setting, url: admin_setting_path(setting), html: { id: "edit_#{dom_id(setting)}"}) do |f| %>
+            <div class="small-12 medium-6 large-9 column">
+              <%= f.text_area :value, label: false, id: dom_id(setting), lines: 1, alt: setting.key %>
+            </div>
+            <div class="small-12 medium-6 large-3 column">
+              <%= f.submit(t('admin.settings.index.update_setting'), class: "button hollow expanded") %>
+            </div>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<h3><%= t("admin.settings.index.imported_source.title") %></h3>
+<h4><%= t("admin.settings.index.imported_source.subtitle") %></h4>
+<table>
+  <tbody>
+  <% @imported_sources.each do |imported_source| %>
+      <tr>
+        <td>
+          <strong><%= t("admin.settings.index.#{imported_source.key}") %></strong>
+          <br><small> (<%= "#{imported_source.key}" %>) </small>
+        </td>
+        <td>
+          <%= imported_source.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
+        </td>
+        <td class="text-right">
+          <%= form_for(imported_source, url: admin_setting_path(imported_source), html: { id: "edit_#{dom_id(imported_source)}"}) do |f| %>
+            <%= f.hidden_field :value, id: dom_id(imported_source), value: (imported_source.enabled? ? FALSE : TRUE) %>
+            <%= f.submit(t("admin.settings.index.#{imported_source.enabled? ? 'disable' : 'enable'}"),
+                         class: "button expanded #{imported_source.enabled? ? 'hollow alert' : 'success'}",
+                         data: {confirm: t("admin.actions.confirm")}) %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
 
-<%= link_to 'New Setting', new_setting_path %>
+<h3><%= t("admin.settings.index.validations.title") %></h3>
+<h4><%= t("admin.settings.index.validations.lower_staff.title") %></h4>
+<table>
+  <tbody>
+  <% @validations.each do |validation| %>
+      <tr>
+        <td>
+          <strong><%= t("admin.settings.index.#{validation.key}") %></strong>
+          <br><small> (<%= "#{validation.key}" %>) </small>
+        </td>
+        <td>
+          <%= validation.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
+        </td>
+        <td class="text-right">
+          <%= form_for(validation, url: admin_setting_path(validation), html: { id: "edit_#{dom_id(validation)}"}) do |f| %>
+            <%= f.hidden_field :value, id: dom_id(validation), value: (validation.enabled? ? FALSE : TRUE) %>
+            <%= f.submit(t("admin.settings.index.#{validation.enabled? ? 'disable' : 'enable'}"),
+                         class: "button expanded #{validation.enabled? ? 'hollow alert' : 'success'}",
+                         data: {confirm: t("admin.actions.confirm")}) %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

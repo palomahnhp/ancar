@@ -13,7 +13,6 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
   def create
     @indicator = Indicator.find(params[:indicator_id])
     @indicator_metric = @indicator.indicator_metrics.new
-
     @indicator_metric.assign_attributes(indicator_metric_params)
     if @indicator_metric.save
       update_summary_types

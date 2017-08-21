@@ -161,11 +161,14 @@ class EntryIndicatorsController < ApplicationController
           @entry_indicators_cumplimented = false
         else
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-          ei.amount = amount.tr(',', '.').to_f
-          ei.imported_amount = ei.amount if ((current_user.has_role? :admin) && (source_imported?(ei.indicator_metric)))
-          ei.period_id = @period.id
-          ei.updated_by = current_user.login
-          ei.save
+          amount = amount.tr('.', '').tr(',', '.').to_f
+          unless ei.amount == amount
+            ei.amount = amount
+            ei.imported_amount = ei.amount if ((current_user.has_role? :admin) && (source_imported?(ei.indicator_metric)))
+            ei.period_id = @period.id
+            ei.updated_by = current_user.login
+            ei.save
+          end
         end
       end
     end

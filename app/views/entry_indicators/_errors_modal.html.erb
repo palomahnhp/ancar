@@ -45,7 +45,13 @@
       <% if @input_errors[:in_out_stock].present? %>
         <li class="modal-error-title">
           <p class="modal-error-title"><%= t('entry_indicators.form.error.title.errors_in_out_stock') %></p>
-          <p> <%= t('entry_indicators.form.error.p1.errors_in_out_stock', sub_process: in_out_error(@input_errors[:in_out_stock])) %></p>
+          <p> <%= t('entry_indicators.form.error.p1.errors_in_out_stock') %>
+            <ul>
+              <% @input_errors[:in_out_stock].each do |error| %>
+                <li> <small> <%= in_out_error(error) %> </small> </li>
+              <% end %>
+            </ul>
+          </p>
         </li>
       <% end %>
       <% if @input_errors[:incomplete_staff_entry].present? %>

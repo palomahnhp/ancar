@@ -1,49 +1,25 @@
-class SettingsController  < Admin::BaseController
+class Admin::SettingsController  < Admin::BaseController
   before_action :set_setting, only: [:show, :edit, :update, :destroy]
 
   def index
-    @settings = Setting.all
-  end
-
-  def show
-  end
-
-  def new
-    @setting = Setting.new
-  end
-
-  def edit
-  end
-
-  def create
-    @setting = Setting.new(setting_params)
-    if @setting.save
-      redirect_to @setting, notice: 'Setting was successfully created.'
-    else
-      render :new
-    end
+    all_settings = (Setting.all).group_by { |s| s.type  }
+    @settings = all_settings['common']
+    @imported_sources = all_settings['imported_source']
+    @validations = all_settings['validation']
   end
 
   def update
-    if @setting.update(setting_params)
-      redirect_to @setting, notice: 'Setting was successfully updated.'
-    else
-      render :edit
-    end
+    @setting.update(settings_params)
+    redirect_to admin_settings_path, notice: t("admin.settings.flash.updated")
   end
 
-  def destroy
-    @setting.destroy
-    redirect_to settings_url, notice: 'Setting was successfully destroyed.'
+private
+
+  def settings_params
+    params.require(:setting).permit(:value)
   end
 
-  private
-
-    def set_setting
-      @setting = Setting.find(params[:id])
-    end
-
-    def setting_params
-      params.fetch(:setting, {})
-    end
+  def set_setting
+    @setting = Setting.find(params[:id])
+  end
 end

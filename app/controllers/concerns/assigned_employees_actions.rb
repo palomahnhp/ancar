@@ -37,5 +37,6 @@ module AssignedEmployeesActions
 
   def source_imported?(indicator_metric)
     indicator_metric.indicator_sources.map{ |is| return is.source.fixed? }
+    false
   end
 end

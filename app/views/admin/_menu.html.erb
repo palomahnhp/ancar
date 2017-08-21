@@ -40,7 +40,7 @@
     </li>
 
     <li id="settings" <%= 'class=active' if controller_name == 'settings' %>>
-      <%= link_to admin_root_path do %>
+      <%= link_to admin_settings_path do %>
         <span class="icon-settings"></span>
         <%= t('admin.menu.settings') %>
       <% end %>
