@@ -105,15 +105,10 @@ module AppHelper
     end
   end
 
-  def source_editable?(indicator_metric, period, user)
+  def source_editable?(indicator_metric, period)
     if source_imported?(indicator_metric) # automatic font
-      setting_key = 'imported_sources_editable.'
-      if period.is_from?('SGT')
-        setting_key  = setting_key + 'SGT'
-      elsif period.is_from?('JD')
-        setting_key  = setting_key + 'JD'
-      end
-      setting[setting_key].present? && setting[setting_key] == 'TRUE'
+      setting_key = 'imported_sources_editable.' + period.organization_type.acronym
+      Setting.find_by_key(setting_key).enabled?
     else
       true
     end
@@ -123,7 +118,7 @@ module AppHelper
     if user.has_role? :admin
       return true
     else
-      period.open_entry? && (can? :updates, organization)  && approval.blank? && source_editable?(indicator_metric, period, user)
+      period.open_entry? && (can? :updates, organization)  && approval.blank? && source_editable?(indicator_metric, period)
     end
   end
 

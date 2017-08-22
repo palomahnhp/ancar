@@ -4,6 +4,8 @@ en:
     dashboard:
       index:
         title: Configuración de la aplicación
+    actions:
+      confirm: "¿Estás seguro?"
     menu:
       organization_types: Tipos de organizaciones
       unit_types: Tipos de unidades
@@ -142,3 +144,47 @@ en:
         organization_type: "Añadir permisos por tipo de organización"
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
+    entry_indicators:
+      index:
+        title: "Indicadores con fuentes fijas"
+      search:
+        units: "Unidades"
+        sources: "Fuentes"
+        periods: Periodos
+    settings:
+      key:
+        value:
+          header_logo: Texto para el Logo
+          org_name: Nombre de la Organización
+          app_name: Nombre de la aplicación
+          user_test: Clave para pruebas de acceso
+          no_validation_lower_staff: Permitir menos plantilla
+        description:
+          header_logo: Texto para el Logo
+          org_name: Nombre de la Organización
+          app_name: Nombre de la aplicación
+          user_test: Clave para pruebas de acceso
+          no_validation_lower_staff: Permitir menos plantilla
+      flash:
+        updated: Valor actualizado
+      index:
+        title: "Configuración de la aplicación"
+        update_setting: "Actualizar"
+        enabled: "Activada"
+        disabled: "Desactivada"
+        enable: Activar
+        disable: Desactivar
+        imported_source:
+          title: "Fuentes Importadas"
+          subtitle: "Permitida edición"
+        imported_sources_editable:
+          SGT: Secretarias Generales Técnicas
+          JD: Juntas de Distrito
+        validations:
+          title: "Validaciones"
+          lower_staff:
+            title: Permitir menos plantilla que la asignada
+            SGT: Secretarias Generales Técnicas
+            JD: Juntas de Distrito
+        general:
+          title: "Parámetros globales"
