@@ -150,6 +150,7 @@ es:
       search:
         units: "Unidades"
         sources: "Fuentes"
+        periods: Periodos
     settings:
       key:
         value:
@@ -164,9 +165,8 @@ es:
           app_name: Nombre de la aplicación
           user_test: Clave para pruebas de acceso
           no_validation_lower_staff: Permitir menos plantilla
-      settings:
-        flash:
-          updated: Valor actualizado
+      flash:
+        updated: Valor actualizado
       index:
         title: "Configuración de la aplicación"
         update_setting: "Actualizar"

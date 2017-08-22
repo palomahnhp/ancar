@@ -21,6 +21,7 @@ es:
     form:
       amount: Cantidad
       indicator:
+        Metrics: Métrica
         Indicators: Indicador
         Tasks: Tarea/acción
         sub_process:
