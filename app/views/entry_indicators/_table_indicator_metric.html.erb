@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th class="indicator-metric"><strong><%= t("entry_indicators.form.indicator.#{process_name(@period, 'indicator_metrics')}") %></strong></th>
+      <th></th>
       <th  class="indicator-source"><strong><%= t('entry_indicators.form.source') %></strong></th>
       <th class="text-center amount"><strong><%= t('entry_indicators.form.amount') %></strong></th>
     </tr>
@@ -13,9 +14,10 @@
         <td class="indicator-metric" id="<%= "metric_col_#{indicator_metric.metric_id}" %>">
           <%= get_metric(indicator_metric) %>
         </td>
+        <td> <%= indicator_metric.total_indicator_type('S') %> </td>
         <td class="indicator-metric-source <%= "source-automatic" if source_imported?(indicator_metric) %>"
             id="<%= "source_col_#{get_source_id(indicator_metric)}" %>" >
-            <%= sources_description(indicator_metric) %>
+          <%= sources_description(indicator_metric) %>
         </td>
         <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
           <% if input_allowed?(@period, @organization, @approval, indicator_metric, current_user) %>

@@ -2,7 +2,6 @@ namespace :entry_indicators do
   require 'spreadsheet'
 
   desc "Importar entry_indicators"
-
   task import: :environment do
     puts ENV['period']
     puts ENV['filename']
@@ -40,7 +39,7 @@ namespace :entry_indicators do
         data['indicator_metric'] = indicator_metric[1]
         data['amount'] = row[indicator_metric[0]]
         data['imported_amount'] = row[indicator_metric[0]]
-        data['updated_by'] = 'IMPORT'
+        data['updated_by'] = 'import'
         entry_indicator = EntryIndicator.create_from_import(data)
         p "Creando entry_indicator: " + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
         unless entry_indicator.save
@@ -50,5 +49,27 @@ namespace :entry_indicators do
 
     end
   end
+
+  desc "Initialize code ---"
+  task initialize_code: :environment do
+    p inicio = ENV['init'].to_i
+    p fin    = ENV['end'].to_i
+    p ot     = ENV['ot']
+
+    p 'Initializing indicator code between: ' + inicio.to_s + '-' + fin.to_s
+    (inicio..fin).each do |i|
+      indicator = Indicator.find(i)
+      unless indicator.nil?
+        p 'actualizando order: ' + indicator.order.to_s
+        if ot == 'JD'
+          indicator.code = indicator.order
+        elsif ot == 'SGT'
+          indicator.code = indicator.id
+        end
+        indicator.save
+      end
+    end
+  end
+
 end
 

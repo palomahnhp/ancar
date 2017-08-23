@@ -9,6 +9,7 @@ class TotalIndicatorType < ActiveRecord::Base
   end
 
   def self.acronym_id(in_out)
+    puts
     self.find_by_acronym(in_out).id
   end
 end

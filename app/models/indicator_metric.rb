@@ -47,5 +47,17 @@ class IndicatorMetric < ActiveRecord::Base
   def amount(unit_id)
     self.entry_indicators.where(unit_id: unit_id).sum(:amount)
   end
+
+  def total_indicator_type(summary_type)
+    summary_type = SummaryType.find_by_acronym(summary_type)
+    ti = summary_type.total_indicators.find_by_indicator_metric_id(self.id)
+    if ti.nil?
+      summary_type = SummaryType.find_by_acronym('U')
+      ti = summary_type.total_indicators.find_by_indicator_metric_id(self.id)
+      ti.nil? ? '' : 'X'
+    else
+      ti.in_out
+    end
+  end
 end
 

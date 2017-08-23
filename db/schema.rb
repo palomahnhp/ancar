@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810054252) do
+ActiveRecord::Schema.define(version: 20170823154857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20170810054252) do
     t.integer "indicator_id"
     t.integer "metric_id"
     t.string  "order"
+    t.integer "code"
   end
 
   add_index "indicator_metrics", ["indicator_id"], name: "index_indicator_metrics_on_indicator_id", using: :btree
@@ -155,6 +156,7 @@ ActiveRecord::Schema.define(version: 20170810054252) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "description"
+    t.integer  "code"
   end
 
   add_index "indicators", ["item_id"], name: "index_indicators_on_item_id", using: :btree

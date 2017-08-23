@@ -42,6 +42,8 @@ class EntryIndicator < ActiveRecord::Base
     entry_indicator.indicator_metric_id =  data["indicator_metric"]
     entry_indicator.amount =  data["amount"]
     entry_indicator.imported_amount =  data["imported_amount"]
+    entry_indicator.updated_by =  data["updated_by"]
+
     entry_indicator
   end
 
