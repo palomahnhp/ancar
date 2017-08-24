@@ -50,20 +50,23 @@ namespace :entry_indicators do
     end
   end
 
-  desc "Initialize code ---"
+  desc "Initialize code for a range of regs, mode: order/reg  --- "
   task initialize_code: :environment do
-    p inicio = ENV['init'].to_i
-    p fin    = ENV['end'].to_i
-    p ot     = ENV['ot']
+#   Rango de resgistros a tratar
+    inicio = ENV['init'].to_i
+    fin    = ENV['end'].to_i
 
-    p 'Initializing indicator code between: ' + inicio.to_s + '-' + fin.to_s
+#   Mode:  indica como se actualizan el nuevo campo code partiendo de order o del id del registro:
+    mode   = ENV['mode']
+
+    p 'Initializing indicator code between: ' + inicio.to_s + '-' + fin.to_s + ' ,update mode: ' + mode
     (inicio..fin).each do |i|
-      indicator = Indicator.find(i)
+      indicator = Indicator.find_by(id: i)
       unless indicator.nil?
-        p 'actualizando order: ' + indicator.order.to_s
-        if ot == 'JD'
+        p '...updating reg: ' + indicator.id.to_s
+        if mode == 'order'
           indicator.code = indicator.order
-        elsif ot == 'SGT'
+        elsif mode == 'reg'
           indicator.code = indicator.id
         end
         indicator.save

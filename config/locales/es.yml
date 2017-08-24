@@ -113,7 +113,7 @@ es:
       success:
         validation: 'La entrada de datos se ha efectuado correctamene y puede ser aprobada por el validador'
         save: 'Se han guardado los datos, no se han realizado validaciones de consistencia de los datos. Para realizarlas utiliza el botón "Finalizar entrada de datos".'
-        change: "Ajsute de plantilla/puestos cancelado"
+        change: "Ajuste de plantilla/puestos cancelado"
     summary:
       process_number: 'NUM. PROCESOS'
       subprocess_number: 'NUM. SUBPROCESOS'

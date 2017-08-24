@@ -52,12 +52,13 @@ class IndicatorMetric < ActiveRecord::Base
     summary_type = SummaryType.find_by_acronym(summary_type)
     ti = summary_type.total_indicators.find_by_indicator_metric_id(self.id)
     if ti.nil?
-      summary_type = SummaryType.find_by_acronym('U')
-      ti = summary_type.total_indicators.find_by_indicator_metric_id(self.id)
-      ti.nil? ? '' : 'X'
+      summary_type = SummaryType.find_by_acronym('X')
+      ti = summary_type.total_indicators.find_by_indicator_metric_id(self.id) unless summary_type.nil?
+      type = ti.nil? ? '' : ti.indicator_type
     else
-      ti.in_out
+      type = ti.in_out
     end
+      return type == '-' ? ' ' : type
   end
 end
 

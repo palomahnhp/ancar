@@ -20,31 +20,26 @@ class AssignedEmployee < ActiveRecord::Base
 
   def self.staff_for_unit(period, unit)
     message = []
+    lower_staff = Setting.find_by_key("validations.lower_staff.#{period.organization_type.acronym}")
+    upper_staff = Setting.find_by_key("validations.upper_staff.#{period.organization_type.acronym}")
 
     OfficialGroup.all.each do |official_group|
-      staff_indicator = self.staff_from_indicator(unit, period, official_group)
+      staff_quantity = self.staff_from_indicator(unit, period, official_group)
+
       if AssignedEmployeesChange.unit_justified(unit.id, period.id)
-        staff_real= self.staff_from_unit_justificated(unit, period, official_group)
-        unless staff_real == staff_indicator
-          unless Setting.find_by_key('validations.lower_staff.JD').enabled?
-            if staff_real < staff_indicator
-              message << official_group.description
-            end
-          else
-            message << official_group.description
-          end
-        end
+        staff_unit= self.staff_from_unit_justificated(unit, period, official_group)
       else
         staff_unit = self.staff_from_unit(unit, period, official_group)
-        unless staff_unit == staff_indicator
-          unless Setting.find_by_key('validations.lower_staff.JD').enabled?
-            if staff_unit < staff_indicator
-              message << official_group.description
-            end
-          else
+      end
+      case
+        when staff_unit <  staff_quantity
+          unless  upper_staff.present?  && upper_staff.enabled?
             message << official_group.description
           end
-        end
+        when staff_unit >  staff_quantity
+          unless lower_staff.present? && lower_staff.enabled?
+            message << official_group.description
+          end
       end
     end
     return message
