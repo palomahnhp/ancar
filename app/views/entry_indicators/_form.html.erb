@@ -41,11 +41,11 @@
               </tr>
             </thead>
             <tbody>
-              <% sub_process.indicators.each do |indicator| %>
+              <% sub_process.indicators.order(:order).each do |indicator| %>
                 <tr class="indicator-row">
                   <td class="indicator-description" id="<%= "indicator_col_#{indicator.id}" %>">
                     <% if indicator.description.nil? %>
-                        <strong> <%= main_process.order%>.<%= sub_process.order%>.<%= indicator.order %> <%= indicator.item.description %> </strong>
+                        <strong> <%= main_process.order %>.<%= sub_process.order %>.<%= indicator.code %> <%= indicator.item.description %> </strong>
                     <% else %>
                         <br>
                         <div class="moderation-description">

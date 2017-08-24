@@ -26,7 +26,7 @@
       <h5> <%= main_process.order %>.<%= sub_process.order %>. <%= sub_process.item.description %></h5>
   <% end %>
   <% unless indicator.nil? %>
-      <h5> <%= main_process.order %>.<%= sub_process.order %>.<%= indicator.order %>. <%= indicator.item.description %></h5>
+      <h5> <%= main_process.order %>.<%= sub_process.order %>.<%= indicator.code %>. <%= indicator.item.description %></h5>
   <% end %>
   <% unless indicator_metric.nil? %>
       <h5>     <%= indicator_metric.metric.item.description %></h5>
