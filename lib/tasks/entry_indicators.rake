@@ -33,24 +33,30 @@ namespace :entry_indicators do
       data = Hash.new
       data['period_id'] = period.id
       data['unit_id'] = row[1].to_i
-      p 'indicator_metrics'
+      p 'Tratando Unidad: ' + data['unit_id'].to_s
 
       @indicator_metrics.to_a.each do |indicator_metric|
         data['indicator_metric'] = indicator_metric[1]
         data['amount'] = row[indicator_metric[0]]
         data['imported_amount'] = row[indicator_metric[0]]
         data['updated_by'] = 'import'
+        p " * Tratando indicator: " + data.to_s
+        if data['amount'].nil?
+          p '  ** AMOUNT  nulo, registro no se trata'
+          next
+        end
         entry_indicator = EntryIndicator.create_from_import(data)
-        p "Creando entry_indicator: " + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
-        unless entry_indicator.save
-          p 'Error creando el registro: ' + entry_indicator.errors
+        if entry_indicator.save
+          p "  ** Creado entry_indicator: " + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
+        else
+          p "  ** ERROR no creado entry_indicator: " + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
         end
       end
 
     end
   end
 
-  desc "Initialize code for a range of regs, mode: order/reg  --- "
+  desc "Initialize code for a range of regs, mode: order/reg --- "
   task initialize_code: :environment do
 #   Rango de resgistros a tratar
     inicio = ENV['init'].to_i
