@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823154857) do
+ActiveRecord::Schema.define(version: 20170828121137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -254,11 +254,14 @@ ActiveRecord::Schema.define(version: 20170823154857) do
     t.boolean  "has_specification"
     t.integer  "order"
     t.string   "updated_by"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "organization_type_id"
+    t.boolean  "active",               default: true
   end
 
   add_index "sources", ["item_id"], name: "index_sources_on_item_id", using: :btree
+  add_index "sources", ["organization_type_id"], name: "index_sources_on_organization_type_id", using: :btree
 
   create_table "sub_processes", force: :cascade do |t|
     t.integer  "main_process_id"
@@ -451,6 +454,7 @@ ActiveRecord::Schema.define(version: 20170823154857) do
   add_foreign_key "periods", "organization_types"
   add_foreign_key "process_names", "organization_types"
   add_foreign_key "sources", "items"
+  add_foreign_key "sources", "organization_types"
   add_foreign_key "sub_processes", "items"
   add_foreign_key "sub_processes", "main_processes"
   add_foreign_key "sub_processes", "unit_types"

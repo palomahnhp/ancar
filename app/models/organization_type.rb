@@ -5,6 +5,7 @@ class OrganizationType < ActiveRecord::Base
   has_many :unit_types
   has_many :main_processes, through: :periods
   has_many :process_names
+  has_many :sources
 
   has_many :docs
 

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   namespace :admin do
   get 'roles/index'
   end
@@ -35,6 +34,7 @@ Rails.application.routes.draw do
     resources :unit_types
     resources :organizations
     resources :units
+    resources :sources
     resources :users do
       member do
         get 'ws_update'

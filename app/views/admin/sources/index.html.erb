@@ -1,0 +1,47 @@
+<div clas="row">
+  <div class="small-12 columns">
+    <h1><%= t('admin.sources.index.title')%></h1>
+    <%= link_to t('admin.sources.index.new'), new_admin_source_path, class: "button hollow success"%>
+  </div>
+
+  <div class="small-12 columns">
+    <table>
+      <thead>
+        <tr>
+          <th><%= t('admin.sources.index.id')%></th>
+          <th><%= t('admin.sources.index.source')%></th>
+          <th><%= t('admin.sources.index.fix')%></th>
+          <th><%= t('admin.sources.index.has_specifications')%></th>
+          <th><%= t('admin.sources.index.organization_type')%></th>
+          <th><%= t('admin.sources.index.active')%>Activa?</th>
+          <th><%= t('admin.sources.index.uses_number')%></th>
+          <th colspan="3"><%= t('admin.sources.index.actions')%></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @sources.each do |source| %>
+          <tr>
+            <td><%= source.id %></td>
+            <td><%= source.item.description %></td>
+            <td><%= t("admin.boolean.#{source.fixed}") %></td>
+            <td><%= source.has_specification %></td>
+            <td><%= source.from_organization_type %></td>
+            <td><%= t("admin.#{source.active}")  %></td>
+            <td><%= source.amount_uses %></td>
+
+            <td><%= link_to("", admin_source_path(source), class: "icon-search",  title: t('admin.sources.index.show')) %></td>
+            <td><%= link_to("", edit_admin_source_path(source), class: "icon-edit",  title: t('admin.sources.index.edit')) %></td>
+            <% if source.amount_uses == 0%>
+              <td><%= link_to("", admin_source_path(source), method: :delete, data: { confirm: 'Are you sure?' },
+                              class: "icon-x", title: t('admin.sources.index.destroy')) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+  </div>
+</div>

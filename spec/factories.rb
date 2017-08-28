@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :admin_source, class: 'Admin::Source' do
+    
+  end
 
   factory :user do
     login  "USU" + Faker::Number.number(3)

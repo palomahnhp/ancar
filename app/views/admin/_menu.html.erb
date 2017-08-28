@@ -7,6 +7,30 @@
           <%= t('admin.menu.users') %>
       <% end %>
     </li>
+    <li id="master_tables">
+      <a href="#">
+        <span class="icon-box"></span>
+        <%= t('admin.menu.group.master_tables') %>
+      </a>
+      <ul class="menu vertical nested">
+        <li <%= 'class=active' if controller_name == 'sources' %>>
+          <%= link_to admin_sources_path do %>
+              <%= t('admin.menu.sources') %>
+          <% end %>
+        </li>
+        <li <%= 'class=active' if controller_name == 'metrics' %>>
+          <%= link_to admin_unit_types_path do %>
+              <%= t('admin.menu.metrics') %>
+          <% end %>
+        </li>
+        <li <%= 'class=active' if controller_name == 'items' %>>
+          <%= link_to admin_unit_types_path do %>
+              <%= t('admin.menu.items') %>
+          <% end %>
+        </li>
+      </ul>
+    </li>
+
     <li id="organizations">
       <a href="#">
         <span class="icon-organizations"></span>
