@@ -1,1 +1,0 @@
-json.partial! "admin_sources/admin_source", admin_source: @admin_source

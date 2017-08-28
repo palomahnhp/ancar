@@ -1,6 +1,9 @@
 ---
 en:
   admin:
+    boolean:
+      true: si
+      false: No
     dashboard:
       index:
         title: Configuración de la aplicación
@@ -16,6 +19,10 @@ en:
       users: "Usuarios"
       group:
         units: "Organizaciones"
+        master_tables: "Tablas maestras"
+      sources: "Fuentes para indicadores"
+      metrics: "Métricas para indicadores"
+      items: Descripciones de items
     organizations:
       index:
         title: Organizaciones
@@ -188,3 +195,18 @@ en:
             JD: Juntas de Distrito
         general:
           title: "Parámetros globales"
+    sources:
+      index:
+        title: "Listado de fuentes"
+        source: "Fuente"
+        fix: "Fija"
+        has_specifications: "Admite especificaciones"
+        organization_type: "Tipo de organización"
+        active: "En uso"
+        uses_number: "Número de usos"
+        actions: Acciones
+        new: "Nueva fuente"
+        id: "Id."
+        show: Ver detalle
+        edit: Modificar
+        destroy: Eliminar fuente

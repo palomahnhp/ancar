@@ -39,8 +39,9 @@ class Admin::SourcesController < Admin::BaseController
   # PATCH/PUT /admin/sources/1.json
   def update
     respond_to do |format|
+      @source.item.description = params[:description]
       if @source.update(source_params)
-        format.html { redirect_to @source, notice: 'Source was successfully updated.' }
+        format.html { redirect_to [:admin, @source], notice: 'Source was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -64,6 +65,6 @@ class Admin::SourcesController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def source_params
-      params.fetch(:admin_source, {})
+      params.require(:source).permit(:fixed, :has_specification, :active, :organization_type_id)
     end
 end

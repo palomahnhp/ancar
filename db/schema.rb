@@ -17,6 +17,23 @@ ActiveRecord::Schema.define(version: 20170828121137) do
   enable_extension "plpgsql"
   enable_extension "adminpack"
 
+  create_table "activities", force: :cascade do |t|
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "key"
+    t.text     "parameters"
+    t.integer  "recipient_id"
+    t.string   "recipient_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
+
   create_table "approvals", force: :cascade do |t|
     t.integer  "period_id"
     t.integer  "unit_id"
@@ -116,6 +133,7 @@ ActiveRecord::Schema.define(version: 20170828121137) do
     t.integer "metric_id"
     t.string  "order"
     t.integer "code"
+    t.string  "in_out_type"
   end
 
   add_index "indicator_metrics", ["indicator_id"], name: "index_indicator_metrics_on_indicator_id", using: :btree
@@ -409,6 +427,7 @@ ActiveRecord::Schema.define(version: 20170828121137) do
     t.string   "email"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "role"
     t.datetime "inactivated_at"
     t.integer  "organization_id"
     t.integer  "sap_id_unit"

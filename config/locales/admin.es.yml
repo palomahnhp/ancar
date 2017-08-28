@@ -206,8 +206,7 @@ es:
         uses_number: "Número de usos"
         actions: Acciones
         new: "Nueva fuente"
-        id: "Identificador"
+        id: "Id."
         show: Ver detalle
         edit: Modificar
         destroy: Eliminar fuente
-
