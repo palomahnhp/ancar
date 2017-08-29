@@ -46,7 +46,7 @@
             <% elsif (@user.uweb_auth_at.nil? && @user.active?) %>
               <%= link_to(" Dar acceso en ayre", uweb_auth_admin_user_path(@user, login: @user.login,
                                                                            filter: params[:filter], page: params[:page]),
-                          class: 'icon-activate button hollow small', title: 'Dar acceso en ayre') %>
+                          class: 'icon-external-link button hollow small', title: 'Dar acceso en ayre') %>
             <% end %>
           </td>
         </tr>

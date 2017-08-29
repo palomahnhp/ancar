@@ -33,7 +33,7 @@
                   sub_process_id: params[:sub_process_id]),
                 id: "edit_#{task.id}",
                 class: 'button small float-right tiny hollow' do %>
-                <span class="icon-edit"></span>
+                <span class="icon-pencil"></span>
                 <%= t('actions.edit') %>
             <% end %>
           <% end %>
@@ -46,7 +46,7 @@
               data: {confirm: msg},
                 id: "delete_#{task.id}",
                 class: 'button small alert float-right tiny hollow' do %>
-                <span class="icon-box"></span>
+                <span class="icon-trash-o"></span>
                 <%= t('actions.delete') %>
             <% end %>
           <% end %>

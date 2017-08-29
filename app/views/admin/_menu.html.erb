@@ -9,7 +9,7 @@
     </li>
     <li id="master_tables">
       <a href="#">
-        <span class="icon-box"></span>
+        <span class="icon-archive"></span>
         <%= t('admin.menu.group.master_tables') %>
       </a>
       <ul class="menu vertical nested">
@@ -33,7 +33,7 @@
 
     <li id="organizations">
       <a href="#">
-        <span class="icon-organizations"></span>
+        <span class="icon-sitemap"></span>
         <%= t('admin.menu.group.units') %>
       </a>
       <ul class="menu vertical nested">
@@ -65,14 +65,14 @@
 
     <li id="settings" <%= 'class=active' if controller_name == 'settings' %>>
       <%= link_to admin_settings_path do %>
-        <span class="icon-settings"></span>
+        <span class="icon-cogs"></span>
         <%= t('admin.menu.settings') %>
       <% end %>
     </li>
 
     <li id="stats" <%= 'class=active' if controller_name == 'stats' %>>
       <%= link_to admin_root_path do %>
-        <span class="icon-stats"></span>
+        <span class="icon-chart-bar"></span>
         <%= t('admin.menu.stats') %>
       <% end %>
     </li>

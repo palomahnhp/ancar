@@ -39,7 +39,7 @@
         <%= link_to edit_supervisor_indicator_path(indicator, sub_process_id: @sub_process.id),
                     id: "edit_#{indicator.id}",
                     class: 'button warning float-right tiny hollow' do %>
-            <span class="icon-edit"></span>
+            <span class="icon-pencil"></span>
             <%= t('actions.edit') %>
         <% end %>
       </td>
@@ -49,7 +49,7 @@
                     data: {confirm: msg},
                     id: "delete_#{indicator.id}",
                     class: 'button alert float-right tiny hollow' do %>
-            <span class="icon-delete"></span>
+            <span class="icon-trash-o"></span>
             <%= t('actions.delete') %>
         <% end %>
       </td>
@@ -78,7 +78,7 @@
             <%= link_to edit_supervisor_indicator_metric_path(im, indicator_id: indicator.id),
                         id: "edit_#{im.id}",
                         class: 'button warning float-right tiny hollow' do %>
-                          <span class="icon-edit"></span>
+                          <span class="icon-pencil"></span>
                           <%= t('actions.edit') %>
                         <% end %>
           <% end %>
@@ -89,7 +89,7 @@
                        method: :delete, data: {confirm: t('supervisor.indicator_metrics.delete')},
                        id: "delete_#{im.id}",
                        class: 'button alert float-right tiny hollow' do %>
-                         <span class="icon-delete"></span>
+                         <span class="icon-trash-o"></span>
                          <%= t('actions.delete') %>
                        <% end %>
           <% end %>

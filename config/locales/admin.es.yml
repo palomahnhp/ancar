@@ -210,3 +210,9 @@ es:
         show: Ver detalle
         edit: Modificar
         destroy: Eliminar fuente
+      create:
+        success: "Se ha creado la fuente"
+      form:
+        fixed: "Fija/automática"
+        has_specification: "Admite especificaciones"
+        active: "Activa"

@@ -1,14 +1,35 @@
 <div class="row">
 
   <%= form_for [:admin, @source] do |f| %>
-    <strong> Fuente: <%= @source.item.description %> </strong>
-    <br>
-    <br>
-      <%= label_tag(:description, "Descripción")  %>
-      <%= text_field_tag(:description, @source.item.description)  %>
-      <%= f.check_box :fixed  %>
-      <%= f.check_box :has_specification %>
-      <%= f.check_box :active %>
+
+      <table>
+        <caption> Fuente: <%= @source.item.description if @source.item.present? %></caption>
+        <tr>
+          <td>
+            <%= f.label :fixed, t('admin.sources.form.fixed') %>
+          </td>
+          <td>
+            <%= f.check_box :fixed, label: false   %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :has_specification, t('admin.sources.form.has_specification') %>
+          </td>
+          <td>
+            <%= f.check_box :has_specification, label: false   %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :active, t('admin.sources.form.active') %>
+          </td>
+          <td>
+            <%= f.check_box :active, label: false   %>
+          </td>
+        </tr>
+
+      </table>
 
     <%= f.submit "Actualizar fuente" %>
 <% end %>

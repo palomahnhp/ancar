@@ -46,7 +46,8 @@ class UwebApi
       user[:document] = parsed_response["USUARIO"]["DNI"]
       user[:phone]    = parsed_response["USUARIO"]["TELEFONO"]
       user[:email]    = parsed_response["USUARIO"]["MAIL"]
-      user[:official_position] = parsed_response["USUARIO"]["CARGO"]
+      user[:official_position] = parsed_response["USUARIO"]["TIPO_USUARIO"] == '1' ? parsed_response["USUARIO"]["CARGO"] : 'PERSONAL EXTERNO'
+      user[:sap_den_unit] = parsed_response["USUARIO"]["UNIDAD"]
       user[:pernr]    = parsed_response["USUARIO"]["NUM_PERSONAL"]
       user[:active]    = parsed_response["USUARIO"]["BAJA_LOGICA"] == '0' ? true : false
       return user

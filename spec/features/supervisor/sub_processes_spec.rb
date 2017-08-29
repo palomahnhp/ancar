@@ -131,7 +131,7 @@ feature 'SubProcesses Maintenance' do
 
     end
 
-    it 'create a new subprocess selecting description' do
+    it 'selecting description' do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
 
@@ -152,7 +152,7 @@ feature 'SubProcesses Maintenance' do
       expect(page).to have_content '1. 3. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
     end
 
-    it 'create a new subprocess writing description' do
+    it 'writing description' do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
 

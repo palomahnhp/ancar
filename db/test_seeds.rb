@@ -50,7 +50,7 @@ task_item = Item.find_or_create_by!(item_type: "task", description: "TAREA")
 task = Task.find_or_create_by!(sub_process_id: sp1.id, item_id: task_item.id, order: "1")
 
 indicator_item = Item.find_or_create_by!(item_type: "indicator", description: "Contratos Menores")
-indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1")
+indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1", code: '1')
 metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº de Contratos recibidos")
 metric = Metric.find_or_create_by!(item_id: metric_item.id)
 indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
@@ -72,7 +72,7 @@ indicator_source = IndicatorSource.find_or_create_by!(indicator_id: indicator.id
 # SP2
 task = Task.find_or_create_by!(sub_process_id: sp2.id, item_id: task_item.id, order: "1")
 indicator_item = Item.find_or_create_by!(item_type: "indicator", description: "Expedientes urbanísticos")
-indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1")
+indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1", code: '1')
 metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº de Expedientes")
 metric = Metric.find_or_create_by!(item_id: metric_item.id)
 indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
@@ -135,7 +135,7 @@ organization_data.each do |data|
 
   indicator_item = Item.find_or_create_by!(item_type: "indicator", description: "- Revisión jurídica, preparación de documentación y petición de inforems de los asuntos a tratar en la Comisión Preparatoria ..
 ")
-  indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1")
+  indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1", code: "1")
   metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº informes solicitados por otras Áreas de Gobierno")
   metric = Metric.find_or_create_by!(item_id: metric_item.id)
   indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
@@ -153,7 +153,7 @@ organization_data.each do |data|
   # SP2
   task = Task.find_or_create_by!(sub_process_id: sp2.id, item_id: task_item.id, order: "1")
   indicator_item = Item.find_or_create_by!(item_type: "indicator", description: "Preparación revisión y tramitación de proyectos normativos ....")
-  indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1")
+  indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1", code: '1')
   metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº de proyectos de otras Áreas")
   metric = Metric.find_or_create_by!(item_id: metric_item.id)
   indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)

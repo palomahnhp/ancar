@@ -33,7 +33,7 @@
             <%= link_to edit_supervisor_main_process_path(main_process),
                 id: "edit_#{main_process.id}",
                 class: 'button small float-right hollow' do %>
-                  <span class="icon-edit"></span>
+                  <span class="icon-pencil"></span>
                   <%= t('actions.edit') %>
                 <% end %>
           <% end %>
@@ -44,7 +44,7 @@
             <%= link_to supervisor_main_process_path(main_process),
                         method: :delete, data: {confirm: msg}, id: "delete_#{main_process.id}",
                         class: 'button small alert float-right hollow' do %>
-                          <span class="icon-box"></span>
+                          <span class="icon-trash-o"></span>
                           <%= t('actions.delete') %>
                         <% end %>
           <% end %>

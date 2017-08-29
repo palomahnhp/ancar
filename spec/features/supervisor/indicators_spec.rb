@@ -64,10 +64,10 @@ feature 'Indicators Maintenance' do
 
     end
 
-    it 'has correct buttons for opened period ' do
+    it 'has correct buttons for period with not open yer data entry' do
 
       period = Period.first
-      period.opened_at = Time.now - 1.days
+      period.opened_at = Time.now + 1.days
       period.closed_at = Time.now + 1.months
       period.save
 
@@ -77,7 +77,7 @@ feature 'Indicators Maintenance' do
       visit supervisor_root_path
 
       click_link 'Configurar Periodos'
-      within("#period_1") do
+      within("#period_2") do
         click_link "ver procesos"
       end
       within("#main_process_1") do
@@ -92,7 +92,7 @@ feature 'Indicators Maintenance' do
       expect(page).to have_link('Eliminar', count: 3)
     end
 
-    it "has correct buttons for closed period " do
+    it "has correct buttons for period open data entry or close data_entry period " do
       period = Period.first
 
       period.opened_at = Time.now - 2.days
@@ -121,36 +121,6 @@ feature 'Indicators Maintenance' do
       expect(page).not_to have_link 'Editar'
       expect(page).not_to have_link 'Eliminar'
 
-    end
-
-    it "has correct buttons for not open yet period " do
-      period = Period.first
-
-      period.opened_at = Time.now + 1.months
-      period.closed_at = Time.now + 2.months
-      period.save
-
-      supervisor = create(:supervisor_global)
-      login_as_authenticated_user(supervisor)
-
-      visit supervisor_root_path
-
-      expect(page).to have_content 'Configuración de procesos'
-      click_link 'Configurar Periodos'
-
-      within("#period_1") do
-        click_link "ver procesos"
-      end
-      within("#main_process_1") do
-        click_link "Ver subprocesos"
-      end
-
-      within("#sub_process_1") do
-        click_link "Ver indicadores"
-      end
-
-      expect(page).to have_link 'Editar'
-      expect(page).to have_link 'Eliminar'
     end
   end
 

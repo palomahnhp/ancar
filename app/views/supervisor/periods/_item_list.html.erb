@@ -34,7 +34,7 @@
               period_id: period.id, organization_type_id: period.organization_type_id),
               id: "index_#{period.id}",
               class: 'button float-right tiny hollow' do %>
-                <span class="icon-tag"></span>
+                <span class="icon-folder-open-o"></span>
                 <%= t('supervisor.periods.index.button.processes',
                       process_name: t("supervisor.process_name.plural.#{process_name(period, 'main_processes')}")) %>
               <% end %>
@@ -44,7 +44,7 @@
           <%= link_to edit_supervisor_period_path(period),
               id: "edit_#{period.id}",
               class: 'edit-banner button float-right tiny hollow' do %>
-               <span class="icon-edit"></span>
+               <span class="icon-pencil"></span>
                 <%= t('supervisor.periods.index.button.edit') %>
               <% end %>
         </td>
@@ -57,7 +57,7 @@
                         data: {confirm: msg},
                         id: "delete_#{period.id}",
                         class: 'delete-banner button alert float-right tiny hollow end' do %>
-                          <span class="icon-box"></span>
+                <span class="icon-trash-o"></span>
                           <%= t('supervisor.periods.index.button.delete') %>
                         <% end %>
           </td>

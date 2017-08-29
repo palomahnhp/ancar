@@ -14,7 +14,7 @@
       <% end %>
     </div>
       <div class="small-12 medium-2 column end">
-        <%= link_to t('admin.roles.index.new'),  new_admin_user_path ,class: 'hollow button' %>
+        <%= link_to t('admin.roles.index.new'),  new_admin_user_path ,class: ' icon-user-plus hollow button small' %>
       </div>
   </div>
 </div>
@@ -53,9 +53,9 @@
         <%= link_to("", admin_user_path(user, filter: params[:filter], page: params[:page]),
                     title: 'Detalle del usuario', class: "icon-search") %>
         <%= link_to("", edit_admin_user_path(user, filter: params[:filter], page: params[:page]),
-                    title: 'Modificar el usuario y añadir permisos', class: "icon-edit") %>
+                    title: 'Modificar el usuario y añadir permisos', class: "icon-pencil") %>
         <%= link_to("", ws_update_admin_user_path(user, filter: params[:filter], page: params[:page]),
-                    title: 'Actualizar puesto y organización', class: "icon-external") %>
+                    title: 'Actualizar puesto y organización', class: "icon-cloud-download") %>
 
       </td>
     </tr>

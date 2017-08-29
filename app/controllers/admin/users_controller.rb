@@ -54,7 +54,8 @@ class Admin::UsersController < Admin::BaseController
     if params[:commit] == "Buscar datos"
       @user = User.new(user_params)
       if @user.validate
-        unless @user.uweb_update && @user.directory_update
+        unless @user.uweb_update
+          @user.directory_update
           flash[:alert] = t('admin.users.create.alert')
         end
       end
@@ -88,7 +89,8 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def ws_update
-    if @user.uweb_update! && @user.directory_update!
+    if @user.uweb_update!
+      @user.directory_update!
       flash[:notice] = t('admin.users.uweb_update.success', user: @user.login)
     else
       flash[:alert] = t('admin.users.uweb_update.error', user: @user.login)
