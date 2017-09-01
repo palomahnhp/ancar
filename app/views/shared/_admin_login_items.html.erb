@@ -13,7 +13,10 @@
   <% end %>
 
   <li>
-    <%= link_to t('application.close'), session_path, method: :DELETE %>
+    <%= link_to  session_path, method: :DELETE do %>
+        <span class="icon-power-off"></span>
+        <%= t('application.close') %>
+    <% end %>
   </li>
 
 <% end %>
