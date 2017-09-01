@@ -14,7 +14,7 @@ es:
     open: Abierto
     close: Cerrado
   application:
-    close: Salir
+    close: Desconectar
     require_user:
       no_connect: "Usuario no conectado"
   entry_indicators:
