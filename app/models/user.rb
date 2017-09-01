@@ -47,6 +47,12 @@ class User < ActiveRecord::Base
       self.phone = uweb_data[:phone]
       self.email = uweb_data[:email]
       self.pernr = uweb_data[:pernr]
+#     Datos básicos para personal externo, que en el caso de empleados se sobreescribiran con datos de Directorio
+      self.name = uweb_data[:name]
+      self.surname = uweb_data[:surname]
+      self.second_surname = uweb_data[:second_surname]
+      self.sap_den_unit = uweb_data[:unit]
+      self.official_position = uweb_data[:official_position]
     else
       false
     end
