@@ -6,21 +6,21 @@
 
     <li <%= 'class=active' if controller_name == 'periods' %>>
       <%= link_to supervisor_periods_path do %>
-        <span class="icon-debates"></span>
+        <span class="icon-calendar"></span>
         <%= t('supervisor.menu.periods') %>
       <% end %>
     </li>
 
     <li>
       <%= link_to supervisor_process_summary_index_path(type: 'MainProcess') do %>
-        <span class="icon-document"> </span>
+        <span class="icon-file-text-o"> </span>
         <%= t('subnavigation_menu.process_summary') %>
       <% end %>
     </li>
 
     <li>
       <%= link_to supervisor_process_summary_index_path(type: 'SubProcess') do %>
-        <span class="icon-document"> </span>
+        <span class="icon-files-o"> </span>
         <%= t('subnavigation_menu.subprocess_summary') %>
       <% end %>
     </li>

@@ -32,7 +32,7 @@
           <%= link_to edit_supervisor_sub_process_path(sub_process),
               id: "edit_#{sub_process.id}",
               class: 'button small float-right hollow' do %>
-                <span class="icon-edit"></span>
+                <span class="icon-pencil-square-o"></span>
                 <%= t('actions.edit') %>
               <% end %>
           <% end %>
@@ -45,7 +45,7 @@
                 data: {confirm: msg},
                 id: "delete_#{sub_process.id}",
                 class: 'button small alert float-right hollow' do %>
-                <span class="icon-box"></span>
+                <span class="icon-trash-o"></span>
                 <%= t('actions.delete') %>
           <% end %>
         <% end %>

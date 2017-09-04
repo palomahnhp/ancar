@@ -54,14 +54,13 @@ namespace :entry_indicators do
       end
     end
   end
+
+
   desc "Importar entry_indicators"
-
-
-
   task import_JD: :environment do
     if ENV['period'].nil? || ENV['filename'].nil?
       p '**'
-      p '** ERROR: debe indicar id del periodo y file: rake entry_indicators:import period=10 filename=../nombrefichero.xls'
+      p "** ERROR: debe indicar id del periodo y file: rake entry_indicators:import_JD period=7 filename='/home/phn001/Documents/ANCAR/DatosCargas/Indicadores_automaticos/Indicadores_JD_para_carga.xls"
       p '**'
       exit
     end
