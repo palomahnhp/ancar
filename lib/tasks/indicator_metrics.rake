@@ -3,7 +3,8 @@ namespace :indicator_metrics do
 
   desc "Initialize in_out_type  "
   task initialize_in_out_type: :environment do
-    p 'Initializing indicators in_out_type, actualizando ' + TotalIndicator.where(summary_type_id: [17, 18]).count.to_s + '... '
+    p 'Parameters: save: ' + ENV['save'] + ' entorno: ' + ENV['RAILS_ENV'] unless ENV['RAILS_ENV'].nil?
+    p 'Initializing indicators in_out_type, updating ' + TotalIndicator.where(summary_type_id: [17, 18]).count.to_s + '... '
     count = 0
     TotalIndicator.where(summary_type_id: [17, 18]).each do |ti|
       im = IndicatorMetric.find_by(id: ti.indicator_metric_id)
@@ -13,7 +14,7 @@ namespace :indicator_metrics do
         count += 1
       end
     end
-    p count.to_s + ' regs update'
+    p count.to_s + ' regs updated'
   end
 
   desc "Initialize validation group  "
