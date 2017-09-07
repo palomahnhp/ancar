@@ -172,5 +172,5 @@ namespace :entry_indicators do
     end
   end
 
- end
+end
 

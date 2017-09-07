@@ -36,10 +36,7 @@ class EntryIndicator < ActiveRecord::Base
   end
 
   def self.create_from_import(data)
-    entry_indicator = EntryIndicator.new()
-    entry_indicator.period_id =  data["period_id"]
-    entry_indicator.unit_id =  data["unit_id"]
-    entry_indicator.indicator_metric_id =  data["indicator_metric"]
+    entry_indicator = EntryIndicator.find_or_create_by(unit_id: data["unit_id"], indicator_metric_id: data["indicator_metric"], period_id: data["period_id"] )
     entry_indicator.amount =  data["amount"]
     entry_indicator.imported_amount =  data["imported_amount"]
     entry_indicator.updated_by =  data["updated_by"]

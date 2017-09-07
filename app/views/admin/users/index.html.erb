@@ -6,7 +6,7 @@
     <div class="small-12 medium-10 columns">
       <%= form_tag search_admin_users_path(role_name: params[:role_name]), method: :get, remote: true  do %>
           <div class="small-12 medium-8 column">
-            <%= text_field_tag :search, '', placeholder: t('admin.users.search.login_placeholder') %>
+            <%= text_field_tag :search, '', placeholder: t('admin.users.search.login_placeholder'), class: 'icon-search' %>
           </div>
           <div class="small-12 medium-4 column">
             <%= submit_tag t('admin.roles.search.search'), class: 'button' %>
@@ -14,7 +14,7 @@
       <% end %>
     </div>
       <div class="small-12 medium-2 column end">
-        <%= link_to t('admin.roles.index.new'),  new_admin_user_path ,class: 'hollow button' %>
+        <%= link_to t('admin.roles.index.new'),  new_admin_user_path ,class: 'icon-user-plus hollow button' %>
       </div>
   </div>
 </div>
@@ -53,9 +53,9 @@
         <%= link_to("", admin_user_path(user, filter: params[:filter], page: params[:page]),
                     title: 'Detalle del usuario', class: "icon-search") %>
         <%= link_to("", edit_admin_user_path(user, filter: params[:filter], page: params[:page]),
-                    title: 'Modificar el usuario y añadir permisos', class: "icon-edit") %>
+                    title: 'Modificar el usuario y añadir permisos', class: "icon-pencil-square-o") %>
         <%= link_to("", ws_update_admin_user_path(user, filter: params[:filter], page: params[:page]),
-                    title: 'Actualizar puesto y organización', class: "icon-external") %>
+                    title: 'Actualizar puesto y organización', class: "icon-cloud-download") %>
 
       </td>
     </tr>
