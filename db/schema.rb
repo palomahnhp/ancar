@@ -11,11 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823154857) do
+ActiveRecord::Schema.define(version: 20170907055357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "adminpack"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "key"
+    t.text     "parameters"
+    t.integer  "recipient_id"
+    t.string   "recipient_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "approvals", force: :cascade do |t|
     t.integer  "period_id"
@@ -116,6 +133,10 @@ ActiveRecord::Schema.define(version: 20170823154857) do
     t.integer "metric_id"
     t.string  "order"
     t.integer "code"
+    t.string  "in_out_type"
+    t.integer "validation_group_id"
+    t.string  "data_source"
+    t.string  "procedure"
   end
 
   add_index "indicator_metrics", ["indicator_id"], name: "index_indicator_metrics_on_indicator_id", using: :btree
@@ -254,11 +275,14 @@ ActiveRecord::Schema.define(version: 20170823154857) do
     t.boolean  "has_specification"
     t.integer  "order"
     t.string   "updated_by"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "organization_type_id"
+    t.boolean  "active",               default: true
   end
 
   add_index "sources", ["item_id"], name: "index_sources_on_item_id", using: :btree
+  add_index "sources", ["organization_type_id"], name: "index_sources_on_organization_type_id", using: :btree
 
   create_table "sub_processes", force: :cascade do |t|
     t.integer  "main_process_id"
@@ -451,6 +475,7 @@ ActiveRecord::Schema.define(version: 20170823154857) do
   add_foreign_key "periods", "organization_types"
   add_foreign_key "process_names", "organization_types"
   add_foreign_key "sources", "items"
+  add_foreign_key "sources", "organization_types"
   add_foreign_key "sub_processes", "items"
   add_foreign_key "sub_processes", "main_processes"
   add_foreign_key "sub_processes", "unit_types"

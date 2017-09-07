@@ -3,7 +3,7 @@ namespace :entry_indicators do
 
   desc "Importar entry_indicators"
   task import_SGT: :environment do
-    if ENV['period'].nil? || ENV['filename'].nil?
+    if ENV['period'].nil? || ENV['filename'].nil? || ENV['save'].nil?
       p '**'
       p '** ERROR: debe indicar id del periodo y file: rake entry_indicators:import period=10 filename=../nombrefichero.xls'
       p '**'
@@ -11,7 +11,7 @@ namespace :entry_indicators do
     end
 
     period = Period.find(ENV['period'].to_i)
-    p 'Importing entry_indicators: ' + period.description + ', fichero: ' +ENV['filename']
+    p 'Importing entry_indicators: ' + ' actualización: ' + ENV['save'] + ' ' +period.description + ', fichero: ' +ENV['filename']
 
     book  = Spreadsheet.open ENV['filename']
     sheet = book.worksheet 0
@@ -46,19 +46,19 @@ namespace :entry_indicators do
         end
 
         entry_indicator = EntryIndicator.create_from_import(data)
-        if entry_indicator.save
-          p "  ** Creado entry_indicator: " + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
-        else
-          p "  ** ERROR no creado entry_indicator: " + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
+        if ENV['save'] == 'true'
+          if entry_indicator.save
+            p "  ** Creado entry_indicator: " + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
+          else
+            p "  ** ERROR no creado entry_indicator: " + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
+          end
         end
       end
     end
   end
-  desc "Importar entry_indicators"
 
-
-
-  task import_JD: :environment do
+  desc "Importar entry_indicators para distritos formato BI"
+  task import_JD_BI: :environment do
     if ENV['period'].nil? || ENV['filename'].nil?
       p '**'
       p '** ERROR: debe indicar id del periodo y file: rake entry_indicators:import period=10 filename=../nombrefichero.xls'
@@ -66,7 +66,7 @@ namespace :entry_indicators do
       exit
     end
     period = Period.find(ENV['period'].to_i)
-    p 'Importing entry_indicators: ' + period.description + ', fichero: ' +ENV['filename']
+    p 'Importing entry_indicators: ' + ' actualización: ' +  ENV['save']+ ' ' +period.description + ', fichero: ' +ENV['filename']
     book  = Spreadsheet.open ENV['filename']
     sheet = book.worksheet 0
     (sheet.rows).each do |row|
@@ -92,10 +92,12 @@ namespace :entry_indicators do
           next
         end
         entry_indicator = EntryIndicator.create_from_import(data)
-        if entry_indicator.save
-          p '  ** Creado entry_indicator: ' + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
-        else
-          p '  ** ERROR no creado entry_indicator: ' + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
+        if ENV['save'] == 'true'
+          if  entry_indicator.save
+            p '  ** Creado entry_indicator: ' + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
+          else
+            p '  ** ERROR no creado entry_indicator: ' + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description
+          end
         end
       else
         p ' ***** ERROR no se ha encontrado ese indicador en el periodo tratado'
@@ -103,29 +105,72 @@ namespace :entry_indicators do
     end
   end
 
-desc 'Initialize code for a range of regs, mode: order/reg --- '
-  task initialize_code: :environment do
-#   Rango de resgistros a tratar
-    inicio = ENV['init'].to_i
-    fin    = ENV['end'].to_i
+  desc 'importación de indicadores para distritos desde excel SIGSA'
+  task import_JD_SIGSA: :environment do
+    if ENV['period'].nil? || ENV['filename'].nil? || ENV['save'].nil?
+      p '**'
+      p '** ERROR: debe indicar id del periodo y file: rake entry_indicators:import period=10 filename=../nombrefichero.xls'
+      p '**'
+      exit
+    end
+    period = Period.find(ENV['period'].to_i)
+    p 'Importing entry_indicators: ' + ENV['RAILS_ENV'].to_s + ' actualizaciOn: '+ ENV['save'] + ' ' + period.description + ', fichero: ' +ENV['filename']
+    book  = Spreadsheet.open ENV['filename']
+    sheet = book.worksheet 0
+    (sheet.rows).each do |row|
+      next if row[0] == 'Num. Indicador '
 
-#   Mode:  indica como se actualizan el nuevo campo code partiendo de order o del id del registro:
-    mode   = ENV['mode']
+      data = Hash.new
+      indicador = row[0][0...4].to_i
+      data['period_id'] = period.id
+      indicators = Indicator.where(code: indicador)
+      indicator = nil
+      indicators.each do |ind|
+        indicator = ind if ind.period == period
+      end
+      if indicator.present?
+        (1..21).each do |i|
+          organization = Organization.find_by_order(i)
+          unit_type = indicator.sub_process.unit_type
+          if organization.present? && unit_type.present?
+            data['unit_id'] = Unit.where(organization_id: organization.id, unit_type_id: unit_type.id).take.id
+            in_out = row[1]
+            indicator_metric = IndicatorMetric.where(indicator_id: indicator.id, in_out_type: in_out)
+            if indicator_metric.present?
+              data['indicator_metric'] = indicator_metric.take.id
+              data['amount'] = row[i+1]
+              data['imported_amount'] = row[i+1]
+              data['updated_by'] = 'import'
 
-    p 'Initializing indicator code between: ' + inicio.to_s + '-' + fin.to_s + ' ,update mode: ' + mode
-    (inicio..fin).each do |i|
-      indicator = Indicator.find_by(id: i)
-      unless indicator.nil?
-        p '...updating reg: ' + indicator.id.to_s
-        if mode == 'order'
-          indicator.code = indicator.order
-        elsif mode == 'reg'
-          indicator.code = indicator.id
+              p "**** Tratando indicator: " + data.to_s
+
+              if data['amount'].nil?
+                p '  ** AMOUNT  nulo, registro no se trata'
+                next
+              end
+              entry_indicator = EntryIndicator.create_from_import(data)
+              if ENV['save'] == 'true'
+                if entry_indicator.save
+                  p '  ** CREADO entry_indicator: ' + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description +
+                         ' ' + organization.description + '/' + unit_type.description
+                else
+                  p '  ** ERROR en save no creado entry_indicator: ' + entry_indicator.indicator_metric.id.to_s + ' - ' + entry_indicator.indicator_metric.metric.item.description +
+                         ' ' + organization.description + '/' + unit_type.description
+                end
+              end
+            else
+              p '  ** ERROR No existe indicator metric para indicador ' + indicator.id.to_s + ' entrada salida: ' + in_out +
+                     ' ' + organization.description + '/' + unit_type.description
+            end
+          else
+            p '  ** ERROR obteniendo unit_type u organization: ' + i
+         end
         end
-        indicator.save
+      else
+        p ' ** ERROR no se ha encontrado ese indicador en el periodo tratado'
       end
     end
   end
 
-end
+ end
 

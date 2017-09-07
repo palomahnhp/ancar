@@ -55,7 +55,8 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
   private
   def indicator_metric_params
     params.require(:indicator_metric).permit(:indicator_id, :metric_id, :order,
-                              indicator_sources_attributes: [:id, :source_id, :_destroy])
+                                             :in_out_type, :validation_group_id, :data_source, :procedure,
+                                             indicator_sources_attributes: [:id, :source_id, :_destroy])
   end
 
   def update_summary_types
