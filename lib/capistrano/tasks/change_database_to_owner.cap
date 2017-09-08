@@ -1,7 +1,7 @@
 namespace :deploy do
   desc "change database user to owner"
   task :change_user_to_owner do
-    run_locally do
+    on roles(:all) do |host|
       execute "cp #{shared_path}/config/database_owner.yml  #{shared_path}/config/database.yml"
     end
   end
