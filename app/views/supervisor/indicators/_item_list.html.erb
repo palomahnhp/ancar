@@ -6,15 +6,7 @@
               process_name: t("supervisor.process_name.singular.#{process_name(@sub_process.main_process.period, controller_name)}")).capitalize %></th>
     <th class="text-left"><%= t('supervisor.indicators.item_list.metric') %></th>
     <th class="text-left"><%= t('.source') %></th>
-    <th class="text-center" colspan="<%= SummaryType.all.count %>"><%= t('.totals') %></th>
-    <th colspan="2"></th>
-  </tr>
-  <tr>
-      <th colspan="3"></th>
-      <% SummaryType.all.each do |summary_type|%>
-        <th class="text-left"><%= summary_type.item.description %></th>
-      <% end %>
-    <th colspan="2"></th>
+    <th class="text-left"><%= t('.in_out_type') %></th>
   </tr>
 
   <% @indicators.each do  |indicator|%>
@@ -67,12 +59,7 @@
             <%= is.source.item.description %>
           <% end %>
         </td>
-
-          <% SummaryType.all.each do |summary_type|%>
-              <% mark = total_check(im, summary_type.id) %>
-              <td id="<%= dom_id(summary_type) %>" title="<%= "#{t("supervisor.indicators.total_indicator_type.#{mark}")}"%>"><%= mark%></td>
-          <% end %>
-
+        <td><%= im.in_out_type %>/<%= total_check(im, 17)%></td>
         <td>
           <% if indicator.modifiable? == true %>
             <%= link_to edit_supervisor_indicator_metric_path(im, indicator_id: indicator.id),
