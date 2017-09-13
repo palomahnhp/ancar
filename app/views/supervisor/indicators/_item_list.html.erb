@@ -6,7 +6,7 @@
               process_name: t("supervisor.process_name.singular.#{process_name(@sub_process.main_process.period, controller_name)}")).capitalize %></th>
     <th class="text-left"><%= t('supervisor.indicators.item_list.metric') %></th>
     <th class="text-left"><%= t('.source') %></th>
-    <th class="text-left"><%= t('.in_out_type') %></th>
+    <th class="text-center"><%= t('.in_out_type') %></th>
   </tr>
 
   <% @indicators.each do  |indicator|%>
@@ -59,7 +59,7 @@
             <%= is.source.item.description %>
           <% end %>
         </td>
-        <td><%= im.in_out_type %>/<%= total_check(im, 17)%></td>
+        <td class="text-center"><%= im.in_out_type %></td>
         <td>
           <% if indicator.modifiable? == true %>
             <%= link_to edit_supervisor_indicator_metric_path(im, indicator_id: indicator.id),

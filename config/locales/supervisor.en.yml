@@ -18,9 +18,11 @@ en:
         title: "Editar %{process_name}"
       form:
         description: Descripción
-        order: Orden
+        order: Orden de Visualización
+        code: Código del indicador
         items:
           description: "Si no existe la descripción en la caja superior escribala aquí"
+        code: "Código del indicador"
       index:
         empty: "No hay %{process_name} definidos"
         title: "%{process_name}"
@@ -36,13 +38,7 @@ en:
         indicator: "%{process_name}"
         metric: Métrica
         source: Fuente
-        totals: Totalizadores
-      total_indicator_type:
-        E: Entrada
-        S: Salida
-        X: Único
-        A: "Acumula"
-        -: No acumula
+        in_out_type: Tipo (E/S/X)
     indicator_metrics:
       new:
         title: Crear métrica
@@ -51,15 +47,13 @@ en:
         title: Editar métrica
       update:
         title: Editar métrica
-        total_indicators: "Seleccionar el/los tipo/s de procesos y el comportamiento"
       form:
         metric: Métrica
         source:
           column: "Fuente"
           note: "Crear el indicador y posteriormente editar para añadir la/s fuente/s."
           add: 'Añadir fuente'
-      total_indicators:
-        title: "Tipo de indicador"
+        type: "Tipo de indicador"
       create:
         success: La métrica se ha añadido correctamente
       index:
@@ -240,5 +234,5 @@ en:
         indicators: "Indicadores por proceso"
     delete:
       message:
-        no_empty: "El elemento no está vacio ¿Desea eliminarlos junto a su contenido?"
+        no_empty: "El elemento no está vacio ¿Desea borrar este elemento y su contenido ?"
         empty: "¿Desea eliminar este elemento?"
