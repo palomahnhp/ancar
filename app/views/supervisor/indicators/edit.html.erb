@@ -6,7 +6,8 @@
                     modifiable: @indicator.modifiable?,
                     period: @indicator.task.sub_process.main_process.period,
                     main_process: @indicator.task.sub_process.main_process, sub_process: @indicator.task.sub_process,
-                    indicator: @indicator, indicator_metric: nil } %>
+                    indicator: @indicator, indicator_metric: nil,
+                    index_path: supervisor_indicators_path} %>
 <div class="small-12 column">
   <%= render 'form' %>
 </div>

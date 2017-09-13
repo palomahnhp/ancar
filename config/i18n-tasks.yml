@@ -128,6 +128,9 @@ ignore_unused:
   - 'entry_indicators.form.error.p1.global.*'
   - 'entry_indicators.form.main_process.*'
   - 'admin.users.index.filter.*'
+  - 'admin.settings.index.*'
+  - 'admin.settings.key.*'
+
 
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

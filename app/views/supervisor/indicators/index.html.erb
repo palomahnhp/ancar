@@ -6,7 +6,8 @@
                     path: new_supervisor_indicator_path(sub_process_id: @sub_process.id),
                     modifiable: @sub_process.modifiable?,
                     period: @sub_process.main_process.period, main_process: @sub_process.main_process,
-                    sub_process: @sub_process, indicator: nil, indicator_metric: nil  } %>
+                    sub_process: @sub_process, indicator: nil, indicator_metric: nil,
+                    index_path: supervisor_sub_processes_path(main_process_id: @sub_process.main_process.id) } %>
 
 <div>
   <% if @indicators.nil? || @indicators.empty? %>

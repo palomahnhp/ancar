@@ -3,7 +3,8 @@
                              process_name:t("supervisor.process_name.plural.#{process_name(@main_process.period, controller_name)}")),
                     button: nil, path: nil, modifiable: true,
                     period: @main_process.period, main_process: @main_process, sub_process: nil,
-                    indicator: nil, indicator_metric: nil  } %>
+                    indicator: nil, indicator_metric: nil,
+                    index_path: supervisor_main_processes_path(period_id: @main_process.period)} %>
 <div class="small-12 column">
   <%= render 'form' %>
 </div>
