@@ -120,18 +120,25 @@ namespace :indicator_metrics do
         if ENV['validation'] == 'true'
           msj = []
           if im.in_out_type != indicator_in_out then msj << "  ** ERROR @indicator_in_out #{im.in_out_type} / #{indicator.in_out}" end
-          if indicador.item.description.upcase != @indicator_desc.squish.upcase then msj << "  ** ERROR @indicator_desc #{indicador.item.description.upcase} / #{@indicator_desc.squish.upcase}" end
-          if im.metric.item.description.upcase != metric_desc.squish.upcase then msj << "  ** ERROR metric #{im.metric.item.description.upcase} / #{metric_desc.squish.upcase}" end
+#          if indicador.item.description.upcase != @indicator_desc.squish.upcase then msj << "  ** ERROR @indicator_desc #{indicador.item.description.upcase} / #{@indicator_desc.squish.upcase}" end
+#          if im.metric.item.description.upcase != metric_desc.squish.upcase then msj << "  ** ERROR metric #{im.metric.item.description.upcase} / #{metric_desc.squish.upcase}" end
 
           if im.indicator_sources.present? && im.indicator_sources.first.source.present?
-            if im.indicator_sources.first.source.item.description.upcase   != source_desc.upcase   then msj << "  ** ERROR source #{im.indicator_sources.first.source.item.description.upcase} / #{source_desc.upcase}" end
-            if im.indicator_sources.first.source.fixed.present? && indicator_automatic.squish != 'A' then  msj << "  ** ERROR fuente automatica #{im.indicator_sources.first.source.fixed.present?} #{indicator_automatic.squish}" end
+            if im.indicator_sources.first.source.item.description.upcase != source_desc.upcase &&  im.indicator_sources.first.source.item.description.upcase.split(/\W+/)[0] != source_desc.upcase.squish
+               msj << "  ** ERROR source #{im.indicator_sources.first.source.item.description.upcase} / #{source_desc.upcase}"
+            end
+
+            if im.indicator_sources.first.source.fixed.present? && indicator_automatic.squish != 'A'
+              msj << "  ** ERROR fuente automatica #{im.indicator_sources.first.source.fixed.present?} #{indicator_automatic.squish}"
+            end
             if im.indicator_sources.first.source.fixed.present? && indicator_automatic.squish == '' then msj << "  ** ERROR fuente NO automatica #{im.indicator_sources.first.source.fixed.present?} #{indicator_automatic.squish}" end
           else
             msj << "  ** ERROR no tiene fuente"
           end
 
-          if im.data_source != indicator_data_source then msj << "  ** ERROR indicator_metric modo obtención #{im.data_source} / #{indicator_data_source}" end
+          if im.data_source.to_s != indicator_data_source.to_s
+            msj << "  ** ERROR indicator_metric modo obtención  id=#{im} / #{im.data_source} / #{indicator_data_source}"
+          end
           if im.procedure != indicator_proc then msj << "  ** ERROR indicator tramite #{im.procedure} / #{indicator_proc}" end
           if msj.present?
             p 'tratando fila: ' + fila.to_s + ' ' + row.to_s
