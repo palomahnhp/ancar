@@ -9,6 +9,8 @@ class Setting < ActiveRecord::Base
       'imported_source'
     elsif validations?
       'validation'
+    elsif send_email_change_staff?
+      'send_email.change_staff'
     else
       'common'
     end
@@ -20,6 +22,10 @@ class Setting < ActiveRecord::Base
 
   def validations?
     key.start_with?('validations.')
+  end
+
+  def send_email_change_staff?
+    key.start_with?('send_email.change_staff.')
   end
 
   def enabled?

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="es">
+<head>
+  <title>Gobierno abierto</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=10.0"/>
+</head>
+<style>
+  table.staff, th.staff, td.staff {
+    border: 1px solid black;
+  }
+  table.staff {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 2px;
+    border-color: gray;
+  }
+  table.th{
+    font-w;
+  }
+  table {
+    width: 50%;
+  }
+  table caption{
+    font-weight: bold;
+    text-align: center;
+  }
+
+  th {
+    height: 40px;
+    text-align: center;
+    font-weight: bold;
+
+  }
+  th, td {
+    padding: 15px;
+    text-align: left;
+  }
+</style>
+<body style="background: #fff; font-family:font-family: 'Open Sans','Helvetica Neue',arial,sans-serif !important; margin: 0 10px; padding: 0; text-align: left;">
+
+<table cellpadding="0" cellspacing="0" border="0" style="background: #fff; margin: 0 auto; max-width: 700px; width:100%;">
+
+  <tr>
+    <%= yield %>
+  </tr>
+</table>
+
+<table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 700px; width:100%; margin-bottom: 40px; padding: 0 20px;">
+  <tbody>
+  <tr>
+    <td style="text-align: center; border-top: 1px solid #dadfe1; padding-top: 20px;">
+      <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif; margin: 0;padding: 0;line-height: 1.5em;color: #797f7f; font-size: 12px;">
+        Ayuntamiento de Madrid</p>
+
+      <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif; margin: 0;padding: 0;line-height: 1.5em;color: #222; font-size: 10px; margin-top: 12px;">
+        <%= t('mailers.no_reply') %></p>
+
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

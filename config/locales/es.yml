@@ -10,6 +10,8 @@ es:
     show: "Ver"
     destroy_source: Editar
     add_empty_source: Editar
+  mailers:
+    no_reply: "Este mensaje se ha enviado desde una dirección de correo electrónico que no admite respuestas."
   status:
     open: Abierto
     close: Cerrado

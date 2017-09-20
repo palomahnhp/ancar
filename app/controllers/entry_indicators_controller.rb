@@ -12,6 +12,7 @@ class EntryIndicatorsController < ApplicationController
   def updates
     if params[:cancel_change].present?
       cancel_change(@period.id, @unit.id)
+      SupervisorMailer.change_staff_email(change: 'cancel', period: @period, unit:@unit, user: current_user).deliver_later #deliver_now
     elsif params[:open_change].present?
       open_change(@period.id, @unit.id, current_user)
     elsif params[:approval].present?
@@ -205,7 +206,7 @@ class EntryIndicatorsController < ApplicationController
 
   def assigned_employees_update(type, process)
     employees_cumplimented = true
-
+    unit_ae_modified = false
     process.each do |pr|
       grupos = pr[1]
       process_id = pr[0].to_i
@@ -227,11 +228,15 @@ class EntryIndicatorsController < ApplicationController
         else
           ae = set_assigned_employee(official_group_id, type, process_id, @period.id, @unit.id)
           ae.quantity = quantity
-          ae.updated_by = current_user.login
-          ae.save
+          if ae.changed?
+            ae.updated_by = current_user.login
+            ae.save
+            unit_ae_modified = true if type == 'UnitJustified'
+          end
         end
       end
     end
+    SupervisorMailer.change_staff_email(change: 'open', period: @period, unit:@unit, user: current_user).deliver_later if unit_ae_modified.present?
     return employees_cumplimented
   end
 

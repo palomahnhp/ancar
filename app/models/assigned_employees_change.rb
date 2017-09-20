@@ -37,4 +37,10 @@ class AssignedEmployeesChange < ActiveRecord::Base
       false
     end
   end
+
+  def self.emailed(period_id, unit_id)
+    ae = find_by(period_id: period_id, unit_id: unit_id)
+    ae.emailed_at = Time.now
+    ae.save
+  end
 end

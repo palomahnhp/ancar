@@ -6,6 +6,7 @@ class Admin::SettingsController  < Admin::BaseController
     @settings = all_settings['common']
     @imported_sources = all_settings['imported_source']
     @validations = all_settings['validation']
+    @send_emails_change_staff = all_settings['send_email.change_staff']
   end
 
   def update

@@ -159,12 +159,20 @@ en:
           app_name: Nombre de la aplicación
           user_test: Clave para pruebas de acceso
           no_validation_lower_staff: Permitir menos plantilla
+          supervisor:
+            email:
+              JD: Correo de supervisor JD
+              SGT: Correo de supervisor SGT
         description:
           header_logo: Texto para el Logo
           org_name: Nombre de la Organización
           app_name: Nombre de la aplicación
           user_test: Clave para pruebas de acceso
           no_validation_lower_staff: Permitir menos plantilla
+          supervisor:
+            email:
+              JD: Correo de supervisor JD
+              SGT: Correo de supervisor SGT
       flash:
         updated: Valor actualizado
       index:
@@ -188,3 +196,10 @@ en:
             JD: Juntas de Distrito
         general:
           title: "Parámetros globales"
+        send_email:
+          title: "Notificaciones por email"
+          change_staff:
+            title: "Cambios de plantilla/puestos"
+            SGT: Secretarias Generales Técnicas
+            JD: Juntas de Distrito
+
