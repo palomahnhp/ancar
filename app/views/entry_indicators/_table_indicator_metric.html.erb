@@ -2,8 +2,12 @@
   <thead>
     <tr>
       <th class="indicator-metric"><strong><%= t("entry_indicators.form.indicator.#{process_name(@period, 'indicator_metrics')}") %></strong></th>
-      <th></th>
-      <th  class="indicator-source"><strong><%= t('entry_indicators.form.source') %></strong></th>
+      <% if @period.is_from?('JD') %>
+        <th><%= t('entry_indicators.form.type') %></th>
+        <th><%= t('entry_indicators.form.data_source') %></th>
+        <th><%= t('entry_indicators.form.procedure') %></th>
+      <% end %>
+      <th class="indicator-source"><strong><%= t('entry_indicators.form.source') %></strong></th>
       <th class="text-center amount"><strong><%= t('entry_indicators.form.amount') %></strong></th>
     </tr>
   </thead>
@@ -11,14 +15,21 @@
     <% indicator.indicator_metrics.order(:order).each_with_index do |indicator_metric, index| %>
       <%= hidden_field_tag(:indicator_metric_id, indicator_metric.id) %>
       <tr>
-        <td class="indicator-metric" id="<%= "metric_col_#{indicator_metric.metric_id}" %>">
+        <td class="indicator-metric <%= "indicator-metric-short" if @period.is_from?('JD')%>" id="<%= "metric_col_#{indicator_metric.metric_id}" %>">
           <%= get_metric(indicator_metric) %>
         </td>
-        <td> <%= indicator_metric.total_indicator_type('S') %> </td>
+
+        <% if @period.is_from?('JD') %>
+          <td class="indicator-five"> <%= indicator_metric.in_out_type %> </td>
+          <td class="indicator-fifteen"> <%= indicator_metric.data_source%> </td>
+          <td  class="indicator-ten"> <%= indicator_metric.procedure %> </td>
+        <% end %>
+
         <td class="indicator-metric-source <%= "source-automatic" if source_imported?(indicator_metric) %>"
             id="<%= "source_col_#{get_source_id(indicator_metric)}" %>" >
           <%= sources_description(indicator_metric) %>
         </td>
+
         <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
           <% if input_allowed?(@period, @organization, @approval, indicator_metric, current_user) %>
             <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]",

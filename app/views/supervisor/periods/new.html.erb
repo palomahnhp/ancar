@@ -1,7 +1,8 @@
 <%= render partial: 'supervisor/shared/header',
            locals: {title: t("supervisor.periods.#{action_name}.title"),
                     button: nil, path: nil, modifiable: true,
-                    period: nil, main_process: nil, sub_process: nil, indicator: nil, indicator_metric: nil  } %>
+                    period: nil, main_process: nil, sub_process: nil, indicator: nil, indicator_metric: nil,
+                    index_path: supervisor_periods_path} %>
 <div class="small-12 column">
   <%= render 'form' %>
 </div>

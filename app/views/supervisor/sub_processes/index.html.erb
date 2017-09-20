@@ -8,7 +8,8 @@
                                                        main_process_id: params['main_process_id']),
                     modifiable: @main_process.modifiable?,
                     period: @main_process.period, main_process: @main_process, sub_process: nil, indicator: nil,
-                    indicator_metric: nil} %>
+                    indicator_metric: nil,
+                    index_path: supervisor_main_processes_path(period_id: @main_process.period.id)} %>
 
 <div>
   <% if @sub_processes.nil? || @sub_processes.empty? %>

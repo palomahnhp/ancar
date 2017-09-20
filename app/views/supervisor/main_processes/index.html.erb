@@ -5,7 +5,8 @@
                               process_name: t("supervisor.process_name.plural.#{process_name(@period, controller_name)}")).capitalize,
                     path: new_supervisor_main_process_path(period_id: params['period_id']),
                     modifiable: @period.modifiable?,
-                    period: @period, main_process: nil, sub_process: nil, indicator: nil, indicator_metric: nil  } %>
+                    period: @period, main_process: nil, sub_process: nil, indicator: nil, indicator_metric: nil,
+                    index_path: supervisor_periods_path} %>
 <div>
 
   <% if @main_processes.nil? || @main_processes.empty? %>

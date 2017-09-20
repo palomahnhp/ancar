@@ -47,6 +47,10 @@ namespace :deploy do
   before :deploy, "deploy:check_revision"
   # Run test aund continue only if passed
   # before :deploy, "deploy:run_tests"
+  # change de user before migrations
+  before 'deploy:migrate', "deploy:change_user_to_owner"
+  # change de user after migrations
+  after 'deploy:migrate', "deploy:change_user_to_app"
   # Compile assets locally and then rsync
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'

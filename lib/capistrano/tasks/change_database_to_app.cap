@@ -1,0 +1,8 @@
+namespace :deploy do
+  desc "change database user to app"
+  task :change_user_to_app do
+    on roles(:all) do |host|
+      execute "cp #{shared_path}/config/database_app.yml  #{shared_path}/config/database.yml"
+    end
+  end
+end

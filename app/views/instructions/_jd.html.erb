@@ -1,63 +1,95 @@
 <div>
-  <div  class="row" id="period_selection":>
-    <h4> Selección del periodo </h4>
-    <ul class="disc">
-      <li>Si el Periodo tiene cerrado el plazo de mecanización solo podrá consultar los INDICADORES, no modificarlos. </li>
-      <li>Si el Periodo tiene abierto el plazo de mecanización podrá modificar los datos</li>
-      <li>Se pueden incluir todos los indicadores a excepción de los que se establezcan “pendientes de resolver a 1 de enero de año”</li>
-    </ul>
+  <div class="row small-12 columns highlight text-center">
+    <h3>Cargas de trabajo de 2016 </h3>
+    <h4>Periodo de grabación del 18 al 29 de septiembre de 2017 </h4>
+  </div>
+  <br>
+  <div  class="row" id="introduction">
+    <h4>1. Introducción</h4>
+      <p>Al igual que el año anterior se va a proceder a grabar los indicadores de actividad de cada uno de los departamentos de los 21 distritos. En el caso de que el indicador de actividad por su especificad así lo permitiera , se ha abierto para ese indicador de actividad concreto y en ese departamento concreto un indicador de stock existente a 1 de enero del año de medición, así como indicadores tanto de entrada como de salida de cada tipo de expediente. </p>
+      <p>En aquellos indicadores que estén radicados en Sistemas de Información corporativos o departamentales, se ha realizado un trabajo continuo desde el mes de enero con representantes de dos Distritos, con la Subdirección General de Administración Electrónica y con IAM y con el personal de valoración de cargas de la D.G de Planificación interna , al objeto de establecer qué indicadores de los procedimientos de tramitación podrían ser susceptibles de carga automática al efecto , tanto de mejorar la calidad del dato , como de facilitar la tarea para los responsables de Distritos. Para ello, se ha determinado tanto la fase dentro de cada procedimiento concreto, como  el código de SIGSA que se correspondía con dicha  fase de tramitación correspondiente. Este hecho hay que destacarlo puesto que a efectos de cargas de trabajo futuras tendrá que existir una tramitación homogénea en SIGSA por parte de los Distritos para que la valoración estadística de dicha carga sea coherente en el análisis estadístico. Al igual que en SIGSA se ha parametrizado la obtención de datos automáticos en BI CIVIS, BI SAP Económico Financiero y BI SYRG. En lo relativo a BI CIVIS se ha trabajado directamente con el Área de Gobierno de Equidad, Derechos Sociales y Empleo.</p>
+      <p>Esta información sobre el código automatizado, a efectos de que se pueda comprobar cuál es la fase que se ha determinado para la obtención de datos, figura en los campos de esta aplicación:” Modo de obtención” y “Trámite”.</p>
+      <p>Para años sucesivos se recomienda que tengan en cuenta esta “fase de tramitación” que se delimita para la explotación de cargas, y sería conveniente <strong>que la tramitación fuera homogénea en todos los distritos dentro de los sistemas de información, permita un buen cuadro de mando y un buen análisis de cargas.<strong></p>
   </div>
 
-  <div class="row" id="dedication">
-    <h4> Dedicación del subproceso al año por grupo de personal</h4>
-    <p>La unidad mínima de dedicación corresponde al 5% por persona, esto es: 0,05</p>
+  <div class="row " id="features">
+    <h4> 2.	Características de los indicadores</h4>
+    <p>Tal y como se ha explicado en el apartado de la Introducción va a haber tres tipos de indicadores:</p>
+    <ul>
+      <li>X - Stock a 1 de enero del año de medición</li>
+      <li>E – Entrada en el año de medición</li>
+      <li>S – Salida en el año de medición</li>
+    </ul>
+    <p>En los casos de captación automática de indicadores de los sistemas de información la fuente de obtención (SIGSA, CIVIS, SAP o SYR) figurará resaltada en color azul. Los valores obtenidos automáticamente aparecerán en pantalla y no podrán ser modificados.</p>
 
-      <p><strong>Ejemplo:</strong></p>
-      <blockquote>
-        Supbroceso: Ingresos no tributarios
-        Personas del Departamento Jurídico: 3 A1, 0 A2, 2 C1, 0 C2, 0 E
+  </div>
 
-        Dedicación del personal a ese subproceso:
-        <ul>
-          <li>1 A1 al 50%= 0,50</li>
-          <li>1 A1 al 40%= 0,40</li>
-          <li>1 A1 al 25%= 0,25</li>
-        </ul>
+  <div class="row " id="data">
+    <h4>3.	Datos de los efectivos a imputar a cada departamento</h4>
+    <p>En la pantalla de captación de cada departamento aparecerán ya precargados los efectivos <strong>a 31 de diciembre del año</strong> de medición desglosados por grupos profesionales. En el caso de que el departamento considere que este número de efectivos debe <strong>ser modificado</strong>, bien por bajas de larga duración (si una baja es de 6 meses, sólo se podría imputar el 50% de ese efectivo y así sucesivamente) y así como aquellos puestos que estando adscritos a ese departamento presten sus servicios en otro (en este departamento de origen ese efectivo figuraría como cero y habría que adicionárselo el departamento donde presta efectivamente su trabajo), deberá introducir estas modificaciones en el aplicativo de captación de datos ANCAR.</p>
+    <p>Cualquier propuesta de modificación de los efectivos de cada Departamento debe ser justificada y validada por la Dirección General de Planificación Interna dentro de la aplicación ANCAR.</p>
+  </div>
 
-        <blockquote> Total dedicación A1= 0,5+ 0,4 + 0,25 = 1,15  </blockquote>
-        <ul>
-          <li>1 C1 al 10%= 0,1</li>
-          <li>1 C1 al 5%= 0,05</li>
-        </ul>
-
-        <blockquote> Total dedicación C1= 0,1 + 0,05= 0,15</blockquote>
-      </blockquote>
-
-    <p><strong>Datos a cumplimentar:</strong></p>
+  <div class="row " id="staff">
+    <h4>4. Porcentaje de dedicación del personal del departamento a cada proceso</h4>
+    <p>Se tendrá que introducir el porcentaje de dedicación de cada efectivo del grupo profesional que se considere a cada proceso y no se podrá introducir una dedicación inferior al 0,05 (5%)</p>
+    <p>Véase el siguiente ejemplo:</p>
     <blockquote>
-      <h5>14.1  INGRESOS NO TRIBUTARIOS DEPARTAMENTO JURÍDICO "DEDICACIÓN DEL SUBPROCESO
-        AL AÑO POR CADA GRUPO DE PERSONAL  (unidad mínima 0,05)</h5>
+      Supbroceso: Ingresos no tributarios Personal del Departamento Jurídico:
+                  3 A1, 0 A2, 2 C1, 0 C2, 0 Agr.
 
-      TOTAL  SUBPROCESO 1.15  0   0.15  0 0
+      Dedicación del personal a ese subproceso:
+      <ul>
+        <li>1 A1 al 50% = 0,50</li>
+        <li>1 A1 al 40% = 0,40</li>
+        <li>1 A1 al 25% = 0,25</li>
+      </ul>
+
+      <blockquote> Total dedicación A1 = 0,5 + 0,4 + 0,25 = 1,15  </blockquote>
+      <ul>
+        <li>1 C1 al 10% = 0,1</li>
+        <li>1 C1 al 5% = 0,05</li>
+      </ul>
+
+      <blockquote> Total dedicación C1= 0,1 + 0,05 = 0,15</blockquote>
     </blockquote>
-    <p> En el caso de <strong> puestos abiertos a varios grupos </strong> (A1-A2, A2-C1, C1-C2) se asignará el grupo al
-      grupo correspondiente al del ocupante. En la distribución funcional se incluirán también lospuestos que se
-      encuentren vacantes a 31 de diciembre, y en el caso de ser puestos abiertos a más de un grupo profesional,
-      se consignarán en el grupo superior. </p>
+
+    <p>Datos a cumplimentar en el subproceso:</p>
+    <blockquote>
+      <table id="assignment-example">
+        <caption>TOTAL SUBPROCESO</caption>
+        <tr>
+          <th>A1</th>
+          <th>A2</th>
+          <th>C1</th>
+          <th>C2</th>
+          <th>Agr.</th>
+        </tr>
+        <tr>
+          <td>1,15</td>
+          <td>0,0</td>
+          <td>0,15</td>
+          <td>0,0</td>
+          <td>0,0</td>
+        </tr>
+      </table>
+    </blockquote>
+
+    <p> En el caso de puestos abiertos a varios grupos (A1-A2, A2-C1, C1-C2) se asignará al grupo correspondiente al del ocupante. El personal laboral se asimilará a los grupos funcionariales por titulación de la categoría profesional</p>
 
     <p><strong> El personal laboral</strong> se asimilará a los grupos funcionariales por titulación de la categoría
       profesional.</p>
 
-    <p>La <strong> dedicación total</strong>  de los grupos de personal en todos los supbrocesos no puede exceder del
-      total del personal en la unidad. <strong> Excepcionalmente podrá excederse </strong> cuando algunas personas se
-      dediquen a subprocesos asignados a unidades distintas de las que está adscrita. En este caso se podrán exceder
-      los parciales por unidad, pero en ningún caso se excederá del total de dedicación del personal para todas las
-      unidades del Distrito
+    <p><strong>La dedicación total de los grupos de personal en todos los subprocesos no puede exceder del total del personal en la unidad. </strong>  de los grupos de personal en todos los supbrocesos no puede exceder del
+      total del personal en la unidad. <strong> Excepcionalmente podrá excederse cuando algunas personas se dediquen a subprocesos asignados a unidades distintas de las que está adscrita. En este caso se podrán exceder los parciales por unidad, pero en ningún caso se excederá del total de dedicación del personal para todas las unidades del Distrito.
     </p>
 
-    <p> Por las características del estudio y los objetivos pretendidos se excluyen del análisis los cargos políticos, personal
-      directivo, personal eventual y personal del IMD.</p>
+    <p>Por las características del estudio y los objetivos pretendidos se excluyen del análisis los cargos políticos, personal directivo, personal eventual y personal del IMD, este último está siendo objeto de análisis en el contrato de cargas de Areas OOAA y personal del IMD.</p>
 
-    <p> Para cualquier duda contacten con: <a href="mailto:dgplanificacinterna@madrid.es">dgplanificacinterna@madrid.es</a></p>
+    <p> Para dudas pueden dirigirlas a los siguientes buzones:</p>
+    <p><a href="mailto:cargastrdistritos@madrid.es">cargastrdistritos@madrid.es</a></p>
+    <p><a href="mailto:casanifc@madrid.es">casanifc@madrid.es</a></p>
+    <p>914802782 Casilda Casani</p>
+
   </div>
 </div>

@@ -1,7 +1,13 @@
-
 <%= form_for [:supervisor, @indicator] do |f| %>
   <br>
    <%= render 'shared/errors', resource: @indicator %>
+  <div class="row" >
+    <div class="small-12 medium-4 columns">
+      <%= f.label :order, t('supervisor.indicators.form.code') %>
+      <%= f.text_field :order, label: false %>
+    </div>
+  </div>
+
   <div class="small-8 columns" >
     <%= f.hidden_field(:task_id) %>
     <%= f.hidden_field :item_id %>

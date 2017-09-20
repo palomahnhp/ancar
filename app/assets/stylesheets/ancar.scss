@@ -138,14 +138,32 @@ table.indicator-metric {
     padding: rem-calc(12) rem-calc(6);
 
     &.indicator-metric {
-      width: 60%;
       padding-left: rem-calc(50);
       text-align: left;
     }
 
-    &.indicator-source {
-      width: 30%;
+    &.indicator-metric-short {
+      padding-left: rem-calc(50);
+      text-align: left;
+      width: 45%;
     }
+
+    &.indicator-metric-source {
+      width: 17%;
+    }
+
+    &.indicator-ten {
+      width: 10%;
+    }
+
+    &.indicator-five {
+      width: 5%;
+    }
+
+    &.indicator-fifteen {
+      width: 15%;
+    }
+
   }
 
   td {

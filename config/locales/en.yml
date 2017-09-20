@@ -33,6 +33,9 @@ en:
         CompetentialBlocks: Bloques competenciales
       metric: Métrica
       source: Fuente
+      type: "Tipo"
+      data_source: "Modo obtención"
+      procedure: "Trámite"
       button:
         print: 'Imprimir'
         save: 'Guardar datos'

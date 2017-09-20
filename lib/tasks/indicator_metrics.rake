@@ -1,7 +1,7 @@
 namespace :indicator_metrics do
   require 'spreadsheet'
 
-  desc "Initialize in_out_type  "
+  desc "Initialize in_out_type"
   task initialize_in_out_type: :environment do
     p 'Parameters: save: ' + ENV['save'] + ' entorno: ' + ENV['RAILS_ENV'] unless ENV['RAILS_ENV'].nil?
     p 'Initializing indicators in_out_type, updating ' + TotalIndicator.where(summary_type_id: [17, 18]).count.to_s + '... '
