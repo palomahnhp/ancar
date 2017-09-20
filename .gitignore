@@ -31,4 +31,4 @@
 /spec/examples.txt
 
 # Ignore public/docs
-/public/docs
+/public/docs/*
