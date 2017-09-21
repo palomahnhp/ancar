@@ -12,7 +12,7 @@ class EntryIndicatorsController < ApplicationController
   def updates
     if params[:cancel_change].present?
       cancel_change(@period.id, @unit.id)
-      SupervisorMailer.change_staff_email(change: 'cancel', period: @period, unit:@unit, user: current_user).deliver_later #deliver_now
+      SupervisorMailer.change_staff_email(change: 'cancel', period: @period, unit:@unit, user: current_user).deliver_now #deliver_later
     elsif params[:open_change].present?
       open_change(@period.id, @unit.id, current_user)
     elsif params[:approval].present?
@@ -236,7 +236,7 @@ class EntryIndicatorsController < ApplicationController
         end
       end
     end
-    SupervisorMailer.change_staff_email(change: 'open', period: @period, unit:@unit, user: current_user).deliver_later if unit_ae_modified.present?
+    SupervisorMailer.change_staff_email(change: 'open', period: @period, unit:@unit, user: current_user).deliver_now if unit_ae_modified.present?
     return employees_cumplimented
   end
 
