@@ -8,6 +8,10 @@ class IndicatorMetric < ActiveRecord::Base
   has_many :entry_indicators, :dependent => :destroy
   has_many :total_indicators, :dependent => :destroy
 
+  scope :in, -> { where(in_out_type: 'E') }
+  scope :out, -> { where(in_out_type: 'S') }
+  scope :stock, -> { where(in_out_type: 'X') }
+
   def copy(indicator_id)
      indicator_metric = IndicatorMetric.create(self.attributes.merge(id: nil, indicator_id: indicator_id))
      indicator_sources.each do |is|

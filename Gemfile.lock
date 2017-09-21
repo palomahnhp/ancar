@@ -502,6 +502,3 @@ DEPENDENCIES
   whenever
   wicked_pdf
   wkhtmltopdf-binary
-
-BUNDLED WITH
-   1.14.4

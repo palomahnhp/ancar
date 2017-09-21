@@ -150,7 +150,7 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def update_indicator_metrics(indicator_metrics)
-    Indicator.includes(indicator_metrics: [:entry_indicators, :total_indicators])
+    Indicator.includes(:indicator_metrics,:entry_indicators)
 
     indicator_metrics.each do |indicator|
       indicator[1].each do |im|
@@ -186,10 +186,24 @@ class EntryIndicatorsController < ApplicationController
       @units = @organization.units.order(:order).to_a
     end
     if params[:period_id]
-      @period = Period.includes(:assigned_employees, :entry_indicators, main_processes: [sub_processes: [tasks: [indicators:[
-      indicator_metrics: [metric: [:item]],
-      indicator_sources: [source: [:item]],
-      total_indicators: [:summary_type] ]]]]).find(params[:period_id]) if params[:period_id]
+      @period = Period.includes(
+          :assigned_employees,
+          :entry_indicators,
+          main_processes:
+            [sub_processes:
+              [tasks:
+                [indicators:
+                  [indicator_metrics:
+                    [metric:
+                      [:item]],
+                   indicator_sources:
+                      [source:
+                           [:item]]
+                ]
+              ]
+            ]
+          ]
+         ).find(params[:period_id]) if params[:period_id]
     end
     if params[:unit_id]
       @unit = Unit.find(params[:unit_id])
