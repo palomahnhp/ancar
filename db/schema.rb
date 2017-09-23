@@ -11,11 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920100612) do
+ActiveRecord::Schema.define(version: 20170923120727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "adminpack"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "key"
+    t.text     "parameters"
+    t.integer  "recipient_id"
+    t.string   "recipient_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "approvals", force: :cascade do |t|
     t.integer  "period_id"
@@ -68,6 +85,52 @@ ActiveRecord::Schema.define(version: 20170920100612) do
   add_index "assigned_employees_changes", ["unit_id"], name: "index_assigned_employees_changes_on_unit_id", using: :btree
   add_index "assigned_employees_changes", ["verified_at"], name: "index_assigned_employees_changes_on_verified_at", using: :btree
 
+  create_table "budget_chapters", force: :cascade do |t|
+    t.integer "year"
+    t.string  "code"
+    t.string  "description"
+  end
+
+  create_table "budget_executions", force: :cascade do |t|
+    t.integer "year"
+    t.string  "economic_code"
+    t.string  "economic_description"
+    t.integer "budget_section_id"
+    t.integer "budget_program_id"
+    t.integer "budget_chapter_id"
+    t.decimal "credit_initial",        precision: 15, scale: 2
+    t.decimal "credit_modification",   precision: 15, scale: 2
+    t.decimal "credit_definitive",     precision: 15, scale: 2
+    t.decimal "credit_available",      precision: 15, scale: 2
+    t.decimal "credit_disponible",     precision: 15, scale: 2
+    t.decimal "credit_authorized",     precision: 15, scale: 2
+    t.decimal "credit_willing",        precision: 15, scale: 2
+    t.decimal "obligation_recognized", precision: 15, scale: 2
+    t.decimal "payment_ordered",       precision: 15, scale: 2
+    t.decimal "payment_performed",     precision: 15, scale: 2
+  end
+
+  add_index "budget_executions", ["budget_chapter_id"], name: "index_budget_executions_on_budget_chapter_id", using: :btree
+  add_index "budget_executions", ["budget_program_id"], name: "index_budget_executions_on_budget_program_id", using: :btree
+  add_index "budget_executions", ["budget_section_id"], name: "index_budget_executions_on_budget_section_id", using: :btree
+
+  create_table "budget_programs", force: :cascade do |t|
+    t.integer "year"
+    t.string  "code"
+    t.string  "description"
+    t.integer "budget_section_id"
+    t.integer "organization_id"
+  end
+
+  add_index "budget_programs", ["budget_section_id"], name: "index_budget_programs_on_budget_section_id", using: :btree
+  add_index "budget_programs", ["organization_id"], name: "index_budget_programs_on_organization_id", using: :btree
+
+  create_table "budget_sections", force: :cascade do |t|
+    t.integer "year"
+    t.string  "code"
+    t.string  "description"
+  end
+
   create_table "docs", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -116,7 +179,6 @@ ActiveRecord::Schema.define(version: 20170920100612) do
     t.integer "indicator_id"
     t.integer "metric_id"
     t.string  "order"
-    t.integer "code"
     t.string  "in_out_type"
     t.integer "validation_group_id"
     t.string  "data_source"
@@ -259,11 +321,14 @@ ActiveRecord::Schema.define(version: 20170920100612) do
     t.boolean  "has_specification"
     t.integer  "order"
     t.string   "updated_by"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "organization_type_id"
+    t.boolean  "active",               default: true
   end
 
   add_index "sources", ["item_id"], name: "index_sources_on_item_id", using: :btree
+  add_index "sources", ["organization_type_id"], name: "index_sources_on_organization_type_id", using: :btree
 
   create_table "sub_processes", force: :cascade do |t|
     t.integer  "main_process_id"
@@ -411,6 +476,7 @@ ActiveRecord::Schema.define(version: 20170920100612) do
     t.string   "email"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "role"
     t.datetime "inactivated_at"
     t.integer  "organization_id"
     t.integer  "sap_id_unit"
@@ -434,6 +500,11 @@ ActiveRecord::Schema.define(version: 20170920100612) do
   add_foreign_key "assigned_employees", "units"
   add_foreign_key "assigned_employees_changes", "periods"
   add_foreign_key "assigned_employees_changes", "units"
+  add_foreign_key "budget_executions", "budget_chapters"
+  add_foreign_key "budget_executions", "budget_programs"
+  add_foreign_key "budget_executions", "budget_sections"
+  add_foreign_key "budget_programs", "budget_sections"
+  add_foreign_key "budget_programs", "organizations"
   add_foreign_key "docs", "organization_types"
   add_foreign_key "entry_indicators", "indicator_metrics"
   add_foreign_key "entry_indicators", "indicator_sources"
@@ -456,6 +527,7 @@ ActiveRecord::Schema.define(version: 20170920100612) do
   add_foreign_key "periods", "organization_types"
   add_foreign_key "process_names", "organization_types"
   add_foreign_key "sources", "items"
+  add_foreign_key "sources", "organization_types"
   add_foreign_key "sub_processes", "items"
   add_foreign_key "sub_processes", "main_processes"
   add_foreign_key "sub_processes", "unit_types"
