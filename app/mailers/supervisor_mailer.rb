@@ -1,5 +1,5 @@
 class SupervisorMailer < ApplicationMailer
-  default from: 'ancar_no_replay@madrid.es'
+  default from: 'ancar_no_reply@madrid.es'
 
   def change_staff_email(data)
     if Setting.find_by_key("send_email.change_staff.#{data[:period].organization_type.acronym}").present?
