@@ -23,7 +23,7 @@ namespace :sap_fi do
     BudgetChapter.new(year: ENV['year'], code: '9', description: 'PASIVOS FINANCIEROS').save if ENV['save'] && ENV['save'] == 'true'
   end
 
-  desc "Cargar resppnsable programa."
+  desc "Cargar responsable programa."
   task update_responsable: :environment do
     if ENV['filename'].nil? || ENV['year'].nil?
       p '**'
