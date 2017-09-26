@@ -4,6 +4,7 @@ class Organization < ActiveRecord::Base
   has_many :units
   has_many :users
   has_many :main_processes
+  has_many :budget_programs
 
   def self.select_options(organization_type=nil)
     if organization_type.present?

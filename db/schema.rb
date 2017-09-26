@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920100612) do
+ActiveRecord::Schema.define(version: 20170923120727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,52 @@ ActiveRecord::Schema.define(version: 20170920100612) do
   add_index "assigned_employees_changes", ["period_id"], name: "index_assigned_employees_changes_on_period_id", using: :btree
   add_index "assigned_employees_changes", ["unit_id"], name: "index_assigned_employees_changes_on_unit_id", using: :btree
   add_index "assigned_employees_changes", ["verified_at"], name: "index_assigned_employees_changes_on_verified_at", using: :btree
+
+  create_table "budget_chapters", force: :cascade do |t|
+    t.integer "year"
+    t.string  "code"
+    t.string  "description"
+  end
+
+  create_table "budget_executions", force: :cascade do |t|
+    t.integer "year"
+    t.string  "economic_code"
+    t.string  "economic_description"
+    t.integer "budget_section_id"
+    t.integer "budget_program_id"
+    t.integer "budget_chapter_id"
+    t.decimal "credit_initial",        precision: 15, scale: 2
+    t.decimal "credit_modification",   precision: 15, scale: 2
+    t.decimal "credit_definitive",     precision: 15, scale: 2
+    t.decimal "credit_available",      precision: 15, scale: 2
+    t.decimal "credit_disponible",     precision: 15, scale: 2
+    t.decimal "credit_authorized",     precision: 15, scale: 2
+    t.decimal "credit_willing",        precision: 15, scale: 2
+    t.decimal "obligation_recognized", precision: 15, scale: 2
+    t.decimal "payment_ordered",       precision: 15, scale: 2
+    t.decimal "payment_performed",     precision: 15, scale: 2
+  end
+
+  add_index "budget_executions", ["budget_chapter_id"], name: "index_budget_executions_on_budget_chapter_id", using: :btree
+  add_index "budget_executions", ["budget_program_id"], name: "index_budget_executions_on_budget_program_id", using: :btree
+  add_index "budget_executions", ["budget_section_id"], name: "index_budget_executions_on_budget_section_id", using: :btree
+
+  create_table "budget_programs", force: :cascade do |t|
+    t.integer "year"
+    t.string  "code"
+    t.string  "description"
+    t.integer "budget_section_id"
+    t.integer "organization_id"
+  end
+
+  add_index "budget_programs", ["budget_section_id"], name: "index_budget_programs_on_budget_section_id", using: :btree
+  add_index "budget_programs", ["organization_id"], name: "index_budget_programs_on_organization_id", using: :btree
+
+  create_table "budget_sections", force: :cascade do |t|
+    t.integer "year"
+    t.string  "code"
+    t.string  "description"
+  end
 
   create_table "docs", force: :cascade do |t|
     t.string   "name"
@@ -434,6 +480,11 @@ ActiveRecord::Schema.define(version: 20170920100612) do
   add_foreign_key "assigned_employees", "units"
   add_foreign_key "assigned_employees_changes", "periods"
   add_foreign_key "assigned_employees_changes", "units"
+  add_foreign_key "budget_executions", "budget_chapters"
+  add_foreign_key "budget_executions", "budget_programs"
+  add_foreign_key "budget_executions", "budget_sections"
+  add_foreign_key "budget_programs", "budget_sections"
+  add_foreign_key "budget_programs", "organizations"
   add_foreign_key "docs", "organization_types"
   add_foreign_key "entry_indicators", "indicator_metrics"
   add_foreign_key "entry_indicators", "indicator_sources"
