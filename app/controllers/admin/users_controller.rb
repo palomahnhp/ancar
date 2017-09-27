@@ -54,15 +54,16 @@ class Admin::UsersController < Admin::BaseController
     if params[:commit] == "Buscar datos"
       @user = User.new(user_params)
       if @user.validate
-        unless @user.uweb_update
+        if@user.uweb_update
           @user.directory_update
+        else
           flash[:alert] = t('admin.users.create.alert')
         end
+        render :new
       end
-      render :new
     else
       @user = User.create(user_params)
-      redirect_to admin_users_path(anchor: @user.login, page: @user.page)
+      redirect_to edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
     end
   end
 
@@ -104,7 +105,7 @@ class Admin::UsersController < Admin::BaseController
     first_word  = (search.count == 1 ? '%' + search[0] + '%' : '').downcase
     second_word =  (search.count > 1 ?  '%' + search[1] + '%' : '').downcase
     third_word  = (search.count > 2 ?  '%' + search[2] + '%' : '').downcase
-    @users = User.active.where('(lower(login) = ? or lower(name) like ? or lower(surname) like ? or lower(surname) like ?
+    @users = User.where('(lower(login) = ? or lower(name) like ? or lower(surname) like ? or lower(surname) like ?
                               or lower(second_surname) like ? or lower(second_surname) like ?
                               or lower(second_surname) like ?)',
                                login, first_word, first_word, second_word, first_word, second_word, third_word)

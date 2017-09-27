@@ -4,7 +4,7 @@
                     button: nil, path: nil, modifiable: true,
                     period: @sub_process.main_process.period, main_process: @sub_process.main_process,
                     sub_process: @sub_process, indicator: nil, indicator_metric: nil,
-                    index_path: supervisor_indicators_path} %>
+                    index_path: supervisor_sub_processes_path(sub_process_id: @sub_process.id)} %>
 <div class="small-12 column">
   <%= render 'form' %>
 </div>

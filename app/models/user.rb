@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
       self.second_surname = uweb_data[:second_surname]
       self.sap_den_unit = uweb_data[:unit]
       self.official_position = uweb_data[:official_position]
+      true
     else
       false
     end
@@ -69,6 +70,7 @@ class User < ActiveRecord::Base
   def uweb_on!(uweb_id)
     if UwebUpdateApi.new(uweb_id).insert_profile(self)
        self.uweb_auth_at = Time.now
+       self.save
        return true
     end
     false
@@ -77,11 +79,12 @@ class User < ActiveRecord::Base
   def uweb_off!(uweb_id)
     if UwebUpdateApi.new(uweb_id).remove_profile(self)
        self.uweb_auth_at = nil
+       self.save
        return true
     end
     false
   end
-
+0
   def uweb?
     # tiene  acceso?
   end
@@ -168,6 +171,7 @@ class User < ActiveRecord::Base
     else
       @organizations ||= Organization.with_roles(ROLES, self).distinct
     end
+    @organizations = @organizations.distinct.order(:order)
   end
 
   def auth_units()
