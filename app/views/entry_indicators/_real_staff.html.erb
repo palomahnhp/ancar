@@ -7,20 +7,20 @@
         <% if (can? :updates, @organization)  && @approval.blank? %>
             <%= text_field_tag("Unit[#{process.id}][#{gr.name}]", display_staff('UnitJustified', process, unit, period, gr.id, 4),
                                class: 'input_staff', placeholder: gr.name) %>
-      <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>
+        <% elsif justification_verified?(unit.id, period.id) %>
             <%= format_number(display_staff('UnitJustified', process, unit, period, gr.id, 4)) %>
         <% end %>
       </td>
   <% end %>
 </tr>
+
 <tr>
  <td colspan="6" class="text-center justification">
    <h5> <%= t("entry_indicators.staff.justification.#{process_name(@period,'AssignedEmployee')}.title") %> </h5>
    <% if (can? :updates, @organization)  && @approval.blank? %>
        <%= text_area_tag(:justification, justification_text(@unit.id, @period.id), class: 'justification') %>
-   <% elsif justification_verified?(unit.id, period.id) || (can? :read, @organization) %>
+   <% elsif justification_verified?(unit.id, period.id) %>
        <p><%= justification_text(unit.id, period.id) %></p>
    <% end %>
  </td>
 </tr>
-

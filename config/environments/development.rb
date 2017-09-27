@@ -44,12 +44,11 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
       address: Rails.application.secrets.server_name_mail,
-      domain: 'localhost',
   }
-  # ActionMailer Config
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-#  config.action_mailer.default_url_options = { host: Rails.application.secrets.server_name }
+  config.action_mailer.default_url_options = { host: Rails.application.secrets.server_name }
+
 end
+
