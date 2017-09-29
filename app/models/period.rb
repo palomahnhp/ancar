@@ -19,7 +19,7 @@ class Period < ActiveRecord::Base
   default_scope { order(organization_type_id: :asc, ended_at: :desc) }
 
   def open_entry?
-    opened_at <=  DateTime.now  && closed_at >=  DateTime.now
+    opened_at <=  DateTime.now.to_date  && closed_at >=  DateTime.now.to_date
   end
 
   def close_entry?
