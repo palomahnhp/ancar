@@ -54,15 +54,16 @@ class Admin::UsersController < Admin::BaseController
     if params[:commit] == "Buscar datos"
       @user = User.new(user_params)
       if @user.validate
-        if@user.uweb_update
+        if @user.uweb_update
           @user.directory_update
         else
           flash[:alert] = t('admin.users.create.alert')
         end
-        render :new
       end
+      render :new
     else
       @user = User.create(user_params)
+#      @user.directory_update!
       redirect_to edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
     end
   end
