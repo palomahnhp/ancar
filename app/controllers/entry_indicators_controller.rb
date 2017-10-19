@@ -126,7 +126,7 @@ class EntryIndicatorsController < ApplicationController
       @input_errors[:assignated_staff]     = AssignedEmployee.staff_for_unit(@period, @unit)
       @input_errors[:entry_without_staff]  = Indicator.validate_staff_for_entry(@period, @unit)
       @input_errors[:entry_incomplete]     = entry_incompleted?
-      @input_errors[:in_out_stock]         = SubProcess.validate_in_out_stock(@period, @unit)
+#     @input_errors[:in_out_stock]         = SubProcess.validate_in_out_stock(@period, @unit)
       @input_errors[:incomplete_staff_entry] = @incomplete_staff_entry
     end
 
