@@ -21,7 +21,7 @@ feature 'Indicators Maintenance' do
 
       click_link("Ver indicadores", :match => :first)
 
-      expect(page).to have_selector('tr', count: 5)
+      expect(page).to have_selector('tr', count: 4)
       expect(page).to have_content 'Organización: Distritos'
       expect(page).to have_content 'Periodo: Periodo de análisis de datos'
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
@@ -31,44 +31,28 @@ feature 'Indicators Maintenance' do
 
       expect(page).to have_content 'Métrica'
       expect(page).to have_content 'Fuente'
-      expect(page).to have_content 'Totalizadores'
+      expect(page).to have_content 'Tipo (E/S/X)'
 
       expect(page).to have_content '1.1.1. Contratos Menores'
-      expect(page).to have_content 'Nº de Contratos recibidos'
       expect(page).to have_content 'Nº de Contratos tramitados'
+      expect(page).to have_content 'Nº de Contratos recibidos'
       expect(page).to have_content('SIGSA', count: 2)
 
       within('tr#indicator_metric_1') do
-        within('td#summary_type_1') do
-          expect(page).to have_content 'E'
-        end
-        within('td#summary_type_2') do
-          expect(page).to have_content '-'
-        end
-        within('td#summary_type_3') do
-          expect(page).to have_content 'U'
-        end
+        expect(page).to have_content 'S'
       end
 
       within('tr#indicator_metric_2') do
-        within('td#summary_type_1') do
-          expect(page).to have_content '-'
-        end
-        within('td#summary_type_2') do
-          expect(page).to have_content 'S'
-        end
-        within('td#summary_type_3') do
-          expect(page).to have_content '-'
-        end
+        expect(page).to have_content 'E'
       end
 
     end
 
-    it 'has correct buttons for opened period ' do
+    it 'has correct buttons for not yet opened period ' do
 
       period = Period.first
-      period.opened_at = Time.now - 1.days
-      period.closed_at = Time.now + 1.months
+      period.opened_at = Time.now - 2.month
+      period.closed_at = Time.now - 1.months
       period.save
 
       supervisor = create(:supervisor_global)
@@ -199,8 +183,8 @@ feature 'Indicators Maintenance' do
 
     it 'changes indicator order an description with select options' do
       period = Period.first
-      period.opened_at = Time.now - 2.months
-      period.closed_at = Time.now + 1.months
+      period.opened_at = Time.now + 1.months
+      period.closed_at = Time.now + 2.months
       period.save
 
       supervisor = create(:supervisor_global)
@@ -224,14 +208,16 @@ feature 'Indicators Maintenance' do
 
       select('Expedientes urbanísticos', :from => 'indicator_item_id')
 
-      fill_in('indicator_order', :with => '99')
+      fill_in('indicator_order', :with => '1')
+      fill_in('indicator_code', :with => '1')
+
       click_button "Editar"
 
       expect(page.current_path).to  eq(supervisor_indicators_path)
       expect(page).to have_content 'Indicadores'
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
       expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-      expect(page).to have_content '1.1.99. Expedientes urbanísticos'
+      expect(page).to have_content '1.1.1. Expedientes urbanísticos'
 
     end
     it 'changes indicator writing descripcion' do
@@ -249,7 +235,7 @@ feature 'Indicators Maintenance' do
       within('#period_1') do
         click_link 'ver procesos'
       end
-      within('#main_process_1') do
+      within('#main_process _1') do
         click_link 'Ver subprocesos'
       end
       within('#sub_process_1') do

@@ -146,10 +146,13 @@ feature 'SubProcesses Maintenance' do
       find('#sub_process_unit_type_id').find(:xpath, 'option[3]').select_option
       find('#sub_process_item_id').find(:xpath, 'option[5]').select_option
       fill_in 'Núm. orden', with: 3
-      click_button 'Crear'
+      unit_desc  = find('#sub_process_unit_type_id').find(:xpath, 'option[3]').text
+      process_desc = find('#sub_process_item_id').find(:xpath, 'option[5]').text
+
+                  click_button 'Crear'
       expect(page).to have_content I18n.t("supervisor.sub_processes.create.success")
-      expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS TECNICOS'
-      expect(page).to have_content '1. 3. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+      expect(page).to have_content unit_desc
+      expect(page).to have_content process_desc
     end
 
     it 'create a new subprocess writing description' do
@@ -170,7 +173,6 @@ feature 'SubProcesses Maintenance' do
       click_button 'Crear'
 
       expect(page).to have_content I18n.t("supervisor.sub_processes.create.success")
-      expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS TECNICOS'
       expect(page).to have_content '1. 3. Nueva descripción'
     end
   end

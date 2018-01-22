@@ -44,21 +44,6 @@ require 'rails_helper'
         expect(source.tag_name).to eq('select')
         expect(source.value).to eq('1')
 
-        source = page.find_field('Proceso')
-        expect(source.text).to eq 'No acumula Entrada Salida Único Acumula'
-        expect(source.tag_name).to eq('select')
-        expect(source.value).to eq('3')
-
-        source = page.find_field('Subproceso')
-        expect(source.text).to eq 'No acumula Entrada Salida Único Acumula'
-        expect(source.tag_name).to eq('select')
-        expect(source.value).to eq('1')
-
-        source = page.find_field('Stock')
-        expect(source.text).to eq 'No acumula Entrada Salida Único Acumula'
-        expect(source.tag_name).to eq('select')
-        expect(source.value).to eq('5')
-
         button = page.find_button
         expect(button[:name]).to eq 'commit'
         expect(button.value).to eq 'Editar'
@@ -94,9 +79,6 @@ require 'rails_helper'
 
         select('PLYCA', :from => 'indicator_metric_indicator_sources_attributes_0_source_id')
 
-        select('No acumula', :from => 'Proceso')
-        select('Salida', :from => 'Subproceso')
-
         click_button "Editar"
 
         expect(page).to have_content 'Indicadores'
@@ -108,15 +90,7 @@ require 'rails_helper'
         expect(page).to have_content('PLYCA', count: 1)
 
         within('tr#indicator_metric_1') do
-          within('td#summary_type_1') do
-            expect(page).to have_content '-'
-          end
-          within('td#summary_type_2') do
-            expect(page).to have_content 'S'
-          end
-          within('td#summary_type_3') do
-            expect(page).to have_content 'U'
-          end
+          expect(page).to have_content 'E'
         end
       end
     end

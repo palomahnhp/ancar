@@ -123,6 +123,7 @@ FactoryGirl.define do
     association :task, factory: :task
 
     sequence(:order) {|n|  "#{n}"}
+    sequence(:code) {|n|  "#{n}"}
   end
 
   factory :indicator_metric do

@@ -50,32 +50,27 @@ task_item = Item.find_or_create_by!(item_type: "task", description: "TAREA")
 task = Task.find_or_create_by!(sub_process_id: sp1.id, item_id: task_item.id, order: "1")
 
 indicator_item = Item.find_or_create_by!(item_type: "indicator", description: "Contratos Menores")
-indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1")
+indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1", code: "1")
 metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº de Contratos recibidos")
 metric = Metric.find_or_create_by!(item_id: metric_item.id)
-indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
+indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id, in_out_type: 'E')
 
 source_item = Item.find_or_create_by!(item_type: "source", description: "SIGSA")
 source = Source.find_or_create_by!(item_id: source_item.id)
 indicator_source = IndicatorSource.find_or_create_by!(indicator_id: indicator.id, indicator_metric_id: indicator_metric.id, source_id: source.id)
 
-summary_types = SummaryType.all.map{|st| [st.acronym, st.id] }
-
-indicator_metric.total_indicators.find_or_create_by!(indicator_type: summary_types[0][0], in_out: 'E', summary_type_id: summary_types[0][1])
-indicator_metric.total_indicators.find_or_create_by!(indicator_type: summary_types[2][0], in_out: 'U', summary_type_id: summary_types[2][1])
 
 metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº de Contratos tramitados")
 metric = Metric.find_or_create_by!(item_id: metric_item.id)
-indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
-indicator_metric.total_indicators.find_or_create_by!(indicator_type: summary_types[1][0], in_out: 'S', summary_type_id: summary_types[1][1])
+indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id, in_out_type: 'S')
 indicator_source = IndicatorSource.find_or_create_by!(indicator_id: indicator.id, indicator_metric_id: indicator_metric.id, source_id: source.id)
 # SP2
 task = Task.find_or_create_by!(sub_process_id: sp2.id, item_id: task_item.id, order: "1")
 indicator_item = Item.find_or_create_by!(item_type: "indicator", description: "Expedientes urbanísticos")
-indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1")
+indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1", code: "1")
 metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº de Expedientes")
 metric = Metric.find_or_create_by!(item_id: metric_item.id)
-indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
+indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id, in_out_type: 'S')
 
 source_item = Item.find_or_create_by!(item_type: "source", description: "PLYCA")
 source = Source.find_or_create_by!(item_id: source_item.id)
@@ -135,10 +130,10 @@ organization_data.each do |data|
 
   indicator_item = Item.find_or_create_by!(item_type: "indicator", description: "- Revisión jurídica, preparación de documentación y petición de inforems de los asuntos a tratar en la Comisión Preparatoria ..
 ")
-  indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1")
+  indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1", code: "1")
   metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº informes solicitados por otras Áreas de Gobierno")
   metric = Metric.find_or_create_by!(item_id: metric_item.id)
-  indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
+  indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id, in_out_type: 'E')
 
   source_item = Item.find_or_create_by!(item_type: "source", description: "Elaboración propia")
   source = Source.find_or_create_by!(item_id: source_item.id)
@@ -147,7 +142,7 @@ organization_data.each do |data|
 
   metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº de asuntos tratados en la Junta de Gobierno")
   metric = Metric.find_or_create_by!(item_id: metric_item.id)
-  indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
+  indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id, in_out_type: 'S')
   indicator_source = IndicatorSource.find_or_create_by!(indicator_id: indicator.id, indicator_metric_id: indicator_metric.id, source_id: source.id)
 
   # SP2
@@ -156,7 +151,7 @@ organization_data.each do |data|
   indicator = Indicator.find_or_create_by!(task_id: task.id, item_id: indicator_item.id, order: "1")
   metric_item = Item.find_or_create_by!(item_type: "metric", description: "Nº de proyectos de otras Áreas")
   metric = Metric.find_or_create_by!(item_id: metric_item.id)
-  indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id)
+  indicator_metric = IndicatorMetric.find_or_create_by!(indicator_id: indicator.id, metric_id: metric.id, in_out_type: 'E')
 
   source_item = Item.find_or_create_by!(item_type: "source", description: "Elaboración Propia")
   source = Source.find_or_create_by!(item_id: source_item.id)
