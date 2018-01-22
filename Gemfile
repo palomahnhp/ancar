@@ -103,7 +103,6 @@ group :development do
   gem 'coveralls', require: false
   gem 'email_spec'
   gem 'seed_dump'
-  gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
