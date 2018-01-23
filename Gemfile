@@ -7,8 +7,8 @@ gem 'pg', '~> 0.18.3'# Use postgresqlas the database for Active Record
 gem 'ancestry', '~> 2.2'  # Organise ActiveRecord model into a tree structure
 gem 'pg_search', '~> 1.0'  # scopes that take advantage of PostgreSQL's full text search
 
-gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
-gem 'foundation-rails', '= 5.5.1.0' # Foundation on Sass/Compass
+gem 'sass-rails', '5.0.6' # Use SCSS for stylesheets
+gem 'foundation-rails', '6.2.4.0' # Foundation on Sass/Compass
 gem 'foundation_rails_helper', '~> 2.0'
 
 gem 'uglifier', '>= 1.3.0' # Compressor for JavaScript assets
