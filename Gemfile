@@ -4,18 +4,18 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.10'
 
 gem 'pg', '~> 0.18.3'# Use postgresqlas the database for Active Record
-gem 'ancestry' # Organise ActiveRecord model into a tree structure
-gem 'pg_search'  # scopes that take advantage of PostgreSQL's full text search
+gem 'ancestry', '~> 2.2'  # Organise ActiveRecord model into a tree structure
+gem 'pg_search', '~> 1.0'  # scopes that take advantage of PostgreSQL's full text search
 
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
-gem 'foundation-rails' # Foundation on Sass/Compass
-gem 'foundation_rails_helper'
+gem 'foundation-rails', '~> 6.2' # Foundation on Sass/Compass
+gem 'foundation_rails_helper', '~> 2.0'
 
 gem 'uglifier', '>= 1.3.0' # Compressor for JavaScript assets
 gem 'coffee-rails', '~> 4.1.0' # CoffeeScript for .coffee assets and views
 gem 'jquery-ui-rails', '~> 5.0'
 
-gem 'jquery-rails' # Use jquery as the JavaScript library
+gem 'jquery-rails', '~> 4.2' # Use jquery as the JavaScript library
 gem 'turbolinks', '2.5.3' # Following links in your web application faster.
 gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease.
 gem 'initialjs-rails', '0.2.0.1'
@@ -23,51 +23,51 @@ gem 'initialjs-rails', '0.2.0.1'
 # bundle exec rake index.html.erb:rails generates the API under index.html.erb/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'devise'
+gem 'devise', '~> 3.5'
 # Roles library without any authorization enforcement supporting scope on resource objects (instance or class).
 gem 'rolify', '~> 5.1'
 gem 'faraday', '~> 0.9.2'
-gem 'cancancan' # simple authorization solution for Rails which is decoupled from user roles.
+gem 'cancancan', '~> 1.15' # simple authorization solution for Rails which is decoupled from user roles.
 
-gem 'bcrypt' # hashing algorithm
+gem 'bcrypt', '~> 3.1' # hashing algorithm
 gem 'cocoon',  '~> 1.2'
-gem 'kaminari' # A Scope & Engine based paginator
+gem 'kaminari', '~> 0.17.0' # A Scope & Engine based paginator
 
-gem 'responders' # A set of responders modules to dry up your Rails 4.2+ app.
+gem 'responders', '~> 2.3' # A set of responders modules to dry up your Rails 4.2+ app.
 
 # gem 'rinku', require: 'rails_rinku' # auto-link rails, sanityze html
-gem 'savon' # SOAP client
-gem 'dalli' # mem cached client
+gem 'savon', '~> 2.11' # SOAP client
+gem 'dalli', '~> 2.7' # mem cached client
 
 gem 'rollbar', '~> 2.8.0' # exception tracking for ruby
 
 # ActiveRecord backend for Delayed::Job,
 gem 'delayed_job_active_record', '~> 4.1.0'
-gem 'daemons' # wrap existing ruby scripts to be run as a daemon.
+gem 'daemons', '~> 1.2' # wrap existing ruby scripts to be run as a daemon.
 
-gem 'whenever', require: false # Clean ruby syntax for writing and deploying cron jobs (scheduled jobs).
+gem 'whenever', '~> 0.9.7', require: false # Clean ruby syntax for writing and deploying cron jobs (scheduled jobs).
 
-gem 'groupdate'   # group temporary data
-gem 'tolk' # Web interface for translations
+gem 'groupdate', '~> 3.1'   # group temporary data
+gem 'tolk', '~> 2.0' # Web interface for translations
 
-gem 'browser' # browser detection
-gem 'turnout' # put your Rails application into maintenance mode
-gem 'redcarpet' # extensible Markdown to (X)HTML parser
+gem 'browser', '~> 2.3' # browser detection
+gem 'turnout', '~> 2.4' # put your Rails application into maintenance mode
+gem 'redcarpet', '~> 3.3' # extensible Markdown to (X)HTML parser
 
 # Use Unicorn as the app server
-gem 'unicorn'
+gem 'unicorn', '~> 5.2'
 
 # to read and write Spreadsheet Documents. As of version 0.6.0, only Microsoft Excel compatible spreadsheets are supported
 gem 'spreadsheet', '~> 1.1', '>= 1.1.2'
 
 # Create beautiful Javascript charts with one line of Ruby
-gem "chartkick"
+gem 'chartkick', '~> 2.2'
 
 # Wicked PDF uses the shell utility wkhtmltopdf to serve a PDF file to a user from HTML.
-gem 'wicked_pdf'
+gem 'wicked_pdf', '~> 1.1'
 
 # Because wicked_pdf is a wrapper for wkhtmltopdf, you'll need to install that, too.
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', '~> 0.12.3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
