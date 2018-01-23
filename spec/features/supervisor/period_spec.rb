@@ -179,64 +179,14 @@ feature 'Periods Maintenance' do
       within("#period_3") do
         click_link "ver procesos"
       end
+
       within("#main_process_6") do
         click_link "Ver subprocesos"
       end
 
       expect(page).to have_content 'Nuevo Periodo de análisis de datos SGT'
-      expect(page).to have_content '1. RÉGIMEN JURÍDICO SECRETARIA GENERAL TECNICA'
-      expect(page).to have_content '1. 1. ASUNTOS JUNTA GOBIERNO, PLENO Y COMISIONES DEL PLENO'
-      expect(page).to have_content '1. 2. PROYECTOS NORMATIVOS'
       expect(page).to have_link('Editar', count: 2)
       expect(page).to have_link('Eliminar', count: 2)
-    end
-
-    it 'copy indicators' do
-      supervisor = create(:supervisor_global)
-      login_as_authenticated_user(supervisor)
-
-      visit supervisor_root_path
-      click_link 'Configurar Periodos'
-      click_link 'Crear un periodo'
-
-      page.select "Distritos", :from => 'period_organization_type_id'
-
-      page.select "Periodo de análisis de datos Distritos", :from => 'period_id'
-
-      fill_in 'period_description', with: 'Nuevo Periodo de Distritos 1999'
-      fill_in 'started_at', with: (Time.now - 1.year).beginning_of_year
-      fill_in 'ended_at', with: (Time.now - 1.year).end_of_year
-      fill_in 'opened_at', with: (Time.now + 1.month).beginning_of_month
-      fill_in 'closed_at', with: (Time.now + 1.month).end_of_month
-
-      click_button 'Crear'
-      within("#period_3") do
-        click_link "ver procesos"
-      end
-
-      within("#main_process_6") do
-        click_link "Ver subprocesos"
-      end
-
-      click_link("Ver indicadores", :match => :first)
-
-      expect(page).to have_selector('tr', count: 4)
-      expect(page).to have_content 'Organización: Distritos'
-      expect(page).to have_content 'Periodo: Nuevo Periodo de Distritos 1999'
-      expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
-      expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-      expect(page).to have_content 'Indicadores'
-      expect(page).to have_content 'Métrica'
-      expect(page).to have_content 'Fuente'
-      expect(page).to have_content 'Tipo (E/S/X)'
-      expect(page).to have_link 'Añadir métrica'
-      expect(page).to have_content '1.1.1. Contratos Menores'
-      expect(page).to have_content 'Nº de Contratos recibidos'
-      expect(page).to have_content 'Nº de Contratos tramitados'
-      expect(page).to have_content('SIGSA', count: 2)
-      expect(page).to have_link('Editar', count: 3)
-      expect(page).to have_link('Eliminar', count: 3)
-
     end
   end
 end
