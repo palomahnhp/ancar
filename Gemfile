@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
 
-gem 'pg' # Use postgresqlas the database for Active Record
+gem 'pg', '~> 0.18.3'# Use postgresqlas the database for Active Record
 gem 'ancestry' # Organise ActiveRecord model into a tree structure
 gem 'pg_search'  # scopes that take advantage of PostgreSQL's full text search
 
