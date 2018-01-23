@@ -235,7 +235,7 @@ feature 'Indicators Maintenance' do
       within('#period_1') do
         click_link 'ver procesos'
       end
-      within('#main_process _1') do
+      within('#main_process_1') do
         click_link 'Ver subprocesos'
       end
       within('#sub_process_1') do
