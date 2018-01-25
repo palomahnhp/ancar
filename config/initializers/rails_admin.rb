@@ -38,20 +38,23 @@ RailsAdmin.config do |config|
       field :order
       field :item do
         pretty_value do
-          item = bindings[:object].item
-          "#{item.try(:description)} # #{item.id}"
+          link_object = bindings[:object].item
+          path = bindings[:view].show_path(model_name: 'Item', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.description
         end
       end
       field :period do
         pretty_value do
-          period = bindings[:object].period
-          "#{period.try(:description)} # #{period.id}"
+          link_object = bindings[:object].period
+          path = bindings[:view].show_path(model_name: 'Period', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.description
         end
       end
       field :updated_by do
         pretty_value do
-          user = User.find_by(login: bindings[:object].updated_by)
-          "#{user.try(:full_name)} # #{user.id}"
+          link_object = User.find_by(login: bindings[:object].updated_by)
+          path = bindings[:view].show_path(model_name: 'User', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.full_name
         end
       end
       field :updated_at
