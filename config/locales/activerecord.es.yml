@@ -1,5 +1,75 @@
 es:
   activerecord:
+    models:
+      approval:
+        one: Visto Bueno
+        other: Vistos Buenos
+      assigned_employee:
+        one: Puesto asignado
+        other: Puestos asignados
+      assigned_employees_change:
+        one: Justificación de cambio de plantilla
+        other: Justificaciones cambios de plantilla
+      doc:
+        one: Documento
+        other: Documentos
+      entry_indicator:
+        one: Cuantía de indicador
+        other: Cuantías de indicadores
+      indicator:
+        one: Indicador
+        other: Indicadores
+      item:
+        one: Descripción de item
+        other: Descripciones de items
+      main_process:
+        one: Proceso/Bloque competencial
+        other:  Procesos/Bloques competenciales
+      sub_process:
+        one: Subproceso/Proceso
+        other:  Subprocesos/Procesos
+      organization:
+        one: Organización
+        other: Organizaciones
+      organization_type:
+        one: Tipo de organización
+        other: Tipos de organización
+      unit:
+        one: Unidad
+        other: Unidades
+      unit_type:
+        one: Tipo de unidad
+        other: Tipos de unidades
+      period:
+        one: Periodo
+        other: Periodos
+      user:
+        one: Usuario
+        other: Usuarios
+      role:
+        one: Rol
+        other: Roles
+      user_role:
+        one: Rol de usuario
+        other: Roles de usuario
+      metric:
+        one: Métrica
+        other: Métricas
+      metric:
+        one: Fuente
+        other: Fuentes
+    attributes:
+      approval:
+        approval_by: Aprobado por
+        approval_at: Aprobado
+        description: Descripción
+      period:
+        organization_type: Tipo de organización
+        description: Descripción
+        opened_at: Abierto desde
+        closed_at: Abierto hasta
+        started_at: Inicio
+        ended_at: Fin
     errors:
       models:
         period:

@@ -215,3 +215,9 @@ es:
   docs:
     index:
       title: "Instrucciones y manuales"
+  admin:
+    actions:
+      dash:
+        breadcrumb: Panel de control
+        menu: Panel de control
+        title: Consola de administración de la aplicación

@@ -47,8 +47,8 @@ gem 'daemons', '~> 1.2' # wrap existing ruby scripts to be run as a daemon.
 
 gem 'whenever', '~> 0.9.7', require: false # Clean ruby syntax for writing and deploying cron jobs (scheduled jobs).
 
-gem 'groupdate', '~> 3.1'   # group temporary data
-gem 'tolk', '~> 2.0' # Web interface for translations
+# gem 'groupdate', '~> 3.1'   # group temporary data
+# gem 'tolk', '~> 2.0' # Web interface for translations
 
 gem 'browser', '~> 2.3' # browser detection
 gem 'turnout', '~> 2.4' # put your Rails application into maintenance mode
@@ -68,6 +68,9 @@ gem 'wicked_pdf', '~> 1.1'
 
 # Because wicked_pdf is a wrapper for wkhtmltopdf, you'll need to install that, too.
 gem 'wkhtmltopdf-binary', '~> 0.12.3.1'
+
+gem 'rails_admin', '~> 1.1' # Rails engine that provides an easy-to-use interface for managing
+# your data
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

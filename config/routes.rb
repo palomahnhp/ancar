@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
 
+  mount RailsAdmin::Engine => '/console', as: 'rails_admin'
+
   namespace :admin do
-  get 'roles/index'
+    get 'roles/index'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
