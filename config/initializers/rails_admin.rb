@@ -40,7 +40,7 @@ RailsAdmin.config do |config|
         pretty_value do
           link_object = bindings[:object].item
           path = bindings[:view].show_path(model_name: 'Item', id: link_object.id)
-          bindings[:view].tag(:a, href: path) << link_object.description
+          bindings[:view].tag(:a, href: path) << "#{link_object.id} #{link_object.description}"
         end
       end
       field :period do
@@ -63,11 +63,64 @@ RailsAdmin.config do |config|
 
   config.model 'SubProcess' do
     parent MainProcess
+    list do
+      field :id
+      field :order
+      field :item do
+        pretty_value do
+          link_object = bindings[:object].item
+          path = bindings[:view].show_path(model_name: 'Item', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << "#{link_object.id} #{link_object.description}"
+        end
+      end
+      field :main_process do
+        pretty_value do
+          link_object = bindings[:object].main_process
+          path = bindings[:view].show_path(model_name: 'MainProcess', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << "#{link_object.order} #{link_object.item.description}"
+        end
+      end
+      field :updated_by do
+        pretty_value do
+          link_object = User.find_by(login: bindings[:object].updated_by)
+          path = bindings[:view].show_path(model_name: 'User', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.full_name
+        end
+      end
+      field :updated_at
+    end
   end
 
   config.model 'Indicator' do
     parent SubProcess
+    list do
+      field :id
+      field :order
+      field :item do
+        pretty_value do
+          link_object = bindings[:object].item
+          path = bindings[:view].show_path(model_name: 'Item', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << "#{link_object.id} #{link_object.description}"
+        end
+      end
 
+      field :sub_process do
+        pretty_value do
+          link_object = bindings[:object].sub_process
+          path = bindings[:view].show_path(model_name: 'SubProcess', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << "#{link_object.order} #{link_object.item.description}"
+        end
+      end
+
+      field :updated_by do
+        pretty_value do
+          link_object = User.find_by(login: bindings[:object].updated_by)
+          path = bindings[:view].show_path(model_name: 'User', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.full_name
+        end
+      end
+      field :updated_at
+    end
   end
 
   config.model 'EntryIndicator' do
@@ -76,10 +129,32 @@ RailsAdmin.config do |config|
 
   config.model 'Metric' do
     parent Indicator
+    list do
+      field :id
+      field :item do
+        pretty_value do
+          link_object = bindings[:object].item
+          path = bindings[:view].show_path(model_name: 'Item', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << "#{link_object.id} #{link_object.description}"
+        end
+      end
+      field :updated_at
+    end
   end
 
   config.model 'Source' do
     parent Indicator
+    list do
+      field :id
+      field :item do
+        pretty_value do
+          link_object = bindings[:object].item
+          path = bindings[:view].show_path(model_name: 'Item', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << "#{link_object.id} #{link_object.description}"
+        end
+      end
+      field :updated_at
+    end
   end
 
   config.model 'Task' do
@@ -105,19 +180,115 @@ RailsAdmin.config do |config|
 
   config.model 'Organization' do
     parent OrganizationType
+    list do
+      field :id
+      field :organization_type do
+        pretty_value do
+          link_object = bindings[:object].organization_type
+          path = bindings[:view].show_path(model_name: 'Item', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.description
+        end
+      end
+      field :description
+      field :short_description
+      field :sap_id
+      field :order
+      field :updated_by do
+        pretty_value do
+          link_object = User.find_by(login: bindings[:object].updated_by)
+          path = bindings[:view].show_path(model_name: 'User', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.full_name
+        end
+      end
+    end
   end
 
   config.model 'UnitType' do
     navigation_label 'Organizaciones'
+    list do
+      field :id
+      field :organization_type do
+        pretty_value do
+          link_object = bindings[:object].organization_type
+          path = bindings[:view].show_path(model_name: 'OrganizationType', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.description
+        end
+      end
+      field :description
+      field :updated_by do
+        pretty_value do
+          link_object = User.find_by(login: bindings[:object].updated_by)
+          path = bindings[:view].show_path(model_name: 'User', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.full_name
+        end
+      end
+    end
   end
 
   config.model 'Unit' do
     parent UnitType
+    list do
+      field :id
+      field :unit_type do
+        pretty_value do
+          link_object = bindings[:object].unit_type
+          path = bindings[:view].show_path(model_name: 'Unit', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.description
+        end
+      end
+      field :description_sap
+      field :sap_id
+      field :order
+      field :updated_by do
+        pretty_value do
+          link_object = User.find_by(login: bindings[:object].updated_by)
+          path = bindings[:view].show_path(model_name: 'User', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.full_name
+        end
+      end
+    end
   end
 
   config.model 'AssignedEmployee' do
     navigation_icon 'icon-users'
     navigation_label 'Asignación de puestos/plantilla'
+    list do
+      field :id
+      field :official_group_id do
+        pretty_value do
+          bindings[:object].official_group.try(:name)
+        end
+      end
+      field :staff_of_type
+      field :staff_of_id
+      field :unit do
+        pretty_value do
+          if bindings[:object].unit_id.present?
+            "#{Unit.find(bindings[:object].unit_id).try(:description_sap)} - #{Unit.find(bindings[:object].unit_id).organization.short_description}"
+          end
+        end
+      end
+      field :quantity
+      field :period_id do
+        pretty_value do
+          link_object = bindings[:object].period
+          path = bindings[:view].show_path(model_name: 'Period', id: link_object.id)
+          bindings[:view].tag(:a, href: path) << link_object.description
+        end
+      end
+      field :justification
+      field :justified_at
+      field :justified_by do
+        pretty_value do
+          link_object = User.find_by(login: bindings[:object].justified_by)
+          if link_object.present?
+            path = bindings[:view].show_path(model_name: 'User', id: link_object.id)
+            bindings[:view].tag(:a, href: path) << link_object.full_name
+          end
+        end
+      end
+      field :pending_verification
+    end
     weight -3 # Se usa para ordenar, saltandose el alfabético
   end
 

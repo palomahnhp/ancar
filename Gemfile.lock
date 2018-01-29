@@ -486,6 +486,3 @@ DEPENDENCIES
   whenever (~> 0.9.7)
   wicked_pdf (~> 1.1)
   wkhtmltopdf-binary (~> 0.12.3.1)
-
-BUNDLED WITH
-   1.16.0
