@@ -1,205 +1,205 @@
 ---
 en:
   admin:
+    actions:
+      confirm: "¿Estás seguro?"
     dashboard:
       index:
         title: Configuración de la aplicación
-    actions:
-      confirm: "¿Estás seguro?"
+    entry_indicators:
+      index:
+        title: Indicadores con fuentes fijas
+      search:
+        periods: Periodos
+        sources: Fuentes
+        units: Unidades
     menu:
+      console: Consola de administración
+      group:
+        units: Organizaciones
       organization_types: Tipos de organizaciones
-      unit_types: Tipos de unidades
       organizations: Organizaciones
-      units: Unidades
       settings: Configuración global
       stats: Estadísticas
-      users: "Usuarios"
-      group:
-        units: "Organizaciones"
-    organizations:
-      index:
-        title: Organizaciones
+      unit_types: Tipos de unidades
+      units: Unidades
+      users: Usuarios
     organization_types:
       index:
         title: Tipos de organizaciones
-    units:
+    organizations:
       index:
-        title: Unidades
-    unit_types:
-      index:
-        title: Tipos de unidades
-    users:
-      activate:
-        alert: "No se ha podido reactivar el usuario %{user} "
-        notice: "El usuario %{user} se ha activado"
-      destroy:
-        alert: "No se ha podido dar de baja el usuario %{user} "
-        notice: "El usuario %{user} se ha dado de baja"
-      destroy_resource:
-        error: "Error al eliminar el recurso"
-      index:
-        filter:
-          all: Todos
-          interlocutor: Interlocutores
-          validator: Validadores
-          consultor: Consultores
-          supervisor: Supervisores
-          admin: Administradores
-          no_role: Sin autorizaciones
-          inactive: Inactivos
-        title: "Gestión de usuarios"
-        row:
-          login: "Login"
-          name: "Nombre"
-          position: "Puesto"
-          unit: "Unidad"
-          organization: "Organización"
-          actions: Acciones
-      edit:
-        created_at: "Fecha de alta:"
-        position: "Puesto"
-        unit: "Unidad"
-        contact: "Datos de contacto"
-        inactivated_at: "Fecha de baja"
-        button:
-          activate: "Activar"
-          inactivate: "Dar de baja"
-        status: "Estado"
-        message:
-          Alta: Se ha desactivado el usuario
-          Baja: Se ha activado el usuario
-          error: "Error creando usuario"
-        uweb_auth: "Acceso desde ayre"
-      status:
-        active: "Alta"
-        inactive: "Baja"
-      search:
-        user_not_found: "Usuario no encontrado, para dar de alta un nuevo usuario utiliza el botón de Alta de usuario"
-        login_placeholder: "Introduce el usuario a buscar"
-      new:
-        title: "Alta de usuario"
-      form:
-        new: "Crear usuario"
-        ws_update: "Buscar datos"
-      create:
-        alert: "Usuario no existe en ayre o está en baja lógica"
-      roles:
-        role:
-          role: "Rol"
-          resource: "Recurso"
-          item: "Item"
-          name:
-            supervisor: Supervisor de tipo de organización
-            validator: Validador de organización
-            reader: Consultor
-            admin: Administrador
-            interlocutor: Interlocutor de organización
-            no_name: ""
-        add_role: "Añadir rol"
-        title: "Añadir permisos al usuario"
-        remove_resource: "-"
-        no_role: "Este usuario no tiene asignado ningún rol"
-      uweb_update:
-        success: "Datos del usuario actualizados correctamente"
-        error: "Error actualizando los datos del usuario"
-      uweb_auth:
-        message:
-          success: "Se ha añadido correctamente el acceso desde ayre"
-          error: "No se ha podido añadir el acceso desde ayre"
+        title: Organizaciones
     roles:
-      index:
-        title:
-          interlocutor: Interlocutor de unidad
-          validator: Validador de unidad
-          admin: Administrador
-          supervisor: Supervisor
-        new: "Alta de usuario"
-      search:
-        login_placeholder: "Introduce el usuario"
-        search: "Buscar"
       action:
-        add: "Añadir rol"
-        delete: "Eliminar rol"
-        add_resource: "Añadir recurso"
+        add: Añadir rol
+        add_resource: Añadir recurso
+        delete: Eliminar rol
+      add_resource:
+        organization_type: Añadir permisos por tipo de organización
+        resource: Añadir permisos a unidad
+      add_role:
+        error: Error añadiendo el rol
+        resource: Añadir ámbito
+        submit: "+"
+        success: Se ha añadido el rol
+        title: 'Añadir rol: '
+      index:
+        new: Alta de usuario
+        title:
+          admin: Administrador
+          interlocutor: Interlocutor de unidad
+          supervisor: Supervisor
+          validator: Validador de unidad
       role:
+        name:
+          admin: Administrador
+          interlocutor: Interlocutor de organización
+          no_name: ''
+          reader: Consultor
+          supervisor: Supervisor de tipo de organización
+          validator: Validador de organización
         resources:
           Organization: Organización
           OrganizationType: Tipo de organización
           Unit: Unidad
-        name:
-          supervisor: Supervisor de tipo de organización
-          validator: Validador de organización
-          reader: Consultor
-          admin: Administrador
-          interlocutor: Interlocutor de organización
-          no_name: ""
-      add_role:
-        title: "Añadir rol: "
-        resource: "Añadir ámbito"
-        submit: "+"
-        error: "Error añadiendo el rol"
-        success: "Se ha añadido el rol"
-      add_resource:
-        resource: "Añadir permisos a unidad"
-        organization_type: "Añadir permisos por tipo de organización"
-    shared:
-      in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
-    entry_indicators:
-      index:
-        title: "Indicadores con fuentes fijas"
       search:
-        units: "Unidades"
-        sources: "Fuentes"
-        periods: Periodos
+        login_placeholder: Introduce el usuario
+        search: Buscar
     settings:
-      key:
-        value:
-          header_logo: Texto para el Logo
-          org_name: Nombre de la Organización
-          app_name: Nombre de la aplicación
-          user_test: Clave para pruebas de acceso
-          no_validation_lower_staff: Permitir menos plantilla
-          supervisor:
-            email:
-              JD: Correo de supervisor JD
-              SGT: Correo de supervisor SGT
-        description:
-          header_logo: Texto para el Logo
-          org_name: Nombre de la Organización
-          app_name: Nombre de la aplicación
-          user_test: Clave para pruebas de acceso
-          no_validation_lower_staff: Permitir menos plantilla
-          supervisor:
-            email:
-              JD: Correo de supervisor JD
-              SGT: Correo de supervisor SGT
       flash:
         updated: Valor actualizado
       index:
-        title: "Configuración de la aplicación"
-        update_setting: "Actualizar"
-        enabled: "Activada"
-        disabled: "Desactivada"
-        enable: Activar
         disable: Desactivar
-        imported_source:
-          title: "Fuentes Importadas"
-          subtitle: "Permitida edición"
-        imported_sources_editable:
-          SGT: Secretarias Generales Técnicas
-          JD: Juntas de Distrito
-        validations:
-          title: "Validaciones"
-          lower_staff:
-            title: Permitir menos plantilla que la asignada
-            SGT: Secretarias Generales Técnicas
-            JD: Juntas de Distrito
+        disabled: Desactivada
+        enable: Activar
+        enabled: Activada
         general:
-          title: "Parámetros globales"
+          title: Parámetros globales
+        imported_source:
+          subtitle: Permitida edición
+          title: Fuentes Importadas
+        imported_sources_editable:
+          JD: Juntas de Distrito
+          SGT: Secretarias Generales Técnicas
         send_email:
-          title: "Notificaciones por email"
           change_staff:
-            title: "Cambios de plantilla/puestos"
-            SGT: Secretarias Generales Técnicas
             JD: Juntas de Distrito
-
+            SGT: Secretarias Generales Técnicas
+            title: Cambios de plantilla/puestos
+          title: Notificaciones por email
+        title: Configuración de la aplicación
+        update_setting: Actualizar
+        validations:
+          lower_staff:
+            JD: Juntas de Distrito
+            SGT: Secretarias Generales Técnicas
+            title: Permitir menos plantilla que la asignada
+          title: Validaciones
+      key:
+        description:
+          app_name: Nombre de la aplicación
+          header_logo: Texto para el Logo
+          no_validation_lower_staff: Permitir menos plantilla
+          org_name: Nombre de la Organización
+          supervisor:
+            email:
+              JD: Correo de supervisor JD
+              SGT: Correo de supervisor SGT
+          user_test: Clave para pruebas de acceso
+        value:
+          app_name: Nombre de la aplicación
+          header_logo: Texto para el Logo
+          no_validation_lower_staff: Permitir menos plantilla
+          org_name: Nombre de la Organización
+          supervisor:
+            email:
+              JD: Correo de supervisor JD
+              SGT: Correo de supervisor SGT
+          user_test: Clave para pruebas de acceso
+    shared:
+      in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
+    unit_types:
+      index:
+        title: Tipos de unidades
+    units:
+      index:
+        title: Unidades
+    users:
+      activate:
+        alert: 'No se ha podido reactivar el usuario %{user} '
+        notice: El usuario %{user} se ha activado
+      create:
+        alert: Usuario no existe en ayre o está en baja lógica
+      destroy:
+        alert: 'No se ha podido dar de baja el usuario %{user} '
+        notice: El usuario %{user} se ha dado de baja
+      destroy_resource:
+        error: Error al eliminar el recurso
+      edit:
+        button:
+          activate: Activar
+          inactivate: Dar de baja
+        contact: Datos de contacto
+        created_at: 'Fecha de alta:'
+        inactivated_at: Fecha de baja
+        message:
+          Alta: Se ha desactivado el usuario
+          Baja: Se ha activado el usuario
+          error: Error creando usuario
+        position: Puesto
+        status: Estado
+        unit: Unidad
+        uweb_auth: Acceso desde ayre
+      form:
+        new: Crear usuario
+        ws_update: Buscar datos
+      index:
+        filter:
+          admin: Administradores
+          all: Todos
+          consultor: Consultores
+          inactive: Inactivos
+          interlocutor: Interlocutores
+          no_role: Sin autorizaciones
+          supervisor: Supervisores
+          validator: Validadores
+        row:
+          actions: Acciones
+          login: Login
+          name: Nombre
+          organization: Organización
+          position: Puesto
+          unit: Unidad
+        title: Gestión de usuarios
+      new:
+        title: Alta de usuario
+      roles:
+        add_role: Añadir rol
+        no_role: Este usuario no tiene asignado ningún rol
+        remove_resource: "-"
+        role:
+          item: Item
+          name:
+            admin: Administrador
+            interlocutor: Interlocutor de organización
+            no_name: ''
+            reader: Consultor
+            supervisor: Supervisor de tipo de organización
+            validator: Validador de organización
+          resource: Recurso
+          role: Rol
+        title: Añadir permisos al usuario
+      search:
+        login_placeholder: Introduce el usuario a buscar
+        user_not_found: Usuario no encontrado, para dar de alta un nuevo usuario utiliza el botón de Alta de usuario
+      status:
+        active: Alta
+        inactive: Baja
+      uweb_auth:
+        message:
+          error: No se ha podido añadir el acceso desde ayre
+          success: Se ha añadido correctamente el acceso desde ayre
+      uweb_update:
+        error: Error actualizando los datos del usuario
+        success: Datos del usuario actualizados correctamente

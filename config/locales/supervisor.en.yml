@@ -4,124 +4,120 @@ en:
     dashboard:
       index:
         title: Configuración de procesos
+    delete:
+      message:
+        empty: "¿Desea eliminar este elemento?"
+        no_empty: El elemento no está vacio ¿Desea borrar este elemento y su contenido ?
     headers:
       organization: 'Organización:'
       period: 'Periodo:'
-    indicators:
-      create:
-        success: "Se ha creado correctamente."
-        title: "Crear %{process_name}"
-      destroy:
-        error: "Se ha producido un error al eliminar el item"
-        success: "Se ha eliminado correctamente el item"
-      edit:
-        title: "Editar %{process_name}"
-      form:
-        description: Descripción
-        order: Orden de Visualización
-        code: Código del indicador
-        items:
-          description: "Si no existe la descripción en la caja superior escribala aquí"
-        code: "Código del indicador"
+    indicator:
       index:
-        empty: "No hay %{process_name} definidos"
-        title: "%{process_name}"
-        create: "Añadir %{process_name}"
-        submit: submit
-      new:
-        title: "Crear %{process_name}"
-      update:
-        success: El registro se ha actualizado correctamente.
-      show:
-        title: "%{process_name}"
-      item_list:
-        indicator: "%{process_name}"
-        metric: Métrica
-        source: Fuente
-        in_out_type: Tipo (E/S/X)
+        indicator_metric:
+          create: Añadir métrica
     indicator_metrics:
-      new:
-        title: Crear métrica
+      create:
+        success: La métrica se ha añadido correctamente
       delete: "¿Deseas borrar está métrica?"
       edit:
-        title: Editar métrica
-      update:
         title: Editar métrica
       form:
         metric: Métrica
         source:
-          column: "Fuente"
-          note: "Crear el indicador y posteriormente editar para añadir la/s fuente/s."
-          add: 'Añadir fuente'
-        type: "Tipo de indicador"
-      create:
-        success: La métrica se ha añadido correctamente
+          add: Añadir fuente
+          column: Fuente
+          note: Crear el indicador y posteriormente editar para añadir la/s fuente/s.
+        type: Tipo de indicador
       index:
-        submit: "submit"
-    menu:
-      periods: Configurar Periodos
-    main_processes:
-      create:
-        success: "El item se ha creado correctamente."
-        title: "Crear %{process_name}"
-      destroy:
-        error: "Error eliminando item"
-        success: "Item eliminado "
-      edit:
-        title: "Editar %{process_name}"
-      update:
-        success: El registro se ha actualizado correctamente.
-      index:
-        empty: "No hay %{process_name} para este periodo"
-        create_button: "Añadir %{process_name}"
-        title: "%{process_name}"
-        sub_processes: "Ver %{process_name}"
         submit: submit
-        select_organization_type: Seleccionar la Organización
-        select_period: Seleccionar el periodo
-      form:
-        description: Descripción
-        prompt: Selecciona una descripción
-        order: Núm. orden
-        items:
-          description: "Si no existe la descripción en la caja superior escriba aquí la nueva descripción"
       new:
-        title: "Crear %{process_name}"
+        title: Crear métrica
       update:
-        success: El registro se ha actualizado correctamente.
+        title: Editar métrica
+    indicators:
+      create:
+        success: Se ha creado correctamente.
+        title: Crear %{process_name}
+      destroy:
+        error: Se ha producido un error al eliminar el item
+        success: Se ha eliminado correctamente el item
+      edit:
+        title: Editar %{process_name}
+      form:
+        code: Código del indicador
+        description: Descripción
+        items:
+          description: Si no existe la descripción en la caja superior escribala aquí
+        order: Orden de Visualización
+      index:
+        create: Añadir %{process_name}
+        empty: No hay %{process_name} definidos
+        submit: submit
+        title: "%{process_name}"
+      item_list:
+        in_out_type: Tipo (E/S/X)
+        indicator: "%{process_name}"
+        metric: Métrica
+        source: Fuente
+      new:
+        title: Crear %{process_name}
       show:
         title: "%{process_name}"
-    periods:
-      create:
-        success:
-          processes_copy: Se ha creado el periodo correctamente con los procesos e indicatores del periodo seleccionado.
-          no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
-        error:
-          processes_copy: Se ha creado el periodo correctamente. Se está reañozando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
-      destroy:
-        success: Se ha eliminado el Periodo correctamente
-        error: Se ha producido un error a eliminar el Periodo
-      edit:
-        title: Editar periodo
       update:
         success: El registro se ha actualizado correctamente.
+    indicators_metrics:
+      add_empty_source:
+        title: Editar métrica
+      create:
+        title: la métrica
+      destroy:
+        error: Error eliminando la métrica
+        success: Se ha eliminado correctmente la métrica
+      destroy_source:
+        title: Editar métrica
+    main_processes:
+      create:
+        success: El item se ha creado correctamente.
+        title: Crear %{process_name}
+      destroy:
+        error: Error eliminando item
+        success: 'Item eliminado '
+      edit:
+        title: Editar %{process_name}
+      form:
+        description: Descripción
+        items:
+          description: Si no existe la descripción en la caja superior escriba aquí la nueva descripción
+        order: Núm. orden
+        prompt: Selecciona una descripción
       index:
-        button:
-          create: Crear un periodo
-          edit: editar
-          delete: eliminar
-          processes: "ver %{process_name}"
-        data_collect: Periodo de mecanización
-        empty: No se ha creado ningún periodo
-        entry_opened: No modificable - abierta entrada de datos
-        entry_closed: No modificable - cerrada entrada de datos
-        entry_not_open_yet: Modificable - aún no ha empezado entrada de datos
-        no_data: No hay periodos definidos
-        organization_type: Organización
-        period: 'Periodo:'
-        title: Periodos de estudio
+        create_button: Añadir %{process_name}
+        empty: No hay %{process_name} para este periodo
+        select_organization_type: Seleccionar la Organización
+        select_period: Seleccionar el periodo
+        sub_processes: Ver %{process_name}
+        submit: submit
+        title: "%{process_name}"
       new:
-        title: Abrir un nuevo periodo
+        title: Crear %{process_name}
+      show:
+        title: "%{process_name}"
+      update:
+        success: El registro se ha actualizado correctamente.
+    menu:
+      periods: Configurar Periodos
+    periods:
+      create:
+        error:
+          processes_copy: Se ha creado el periodo correctamente. Se está reañozando la copia de procesos e indicadores. Podras consultarlo en unos minutos.
+        success:
+          no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
+          processes_copy: Se ha creado el periodo correctamente con los procesos e indicatores del periodo seleccionado.
+      destroy:
+        error: Se ha producido un error a eliminar el Periodo
+        success: Se ha eliminado el Periodo correctamente
+      edit:
+        title: Editar periodo
       form:
         closed_at: Fin
         data_collect: Recogida de datos
@@ -132,40 +128,84 @@ en:
         organization_type: Organización
         period: Periodo a copiar
         started_at: Inicio
+      index:
+        button:
+          create: Crear un periodo
+          delete: eliminar
+          edit: editar
+          processes: ver %{process_name}
+        data_collect: Periodo de mecanización
+        empty: No se ha creado ningún periodo
+        entry_closed: No modificable - cerrada entrada de datos
+        entry_not_open_yet: Modificable - aún no ha empezado entrada de datos
+        entry_opened: No modificable - abierta entrada de datos
+        no_data: No hay periodos definidos
+        organization_type: Organización
+        period: 'Periodo:'
+        title: Periodos de estudio
+      new:
+        title: Abrir un nuevo periodo
       show:
         title: Indicador
+      update:
+        success: El registro se ha actualizado correctamente.
       validate:
         period:
-          ended_at: Fecha de fin no puede ser anterior a fecha de inicio
           closed_at: Fecha de cierre no puede ser anterior a fecha de apertura
+          ended_at: Fecha de fin no puede ser anterior a fecha de inicio
           opened_at: Fecha de apertura no puede ser anterior a la fecha de finalización del periodo
+    process_name:
+      plural:
+        CompetentialBlocks: bloques competenciales
+        Indicators: indicadores
+        MainProcesses: procesos
+        SubProcesses: subprocesos
+        Tasks: tareas/acciones
+      singular:
+        CompetentialBlocks: bloque competencial
+        Indicators: indicador
+        MainProcesses: proceso
+        SubProcesses: subproceso
+        Tasks: tarea/acción
+    process_summary:
+      detail:
+        district: DISTRITO
+        indicator: INDICADOR
+        indicators: INDICADORES
+        media: MEDIA
+        mediana: MEDIANA
+        metrics: MÉTRICAS
+        total: TOTAL
+      main_process:
+        button:
+          detail: Ver detalle
+      process:
+        indicators: Indicadores por proceso
     sub_processes:
+      create:
+        success: Item creado correctamente
       destroy:
-        error: "Error eliminando %{process_name}"
-        success: "Item eliminado"
+        error: Error eliminando %{process_name}
+        success: Item eliminado
       edit:
-        title: "Editar %{process_name}"
-      update:
-        success: El registro se ha actualizado correctamente.
-      index:
-        create: "Incluir %{process_name}"
-        indicators: "Ver %{process_name}"
-        title: "%{process_name}"
-        submit: submit
+        title: Editar %{process_name}
       form:
-        unit_type: Unidad
         description: Descripción
-        order: Núm. orden
         items:
-          description: "Si no existe la descripción en la caja superior escribala aquí"
+          description: Si no existe la descripción en la caja superior escribala aquí
+        order: Núm. orden
+        unit_type: Unidad
+      index:
+        create: Incluir %{process_name}
+        indicators: Ver %{process_name}
+        submit: submit
+        title: "%{process_name}"
       new:
-        title: "Crear %{process_name}"
-      update:
-        success: El registro se ha actualizado correctamente.
+        title: Crear %{process_name}
       show:
         title: Indicador
-      create:
-        success: "Item creado correctamente"
+      update:
+        success: El registro se ha actualizado correctamente.
     tasks:
       create:
         success: La tarea se ha creado correctamente
@@ -174,65 +214,18 @@ en:
         success: Tarea eliminada
       edit:
         title: Editar tarea
-      update:
-        success: El registro se ha actualizado correctamente.
-      index:
-        create: Incluir una tarea
-        submit: submit
-        indicators: Ver indicadores
-        title: Tareas
-        empty: Tarea Vacia
       form:
         description: Descripción
         order: Orden
+      index:
+        create: Incluir una tarea
+        empty: Tarea Vacia
+        indicators: Ver indicadores
+        submit: submit
+        title: Tareas
       new:
         title: Crear tareas
-      update:
-        success: El registro se ha actualizado correctamente.
       show:
         title: Indicador
-    indicator:
-      index:
-        indicator_metric:
-          create: 'Añadir métrica'
-    indicators_metrics:
-      create:
-        title: la métrica
-      destroy:
-        success: 'Se ha eliminado correctmente la métrica'
-        error: "Error eliminando la métrica"
-      add_empty_source:
-        title: Editar métrica
-      destroy_source:
-        title: Editar métrica
-    process_name:
-      plural:
-        Indicators: indicadores
-        Tasks: tareas/acciones
-        SubProcesses: subprocesos
-        MainProcesses: procesos
-        CompetentialBlocks: bloques competenciales
-      singular:
-        Indicators: indicador
-        Tasks: tarea/acción
-        SubProcesses: subproceso
-        MainProcesses: proceso
-        CompetentialBlocks: bloque competencial
-    process_summary:
-      detail:
-        indicators: "INDICADORES"
-        metrics: "MÉTRICAS"
-        indicator: "INDICADOR"
-        district: "DISTRITO"
-        total: "TOTAL"
-        media: "MEDIA"
-        mediana: "MEDIANA"
-      main_process:
-        button:
-          detail: "Ver detalle"
-      process:
-        indicators: "Indicadores por proceso"
-    delete:
-      message:
-        no_empty: "El elemento no está vacio ¿Desea borrar este elemento y su contenido ?"
-        empty: "¿Desea eliminar este elemento?"
+      update:
+        success: El registro se ha actualizado correctamente.

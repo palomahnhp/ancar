@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
   resourcify
-  belongs_to :organization_type
+  belongs_to :organization_type,  :inverse_of => :organizations
   has_many :units
   has_many :users
   has_many :main_processes

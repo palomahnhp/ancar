@@ -41,7 +41,7 @@
 
     <li id="settings" <%= 'class=active' if controller_name == 'settings' %>>
       <%= link_to admin_settings_path do %>
-        <span class="icon-cogs"></span>
+        <span class="icon-cog"></span>
         <%= t('admin.menu.settings') %>
       <% end %>
     </li>
@@ -50,6 +50,13 @@
       <%= link_to admin_root_path do %>
         <span class="icon-chart-bar"></span>
         <%= t('admin.menu.stats') %>
+      <% end %>
+    </li>
+
+    <li id="console" <%= 'class=active' if controller_name == 'RailsAdmin::Engine' %>>
+      <%= link_to rails_admin_path, target: :_blank  do %>
+          <span class="icon-cogs"></span>
+          <%= t('admin.menu.console') %>
       <% end %>
     </li>
 

@@ -1,7 +1,7 @@
 class OrganizationType < ActiveRecord::Base
   resourcify
   has_many :organizations
-  has_many :periods
+  has_many :periods, :inverse_of => :organization_type
   has_many :unit_types
   has_many :main_processes, through: :periods
   has_many :process_names

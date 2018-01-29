@@ -4,7 +4,7 @@ class Period < ActiveRecord::Base
   has_many :assigned_employees, :dependent => :destroy
   has_many :entry_indicators, :dependent => :destroy
 
-  belongs_to :organization_type
+  belongs_to :organization_type, :inverse_of => :periods
 
   validates :description, presence: true,  length: { in: 4..100 }
   validates :organization_type_id, presence: true
