@@ -39,6 +39,14 @@ body.admin {
     color:red;
   }
 }
+
+.ok{
+  color: green;
+  }
+.nok{
+  color:red;
+  }
+
 .no_use {
   .panel {
     border-style: solid;
@@ -433,8 +441,25 @@ table.investment-projects-summary {
     white-space: nowrap;
   }
 }
+
 .edit-user{
   th{
     text-align: left;
+  }
+}
+
+
+table.unit-status-show {
+
+  caption {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+  }
+
+  tr{
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
   }
 }

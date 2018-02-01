@@ -1,5 +1,4 @@
 module AssignedEmployeeHelper
-
   def input_staff_visible?(unit_id, period_id)
     (params[:justification] && params[:justification].blank?) || AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
 
@@ -91,5 +90,4 @@ module AssignedEmployeeHelper
   def quantity_equal?(official_group_id, type, process_id, quantity)
     AssignedEmployee.where(official_group_id: official_group_id, staff_of_type: 'Unit', staff_of_id: process_id, period_id: @period.id, unit_id: @unit.id).sum(:quantity) == quantity.to_f
   end
-
 end

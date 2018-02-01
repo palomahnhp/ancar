@@ -56,7 +56,8 @@ class Supervisor::PeriodsController < Supervisor::BaseController
 
   private
     def period_params
-      params.require(:period).permit(:organization_type_id, :description, :started_at, :ended_at, :opened_at, :closed_at, :period_id)
+      params.require(:period).permit(:organization_type_id, :description, :started_at, :ended_at,
+                                     :opened_at, :closed_at, :hide_status )
     end
 
     def find_period

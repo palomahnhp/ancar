@@ -1,9 +1,9 @@
 <div class="staff">
   <table class="staff" id="staff_<%=of%>">
     <thead>
-      <caption class="staff">  <%= (t("entry_indicators.staff.title.#{process_name(@period,'AssignedEmployee')}.#{of}")) %></caption>
+      <caption class="staff">  <%= t("entry_indicators.staff.title.Staff.Unit") %></caption>
       <tr>
-        <th class="position staff-th-position"> <%= (t("entry_indicators.staff.assigned.#{process_name(@period,'AssignedEmployee')}.column_header")) %></th>
+        <th class="position staff-th-position"> <%= (t("entry_indicators.staff.assigned.Staff.column_header")) %></th>
         <% official_groups.each do |gr| %>
             <th class="text-center staff-th"><%= gr.name %></th>
         <% end %>

@@ -1,0 +1,66 @@
+  <% if change.present? %>
+    <% unit = Unit.find(unit_id) %>
+    <div class="medium-8 small-12 columnst">
+      <div class="staff">
+        <table class="staff" id="staff_Unit">
+          <thead>
+          <tr>
+            <th class="position staff-th-position">
+              <%= (t("entry_indicators.staff.assigned.Staff.column_header")) %>
+            </th>
+            <% official_groups.each do |gr| %>
+              <th class="text-center staff-th"><%= gr.name %></th>
+            <% end %>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="icon-calendar staff-th"> <%= (t("entry_indicators.staff.assigned.initial")) %></th>
+              <% official_groups.each do |gr| %>
+                <td id="<%= "Unit_#{unit_id}" %>" class=" staff-td">
+                  <strong>
+                    <%= format_number(display_staff('Unit', unit, unit, period, gr.id,
+                                                    pos_amount('Unit'))) %>
+                  </strong>
+                </td>
+              <% end %>
+            </tr>
+          <tr>
+            <th class="icon-user staff-th"> <%= t('entry_indicators.staff.assigned.process') %></th>
+            <% official_groups.each do |gr| %>
+              <td class=" staff-td">
+                <strong>
+                  <%=  format_number(display_staff('Unit', unit, unit, period, gr.id,
+                                                   pos_amount('Unit'), 'Assigned')) %>
+                </strong>
+              </td>
+            <% end %>
+          </tr>
+            <tr>
+              <th class="staff-th text-center" >
+                <%= t("entry_indicators.staff.input.Staff.header") %>
+              </th>
+              <% official_groups.each do |gr| %>
+                <td  id="<%= "#{'UnitJustified'}_#{unit_id}" %>" class="staff-td">
+                    <%= format_number(display_staff('UnitJustified', unit, unit, period,
+                                                    gr.id, 4)) %>
+                </td>
+              <% end %>
+            </tr>
+
+            <tr>
+              <td colspan="6" class="text-center justification">
+                <h5> <%= t("entry_indicators.staff.justification.Staff.title") %> </h5>
+                  <p><%= justification_text(unit, period) %></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  <% else %>
+    <div class="medium-8 small-12 columns">
+      <%= t('supervisor.unit_statuses.show.no_change') %>
+    </div>
+  <% end %>

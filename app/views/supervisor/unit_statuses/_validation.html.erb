@@ -1,0 +1,10 @@
+  <% if @supervisor_unit_status[:validation_id].present? %>
+    <div class="medium-8 small-12 columnst">
+      <%= format_date(@supervisor_unit_status[:validation_at]) %> -
+      <%= login_to_full_name(@supervisor_unit_status[:validation_by])%>
+    </div>
+  <% else %>
+    <div class="medium-8 small-12 columns">
+      <%= t('supervisor.unit_statuses.show.no_validation') %>
+    </div>
+  <% end %>

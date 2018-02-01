@@ -4,12 +4,29 @@
       <%= link_to t('supervisor.dashboard.index.title'), supervisor_root_path %>
     </li>
 
-    <li <%= 'class=active' if controller_name == 'periods' %>>
+    <li>
       <%= link_to supervisor_periods_path do %>
         <span class="icon-calendar"></span>
         <%= t('supervisor.menu.periods') %>
       <% end %>
     </li>
+
+    <li id="unit_statuses">
+      <a href="#">
+        <span class="icon-sitemap"></span>
+        <%= t('supervisor.menu.unit_statuses') %>
+      </a>
+      <ul class="menu vertical nested">
+        <% Period.show_status.each do |period| %>
+            <li <%= 'class=active' if controller_name == 'unit_statuses' %>>
+              <%= link_to supervisor_unit_statuses_path(id: period.id) do %>
+                <span class="icon-list">- </span>
+                <%= period.description %>
+              <% end %>
+           </li>
+         <% %>
+       <% end %>
+      </ul>
 
     <li>
       <%= link_to supervisor_process_summary_index_path(type: 'MainProcess') do %>
@@ -24,6 +41,7 @@
         <%= t('subnavigation_menu.subprocess_summary') %>
       <% end %>
     </li>
+
 
   </ul>
 </nav>

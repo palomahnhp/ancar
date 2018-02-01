@@ -1,5 +1,4 @@
 module SupervisorHelper
-
   def side_menu
     render "/#{namespace}/menu"
   end
@@ -89,9 +88,25 @@ module SupervisorHelper
     TotalIndicatorType.acronym_id(in_out)
   end
 
+  def supervisor_get_employee_change(id)
+    @employee_change ||=  AssignedEmployeesChange.find(id) if id.present? && id > 0
+  end
+
+  def supervisor_get_approval(id)
+    @approval ||=  Approval.find(id) if id.present?  && id > 0
+  end
+
+  def change_id?(id)
+    if @prev_id == id
+      false
+    else
+      @prev_id = id
+      true
+    end
+  end
+
   private
     def namespace
       controller.class.parent.name.downcase
     end
-
 end

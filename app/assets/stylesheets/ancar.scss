@@ -3,9 +3,9 @@
 // 01. Welcome
 // 02. Ficha de indicadores
 // 03. Resumen de procesos
-// 04. supervisor:
-// 05. Reveal:
-// 06. Print:
+// 04.
+// 05. Reveal
+// 06. Print
 //
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -611,10 +611,14 @@ table#admin-indicator-metric {
   font-weight: bold;
   color: #27c236;
   }
+
 .period_closed {
   font-weight: bold;
   color: red;
   }
+
 .source-automatic {
   color:blue;
 }
+
+

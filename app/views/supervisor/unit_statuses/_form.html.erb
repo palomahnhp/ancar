@@ -1,0 +1,25 @@
+<%= form_for(@supervisor_unit_status) do |f| %>
+  <% if @supervisor_unit_status.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@supervisor_unit_status.errors.count, "error") %> prohibited this supervisor_unit_status from being saved:</h2>
+
+      <ul>
+      <% @supervisor_unit_status.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :show %><br>
+    <%= f.text_field :show %>
+  </div>
+  <div class="field">
+    <%= f.label :index %><br>
+    <%= f.text_field :index %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

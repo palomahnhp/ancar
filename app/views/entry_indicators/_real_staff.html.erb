@@ -15,12 +15,12 @@
 </tr>
 
 <tr>
- <td colspan="6" class="text-center justification">
-   <h5> <%= t("entry_indicators.staff.justification.#{process_name(@period,'AssignedEmployee')}.title") %> </h5>
-   <% if (can? :updates, @organization)  && @approval.blank? %>
-       <%= text_area_tag(:justification, justification_text(@unit.id, @period.id), class: 'justification') %>
-   <% elsif justification_verified?(unit.id, period.id) %>
-       <p><%= justification_text(unit.id, period.id) %></p>
-   <% end %>
- </td>
+   <td colspan="6" class="text-center justification">
+     <h5> <%= t("entry_indicators.staff.justification.#{process_name(@period,'AssignedEmployee')}.title") %> </h5>
+     <% if (can? :updates, @organization)  && @approval.blank? %>
+         <%= text_area_tag(:justification, justification_text(@unit.id, @period.id), class: 'justification') %>
+     <% elsif justification_verified?(unit.id, period.id) %>
+         <p><%= justification_text(unit.id, period.id) %></p>
+     <% end %>
+   </td>
 </tr>

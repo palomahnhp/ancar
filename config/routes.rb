@@ -73,41 +73,43 @@ Rails.application.routes.draw do
 
   namespace :supervisor do
     root to: "dashboard#index"
-      resources :sources
-      resources :process_summary
-      resources :periods
-      resources :indicators  do
-        member do
-          post 'edit'
-         end
-      end
-      resources :tasks  do
-        member do
-          post 'edit'
-         end
-      end
-        resources :sub_processes  do
-        member do
-          post 'edit'
-         end
-      end
+    resources :sources
+    resources :process_summary
+    resources :periods
+    resources :indicators  do
+      member do
+        post 'edit'
+       end
+    end
+    resources :tasks  do
+      member do
+        post 'edit'
+       end
+    end
+      resources :sub_processes  do
+      member do
+        post 'edit'
+       end
+    end
 
-      resources :main_processes
+    resources :main_processes
 
-      resources :items do
-        member do
-          post 'edit'
-        end
+    resources :items do
+      member do
+        post 'edit'
       end
-      resources :indicators
-      resources :indicator_metrics do
-        member do
-          put 'add_empty_source'
-          put 'destroy_source'
-        end
+    end
+    resources :indicators
+    resources :indicator_metrics do
+      member do
+        put 'add_empty_source'
+        put 'destroy_source'
       end
+    end
 
-      resources :in_works
+    resources :unit_statuses
+
+    resources :in_works
   end
 
 end

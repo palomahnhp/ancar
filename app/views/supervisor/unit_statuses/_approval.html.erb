@@ -1,0 +1,21 @@
+<table class="staff">
+ <tr>
+   <td>
+     <% if supervisor_get_approval(@supervisor_unit_status[:approval_id]).present? %>
+       <div class="medium-8 small-12 columns text-left">
+         <p> <%= @approval.official_position %> <br>
+           <%= format_date(@approval.approval_at, 'long')  if
+               @approval.approval_at
+               .present? %></p>
+         <%= login_to_full_name(@approval.approval_by) %> <br>
+         <p> <%= t('entry_indicators.approval.comments') %></p>
+         <p><%=  @approval.comment %> </p>
+       </div>
+     <% else %>
+       <div class="hide-for-print medium-8 small-12 columns">
+         <p> <%= t('entry_indicators.approval.pending.title') %> </p>
+       </div>
+     <% end %>
+   </td>
+ </tr>
+</table>

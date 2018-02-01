@@ -34,7 +34,4 @@ module ProcessSummaryHelper
     number_with_precision(stats('total', 'amount', spd) / stats('total', campo, spd), precision: 2)
    end
   end
-
-private
-
 end
