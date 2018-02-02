@@ -58,10 +58,13 @@ es:
       data_source: Modo obtención
       error:
         p1:
-          assigned_staff: 'La/Los plantilla/puestos asignados a los subprocesos/procesos no coinciden con la/los plantilla/puestos asignados a esta unidad para:'
-          entry_incomplete: 'Quedan indicadores por cumplimentar: plantilla/puestos o cantidad.'
+          assigned_staff_html: 'La/Los plantilla/puestos asignados a los subprocesos/procesos no
+          coinciden con la/los plantilla/puestos asignados a esta unidad para:'
+          entry_incomplete_html: 'Quedan indicadores por cumplimentar: plantilla/puestos o
+          cantidad.'
           entry_without_staff_html: 'Hay indicadores/tareas que no tienen asignados plantilla/puestos pero si tienen cumplimentadas cantidades o indicadores/tareas con cantidades pero sin puestos asignados:'
-          errors_in_out_stock: 'Es mayor la cantidad cumplimentada en los indicadores/tareas de salida que en los de entrada:'
+          errors_in_out_stock_html: 'Es mayor la cantidad cumplimentada en los indicadores/tareas
+           de salida que en los de entrada:'
           global:
             interlocutor: 'Pulsa el botón "Corregir" para volver a la ficha de la unidad y corregir los errores listados a continuación:'
             no_interlocutor: No es posible el Visto Bueno ya que se han detectado errores en los datos de esta unidad.

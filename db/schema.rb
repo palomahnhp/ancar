@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131125116) do
+ActiveRecord::Schema.define(version: 20180202090839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -266,7 +266,6 @@ ActiveRecord::Schema.define(version: 20180131125116) do
     t.string   "updated_by"
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
-    t.boolean  "show_status"
     t.boolean  "hide_status",                      default: false
   end
 
@@ -474,6 +473,16 @@ ActiveRecord::Schema.define(version: 20180131125116) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+
+  create_table "validations", force: :cascade do |t|
+    t.integer "period_id"
+    t.integer "unit_id"
+    t.string  "key"
+    t.string  "title"
+    t.text    "message"
+    t.text    "data"
+    t.string  "updated_by"
+  end
 
   add_foreign_key "approvals", "periods"
   add_foreign_key "approvals", "units"

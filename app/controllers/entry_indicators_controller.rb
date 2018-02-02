@@ -1,6 +1,7 @@
 class EntryIndicatorsController < ApplicationController
   include AssignedEmployeesActions
   include ApprovalsActions
+  include ApprovalsActions
 
   before_action :require_user, only: [:index]
   before_action :initialize_instance_vars, only: [:index, :edit, :updates, :download_validation, :validated_abstract]
@@ -10,25 +11,26 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def updates
-    if params[:cancel_change].present?
+    if cancel_change?
       cancel_change(@period.id, @unit.id)
-      SupervisorMailer.change_staff_email(change: 'cancel', period: @period, unit:@unit, user: current_user).deliver_now #deliver_later
-    elsif params[:open_change].present?
+      SupervisorMailer.change_staff_email(change: 'cancel', period: @period, unit:@unit,
+                                          user: current_user).deliver_now #deliver_later
+    elsif open_change?
       open_change(@period.id, @unit.id, current_user)
-    elsif params[:approval].present?
+    elsif approval?
       approval
     else
       update_entry
     end
 
-    if (@input_errors[:num_errors] && @input_errors[:num_errors] > 0) || @approval.present?
+    if @input_errors.present? || @approval.present?
       render :index
     else
-      if params[:close_entry].present?
+      if validate_entry?
         flash[:notice] = t('entry_indicators.updates.success.validation')
-      elsif params[:cancel_change].present?
+      elsif cancel_change?
         flash[:notice] = t('entry_indicators.updates.success.change')
-      elsif params[:save_change].present?
+      elsif save_change?
         flash[:notice] = t('entry_indicators.updates.success.save')
       end
       redirect_to entry_indicators_path(unit_id: @unit.id, period_id: @period.id,
@@ -37,20 +39,21 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def approval
-    if params[:approval] == t('entry_indicators.form.button.approval.init')
-      validate_input
-      if @input_errors[:num_errors] == 0
-        @approval = Approval.new(period: @period, unit: @unit, approval_by: current_user.login, official_position: current_user.official_position)
-        flash[:notice] = t('entry_indicators.approval.success.validation')
-      end
-    end
-    if params[:approval] == t('entry_indicators.form.button.approval.ok') || params[:approval] == t('entry_indicators.form.button.approval.update')
-      @approval = set_approval(@period, @unit, params[:comments], current_user)
-      flash[:notice] = t('entry_indicators.approval.success.update')
-    end
-    if params[:approval] == t('entry_indicators.form.button.approval.cancel')
-      @approval = delete_approval(@period, @unit)
-      flash[:notice] = t('entry_indicators.approval.success.cancel')
+    case params[:approval]
+      when t('entry_indicators.form.button.approval.init')
+        validate_input
+        if @input_errors.blank?
+          @approval = Approval.new(period: @period, unit: @unit, approval_by: current_user.login,
+                                   official_position: current_user.official_position)
+          flash[:notice] = t('entry_indicators.approval.success.validation')
+        end
+      when t('entry_indicators.form.button.approval.ok') ||
+          params[:approval] == t('entry_indicators.form.button.approval.update')
+        @approval = set_approval(@period, @unit, params[:comments], current_user)
+        flash[:notice] = t('entry_indicators.approval.success.update')
+      when t('entry_indicators.form.button.approval.cancel')
+        @approval = delete_approval(@period, @unit)
+        flash[:notice] = t('entry_indicators.approval.success.cancel')
     end
   end
 
@@ -104,16 +107,16 @@ class EntryIndicatorsController < ApplicationController
   private
 
   def update_entry
-    @entry_indicators_cumplimented = @employees_cumplimented = true
-
+    remove_last_validation if validate_entry?
     params.keys.each do |key|
       case key
           when 'Indicator', 'Unit'
-            @employees_cumplimented = assigned_employees_update(key, params[key])
+            assigned_employees_update(key, params[key])
           when 'IndicatorMetric'
-            @entry_indicators_cumplimented = update_indicator_metrics(params[key])
+            update_indicator_metrics(params[key])
           when 'justification'
             @justification_blank = change_justification(@period.id, @unit.id, params[:justification], current_user)
+            create_validation(:no_justification) if @justification_blank
           else
             flash[:error] = t('entry_indicators.updates.no_key')
       end
@@ -122,27 +125,28 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def validate_input
-    if params[:close_entry].present? || params[:approval].present?
-      @input_errors[:assignated_staff]     = AssignedEmployee.staff_for_unit(@period, @unit)
-      @input_errors[:entry_without_staff]  = Indicator.validate_staff_for_entry(@period, @unit)
-      @input_errors[:entry_incomplete]     = entry_incompleted?
-#     @input_errors[:in_out_stock]         = SubProcess.validate_in_out_stock(@period, @unit)
-      @input_errors[:incomplete_staff_entry] = @incomplete_staff_entry
-    end
 
-    if params[:approval].present?
-      @input_errors[:entry_incomplete]     = !(entry_indicators_cumplimented? && @incomplete_staff_entry.blank?)
-    end
+    case
+      when validate_entry? || approval?
+        entry_indicators_cumplimented
+        data = AssignedEmployee.staff_for_unit(@period, @unit)
+        create_validation(:assigned_staff, data) if data.present?
+        data = Indicator.validate_staff_for_entry(@period, @unit)
+        create_validation(:entry_without_staff, data) if data.present?
+#       @input_errors[:in_out_stock]         = SubProcess.validate_in_out_stock(@period, @unit)
+      when @justification_blank.present? &&
+           @input_errors.by_key(:incomplete_staff_unit).count == OfficialGroup.count
+          create_validation(:cancel_change)
+=begin
+        @input_errors[:cancel_change] = true
+        @input_errors[:incomplete_staff_unit]  = nil
+        @input_errors[:justification_blank]    = nil
+        @input_errors[:assignated_staff] = nil
+=end
+        end
+        @input_errors = Validation.by_period(@period.id).by_unit(@unit.id)
 
-    @input_errors[:incomplete_staff_unit]  = @incomplete_staff_unit
-    @input_errors[:justification_blank]    = @justification_blank
-    if @input_errors[:justification_blank] && @input_errors[:incomplete_staff_unit].count == OfficialGroup.count
-      @input_errors[:cancel_change] = true
-      @input_errors[:incomplete_staff_unit]  = nil
-      @input_errors[:justification_blank]    = nil
-      @input_errors[:assignated_staff] = nil
-    end
-    @input_errors[:num_errors] = @input_errors.select{|error| @input_errors[error].present?}.count
+#    @input_errors[:num_errors] = @input_errors.select{|error| @input_errors[error].present?}.count
   end
 
   def entry_indicator_params
@@ -159,7 +163,6 @@ class EntryIndicatorsController < ApplicationController
 
         if amount.empty?
           delete_entry_indicators(@unit.id, indicator_metric_id)
-          @entry_indicators_cumplimented = false
         else
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
           amount = amount.tr('.', '').tr(',', '.').to_f
@@ -173,13 +176,11 @@ class EntryIndicatorsController < ApplicationController
         end
       end
     end
-    return @entry_indicators_cumplimented
+    return
   end
 
   def initialize_instance_vars
     @input_errors = Hash.new()
-    @incomplete_staff_unit = []
-    @incomplete_staff_entry = {}
 
     if params[:organization_id]
       @organization = Organization.find(params[:organization_id])
@@ -214,13 +215,11 @@ class EntryIndicatorsController < ApplicationController
     @approval = get_approval(@period, @unit)
   end
 
-  def entry_incompleted?
-    !(@entry_indicators_cumplimented && @incomplete_staff_entry)
-  end
-
   def assigned_employees_update(type, process)
-    employees_cumplimented = true
     unit_ae_modified = false
+    incomplete_staff_unit = []
+    incomplete_staff_entry = []
+
     process.each do |pr|
       grupos = pr[1]
       process_id = pr[0].to_i
@@ -229,18 +228,18 @@ class EntryIndicatorsController < ApplicationController
       end
       grupos.keys.each do |grupo|
         quantity = grupos[grupo]
-        official_group_id = OfficialGroup.find_by_name(grupo).id
+        official_group = OfficialGroup.find_by_name(grupo)
         if quantity.blank?
-          employees_cumplimented = false
           if type == 'UnitJustified'
-            @incomplete_staff_unit <<  grupo
+            error = "Unidad: " + process_id.to_s +  " " + official_group.description
+            incomplete_staff_unit.push(error)
           else
-            @incomplete_staff_entry[process_id.to_s] = []
-            @incomplete_staff_entry[process_id.to_s] << grupo
+            error = "Indicador: " + process_id.to_s + " " + official_group.description
+            incomplete_staff_entry.push(error)
           end
-          delete_assigned_employee(official_group_id, type, process_id, @period.id, @unit.id)
+          delete_assigned_employee(official_group.id, type, process_id, @period.id, @unit.id)
         else
-          ae = set_assigned_employee(official_group_id, type, process_id, @period.id, @unit.id)
+          ae = set_assigned_employee(official_group.id, type, process_id, @period.id, @unit.id)
           ae.quantity = quantity
           if ae.changed?
             ae.updated_by = current_user.login
@@ -250,20 +249,61 @@ class EntryIndicatorsController < ApplicationController
         end
       end
     end
+
     SupervisorMailer.change_staff_email(change: 'open', period: @period, unit:@unit, user: current_user).deliver_now if unit_ae_modified.present?
-    return employees_cumplimented
+
+    create_validation(:incomplete_staff_unit, incomplete_staff_unit) if incomplete_staff_unit.present?
+    create_validation(:incomplete_staff_entry, incomplete_staff_entry) if incomplete_staff_entry.present?
+    return
   end
 
-  def entry_indicators_cumplimented?
+  def entry_indicators_cumplimented
+    errors = []
     indicators_period = @period.indicators(@unit)
     indicators_period.each do |indicator_subprocess|
       indicator_subprocess.each do |indicator|
           indicator.indicator_metrics.each do |indicator_metric|
-            return false if indicator_metric.entry_indicators.where(unit: @unit).blank?
+            if indicator_metric.entry_indicators.where(unit: @unit).blank?
+              error = Indicator.description(indicator.id) + indicator_metric.description
+              errors.push(error)
+            end
           end
       end
     end
-    return true
+    create_validation(:entry_incomplete, errors) if errors.present?
+    return
   end
 
+  def for_approval
+    params[:close_entry].present? || params[:approval].present?
+  end
+
+  def create_validation(key, data='')
+    Validation.add(@period, @unit, key, t("entry_indicators.form.error.title.#{key}"),
+                   t("entry_indicators.form.error.p1.#{key}_html"), data)
+  end
+
+  def validate_entry?
+    params[:close_entry].present?
+  end
+
+  def cancel_change?
+    params[:cancel_change].present?
+  end
+
+  def open_change?
+    params[:open_change].present?
+  end
+
+  def save_change?
+    params[:save_change].present?
+  end
+
+  def approval?
+    params[:approval].present?
+  end
+
+  def remove_last_validation
+    Validation.delete_all(period: @period, unit: @unit)
+  end
 end
