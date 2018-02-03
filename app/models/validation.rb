@@ -12,7 +12,7 @@ class Validation  < ActiveRecord::Base
   VALIDATION_TYPES = [ :entry_incomplete, :entry_without_staff, :assigned_staff,
                        :errors_in_out_stock, :global, :incomplete_staff_entry,
                        :incomplete_staff_unit, :no_change_staff, :no_justification ]
-  def self.add(period, unit, key, title, message, data_errors)
+  def self.add(period, unit, key, title, message, data_errors, login)
     v = Validation.new()
     v.period  = period
     v.unit    = unit
@@ -20,8 +20,7 @@ class Validation  < ActiveRecord::Base
     v.title   = title
     v.message = message
     v.data_errors  = data_errors if data_errors.present?
-
-
+    v.updated_by = login
     v.save
   end
 end

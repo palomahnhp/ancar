@@ -1,3 +1,35 @@
+
+<div class="reveal-overlay validation-error" style="display:inline" >
+  <div id="myModal" class="large reveal warning callout" data-open="myModal" aria-labelledby="modalTitle"
+       aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
+    <p class="modal-title"><%= t('entry_indicators.form.error.title.global')%> </p>
+    <p><%= t("entry_indicators.form.error.p1.global.#{user_type(current_user)}")%></p>
+    <ol>
+      <% @input_errors.each do |input_error| %>
+        <li class="modal-error-title" >
+          <p class="modal-error-title"> <%= t("entry_indicators.form.error.title.#{input_error.key}") %></p>
+          <p> <%= t("entry_indicators.form.error.p1.#{input_error.key}_html") %></p>
+          <ul class="error-detail">
+            <% input_error.data_errors.each do |error| %>
+              <li class="modal-error" title="<%= input_error.key %>">
+                <%= error %>
+              </li>
+              <%= render 'show_adjust_button'  if input_error.key.to_sym == :assigned_staff %>
+              <%= render 'show_cancel_adjust_button'  if input_error.key.to_sym == :cancel_change %>
+          <% end %>
+          </ul>
+        </li>
+        <br>
+    <% end %>
+    </ol>
+
+    <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
+      <span aria-hidden="true"><%= t('entry_indicators.form.button.fix') %></span>
+    </button>
+
+  </div>
+</div>
+
 <script>
     function cancelChange(){
         $("#cancel_change").attr('value', true);
@@ -16,62 +48,3 @@
     }
 
 </script>
-
-<div class="reveal-overlay validation-error" style="display:inline" >
-  <div id="myModal" class="large reveal warning callout" data-open="myModal" aria-labelledby="modalTitle"
-       aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
-    <p class="modal-title"><%= t('entry_indicators.form.error.title.global')%> </p>
-    <p><%= t("entry_indicators.form.error.p1.global.#{user_type(current_user)}")%></p>
-    <ol>
-      <% @input_errors.each do |input_error| %>
-        <li class="modal-error-title" >
-          <p class="modal-error-title"> <%= t("entry_indicators.form.error.title.#{input_error.key}") %></p>
-          <p> <%= t("entry_indicators.form.error.p1.#{input_error.key}_html") %></p>
-          <ul class="error-detail">
-            <% input_error.data_errors.each do |error| %>
-              <li class="modal-error">
-                <%= error %>
-              </li>
-            <% end %>
-          </ul>
-        </li>
-      <% end %>
-
-     <% if @input_errors.by_key(:assignated_staff).present? %>
-      <li class="modal-error-title">
-        <p class="modal-error-title"><%= t('entry_indicators.form.error.title.assigned_staff')%> </p>
-        <p><%= t('entry_indicators.form.error.p1.assigned_staff')%>
-          <ul class="error-detail">
-            <% @input_errors.by_key(:assignated_staff).each do |error| %>
-              <li class="modal-error">
-                <%= error %>
-              </li>
-            <% end %>
-          </ul>
-        </p>
-        <% unless has_justification?(@unit.id, @period.id) %>
-          <p><%= t('entry_indicators.form.error.p2.assigned_staff_html')%></p>
-          <p><%= t('entry_indicators.form.error.p3.assigned_staff_html',
-                 box_title: t("entry_indicators.staff.title.#{process_name(@period,'AssignedEmployee')}.Unit")) %></p>
-           <a class="hollow button" onclick="openChange()"> <%= t('entry_indicators.form.button.justificate') %></a>
-        <% end %>
-       </li>
-      <% end %>
-
-    <% if @input_errors.by_key(:cancel_change).present? %>
-      <li class="modal-error-title">
-        <p class="modal-error-title"><%= t('entry_indicators.form.error.title.no_change_staff')%> </p>
-        <p><%= t('entry_indicators.form.error.p1.no_change_staff')%></p>
-        <p><%= t('entry_indicators.form.error.p2.no_change_staff_html')%></p>
-        <a class="hollow button" onclick="cancelChange()"> <%= t('entry_indicators.form.button.cancel_change') %></a>
-      </li>
-      <% end %>
-    </ol>
-
-    <button class="hollow button" onclick="closeModal()" aria-label="Close modal" type="button">
-      <span aria-hidden="true"><%= t('entry_indicators.form.button.fix') %></span>
-    </button>
-
-  </div>
-
-</div>

@@ -64,6 +64,7 @@ class Indicator < ActiveRecord::Base
 
   def self.validate_staff_for_entry(period, unit)
     entry_without_staff = []
+    staff_without_entry = []
     period.main_processes.each do |main_process|
       main_process.sub_processes.each do |sub_process|
         staff_quantity = indicator_amount = 0
@@ -71,16 +72,19 @@ class Indicator < ActiveRecord::Base
           task.indicators.each do |indicator|
             indicator_amount   = indicator.amount(unit.id).to_f
             staff_quantity     = AssignedEmployee.staff_quantity(indicator, unit.id)
-            if (staff_quantity.zero? && indicator_amount > 0) || (staff_quantity > 0 && indicator_amount.zero?)
+            if (staff_quantity.zero? && indicator_amount > 0)
               error = Indicator.description(indicator.id) + " => cantidad: " +
                   indicator_amount.to_s + " puestos asignados: " + staff_quantity.to_s
               entry_without_staff.push(error)
+            elsif staff_quantity > 0 && indicator_amount.zero?
+              error = Indicator.description(indicator.id) + " => cantidad: " +
+                  indicator_amount.to_s + " puestos asignados: " + staff_quantity.to_s
+              staff_without_entry.push(error)
             end
           end
         end
       end
     end
-    return entry_without_staff
+    return [entry_without_staff, staff_without_entry]
   end
-
 end

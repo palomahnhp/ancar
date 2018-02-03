@@ -9,8 +9,8 @@ class CreateValidations < ActiveRecord::Migration
       t.text       :data_errors
 
       t.string     :updated_by
-      t.timestamp
-      t.timestamp
+      t.timestamps null: false
+      t.timestamps null: false
     end
   end
 end
