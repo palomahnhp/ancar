@@ -26,7 +26,7 @@ FactoryGirl.define do
       end
     end
 
-    trait :validator_distrito do
+    trait :validator do
       after :create do |user|
         organization = Organization.where(organization_type: OrganizationType.find_by_description('Distritos')).take
         user.add_role(:validator, organization)

@@ -84,7 +84,7 @@ es:
         p3:
           assigned_staff_html: Si no es un error y se debe/n ajustar la/los plantilla/puestos que aparecen en la tabla <strong><em> "Puestos asignados a 31 de diciembre"</em></strong>, puedes modificarlos, para adecuarlos a los que realmente han participado en estos procesos, pulsando en el botón <strong><em> Adecuar puestos</em></strong>, lo que permitirá modificar los puestos y añadir una justificación a dichos cambios.
         title:
-          assigned_staff: Error en la plantilla asignada a indicadores
+          assigned_staff: 'Error en la plantilla: no coincide la de la unidad con la asignada a indicadores'
           entry_incomplete: Datos incompletos
           entry_without_staff: Error en la asignación de plantilla a indicadores
           errors_in_out_stock: Error en procesos de entrada/salida
