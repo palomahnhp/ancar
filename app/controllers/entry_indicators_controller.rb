@@ -120,24 +120,22 @@ class EntryIndicatorsController < ApplicationController
             flash[:error] = t('entry_indicators.updates.no_key')
       end
     end
-    validate_input
+    validate_input if validate_entry? || approval?
   end
 
   def validate_input
-    case
-      when validate_entry? || approval?
-        data = AssignedEmployee.staff_for_unit(@period, @unit)
-        create_validation(:assigned_staff, data) if data.present?
-        data = Indicator.validate_staff_for_entry(@period, @unit)
-        create_validation(:entry_without_staff, data[0]) if data[0].present?
-        create_validation(:staff_without_entry, data[1]) if data[1].present?
+    data = AssignedEmployee.staff_for_unit(@period, @unit)
+    create_validation(:assigned_staff, data) if data.present?
+    data = Indicator.validate_staff_for_entry(@period, @unit)
+    create_validation(:entry_without_staff, data[0]) if data[0].present?
+    create_validation(:staff_without_entry, data[1]) if data[1].present?
 #        data = SubProcess.validate_in_out_stock(@period, @unit)
 #        create_validation(:in_out_stock, data) if data.present?
-      when @justification_blank.present? &&
-           @input_errors.by_key(:incomplete_staff_unit).count == OfficialGroup.count
-          create_validation(:cancel_change)
-        end
-        @input_errors = Validation.by_period(@period.id).by_unit(@unit.id)
+#      when @justification_blank.present? &&
+#           @input_errors.by_key(:incomplete_staff_unit).count == OfficialGroup.count
+#          create_validation(:cancel_change)
+    @input_errors = Validation.by_period(@period.id).by_unit(@unit.id)
+    create_validation(:success_validation) if @input_errors.blank?
   end
 
   def entry_indicator_params

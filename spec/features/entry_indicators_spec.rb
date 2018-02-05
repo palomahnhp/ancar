@@ -48,7 +48,6 @@ feature "Entry Indicators" do
   end
 
   describe "Process" do
-
     it ' show SGT data' do
       user= create(:user, :SGT)
       login_as_authenticated_user(user)
@@ -75,7 +74,6 @@ feature "Entry Indicators" do
       expect(page).to have_content 'Preparación revisión y tramitación de proyectos normativos ...'
       expect(page).to have_content 'Nº de proyectos de otras Áreas	Elaboración Propia'
   end
-
     it ' show Distritos data' do
       user= create(:user, :distrito)
       login_as_authenticated_user(user)
@@ -95,7 +93,6 @@ feature "Entry Indicators" do
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
 
     end
-
     it ' actualiza indicadores y puestos ' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)

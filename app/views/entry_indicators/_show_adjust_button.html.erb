@@ -1,4 +1,5 @@
 <% unless has_justification?(@unit.id, @period.id) %>
+  <br>
   <p><%= t('entry_indicators.form.error.p2.assigned_staff_html')%></p>
   <p><%= t('entry_indicators.form.error.p3.assigned_staff_html',
            box_title: t("entry_indicators.staff.title.#{process_name(@period,'AssignedEmployee')}.Unit")) %></p>
