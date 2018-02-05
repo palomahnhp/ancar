@@ -47,8 +47,7 @@ class EntryIndicatorsController < ApplicationController
                                    official_position: current_user.official_position)
           flash[:notice] = t('entry_indicators.approval.success.validation')
         end
-      when t('entry_indicators.form.button.approval.ok') ||
-          params[:approval] == t('entry_indicators.form.button.approval.update')
+      when t('entry_indicators.form.button.approval.ok'), t('entry_indicators.form.button.approval.update')
         @approval = set_approval(@period, @unit, params[:comments], current_user)
         flash[:notice] = t('entry_indicators.approval.success.update')
       when t('entry_indicators.form.button.approval.cancel')
