@@ -1,7 +1,6 @@
 class EntryIndicatorsController < ApplicationController
   include AssignedEmployeesActions
   include ApprovalsActions
-  include ApprovalsActions
 
   before_action :require_user, only: [:index]
   before_action :initialize_instance_vars, only: [:index, :edit, :updates, :download_validation, :validated_abstract]
@@ -39,18 +38,19 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def approval
-    case params[:approval]
-      when t('entry_indicators.form.button.approval.init')
+    case
+      when approval_init?
+#        remove_last_validation if validate_entry?
         validate_input
         if @input_errors.blank?
           @approval = Approval.new(period: @period, unit: @unit, approval_by: current_user.login,
                                    official_position: current_user.official_position)
           flash[:notice] = t('entry_indicators.approval.success.validation')
         end
-      when t('entry_indicators.form.button.approval.ok'), t('entry_indicators.form.button.approval.update')
+      when approval_ok?, approval_update?
         @approval = set_approval(@period, @unit, params[:comments], current_user)
         flash[:notice] = t('entry_indicators.approval.success.update')
-      when t('entry_indicators.form.button.approval.cancel')
+      when approval_cancel?
         @approval = delete_approval(@period, @unit)
         flash[:notice] = t('entry_indicators.approval.success.cancel')
     end
@@ -106,13 +106,12 @@ class EntryIndicatorsController < ApplicationController
   private
 
   def update_entry
-    remove_last_validation if validate_entry?
     params.keys.each do |key|
       case key
           when 'Indicator', 'Unit'
-            assigned_employees_update(key, params[key])
+            assigned_employees_update(key, params[key]) # :incomplete_staff_
           when 'IndicatorMetric'
-            update_indicator_metrics(params[key])
+            @empty_indicators = update_indicator_metrics(params[key])
           when 'justification'
             create_validation(:no_justification) unless change_justification(@period.id, @unit.id, params[:justification], current_user)
           else
@@ -123,6 +122,11 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def validate_input
+    remove_last_validation # if validate_entry?
+    if approval_init?
+      @empty_indicators = validate_indicator_metrics
+    end
+    create_validation(:incomplete_entry, @empty_indicators) if @empty_indicators.present?
     data = AssignedEmployee.staff_for_unit(@period, @unit)
     create_validation(:assigned_staff, data) if data.present?
     data = Indicator.validate_staff_for_entry(@period, @unit)
@@ -142,13 +146,14 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def update_indicator_metrics(indicator_metrics)
-    Indicator.includes(:indicator_metrics,:entry_indicators)
+    indicator_empty = []
     indicator_metrics.each do |indicator|
       indicator[1].each do |im|
         indicator_metric_id = im[0].to_i
         amount = im[1]
-        if amount.empty?
+        if amount.blank?
           delete_entry_indicators(@unit.id, indicator_metric_id)
+          indicator_empty.push(Indicator.find(indicator[0]).item.description)
         else
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
           amount = amount.tr('.', '').tr(',', '.').to_f
@@ -162,7 +167,21 @@ class EntryIndicatorsController < ApplicationController
         end
       end
     end
-    return
+    return indicator_empty
+  end
+
+  def validate_indicator_metrics
+    indicator_empty = []
+    @period.indicators(@unit).each do |indicator_ar|
+      indicator_ar.each do |indicator|
+        indicator.indicator_metrics.each do |indicator_metric|
+          if indicator_metric.entry_indicators.empty?
+            indicator_empty.push(indicator.item.description)
+          end
+        end
+      end
+    end
+    return indicator_empty
   end
 
   def initialize_instance_vars
@@ -267,7 +286,24 @@ class EntryIndicatorsController < ApplicationController
     params[:approval].present?
   end
 
+  def approval_init?
+    params[:approval] == t('entry_indicators.form.button.approval.init')
+  end
+
+  def approval_ok?
+    params[:approval] == t('entry_indicators.form.button.approval.ok')
+  end
+
+  def approval_update?
+    params[:approval] == t('entry_indicators.form.button.approval.update')
+  end
+
+  def approval_cancel?
+    params[:approval] == t('entry_indicators.form.button.approval.cancel')
+  end
+
   def remove_last_validation
     Validation.delete_all(period: @period, unit: @unit)
   end
+
 end

@@ -8,7 +8,8 @@
     <% end %>
   <% end %>
   <% if (current_user.has_role? :validator, @organization)  && @approval.blank?  && @period.open_entry? %>
-     <%= submit_tag(t('entry_indicators.form.button.approval.ok'), class: 'button hollow', name: 'approval') %>
+     <%= submit_tag(t('entry_indicators.form.button.approval.init'), class: 'button hollow',
+                    name: 'approval') %>
   <% end %>
 
   <%= submit_tag(t('entry_indicators.form.button.print'), class:"icon-print button hollow", name: 'print', onclick: "window.print()") %>

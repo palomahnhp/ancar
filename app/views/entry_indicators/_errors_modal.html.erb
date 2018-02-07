@@ -3,8 +3,7 @@
        aria-hidden="true"  role="dialog" style="display: block; opacity: 1; top: 194px;">
     <p class="modal-title"><%= t('entry_indicators.form.error.title.global')%> </p>
     <p><%= t("entry_indicators.form.error.p1.global.#{user_type(current_user)}")%></p>
-    <ol>
-      <% @input_errors.each do |input_error| %>
+    <ol><% @input_errors.each do |input_error| %>
         <li class="modal-error-title" >
           <p class="modal-error-title"> <%= t("entry_indicators.form.error.title.#{input_error.key}") %></p>
           <p> <%= t("entry_indicators.form.error.p1.#{input_error.key}_html") %></p>
