@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :user do
     login  "USU" + Faker::Number.number(3)

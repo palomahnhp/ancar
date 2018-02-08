@@ -81,7 +81,7 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 3.3' # Trsting framework for Rails
   gem 'capybara' # integration testing tool for rack based web applications.
-  gem 'factory_girl_rails', require: false #integration between factory_girl and rails ( DSL for defining and using factories )
+  gem "factory_bot_rails"
 
   gem 'fuubar' #  RSpec progress bar formatter
   gem 'launchy' # Launching external application from within ruby programs.

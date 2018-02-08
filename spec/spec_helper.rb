@@ -1,4 +1,4 @@
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'database_cleaner'
 require 'email_spec'
 
@@ -8,7 +8,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include(CommonActions)
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
