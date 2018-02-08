@@ -106,14 +106,15 @@ class EntryIndicatorsController < ApplicationController
   def update_entry
     params.keys.each do |key|
       case key
-          when 'Indicator', 'Unit'
-            assigned_employees_update(key, params[key]) # :incomplete_staff_
-          when 'IndicatorMetric'
-            @empty_indicators = update_indicator_metrics(params[key])
-          when 'justification'
-            create_validation(:no_justification) unless change_justification(@period.id, @unit.id, params[:justification], current_user)
-          else
-            flash[:error] = t('entry_indicators.updates.no_key')
+      when 'Indicator', 'Unit'
+        assigned_employees_update(key, params[key]) # :incomplete_staff_
+        justification = check_justification
+        @justification_blank = change_justification(@period.id, @unit.id, justification,
+                                                    current_user)
+      when 'IndicatorMetric'
+        @empty_indicators = update_indicator_metrics(params[key])
+      else
+        flash[:error] = t('entry_indicators.updates.no_key')
       end
     end
     validate_input if validate_entry? || approval?
@@ -130,6 +131,7 @@ class EntryIndicatorsController < ApplicationController
     data = Indicator.validate_staff_for_entry(@period, @unit)
     create_validation(:entry_without_staff, data[0]) if data[0].present?
     create_validation(:staff_without_entry, data[1]) if data[1].present?
+    create_validation(:no_justification) if @justification_blank.present?
 #        data = SubProcess.validate_in_out_stock(@period, @unit)
 #        create_validation(:in_out_stock, data) if data.present?
 #      when @justification_blank.present? &&
@@ -304,4 +306,7 @@ class EntryIndicatorsController < ApplicationController
     Validation.delete_all(period: @period, unit: @unit)
   end
 
+  def check_justification
+    params[:justification].present? ? params[:justification] : ''
+  end
 end
