@@ -27,7 +27,7 @@ class UwebUpdateApi
     response = client.call(operation.to_sym, message: { ub: message_params }).body
     parsed_response = parser.parse(response[(operation.to_s + '_response').to_sym][(operation.to_s + '_return').to_sym])
   rescue Savon::Error => e
-    puts "#{operation} - #{message_params} - Error Savon: #{e}"
+    Rails.logger.info { "  #{operation} - #{message_params} - Error Savon: #{e}" }
     false
   end
 
