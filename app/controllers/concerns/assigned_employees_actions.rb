@@ -15,7 +15,7 @@ module AssignedEmployeesActions
     AssignedEmployee.cancel(period_id, unit_id)
   end
 
-  def has_justification?((unit_id, period_id))
+  def has_justification?(unit_id, period_id)
     params[:justification].present?  && has_change(unit_id, period_id)
   end
 

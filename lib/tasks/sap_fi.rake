@@ -114,7 +114,7 @@ namespace :sap_fi do
           next unless economic_code.to_i > 10  && (economic_code.to_i.is_a? Integer)
           print '  processing row ' + row.idx.to_s + ' ' + row[1]
 
-          execution_line = BudgetExecution.new()
+          execution_line = BudgetExecution.new
 
           execution_line.year = ENV['year']
           execution_line.economic_description = row[1][7..row[1].length-1 ]

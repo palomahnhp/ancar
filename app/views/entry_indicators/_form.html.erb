@@ -1,4 +1,4 @@
-<% if @input_errors[:num_errors] && @input_errors[:num_errors] > 0 %>
+<% if @input_errors.present? && (params[:close_entry].present? || params[:approval].present?) %>
   <%= render 'errors_modal' %>
 <% end %>
 

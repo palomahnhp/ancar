@@ -21,7 +21,7 @@
              <%= submit_tag(t('entry_indicators.form.button.approval.cancel'),  class: 'button', name: 'approval') %>
            </div>
         <% else %>
-              <p class="approval_comment"><%=  @approval.comment %> </p>
+              <p class="approval_comment"><%=  simple_format(@approval.comment) %> </p>
         <% end %>
       </div>
     <% else %>

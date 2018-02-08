@@ -58,4 +58,16 @@ module CommonActions
     select year,  from: "#{selector}_1i"
   end
 
+  def fill_entry_indicators(period, unit)
+    period.indicators(unit).each do |indicator_ar|
+      indicator_ar.each do |indicator|
+        indicator.indicator_metrics.each do |indicator_metric|
+          EntryIndicator.create(indicator_metric_id: indicator_metric.id, period_id: period.id,
+                                  unit_id: unit.id, amount: 0).save!
+
+        end
+      end
+    end
+  end
+
 end

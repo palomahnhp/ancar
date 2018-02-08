@@ -11,7 +11,6 @@ feature "Entry Indicators" do
       within('div#unit') do
         expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS JURIDICOS'
       end
-
     end
 
     it 'cambia de unidad' do
@@ -49,7 +48,6 @@ feature "Entry Indicators" do
   end
 
   describe "Process" do
-
     it ' show SGT data' do
       user= create(:user, :SGT)
       login_as_authenticated_user(user)
@@ -76,7 +74,6 @@ feature "Entry Indicators" do
       expect(page).to have_content 'Preparación revisión y tramitación de proyectos normativos ...'
       expect(page).to have_content 'Nº de proyectos de otras Áreas	Elaboración Propia'
   end
-
     it ' show Distritos data' do
       user= create(:user, :distrito)
       login_as_authenticated_user(user)
@@ -96,210 +93,408 @@ feature "Entry Indicators" do
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
 
     end
+    it ' actualiza indicadores y puestos ' do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
+      end
+
+      fill_in 'Indicator_1_A1', with: '10,9'
+      fill_in 'IndicatorMetric_1_2', with: '5143'
+
+      click_on 'Guardar datos'
+
+      expect(page).to have_content "Se han guardado los datos. Cuando se finalice la entrada de datos es necesario verificarlos mediante el botón 'Finalizar entrada de datos'"
+      expect(page).to have_content "10,90"
+    end
+  end
+
+  describe "formulario de actualización" do
+    it 'es editable si usuario con permiso y periodo abierto' do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
+      end
+
+      expect(page).to have_selector(:link_or_button, 'Guardar datos')
+      expect(page).to have_selector(:link_or_button, 'Finalizar entrada de datos')
+      expect(page).to have_selector(:link_or_button, 'Imprimir')
+
+      expect(page).to have_css('input#Indicator_1_A1')
+      expect(page).to have_css("input#IndicatorMetric_2_3")
+    end
+
+    it 'no es editable si usuario con permiso y periodo cerrado' do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+      period.save
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
+      end
+
+      expect(page).not_to have_selector(:link_or_button, 'Guardar datos')
+      expect(page).not_to have_selector(:link_or_button, 'Finalizar entrada de datos')
+      expect(page).to have_selector(:link_or_button, 'Imprimir')
+
+      expect(page).not_to have_css("input#Indicator_1_A1")
+      expect(page).not_to have_css("input#IndicatorMetric_2_3")
+    end
+
+    it 'no es editable si usuario sin permiso aunque periodo abierto' do
+      user= create(:user, :validator)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:validator, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
+      end
+
+      expect(page).not_to have_selector(:link_or_button, 'Guardar datos')
+      expect(page).not_to have_selector(:link_or_button, 'Finalizar entrada de datos')
+      expect(page).to have_selector(:link_or_button, 'Imprimir')
+
+      expect(page).not_to have_css("input#Indicator_1_A1")
+      expect(page).not_to have_css("input#IndicatorMetric_2_3")
+    end
+
+    it 'no es editable si periodo abierto con VºBº del validador' do
+      user= create(:user, :interlocutor_distrito)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
+
+      Approval.add(period, unit, 'Visto bueno de la unidad', user)
+
+      click_link("Procesos y subprocesos", :match => :first)
+
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
+      end
+
+      expect(page).not_to have_selector(:link_or_button, 'Guardar datos')
+      expect(page).not_to have_selector(:link_or_button, 'Finalizar entrada de datos')
+      expect(page).to have_selector(:link_or_button, 'Imprimir')
+
+      expect(page).not_to have_css("input#Indicator_1_A1")
+      expect(page).not_to have_css("input#IndicatorMetric_2_3")
+    end
 
   end
 
-  describe 'formulario de actualización' do
-
-    it 'es editable si usuario con permiso y periodo abierto: aparecen botones y campos imput ' do
-      user= create(:user, :with_two_organizations)
+  describe "Visto Bueno de los datos de entrada" do
+    it 'es posible por validador de la unidad con perido abierto' do
+      user = create(:user, :validator)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:interlocutor, user).first
-      organization = Organization.find(organization_role.resource_id)
+      organization_role = Organization.find_roles(:validator, user).first
+      organization      = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
       period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
 
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
       end
+      fill_entry_indicators(period, unit)
+      expect(page).to have_content('Datos pendientes de Visto Bueno')
+      click_on 'Visto bueno'
 
-      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+      expect(page).to have_content('Los datos han pasado las validaciones, se puede confirmar el VºBº')
+      expect(page).to have_content('Visto bueno a los datos de esta hoja')
+      expect(page).to have_content('El/la ' + user.full_name)
+      expect(page).to have_content('Observaciones:')
+      expect(page).to have_css('textarea#comments')
 
+      expect(page).to have_selector(:link_or_button, 'Confirmar VºBº')
+      expect(page).to have_selector(:link_or_button, 'Cancelar VºBº')
     end
-    it 'no es editable si usuario sin permiso y periodo abierto no botones y campos input' do
-      user= create(:user, :with_two_organizations)
+
+    it 'cancelar VB ' do
+      user = create(:user, :validator)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:interlocutor, user).first
-      organization = Organization.find(organization_role.resource_id)
+      organization_role = Organization.find_roles(:validator, user).first
+      organization      = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
       period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
 
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
       end
 
-      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+      fill_entry_indicators(period, unit)
 
+      click_on 'Visto bueno'
+
+      click_on 'Cancelar VºBº'
+      expect(page).to have_content('Datos pendientes de Visto Bueno')
     end
-    it 'no es editable si periodo cerrado' do
-      user= create(:user, :with_two_organizations)
+
+    it 'Confirma VB ' do
+      user = create(:user, :validator)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:interlocutor, user).first
-      organization = Organization.find(organization_role.resource_id)
+      organization_role = Organization.find_roles(:validator, user).first
+      organization      = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
       period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
 
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
       end
 
-      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
+      fill_entry_indicators(period, unit)
 
+      click_on 'Visto bueno'
+      click_on 'Confirmar VºBº'
+
+      expect(page).to have_content('Visto bueno actualizado correctamente')
+      expect(page).to have_selector(:link_or_button, 'Modificar observaciones')
+      expect(page).to have_selector(:link_or_button, 'Generar PDF Resumen')
+      expect(page).to have_selector(:link_or_button, 'Cancelar VºBº')
     end
-    it 'no es editable si tiene VºBº del validador' do
-      user= create(:user, :with_two_organizations)
+
+    it 'no posible con periodo cerrado' do
+      user = create(:user, :validator)
       login_as_authenticated_user(user)
-      organization_role = Organization.find_roles(:interlocutor, user).first
-      organization = Organization.find(organization_role.resource_id)
+      organization_role = Organization.find_roles(:validator, user).first
+      organization      = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
       period = Period.first
 
+#      Approval.add(period, unit, 'Visto bueno de la unidad', user)
       click_link("Procesos y subprocesos", :match => :first)
-
       within("#organization_#{organization.id}") do
         click_link 'Periodo de análisis de datos Distritos (Cerrado)'
       end
 
-      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-      expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
-
+      expect(page).not_to have_selector(:link_or_button, 'Visto bueno')
+      expect(page).to have_selector(:link_or_button, 'Imprimir')
     end
 
-    describe " botones en entrada de datos  " do
-      it ' Sin cambios de plantilla ' do
-        user= create(:user, :with_two_organizations)
-        login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:interlocutor, user).first
-        organization = Organization.find(organization_role.resource_id)
-        unit = organization.units.first
+  end
 
-        period = Period.first
+  describe "Validaciones de entrada de datos: " do
+    it " todos los datos cumplimentados " do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
 
-        click_link("Procesos y subprocesos", :match => :first)
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
 
-        within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
-        end
-
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
-
-
+      click_link("Procesos y subprocesos", :match => :first)
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
       end
-      it ' Con cambios de plantilla' do
-        user= create(:user, :with_two_organizations)
-        login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:interlocutor, user).first
-        organization = Organization.find(organization_role.resource_id)
-        unit = organization.units.first
 
-        period = Period.first
+      fill_in 'Indicator_1_A1', with: '10,9'
+      fill_in 'IndicatorMetric_1_2', with: '543'
+      fill_in 'IndicatorMetric_1_1', with: '13'
+      fill_in 'Indicator_2_A1', with: '10,9'
+      fill_in 'IndicatorMetric_2_3', with: '151'
 
-        click_link("Procesos y subprocesos", :match => :first)
+      click_on 'Finalizar entrada de datos'
 
-        within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
-        end
-
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
-
-      end
+      expect(page).not_to have_content 'Error en la cumplimentación de indicadores'
     end
 
-    describe "Acciones y Validaciones comunes Guardar Datos y Cerrar entrada datos " do
-      it ' coherencia indicadores: cantidad/plantilla asignada' do
-        user= create(:user, :with_two_organizations)
-        login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:interlocutor, user).first
-        organization = Organization.find(organization_role.resource_id)
-        unit = organization.units.first
+    it " (E0005) Indicadores sin cumplimentar" do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
 
-        period = Period.first
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
 
-        click_link("Procesos y subprocesos", :match => :first)
-
-        within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
-        end
-
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
-
+      click_link("Procesos y subprocesos", :match => :first)
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
       end
-      it ' plantilla utilizada mayor que asignada' do
-        user= create(:user, :with_two_organizations)
-        login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:interlocutor, user).first
-        organization = Organization.find(organization_role.resource_id)
-        unit = organization.units.first
 
-        period = Period.first
+      fill_in 'Indicator_1_A1', with: '10,9'
+      fill_in 'IndicatorMetric_1_2', with: '543'
+      fill_in 'IndicatorMetric_1_1', with: '13'
+      fill_in 'Indicator_2_A1', with: '10,9'
 
-        click_link("Procesos y subprocesos", :match => :first)
-
-        within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
-        end
-
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
-
-      end
-      it ' mayor salida que stock/entrada' do
-        user= create(:user, :with_two_organizations)
-        login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:interlocutor, user).first
-        organization = Organization.find(organization_role.resource_id)
-        unit = organization.units.first
-
-        period = Period.first
-
-        click_link("Procesos y subprocesos", :match => :first)
-
-        within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
-        end
-
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
-
-      end
+      click_on 'Finalizar entrada de datos'
+      expect(page).to have_content 'Errores en los datos de esta unidad'
+      expect(page).to have_content '(E0005) Indicadores sin cumplimentar'
+      expect(page).to have_content  'Expedientes urbanísticos'
     end
 
-    describe "Acciones y Validaciones exclusiva de Cerrar entrada datos " do
-      it ' datos sin cumplimentar' do
-        user= create(:user, :with_two_organizations)
-        login_as_authenticated_user(user)
-        organization_role = Organization.find_roles(:interlocutor, user).first
-        organization = Organization.find(organization_role.resource_id)
-        unit = organization.units.first
+    it " (E0004) Indicadores sin cantidad pero con plantilla asignada" do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
 
-        period = Period.first
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
 
-        click_link("Procesos y subprocesos", :match => :first)
-
-        within("#organization_#{organization.id}") do
-          click_link 'Periodo de análisis de datos Distritos (Cerrado)'
-        end
-
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
-        expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
-
+      click_link("Procesos y subprocesos", :match => :first)
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
       end
+
+      fill_in 'Indicator_1_A1', with: '1,9'
+      fill_in 'IndicatorMetric_1_2', with: '543'
+      fill_in 'IndicatorMetric_1_1', with: '13'
+      fill_in 'Indicator_2_A1', with: '1'
+#      fill_in 'IndicatorMetric_2_3', with: '13'
+
+      click_on 'Finalizar entrada de datos'
+
+      expect(page).to have_content 'Errores en los datos de esta unidad'
+
+      expect(page).to have_content '(E0004) Indicadores sin cantidad pero con plantilla asignada'
+      expect(page).to have_content  'Expedientes urbanísticos => cantidad: 0.0 puestos asignados: 1.0'
+    end
+
+    it " (E0002) Error en la asignación de plantilla a indicadores" do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
+
+      click_link("Procesos y subprocesos", :match => :first)
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
+      end
+
+      fill_in 'Indicator_1_A1', with: '10,9'
+      fill_in 'IndicatorMetric_1_2', with: '543'
+      fill_in 'IndicatorMetric_1_1', with: '13'
+      fill_in 'IndicatorMetric_2_3', with: '151'
+
+      click_on 'Finalizar entrada de datos'
+
+      expect(page).to have_content 'Errores en los datos de esta unidad'
+      expect(page).to have_content ' (E0002) Error en la asignación de plantilla a indicadores'
+      expect(page).to have_content  'Expedientes urbanísticos => cantidad: 151.0 puestos asignados: 0.0'
+    end
+
+    it " (E0001) No coincide la plantilla de la unidad con la suma de la asignada a indicadores" do
+      user= create(:user, :with_two_organizations)
+      login_as_authenticated_user(user)
+      organization_role = Organization.find_roles(:interlocutor, user).first
+      organization      = Organization.find(organization_role.resource_id)
+      unit = organization.units.first
+
+      period = Period.first
+      period.opened_at = Date.today - 1
+      period.closed_at = Date.today + 1
+      period.save
+
+      click_link("Procesos y subprocesos", :match => :first)
+      within("#organization_#{organization.id}") do
+        click_link period.description + " (" + I18n.t('status.open') + ' de ' +
+                       (I18n.l period.opened_at) + ' a ' + (I18n.l period.closed_at) + ')'
+      end
+
+      fill_in 'Indicator_1_A1', with: '1,9'
+      fill_in 'IndicatorMetric_1_2', with: '543'
+      fill_in 'IndicatorMetric_1_1', with: '13'
+      fill_in 'Indicator_2_A1', with: '2,9'
+      fill_in 'IndicatorMetric_2_3', with: '151'
+
+      click_on 'Finalizar entrada de datos'
+
+      expect(page).to have_content 'Errores en los datos de esta unidad'
+      expect(page).to have_content '(E0001) No coincide la plantilla de la unidad con la suma de la asignada a indicadores'
+      expect(page).to have_content  'Grupo A1'
+
+      expect(page).to have_content('Adecuar puestos')
     end
   end
 end

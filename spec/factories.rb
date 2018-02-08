@@ -26,6 +26,13 @@ FactoryBot.define do
       end
     end
 
+    trait :validator do
+      after :create do |user|
+        organization = Organization.where(organization_type: OrganizationType.find_by_description('Distritos')).take
+        user.add_role(:validator, organization)
+      end
+    end
+
     trait :with_one_organization do
       after :create do |user|
         organization = Organization.where(organization_type_id: 1).first
