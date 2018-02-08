@@ -70,6 +70,7 @@ class AssignedEmployee < ActiveRecord::Base
   end
 
   private
+
     def self.staff_from_unit(unit, period, official_group)
       staff_from('Unit', unit, period, official_group, unit.id)
     end

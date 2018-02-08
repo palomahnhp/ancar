@@ -72,13 +72,13 @@ class Indicator < ActiveRecord::Base
           task.indicators.each do |indicator|
             indicator_amount   = indicator.amount(unit.id).to_f
             staff_quantity     = AssignedEmployee.staff_quantity(indicator, unit.id)
-            if (staff_quantity.zero? && indicator_amount > 0)
+            if staff_quantity.zero? && indicator_amount > 0
               error = Indicator.description(indicator.id) + " => cantidad: " +
-                  indicator_amount.to_s + " puestos asignados: " + staff_quantity.to_s
+                      indicator_amount.to_s + " puestos asignados: " + staff_quantity.to_s
               entry_without_staff.push(error)
             elsif staff_quantity > 0 && indicator_amount.zero?
               error = Indicator.description(indicator.id) + " => cantidad: " +
-                  indicator_amount.to_s + " puestos asignados: " + staff_quantity.to_s
+                      indicator_amount.to_s + " puestos asignados: " + staff_quantity.to_s
               staff_without_entry.push(error)
             end
           end

@@ -13,7 +13,7 @@ class EntryIndicatorsController < ApplicationController
     if cancel_change?
       cancel_change(@period.id, @unit.id)
       SupervisorMailer.change_staff_email(change: 'cancel', period: @period, unit:@unit,
-                                          user: current_user).deliver_now #deliver_later
+                                         user: current_user).deliver_now #deliver_later
     elsif open_change?
       open_change(@period.id, @unit.id, current_user)
     elsif approval?
@@ -38,21 +38,19 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def approval
-    case
-      when approval_init?
-#        remove_last_validation if validate_entry?
-        validate_input
-        if @input_errors.blank?
-          @approval = Approval.new(period: @period, unit: @unit, approval_by: current_user.login,
-                                   official_position: current_user.official_position)
-          flash[:notice] = t('entry_indicators.approval.success.validation')
-        end
-      when approval_ok?, approval_update?
-        @approval = set_approval(@period, @unit, params[:comments], current_user)
-        flash[:notice] = t('entry_indicators.approval.success.update')
-      when approval_cancel?
-        @approval = delete_approval(@period, @unit)
-        flash[:notice] = t('entry_indicators.approval.success.cancel')
+    if approval_init?
+      validate_input
+      if @input_errors.blank?
+        @approval = Approval.new(period: @period, unit: @unit, approval_by: current_user.login,
+                                 official_position: current_user.official_position)
+        flash[:notice] = t('entry_indicators.approval.success.validation')
+      end
+    elsif (approval_ok? || approval_update?)
+      @approval = set_approval(@period, @unit, params[:comments], current_user)
+      flash[:notice] = t('entry_indicators.approval.success.update')
+    elsif approval_cancel?
+      @approval = delete_approval(@period, @unit)
+      flash[:notice] = t('entry_indicators.approval.success.cancel')
     end
   end
 
@@ -185,7 +183,7 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def initialize_instance_vars
-    @input_errors = Hash.new()
+    @input_errors = Hash.new
     if params[:organization_id]
       @organization = Organization.find(params[:organization_id])
       @units = @organization.units.order(:order).to_a
@@ -230,7 +228,7 @@ class EntryIndicatorsController < ApplicationController
       end
       grupos.keys.each do |grupo|
         quantity = grupos[grupo]
-        official_group = OfficialGroup.find_by_name(grupo)
+        official_group = OfficialGroup.find_by(name: grupo)
         if quantity.blank?
           if type == 'UnitJustified'
             error = "Unidad: " + @unit.description_sap +  " " + official_group.description
@@ -261,7 +259,7 @@ class EntryIndicatorsController < ApplicationController
     params[:close_entry].present? || params[:approval].present?
   end
 
-  def create_validation(key, data='')
+  def create_validation(key, data = '')
     Validation.add(@period, @unit, key, t("entry_indicators.form.error.title.#{key}"),
                    t("entry_indicators.form.error.p1.#{key}_html"), data, current_user.login)
   end
