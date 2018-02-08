@@ -26,16 +26,12 @@ class AssignedEmployeesChange < ActiveRecord::Base
   end
 
   def self.change_justification(period_id, unit_id, justification, current_user)
-    if justification.blank?
-      false
-    else
-      change_reg = self.find_or_create_by(period_id: period_id, unit_id: unit_id)
-      change_reg.assign_attributes(justification: justification, justified_by: current_user.login)
-      if change_reg.changed?
-        change_reg.save
-      end
-      true
+    change_reg = self.find_or_create_by(period_id: period_id, unit_id: unit_id)
+    change_reg.assign_attributes(justification: justification, justified_by: current_user.login)
+    if change_reg.changed?
+      change_reg.save
     end
+    justification.blank?
   end
 
   def self.emailed(period_id, unit_id)

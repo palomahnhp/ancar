@@ -84,7 +84,7 @@ module AssignedEmployeeHelper
 
   def  justification_text(unit_id, period_id)
     ae = AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).take
-    ae.nil? ? '' : ae.justification
+    ae.nil? ? ' ' : ae.justification
   end
 
   def quantity_equal?(official_group_id, type, process_id, quantity)
