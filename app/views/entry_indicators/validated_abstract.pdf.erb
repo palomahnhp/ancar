@@ -78,7 +78,8 @@
           <%= (l @approval.approval_at, format: :long) if @approval.approval_at.present? %></p>
         <hr>
         <p class="pdf-approval-comment-title"> <%= t('entry_indicators.approval.comments') %></p>
-        <p class="pdf-approval-comment"><%=  @approval.comment %> </p>
+        <p class="pdf-approval-comment"><%= simple_format(@approval.comment,
+                                                          class: 'pdf-approval-comment') %> </p>
     </div>
   </div>
 
