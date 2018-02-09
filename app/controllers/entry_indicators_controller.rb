@@ -12,8 +12,6 @@ class EntryIndicatorsController < ApplicationController
   def updates
     if cancel_change?
       cancel_change(@period.id, @unit.id)
-      SupervisorMailer.change_staff_email(change: 'cancel', period: @period, unit:@unit,
-                                         user: current_user).deliver_now #deliver_later
     elsif open_change?
       open_change(@period.id, @unit.id, current_user)
     elsif approval?
@@ -138,7 +136,10 @@ class EntryIndicatorsController < ApplicationController
 #           @input_errors.by_key(:incomplete_staff_unit).count == OfficialGroup.count
 #          create_validation(:cancel_change)
     @input_errors = Validation.by_period(@period.id).by_unit(@unit.id)
-    create_validation(:success_validation) if @input_errors.blank?
+    if @input_errors.blank?
+      create_validation(:success_validation) if @input_errors.blank?
+      send_mail
+    end
   end
 
   def entry_indicator_params
@@ -251,7 +252,6 @@ class EntryIndicatorsController < ApplicationController
         end
       end
     end
-    SupervisorMailer.change_staff_email(change: 'open', period: @period, unit:@unit, user: current_user).deliver_now if unit_ae_modified.present?
     create_validation(:incomplete_staff_unit, incomplete_staff_unit) if incomplete_staff_unit.present?
     create_validation(:incomplete_staff_entry, incomplete_staff_entry) if incomplete_staff_entry.present?
     return
@@ -308,5 +308,12 @@ class EntryIndicatorsController < ApplicationController
 
   def check_justification
     params[:justification].present? ? params[:justification] : ''
+  end
+
+  def send_mail
+    if has_change?(@unit.id, @period.id)
+      SupervisorMailer.change_staff_email(change: 'open', period: @period, unit:@unit, user:
+          current_user).deliver_now  #deliver_later
+    end
   end
 end

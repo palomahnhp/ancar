@@ -11,8 +11,13 @@ class SupervisorMailer < ApplicationMailer
       bcc = Setting.find_by_key("app_email").value
       to = Setting.find_by_key("supervisor.email.#{@period.organization_type.acronym}").value
       subject = "Cambio de plantilla: #{@unit.description_sap} / #{@unit.organization.description} "
-      mail(to: "<#{to}>", subject: subject, bcc: bcc )
-      AssignedEmployeesChange.emailed(@period.id, @unit.id) if data[:change] == 'open'
+      begin
+        mail(to: "<#{to}>", subject: subject, bcc: bcc )
+        AssignedEmployeesChange.emailed(@period.id, @unit.id) if data[:change] == 'open'
+      rescue  StandardError => e
+        Rails.logger.info { '"  Error mail change staff ' + e.to_s + ' - ' + subject }
+      end
+
     end
   end
 end
