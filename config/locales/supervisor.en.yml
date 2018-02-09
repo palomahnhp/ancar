@@ -242,6 +242,7 @@ en:
         title: Situación de entrada de datos
         unit: Unidad
         validation: Última validación
+        actions: "Acciones"
       show:
         change: Cambio de plantilla
         no_change: No se ha realizado cambio de plantilla para esta unidad

@@ -3,69 +3,61 @@
     <h1 class="h2 text-center"><%= t('supervisor.unit_statuses.index.title') %></h1>
     <h2 class="h3 text-center"><%= @supervisor_unit_statuses.period.description %> </h2>
   </div>
-
+</div>
+<div class="row">
   <div class="short-12 columns">
     <table class="indicator-metric">
       <thead>
-      <tr>
-        <th> </th>
-        <th><%= t('supervisor.unit_statuses.index.unit') %> </th>
-        <th><%= t('supervisor.unit_statuses.index.validation') %></th>
-        <th><%= t('supervisor.unit_statuses.index.change_employees') %></th>
-        <th><%= t('supervisor.unit_statuses.index.approval') %></th>
-        <th>Acciones</th>
-      </tr>
+        <tr>
+          <th><%= t('supervisor.unit_statuses.index.unit') %> </th>
+          <th><%= t('supervisor.unit_statuses.index.validation') %></th>
+          <th><%= t('supervisor.unit_statuses.index.change_employees') %></th>
+          <th><%= t('supervisor.unit_statuses.index.approval') %></th>
+          <th><%= t('supervisor.unit_statuses.index.actions') %></th>
+        </tr>
       </thead>
 
       <tbody>
-        <% @supervisor_unit_statuses.unit_statuses.each do |unit_status| %>
-        <% if change_id?(unit_status[:organization_id]) %>
+        <% @period.organization_type.organizations.each do |organization| %>
           <tr class="indicator-row">
-            <td colspan="3" class="h2"
-                title="<%= "Organization_#{unit_status[:organization_id]}" %>">
-              <strong><%= unit_status[:organization_description] %></strong>
-            </td>
-            <td colspan="3" class="subheader" title="<%=
-              "Organization_#{unit_status[:organization_id]}" %>">
-              <% if @supervisor_unit_statuses.noks(unit_status[:organization_id]) > 0 %>
-                <span class="text-center nok">
-                  <%= t('supervisor.unit_statuses.index.no_ok',
-                        number: @supervisor_unit_statuses.noks(unit_status[:organization_id])) %>
-                </span>
-              <% else %>
-                <span class="ok"><%= t('supervisor.unit_statuses.index.ok') %></span>
-              <% end %>
+            <td colspan="5" class="h2"
+                title="<%= "Organization_#{organization.id}" %>">
+              <strong><%= organization.description %></strong>
             </td>
           </tr>
+          <% organization.units.each do |unit| %>
+            <tr>
+              <td class="<%= unit.approval(@period)[:end] %>"></td>
+              <td class="indicator-metric"
+                  title="<%= "Unit_#{unit.id}" %>">
+                <%= unit.description_sap %>
+              </td>
+              <td class = " <%= unit.validation(@period)[:success] %>"
+                  title="<%= login_to_full_name(unit.validation(@period)[:updated_by]).to_s +
+                             format_date(unit.validation(@period)[:created_at], :short) +
+                             ' Id_' + unit.validation(@period)[:id].to_s %>">
+                <%= unit.validation(@period)[:end] %>
+              </td>
+              <td title="<%= login_to_full_name(unit.employees_change(@period)[:justified_by]).to_s +
+                             ' Id_' + unit.employees_change(@period)[:id].to_s %>">
+                <%= format_date(unit.employees_change(@period)[:justified_at]) %>
+                <%= unit.employees_change(@period)[:justified_by] %>
+              </td>
+              <td title="<%= login_to_full_name(unit.approval(@period)[:approval_by]).to_s +
+                             ' Id_' + unit.approval(@period)[:id].to_s %>">
+                <%= format_date(unit.approval(@period)[:approval_at]) %>
+                <%= unit.approval(@period)[:approval_by] %>
+              </td>
+              <td>
+                <%= link_to("", supervisor_unit_status_path(id: @period.id, unit_id: unit.id),
+                            title: t('supervisor.unit_statuses.index.action.show'), class: "icon-search") %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-        <tr>
-          <td> </td>
-          <td class="indicator-metric" title="<%= "Unit_#{unit_status[:unit_id]}" %>">
-            <%= unit_status[:unit_description] %>
-          </td>
-          <td></td>
-          <td title="<%= "#{login_to_full_name(unit_status[:employees_change_by])}
-          Id_#{unit_status[:employees_change_id]}" %>">
-            <%= format_date(unit_status[:employees_change_at]) %>
-            <%= unit_status[:employees_change_by] %>
-          </td>
-          <td title="<%= "#{login_to_full_name(unit_status[:approval_by])}
-          Id_#{unit_status[:approval_id]}" %>">
-            <%= format_date(unit_status[:approval_at]) %>
-            <%= unit_status[:approval_by] %>
-          </td>
-          <td>
-            <%= link_to("", supervisor_unit_status_path(id: @supervisor_unit_statuses
-                .period.id, unit_id: unit_status[:unit_id]),
-                        title: t('supervisor.unit_statuses.index.action.show'), class: "icon-search") %>
-          </td>
-        </tr>
-      <% end %>
       </tbody>
     </table>
-
     <br>
   </div>
-
 </div>
 

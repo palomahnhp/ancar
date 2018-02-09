@@ -1,10 +1,10 @@
 <div class="row">
   <div class="small-12 columns">
-    <h3 title="<%= "#{@supervisor_unit_status[:organization_id]}" %>" class="text-center">
-      <%= "#{@supervisor_unit_status[:organization_description]}"%>
+    <h3 title="<%= "#{@unit.organization.id}" %>" class="text-center">
+      <%= "#{@unit.organization.description}"%>
     </h3>
-    <h4 title="<%= "#{@supervisor_unit_statuses.period.id}" %>" class="text-center">
-      <%= "#{@supervisor_unit_statuses.period.description}"%>
+    <h4 title="<%= "#{@period.id}" %>" class="text-center">
+      <%= "#{@period.description}"%>
     </h4>
   </div>
 </div>
@@ -13,8 +13,8 @@
   <div class="small-12 columns ">
     <br>
     <table class="unit-status-show">
-      <caption title="<%= "#{@supervisor_unit_status[:unit_id]}" %>">
-        <h5 class="text-left" > <%= "#{@supervisor_unit_status[:unit_description]}"%></h5>
+      <caption title="<%= "#{@unit.id}" %>">
+        <h5 class="text-left" > <%= "#{@unit.description_sap}"%></h5>
       </caption>
       <tr>
         <th class="hide-to-print"></th>

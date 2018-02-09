@@ -8,6 +8,7 @@ class AssignedEmployee < ActiveRecord::Base
   validates_numericality_of :quantity
 
   scope :no_justification_verified,  -> { where(:verified_at => nil) }
+  scope :by_period, -> (period) { where( period: period) }
 
   def copy(period_destino_id, current_user_login)
     AssignedEmployee.create(self.attributes.merge(id: nil, period_id: period_destino_id, updated_at: current_user_login))
