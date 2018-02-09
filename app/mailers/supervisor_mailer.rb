@@ -15,7 +15,7 @@ class SupervisorMailer < ApplicationMailer
         mail(to: "<#{to}>", subject: subject, bcc: bcc )
         AssignedEmployeesChange.emailed(@period.id, @unit.id) if data[:change] == 'open'
       rescue  StandardError => e
-        Rails.logger.info {'"  Error mail change staff ' + e.to_s + ' - ' + subject}
+        Rails.logger.info { '"  Error mail change staff ' + e.to_s + ' - ' + subject }
       end
 
     end
