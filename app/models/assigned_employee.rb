@@ -8,7 +8,8 @@ class AssignedEmployee < ActiveRecord::Base
   validates_numericality_of :quantity
 
   scope :no_justification_verified,  -> { where(:verified_at => nil) }
-  scope :by_period, -> (period) { where( period: period) }
+  scope :by_period, ->(period) { where( period: period) }
+  scope :unit_justified, -> { where( staff_of_type: "UnitJustified") }
 
   def copy(period_destino_id, current_user_login)
     AssignedEmployee.create(self.attributes.merge(id: nil, period_id: period_destino_id, updated_at: current_user_login))
@@ -59,6 +60,17 @@ class AssignedEmployee < ActiveRecord::Base
       self.create(period_id: unit_staff.period_id, unit_id: unit_staff.unit_id, official_group_id: unit_staff.official_group_id,
                   staff_of_id: unit_staff.staff_of_id, staff_of_type: "UnitJustified", quantity: unit_staff.quantity,
                   updated_by: user.login)
+    end
+  end
+
+  def self.initialize_unit(period_id, unit_id, user, employees)
+    employees.each_index do |employee|
+      self.find_or_create_by!(period_id: period_id, unit_id: unit_id,
+                              official_group_id: OfficialGroup.find_by(employee[:group]).id,
+                              staff_of_id: unit_id,
+                              staff_of_type: "Unit",
+                              quantity: employee[:unit],
+                              updated_by: user.login)
     end
   end
 

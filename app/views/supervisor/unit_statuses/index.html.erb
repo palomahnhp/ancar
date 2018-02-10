@@ -1,15 +1,15 @@
 <div class="row">
   <div class="short-12 columns">
     <h1 class="h2 text-center"><%= t('supervisor.unit_statuses.index.title') %></h1>
-    <h2 class="h3 text-center"><%= @supervisor_unit_statuses.period.description %> </h2>
+    <h2 class="h3 text-center"><%= @period.description %> </h2>
   </div>
 </div>
 <div class="row">
   <div class="short-12 columns">
-    <table class="indicator-metric">
+    <table class="unit-status">
       <thead>
         <tr>
-          <th><%= t('supervisor.unit_statuses.index.unit') %> </th>
+          <th colspan="2"><%= t('supervisor.unit_statuses.index.unit') %> </th>
           <th><%= t('supervisor.unit_statuses.index.validation') %></th>
           <th><%= t('supervisor.unit_statuses.index.change_employees') %></th>
           <th><%= t('supervisor.unit_statuses.index.approval') %></th>
@@ -20,15 +20,15 @@
       <tbody>
         <% @period.organization_type.organizations.each do |organization| %>
           <tr class="indicator-row">
-            <td colspan="5" class="h2"
+            <td colspan="6" class="h2"
                 title="<%= "Organization_#{organization.id}" %>">
               <strong><%= organization.description %></strong>
             </td>
           </tr>
           <% organization.units.each do |unit| %>
             <tr>
-              <td class="<%= unit.approval(@period)[:end] %>"></td>
-              <td class="indicator-metric"
+              <td class="check <%= unit.approval(@period)[:end] %>"></td>
+              <td class="unit"
                   title="<%= "Unit_#{unit.id}" %>">
                 <%= unit.description_sap %>
               </td>

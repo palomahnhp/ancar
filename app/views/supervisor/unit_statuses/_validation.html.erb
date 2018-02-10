@@ -1,9 +1,11 @@
   <% if @validations.present? %>
     <div class="medium-8 small-12 columns">
+<!--
       Validación realizada por
       <%= login_to_full_name(@validations.take.updated_by)%> <br>
       el  <%= format_date(@validations.take.updated_at) %>
       <hr>
+-->
       <ul>
         <% @validations.each do |validation| %>
           <li>

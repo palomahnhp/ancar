@@ -497,4 +497,16 @@ feature "Entry Indicators" do
       expect(page).to have_content('Adecuar puestos')
     end
   end
+
+  describe "Ajuste de plantilla", js: true do
+    it ' con plantilla erronea' do
+
+    end
+    it ' con plantilla correcta y sin justificación ' do
+
+    end
+    it ' con plantilla correcta y con justificación ' do
+
+    end
+  end
 end

@@ -1,7 +1,7 @@
 <table class="staff">
  <tr>
    <td>
-     <% if supervisor_get_approval(@supervisor_unit_status[:approval_id]).present? %>
+     <% if @approval.present? %>
        <div class="medium-12 small-12 columns text-left">
          <p>
            <strong><%= login_to_full_name(@approval.approval_by) %> </strong><br>

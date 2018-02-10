@@ -25,12 +25,7 @@
         <th class="hide-to-print"></th>
         <th class="text-left"><%= t('supervisor.unit_statuses.show.change') %> </th>
         <td>
-          <%= render 'employees_change',
-                     change: @supervisor_unit_status[:employees_change_id],
-                     period: @supervisor_unit_statuses.period,
-                     organization_description:
-                         @supervisor_unit_status[:organization_description],
-                     unit_id: @supervisor_unit_status[:unit_id] %>
+          <%= render 'employees_change' %>
         </td>
       </tr>
       <tr>
