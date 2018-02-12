@@ -235,11 +235,10 @@ es:
       index:
         action:
           show: Detalle de  la  unidad
+        actions: Acciones
         approval: Visto Bueno
         change_employees: Cambio de plantilla
-        no_ok: Falta el V.B en %{number} unidades
-        ok: Todas las unidades tienen el VºBº
-        title: Situación de entrada de datos
+        title: Estado de la entrada de datos
         unit: Unidad
         validation: Última validación
       show:

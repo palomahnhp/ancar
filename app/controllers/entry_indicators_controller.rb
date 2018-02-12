@@ -99,9 +99,22 @@ class EntryIndicatorsController < ApplicationController
               :disposition => "inline"
   end
 
+  def initialize_validations
+    @period = Period.find(params[:id])
+    @period.organization_type.organizations.each do |organization|
+      organization.units.each do |unit|
+        @unit = unit
+        validate_input
+      end
+    end
+    flash[:notice] = 'Actualizadas validaciones'
+    redirect_to root_url
+  end
+
   private
 
   def update_entry
+    @modified = false
     params.keys.each do |key|
       case key
       when 'Indicator', 'Unit'
@@ -115,12 +128,12 @@ class EntryIndicatorsController < ApplicationController
         flash[:error] = t('entry_indicators.updates.no_key')
       end
     end
-    validate_input if validate_entry? || approval?
+    validate_input if validate_entry? || approval? || @modified.present?
   end
 
   def validate_input
     remove_last_validation # if validate_entry?
-    if approval_init?
+    if approval_init? || initialize_validations?
       @empty_indicators = validate_indicator_metrics
     end
     create_validation(:incomplete_entry, @empty_indicators) if @empty_indicators.present?
@@ -164,6 +177,7 @@ class EntryIndicatorsController < ApplicationController
             ei.period_id = @period.id
             ei.updated_by = current_user.login
             ei.save
+            @modified = true
           end
         end
       end
@@ -220,7 +234,6 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def assigned_employees_update(type, process)
-    unit_ae_modified = false
     incomplete_staff_unit = []
     incomplete_staff_entry = []
     process.each do |pr|
@@ -247,7 +260,7 @@ class EntryIndicatorsController < ApplicationController
           if ae.changed?
             ae.updated_by = current_user.login
             ae.save
-            unit_ae_modified = true if type == 'UnitJustified'
+            @modified = true if type == 'UnitJustified'
           end
         end
       end
@@ -315,5 +328,9 @@ class EntryIndicatorsController < ApplicationController
       SupervisorMailer.change_staff_email(change: 'open', period: @period, unit:@unit, user:
           current_user).deliver_now  #deliver_later
     end
+  end
+
+  def initialize_validations?
+    action_name == 'initialize_validations'
   end
 end

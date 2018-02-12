@@ -1,7 +1,25 @@
-  <% if @supervisor_unit_status[:validation_id].present? %>
-    <div class="medium-8 small-12 columnst">
-      <%= format_date(@supervisor_unit_status[:validation_at]) %> -
-      <%= login_to_full_name(@supervisor_unit_status[:validation_by])%>
+  <% if @validations.present? %>
+    <div class="medium-8 small-12 columns">
+<!--
+      Validación realizada por
+      <%= login_to_full_name(@validations.take.updated_by)%> <br>
+      el  <%= format_date(@validations.take.updated_at) %>
+      <hr>
+-->
+      <ul>
+        <% @validations.each do |validation| %>
+          <li>
+            <strong><%= validation.title %></strong>
+            <% validation.data_errors.each do |error| %>
+              <ul>
+                <li>
+                  <%= error %>
+                </li>
+              </ul>
+            <% end %>
+          </li>
+       <% end %>
+      </ul>
     </div>
   <% else %>
     <div class="medium-8 small-12 columns">

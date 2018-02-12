@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       post 'updates'
       get :download_validation
       get :validated_abstract
+      get :initialize_validations
     end
   end
 
