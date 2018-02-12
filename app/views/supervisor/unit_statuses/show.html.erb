@@ -1,5 +1,8 @@
 <div class="row">
   <div class="small-12 columns">
+    <%= link_to(t('actions.back'), supervisor_unit_statuses_path(id: @period),
+                class:"icon-angle-left"
+        ) %>
     <h3 title="<%= "#{@unit.organization.id}" %>" class="text-center">
       <%= "#{@unit.organization.description}"%>
     </h3>

@@ -73,4 +73,9 @@ class Unit < ActiveRecord::Base
     validation_data
   end
 
+  def last_update(period)
+    entry_indicators.period(period.id).order("updated_at DESC").pluck(:updated_at, :updated_by)
+                                           .first
+  end
+
 end

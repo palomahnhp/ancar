@@ -1,4 +1,4 @@
-class Supervisor::UnitStatusesController < ApplicationController
+class Supervisor::UnitStatusesController < Supervisor::BaseController
   before_action :set_supervisor_unit_status, only: [:show]
   before_action :set_supervisor_unit_statuses, only: [:index]
 
@@ -22,7 +22,7 @@ class Supervisor::UnitStatusesController < ApplicationController
     def set_supervisor_unit_status
       @period = Period.find(params[:id])
       @unit       = Unit.find(params[:unit_id])
-      @employees  = @unit.assigned_employees.by_period(@period).unit_justified.presence
+      @employees  = AssignedEmployee.by_period(@period).unit_justified.presence
       @validations = @unit.validations.by_period(@period).presence
       @approval   = @unit.approvals.by_period(@period).take.presence
     end
