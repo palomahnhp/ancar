@@ -104,7 +104,7 @@ class EntryIndicatorsController < ApplicationController
     @period.organization_type.organizations.each do |organization|
       organization.units.each do |unit|
         @unit = unit
-        validate_input
+        validate_input(@unit.last_update(@period))
       end
     end
     flash[:notice] = 'Actualizadas validaciones'
@@ -131,9 +131,10 @@ class EntryIndicatorsController < ApplicationController
     validate_input if validate_entry? || approval? || @modified.present?
   end
 
-  def validate_input
+  def validate_input(last_update=[])
     remove_last_validation # if validate_entry?
     if approval_init? || initialize_validations?
+      @last_update = last_update if last_update.present?
       @empty_indicators = validate_indicator_metrics
     end
     create_validation(:incomplete_entry, @empty_indicators) if @empty_indicators.present?
@@ -274,9 +275,15 @@ class EntryIndicatorsController < ApplicationController
     params[:close_entry].present? || params[:approval].present?
   end
 
-  def create_validation(key, data = '')
+  def create_validation(key, data = '' )
+    user      = current_user.login
+    update_at = Time.now
+    if @last_update.present?
+      user = @last_update[1]
+      update_at = @last_update[0]
+    end
     Validation.add(@period, @unit, key, t("entry_indicators.form.error.title.#{key}"),
-                   t("entry_indicators.form.error.p1.#{key}_html"), data, current_user.login)
+                   t("entry_indicators.form.error.p1.#{key}_html"), data, user, update_at)
   end
 
   def validate_entry?
