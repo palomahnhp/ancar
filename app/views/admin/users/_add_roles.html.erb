@@ -68,6 +68,18 @@
               <%= submit_tag t('admin.roles.add_role.submit'), class: 'button hollow success small', :name => 'OrganizationType' %>
             </td>
           </tr>
+          <tr>
+            <td>
+              <%= label_tag :role_3, t('admin.users.roles.add_role') %>
+              <%= select_tag(:role_3, options_for_select(roles_select_options(@user)),
+                                                         label: false, placeholder: t('admin.roles.add_role.title') ) %>
+            </td>
+            <td>
+            </td>
+            <td>
+              <%= submit_tag t('admin.roles.add_role.submit'), class: 'button hollow success small', :name => 'Admin' %>
+            </td>
+          </tr>
        </table>
     <% end %>
   <% end %>

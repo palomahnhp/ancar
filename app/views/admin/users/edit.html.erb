@@ -2,7 +2,7 @@
   <div class="small-12 columns">
     <p><%= render 'back', login: @user.login, filter: params[:filter], page: params[:page] %><br></p>
     <div class="radius secondary label  small-6 columns">
-      <h4><%= @user.login %> <%= @user.full_name %></h4>
+      <h5><%= @user.login %> <%= @user.full_name %></h5>
     </div>
     <div class="small-6 columns">
       <%= link_to(" Actualizar datos ", ws_update_admin_user_path(@user, login: @user.login, filter: params[:filter], page: params[:page]), title: 'Actualizar puesto y organización', class: "icon-external button hollow") %>

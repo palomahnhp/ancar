@@ -27,7 +27,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def remove_role
-    role = Role.find(params[:role])
+    role = @user.roles.find(params[:role])
     if role.resource_type.nil?
       @user.revoke role.name
     else
@@ -37,8 +37,8 @@ class Admin::UsersController < Admin::BaseController
         redirect_to admin_roles_path(role_name: role.name, user_id: @user.id )
       end
       @user.revoke role.name, resource_class.find(role.resource_id)
-      redirect_to edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
     end
+    redirect_to edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
   end
 
   def activate
@@ -124,16 +124,21 @@ class Admin::UsersController < Admin::BaseController
       resource_class= Organization
       resource_id = params[:resource_id_1].to_i
       role_id = params[:role_1].to_i
-    end
-    if params[:OrganizationType].present?
+    elsif params[:OrganizationType].present?
       resource_class= OrganizationType
       resource_id = params[:resource_id_2].to_i
       role_id = params[:role_2].to_i
+    elsif params[:Admin].present?
+      role_id = params[:role_3].to_i
     end
 
-    if resource_id > 0
-      role_name = User::ROLES[role_id]
+    role_name = User::ROLES[role_id]
+    if resource_id.present? && resource_id > 0
       if @user.add_role role_name, resource_class.find(resource_id)
+        flash[:notice] = t('admin.roles.add_role.success')
+      end
+    elsif params[:Admin].present?
+      if @user.add_role role_name
         flash[:notice] = t('admin.roles.add_role.success')
       end
     else
