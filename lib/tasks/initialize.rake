@@ -153,8 +153,7 @@ private
   end
 
   def last_update(period, unit)
-    @last_update ||=  unit.entry_indicators.period(period.id).order("updated_at DESC").pluck(:updated_at, :updated_by)
-        .first
+    @last_update ||= unit.entry_indicators.period(period.id).order("updated_at DESC").pluck(:updated_at, :updated_by).first
   end
 
   def validate_indicator_metrics(period, unit)
@@ -162,13 +161,11 @@ private
     period.indicators(unit).each do |indicator_ar|
       indicator_ar.each do |indicator|
         indicator.indicator_metrics.each do |indicator_metric|
-          if indicator_metric.entry_indicators.empty?
-            indicator_empty.push(indicator.item.description)
-          end
+          indicator_empty.push(indicator.item.description) if indicator_metric.entry_indicators.empty
         end
       end
     end
-    return indicator_empty
+    indicator_empty
   end
 
   def justification_blank(period, unit)

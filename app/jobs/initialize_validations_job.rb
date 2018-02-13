@@ -1,6 +1,5 @@
 class InitializeValidationsJob < ActiveJob::Base
   queue_as :initializations
-  after_perform :message
 
   def perform(period)
     require 'rake'
@@ -9,9 +8,5 @@ class InitializeValidationsJob < ActiveJob::Base
     ENV['period'] = period
     Rake::Task['initialize:validations'].reenable
     Rake::Task['initialize:validations'].invoke
-  end
-
-  def message
-    p ' ** End initialize validations job'
   end
 end
