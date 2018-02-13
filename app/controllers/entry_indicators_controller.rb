@@ -100,14 +100,8 @@ class EntryIndicatorsController < ApplicationController
   end
 
   def initialize_validations
-    @period = Period.find(params[:id])
-    @period.organization_type.organizations.each do |organization|
-      organization.units.each do |unit|
-        @unit = unit
-        validate_input(@unit.last_update(@period))
-      end
-    end
-    flash[:notice] = 'Actualizadas validaciones'
+    InitializeValidationsJob.perform_now(params[:id])
+    flash[:notice] = 'Terminada la actualización de validaciones'
     redirect_to root_url
   end
 
