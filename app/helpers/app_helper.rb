@@ -23,7 +23,7 @@ module AppHelper
     return grouped_resources
   end
 
-  def roles_select_options(user, class_name)
+  def roles_select_options(user, class_name = '')
     roles = []
     roles << ['Selecciona el rol a asignar', '']
     User.roles_select_options(class_name).each do |r|
