@@ -99,9 +99,22 @@ namespace :initialize do
     end
   end
 
+  desc "inicializa la nuev atabla validations para un periodo"
+  task validations: :environment do
+    period_id = ENV['period'].to_i
+    period = Period.find(period_id)
+    period.organization_type.organizations.each do |organization|
+      puts 'Procesando organización: ' + organization.description
+      organization.units.each do |unit|
+        validate_input(period, unit)
+        puts '  - unidad: ' + unit.id.to_s + ' ' + unit.description_sap
+      end
+    end
+  end
 end
 
 private
+
   def update_order(resource)
     Object.const_get(resource).all.each do |mp|
       if mp.order < 10
@@ -109,5 +122,54 @@ private
         mp.save
       end
     end
-
   end
+
+  def validate_input(period, unit)
+    remove_last_validation(period, unit)
+    last_update(period, unit)
+    empty_indicators = validate_indicator_metrics(period, unit)
+
+    create_validation(:incomplete_entry, period, unit, empty_indicators) if empty_indicators.present?
+    data = AssignedEmployee.staff_for_unit(period, unit)
+    create_validation(:assigned_staff,  period, unit, data) if data.present?
+    data = Indicator.validate_staff_for_entry(period, unit)
+    create_validation(:entry_without_staff, period, unit, data[0]) if data[0].present?
+    create_validation(:staff_without_entry, period, unit, data[1]) if data[1].present?
+    create_validation(:no_justification, period, unit ) if justification_blank(period, unit).present?
+
+    input_errors = Validation.by_period(period.id).by_unit(unit.id)
+    create_validation(:success_validation, period, unit) if input_errors.blank?
+  end
+
+  def create_validation(key, period, unit, data = '' )
+    user = @last_update[1]
+    update_at = @last_update[0]
+    Validation.add(period, unit, key, I18n.t("entry_indicators.form.error.title.#{key}"),
+                   I18n.t("entry_indicators.form.error.p1.#{key}_html"), data, user, update_at)
+  end
+
+  def remove_last_validation(period, unit)
+    Validation.delete_all(period: period, unit: unit)
+  end
+
+  def last_update(period, unit)
+    @last_update ||= unit.entry_indicators.period(period.id).order("updated_at DESC").pluck(:updated_at, :updated_by).first
+  end
+
+  def validate_indicator_metrics(period, unit)
+    indicator_empty = []
+    period.indicators(unit).each do |indicator_ar|
+      indicator_ar.each do |indicator|
+        indicator.indicator_metrics.each do |indicator_metric|
+          indicator_empty.push(indicator.item.description) if indicator_metric.entry_indicators.empty
+        end
+      end
+    end
+    indicator_empty
+  end
+
+  def justification_blank(period, unit)
+    change = unit.assigned_employees_changes.by_period(period).by_unit(unit).take
+    change.justification.blank? if change.present?
+  end
+
