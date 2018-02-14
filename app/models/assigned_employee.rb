@@ -9,6 +9,7 @@ class AssignedEmployee < ActiveRecord::Base
 
   scope :no_justification_verified,  -> { where(:verified_at => nil) }
   scope :by_period, ->(period) { where( period: period) }
+  scope :by_unit, ->(unit) { where( unit_id: unit) }
   scope :unit_justified, -> { where( staff_of_type: "UnitJustified") }
 
   def copy(period_destino_id, current_user_login)
