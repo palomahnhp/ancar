@@ -161,7 +161,7 @@ private
     period.indicators(unit).each do |indicator_ar|
       indicator_ar.each do |indicator|
         indicator.indicator_metrics.each do |indicator_metric|
-          indicator_empty.push(indicator.item.description) if indicator_metric.entry_indicators.empty
+          indicator_empty.push(indicator.item.description) if indicator_metric.entry_indicators.empty?
         end
       end
     end
