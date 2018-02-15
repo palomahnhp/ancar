@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203122736) do
+ActiveRecord::Schema.define(version: 20180215125613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -294,6 +294,31 @@ ActiveRecord::Schema.define(version: 20180203122736) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "rpts", force: :cascade do |t|
+    t.integer "units_id"
+    t.integer "id_unidad"
+    t.string  "den_unidad"
+    t.date    "fecha_baja"
+    t.date    "fecha_actualiz"
+    t.integer "id_puesto"
+    t.string  "den_puesto"
+    t.string  "grupo_personal"
+    t.string  "grupo_personal_txt"
+    t.string  "area_personal"
+    t.string  "area_personal_txt"
+    t.string  "grtit_per"
+    t.string  "grtit_pto"
+    t.string  "situacion"
+    t.string  "modalidad"
+    t.string  "nombre"
+    t.string  "apellido1"
+    t.string  "apellido2"
+    t.string  "sociedad"
+    t.string  "division"
+    t.string  "status_pto_txt"
+    t.string  "ocupada"
+  end
 
   create_table "settings", force: :cascade do |t|
     t.string "key"
