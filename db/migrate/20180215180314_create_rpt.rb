@@ -1,7 +1,8 @@
 class CreateRpt < ActiveRecord::Migration
   def change
     create_table :rpts do |t|
-      t.references :units
+      t.integer :year
+      t.references :unit
       t.integer :id_unidad
       t.string  :den_unidad
       t.date    :fecha_baja
@@ -22,6 +23,7 @@ class CreateRpt < ActiveRecord::Migration
       t.string  :sociedad
       t.string  :division
       t.string  :status_pto_txt
+      t.string  :editable_Z01
       t.string  :ocupada
     end
   end

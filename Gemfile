@@ -60,6 +60,8 @@ gem 'unicorn', '~> 5.2'
 # to read and write Spreadsheet Documents. As of version 0.6.0, only Microsoft Excel compatible spreadsheets are supported
 gem 'spreadsheet', '~> 1.1', '>= 1.1.2'
 
+gem "roo", "~> 2.7.0"
+
 # Create beautiful Javascript charts with one line of Ruby
 gem 'chartkick', '~> 2.2'
 

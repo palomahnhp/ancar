@@ -1,4 +1,5 @@
 class Unit < ActiveRecord::Base
+
   resourcify
   belongs_to :unit_type
   belongs_to :organization
@@ -9,6 +10,7 @@ class Unit < ActiveRecord::Base
   has_many :sub_processes, :dependent => :destroy
   has_many :approvals
   has_many :validations
+  has_many :rpt
 
   accepts_nested_attributes_for :entry_indicators, reject_if: :reject_entry_inidicators
 
