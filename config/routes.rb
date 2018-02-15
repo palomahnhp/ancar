@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
 
-
   mount RailsAdmin::Engine => '/console', as: 'rails_admin'
-
-  namespace :admin do
-    get 'roles/index'
-  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -48,9 +43,6 @@ Rails.application.routes.draw do
       end
       get :search, on: :collection
     end
-
-    resources :stats
-    resources :in_works
     resources :entry_indicators do
       collection do
         post 'edit_individual'
@@ -58,6 +50,14 @@ Rails.application.routes.draw do
         post 'search'
       end
     end
+    resources :stats
+    resources :in_works
+    resources :load_rpt do
+      collection do
+        post :index
+      end
+    end
+    resources :roles, only: [:index]
   end
 
   namespace :validator do

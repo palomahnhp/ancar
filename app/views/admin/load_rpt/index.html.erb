@@ -1,0 +1,32 @@
+<div class="row" >
+  <div class="small-12 columns">
+    <h1>Carga de RPT</h1>
+
+    <%= form_tag do %>
+      <div class="small-6 medium-2 columns">
+        <%= label_tag(:year, 'Año ') %>
+        <%= text_field_tag(:year, @year) %>
+      </div>
+      <div class="small-6 medium-2 columns">
+        <%= submit_tag("Cargar") %>
+      </div>
+      <div class=""row">
+        <div class="small-12 columns">
+          <table>
+            <tr>
+              <th> Organizacion </th>
+              <th> Cargar </th>
+            </tr>
+            <% @organizations.each do |organization|%>
+              <tr>
+                <td><%= organization.description %></td>
+                <td><%= check_box_tag(:load[organization.id]) %> </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>

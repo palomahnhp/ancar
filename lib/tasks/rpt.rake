@@ -3,21 +3,21 @@ namespace :rpt do
 
   desc "Cargar datos de RPT"
   task carga: :environment do
-    if (ENV['year'].blank? || ENV['unit_id']).blank?
+    if (ENV['year'].blank? || ENV['organization_id']).blank?
       puts 'Error: mandatory parameters year and unit_id'
     else
       year    = ENV['year']
-      unit_id = ENV['unit_id']
+      organization_id = ENV['organization_id']
     end
     rpt_file = Roo::Spreadsheet.open('/home/phn001/Documents/carga/SGTDesarrolloUrbano.xlsx')
 
     rpt_file.each_with_index do |col, index|
       if index == 0
         @columnas = col
-        Rpt.where(unit_id: unit_id, year: year).delete_all
+        Rpt.where(organization_id: organization_id, year: year).delete_all
         next
       end
-      @rpt = Rpt.create(unit_id: unit_id, year: year)
+      @rpt = Rpt.create(organization_id: organization_id, year: year)
       params = {}
       (0...(col.count)).each do |i|
         field = @columnas[i]

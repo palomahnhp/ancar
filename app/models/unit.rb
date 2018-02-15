@@ -10,7 +10,7 @@ class Unit < ActiveRecord::Base
   has_many :sub_processes, :dependent => :destroy
   has_many :approvals
   has_many :validations
-  has_many :rpt
+  has_many :rpts
 
   accepts_nested_attributes_for :entry_indicators, reject_if: :reject_entry_inidicators
 
