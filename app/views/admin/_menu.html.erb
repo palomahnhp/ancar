@@ -38,28 +38,30 @@
         </li>
       </ul>
     </li>
-
+    <li id="load_rpt" <%= 'class=active' if controller_name == 'load_rpt' %>>
+      <%= link_to admin_load_rpt_index_path do %>
+        <span class="icon-download"></span>
+        <%= t('admin.menu.laod_rpt') %>
+      <% end %>
+    </li>
     <li id="settings" <%= 'class=active' if controller_name == 'settings' %>>
       <%= link_to admin_settings_path do %>
         <span class="icon-cog"></span>
         <%= t('admin.menu.settings') %>
       <% end %>
     </li>
-
     <li id="stats" <%= 'class=active' if controller_name == 'stats' %>>
       <%= link_to admin_root_path do %>
         <span class="icon-chart-bar"></span>
         <%= t('admin.menu.stats') %>
       <% end %>
     </li>
-
     <li id="console" <%= 'class=active' if controller_name == 'RailsAdmin::Engine' %>>
       <%= link_to rails_admin_path, target: :_blank  do %>
           <span class="icon-cogs"></span>
           <%= t('admin.menu.console') %>
       <% end %>
     </li>
-
   </ul>
 </nav>
 

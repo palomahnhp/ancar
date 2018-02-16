@@ -24,6 +24,7 @@ en:
       unit_types: Tipos de unidades
       units: Unidades
       users: Usuarios
+      laod_rpt: "Cargar RPT"
     organization_types:
       index:
         title: Tipos de organizaciones

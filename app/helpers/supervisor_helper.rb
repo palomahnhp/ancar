@@ -105,7 +105,12 @@ module SupervisorHelper
     end
   end
 
+  def organization_loaded?(organization, year)
+    "icon-check" if Rpt.by_organization_and_year(organization, year).present?
+  end
+
   private
+  
     def namespace
       controller.class.parent.name.downcase
     end

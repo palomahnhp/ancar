@@ -54,7 +54,8 @@ Rails.application.routes.draw do
     resources :in_works
     resources :load_rpt do
       collection do
-        post :index
+        get :index
+        post :update
       end
     end
     resources :roles, only: [:index]
