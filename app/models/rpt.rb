@@ -7,5 +7,7 @@ class Rpt < ActiveRecord::Base
   scope :by_organization_and_year, ->(organization, year) { where( organization: organization,
                                                                    year: year ) }
   scope :by_year,         ->(year) { where( year: year ) }
+  scope :vacant,          -> { where(ocupada: 'VC') }
+  scope :occupied,        -> { where(ocupada: 'OC') }
 
 end

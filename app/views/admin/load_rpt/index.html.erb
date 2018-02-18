@@ -6,6 +6,11 @@
       <div class="small-6 medium-2 columns">
         <%= text_field_tag(:year, @year, placeholder: "Año") %>
       </div>
+
+      <div class="small-6 medium-8 columns">
+        <%= file_field_tag :file %>
+      </div>
+
       <div class="small-6 medium-2 columns">
         <%= submit_tag("Cargar", class: "button hollow") %>
       </div>
@@ -15,15 +20,16 @@
             <tr>
               <th> Cargada </th>
               <th> Organizacion </th>
-              <th> Fichero </th>
-              <th> Selección </th>
+              <th> Ocupados </th>
+              <th> Vacantes </th>
             </tr>
             <% @organizations.each do |organization|%>
               <tr>
                 <td class="check">
                   <span class="<%= organization_loaded?(organization, @year) %>"></span></td>
                 <td> <%= organization.description %> </td>
-                <td>public/carga_RPT_organization_<%= organization.id %>.xlsx</td>
+                <td> <%= organization.rpts.occupied.count %> </td>
+                <td> <%= organization.rpts.vacant.count %> </td>
                 <td><%= check_box_tag("organization[#{organization.id} ]", organization.id) %> </td>
               </tr>
             <% end %>
