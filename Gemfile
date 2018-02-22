@@ -60,6 +60,8 @@ gem 'unicorn', '~> 5.2'
 # to read and write Spreadsheet Documents. As of version 0.6.0, only Microsoft Excel compatible spreadsheets are supported
 gem 'spreadsheet', '~> 1.1', '>= 1.1.2'
 
+gem "roo", "~> 2.7.0"
+
 # Create beautiful Javascript charts with one line of Ruby
 gem 'chartkick', '~> 2.2'
 
@@ -71,6 +73,12 @@ gem 'wkhtmltopdf-binary', '~> 0.12.3.1'
 
 gem 'rails_admin', '~> 1.1' # Rails engine that provides an easy-to-use interface for managing
 # your data
+
+# TDS library for Ruby using DB-Library. Developed for the ActiveRecord SQL Server adapter.
+# gem 'tiny_tds', '~> 2.1'
+
+# ActiveRecord SQL Server Adapter. SQL Server 2012 and upward.
+# gem 'activerecord-sqlserver-adapter', '~> 4.2', '>= 4.2.18'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
