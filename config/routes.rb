@@ -59,6 +59,9 @@ Rails.application.routes.draw do
       end
     end
     resources :roles, only: [:index]
+    resources :rpts do
+      collection { post :import }
+    end
   end
 
   namespace :validator do

@@ -4,6 +4,10 @@ class CreateRpt < ActiveRecord::Migration
       t.integer :year
       t.references :organization
       t.references :unit
+
+      t.string  :sapid_organizacion
+      t.string  :den_organizacion
+      t.string  :sapid_unidad
       t.string  :den_unidad
       t.date    :fecha_baja
       t.date    :fecha_actualiz
