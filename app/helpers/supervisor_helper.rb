@@ -106,7 +106,7 @@ module SupervisorHelper
   end
 
   def organization_loaded?(organization, year)
-    "icon-check" if Rpt.by_organization_and_year(organization, year).present?
+    "icon-check" if Rpt.by_organization(organization).by_year(year).present?
   end
 
   private

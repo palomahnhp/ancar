@@ -8,11 +8,17 @@ class Rpt < ActiveRecord::Base
 
   scope :by_organization, ->(organization) { where( organization: organization ) }
   scope :by_unit,         ->(unit) { where( unit: unit ) }
-  scope :by_organization_and_year, ->(organization, year) { where( organization_id: organization,
-                                                                   year: year ) }
+  scope :by_unit_sap,     ->(unit) { where( sapid_unidad: unit ) }
   scope :by_year,         ->(year) { where( year: year ) }
   scope :vacant,          -> { where(ocupada: 'VC') }
   scope :occupied,        -> { where(ocupada: 'OC') }
+  scope :a1,              -> { where(grtit_per: 'A1') }
+  scope :a2,              -> { where(grtit_per: 'A2') }
+  scope :c1,              -> { where(grtit_per: 'C1') }
+  scope :c2,              -> { where(grtit_per: 'C2') }
+  scope :e,               -> { where(grtit_per: 'E') }
+  scope :nogrtit,         -> { where(grtit_per:   'X') }
+
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
@@ -34,7 +40,9 @@ class Rpt < ActiveRecord::Base
       rpt.attributes   = row.to_hash
       rpt.organization = Organization.find_by(sap_id: row["sapid_organizacion"])
       rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
-      rpt.save!
+      unless rpt.save
+        Rails.logger.info{ "No se actualiza el registro " + i.to_s + row["den_organizacion"] }
+      end
     end
     true
   end

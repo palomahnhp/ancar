@@ -477,6 +477,10 @@ table.unit-status {
     &.unit {
       text-align: left;
     }
+
+    &.big-width {
+      width: 60%;
+    }
   }
 
   td {
@@ -502,5 +506,6 @@ table.unit-status {
   td.check {
     width: 1%;
   }
+
 }
 

@@ -17,6 +17,7 @@ class Period < ActiveRecord::Base
   validate :ended_at_before_opened_at
 
   default_scope { order(organization_type_id: :asc, ended_at: :desc) }
+  scope :order_by_started_at, -> { order(started_at: :desc) }
   scope :show_status, -> { where(hide_status: false) }
 
   def open_entry?
@@ -62,7 +63,7 @@ class Period < ActiveRecord::Base
         indicators << sub_process.indicators
       end
     end
-    return indicators
+    indicators
   end
 
   def is_from?(acronym)
@@ -75,6 +76,10 @@ class Period < ActiveRecord::Base
 
   def self.look_up_description(description)
     self.find_by_description(description)
+  end
+
+  def self.select_year
+    unscoped.order_by_started_at.collect { |period| period.started_at.year}.uniq
   end
 
   private

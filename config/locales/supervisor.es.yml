@@ -247,3 +247,5 @@ es:
         no_validation: No se han validado los datos
         ok: Visto Bueno
         validation: Última validación
+  subnavigation_menu:
+    rpt: "RPT de unidades"
