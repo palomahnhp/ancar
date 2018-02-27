@@ -7,9 +7,8 @@ class UnitRptAssignation < ActiveRecord::Base
   scope :by_organization, ->(organization) { where( organization: organization ) }
   scope :by_unit,         ->(unit) { where( unit: unit ) }
   scope :by_year_and_organization, ->(year, organization) { where( year: year, organization: organization ) }
-  scope :by_year_and_organization_without_unit, ->(year, organization) { where( year: year,
-                                                                                organization:organization,
-                                                                                unit: nil ) }
+  scope :by_year_and_organization_without_unit, ->(year, organization) {
+                                               where( year: year, organization: organization, unit: nil ) }
 
   def self.init(year)
     Organization.all.find_each do |organization|

@@ -32,6 +32,7 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   def load_rpt_params
     params.permit(:file, :year)
   end
+
   def year_to_process
     @rpt_year = @assignation_year = nil
     @process_year     =  Period.unscoped.order_by_started_at.first.started_at.year

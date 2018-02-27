@@ -91,14 +91,12 @@ Rails.application.routes.draw do
         post 'edit'
        end
     end
-      resources :sub_processes  do
+    resources :sub_processes  do
       member do
         post 'edit'
        end
     end
-
     resources :main_processes
-
     resources :items do
       member do
         post 'edit'
@@ -111,9 +109,11 @@ Rails.application.routes.draw do
         put 'destroy_source'
       end
     end
-
-    resources :units
-
+    resources :units do
+      member {
+        get :detail
+      }
+    end
     resources :unit_statuses
     resources :in_works
   end

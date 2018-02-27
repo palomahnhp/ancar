@@ -13,11 +13,17 @@
     </div>
     <div class="row" >
       <p  class="note">
-        Exportar la asignación de unidades y la RPT :
+        Exportar listado:
+        <%= link_to "Excel", supervisor_units_path(format: "xls") %> |
+        <%= link_to "CSV",   supervisor_units_path(format: "csv") %>
+      </p>
+      <p  class="note">
+        Exportar <strong>RPT</strong>:
         <%= link_to "Excel", admin_rpts_path(format: "xls") %> |
-        <%= link_to "CSV",   admin_rpts_path(format: "csv") %>
+        <%= link_to "CSV", admin_rpts_path(format: "csv") %>
       </p>
     </div>
+
     <h5> Año al que corresponden los datos: <%= @process_year %></h5>
     <%  if @organizations_assignated.present? %>
       <div class="row">
@@ -30,9 +36,10 @@
             <% end %>
 
           </p>
-          <%= form_tag(update_assignations_admin_unit_rpt_assignations_path) do %>
+          <%= form_tag(update_assignations_admin_unit_rpt_assignations_path(year: @process_year )) do %>
+            <%= hidden_field_tag :year, @process_year %>
             <div class="medium-2 columns end">
-              <%= submit_tag "Actualizar asignaciones", class: "hollow button" %>
+              <%= submit_tag "Actualizar asignaciones", class: "hollow button"  %>
             </div>
 
             <table class="unit-status">
