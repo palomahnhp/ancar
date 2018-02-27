@@ -80,24 +80,26 @@
 <h4><%= t("admin.settings.index.send_email.change_staff.title") %></h4>
 <table>
   <tbody>
-  <% @send_emails_change_staff.each do |item| %>
-      <tr>
-        <td>
-          <strong><%= t("admin.settings.index.#{item.key}") %></strong>
-          <br><small> (<%= "#{item.key}" %>) </small>
-        </td>
-        <td>
-          <%= item.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
-        </td>
-        <td class="text-right">
-          <%= form_for(item, url: admin_setting_path(item), html: { id: "edit_#{dom_id(item)}"}) do |f| %>
-              <%= f.hidden_field :value, id: dom_id(item), value: (item.enabled? ? FALSE : TRUE) %>
-              <%= f.submit(t("admin.settings.index.#{item.enabled? ? 'disable' : 'enable'}"),
-                           class: "button expanded #{item.enabled? ? 'hollow alert' : 'success'}",
-                           data: {confirm: t("admin.actions.confirm")}) %>
-          <% end %>
-        </td>
-      </tr>
+  <% if @send_emails_change_staff.present? %>
+    <% @send_emails_change_staff.each do |item| %>
+        <tr>
+          <td>
+            <strong><%= t("admin.settings.index.#{item.key}") %></strong>
+            <br><small> (<%= "#{item.key}" %>) </small>
+          </td>
+          <td>
+            <%= item.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
+          </td>
+          <td class="text-right">
+            <%= form_for(item, url: admin_setting_path(item), html: { id: "edit_#{dom_id(item)}"}) do |f| %>
+                <%= f.hidden_field :value, id: dom_id(item), value: (item.enabled? ? FALSE : TRUE) %>
+                <%= f.submit(t("admin.settings.index.#{item.enabled? ? 'disable' : 'enable'}"),
+                             class: "button expanded #{item.enabled? ? 'hollow alert' : 'success'}",
+                             data: {confirm: t("admin.actions.confirm")}) %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
   <% end %>
   </tbody>
 </table>

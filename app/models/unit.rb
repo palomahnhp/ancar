@@ -11,6 +11,7 @@ class Unit < ActiveRecord::Base
   has_many :approvals
   has_many :validations
   has_many :rpts
+  has_many :unit_rpt_assignations
 
   accepts_nested_attributes_for :entry_indicators, reject_if: :reject_entry_inidicators
 

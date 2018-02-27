@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180222081039) do
+ActiveRecord::Schema.define(version: 20180223194126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -487,6 +487,14 @@ ActiveRecord::Schema.define(version: 20180222081039) do
   add_index "total_indicators", ["indicator_group_id"], name: "index_total_indicators_on_indicator_group_id", using: :btree
   add_index "total_indicators", ["indicator_metric_id"], name: "index_total_indicators_on_indicator_metric_id", using: :btree
   add_index "total_indicators", ["summary_type_id"], name: "index_total_indicators_on_summary_type_id", using: :btree
+
+  create_table "unit_rpt_assignations", force: :cascade do |t|
+    t.integer "year"
+    t.integer "organization_id"
+    t.integer "unit_id"
+    t.integer "sapid_unit"
+    t.string  "den_unit"
+  end
 
   create_table "unit_statuses", force: :cascade do |t|
     t.integer "period_id"

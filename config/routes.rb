@@ -52,15 +52,15 @@ Rails.application.routes.draw do
     end
     resources :stats
     resources :in_works
-    resources :load_rpt do
-      collection do
-        get :index
-        post :update
-      end
-    end
     resources :roles, only: [:index]
     resources :rpts do
       collection { post :import }
+    end
+    resources :unit_rpt_assignations do
+      collection {
+        get :init_or_copy
+        post :update_assignations
+      }
     end
   end
 
@@ -112,8 +112,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :unit_statuses
+    resources :units
 
+    resources :unit_statuses
     resources :in_works
   end
 

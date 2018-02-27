@@ -38,18 +38,35 @@
         </li>
       </ul>
     </li>
-    <li id="load_rpt" <%= 'class=active' if controller_name == 'load_rpt' %>>
-      <%= link_to admin_load_rpt_index_path do %>
-        <span class="icon-download"></span>
-        <%= t('admin.menu.laod_rpt') %>
-      <% end %>
+
+    <li id="units">
+      <a href="#">
+        <span class="icon-sitemap"></span>
+        <%= t('supervisor.menu.units') %>
+      </a>
+      <ul class="menu vertical nested">
+        <li id="rpt" <%= 'class=active' if controller_name == 'rpt' %>>
+          <%= link_to admin_rpts_path do %>
+            <span class="icon-download"></span>
+            <%= t('admin.menu.laod_rpt') %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admin_unit_rpt_assignations_path do %>
+            <span class="icon-file-text-o"> </span>
+            <%= t('subnavigation_menu.assign_rpt') %>
+          <% end %>
+        </li>
+      </ul>
     </li>
+
     <li id="settings" <%= 'class=active' if controller_name == 'settings' %>>
       <%= link_to admin_settings_path do %>
         <span class="icon-cog"></span>
         <%= t('admin.menu.settings') %>
       <% end %>
     </li>
+
     <li id="stats" <%= 'class=active' if controller_name == 'stats' %>>
       <%= link_to admin_root_path do %>
         <span class="icon-chart-bar"></span>

@@ -204,3 +204,8 @@ en:
       uweb_update:
         error: Error actualizando los datos del usuario
         success: Datos del usuario actualizados correctamente
+  subnavigation_menu:
+    assign_rpt: "Inicializar rpt"
+  supervisor:
+    menu:
+      units: "RPT"
