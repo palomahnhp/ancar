@@ -1,8 +1,6 @@
 class Rpt < ActiveRecord::Base
-
   belongs_to :organization
   belongs_to :unit
-
 
   validates_presence_of :year, :organization_id, :id_puesto
 
@@ -19,7 +17,6 @@ class Rpt < ActiveRecord::Base
   scope :e,               -> { where(grtit_per: 'E') }
   scope :nogrtit,         -> { where(grtit_per:   'X') }
 
-
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names
@@ -35,14 +32,12 @@ class Rpt < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      rpt = find_by(year: row["year"],   sapid_organizacion: row["sapid_organizacion"],
+      rpt = find_by(year: row["year"], sapid_organizacion: row["sapid_organizacion"],
                     sapid_unidad: row["sapid_unidad"], id_puesto: row["id_puesto"]) || new
       rpt.attributes   = row.to_hash
       rpt.organization = Organization.find_by(sap_id: row["sapid_organizacion"])
       rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
-      unless rpt.save
-        Rails.logger.info{ "No se actualiza el registro " + i.to_s + row["den_organizacion"] }
-      end
+      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_organizacion"] } unless rpt.save
     end
     true
   end
@@ -55,4 +50,5 @@ class Rpt < ActiveRecord::Base
       else raise "Unknown file type: #{file.original_filename}"
     end
   end
+
 end

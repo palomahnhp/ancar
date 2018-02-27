@@ -79,7 +79,7 @@ class Period < ActiveRecord::Base
   end
 
   def self.select_year
-    unscoped.order_by_started_at.collect { |period| period.started_at.year}.uniq
+    unscoped.order_by_started_at.collect { |period| period.started_at.year }.uniq
   end
 
   private

@@ -1,6 +1,7 @@
 <div class="row" >
   <div class="small-12 columns">
     <h1 class="text-center">Carga de RPT</h1>
+
     <div class="row" >
       <p class="note">
         Para cargar la RPT de una organización se debe partir de un csv o excel el siguiente formato y cabecera:
@@ -27,11 +28,10 @@
       </p>
     </div>
 
-
     <div class="row">
       <div class="small-12 columns">
         <div class="small-6 medium-2 columns">
-          <%= text_field_tag(:year, @year, placeholder: "Año") %>
+          <strong> Año: <%= @year %> </strong>
         </div>
 
         <table class="unit-status">
@@ -41,15 +41,17 @@
             <th> Ocupados </th>
             <th> Vacantes </th>
           </tr>
+
           <% @organizations.each do |organization|%>
             <tr>
               <td class="check">
                 <span class="<%= organization_loaded?(organization, @year) %>"></span></td>
               <td> <%= organization.description %> </td>
-              <td> <%= organization.rpts.occupied.count %> </td>
-              <td> <%= organization.rpts.vacant.count %> </td>
+              <td> <%= organization.rpts.by_year(@year).count %> </td>
+              <td> <%= organization.rpts.by_year(@year).vacant.count %> </td>
             </tr>
           <% end %>
+
         </table>
       </div>
     </div>

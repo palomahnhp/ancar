@@ -2,7 +2,9 @@ class Supervisor::UnitsController < Supervisor::BaseController
   def index
     year_to_process
 
-    @rpts_group = Rpt.select('year, organization_id, unit_id, den_unidad, count(*) as regs').group(:year, :organization_id, :unit_id, :den_unidad).order(:year, :organization_id, :unit_id, :den_unidad)
+    @rpts_group = Rpt.select('year, organization_id, unit_id, den_unidad, count(*) as regs').
+        group(:year, :organization_id, :unit_id, :den_unidad).
+        order(:year, :organization_id, :unit_id, :den_unidad)
     @organization_types = OrganizationType.with_roles(:supervisor, current_user).ids
     @organizations = Organization.where(organization_type_id: @organization_types )
     @rpts = Rpt.where(organization_id: @organizations.ids, year: @year)
