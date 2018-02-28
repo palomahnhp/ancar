@@ -6,7 +6,7 @@ class Admin::RptsController < Admin::BaseController
         group(:year, :organization_id, :unit_id, :den_unidad).
         order(:year, :organization_id, :unit_id, :den_unidad)
     @organizations = Organization.all
-    @rpts = Rpt.by_year(:year).all
+    @rpts = Rpt.by_year(@year).all
     respond_to do |format|
       format.html
       format.csv { send_data @rpts.to_csv }

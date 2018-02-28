@@ -198,8 +198,6 @@ es:
   subnavigation_menu:
     documentation: Instrucciones y manuales
     entry_indicators: Procesos y subprocesos
-    process_summary: Resumen por proceso
-    subprocess_summary: Resumen por subproceso
   supervisor:
     main_processes:
       form:

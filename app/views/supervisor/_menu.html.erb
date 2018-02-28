@@ -1,11 +1,7 @@
 <nav class="admin-sidebar">
-  <%= link_to t('admin.dashboard.index.title'), admin_root_path %>
+  <%= link_to t('supervisor.dashboard.index.title'), supervisor_root_path %>
 
   <ul id="admin_menu" class="vertical menu" data-accordion-menu>
-    <li>
-      <%= link_to t('supervisor.dashboard.index.title'), supervisor_root_path %>
-    </li>
-
     <li>
       <%= link_to supervisor_periods_path do %>
         <span class="icon-calendar"></span>
@@ -13,44 +9,60 @@
       <% end %>
     </li>
 
-    <li id="unit_statuses">
+    <li id="reports">
       <a href="#">
-        <span class="icon-sitemap"></span>
-        <%= t('supervisor.menu.unit_statuses') %>
+        <span class="icon-files-o"></span>
+        <%= t('supervisor.menu.reports') %>
       </a>
       <ul class="menu vertical nested">
-        <% Period.show_status.each do |period| %>
-            <li <%= 'class=active' if controller_name == 'unit_statuses' %>>
-              <%= link_to supervisor_unit_statuses_path(id: period.id) do %>
-                <span class="icon-list">- </span>
-                <%= period.description %>
+        <li>
+          <%= link_to supervisor_units_path do %>
+            <span class="icon-sitemap"> </span>
+            <%= t('supervision.menu.rpt') %>
+          <% end %>
+        </li>
+        <li id="unit_statuses">
+          <a href="#">
+            <span class="icon-sitemap"></span>
+            <%= t('supervisor.menu.unit_statuses') %>
+          </a>
+          <ul class="menu vertical nested">
+            <% Period.show_status.each do |period| %>
+              <li <%= 'class=active' if controller_name == 'unit_statuses' %>>
+                <%= link_to supervisor_unit_statuses_path(id: period.id) do %>
+                  <span class="icon-list">- </span>
+                  <%= period.description %>
+                <% end %>
+              </li>
+              <% %>
+            <% end %>
+          </ul>
+        </li>
+        <% if current_user.has_role? :admin %>
+          <li id="summary_reports">
+            <a href="#">
+              <span class="icon-files-o"></span>
+              <%= t('supervisor.menu.summary_reports') %>
+            </a>
+            <ul class="menu vertical nested">
+              <li <%= 'class=active' if controller_name == 'process_summary' %> >
+              <%= link_to supervisor_process_summary_index_path(type: 'MainProcess') do %>
+                <span class="icon-file-text-o"> </span>
+                <%= t('supervisor.menu.process_summary') %>
               <% end %>
-           </li>
-         <% %>
-       <% end %>
+              </li>
+
+              <li<%= 'class=active' if controller_name == 'process_summary' %>>
+                <%= link_to supervisor_process_summary_index_path(type: 'SubProcess') do %>
+                  <span class="icon-files-o"> </span>
+                  <%= t('supervisor.menu.subprocess_summary') %>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
       </ul>
-    </li>
-
-    <li>
-      <%= link_to supervisor_units_path do %>
-        <span class="icon-sitemap"> </span>
-        <%= t('subnavigation_menu.rpt') %>
-      <% end %>
-    </li>
-
-    <li>
-      <%= link_to supervisor_process_summary_index_path(type: 'MainProcess') do %>
-        <span class="icon-file-text-o"> </span>
-        <%= t('subnavigation_menu.process_summary') %>
-      <% end %>
-    </li>
-
-    <li>
-      <%= link_to supervisor_process_summary_index_path(type: 'SubProcess') do %>
-        <span class="icon-files-o"> </span>
-        <%= t('subnavigation_menu.subprocess_summary') %>
-      <% end %>
-    </li>
+    </li> <!-- Reports -->
 
   </ul>
 </nav>
