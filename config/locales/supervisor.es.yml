@@ -106,11 +106,13 @@ es:
         success: El registro se ha actualizado correctamente.
     menu:
       periods: Configurar Periodos
-      unit_statuses: Entrada de datos por periodo
-      reports: "Informes"
       process_summary: Resumen por proceso
+      reports: Informes
+      rpt: RPT de unidades
       subprocess_summary: Resumen por subproceso
-      summary_reports: "Resúmenes por procesos"
+      summary_reports: Resúmenes por procesos
+      unit_statuses: Entrada de datos por periodo
+      units: RPT
     periods:
       create:
         error:
@@ -251,7 +253,3 @@ es:
         no_validation: No se han validado los datos
         ok: Visto Bueno
         validation: Última validación
-  supervision:
-    menu:
-      rpt: "Rpt de unidades"
-

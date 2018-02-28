@@ -17,6 +17,7 @@ es:
       console: Consola de administración
       group:
         units: Organizaciones
+      laod_rpt: Cargar RPT
       organization_types: Tipos de organizaciones
       organizations: Organizaciones
       settings: Configuración global
@@ -24,7 +25,6 @@ es:
       unit_types: Tipos de unidades
       units: Unidades
       users: Usuarios
-      laod_rpt: "Cargar RPT"
     organization_types:
       index:
         title: Tipos de organizaciones
@@ -205,4 +205,4 @@ es:
         error: Error actualizando los datos del usuario
         success: Datos del usuario actualizados correctamente
   subnavigation_menu:
-    assign_rpt: "Asignar rpt"
+    assign_rpt: Asignar rpt

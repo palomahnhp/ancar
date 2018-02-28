@@ -178,7 +178,7 @@ en:
       open: Abierto
       open_data: Open data
       open_gov: Gobierno abierto
-      supervision: Supervisión
+      supervision: Supervisores
   mailers:
     no_reply: Este mensaje se ha enviado desde una dirección de correo electrónico que no admite respuestas.
   main_process:
@@ -198,8 +198,6 @@ en:
   subnavigation_menu:
     documentation: Instrucciones y manuales
     entry_indicators: Procesos y subprocesos
-    process_summary: Resumen por proceso
-    subprocess_summary: Resumen por subproceso
   supervisor:
     main_processes:
       form:
