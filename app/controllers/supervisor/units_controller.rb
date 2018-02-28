@@ -24,6 +24,12 @@ class Supervisor::UnitsController < Supervisor::BaseController
     redirect_to admin_rpts_path, notice: message
   end
 
+  def detail
+    @organization = Organization.find(params[:id])
+    @units = @organization.units
+    @year = params[:year]
+  end
+
   private
 
   def load_rpt_params

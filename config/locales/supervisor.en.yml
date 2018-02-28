@@ -106,7 +106,13 @@ en:
         success: El registro se ha actualizado correctamente.
     menu:
       periods: Configurar Periodos
-      unit_statuses: Situación de entrada de datos
+      process_summary: Resumen por proceso
+      reports: Informes
+      rpt: RPT de unidades
+      subprocess_summary: Resumen por subproceso
+      summary_reports: Resúmenes por procesos
+      unit_statuses: Entrada de datos por periodo
+      units: RPT
     periods:
       create:
         error:
@@ -238,7 +244,7 @@ en:
         actions: Acciones
         approval: Visto Bueno
         change_employees: Cambio de plantilla
-        title: Situación de entrada de datos
+        title: Estado de la entrada de datos
         unit: Unidad
         validation: Última validación
       show:
@@ -247,5 +253,3 @@ en:
         no_validation: No se han validado los datos
         ok: Visto Bueno
         validation: Última validación
-  subnavigation_menu:
-    rpt: "RPT"

@@ -1,3 +1,4 @@
 class Gpwrpt  < ActiveRecord::Base
-  establish_connection FOURTH_DIMENSION_DB
+  establish_connection GPWRPT_DB
+  self.table_name = 'gpw.rpt001'
 end

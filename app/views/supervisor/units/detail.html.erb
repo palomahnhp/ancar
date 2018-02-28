@@ -1,0 +1,125 @@
+
+<div class="row" >
+
+  <div class="small-12 columns">
+
+    <%= link_to(t('actions.back'),'javascript:history.go(-1);',  class:"icon-angle-left" ) %>
+    <%= link_to(t('actions.back'), supervisor_units_path, class:"icon-angle-left" ) %>
+    <h1 class="text-center">RPT de unidades</h1>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <table class="unit-status" >
+          <tr>
+            <th colspan="2"> Organizacion </th>
+            <th colspan="7"> Ocupados </th>
+            <th colspan="7"> Vacantes </th>
+          </tr>
+          <tr>
+            <th colspan = "2"></th>
+            <th>Tot.</th>
+            <th>A1</th>
+            <th>A2</th>
+            <th>C1</th>
+            <th>C2</th>
+            <th>E</th>
+            <th>X</th>
+            <th>Tot.</th>
+            <th>A1</th>
+            <th>A2</th>
+            <th>C1</th>
+            <th>C2</th>
+            <th>E</th>
+            <th>X</th>
+          </tr>
+          <!-- Organizations -->
+            <tr>
+             <th class= "text-left border-down" colspan="2" title="<%= @organization.sap_id %>">
+               <%= @organization.description %>
+             </th>
+             <th title="Ocupadas"><strong> <%= @organization.rpts.by_year(@year).occupied.count %></strong> </th>
+             <td title="Ocupadas A1"> <%= @organization.rpts.by_year(@year).occupied.a1.count %> </td>
+             <td title="Ocupadas A2"> <%= @organization.rpts.by_year(@year).occupied.a2.count %> </td>
+             <td title="Ocupadas C1"> <%= @organization.rpts.by_year(@year).occupied.c1.count %> </td>
+             <td title="Ocupadas C2"> <%= @organization.rpts.by_year(@year).occupied.c2.count %> </td>
+             <td title="Ocupadas E"> <%= @organization.rpts.by_year(@year).occupied.e.count %> </td>
+             <td title="Ocupadas X"> <%= @organization.rpts.by_year(@year).occupied.nogrtit.count %> </td>
+             <th title="Vacantes"><strong> <%= @organization.rpts.by_year(@year).vacant.count %></strong> </th>
+             <td title="Vacantes A1"> <%= @organization.rpts.by_year(@year).vacant.a1.count %> </td>
+             <td title="Vacantes A2"> <%= @organization.rpts.by_year(@year).vacant.a2.count %> </td>
+             <td title="Vacantes C1"> <%= @organization.rpts.by_year(@year).vacant.c1.count %> </td>
+             <td title="Vacantes C2"> <%= @organization.rpts.by_year(@year).vacant.c2.count %> </td>
+             <td title="Vacantes E"> <%= @organization.rpts.by_year(@year).vacant.e.count %> </td>
+             <td title="Vacantes X"> <%= @organization.rpts.by_year(@year).vacant.nogrtit.count %> </td>
+           </tr>
+            <!-- Units -->
+          <% @units.each do |unit| %>
+            <tr>
+              <td colspan="2"><strong><%= unit.description_sap %></strong></td>
+              <td title="Ocupadas"><strong> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.count %> </strong></td>
+              <td title="Ocupadas A1"> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.a1.count %> </td>
+              <td title="Ocupadas A2"> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.a2.count %> </td>
+              <td title="Ocupadas C1"> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.c1.count %> </td>
+              <td title="Ocupadas C2"> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.c2.count %> </td>
+              <td title="Ocupadas E">  <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.e.count %> </td>
+              <td title="Ocupadas X">  <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.nogrtit.count %> </td>
+              <td title="Vacantes"><strong><%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).vacant.count %> </strong></td>
+              <td title="Vacantes A1"> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).vacant.a1.count %> </td>
+              <td title="Vacantes A2"> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).vacant.a2.count %> </td>
+              <td title="Vacantes C1"> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).vacant.c1.count %> </td>
+              <td title="Vacantes C2"> <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).vacant.c2.count %> </td>
+              <td title="Vacantes E">  <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).vacant.e.count %> </td>
+              <td title="Vacantes X">  <%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).vacant.nogrtit.count %> </td>
+            </tr>
+            <% unit.unit_rpt_assignations.by_year(@year).by_year(@year).order(:sapid_unit).each do |item|  %>
+              <tr>
+                <td title="<%= item.unit_id %>" colspan="2" > <%= item.den_unit %> </td>
+                <td title="Ocupadas"><strong><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.count %> </strong></td>
+                <td title="Ocupadas A1"> <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.a1.count %> </td>
+                <td title="Ocupadas A2"> <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.a2.count %> </td>
+                <td title="Ocupadas C1"> <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.c1.count %> </td>
+                <td title="Ocupadas C2"> <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.c2.count %> </td>
+                <td title="Ocupadas E">  <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.e.count %> </td>
+                <td title="Ocupadas X">  <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.nogrtit.count %> </td>
+                <td title="Vacantes"> <strong><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.count %></strong> </td>
+                <td title="Vacantes A1"> <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.a1.count %> </td>
+                <td title="Vacantes A2"> <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.a2.count %> </td>
+                <td title="Vacantes C1"> <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.c1.count %> </td>
+                <td title="Vacantes C2"> <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.c2.count %> </td>
+                <td title="Vacantes E">  <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.e.count %> </td>
+                <td title="Vacantes X">  <%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.nogrtit.count %> </td>
+              </tr>
+            <% end %>
+          <% end %>
+            <!-- No assigned -->
+            <tr>
+              <td> <h6>SIN ASIGNAR </h6></td>
+            </tr>
+            <tr>
+              <% UnitRptAssignation.by_year_and_organization_without_unit((@year), @organization).each do |assign_rec| %>
+              <tr>
+                <td  colspan="2" title="<%= assign_rec.sapid_unit %>"> <%= assign_rec.den_unit %> </td>
+                <td title="Ocupadas"><strong>
+                  <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.count %></strong>
+                </td>
+                <td title="Ocupadas A1"> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.a1.count %> </td>
+                <td title="Ocupadas A2"> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.a2.count %> </td>
+                <td title="Ocupadas C1"> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.c1.count %> </td>
+                <td title="Ocupadas C2"> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.c2.count %> </td>
+                <td title="Ocupadas E">  <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.e.count %> </td>
+                <td title="Ocupadas X">  <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.nogrtit.count %> </td>
+                <td title="Vacantes"><strong> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.count %><strong></td>
+                <td title="Vacantes A1"> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.a1.count %> </td>
+                <td title="Vacantes A2"> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.a2.count %> </td>
+                <td title="Vacantes C1"> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.c1.count %> </td>
+                <td title="Vacantes C2"> <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.c2.count %> </td>
+                <td title="Vacantes E">  <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.e.count %> </td>
+                <td title="Vacantes X">  <%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.nogrtit.count %> </td>
+              </tr>
+            <% end %>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

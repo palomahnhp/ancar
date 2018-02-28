@@ -17,36 +17,15 @@ ActiveRecord::Schema.define(version: 20180223194126) do
   enable_extension "plpgsql"
   enable_extension "adminpack"
 
-  create_table "activities", force: :cascade do |t|
-    t.integer  "trackable_id"
-    t.string   "trackable_type"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "key"
-    t.text     "parameters"
-    t.integer  "recipient_id"
-    t.string   "recipient_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
-
   create_table "approvals", force: :cascade do |t|
     t.integer  "period_id"
     t.integer  "unit_id"
     t.text     "comment"
     t.string   "approval_by"
     t.date     "approval_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "official_position"
-    t.string   "approval_report_file_name"
-    t.string   "approval_report_content_type"
-    t.integer  "approval_report_file_size"
-    t.datetime "approval_report_updated_at"
   end
 
   add_index "approvals", ["period_id"], name: "index_approvals_on_period_id", using: :btree
@@ -135,22 +114,6 @@ ActiveRecord::Schema.define(version: 20180223194126) do
     t.string  "description"
   end
 
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
-
   create_table "docs", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -199,6 +162,7 @@ ActiveRecord::Schema.define(version: 20180223194126) do
     t.integer "indicator_id"
     t.integer "metric_id"
     t.string  "order"
+    t.integer "code"
     t.string  "in_out_type"
     t.integer "validation_group_id"
     t.string  "data_source"
@@ -372,14 +336,11 @@ ActiveRecord::Schema.define(version: 20180223194126) do
     t.boolean  "has_specification"
     t.integer  "order"
     t.string   "updated_by"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "organization_type_id"
-    t.boolean  "active",               default: true
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   add_index "sources", ["item_id"], name: "index_sources_on_item_id", using: :btree
-  add_index "sources", ["organization_type_id"], name: "index_sources_on_organization_type_id", using: :btree
 
   create_table "sub_processes", force: :cascade do |t|
     t.integer  "main_process_id"
@@ -496,11 +457,6 @@ ActiveRecord::Schema.define(version: 20180223194126) do
     t.string  "den_unit"
   end
 
-  create_table "unit_statuses", force: :cascade do |t|
-    t.integer "period_id"
-    t.integer "unit_id"
-  end
-
   create_table "unit_types", force: :cascade do |t|
     t.integer  "organization_type_id"
     t.string   "description"
@@ -540,7 +496,6 @@ ActiveRecord::Schema.define(version: 20180223194126) do
     t.string   "email"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.integer  "role"
     t.datetime "inactivated_at"
     t.integer  "organization_id"
     t.integer  "sap_id_unit"
@@ -603,7 +558,6 @@ ActiveRecord::Schema.define(version: 20180223194126) do
   add_foreign_key "periods", "organization_types"
   add_foreign_key "process_names", "organization_types"
   add_foreign_key "sources", "items"
-  add_foreign_key "sources", "organization_types"
   add_foreign_key "sub_processes", "items"
   add_foreign_key "sub_processes", "main_processes"
   add_foreign_key "sub_processes", "unit_types"
