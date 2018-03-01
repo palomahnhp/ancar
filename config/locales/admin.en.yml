@@ -3,6 +3,7 @@ en:
   admin:
     actions:
       confirm: "¿Estás seguro?"
+      update: "Registro actualizo."
     dashboard:
       index:
         title: Configuración de la aplicación
@@ -28,9 +29,13 @@ en:
     organization_types:
       index:
         title: Tipos de organizaciones
+      description: "Descripción"
+      new: "Crar nuevo tipo de organización"
+      acronym: "Acrónimo"
     organizations:
       index:
         title: Organizaciones
+      description: "Descripción"
     roles:
       action:
         add: Añadir rol
@@ -123,6 +128,11 @@ en:
     unit_types:
       index:
         title: Tipos de unidades
+      new: "Crear tipo de unidad"
+      description: "Descripción"
+      order: "Orden"
+      edit: "Modificar Tipo de unidad"
+      organization_type: "Tipo de organización"
     units:
       index:
         title: Unidades
@@ -206,3 +216,5 @@ en:
         success: Datos del usuario actualizados correctamente
   subnavigation_menu:
     assign_rpt: Inicializar rpt
+  actions:
+    actions: "Acciones"

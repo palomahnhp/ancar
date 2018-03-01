@@ -1,8 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <%= link_to(t('actions.back'),'javascript:history.go(-1);',  class:"icon-angle-left" ) %>
+  <h2> <%= t('admin.unit_types.index.title') %></h2>
 
-<h2><%= t('admin.unit_types.index.title') %></h2>
-<% if @sub_processes.nil? %>
-  <%= render 'admin/shared/in_works' %>
-<% else %>
-  <%= render 'item_list' %>
-<% end %>
+   <%= link_to("Crear", new_admin_unit_type_path, class: "button hollow") %>
+
+  <table>
+    <tr>
+      <th class="text-left"> Id </th>
+      <th class="text-left"> <%= t('admin.unit_types.description') %> </th>
+      <th class="text-left"> <%= t('admin.unit_types.organization_type') %> </th>
+      <th class="text-left"> <%= t('admin.unit_types.order') %> </th>
+      <th class="text-left"> <%= t('actions.actions')%></th>
+    </tr>
+    <% @unit_types.each do |type| %>
+      <tr>
+        <td><%= type.id %></td>
+        <td><%= type.description %></td>
+        <td><%= type.organization_type&.description %></td>
+        <td><%= type.order %></td>
+        <td>
+          <%= link_to("", edit_admin_unit_type_path(type), class: "icon-pencil") %>
+          <%= link_to("", admin_unit_type_path(type), method: :delete, class: "icon-trash") %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>

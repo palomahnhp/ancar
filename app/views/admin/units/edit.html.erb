@@ -1,6 +1,10 @@
-<h1>Editing Admin Unit</h1>
+<div class="row">
+  <%= link_to(t('actions.back'),'javascript:history.go(-1);',  class:"icon-angle-left" ) %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @admin_unit %> |
-<%= link_to 'Back', admin_units_path %>
+  <div class="small-12 columns">
+    <h3><%= t('admin.organizations.edit') %></h3>
+  </div>
+  <div class="small-12 columns">
+    <%= render 'form' %>
+  </div>
+</div>

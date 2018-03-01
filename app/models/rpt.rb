@@ -54,7 +54,7 @@ class Rpt < ActiveRecord::Base
       rpt.attributes   = row.to_hash
       rpt.organization = Organization.find_by(sap_id: row["sapid_organizacion"])
       rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
-      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_organizacion"] } unless rpt.save
+      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_organizacion"] + rpt.errors.messages} unless rpt.save
     end
     true
   end

@@ -1,17 +1,11 @@
-<%= form_for(@admin_organization_type) do |f| %>
-  <% if @admin_organization_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@admin_organization_type.errors.count, 'error') %> prohibited this admin_organization_type from being saved:</h2>
-
-      <ul>
-      <% @admin_organization_type.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= form_for [:admin, @organization] do |f| %>
+  <%= f.label   :organization_type, t('admin.organizations.description') %>
+  <%= f.select  :organization_type, options_for_select(OrganizationType.select_options), label: false %>
+  <%= f.label   :description, t('admin.organizations.description') %>
+  <%= f.text_field :description, label: false %>
+  <%= f.label   :short_description, t('admin.organizations.short_description') %>
+  <%= f.text_field :short_description, label: false %>
+  <%= f.label   :sap_id, t('admin.organizations.sapid') %>
+  <%= f.text_field :sap_id, label: false %>
+  <%= f.submit t("actions.#{action_name}"), class: "button hollow" %>
 <% end %>

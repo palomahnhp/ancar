@@ -3,6 +3,7 @@ es:
   admin:
     actions:
       confirm: "¿Estás seguro?"
+      update: "Registro actualizado."
     dashboard:
       index:
         title: Configuración de la aplicación
@@ -28,9 +29,19 @@ es:
     organization_types:
       index:
         title: Tipos de organizaciones
+      edit: "Tipo de organización"
+      description: "Descripción"
+      new: "Crear nuevo tipo de organización"
+      acronym: "Acrónimo"
     organizations:
       index:
         title: Organizaciones
+      description: "Descripción"
+      short_description: "Descripción abreviada"
+      sap_id: "Id SAP"
+      organization_type: "Tipo de organización"
+      sapid: "Id SAP"
+      edit: "Modificar organización"
     roles:
       action:
         add: Añadir rol
@@ -123,9 +134,17 @@ es:
     unit_types:
       index:
         title: Tipos de unidades
+      order: "Orden"
+      organization_type: "Tipo de organización"
     units:
       index:
         title: Unidades
+      description: "Descripción"
+      short_description: "Descripción corta"
+      sap_id: "Id SAP"
+      unit_type: "Tipo de unidad"
+      order: "Orden"
+      organization: "Organización"
     users:
       activate:
         alert: 'No se ha podido reactivar el usuario %{user} '
@@ -204,5 +223,9 @@ es:
       uweb_update:
         error: Error actualizando los datos del usuario
         success: Datos del usuario actualizados correctamente
+    organization:
+      new: "Crear Organización"
   subnavigation_menu:
     assign_rpt: Asignar rpt
+  actions:
+    actions: "Acciones"
