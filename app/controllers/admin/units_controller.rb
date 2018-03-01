@@ -2,7 +2,8 @@ class Admin::UnitsController < Admin::BaseController
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
 
   def index
-    @units = Unit.all
+    @search = ransack_params
+    @units  = ransack_result
   end
 
   def new
@@ -54,4 +55,11 @@ class Admin::UnitsController < Admin::BaseController
     true
   end
 
+  def ransack_params
+    Unit.ransack(params[:q])
+  end
+
+  def ransack_result
+    @search.result(distinct: true)
+  end
 end

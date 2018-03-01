@@ -79,6 +79,8 @@ gem 'tiny_tds', '~> 2.1', '>= 2.1.1'
 #ActiveRecord SQL Server Adapter. SQL Server 2012 and upward.
 gem 'activerecord-sqlserver-adapter', '~> 4.1'
 
+gem 'ransack', github: 'activerecord-hackery/ransack'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

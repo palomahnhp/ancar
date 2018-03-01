@@ -15,6 +15,10 @@ class Unit < ActiveRecord::Base
 
   accepts_nested_attributes_for :entry_indicators, reject_if: :reject_entry_inidicators
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w(description_sap)
+  end
+
   def reject_entry_indicators(attributed)
     attributed['amount'].blank?
   end
