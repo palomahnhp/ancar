@@ -2,8 +2,8 @@ class Admin::UnitsController < Admin::BaseController
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = ransack_params
-    @units  = ransack_result
+    @search = Unit.search(params[:q])
+    @units  = @search.result.includes(:organization, :unit_type).page(params[:page])
   end
 
   def new
@@ -53,13 +53,5 @@ class Admin::UnitsController < Admin::BaseController
   def check_destroy
     return false if @unit.unit_type || @unit.organization
     true
-  end
-
-  def ransack_params
-    Unit.ransack(params[:q])
-  end
-
-  def ransack_result
-    @search.result(distinct: true)
   end
 end

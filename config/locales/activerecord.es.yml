@@ -70,6 +70,12 @@ es:
         closed_at: Abierto hasta
         started_at: Inicio
         ended_at: Fin
+      unit:
+        unit_type_id: Tipo de unidad
+        organization_id: Organización
+        description_sap:  Descripción
+        sapid: 'Id SAP'
+        order: Orden
     errors:
       models:
         period:

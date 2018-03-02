@@ -1,11 +1,13 @@
 <div class="row">
-  <%= search_form_for @search do |f| %>
+  <%= search_form_for [:admin, @search] do |f| %>
     <%= f.label :description_sap_cont %>
     <%= f.search_field :description_sap_cont %>
     <%= f.submit "Buscar", class: "button hollow" %>
   <% end %>
 
 </div>
+
+<%= paginate @units %>
 
 <div class="row">
   <%= link_to(t('actions.back'),'javascript:history.go(-1);',  class:"icon-angle-left" ) %>
@@ -15,12 +17,12 @@
 
   <table>
     <tr>
-      <th class="text-left"> <%= sort_link(@search, :id) %> Id </th>
-      <th class="text-left"> <%= t('admin.units.description') %> </th>
-      <th class="text-left"> <%= t('admin.units.sap_id') %> </th>
-      <th class="text-left"> <%= t('admin.units.order') %> </th>
-      <th class="text-left"> <%= t('admin.units.unit_type') %> </th>
-      <th class="text-left"> <%= t('admin.units.organization') %> </th>
+      <th class="text-left"> <%= sort_link(@search, :id) %> </th>
+      <th class="text-left"> <%= sort_link(@search, :description)%> </th>
+      <th class="text-left"> <%= sort_link(@search, :sap_id)%> </th>
+      <th class="text-left"> <%= sort_link(@search, :order) %> </th>
+      <th class="text-left"> <%= sort_link(@search, :unit_type) %> </th>
+      <th class="text-left"> <%= sort_link(@search, :organization) %> </th>
       <th class="text-left"> <%= t('actions.actions')%></th>
     </tr>
     <% @units.each do |unit| %>
