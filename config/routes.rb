@@ -109,6 +109,16 @@ Rails.application.routes.draw do
         put 'destroy_source'
       end
     end
+    resources :users do
+      member do
+        get 'ws_update'
+        post 'roles'
+        get 'activate'
+        get 'remove_role'
+        get 'uweb_auth'
+      end
+      get :search, on: :collection
+    end
     resources :units do
       member {
         get :detail

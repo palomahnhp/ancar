@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="small-12 columns">
+    <p><%= render 'back', login: @user.login, filter: params[:filter], page: params[:page] %><br></p>
+    <div class="radius secondary label small-6 columns">
+      <h5><%= @user.login %> <%= @user.full_name %></h5>
+    </div>
+    <div class="small-6 medium-2 columns">
+      <%= link_to(" Editar", edit_supervisor_user_path(@user, login: @user.login, filter: params[:filter], page: params[:page]),
+                  title: 'Detalle del usuario', class: "icon-search button hollow") %>
+    </div>
+  </div>
+</div>
+
+<%= render 'form' %>
+

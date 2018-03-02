@@ -1,5 +1,5 @@
 class Supervisor::UsersController < Supervisor::BaseController
-  has_filters %w{all interlocutor validator consultor supervisor  supervisor no_role inactive }
+  has_filters %w{all interlocutor validator consultor supervisor admin no_role inactive }
 
   before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles, :activate, :remove_role, :uweb_auth ]
 
@@ -19,11 +19,11 @@ class Supervisor::UsersController < Supervisor::BaseController
 
   def destroy
     if @user.inactivate!(current_user.uweb_id)
-      flash[:notice] = t(' supervisor.users.destroy.notice', user: @user.login)
+      flash[:notice] = t('supervisor.users.destroy.notice', user: @user.login)
     else
-      flash[:alert] = t(' supervisor.users.destroy.alert', user: @user.login)
+      flash[:alert] = t('supervisor.users.destroy.alert', user: @user.login)
     end
-     redirect_to edit_ supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+     redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
 
   def remove_role
@@ -33,21 +33,21 @@ class Supervisor::UsersController < Supervisor::BaseController
     else
       resource_class = sanitize_resource_type(role.resource_type)
       if resource_class.nil?
-        flash[:error] = t(' supervisor.users.destroy_resource.error')
-        redirect_to  supervisor_roles_path(role_name: role.name, user_id: @user.id )
+        flash[:error] = t('supervisor.users.destroy_resource.error')
+        redirect_to supervisor_roles_path(role_name: role.name, user_id: @user.id )
       end
       @user.revoke role.name, resource_class.find(role.resource_id)
     end
-    redirect_to edit_ supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
 
   def activate
     if @user.activate!((current_user.uweb_id))
-      flash[:notice] = t(' supervisor.users.activate.notice', user: @user.login)
+      flash[:notice] = t('supervisor.users.activate.notice', user: @user.login)
     else
-      flash[:alert] = t(' supervisor.users.activate.alert', user: @user.login)
+      flash[:alert] = t('supervisor.users.activate.alert', user: @user.login)
     end
-    redirect_to edit_ supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
 
   def create
@@ -57,47 +57,47 @@ class Supervisor::UsersController < Supervisor::BaseController
         if @user.uweb_update
           @user.directory_update
         else
-          flash[:alert] = t(' supervisor.users.create.alert')
+          flash[:alert] = t('supervisor.users.create.alert')
         end
       end
       render :new
     else
       @user = User.create(user_params)
 #      @user.directory_update!
-      redirect_to edit_ supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+      redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
     end
   end
 
   def update
-    @user.inactivated_at = nil if params[:status] == I18n.t(' supervisor.users.status.inactive')
-    @user.inactivated_at = DateTime.now if params[:status] == I18n.t(' supervisor.users.status.active')
+    @user.inactivated_at = nil if params[:status] == I18n.t('supervisor.users.status.inactive')
+    @user.inactivated_at = DateTime.now if params[:status] == I18n.t('supervisor.users.status.active')
 
     if @user.save
-      flash[:notice] =  t(" supervisor.users.edit.message.#{params[:status]}")
+      flash[:notice] =  t("supervisor.users.edit.message.#{params[:status]}")
     else
 #      render :edit
-      flas[:alert] =  t(' supervisor.users.edit.message.error')
+      flas[:alert] =  t('supervisor.users.edit.message.error')
     end
-    redirect_to  supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
+    redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
   end
 
   def uweb_auth
     if @user.uweb_on!(current_user.uweb_id)
-      flash[:notice] =  t(' supervisor.users.uweb_auth.message.success')
+      flash[:notice] =  t('supervisor.users.uweb_auth.message.success')
     else
-      flash[:alert] =  t(' supervisor.users.uweb_auth.message.error')
+      flash[:alert] =  t('supervisor.users.uweb_auth.message.error')
     end
-    redirect_to edit_ supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
 
   def ws_update
     if @user.uweb_update!
       @user.directory_update!
-      flash[:notice] = t(' supervisor.users.uweb_update.success', user: @user.login)
+      flash[:notice] = t('supervisor.users.uweb_update.success', user: @user.login)
     else
-      flash[:alert] = t(' supervisor.users.uweb_update.error', user: @user.login)
+      flash[:alert] = t('supervisor.users.uweb_update.error', user: @user.login)
     end
-    redirect_to edit_ supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
 
   def search
@@ -135,16 +135,16 @@ class Supervisor::UsersController < Supervisor::BaseController
     role_name = User::ROLES[role_id]
     if resource_id.present? && resource_id > 0
       if @user.add_role role_name, resource_class.find(resource_id)
-        flash[:notice] = t(' supervisor.roles.add_role.success')
+        flash[:notice] = t('supervisor.roles.add_role.success')
       end
     elsif params[:Supervisor].present?
       if @user.add_role role_name
-        flash[:notice] = t(' supervisor.roles.add_role.success')
+        flash[:notice] = t('supervisor.roles.add_role.success')
       end
     else
-      flash[:error] = t(' supervisor.roles.add_role.error')
+      flash[:error] = t('supervisor.roles.add_role.error')
     end
-    redirect_to edit_ supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
 
   private
