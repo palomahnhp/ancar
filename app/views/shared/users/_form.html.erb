@@ -1,4 +1,4 @@
-<%= form_for [:admin, @user] do |f| %>
+<%= form_for [namespace.to_sym, @user] do |f| %>
     <%= render 'shared/errors', resource: @user %>
     <div class="row">
       <br>
@@ -12,40 +12,40 @@
       <br>
       <table class="edit-user">
         <tr>
-          <th><%= t('admin.users.edit.position') %></th>
+          <th><%= t('shared.users.edit.position') %></th>
           <td>  <strong><%= @user.official_position %> </strong></td>
         </tr>
         <tr>
-          <th> <%= t('admin.users.edit.unit') %> </th>
+          <th> <%= t('shared.users.edit.unit') %> </th>
           <td> <strong><%= @user.sap_den_unit %> /  <%= @user.sap_den_organization %> </strong> </td>
         </tr>
 
         <tr>
-          <th> <%= t('admin.users.edit.contact') %> </th>
+          <th> <%= t('shared.users.edit.contact') %> </th>
           <td> <%= @user.phone %> / <%= @user.email %> </td>
         </tr>
         <tr>
-          <th> <%= t('admin.users.edit.created_at') %> </th>
+          <th> <%= t('shared.users.edit.created_at') %> </th>
           <td> <%= l @user.created_at %>  </td>
         </tr>
         <tr>
           <% unless @user.inactivated_at.nil? %>
-              <th> <%= t('admin.users.edit.inactivated_at') %> </th>
+              <th> <%= t('shared.users.edit.inactivated_at') %> </th>
               <td> <%= l @user.inactivated_at %>  </td>
           <% end %>
         </tr>
         <tr>
-          <th> <%= t('admin.users.edit.status') %> </th>
+          <th> <%= t('shared.users.edit.status') %> </th>
           <td class="red <%= @user.status.downcase %>"> <%= @user.status %>      </td>
         </tr>
         <tr>
-          <th> <%= t('admin.users.edit.uweb_auth') %> </th>
+          <th> <%= t('shared.users.edit.uweb_auth') %> </th>
           <td>
             <% if (@user.uweb_auth_at.present? && @user.active?) %>
               <%= (l @user.uweb_auth_at) unless @user.uweb_auth_at.nil?  %>
             <% elsif (@user.uweb_auth_at.nil? && @user.active?) %>
-              <%= link_to(" Dar acceso en ayre", uweb_auth_admin_user_path(@user, login: @user.login,
-                                                                           filter: params[:filter], page: params[:page]),
+              <%= link_to(" Dar acceso en ayre", eval("uweb_auth_#{namespace}_user_path(@user, login: @user.login,
+                                                                           filter: params[:filter], page: params[:page])"),
                           class: 'icon-activate button hollow small', title: 'Dar acceso en ayre') %>
             <% end %>
           </td>

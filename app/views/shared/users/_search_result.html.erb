@@ -3,7 +3,7 @@
     <% users.each do |user| %>
       <tr>
         <td class="text-right">
-          <%= link_to( "", supervisor_user_path(user, tr_id: user.login), title: 'Detalle del usuario', class: "icon-search") %>
+          <%= link_to( "", eval("#{namespace}_user_path(user, tr_id: user.login)"), title: 'Detalle del usuario', class: "icon-search") %>
         </td>
         <td id="login"> <%= user.login %></td>
         <td id="name">  <%= user.full_name %>  </td>

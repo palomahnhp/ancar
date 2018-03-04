@@ -2,15 +2,15 @@
   <table>
     <thead>
       <tr>
-        <th> <%= t('supervisor.users.roles.role.role') %> </th>
-        <th> <%= t('supervisor.users.roles.role.resource') %> </th>
-        <th> <%= t('supervisor.users.roles.role.item') %> </th>
+        <th> <%= t('shared.users.roles.role.role') %> </th>
+        <th> <%= t('shared.users.roles.role.resource') %> </th>
+        <th> <%= t('shared.users.roles.role.item') %> </th>
       </tr>
     </thead>
     <tbody>
       <% unless @user.has_any_role? %>
         <tr id="user">
-          <td> <em><%= t('supervisor.users.roles.no_role') %> </em></td>
+          <td> <em><%= t('shared.users.roles.no_role') %> </em></td>
         </tr>
       <% else %>
         <% @user.filter_roles(params[:role_name]).each do |role| %>
@@ -20,8 +20,8 @@
             <td> <%= role.resource_id_description %> </td>
             <% if params[:action] == 'edit' %>
               <td id= "button_destroy">
-                <%= link_to t('supervisor.users.roles.remove_resource'),
-                        remove_role_supervisor_user_path(id: @user, role: role),
+                <%= link_to t('shared.users.roles.remove_resource'),
+                        eval("remove_role_#{namespace}_user_path(id: @user, role: role)"),
                                class: 'button hollow  small' %>
               </td>
             <% end %>
@@ -37,47 +37,47 @@
   <% if params[:action] == 'edit' && @user.active?%>
     <%= form_tag(controller: 'users', action: 'roles') do %>
        <table>
-         <caption><%= t('supervisor.users.roles.title') %></caption>
+         <caption><%= t('shared.users.roles.title') %></caption>
          <tr>
            <td>
-            <%= label_tag :role_1, t('supervisor.users.roles.add_role') %>
+            <%= label_tag :role_1, t('shared.users.roles.add_role') %>
             <%= select_tag(:role_1, options_for_select(roles_select_options(@user, Organization)),
-                             label: false, placeholder: t('supervisor.roles.add_role.title')) %>
+                             label: false, placeholder: t('shared.roles.add_role.title')) %>
             </td>
             <td>
-              <%= label_tag :resource_id_1, t('supervisor.roles.add_resource.resource') %>
+              <%= label_tag :resource_id_1, t('shared.roles.add_resource.resource') %>
               <%= select_tag(:resource_id_1, grouped_options_for_select(resources_select_options(@user, Organization)),
                      label: false) %>
             </td>
             <td>
-              <%= submit_tag t('supervisor.roles.add_role.submit'), class: 'button hollow success small', :name => 'Organization' %>
+              <%= submit_tag t('shared.roles.add_role.submit'), class: 'button hollow success small', :name => 'Organization' %>
             </td>
          </tr>
          <tr>
             <td>
-              <%= label_tag :role_2, t('supervisor.users.roles.add_role') %>
+              <%= label_tag :role_2, t('shared.users.roles.add_role') %>
               <%= select_tag(:role_2, options_for_select(roles_select_options(@user, OrganizationType)),
-                             label: false, placeholder: t('supervisor.roles.add_role.title') ) %>
+                             label: false, placeholder: t('shared.roles.add_role.title') ) %>
             </td>
             <td>
-              <%= label_tag :resource_id_2, t('supervisor.roles.add_resource.organization_type') %>
+              <%= label_tag :resource_id_2, t('shared.roles.add_resource.organization_type') %>
               <%= select_tag(:resource_id_2, grouped_options_for_select(resources_select_options(@user, OrganizationType)),
-                             label: false, placeholder: t('supervisor.roles.add_role.resource'))%>
+                             label: false, placeholder: t('shared.roles.add_role.resource'))%>
             </td>
             <td>
-              <%= submit_tag t('supervisor.roles.add_role.submit'), class: 'button hollow success small', :name => 'OrganizationType' %>
+              <%= submit_tag t('shared.roles.add_role.submit'), class: 'button hollow success small', :name => 'OrganizationType' %>
             </td>
           </tr>
           <tr>
             <td>
-              <%= label_tag :role_3, t('supervisor.users.roles.add_role') %>
+              <%= label_tag :role_3, t('shared.users.roles.add_role') %>
               <%= select_tag(:role_3, options_for_select(roles_select_options(@user)),
-                                                         label: false, placeholder: t('supervisor.roles.add_role.title') ) %>
+                                                         label: false, placeholder: t('shared.roles.add_role.title') ) %>
             </td>
             <td>
             </td>
             <td>
-              <%= submit_tag t('supervisor.roles.add_role.submit'), class: 'button hollow success small', :name => ' supervisor' %>
+              <%= submit_tag t('shared.roles.add_role.submit'), class: 'button hollow success small', :name => '#{shared}' %>
             </td>
           </tr>
        </table>
