@@ -6,7 +6,7 @@
     </li>
   <% end %>
 
-  <% if (current_user.has_role? :supervisor, :any) %>
+  <% if (current_user.has_role? :supervisor, :any) || (current_user.has_role? :admin, :any) %>
     <li>
       <%= link_to t('layouts.header.supervision'), supervisor_root_path %>
     </li>

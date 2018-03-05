@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'SubProcesses Maintenance' do
-
   describe 'Index of sub_procesess' do
     it 'show empty list of sub_processes ' do
       supervisor = create(:supervisor_global)
@@ -89,7 +88,6 @@ feature 'SubProcesses Maintenance' do
   end
 
   describe 'Create a new Subprocess' do
-
     it '1 error creating a new subprocess' do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -178,7 +176,6 @@ feature 'SubProcesses Maintenance' do
   end
 
   describe 'Edit a subprocess' do
-
     it "1 error editing subprocess" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -245,7 +242,6 @@ feature 'SubProcesses Maintenance' do
   end
 
   describe 'Delete a subrocess' do
-
     it "delete a subprocess" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)

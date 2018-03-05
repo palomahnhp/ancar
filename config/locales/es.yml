@@ -187,6 +187,8 @@ es:
   process_summary:
     no_indicators: No se han incluido indicadores para el resumen de este proceso
   shared:
+    print:
+      print_button: Imprimir
     roles:
       action:
         add: Añadir rol
@@ -223,6 +225,9 @@ es:
       search:
         login_placeholder: Introduce el usuario
         search: Buscar
+    target_blank_html: Página en blanco
+    top_links:
+      no_user: No hay usuario conectado
     users:
       activate:
         alert: 'No se ha podido reactivar el usuario %{user} '

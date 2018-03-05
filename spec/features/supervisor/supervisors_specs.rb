@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'Supervisor Menu' do
-
   let(:user) { create(:user, :supervisor) }
 
   describe 'dashboard' do

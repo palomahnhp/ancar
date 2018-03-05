@@ -64,14 +64,15 @@ gem "roo", "~> 2.7.0"
 # Create beautiful Javascript charts with one line of Ruby
 gem 'chartkick', '~> 2.2'
 
+# Wicked PDF uses the shell utility wkhtmltopdf to serve a PDF file to a user from HTML.
+gem 'wicked_pdf', '~> 1.1'
+
+# Because wicked_pdf is a wrapper for wkhtmltopdf, you'll need to install that, too.
+gem 'wkhtmltopdf-binary', '~> 0.12.3.1'
+
+gem 'rails_admin', '~> 1.1' # Rails engine that provides an easy-to-use interface for managing your data
+
 group :production do
-  # Wicked PDF uses the shell utility wkhtmltopdf to serve a PDF file to a user from HTML.
-  gem 'wicked_pdf', '~> 1.1'
-
-  # Because wicked_pdf is a wrapper for wkhtmltopdf, you'll need to install that, too.
-  gem 'wkhtmltopdf-binary', '~> 0.12.3.1'
-
-  gem 'rails_admin', '~> 1.1' # Rails engine that provides an easy-to-use interface for managing your data
   # TDS library for Ruby using DB-Library. Developed for the ActiveRecord SQL Server adapter.
   gem 'tiny_tds', '~> 2.1', '>= 2.1.1'
   #ActiveRecord SQL Server Adapter. SQL Server 2012 and upward.

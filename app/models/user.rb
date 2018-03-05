@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   end
 
   def status
-    inactivated_at.nil? ? I18n.t('admin.users.status.active') : I18n.t('admin.users.status.inactive')
+    inactivated_at.nil? ? I18n.t('shared.users.status.active') : I18n.t('shared.users.status.inactive')
   end
 
   def active?
@@ -133,11 +133,11 @@ class User < ActiveRecord::Base
   end
 
   def change_status
-    inactivated_at.nil? ? I18n.t('admin.users.edit.button.inactivate') : I18n.t('admin.users.edit.button.activate')
+    inactivated_at.nil? ? I18n.t('shared.users.edit.button.inactivate') : I18n.t('shared.users.edit.button.activate')
   end
 
-  def has_organizations?(organization_type_id = 0)
-    auth_organizations(organization_type_id).present?
+  def has_organizations?(organization_type_ids = [])
+    auth_organizations(organization_type_ids).present?
   end
 
   def organizations_unique?
@@ -215,26 +215,35 @@ class User < ActiveRecord::Base
 
   end
 
+  def delete_roles
+    self.roles = []
+    self.roles
+  end
+
   def self.roles_select_options(class_name =  '' )
-    roles = ROLES.map.with_index { |r, i| [  I18n.t("admin.users.roles.role.name.#{r.to_s}"), i ] }.to_h
+    roles = ROLES.map.with_index { |r, i| [  I18n.t("shared.users.roles.role.name.#{r.to_s}"), i ] }.to_h
     if class_name == Organization
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:admin.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:supervisor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:shared.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:supervisor.to_s}"))
     elsif class_name == OrganizationType
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:admin.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:interlocutor.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:validator.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:shared.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:interlocutor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:validator.to_s}"))
     else
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:interlocutor.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:validator.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:supervisor.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:reader.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:interlocutor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:validator.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:supervisor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:reader.to_s}"))
     end
     return roles
   end
 
   def self.auth(current_user)
-     sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
-     User.where(sap_id_organization: sap_ids)
-  end
+     if current_user.has_role? :admin
+       User.all
+     else
+       sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
+       User.where(sap_id_organization: sap_ids)
+     end
+    end
 end

@@ -21,9 +21,9 @@ class Shared::UsersController < ApplicationController
 
   def destroy
     if @user.inactivate!(current_user.uweb_id)
-      flash[:notice] = t('supervisor.users.destroy.notice', user: @user.login)
+      flash[:notice] = t('shared.users.destroy.notice', user: @user.login)
     else
-      flash[:alert] = t('supervisor.users.destroy.alert', user: @user.login)
+      flash[:alert] = t('shared.users.destroy.alert', user: @user.login)
     end
      redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
@@ -35,7 +35,7 @@ class Shared::UsersController < ApplicationController
     else
       resource_class = sanitize_resource_type(role.resource_type)
       if resource_class.nil?
-        flash[:error] = t('supervisor.users.destroy_resource.error')
+        flash[:error] = t('shared.users.destroy_resource.error')
         redirect_to supervisor_roles_path(role_name: role.name, user_id: @user.id )
       end
       @user.revoke role.name, resource_class.find(role.resource_id)
@@ -45,9 +45,9 @@ class Shared::UsersController < ApplicationController
 
   def activate
     if @user.activate!((current_user.uweb_id))
-      flash[:notice] = t('supervisor.users.activate.notice', user: @user.login)
+      flash[:notice] = t('shared.users.activate.notice', user: @user.login)
     else
-      flash[:alert] = t('supervisor.users.activate.alert', user: @user.login)
+      flash[:alert] = t('shared.users.activate.alert', user: @user.login)
     end
     redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
@@ -59,7 +59,7 @@ class Shared::UsersController < ApplicationController
         if @user.uweb_update
           @user.directory_update
         else
-          flash[:alert] = t('supervisor.users.create.alert')
+          flash[:alert] = t('shared.users.create.alert')
         end
       end
       render :new
@@ -71,23 +71,23 @@ class Shared::UsersController < ApplicationController
   end
 
   def update
-    @user.inactivated_at = nil if params[:status] == I18n.t('supervisor.users.status.inactive')
-    @user.inactivated_at = DateTime.now if params[:status] == I18n.t('supervisor.users.status.active')
+    @user.inactivated_at = nil if params[:status] == I18n.t('shared.users.status.inactive')
+    @user.inactivated_at = DateTime.now if params[:status] == I18n.t('shared.users.status.active')
 
     if @user.save
-      flash[:notice] =  t("supervisor.users.edit.message.#{params[:status]}")
+      flash[:notice] =  t("shared.users.edit.message.#{params[:status]}")
     else
 #      render :edit
-      flas[:alert] =  t('supervisor.users.edit.message.error')
+      flas[:alert] =  t('shared.users.edit.message.error')
     end
     redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
   end
 
   def uweb_auth
     if @user.uweb_on!(current_user.uweb_id)
-      flash[:notice] =  t('supervisor.users.uweb_auth.message.success')
+      flash[:notice] =  t('shared.users.uweb_auth.message.success')
     else
-      flash[:alert] =  t('supervisor.users.uweb_auth.message.error')
+      flash[:alert] =  t('shared.users.uweb_auth.message.error')
     end
     redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
@@ -95,9 +95,9 @@ class Shared::UsersController < ApplicationController
   def ws_update
     if @user.uweb_update!
       @user.directory_update!
-      flash[:notice] = t('supervisor.users.uweb_update.success', user: @user.login)
+      flash[:notice] = t('shared.users.uweb_update.success', user: @user.login)
     else
-      flash[:alert] = t('supervisor.users.uweb_update.error', user: @user.login)
+      flash[:alert] = t('shared.users.uweb_update.error', user: @user.login)
     end
     redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end
@@ -137,14 +137,14 @@ class Shared::UsersController < ApplicationController
     role_name = User::ROLES[role_id]
     if resource_id.present? && resource_id > 0
       if @user.add_role role_name, resource_class.find(resource_id)
-        flash[:notice] = t('supervisor.roles.add_role.success')
+        flash[:notice] = t('shared.roles.add_role.success')
       end
     elsif params[:Supervisor].present?
       if @user.add_role role_name
-        flash[:notice] = t('supervisor.roles.add_role.success')
+        flash[:notice] = t('shared.roles.add_role.success')
       end
     else
-      flash[:error] = t('supervisor.roles.add_role.error')
+      flash[:error] = t('shared.roles.add_role.error')
     end
     redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
   end

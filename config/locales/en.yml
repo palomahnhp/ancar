@@ -187,6 +187,9 @@ en:
   process_summary:
     no_indicators: No se han incluido indicadores para el resumen de este proceso
   shared:
+    target_blank_html: Página en blanco
+    top_links:
+      no_user: No hay usuario conectado
     roles:
       action:
         add: Añadir rol
@@ -301,6 +304,8 @@ en:
       uweb_update:
         error: Error actualizando los datos del usuario
         success: Datos del usuario actualizados correctamente
+    print:
+      print_button: "Imprimir"
   status:
     close: Cerrado
     open: Abierto
