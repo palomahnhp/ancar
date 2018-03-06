@@ -15,7 +15,7 @@ class Admin::RptsController < Admin::BaseController
   end
 
   def import
-    if Rpt.import(params[:file])
+    if Rpt.import(params[:year], params[:file])
       message = "Fichero importado."
     else
       message = "Error en la importación."

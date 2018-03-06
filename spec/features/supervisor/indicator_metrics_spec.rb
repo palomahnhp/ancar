@@ -4,10 +4,7 @@ require 'rails_helper'
 
     describe 'edit a indicator_metric' do
       it 'show the correct fields' do
-        period = Period.first
-        period.opened_at = Time.now - 2.months
-        period.closed_at = Time.now + 1.months
-        period.save
+        period_not_yet_opened
 
         supervisor = create(:supervisor_global)
         login_as_authenticated_user(supervisor)
@@ -51,10 +48,7 @@ require 'rails_helper'
       end
 
       it 'changes indicator_metric order, metric and source with select options' do
-        period = Period.first
-        period.opened_at = Time.now - 2.months
-        period.closed_at = Time.now + 1.months
-        period.save
+        period_not_yet_opened
 
         supervisor = create(:supervisor_global)
         login_as_authenticated_user(supervisor)

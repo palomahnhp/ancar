@@ -1,8 +1,8 @@
 <div>
   <p><%= render 'back', login: @user.login, filter: params[:filter], page: params[:page] %><br></p>
-  <h2><%= t('admin.users.new.title') %></h2>
+  <h2><%= t('shared.users.new.title') %></h2>
 
-  <%= form_for [:admin, @user] do |f| %>
+  <%= form_for [namespace.to_sym, @user] do |f| %>
       <div class="small-6 medium-12 column">
         <%= f.label :login, "Usuario ayre" %>
         <%= f.text_field :login, label: false %>
@@ -16,7 +16,7 @@
         <%= f.hidden_field :phone %>
         <%= f.hidden_field :phone %>
 
-        <%= f.submit t('admin.users.form.ws_update'), class: 'hollow button' %>
+        <%= f.submit t('shared.users.form.ws_update'), class: 'hollow button' %>
 
       </div>
       <% if @user.uweb_id.present? %>
@@ -32,7 +32,7 @@
             <td><%= @user.sap_den_organization %></td>
             <td><%= @user.email %></td>
             <td><%= @user.phone %></td>
-            <td><%= f.submit t('admin.users.form.new'), class: 'hollow button' %></td>
+            <td><%= f.submit t('shared.users.form.new'), class: 'hollow button' %></td>
           </tr>
         </table>
       <% end %>

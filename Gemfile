@@ -30,7 +30,6 @@ gem 'faraday', '~> 0.9.2'
 gem 'cancancan', '~> 1.15' # simple authorization solution for Rails which is decoupled from user roles.
 
 gem 'bcrypt', '~> 3.1' # hashing algorithm
-gem 'cocoon',  '~> 1.2'
 gem 'kaminari', '~> 0.17.0' # A Scope & Engine based paginator
 
 gem 'responders', '~> 2.3' # A set of responders modules to dry up your Rails 4.2+ app.
@@ -71,8 +70,7 @@ gem 'wicked_pdf', '~> 1.1'
 # Because wicked_pdf is a wrapper for wkhtmltopdf, you'll need to install that, too.
 gem 'wkhtmltopdf-binary', '~> 0.12.3.1'
 
-gem 'rails_admin', '~> 1.1' # Rails engine that provides an easy-to-use interface for managing
-# your data
+gem 'rails_admin', '~> 1.1' # Rails engine that provides an easy-to-use interface for managing your data
 
 # TDS library for Ruby using DB-Library. Developed for the ActiveRecord SQL Server adapter.
 gem 'tiny_tds', '~> 2.1', '>= 2.1.1'

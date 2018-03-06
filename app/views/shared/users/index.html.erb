@@ -1,0 +1,66 @@
+<div>
+  <h2><%= t('shared.users.index.title') %></h2>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <div class="small-12 medium-10 columns">
+      <%= form_tag eval("search_#{namespace}_users_path(role_name: params[:role_name])"), method: :get, remote: true  do %>
+        <div class="small-12 medium-8 column">
+          <%= text_field_tag :search, '', placeholder: t('shared.users.search.login_placeholder'), class: 'icon-search' %>
+        </div>
+        <div class="small-12 medium-4 column">
+          <%= submit_tag t('shared.roles.search.search'), class: 'button' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="small-12 medium-2 column end">
+      <%= link_to t('shared.roles.index.new'), eval("new_#{namespace}_user_path") ,class: 'icon-user-plus hollow button' %>
+    </div>
+  </div>
+</div>
+
+<div id="search-result" class="row"></div>
+
+<span id="user_tabs"><%= render 'shared/filter_subnav', i18n_namespace: 'shared.users.index' %></span>
+
+<h3><%= page_entries_info @users, :entry_name => 'usuario'%></h3>
+
+<table class="hover">
+  <thead>
+  <tr>
+    <th><%= t('shared.users.index.row.login') %></th>
+    <th><%= t('shared.users.index.row.name') %></th>
+    <th><%= t('shared.users.index.row.position') %></th>
+    <th><%= t('shared.users.index.row.unit') %></th>
+    <th><%= t('shared.users.index.row.organization') %></th>
+    <th><%= t('shared.users.index.row.actions') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td>
+        <%= link_to user.login, eval("#{namespace}_user_path(user)"), id: "#{user.login}" %>
+      </td>
+      <td>
+        <%= user.full_name%>
+      </td>
+      <td> <%= user.official_position %> </td>
+      <td> <%= user.sap_den_unit %> </td>
+      <td> <%= user.sap_den_organization %> </td>
+      <td>
+        <%= link_to("", eval("#{namespace}_user_path(user, filter: params[:filter], page: params[:page])"),
+                    title: 'Detalle del usuario', class: "icon-search") %>
+        <%= link_to("", eval("edit_#{namespace}_user_path(user, filter: params[:filter], page: params[:page])"),
+                    title: 'Modificar el usuario y añadir permisos', class: "icon-pencil-square-o") %>
+        <%= link_to("", eval("ws_update_#{namespace}_user_path(user, filter: params[:filter], page: params[:page])"),
+                    title: 'Actualizar puesto y organización', class: "icon-cloud-download") %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot> </tfoot>
+</table>
+
+<%= paginate @users %>

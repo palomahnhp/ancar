@@ -70,4 +70,28 @@ module CommonActions
     end
   end
 
+  def period_not_yet_opened
+    period = Period.first
+    period.opened_at = Time.now + 2.months
+    period.closed_at = Time.now + 1.months
+    period.save
+    period
+  end
+
+  def period_opened
+    period = Period.first
+    period.opened_at = Time.now - 2.months
+    period.closed_at = Time.now + 1.months
+    period.save
+    period
+  end
+
+  def period_closed
+    period = Period.first
+    period.opened_at = Time.now - 2.months
+    period.closed_at = Time.now - 1.months
+    period.save
+    period
+  end
+
 end

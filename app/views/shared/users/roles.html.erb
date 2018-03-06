@@ -1,0 +1,57 @@
+<h2><%= t(" shared.roles.index.title.#{params[:role_name]}") %></h2>
+
+<div class="row">
+  <%= form_tag eval("search_#{namespace}_roles_path(role_name: params[:role_name])"), method: :get, remote: true  do %>
+      <div class="small-12 medium-6 column">
+        <%= text_field_tag :search, '', placeholder: t('shared.roles.search.login_placeholder') %>
+      </div>
+      <div class="small-12 medium-6 column">
+        <%= submit_tag t('shared.roles.search.search'), class: 'button' %>
+      </div>
+  <% end %>
+</div>
+
+<div id="search-result" class="row"></div>
+
+
+<table id="supervisors">
+  <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= link_to user.login, eval("edit_#{namespace}_user_path(user)") %>
+        </td>
+        <td>
+          <%= link_to user.full_name, eval("edit_#{namespace}_user_path(user)") %>
+        </td>
+        <td>
+          <%= user.official_position %>
+        </td>
+        <td>
+          <%= user.organization_description %>
+        </td>
+        <td class="text-right">
+          <% if user.has_role? params[:role_name], :any %>
+              <%= link_to t('shared.roles.action.add_resource'),
+                          {controller: 'supervisor/roles', action: :create, role_name: params[:role_name], user_id: user.id, add_resource: 'new' },
+                          method: :post, class: 'button success hollow'
+              %>
+
+              <%= link_to t('shared.roles.action.delete'),
+                          eval("#{namespace}_role_path(user.roles.where(name: params[:role_name]).first, role_name: params[:role_name], user_id: user.id)"),
+                          method: :delete,
+                          class: 'button hollow alert'
+              %>
+
+          <% else %>
+              <%= link_to t('shared.roles.action.add'),
+                          {controller: '#{namespace}/roles', action: :create, role_name: params[:role_name], user_id: user.id },
+                          method: :post, class: 'button success hollow'
+              %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+</table>
+
+<%= paginate @users %>
+

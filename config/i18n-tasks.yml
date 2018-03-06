@@ -100,7 +100,7 @@ ignore_missing:
   - 'helpers.select.*'
   - 'helpers.submit.*'
   - 'errors.*'
-  - 'admin.users.index.filter.*'
+  - 'shared.users.index.filter.*'
 
 ## Consider these keys used:
 ignore_unused:
@@ -127,7 +127,8 @@ ignore_unused:
   - 'entry_indicators.form.indicator.*'
   - 'entry_indicators.form.error.p1.global.*'
   - 'entry_indicators.form.main_process.*'
-  - 'admin.users.index.filter.*'
+  - 'shared.users.index.filter.*'
+  - 'shared.roles.index.title.*'
   - 'admin.settings.index.*'
   - 'admin.settings.key.*'
   - 'entry_indicators.form.error.title.*'

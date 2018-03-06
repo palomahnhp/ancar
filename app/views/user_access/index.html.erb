@@ -24,7 +24,7 @@
             <%= render 'organization_periods', organization: organization %>
           <% end %>
       <% when params[:organization_type_id].nil? && current_user.has_organizations? %>
-          <% current_user.auth_organizations(0).each do |organization| %>
+          <% current_user.auth_organizations.each do |organization| %>
              <%= render 'organization_periods', organization: organization %>
           <% end %>
       <% when params[:organization_type_id].nil? && !current_user.has_organizations? %>

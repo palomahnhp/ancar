@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'MainProcesses Maintenance' do
-
   describe 'Index of main_procesess' do
     it 'show empty list of processes ' do
       supervisor = create(:supervisor_global)
@@ -36,10 +35,10 @@ feature 'MainProcesses Maintenance' do
       expect(page).to have_content '2. AUTORIZACIONES Y CONCESIONES'
     end
 
-    it 'has correct buttons for opened period ' do
+    it 'has correct buttons for not yet opened period ' do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
-
+      period_not_yet_opened
       visit supervisor_root_path
 
       expect(page).to have_content 'Configuración de procesos'
@@ -53,11 +52,7 @@ feature 'MainProcesses Maintenance' do
     end
 
     it "has correct buttons for closed period " do
-      period = Period.first
-
-      period.opened_at = Time.now - 2.days
-      period.closed_at = Time.now - 1.day
-      period.save
+      period = period_closed
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -83,6 +78,7 @@ feature 'MainProcesses Maintenance' do
     it "1 error creating a new process" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -101,6 +97,7 @@ feature 'MainProcesses Maintenance' do
     it "more than 1 error creating a new process" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -119,6 +116,7 @@ feature 'MainProcesses Maintenance' do
     it "create a new process selecting description" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -139,6 +137,7 @@ feature 'MainProcesses Maintenance' do
     it "create a new process writing description" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -159,6 +158,7 @@ feature 'MainProcesses Maintenance' do
     it "create a new process selecting and writing description" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -176,15 +176,13 @@ feature 'MainProcesses Maintenance' do
       expect(page).to have_content I18n.t("supervisor.main_processes.create.success")
       expect(page).to have_content '9. Nueva descripción'
     end
-
-
   end
 
   describe 'Edit a Process' do
-
     it "1 error editing process" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -202,6 +200,7 @@ feature 'MainProcesses Maintenance' do
     it "changing order in a process" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -222,6 +221,7 @@ feature 'MainProcesses Maintenance' do
     it "changing description by select options" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -242,6 +242,7 @@ feature 'MainProcesses Maintenance' do
     it "changing description by writing it" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -262,6 +263,7 @@ feature 'MainProcesses Maintenance' do
     it "changing description by select and writing it together" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -279,14 +281,13 @@ feature 'MainProcesses Maintenance' do
       expect(page).to have_content "1. Nueva descripción"
       expect(page).not_to have_content "1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS"
     end
-
   end
 
   describe 'Delete a Process' do
-
     it "delete a process" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
       expect(page).to have_content 'Configuración de procesos'
@@ -296,7 +297,6 @@ feature 'MainProcesses Maintenance' do
       expect(page).to have_content "Item eliminado"
       expect(page).to have_content "2. AUTORIZACIONES Y CONCESIONES"
       expect(page).not_to have_content "1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS"
-
     end
 
     it "answer no to message question"
