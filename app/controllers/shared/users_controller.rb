@@ -1,8 +1,8 @@
 class Shared::UsersController < ApplicationController
   layout 'admin'
 
-  before_action :valid_filters, only: [:index]
-  before_action :set_user, only: [:edit, :show, :update, :destroy, :ws_update, :roles, :activate, :remove_role, :uweb_auth ]
+  before_action :valid_filters, only: [ :index ]
+  before_action :set_user, only: [ :edit, :show, :update, :destroy, :ws_update, :roles, :activate, :remove_role, :uweb_auth ]
   has_filters []
 
   def index
@@ -44,7 +44,7 @@ class Shared::UsersController < ApplicationController
   end
 
   def activate
-    if @user.activate!((current_user.uweb_id))
+    if @user.activate!(current_user.uweb_id)
       flash[:notice] = t('shared.users.activate.notice', user: @user.login)
     else
       flash[:alert] = t('shared.users.activate.alert', user: @user.login)
@@ -72,7 +72,7 @@ class Shared::UsersController < ApplicationController
 
   def update
     @user.inactivated_at = nil if params[:status] == I18n.t('shared.users.status.inactive')
-    @user.inactivated_at = DateTime.now if params[:status] == I18n.t('shared.users.status.active')
+    @user.inactivated_at = Time.zone.now if params[:status] == I18n.t('shared.users.status.active')
 
     if @user.save
       flash[:notice] =  t("shared.users.edit.message.#{params[:status]}")
@@ -111,7 +111,7 @@ class Shared::UsersController < ApplicationController
     @users = User.where('(lower(login) = ? or lower(name) like ? or lower(surname) like ? or lower(surname) like ?
                               or lower(second_surname) like ? or lower(second_surname) like ?
                               or lower(second_surname) like ?)',
-                               login, first_word, first_word, second_word, first_word, second_word, third_word)
+                        login, first_word, first_word, second_word, first_word, second_word, third_word)
     respond_to do |format|
       if @users.present?
         format.js
@@ -136,13 +136,9 @@ class Shared::UsersController < ApplicationController
 
     role_name = User::ROLES[role_id]
     if resource_id.present? && resource_id > 0
-      if @user.add_role role_name, resource_class.find(resource_id)
-        flash[:notice] = t('shared.roles.add_role.success')
-      end
+      flash[:notice] = t('shared.roles.add_role.success') if @user.add_role role_name, resource_class.find(resource_id)
     elsif params[:Supervisor].present?
-      if @user.add_role role_name
-        flash[:notice] = t('shared.roles.add_role.success')
-      end
+      flash[:notice] = t('shared.roles.add_role.success') if @user.add_role role_name
     else
       flash[:error] = t('shared.roles.add_role.error')
     end
@@ -164,11 +160,11 @@ class Shared::UsersController < ApplicationController
   def load_filtered_users
     filter = params[:filter].nil? ? 'all' : params[:filter]
     case filter
-      when 'all'      then User.active.auth(current_user).page(params[:page]).distinct
-      when 'inactive' then User.inactive.auth(current_user).page(params[:page]).distinct
-      when 'no_role'  then User.active.auth(current_user).page(params[:page]).has_role(nil).distinct
-      else
-        User.active.auth(current_user).with_role(params[:filter],:any).page(params[:page]).distinct
+    when 'all'      then User.active.auth(current_user).page(params[:page]).distinct
+    when 'inactive' then User.inactive.auth(current_user).page(params[:page]).distinct
+    when 'no_role'  then User.active.auth(current_user).page(params[:page]).has_role(nil).distinct
+    else
+      User.active.auth(current_user).with_role(params[:filter], :any).page(params[:page]).distinct
     end
   end
 
@@ -177,9 +173,7 @@ class Shared::UsersController < ApplicationController
   end
 
   def scope_organization
-    if params[:role_name] == 'interlocutor' || params[:role_name] == 'validator'
-      organization = Organization.find_by_sap_id(@user.sap_id_organization)
-    end
+    Organization.find_by(sap_id: @user.sap_id_organization) if (params[:role_name] == 'interlocutor' || params[:role_name] == 'validator')
   end
 
   def sanitize_resource_type(resource_type)
@@ -190,9 +184,9 @@ class Shared::UsersController < ApplicationController
 
   def valid_filters
     if current_user.has_role? :admin
-      @valid_filters= %w{all interlocutor validator supervisor consultor admin no_role inactive }
-    elsif (current_user.has_role? :supervisor, :any)
-      @valid_filters = %w{all interlocutor validator}
+      @valid_filters= %w[ all interlocutor validator supervisor consultor admin no_role inactive ]
+    elsif current_user.has_role?(:supervisor, :any)
+      @valid_filters = %w[ all interlocutor validator ]
     end
   end
 end
