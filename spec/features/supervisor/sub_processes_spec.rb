@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'SubProcesses Maintenance' do
-
   describe 'Index of sub_procesess' do
     it 'show empty list of sub_processes ' do
       supervisor = create(:supervisor_global)
@@ -89,7 +88,6 @@ feature 'SubProcesses Maintenance' do
   end
 
   describe 'Create a new Subprocess' do
-
     it '1 error creating a new subprocess' do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -107,7 +105,7 @@ feature 'SubProcesses Maintenance' do
 
       click_button 'Crear'
 
-      expect(page).to have_content("can't be blank", count: 1)
+      expect(page).to have_content("no puede estar en blanco", count: 1)
       expect(page).to have_content "1 error impidió guardar el subproceso:"
 
     end
@@ -126,8 +124,8 @@ feature 'SubProcesses Maintenance' do
       fill_in 'Núm. orden', with: 9
       click_button 'Crear'
 
-      expect(page).to have_content("can't be blank", count: 2)
-      expect(page).to have_content "2 errores impidieron guardar el subproceso:"
+      expect(page).to have_content("no puede estar en blanco", count: 2)
+      expect(page).to have_content "2 errores impidieron guardar el subproceso"
 
     end
 
@@ -178,7 +176,6 @@ feature 'SubProcesses Maintenance' do
   end
 
   describe 'Edit a subprocess' do
-
     it "1 error editing subprocess" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -194,7 +191,7 @@ feature 'SubProcesses Maintenance' do
       fill_in 'Núm. orden', with: ""
 
       click_button 'Editar'
-      expect(page).to have_content("can't be blank", count: 1)
+      expect(page).to have_content("Núm. orden no puede estar en blanco", count: 1)
       expect(page).to have_content "1 error impidió guardar el subproceso:"
     end
 
@@ -245,7 +242,6 @@ feature 'SubProcesses Maintenance' do
   end
 
   describe 'Delete a subrocess' do
-
     it "delete a subprocess" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)

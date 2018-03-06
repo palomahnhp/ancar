@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 feature 'Periods Maintenance' do
-
   describe 'Index of periods' do
     it 'has correct buttons for opened period ' do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
 
@@ -21,11 +21,7 @@ feature 'Periods Maintenance' do
     end
 
     it "has correct buttons for closed period " do
-      period = Period.first
-
-      period.opened_at = Time.now - 2.day
-      period.closed_at = Time.now - 1.day
-      period.save
+      period_closed
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -45,11 +41,7 @@ feature 'Periods Maintenance' do
     end
 
     it "has correct buttons for not open yet period " do
-      period = Period.first
-
-      period.opened_at = Time.now + 1.months
-      period.closed_at = Time.now + 2.months
-      period.save
+      period_not_yet_opened
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -70,7 +62,6 @@ feature 'Periods Maintenance' do
   end
 
   describe 'Create a new Period' do
-
     it "create a new empty period" do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)

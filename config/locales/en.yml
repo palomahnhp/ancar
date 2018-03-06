@@ -178,7 +178,7 @@ en:
       open: Abierto
       open_data: Open data
       open_gov: Gobierno abierto
-      supervision: Supervisores
+      supervision: Supervisión
   mailers:
     no_reply: Este mensaje se ha enviado desde una dirección de correo electrónico que no admite respuestas.
   main_process:
@@ -189,9 +189,123 @@ en:
   shared:
     print:
       print_button: Imprimir
-    target_blank_html: " (se abre en ventana nueva)"
+    roles:
+      action:
+        add: Añadir rol
+        add_resource: Añadir recurso
+        delete: Eliminar rol
+      add_resource:
+        organization_type: Tipo de organización
+        resource: Organización
+      add_role:
+        error: Error añadiendo el rol
+        resource: Añadir ámbito
+        submit: "+"
+        success: Se ha añadido el rol
+        title: 'Añadir rol: '
+      index:
+        new: Alta de usuario
+        title:
+          admin: Administrador
+          interlocutor: Interlocutor de unidad
+          supervisor: Supervisor
+          validator: Validador de unidad
+      role:
+        name:
+          admin: Administrador
+          interlocutor: Interlocutor de organización
+          no_name: ''
+          reader: Consultor
+          supervisor: Supervisor de tipo de organización
+          validator: Validador de organización
+        resources:
+          Organization: Organización
+          OrganizationType: Tipo de organización
+          Unit: Unidad
+      search:
+        login_placeholder: Introduce el usuario
+        search: Buscar
+    target_blank_html: Página en blanco
     top_links:
       no_user: No hay usuario conectado
+    users:
+      activate:
+        alert: 'No se ha podido reactivar el usuario %{user} '
+        notice: El usuario %{user} se ha activado
+      create:
+        alert: Usuario no existe en ayre o está en baja lógica
+      destroy:
+        alert: 'No se ha podido dar de baja el usuario %{user} '
+        notice: El usuario %{user} se ha dado de baja
+      destroy_resource:
+        error: Error al eliminar el recurso
+      edit:
+        button:
+          activate: Activar
+          inactivate: Dar de baja
+        contact: Datos de contacto
+        created_at: 'Fecha de alta:'
+        inactivated_at: Fecha de baja
+        message:
+          Alta: Se ha desactivado el usuario
+          Baja: Se ha activado el usuario
+          error: Error creando usuario
+        position: Puesto
+        status: Estado
+        unit: Unidad
+        uweb_auth: Acceso desde ayre
+      form:
+        new: Crear usuario
+        ws_update: Buscar datos
+      index:
+        filter:
+          admin: Administradores
+          all: Todos
+          consultor: Consultores
+          inactive: Inactivos
+          interlocutor: Interlocutores
+          no_role: Sin autorizaciones
+          supervisor: Supervisores
+          validator: Validadores
+        row:
+          actions: Acciones
+          login: Login
+          name: Nombre
+          organization: Organización
+          position: Puesto
+          unit: Unidad
+        title: Gestión de usuarios
+      new:
+        title: Alta de usuario
+      roles:
+        add_role: Seleccionar rol
+        no_role: Este usuario no tiene asignado ningún rol
+        remove_resource: "-"
+        role:
+          item: Item
+          name:
+            admin: Administrador
+            interlocutor: Interlocutor de organización
+            no_name: ''
+            reader: Consultor
+            supervisor: Supervisor de tipo de organización
+            validator: Validador de organización
+          resource: Recurso
+          role: Rol
+        title: Añadir permisos al usuario
+      search:
+        login_placeholder: Introduce el usuario a buscar
+        user_not_found: Usuario no encontrado, para dar de alta un nuevo usuario utiliza el botón de Alta de usuario
+      status:
+        active: Alta
+        inactive: Baja
+      uweb_auth:
+        message:
+          error: No se ha podido añadir el acceso desde ayre
+          success: Se ha añadido correctamente el acceso desde ayre
+      uweb_update:
+        error: Error actualizando los datos del usuario
+        success: Datos del usuario actualizados correctamente
   status:
     close: Cerrado
     open: Abierto

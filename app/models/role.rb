@@ -15,14 +15,14 @@ class Role < ActiveRecord::Base
   end
 
   def resource_type_description
-    resource_type.nil? ? 'Todos' : I18n.t("admin.roles.role.resources.#{resource_type}")
+    resource_type.nil? ? 'Todos' : I18n.t("shared.roles.role.resources.#{resource_type}")
   end
 
   def no_empty_name
     if name.empty?
-      I18n.t('admin.roles.role.name.no_name')
+      I18n.t('shared.roles.role.name.no_name')
     else
-      I18n.t("admin.roles.role.name.#{name}")
+      I18n.t("shared.roles.role.name.#{name}")
     end
   end
 end

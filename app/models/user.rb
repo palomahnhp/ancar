@@ -3,20 +3,30 @@ class User < ActiveRecord::Base
   paginates_per 25
   belongs_to :organization
   validates :login, presence: true, uniqueness: true,
-            format: { with: /\A[a-zA-Z]{3}\d{3}\z/, message: "No es un código ayre válido, debe tener tres letras y tres números"}
-
-#  validates :uweb_id, uniqueness: true
-#  validates :pernr, uniqueness: true
+            format: { with: /\A[a-zA-Z]{3}\d{3}\z/,
+            message: "No es un código ayre válido, debe tener tres letras y tres números"}
 
   ROLES = [:interlocutor, :validator, :reader, :supervisor, :admin  ]
 
   default_scope  { order(:login)} #  Overriding default_scope: unscoped
-  scope :active,         -> { where(inactivated_at: nil) }
-  scope :inactive,       -> { where.not(inactivated_at: nil) }
+  scope :active,   -> { where(inactivated_at: nil) }
+  scope :inactive, -> { where.not(inactivated_at: nil) }
   scope :has_role, lambda{|role| includes(:roles).where(:roles => { :name=> role })}
 
   def login=(val)
     self[:login] = val.upcase
+  end
+
+  def full_name
+    "#{self.name} #{self.surname} #{self.second_surname}"
+  end
+
+  def status
+    inactivated_at.nil? ? I18n.t('shared.users.status.active') : I18n.t('shared.users.status.inactive')
+  end
+
+  def active?
+    inactivated_at.nil? ? true : false
   end
 
   def inactivate!(uweb_id)
@@ -84,7 +94,7 @@ class User < ActiveRecord::Base
     end
     false
   end
-0
+
   def uweb?
     # tiene  acceso?
   end
@@ -94,19 +104,19 @@ class User < ActiveRecord::Base
 
     user_data = data['EMPLEADOS_ACTIVOS']['EMPLEADO'] if data['EMPLEADOS_ACTIVOS'].present?
     if user_data.present?
-      self.document_number = user_data['NIF']
-      self.name = fix_encoding(user_data['NOMBRE'])
-      self.surname = fix_encoding(user_data['APELLIDO1'])
-      self.second_surname = fix_encoding(user_data['APELLIDO2'])
-      self.document_number = user_data['NIF']
-      self.official_position = fix_encoding(user_data['DENOMINACION_PUESTO'])
-      self.sap_den_unit = fix_encoding(user_data['DEN_UNIDAD_FUNCIONAL'])
-      self.sap_id_unit = user_data['ID_UNIDAD_FUNCIONAL']
+      self.document_number    = user_data['NIF']
+      self.name               = fix_encoding(user_data['NOMBRE'])
+      self.surname            = fix_encoding(user_data['APELLIDO1'])
+      self.second_surname     = fix_encoding(user_data['APELLIDO2'])
+      self.document_number    = user_data['NIF']
+      self.official_position  = fix_encoding(user_data['DENOMINACION_PUESTO'])
+      self.sap_den_unit       = fix_encoding(user_data['DEN_UNIDAD_FUNCIONAL'])
+      self.sap_id_unit        = user_data['ID_UNIDAD_FUNCIONAL']
 
       data  = DirectoryApi.new.get_unit_data(self.sap_id_unit)
       unit_data = data['UNIDAD_ORGANIZATIVA']
       if unit_data.present?
-        self.sap_id_organization = unit_data['AREA']
+        self.sap_id_organization  = unit_data['AREA']
         self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
       end
     else
@@ -122,29 +132,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  def full_name
-    name = self.name.nil? ? '' : self.name
-    surname = self.surname.nil? ? '' : self.surname
-    second_surname = self.second_surname.nil? ? '' : self.second_surname
-
-    name + ' ' + surname + ' ' + second_surname
-  end
-
-  def status
-    inactivated_at.nil? ? I18n.t('admin.users.status.active') : I18n.t('admin.users.status.inactive')
-  end
-
-  def active?
-    inactivated_at.nil? ? true : false
-  end
-
   def change_status
-    inactivated_at.nil? ? I18n.t('admin.users.edit.button.inactivate') : I18n.t('admin.users.edit.button.activate')
+    inactivated_at.nil? ? I18n.t('shared.users.edit.button.inactivate') : I18n.t('shared.users.edit.button.activate')
   end
 
-  def has_organizations?(organization_type_id = 0)
-    a = auth_organizations(organization_type_id)
-    a.present?
+  def has_organizations?(organization_type_ids = [])
+    auth_organizations(organization_type_ids).present?
   end
 
   def organizations_unique?
@@ -155,17 +148,19 @@ class User < ActiveRecord::Base
     auth_organization_types.present?
   end
 
-  def auth_organizations(organization_type_id = 0)
-    if organization_type_id != 0
+  def auth_organizations(organization_type_ids = [])
+    if self.has_any_role? :admin
+      @organizations ||= Organization.all.distinct
+    elsif organization_type_ids.present?
       # global roles
-      if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
-        @organizations ||= Organization.where(organization_type_id: organization_type_id).distinct
+      if self.has_any_role? :supervisor, :reader, :validator, :interlocutor
+        @organizations ||= Organization.where(organization_type_id: organization_type_ids).distinct
       # scoped roles
       else
          organization_type_roles = OrganizationType.applied_roles
          user_roles = self.roles
          if (organization_type_roles.ids).map{ |id| (user_roles.ids).include? id}
-           @organizations ||= Organization.where(organization_type_id: organization_type_id)
+           @organizations ||= Organization.where(organization_type_id: organization_type_ids)
          end
       end
     else
@@ -221,26 +216,34 @@ class User < ActiveRecord::Base
   end
 
   def delete_roles
-     self.roles = []
-     self.roles
+    self.roles = []
+    self.roles
   end
 
   def self.roles_select_options(class_name =  '' )
-    roles = ROLES.map.with_index { |r, i| [  I18n.t("admin.users.roles.role.name.#{r.to_s}"), i ] }.to_h
+    roles = ROLES.map.with_index { |r, i| [  I18n.t("shared.users.roles.role.name.#{r.to_s}"), i ] }.to_h
     if class_name == Organization
-     roles.delete(I18n.t("admin.users.roles.role.name.#{:admin.to_s}"))
-     roles.delete(I18n.t("admin.users.roles.role.name.#{:supervisor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:shared.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:supervisor.to_s}"))
     elsif class_name == OrganizationType
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:admin.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:interlocutor.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:validator.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:shared.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:interlocutor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:validator.to_s}"))
     else
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:interlocutor.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:validator.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:supervisor.to_s}"))
-      roles.delete(I18n.t("admin.users.roles.role.name.#{:reader.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:interlocutor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:validator.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:supervisor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:reader.to_s}"))
     end
     return roles
   end
 
+  def self.auth(current_user)
+     if current_user.has_role? :admin
+       User.all
+     else
+       sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
+       User.where(sap_id_organization: sap_ids)
+     end
+    end
 end

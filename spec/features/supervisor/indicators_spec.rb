@@ -49,11 +49,7 @@ feature 'Indicators Maintenance' do
     end
 
     it 'has correct buttons for not yet opened period ' do
-
-      period = Period.first
-      period.opened_at = Time.now - 2.month
-      period.closed_at = Time.now - 1.months
-      period.save
+      period_not_yet_opened
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -77,11 +73,7 @@ feature 'Indicators Maintenance' do
     end
 
     it "has correct buttons for closed period " do
-      period = Period.first
-
-      period.opened_at = Time.now - 2.days
-      period.closed_at = Time.now - 1.day
-      period.save
+      period_closed
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -108,11 +100,7 @@ feature 'Indicators Maintenance' do
     end
 
     it "has correct buttons for not open yet period " do
-      period = Period.first
-
-      period.opened_at = Time.now + 1.months
-      period.closed_at = Time.now + 2.months
-      period.save
+      period_not_yet_opened
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -140,10 +128,7 @@ feature 'Indicators Maintenance' do
 
   describe 'edit a indicator' do
     it 'show the correct fields' do
-      period = Period.first
-      period.opened_at = Time.now - 2.months
-      period.closed_at = Time.now + 1.months
-      period.save
+      period_not_yet_opened
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -182,10 +167,7 @@ feature 'Indicators Maintenance' do
     end
 
     it 'changes indicator order an description with select options' do
-      period = Period.first
-      period.opened_at = Time.now + 1.months
-      period.closed_at = Time.now + 2.months
-      period.save
+      period_not_yet_opened
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -221,10 +203,7 @@ feature 'Indicators Maintenance' do
 
     end
     it 'changes indicator writing descripcion' do
-      period = Period.first
-      period.opened_at = Time.now - 2.months
-      period.closed_at = Time.now + 1.months
-      period.save
+      period_not_yet_opened
 
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
@@ -267,6 +246,7 @@ feature 'Indicators Maintenance' do
     it "delete a indicator and all references " do
       supervisor = create(:supervisor_global)
       login_as_authenticated_user(supervisor)
+      period_not_yet_opened
 
       visit supervisor_root_path
 

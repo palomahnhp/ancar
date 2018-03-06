@@ -1,5 +1,6 @@
 <nav class="admin-sidebar">
   <%= link_to t('admin.dashboard.index.title'), admin_root_path %>
+
   <ul id="admin_menu" class="vertical menu" data-accordion-menu>
     <li id="users" <%= 'class=active' if controller_name == 'users' && params[:role].nil?  %>>
       <%= link_to admin_users_path do %>
