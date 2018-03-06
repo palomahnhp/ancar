@@ -1,0 +1,33 @@
+<div class="row">
+    <%= form_for(@first_level_unit) do |f| %>
+      <div class="small-12 columns">
+        <div class="small-6 medium-2 columns">
+          <%= f.label :period_from, t('activerecord.attributes.first_level_unit.period_from') %>
+          <%= f.text_field :period_from, label: false %>
+        </div>
+        <div class="small-12 medium-2 columns end ">
+          <%= f.label :period_to, t('activerecord.attributes.first_level_unit.period_to') %>
+          <%= f.text_field :period_to, label: false %>
+        </div>
+      </div>
+    </div>
+    <div class="small-12 columns">
+      <div class="small-12 medium-2 columns">
+        <%= f.label :sapid_unit, t('activerecord.attributes.first_level_unit.sapid_unit') %>
+        <%= f.text_field :sapid_unit, label: false  %>
+      </div>
+      <div class="small-12 medium-10 columns">
+        <%= f.label :den_unit, t('activerecord.attributes.first_level_unit.den_unit') %>
+        <%= f.text_field :den_unit, label: false  %>
+      </div>
+      <div class="small-12 columns">
+        <%= f.label :organization_id, t('activerecord.attributes.first_level_unit.organization_id') %>
+        <%= f.select :organization_id, options_for_select(Organization.select_options, f.object.organization_id), { include_blank: 'Seleccionar la unidad gestora ', label: false }  %>
+      </div>
+      <div class="small-12 columns">
+        <%= f.submit t("actions.#{action_name}"), class: 'button hollow'%>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@ en:
   admin:
     actions:
       confirm: "¿Estás seguro?"
-      update: "Registro actualizo."
+      update: Registro actualizo.
     dashboard:
       index:
         title: Configuración de la aplicación
@@ -27,11 +27,11 @@ en:
       units: Unidades
       users: Usuarios
     organization_types:
+      acronym: Acrónimo
+      description: Descripción
       index:
         title: Tipos de organizaciones
-      description: "Descripción"
-      new: "Crar nuevo tipo de organización"
-      acronym: "Acrónimo"
+      new: Crar nuevo tipo de organización
     organizations:
       index:
         title: Organizaciones
@@ -89,16 +89,15 @@ en:
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
     unit_types:
+      description: Descripción
+      edit: Modificar Tipo de unidad
       index:
         title: Tipos de unidades
-      new: "Crear tipo de unidad"
-      description: "Descripción"
-      order: "Orden"
-      edit: "Modificar Tipo de unidad"
-      organization_type: "Tipo de organización"
+      new: Crear tipo de unidad
+      order: Orden
+      organization_type: Tipo de organización
     units:
       index:
         title: Unidades
   subnavigation_menu:
     assign_rpt: Asignar rpt
-

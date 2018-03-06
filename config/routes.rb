@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :first_level_units
   mount RailsAdmin::Engine => '/console', as: 'rails_admin'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -61,6 +62,9 @@ Rails.application.routes.draw do
         get :init_or_copy
         post :update_assignations
       }
+    end
+    resources :first_level_units do
+      collection { post :import }
     end
   end
 

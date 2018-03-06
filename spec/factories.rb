@@ -1,4 +1,7 @@
 FactoryBot.define do
+  factory :first_level_unit do
+    
+  end
 
   factory :user do
     login  "USU" + Faker::Number.number(3)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180223194126) do
+ActiveRecord::Schema.define(version: 20180306160547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,14 @@ ActiveRecord::Schema.define(version: 20180223194126) do
   add_index "entry_indicators", ["indicator_source_id"], name: "index_entry_indicators_on_indicator_source_id", using: :btree
   add_index "entry_indicators", ["period_id"], name: "index_entry_indicators_on_period_id", using: :btree
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
+
+  create_table "first_level_units", force: :cascade do |t|
+    t.integer "sapid_unit"
+    t.string  "den_unit"
+    t.integer "organization_id"
+    t.integer "period_from"
+    t.integer "period_to"
+  end
 
   create_table "indicator_groups", force: :cascade do |t|
     t.string   "updated_by"

@@ -186,6 +186,9 @@ en:
       generic: GENÉRICOS
   process_summary:
     no_indicators: No se han incluido indicadores para el resumen de este proceso
+  share:
+    menu:
+      first_level_units: Asignar Áreas a SGTS
   shared:
     print:
       print_button: Imprimir
@@ -306,6 +309,10 @@ en:
       uweb_update:
         error: Error actualizando los datos del usuario
         success: Datos del usuario actualizados correctamente
+    first_level_unit:
+      title: Asignación de Áreas a SGTs
+      index:
+        actions: "Acciones"
   status:
     close: Cerrado
     open: Abierto
