@@ -89,7 +89,7 @@ feature 'MainProcesses Maintenance' do
 
       click_button 'Crear'
 
-      expect(page).to have_content("can't be blank", count: 1)
+      expect(page).to have_content("Hay que incluir una descripción", count: 1)
       expect(page).to have_content "1 error impidió guardar el proceso:"
 
     end
@@ -108,7 +108,8 @@ feature 'MainProcesses Maintenance' do
 
       click_button 'Crear'
 
-      expect(page).to have_content("can't be blank", count: 2)
+      expect(page).to have_content("Hay que incluir una descripción", count: 1)
+      expect(page).to have_content("Núm. orden no puede estar en blanco", count: 1)
       expect(page).to have_content "2 errores impidieron guardar el proceso:"
 
     end
@@ -193,7 +194,7 @@ feature 'MainProcesses Maintenance' do
       fill_in 'Núm. orden', with: ""
 
       click_button 'Editar'
-      expect(page).to have_content("can't be blank", count: 1)
+      expect(page).to have_content("Núm. orden no puede estar en blanco", count: 1)
       expect(page).to have_content "1 error impidió guardar el proceso:"
     end
 

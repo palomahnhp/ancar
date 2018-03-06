@@ -135,7 +135,6 @@ ignore_unused:
   - 'entry_indicators.form.error.p1.*'
   - 'entry_indicators.form.error.p2.*'
 
-
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
