@@ -1,7 +1,7 @@
 class Admin::RptsController < Admin::BaseController
 
   def index
-    @year = Rpt.order(:year).last&.year
+    @year = Rpt.maximum(:year)
     @rpts_group = Rpt.select('year, organization_id, unit_id, den_unidad, count(*) as regs').
         group(:year, :organization_id, :unit_id, :den_unidad).
         order(:year, :organization_id, :unit_id, :den_unidad)

@@ -30,9 +30,13 @@
 
     <div class="row">
       <div class="small-12 columns">
-        <div class="small-6 medium-2 columns">
-          <strong> Último año cargado: <%= @year %> </strong>
-        </div>
+        <% if @year.present? %>
+          <div class="small-6 medium-4 columns">
+            <strong> Último año cargado: <%= @year %> </strong>
+          </div>
+        <% else %>
+            <strong class="text-center"> No hay datos de RPT cargados </strong>
+        <% end %>
 
         <table class="unit-status">
           <tr>
