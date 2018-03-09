@@ -34,10 +34,11 @@
       <thead>
         <tr>
           <th> <%= t('activerecord.attributes.first_level_unit.den_unit') %> </th>
+          <th> <%= t('activerecord.attributes.first_level_unit.sapid_unit') %> </th>
+          <th> <%= t('activerecord.attributes.first_level_unit.organization_id') %> </th>
           <th> <%= t('activerecord.attributes.first_level_unit.organization_id') %> </th>
           <th> <%= t('activerecord.attributes.first_level_unit.period_from') %> </th>
           <th> <%= t('activerecord.attributes.first_level_unit.period_to') %> </th>
-          <th> <%= t('activerecord.attributes.first_level_unit.sapid_unit') %> </th>
           <th colspan="2"> <%= t('shared.first_level_unit.index.actions') %> </th>
         </tr>
       </thead>
@@ -46,10 +47,11 @@
         <% @first_level_units.each do |first_level_unit| %>
           <tr>
             <td> <%= first_level_unit.den_unit %> </td>
-            <td> <%= first_level_unit.organization&.description %> </td>
+            <td> <%= first_level_unit.sapid_unit %> </td>
+            <td> <%= first_level_unit.try(:organization).try(:description) %> </td>
+            <td> <%= first_level_unit.try(:organization).try(:sap_id) %> </td>
             <td> <%= first_level_unit.period_from %> </td>
             <td> <%= first_level_unit.period_to %> </td>
-            <td> <%= first_level_unit.sapid_unit %> </td>
             <td> <%= link_to "", edit_admin_first_level_unit_path(first_level_unit), class: "icon-pencil"  %></td>
             <td> <%= link_to "", admin_first_level_unit_path(first_level_unit), method: :delete,
                              data: { confirm: 'Are you sure?' }, class: "icon-trash" %></td>

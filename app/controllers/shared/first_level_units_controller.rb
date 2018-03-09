@@ -4,7 +4,7 @@ class Shared::FirstLevelUnitsController < ApplicationController
   # GET /first_level_units
   # GET /first_level_units.json
   def index
-    @first_level_units = FirstLevelUnit.active
+    @first_level_units = FirstLevelUnit.active.order(:organization_id)
   end
 
   # GET /first_level_units/1

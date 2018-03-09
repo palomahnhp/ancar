@@ -2,7 +2,7 @@ class Rpt < ActiveRecord::Base
   belongs_to :organization
   belongs_to :unit
 
-  validates_presence_of :year, :organization_id, :id_puesto
+  validates_presence_of :year, :sapid_area, :sapid_unidad, :id_puesto
 
   scope :by_organization, ->(organization) { where( organization: organization ) }
   scope :by_unit,         ->(unit) { where( unit: unit ) }
@@ -51,7 +51,7 @@ class Rpt < ActiveRecord::Base
       rpt = find_by(year: row["year"], sapid_area: row["sapid_area"],
                     sapid_unidad: row["sapid_unidad"], id_puesto: row["id_puesto"]) || new
       rpt.attributes   = row.to_hash
-      rpt.organization = FirstLevelUnit.find_by(sapid_unit: row["sapid_area"])&.organization
+      rpt.organization = FirstLevelUnit.find_by(sapid_unit: row["sapid_area"]).organization
       rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
       Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s } unless rpt.save
     end
@@ -65,6 +65,40 @@ class Rpt < ActiveRecord::Base
       when ".xlsx" then Roo::Excelx.new(file.path)
       else raise "Unknown file type: #{file.original_filename}"
     end
+  end
+  
+  def self.export_columns
+    w% [
+      year,
+      den_area,
+      sapid_area,
+      sapid_unidad,
+      den_unidad,
+      id_puesto,
+      den_puesto,
+      nivel_pto,
+      grtit_pto,
+      status_pto_txt,
+      forma_acceso,
+      ocupada,
+      sociedad,
+      division,
+      dotado,
+      nombre,
+      apellido1,
+      apellido2,
+      den_categoria,
+      area_personal_txt,
+      grupo_personal_txt,
+      grtit_per,
+      situacion,
+      modalidad,
+      relacion_laboral,
+      fecha_baja,
+      editable_Z01,
+      ficticio_Z02
+  ]
+    
   end
 
   private
