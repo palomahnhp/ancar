@@ -10,7 +10,7 @@
   </div>
 
   <p class="note">
-    Importar las Áreas/Distritos se debe partir de un csv o excel con el siguiente formato y cabecera:
+    Importar las Áreas/Distritos partiendo de un excel con el siguiente formato y cabecera:
     <span> <%= link_to "Areas.xlsx", "/carga_rpt/Areas.xlsx" %> </span>
     <br>Elije el excel a importar con el botón Choose File:
 
@@ -27,33 +27,32 @@
         </div>
       <% end %>
     </div>
-
   </p>
 
   <div class="small-12 columns" >
-    <table>
+    <table class="unit-status">
       <thead>
         <tr>
+          <th> <%= t('activerecord.attributes.first_level_unit.den_unit') %> </th>
+          <th> <%= t('activerecord.attributes.first_level_unit.organization_id') %> </th>
           <th> <%= t('activerecord.attributes.first_level_unit.period_from') %> </th>
           <th> <%= t('activerecord.attributes.first_level_unit.period_to') %> </th>
           <th> <%= t('activerecord.attributes.first_level_unit.sapid_unit') %> </th>
-          <th> <%= t('activerecord.attributes.first_level_unit.den_unit') %> </th>
-          <th> <%= t('activerecord.attributes.first_level_unit.organization_id') %> </th>
-          <th colspan="3"> <%= t('shared.first_level_unit.index.actions') %> </th>
+          <th colspan="2"> <%= t('shared.first_level_unit.index.actions') %> </th>
         </tr>
       </thead>
 
       <tbody>
         <% @first_level_units.each do |first_level_unit| %>
           <tr>
+            <td> <%= first_level_unit.den_unit %> </td>
+            <td> <%= first_level_unit.organization&.description %> </td>
             <td> <%= first_level_unit.period_from %> </td>
             <td> <%= first_level_unit.period_to %> </td>
             <td> <%= first_level_unit.sapid_unit %> </td>
-            <td> <%= first_level_unit.den_unit %> </td>
-            <td> <%= first_level_unit.organization&.description %> </td>
-            <td><%= link_to t('actions.show'), admin_first_level_unit_path(first_level_unit) %></td>
-            <td><%= link_to t('actions.edit'), edit_admin_first_level_unit_path(first_level_unit) %></td>
-            <td><%= link_to t('actions.delete'), admin_first_level_unit_path(first_level_unit), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td> <%= link_to "", edit_admin_first_level_unit_path(first_level_unit), class: "icon-pencil"  %></td>
+            <td> <%= link_to "", admin_first_level_unit_path(first_level_unit), method: :delete,
+                             data: { confirm: 'Are you sure?' }, class: "icon-trash" %></td>
           </tr>
         <% end %>
       </tbody>

@@ -51,7 +51,7 @@
               <td class="check">
                 <span class="<%= organization_loaded?(organization, @year) %>"></span></td>
               <td> <%= organization.description %> </td>
-              <td> <%= organization.rpts.by_year(@year).count %> </td>
+              <td> <%= organization.rpts.by_year(@year).occupied.count %> </td>
               <td> <%= organization.rpts.by_year(@year).vacant.count %> </td>
             </tr>
           <% end %>

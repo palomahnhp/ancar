@@ -336,7 +336,7 @@ ActiveRecord::Schema.define(version: 20180307120715) do
     t.string  "apellido2"
     t.string  "perid"
     t.string  "sexo"
-    t.string  "den_categoria"
+    t.string  "den_categoria_per"
     t.string  "grtit_per"
     t.string  "situacion"
     t.string  "modalidad"
@@ -475,6 +475,14 @@ ActiveRecord::Schema.define(version: 20180307120715) do
   add_index "total_indicators", ["indicator_group_id"], name: "index_total_indicators_on_indicator_group_id", using: :btree
   add_index "total_indicators", ["indicator_metric_id"], name: "index_total_indicators_on_indicator_metric_id", using: :btree
   add_index "total_indicators", ["summary_type_id"], name: "index_total_indicators_on_summary_type_id", using: :btree
+
+  create_table "unit_rpt_assignations", force: :cascade do |t|
+    t.integer "year"
+    t.integer "organization_id"
+    t.integer "unit_id"
+    t.integer "sapid_unit"
+    t.string  "den_unit"
+  end
 
   create_table "unit_types", force: :cascade do |t|
     t.integer  "organization_type_id"

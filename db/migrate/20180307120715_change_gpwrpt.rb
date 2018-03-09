@@ -41,7 +41,7 @@ class ChangeGpwrpt < ActiveRecord::Migration
       t.string  :apellido2
       t.string  :perid
       t.string  :sexo
-      t.string  :den_categoria
+      t.string  :den_categoria_per
       t.string  :grtit_per
       t.string  :grupo_personal
       t.string  :grupo_personal_txt

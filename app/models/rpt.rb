@@ -48,12 +48,12 @@ class Rpt < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      rpt = find_by(year: row["year"], sapid_organizacion: row["sapid_organizacion"],
+      rpt = find_by(year: row["year"], sapid_area: row["sapid_area"],
                     sapid_unidad: row["sapid_unidad"], id_puesto: row["id_puesto"]) || new
       rpt.attributes   = row.to_hash
-      rpt.organization = Organization.find_by(sap_id: row["sapid_organizacion"])
+      rpt.organization = FirstLevelUnit.find_by(sapid_unit: row["sapid_area"])&.organization
       rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
-      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_organizacion"] + rpt.errors.messages.to_s } unless rpt.save
+      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s } unless rpt.save
     end
     true
   end

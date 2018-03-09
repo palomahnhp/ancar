@@ -1,5 +1,5 @@
 <div class="row">
-    <%= form_for(@first_level_unit) do |f| %>
+    <%= form_for([namespace.to_sym, @first_level_unit]) do |f| %>
       <div class="small-12 columns">
         <div class="small-6 medium-2 columns">
           <%= f.label :period_from, t('activerecord.attributes.first_level_unit.period_from') %>

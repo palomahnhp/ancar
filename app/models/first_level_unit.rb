@@ -10,6 +10,7 @@ class FirstLevelUnit < ActiveRecord::Base
       row = Hash[[header, spreadsheet.row(i)].transpose]
       unit = find_by(period_from: row["period_from"], sapid_unit: row["sapid_unit"], den_unit: row["den_unit"]) || new
       unit.attributes   = row.to_hash
+      unit.organization = Organization.find_by(sap_id: row["organization_id"])
       Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_unit"] + unit.errors.messages.to_s } unless unit.save
     end
     true

@@ -19,6 +19,7 @@ class Shared::FirstLevelUnitsController < ApplicationController
 
   # GET /first_level_units/1/edit
   def edit
+
   end
 
   # POST /first_level_units
@@ -28,7 +29,7 @@ class Shared::FirstLevelUnitsController < ApplicationController
 
     respond_to do |format|
       if @first_level_unit.save
-        format.html { redirect_to @first_level_unit, notice: 'First level unit was successfully created.' }
+        format.html { redirect_to admin_first_level_units_path, notice: 'First level unit was successfully created.' }
         format.json { render :show, status: :created, location: @first_level_unit }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class Shared::FirstLevelUnitsController < ApplicationController
   def update
     respond_to do |format|
       if @first_level_unit.update(first_level_unit_params)
-        format.html { redirect_to @first_level_unit, notice: 'First level unit was successfully updated.' }
+        format.html { redirect_to admin_first_level_units_path, notice: 'First level unit was successfully updated.' }
         format.json { render :show, status: :ok, location: @first_level_unit }
       else
         format.html { render :edit }
@@ -77,8 +78,7 @@ class Shared::FirstLevelUnitsController < ApplicationController
       @first_level_unit = FirstLevelUnit.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def first_level_unit_params
-      params.fetch(:first_level_unit, {})
+      params.require(:first_level_unit).permit(:sapid_unit, :den_unit, :organization_id, :period_from, :period_to)
     end
 end
