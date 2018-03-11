@@ -68,36 +68,36 @@ class Rpt < ActiveRecord::Base
   end
   
   def self.export_columns
-    w% [
-      year,
-      den_area,
-      sapid_area,
-      sapid_unidad,
-      den_unidad,
-      id_puesto,
-      den_puesto,
-      nivel_pto,
-      grtit_pto,
-      status_pto_txt,
-      forma_acceso,
-      ocupada,
-      sociedad,
-      division,
-      dotado,
-      nombre,
-      apellido1,
-      apellido2,
-      den_categoria,
-      area_personal_txt,
-      grupo_personal_txt,
-      grtit_per,
-      situacion,
-      modalidad,
-      relacion_laboral,
-      fecha_baja,
-      editable_Z01,
+    %w{
+      year
+      den_area
+      sapid_area
+      sapid_unidad
+      den_unidad
+      id_puesto
+      den_puesto
+      nivel_pto
+      grtit_pto
+      status_pto_txt
+      forma_acceso
+      ocupada
+      sociedad
+      division
+      dotado
+      nombre
+      apellido1
+      apellido2
+      den_categoria_per
+      area_personal_txt
+      grupo_personal_txt
+      grtit_per
+      situacion
+      modalidad
+      relacion_laboral
+      fecha_baja
+      editable_Z01
       ficticio_Z02
-  ]
+  }
     
   end
 

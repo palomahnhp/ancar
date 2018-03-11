@@ -3,10 +3,12 @@ class Admin::SettingsController  < Admin::BaseController
 
   def index
     all_settings = (Setting.all).group_by { |s| s.type  }
-    @settings = all_settings['common']
-    @imported_sources = all_settings['imported_source']
-    @validations = all_settings['validation']
+    @settings               = all_settings['common']
+    @imported_sources       = all_settings['imported_source']
+    @validations            = all_settings['validation']
     @send_emails_change_staff = all_settings['send_email.change_staff']
+    @rpt_vacancy            = all_settings['rpt.vacancy']
+    @rpt_without_grtit      = all_settings['rpt.without_grtit']
   end
 
   def update

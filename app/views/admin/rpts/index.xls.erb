@@ -7,14 +7,14 @@
   <Worksheet ss:Name="Plantilla">
     <Table>
       <Row>
-        <% Rpt.self.export_columns.each do |col| %>
+        <% Rpt.export_columns.each do |col| %>
           <Cell><Data ss:Type="String"><%= col %></Data></Cell>
         <% end %>
       </Row>
     <% @rpts.each do |position| %>
       <Row>
-        <% Rpt.self.export_columns.each do |col| %>
-          <Cell><Data ss:Type="Number"><%= position.eval(col) %></Data></Cell>
+        <% Rpt.export_columns.each do |col| %>
+          <Cell><Data ss:Type="Number"><%= position.send(col.to_sym) %></Data></Cell>
         <% end %>
       </Row>
     <% end %>

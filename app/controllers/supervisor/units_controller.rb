@@ -1,13 +1,13 @@
 class Supervisor::UnitsController < Supervisor::BaseController
   def index
     year_to_process
-
-    @rpts_group = Rpt.select('year, organization_id, unit_id, den_unidad, count(*) as regs').
-        group(:year, :organization_id, :unit_id, :den_unidad).
-        order(:year, :organization_id, :unit_id, :den_unidad)
     @organization_types = OrganizationType.with_roles(:supervisor, current_user).ids
-    @organizations = Organization.where(organization_type_id: @organization_types )
-    @rpts = Rpt.where(organization_id: @organizations.ids, year: @year)
+    @organization_types = OrganizationType.all if current_user.has_role? :admin
+#    @rpts_group = Rpt.select('year, organization_id, unit_id, den_unidad, count(*) as regs').
+#        group(:year, :organization_id, :unit_id, :den_unidad).
+#    order(:year, :organization_id, :unit_id, :den_unidad)
+    @organizations = Organization.where(organization_type_id: @organization_types.ids )
+#    @rpts = Rpt.where(organization_id: @organizations.ids, year: @year)
     respond_to do |format|
       format.html
       format.csv { send_data @rpts.to_csv }

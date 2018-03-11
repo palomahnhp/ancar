@@ -109,6 +109,17 @@ module SupervisorHelper
     "icon-check" if Rpt.by_organization(organization).by_year(year).present?
   end
 
+  def rpt_settings
+    rpt  = Setting.all.group_by { |s| s.type if s.type.start_with?('rpt.') && s.type.present? }.keys
+    rpt.delete(nil)
+    rpt
+  end
+
+  def rpt_condition_enabled?(condition, acronym)
+    setting = Setting.find_by(key: condition + '.' + acronym)
+    setting.enabled? if setting.present?
+  end
+
   private
   
     def namespace
