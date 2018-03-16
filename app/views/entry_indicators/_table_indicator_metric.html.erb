@@ -32,9 +32,9 @@
 
         <td id="<%= "indicator_metric_col_#{indicator_metric.id}" %>" class="text-center indicator-metric-amount">
           <% if input_allowed?(@period, @organization, @approval, indicator_metric, current_user) %>
-            <%= text_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]",
+            <%= number_field_tag("IndicatorMetric[#{indicator.id}][#{indicator_metric.id}]",
                                get_amount(indicator_metric, @unit), class: 'inline amount',
-                               placeholder: t('entry_indicators.table_indicator_metric.amount')) %>
+                               placeholder: t('entry_indicators.table_indicator_metric.amount'), step: 0.05) %>
           <% else %>
             <%= get_amount(indicator_metric, @unit) %>
           <% end %>

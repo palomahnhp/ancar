@@ -120,6 +120,27 @@ module SupervisorHelper
     setting.enabled? if setting.present?
   end
 
+  def rpt_unit(year, unit, grtit= "")
+    return Rpt.by_year(year).by_unit_sap(unit).occupied.count if grtit.blank?
+    Rpt.by_year(year).by_unit_sap(unit).occupied.send(grtit).count
+  end
+
+  def rpt_organization(year, organization, grtit= "")
+     return organization.rpts.by_year(year).occupied.count if  grtit.blank?
+     organization.rpts.by_year(year).occupied.send(grtit).count
+  end
+
+  def unit_assigned_rpt(year, organization, unit, grtit)
+    grtit = 'agr' if grtit == 'e'
+    @loaded_rpt = false if grtit == 'a1'
+    @period ||= Period.by_year(year).by_organization_type(organization.organization_type).take
+    assigned = AssignedEmployee.staff_from_unit(unit, @period, OfficialGroup.find_by(name: grtit.capitalize))
+    @loaded_rpt = true  if assigned.present?
+    return assigned if assigned.present?
+
+    rpt_unit(year, unit.sap_id, grtit= "")
+  end
+
   private
   
     def namespace

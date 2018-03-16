@@ -19,6 +19,8 @@ class Period < ActiveRecord::Base
   default_scope { order(organization_type_id: :asc, ended_at: :desc) }
   scope :order_by_started_at, -> { order(started_at: :desc) }
   scope :show_status, -> { where(hide_status: false) }
+  scope :by_organization_type, -> (organization_type) { where(organization_type: organization_type) }
+  scope :by_year, -> (year) { where(started_at: year.to_s + '01' + '01') }
 
   def open_entry?
     opened_at <=  DateTime.now.to_date  && closed_at >=  DateTime.now.to_date

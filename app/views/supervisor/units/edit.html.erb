@@ -1,0 +1,22 @@
+<div class="row" >
+  <div class="small-12 columns">
+    <%= link_to(t('actions.back'),'javascript:history.go(-1);', class:"icon-angle-left" ) %>
+
+    <h1 class="text-center">RPT de unidades</h1>
+    <p class="note"> En las columnas de importar se muestra, tras los datos de RPT, un check verde si están cargados en la unidad o con un aspa roja si estan pendientes de carga.</p>
+    <p class="note"> Se puede modificar la RPT de cada una de las unidades y con el botón actualizar se cargan.</p>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <%= form_tag supervisor_unit_path(@organization, year: @year), method: :patch do %>
+          <table class="unit-status" >
+            <%= render 'edit_header' %>
+            <%= render 'organization_data' %>
+            <%= render 'unit_data' %>
+            <%= render 'unassigned_data' %>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

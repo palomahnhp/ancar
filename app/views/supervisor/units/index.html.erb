@@ -2,25 +2,6 @@
   <div class="small-12 columns">
     <h1 class="text-center">RPT de unidades</h1>
 
-    <div class = "row" >
-      <p>
-        <%= t("admin.settings.index.criteria") %><br>
-        <% @organization_types.each do |type| %>
-          <strong><%= type.description %> </strong>
-          <ul class="note">
-            <% rpt_settings.each do |rpt_condition| %>
-              <li>
-                <% if rpt_condition_enabled?(rpt_condition, type.acronym) %>
-                  <%= t("admin.settings.index.#{rpt_condition}.title") %>
-                <% else %>
-                  <%= t("admin.settings.index.#{rpt_condition}.no_title") %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-      </p>
-    </div>
-
     <div class="row" >
       <p  class="note">
         Exportar listado:
@@ -51,44 +32,35 @@
           <tr>
             <th>Detalle </th>
             <th colspan="2"> Organizacion </th>
-            <th colspan="7"> Ocupados </th>
-            <th colspan="7"> Vacantes </th>
+            <th colspan="7"> RPT </th>
+            <!--th colspan="7"> En Ancar </th-->
           </tr>
           <tr>
             <th colspan = "3"></th>
             <th>Tot.</th>
-            <th>A1  </th>
-            <th>A2  </th>
-            <th>C1  </th>
-            <th>C2  </th>
-            <th>E   </th>
-            <th>X   </th>
-            <th>Tot.</th>
-            <th>A1  </th>
-            <th>A2  </th>
-            <th>C1  </th>
-            <th>C2  </th>
-            <th>E   </th>
-            <th>X   </th>
+            <% %w(A1 A2 C1 C2 Agr X).each do |group| %>
+              <th><%= group %></th>
+            <% end %>
           </tr>
           <% @organization_types.each do |type| %>
-            <strong><%= type.description %> </strong>
+            <tr>
+              <td colspan="9">
+                <h5><%= type.description %></h5> <span class="note"> Solo plazas ocupadas, con grupo de titulación, no IDM, no Eventuales, no Directivos, no Cargos electos,  </span>
+              </td>
+            </tr>
            <!-- Organizations -->
-            <% @organizations.each do |organization|%>
+            <% type.organizations.each do |organization|%>
               <tr>
                 <td >
-                  <%= link_to "", detail_supervisor_unit_path(id: organization.id, year: @year), class:"icon-search" %>
+                  <%= link_to "", edit_supervisor_unit_path(id: organization.id, year: @year), class:"icon-search" %>
                 </td>
                 <th class= "text-left" colspan="2" title="<%= organization.sap_id %>">
                   <%= organization.description %>
                 </th>
-                <th title="Ocupadas">    <%= organization.rpts.by_year(@year).condition(rpt_condition).count %> </th>
-                <td title="Ocupadas A1"> <%= organization.rpts.by_year(@year).occupied.a1.count %> </td>
-                <td title="Ocupadas A2"> <%= organization.rpts.by_year(@year).occupied.a2.count %> </td>
-                <td title="Ocupadas C1"> <%= organization.rpts.by_year(@year).occupied.c1.count %> </td>
-                <td title="Ocupadas C2"> <%= organization.rpts.by_year(@year).occupied.c2.count %> </td>
-                <td title="Ocupadas E">  <%= organization.rpts.by_year(@year).occupied.e.count %> </td>
-                <td title="Ocupadas X">  <%= organization.rpts.by_year(@year).occupied.nogrtit.count %> </td>
+                <th title="RPT">    <%= organization.rpts.by_year(@year).count %> </th>
+                <% %w(a1 a2 c1 c2 e x).each do |group| %>
+                  <td title="RPT #{group}"> <%= organization.rpts.by_year(@year).occupied.send(group).count %> </td>
+                <% end %>
              </tr>
             <% end %>
           <% end %>

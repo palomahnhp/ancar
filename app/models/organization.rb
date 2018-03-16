@@ -25,13 +25,4 @@ class Organization < ActiveRecord::Base
     current_user.auth_organizations.collect { |v| [ v.description, v.id ] }
   end
 
-  def condition(condition)
-    if    'rpt.vacancy'
-
-    elsif 'rpt.only_grtit'
-
-    elsif 'rpt.political'
-
-    end
-  end
 end

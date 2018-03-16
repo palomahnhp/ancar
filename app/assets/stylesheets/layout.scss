@@ -136,6 +136,11 @@ a {
 
 .icon-check {
   color: $check;
+  font-weight: bold;
+}
+.icon-x {
+  color: $delete;
+  font-weight: bold;
 }
 
 .wrapper {
