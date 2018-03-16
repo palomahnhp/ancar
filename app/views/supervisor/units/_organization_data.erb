@@ -1,0 +1,16 @@
+<!-- Organización Ancar-->
+<tr>
+  <th class= "text-left border-down" colspan="2" title="<%= @organization.sap_id %>">
+    <%= @organization.description %>
+  </th>
+  <th title="Rpt">
+    <strong><%= rpt_organization(@year, @organization) %> </strong>
+  </th>
+  <% %w(a1 a2 c1 c2 e x).each do |grtit|%>
+    <td title="Rpt <%= grtit %>"><%= rpt_organization(@year, @organization, grtit) %> </td>
+  <% end %>
+  <td></td>
+
+  <td colspan="8"><%= submit_tag("Actualizar RPT de la unidad", class: "button") %></td>
+
+</tr>

@@ -1,0 +1,40 @@
+<!-- Units Ancar-->
+<% @units.each do |unit| %>
+  <tr>
+    <td colspan="18"><hr>  </td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong><%= unit.description_sap %></strong></td>
+    <td title="Rpt">
+      <strong><%= rpt_unit(@year, assigned_units(@year, unit.id )) %></strong>
+    </td>
+    <% %w(a1 a2 c1 c2 e x).each do |grtit|%>
+      <td title="Rpt <%= grtit %>">
+        <%= rpt_unit(@year, assigned_units(@year, unit.id ), grtit) %>
+      </td>
+    <% end %>
+    <td></td>
+
+    <!-- Cargar -->
+    <% %w(a1 a2 c1 c2 e ).each do |grtit|%>
+      <td>
+        <%= number_field_tag "unit[#{unit.id}][#{grtit}]", unit_assigned_rpt(@year, @organization, unit, grtit) %>
+      </td>
+    <% end %>
+    <td class="<%= @loaded_rpt ? 'icon-check' : 'icon-x'%>"> </td>
+  </tr>
+
+  <% unit.unit_rpt_assignations.by_year(@year).by_year(@year).order(:sapid_unit).each do |item|  %>
+    <tr>
+      <td title="<%= item.unit_id %>" colspan="2" > <%= item.den_unit %> </td>
+      <td title="Rpt">
+        <strong><%= rpt_unit(@year, item.sapid_unit) %> </strong>
+      </td>
+      <% %w(a1 a2 c1 c2 e x).each do |grtit|%>
+        <td title="Rpt <%= grtit %>">
+          <%= rpt_unit(@year, item.sapid_unit, grtit) %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+<% end %>

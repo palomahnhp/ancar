@@ -15,7 +15,7 @@ class Rpt < ActiveRecord::Base
   scope :c1,              -> { where(grtit_per: 'C1') }
   scope :c2,              -> { where(grtit_per: 'C2') }
   scope :e,               -> { where(grtit_per: 'E') }
-  scope :nogrtit,         -> { where(grtit_per:   'X') }
+  scope :x,         -> { where(grtit_per:   'X') }
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
