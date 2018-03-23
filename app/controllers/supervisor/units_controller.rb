@@ -24,6 +24,7 @@ class Supervisor::UnitsController < Supervisor::BaseController
     @organization = Organization.find(params[:id])
     @units = @organization.units
     @year = params[:year]
+    @conditions = params[:conditions]
   end
 
   def update
@@ -39,7 +40,6 @@ class Supervisor::UnitsController < Supervisor::BaseController
         flash[:notice] = "Actualiza asignación de RPT a la unidad"
       end
       redirect_to edit_supervisor_unit_path(params[:id], year: @year)
-
   end
 
   private

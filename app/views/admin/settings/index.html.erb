@@ -104,11 +104,11 @@
   </tbody>
 </table>
 
-<h4><%= t("admin.settings.index.rpt.without_grtit.title") %></h4>
+<h4><%= t("admin.settings.index.rpt.only_grtit.title") %></h4>
 <table>
   <tbody>
-  <% if @rpt_without_grtit.present? %>
-    <% @rpt_without_grtit.each do |item| %>
+  <% if @rpt_only_grtit.present? %>
+    <% @rpt_only_grtit.each do |item| %>
         <tr>
           <td>
             <strong><%= t("admin.settings.index.#{item.key}") %></strong>

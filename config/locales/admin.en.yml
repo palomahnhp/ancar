@@ -71,7 +71,7 @@ en:
             JD: Juntas de Distrito
             SGT: Secretarias Generales Técnicas
             no_title: "No incluidos puestos vacantes"
-            title: "Incluidos puestos vacantes"
+            title: "Incluir puestos vacantes"
           only_grtit:
             JD: Juntas de Distrito
             SGT: Secretarias Generales Técnicas
@@ -80,7 +80,7 @@ en:
           political:
             JD: Juntas de Distrito
             SGT: Secretarias Generales Técnicas
-            no_title: "Incluidos Directivos, Eventuales y Cargos Electos"
+            no_title: "Incluidr Directivos, Eventuales y Cargos Electos"
             title: "Excluidos Directivos, Eventuales y Cargos Electos"
         criteria: "Criterios para la selección de RPT:"
       key:

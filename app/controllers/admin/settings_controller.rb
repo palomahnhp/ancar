@@ -8,7 +8,7 @@ class Admin::SettingsController  < Admin::BaseController
     @validations            = all_settings['validation']
     @send_emails_change_staff = all_settings['send_email.change_staff']
     @rpt_vacancy            = all_settings['rpt.vacancy']
-    @rpt_without_grtit      = all_settings['rpt.without_grtit']
+    @rpt_only_grtit         = all_settings['rpt.only_grtit']
   end
 
   def update

@@ -27,72 +27,74 @@
         <Cell><Data ss:Type="String">Vacantes: Agr</Data></Cell>
         <Cell><Data ss:Type="String">Vacantes: X  </Data></Cell>
       </Row>
-    <% @organizations.each do |organization| %>
-        <% organization.units.each do |unit| %>
-          <Row>
-            <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
-            <Cell><Data ss:Type="String">   </Data></Cell>
-            <Cell><Data ss:Type="String">TOTAL</Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.count %> </Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.a1.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.c1.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.c2.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.e.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.nogrtit.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.a1.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.a2.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.c1.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.c2.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.e.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.nogrtit.count %></Data></Cell>
-          </Row>
-          <% unit.unit_rpt_assignations.by_year(@year).by_year(@year).order(:sapid_unit).each do |item|  %>
+      <% @organization_types.each do |type| %>
+        <% type.organizations.each do |organization| %>
+          <% organization.units.each do |unit| %>
             <Row>
               <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
               <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
               <Cell><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= item.sapid_unit %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= item.den_unit %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.a1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.c1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.c2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.e.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.nogrtit.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.a1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.a2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.c1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.c2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.e.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.nogrtit.count %></Data></Cell>
+              <Cell><Data ss:Type="String">   </Data></Cell>
+              <Cell><Data ss:Type="String">TOTAL</Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.count %> </Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.a1.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.c1.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.c2.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.e.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.x.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.a1.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.a2.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.c1.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.c2.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.e.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.x.count %></Data></Cell>
+            </Row>
+            <% unit.unit_rpt_assignations.by_year(@year).by_year(@year).order(:sapid_unit).each do |item|  %>
+              <Row>
+                <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= item.sapid_unit %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= item.den_unit %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.a1.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.c1.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.c2.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.e.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.x.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.a1.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.a2.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.c1.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.c2.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.e.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.x.count %></Data></Cell>
+              </Row>
+            <% end %>
+          <% end %>
+          <% UnitRptAssignation.by_year_and_organization_without_unit((@year), organization).each do |assign_rec| %>
+            <Row>
+              <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
+              <Cell><Data ss:Type="String">SIN ASIGNAR</Data></Cell>
+              <Cell><Data ss:Type="String"><%=  %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= assign_rec.den_unit %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.a1.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.c1.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.c2.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.e.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.x.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.a1.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.a2.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.c1.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.c2.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.e.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.x.count %></Data></Cell>
             </Row>
           <% end %>
-        <% end %>
-        <% UnitRptAssignation.by_year_and_organization_without_unit((@year), organization).each do |assign_rec| %>
-          <Row>
-            <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
-            <Cell><Data ss:Type="String">SIN ASIGNAR</Data></Cell>
-            <Cell><Data ss:Type="String"><%=  %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= assign_rec.den_unit %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.a1.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.c1.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.c2.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.e.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.nogrtit.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.a1.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.a2.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.c1.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.c2.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.e.count %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.nogrtit.count %></Data></Cell>
-          </Row>
         <% end %>
       <% end %>
     </Table>

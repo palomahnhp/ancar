@@ -121,13 +121,46 @@ module SupervisorHelper
   end
 
   def rpt_unit(year, unit, grtit= "")
-    return Rpt.by_year(year).by_unit_sap(unit).occupied.count if grtit.blank?
-    Rpt.by_year(year).by_unit_sap(unit).occupied.send(grtit).count
+    if @conditions[:vacancy].present?
+      @rpt_grtit = Rpt.select('grtit_per').by_year(year).by_unit_sap(unit).group(:grtit_per).count
+     else
+      @rpt_grtit = Rpt.select('grtit_per').by_year(year).by_unit_sap(unit).occupied.group(:grtit_per).count
+    end
+    tot = 0
+    @rpt_grtit.map do |rpt|
+      tot+= rpt[1]
+    end
+    tot
   end
 
   def rpt_organization(year, organization, grtit= "")
-     return organization.rpts.by_year(year).occupied.count if  grtit.blank?
-     organization.rpts.by_year(year).occupied.send(grtit).count
+    if @conditions[:vacancy].present?
+      return organization.rpts.by_year(year).count if grtit.blank?
+      organization.rpts.by_year(year).send(grtit).count
+    else
+      return organization.rpts.by_year(year).occupied.count if  grtit.blank?
+      organization.rpts.by_year(year).occupied.send(grtit).count
+    end
+  end
+
+  def rpt_load_conditions(type)
+    condition_txt = 'Se incluyen '
+    @conditions = {}
+    if rpt_condition_enabled?('rpt.vacancy', type.acronym)
+      condition_txt += 'puestos vacantes '
+      @conditions[:vacancy] = true
+    else
+      condition_txt += 'solo puestos ocupados '
+      @conditions[:vacancy] = false
+    end
+    if rpt_condition_enabled?('rpt.only_grtit', type.acronym)
+      condition_txt += ' y con grupo de titulación'
+      @conditions[:only_grtit] = true
+    else
+      condition_txt += ' y sin grupo de titulación: laborales, eventuales, directivos y cargos electos'
+      @conditions[:only_grtit] = false
+    end
+    condition_txt
   end
 
   def unit_assigned_rpt(year, organization, unit, grtit)

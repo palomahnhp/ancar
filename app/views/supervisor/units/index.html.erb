@@ -45,14 +45,15 @@
           <% @organization_types.each do |type| %>
             <tr>
               <td colspan="9">
-                <h5><%= type.description %></h5> <span class="note"> Solo plazas ocupadas, con grupo de titulación, no IDM, no Eventuales, no Directivos, no Cargos electos,  </span>
+                <h5><%= type.description %></h5>
+                <span class="note"> <%= rpt_load_conditions(type) %> </span>
               </td>
             </tr>
            <!-- Organizations -->
             <% type.organizations.each do |organization|%>
               <tr>
                 <td >
-                  <%= link_to "", edit_supervisor_unit_path(id: organization.id, year: @year), class:"icon-search" %>
+                  <%= link_to "", edit_supervisor_unit_path(id: organization.id, year: @year, conditions: @conditions), class:"icon-search" %>
                 </td>
                 <th class= "text-left" colspan="2" title="<%= organization.sap_id %>">
                   <%= organization.description %>

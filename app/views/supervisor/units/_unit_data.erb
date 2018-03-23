@@ -10,7 +10,7 @@
     </td>
     <% %w(a1 a2 c1 c2 e x).each do |grtit|%>
       <td title="Rpt <%= grtit %>">
-        <%= rpt_unit(@year, assigned_units(@year, unit.id ), grtit) %>
+        <%= @rpt_grtit[grtit.upcase] %>
       </td>
     <% end %>
     <td></td>
@@ -32,7 +32,7 @@
       </td>
       <% %w(a1 a2 c1 c2 e x).each do |grtit|%>
         <td title="Rpt <%= grtit %>">
-          <%= rpt_unit(@year, item.sapid_unit, grtit) %>
+          <%= @rpt_grtit[grtit.upcase]   %>
         </td>
       <% end %>
     </tr>
