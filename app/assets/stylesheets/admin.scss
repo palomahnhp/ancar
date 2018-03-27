@@ -511,3 +511,59 @@ table.unit-status {
   }
 }
 
+table.unit-rpt-assignation {
+  margin-bottom: 0;
+
+  thead tr{
+    border: 1px;
+  }
+
+  td {
+    border: none;
+    background-color: white;
+    font-size: rem-calc(12);
+    padding-bottom: rem-calc(5);
+    padding-top: 0;
+
+    &.organization-description{
+      font-size: rem-calc(20);
+      font-weight: bold;
+    }
+
+  }
+
+  th {
+    padding-bottom: rem-calc(5);
+    &.unit {
+      text-align: left;
+    }
+
+    &.big-width {
+      width: 60%;
+    }
+  }
+
+  td.unit-assigned {
+    padding-left: rem-calc(20);
+    padding-bottom: 0 ;
+    padding-top: 0;
+  }
+  .indicator-metric-amount {
+    width: rem-calc(160);
+    text-align: right;
+  }
+
+  input {
+    font-size: rem-calc(8);
+    margin: rem-calc(6) 0 !important;
+    width: 100%;
+  }
+
+  td.check {
+    width: 1%;
+  }
+  td.border-bottom {
+    border-bottom: 1px;
+  }
+}
+

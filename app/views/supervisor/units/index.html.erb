@@ -5,13 +5,11 @@
     <div class="row" >
       <p  class="note">
         Exportar listado:
-        <%= link_to "Excel", supervisor_units_path(format: "xls") %> |
-        <%= link_to "CSV",   supervisor_units_path(format: "csv") %>
+        <%= link_to "Excel", supervisor_units_path(format: "xls") %>
       </p>
       <p  class="note">
         Exportar <strong>RPT</strong>:
-        <%= link_to "Excel", admin_rpts_path(format: "xls") %> |
-        <%= link_to "CSV", admin_rpts_path(format: "csv") %>
+        <%= link_to "Excel", export_rpt_supervisor_units_path(type: @organization_types.ids, format: "xls") %>
       </p>
     </div>
 
@@ -59,7 +57,7 @@
                   <%= organization.description %>
                 </th>
                 <th title="RPT">    <%= organization.rpts.by_year(@year).count %> </th>
-                <% %w(a1 a2 c1 c2 e x).each do |group| %>
+                <% %w(A1 A2 C1 C2 E X).each do |group| %>
                   <td title="RPT #{group}"> <%= organization.rpts.by_year(@year).occupied.send(group).count %> </td>
                 <% end %>
              </tr>

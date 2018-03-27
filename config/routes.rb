@@ -123,7 +123,11 @@ Rails.application.routes.draw do
       end
       get :search, on: :collection
     end
-    resources :units
+    resources :units do
+      collection do
+        get 'export_rpt'
+      end
+    end
     resources :unit_statuses
     resources :in_works
   end

@@ -2,11 +2,10 @@ class Supervisor::UnitsController < Supervisor::BaseController
   def index
     year_to_process
 
-    @organization_types = OrganizationType.with_roles(:supervisor, current_user).ids
+    @organization_types = OrganizationType.with_roles(:supervisor, current_user)
     @organization_types = OrganizationType.all if current_user.has_role? :admin
     respond_to do |format|
       format.html
-      format.csv { send_data @rpts.to_csv }
       format.xls # { send_data @rpts.to_csv(col_sep: "\t") }
     end
   end
@@ -40,6 +39,15 @@ class Supervisor::UnitsController < Supervisor::BaseController
         flash[:notice] = "Actualiza asignación de RPT a la unidad"
       end
       redirect_to edit_supervisor_unit_path(params[:id], year: @year)
+  end
+
+  def export_rpt
+    @organization_types = OrganizationType.all
+    @organization_types = OrganizationType.find(params[:type]) if params[:type].present?
+    respond_to do |format|
+      format.html
+      format.xls
+    end
   end
 
   private

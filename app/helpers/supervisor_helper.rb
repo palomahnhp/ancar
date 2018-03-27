@@ -120,27 +120,37 @@ module SupervisorHelper
     setting.enabled? if setting.present?
   end
 
-  def rpt_unit(year, unit, grtit= "")
+  def rpt_unit(year, unit)
     if @conditions[:vacancy].present?
       @rpt_grtit = Rpt.select('grtit_per').by_year(year).by_unit_sap(unit).group(:grtit_per).count
      else
       @rpt_grtit = Rpt.select('grtit_per').by_year(year).by_unit_sap(unit).occupied.group(:grtit_per).count
     end
     tot = 0
+    %w{ A1 A2 C1 C2 E X}.each do |grtit|
+      @rpt_grtit[grtit] = 0 unless @rpt_grtit[grtit].present?
+    end
     @rpt_grtit.map do |rpt|
       tot+= rpt[1]
     end
     tot
   end
 
-  def rpt_organization(year, organization, grtit= "")
+  def rpt_organization(year, organization)
+    rpt_load_conditions(organization.organization_type)
     if @conditions[:vacancy].present?
-      return organization.rpts.by_year(year).count if grtit.blank?
-      organization.rpts.by_year(year).send(grtit).count
+      @rpt_grtit = organization.rpts.select('grtit_per').by_year(year).group(:grtit_per).count
     else
-      return organization.rpts.by_year(year).occupied.count if  grtit.blank?
-      organization.rpts.by_year(year).occupied.send(grtit).count
+      @rpt_grtit = organization.rpts.select('grtit_per').by_year(year).occupied.group(:grtit_per).count
     end
+    tot = 0
+    %w{ A1 A2 C1 C2 E X}.each do |grtit|
+      @rpt_grtit[grtit] = 0 unless @rpt_grtit[grtit].present?
+    end
+    @rpt_grtit.map do |rpt|
+      tot+= rpt[1]
+    end
+    tot
   end
 
   def rpt_load_conditions(type)
@@ -164,14 +174,14 @@ module SupervisorHelper
   end
 
   def unit_assigned_rpt(year, organization, unit, grtit)
-    grtit = 'agr' if grtit == 'e'
-    @loaded_rpt = false if grtit == 'a1'
+    grtit = 'agr' if grtit == 'E'
+    @loaded_rpt = false if grtit == 'A1'
     @period ||= Period.by_year(year).by_organization_type(organization.organization_type).take
     assigned = AssignedEmployee.staff_from_unit(unit, @period, OfficialGroup.find_by(name: grtit.capitalize))
     @loaded_rpt = true  if assigned.present?
     return assigned if assigned.present?
 
-    rpt_unit(year, unit.sap_id, grtit= "")
+    rpt_unit(year, unit.sap_id)
   end
 
   private

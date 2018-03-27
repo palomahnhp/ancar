@@ -10,12 +10,12 @@ class Rpt < ActiveRecord::Base
   scope :by_year,         ->(year) { where( year: year ) }
   scope :vacant,          -> { where(ocupada: 'VC') }
   scope :occupied,        -> { where(ocupada: 'OC') }
-  scope :a1,              -> { where(grtit_per: 'A1') }
-  scope :a2,              -> { where(grtit_per: 'A2') }
-  scope :c1,              -> { where(grtit_per: 'C1') }
-  scope :c2,              -> { where(grtit_per: 'C2') }
-  scope :e,               -> { where(grtit_per: 'E') }
-  scope :x,               -> { where(grtit_per:   'X') }
+  scope :A1,              -> { where(grtit_per: 'A1') }
+  scope :A2,              -> { where(grtit_per: 'A2') }
+  scope :C1,              -> { where(grtit_per: 'C1') }
+  scope :C2,              -> { where(grtit_per: 'C2') }
+  scope :E,               -> { where(grtit_per: 'E') }
+  scope :X,               -> { where(grtit_per: 'X') }
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|

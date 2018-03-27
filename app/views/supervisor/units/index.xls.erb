@@ -4,7 +4,7 @@
   xmlns:x="urn:schemas-microsoft-com:office:excel"
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:html="http://www.w3.org/TR/REC-html40">
-  <Worksheet ss:Name="Plantilla">
+  <Worksheet ss:Name="RPT">
     <Table>
       <Row>
         <Cell><Data ss:Type="String">Año</Data></Cell>
@@ -12,22 +12,16 @@
         <Cell><Data ss:Type="String">Unidad </Data></Cell>
         <Cell><Data ss:Type="String">id_unidad</Data></Cell>
         <Cell><Data ss:Type="String">den_unidad</Data></Cell>
-        <Cell><Data ss:Type="String">Ocupados: total</Data></Cell>
-        <Cell><Data ss:Type="String">Ocupados: A1</Data></Cell>
-        <Cell><Data ss:Type="String">Ocupados: A2</Data></Cell>
-        <Cell><Data ss:Type="String">Ocupados: C1</Data></Cell>
-        <Cell><Data ss:Type="String">Ocupados: C2</Data></Cell>
-        <Cell><Data ss:Type="String">Ocupados: Agr</Data></Cell>
-        <Cell><Data ss:Type="String">Ocupados: X  </Data></Cell>
-        <Cell><Data ss:Type="String">Vacantes: total</Data></Cell>
-        <Cell><Data ss:Type="String">Vacantes: A1</Data></Cell>
-        <Cell><Data ss:Type="String">Vacantes: A2</Data></Cell>
-        <Cell><Data ss:Type="String">Vacantes: C1</Data></Cell>
-        <Cell><Data ss:Type="String">Vacantes: C2</Data></Cell>
-        <Cell><Data ss:Type="String">Vacantes: Agr</Data></Cell>
-        <Cell><Data ss:Type="String">Vacantes: X  </Data></Cell>
+        <Cell><Data ss:Type="String">Total</Data></Cell>
+        <Cell><Data ss:Type="String">A1</Data></Cell>
+        <Cell><Data ss:Type="String">A2</Data></Cell>
+        <Cell><Data ss:Type="String">C1</Data></Cell>
+        <Cell><Data ss:Type="String">C2</Data></Cell>
+        <Cell><Data ss:Type="String">Agr</Data></Cell>
+        <Cell><Data ss:Type="String"> X  </Data></Cell>
       </Row>
       <% @organization_types.each do |type| %>
+       <%  rpt_load_conditions(type) %>
         <% type.organizations.each do |organization| %>
           <% organization.units.each do |unit| %>
             <Row>
@@ -36,19 +30,10 @@
               <Cell><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
               <Cell><Data ss:Type="String">   </Data></Cell>
               <Cell><Data ss:Type="String">TOTAL</Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assigned_units(@year, unit.id )).occupied.count %> </Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.a1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.c1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.c2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.e.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).occupied.x.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.a1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.a2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.c1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.c2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.e.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit(unit).vacant.x.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= rpt_unit(@year, assigned_units(@year, unit.id))%> </Data></Cell>
+              <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
+                <Cell><Data ss:Type="String"><%= @rpt_grtit[grtit] %></Data></Cell>
+              <% end %>
             </Row>
             <% unit.unit_rpt_assignations.by_year(@year).by_year(@year).order(:sapid_unit).each do |item|  %>
               <Row>
@@ -57,19 +42,10 @@
                 <Cell><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= item.sapid_unit %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= item.den_unit %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.a1.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.c1.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.c2.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.e.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).occupied.x.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.a1.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.a2.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.c1.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.c2.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.e.count %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(item.sapid_unit).vacant.x.count %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= rpt_unit(@year, item.sapid_unit)%></Data></Cell>
+                <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
+                  <Cell><Data ss:Type="String"><%= @rpt_grtit[grtit] %></Data></Cell>
+                <% end %>
               </Row>
             <% end %>
           <% end %>
@@ -80,19 +56,10 @@
               <Cell><Data ss:Type="String">SIN ASIGNAR</Data></Cell>
               <Cell><Data ss:Type="String"><%=  %></Data></Cell>
               <Cell><Data ss:Type="String"><%= assign_rec.den_unit %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.a1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.c1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.c2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.e.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).occupied.x.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.a1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.a2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.c1.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.c2.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.e.count %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= Rpt.by_year(@year).by_unit_sap(assign_rec.sapid_unit).vacant.x.count %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= rpt_unit(@year, assign_rec.sapid_unit)%></Data></Cell>
+              <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
+                <Cell><Data ss:Type="String"><%= @rpt_grtit[grtit] %></Data></Cell>
+              <% end %>
             </Row>
           <% end %>
         <% end %>

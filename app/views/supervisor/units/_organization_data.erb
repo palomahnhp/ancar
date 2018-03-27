@@ -6,8 +6,8 @@
   <th title="Rpt">
     <strong><%= rpt_organization(@year, @organization) %> </strong>
   </th>
-  <% %w(a1 a2 c1 c2 e x).each do |grtit|%>
-    <td title="Rpt <%= grtit %>"><%= rpt_organization(@year, @organization, grtit) %> </td>
+  <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
+    <td title="Rpt <%= grtit %>"><%= @rpt_grtit[grtit] %> </td>
   <% end %>
   <td></td>
 

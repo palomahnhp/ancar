@@ -25,80 +25,32 @@
     </div>
 
     <h5> Año al que corresponden los datos: <%= @process_year %></h5>
+
     <%  if @organizations_assignated.present? %>
-      <div class="row">
-        <div class="small-12 columns">
-          <p  class="note">
-           <% if @assignation_year !=  @process_year %>
-              Se muestran los datos de <%= @assignation_year %>  y se copiaran en <%= @process_year %>.
-              Las modificaciones de asignacion se realizan desde el menú del supervisor <br>
-              <%= link_to "Copiar asignaciones", init_or_copy_admin_unit_rpt_assignations_path(year: @process_year, copy: true), class: "button hollow" %>
-            <% end %>
-
-          </p>
-          <%= form_tag(update_assignations_admin_unit_rpt_assignations_path(year: @process_year )) do %>
-            <%= hidden_field_tag :year, @process_year %>
-            <div class="medium-2 columns end">
-              <%= submit_tag "Actualizar asignaciones", class: "hollow button"  %>
-            </div>
-
-            <table class="unit-status">
-              <tr class="text-left"s>
-                <th class="big-width"> Unidades/unidades sap con rpt asignada </th>
-                <th> Ocupados </th>
-                <th> Vacantes </th>
-              </tr>
-              <!-- Organizations -->
-              <% @organizations_assignated.each do |record|%>
-                <tr>
-                  <td title="<%= record.organization.sap_id %>" > <h6><%= record.organization.description %></h6></td>
-                  <%= render partial: 'display_organization_rpt',
-                             locals: {year: @process_year, organization: record.organization} %>
-                </tr>
-                <!-- Units -->
-                <% record.organization.units.each do |unit| %>
-                  <tr>
-                    <td title="<%= unit.sap_id %>"> <strong><%= unit.description_sap %> </strong></td>
-                    <td> <strong><%= Rpt.by_year(@process_year).by_unit_sap(assigned_units(@assignation_year,unit )).occupied.count %> </strong></td>
-                    <td> <strong><%= Rpt.by_year(@process_year).by_unit_sap(unit).vacant.count %> </strong></td>
-                  </tr>
-                  <tr>
-                  <%  UnitRptAssignation.by_year(@rpt_year).by_unit(unit).each do |assign_record| %>
-                    <tr>
-                      <td title="<%= assign_record.sapid_unit %>">  <%= assign_record.den_unit %></td>
-                      <td>  <%= Rpt.by_year(@process_year).by_unit_sap(assign_record.sapid_unit).occupied.count %> </td>
-                      <td>  <%= Rpt.by_year(@process_year).by_unit_sap(assign_record.sapid_unit).vacant.count %> </td>
-                    </tr>
-                  <% end %>
-                <% end %>
-                <!-- No assigned -->
-                <tr>
-                  <td> <h6>SIN ASIGNAR </h6></td>
-                </tr>
-                <tr>
-                  <% UnitRptAssignation.by_year_and_organization_without_unit((@assignation_year), record.organization).each do |assign_rec| %>
-                    <tr>
-                      <td title="<%= assign_rec.sapid_unit %>">
-                        <%= assign_rec.den_unit %>
-                      </td>
-                      <td> <%= Rpt.by_year(@process_year).by_unit_sap(assign_rec.sapid_unit).occupied.count %> </td>
-                      <td> <%= Rpt.by_year(@process_year).by_unit_sap(assign_rec.sapid_unit).vacant.count %> </td>
-                      <td>
-                        <%= select_tag("assign[#{assign_rec.sapid_unit}]", options_for_select(record.organization.select_units), prompt: 'Asigna unidad') %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tr>
-              <% end %>
-             </table>
+      <div class="small-12 columns">
+        <p  class="note">
+         <% if @assignation_year !=  @process_year %>
+            Se muestran los datos de <%= @assignation_year %>  y se copiaran en <%= @process_year %>.
+            Las modificaciones de asignacion se realizan desde el menú del supervisor <br>
+            <%= link_to "Copiar asignaciones", init_or_copy_admin_unit_rpt_assignations_path(year: @process_year, copy: true), class: "button hollow" %>
           <% end %>
-        <% else %>
-          <p  class="note">
-            No hay datos cargados
-            <%= link_to "Inicializar", init_or_copy_admin_unit_rpt_assignations_path(year: @process_year, init: true), class: "button hollow" %>
-          </p>
+          Si se desea inicializar la asignación para el presente año:
+          <%= link_to "Inicializar", init_or_copy_admin_unit_rpt_assignations_path(year: @process_year, init: true), class: "button hollow" %>
+
+        </p>
+        <%= form_tag(update_assignations_admin_unit_rpt_assignations_path(year: @process_year )) do %>
+          <%= hidden_field_tag :year, @process_year %>
+          <div class="medium-2 columns end">
+            <%= submit_tag "Actualizar asignaciones", class: "hollow button"  %>
+          </div>
+          <%= render "organization" %>
         <% end %>
       </div>
-    </div>
+    <% else %>
+      <p  class="note">
+        No hay datos cargados
+        <%= link_to "Inicializar", init_or_copy_admin_unit_rpt_assignations_path(year: @process_year, init: true), class: "button hollow" %>
+      </p>
+    <% end %>
   </div>
 </div>
