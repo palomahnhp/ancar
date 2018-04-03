@@ -1,0 +1,20 @@
+<!-- Cabecera -->
+<tr>
+  <th colspan="2"> Organización </th>
+  <th colspan="7"> RPT </th>
+  <th colspan="6"> A cargar </th>
+  <th></th>
+</tr>
+
+<tr>
+  <th colspan = "2"></th>
+  <th>Tot.</th>
+  <% %w(a1 a2 c1 c2 agr x).each do |grtit| %>
+    <th> <%= grtit.upcase %></th>
+  <% end %>
+  <th>Tot.</th>
+  <% %w(a1 a2 c1 c2 agr ).each do |grtit| %>
+    <th> <%= grtit.upcase %></th>
+  <% end %>
+
+</tr>

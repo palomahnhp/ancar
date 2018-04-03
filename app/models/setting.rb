@@ -9,6 +9,12 @@ class Setting < ActiveRecord::Base
       'imported_source'
     elsif validations?
       'validation'
+    elsif rpt_vacancy?
+      'rpt.vacancy'
+    elsif rpt_only_grtit?
+      'rpt.only_grtit'
+    elsif rpt_political?
+      'rpt.political'
     elsif send_email_change_staff?
       'send_email.change_staff'
     else
@@ -22,6 +28,18 @@ class Setting < ActiveRecord::Base
 
   def validations?
     key.start_with?('validations.')
+  end
+
+  def rpt_only_grtit?
+    key.start_with?('rpt.only_grtit.')
+  end
+
+  def rpt_political?
+    key.start_with?('rpt.political.')
+  end
+
+  def rpt_vacancy?
+    key.start_with?('rpt.vacancy.')
   end
 
   def send_email_change_staff?

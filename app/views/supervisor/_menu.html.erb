@@ -17,18 +17,19 @@
       <% end %>
     </li>
 
+    <li>
+      <%= link_to supervisor_units_path do %>
+        <span class="icon-sitemap"> </span>
+        <%= t('supervisor.menu.rpt') %>
+      <% end %>
+    </li>
+
     <li id="reports">
       <a href="#">
         <span class="icon-files-o"></span>
         <%= t('supervisor.menu.reports') %>
       </a>
       <ul class="menu vertical nested">
-        <li>
-          <%= link_to supervisor_units_path do %>
-            <span class="icon-sitemap"> </span>
-            <%= t('supervisor.menu.rpt') %>
-          <% end %>
-        </li>
         <li id="unit_statuses">
           <a href="#">
             <span class="icon-sitemap"></span>

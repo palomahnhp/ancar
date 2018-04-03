@@ -70,6 +70,25 @@ en:
         closed_at: Abierto hasta
         started_at: Inicio
         ended_at: Fin
+      unit:
+        unit_type: Tipo de unidad
+        unit_type_id: Tipo de unidad
+        organization: Organización
+        organization_id: Organización
+        description_sap:  Descripción
+        sapid: 'Id SAP'
+        order: Orden
+      first_level_unit:
+        period_from: Periodo desde
+        period_to:  Periodo hasta
+        sapid_unit: Unidad
+        den_unit: Denominación
+        organization_id: Organización Ancar
+      organization:
+        description: "Descripción"
+        short_description: "Descripción corta"
+        sap_id: "Id SAP"
+        organization_type: "Tipo de organización"
     errors:
       models:
         period:

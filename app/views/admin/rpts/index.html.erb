@@ -5,10 +5,10 @@
     <div class="row" >
       <p class="note">
         Para cargar la RPT de una organización se debe partir de un csv o excel el siguiente formato y cabecera:
-        <span> <%= link_to "RPT.xlsx", "/carga_rpt/RPT.xlsx" %> </span>
+        <span> <%= link_to "RPT.xlsx", "/cargas/RPT.xlsx" %> </span>
         <br>Elije el excel a importar con el botón Choose File:
         <div class="small-12 columns">
-          <%= form_tag import_admin_rpts_path, multipart: true do %>
+          <%= form_tag import_admin_rpts_path(year: @year), multipart: true do %>
             <div class="medium-4 columns">
               <%= file_field_tag(:file) %>
             </div>
@@ -30,9 +30,13 @@
 
     <div class="row">
       <div class="small-12 columns">
-        <div class="small-6 medium-2 columns">
-          <strong> Último año cargado: <%= @year %> </strong>
-        </div>
+        <% if @year.present? %>
+          <div class="small-6 medium-4 columns">
+            <strong> Último año cargado: <%= @year %> </strong>
+          </div>
+        <% else %>
+            <strong class="text-center"> No hay datos de RPT cargados </strong>
+        <% end %>
 
         <table class="unit-status">
           <tr>
@@ -47,7 +51,7 @@
               <td class="check">
                 <span class="<%= organization_loaded?(organization, @year) %>"></span></td>
               <td> <%= organization.description %> </td>
-              <td> <%= organization.rpts.by_year(@year).count %> </td>
+              <td> <%= organization.rpts.by_year(@year).occupied.count %> </td>
               <td> <%= organization.rpts.by_year(@year).vacant.count %> </td>
             </tr>
           <% end %>

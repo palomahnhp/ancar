@@ -7,10 +7,13 @@ class AssignedEmployee < ActiveRecord::Base
   validates_inclusion_of :staff_of_type, in: %w[Unit Indicator UnitJustified]
   validates_numericality_of :quantity
 
-  scope :no_justification_verified,  -> { where(:verified_at => nil) }
-  scope :by_period, ->(period) { where( period: period) }
-  scope :by_unit, ->(unit) { where( unit_id: unit) }
-  scope :unit_justified, -> { where( staff_of_type: "UnitJustified") }
+  scope :no_justification_verified, -> { where(:verified_at => nil) }
+  scope :by_period,                 ->(period) { where( period: period) }
+  scope :by_unit,                   ->(unit) { where( unit_id: unit) }
+  scope :by_official_group,         ->(official_group) { where( official_group: official_group) }
+  scope :unit_justified,            -> { where( staff_of_type: "UnitJustified") }
+  scope :by_staff_of_type,          ->(type) { where( staff_of_type: type) }
+
 
   def copy(period_destino_id, current_user_login)
     AssignedEmployee.create(self.attributes.merge(id: nil, period_id: period_destino_id, updated_at: current_user_login))
@@ -83,19 +86,19 @@ class AssignedEmployee < ActiveRecord::Base
     self.find_or_create_by(official_group_id: official_group_id, staff_of_type: type, staff_of_id: process_id, period_id: period_id, unit_id: unit_id)
   end
 
+  def self.staff_from_unit(unit, period, official_group)
+    staff_from('Unit', unit, period, official_group, unit.id)
+  end
+
+  def self.staff_from_indicator(unit, period, official_group)
+    staff_from('Indicator', unit, period, official_group)
+  end
+
+  def self.staff_from_unit_justificated(unit, period, official_group)
+    staff_from('UnitJustified', unit, period, official_group, unit.id)
+  end
+
   private
-
-    def self.staff_from_unit(unit, period, official_group)
-      staff_from('Unit', unit, period, official_group, unit.id)
-    end
-
-    def self.staff_from_indicator(unit, period, official_group)
-      staff_from('Indicator', unit, period, official_group)
-    end
-
-    def self.staff_from_unit_justificated(unit, period, official_group)
-      staff_from('UnitJustified', unit, period, official_group, unit.id)
-    end
 
     def self.staff_from(where, unit, period, official_group, id = nil )
       if id.nil?

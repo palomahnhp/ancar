@@ -7,6 +7,7 @@ class Organization < ActiveRecord::Base
   has_many :budget_programs
   has_many :rpts
   has_many :unit_rpt_assignations
+  has_many :first_level_units
 
   def self.select_options(organization_type=nil)
     if organization_type.present?
@@ -23,4 +24,5 @@ class Organization < ActiveRecord::Base
   def organizations_authorizated
     current_user.auth_organizations.collect { |v| [ v.description, v.id ] }
   end
+
 end

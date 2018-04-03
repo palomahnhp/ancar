@@ -37,6 +37,12 @@
             <%= t('admin.menu.units') %>
           <% end %>
         </li>
+
+        <li <%= 'class=active' if controller_name == 'first_level_units' %>>
+          <%= link_to admin_first_level_units_path do %>
+            <%= t('share.menu.first_level_units') %>
+          <% end %>
+        </li>
       </ul>
     </li>
 

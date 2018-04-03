@@ -1,17 +1,10 @@
-<%= form_for(@admin_unit_type) do |f| %>
-  <% if @admin_unit_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@admin_unit_type.errors.count, 'error') %> prohibited this admin_unit_type from being saved:</h2>
+<%= form_for [:admin, @unit_type] do |f| %>
 
-      <ul>
-      <% @admin_unit_type.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.label :organization_type, t('admin.unit_types.organization_type') %>
+  <%= f.select :organization_type, options_for_select(OrganizationType.select_options), label: false %>
+  <%= f.label :order, t('admin.unit_types.order') %>
+  <%= f.text_field :order, label: false %>
+  <%= f.label :description, t('admin.unit_types.description') %>
+  <%= f.text_field :description, label: false %>
+  <%= f.submit t("actions.#{action_name}"), class: "button hollow" %>
 <% end %>

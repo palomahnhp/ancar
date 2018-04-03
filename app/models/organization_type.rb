@@ -11,10 +11,11 @@ class OrganizationType < ActiveRecord::Base
   validates :description, presence: true
   validates :acronym, presence: true
 
+  default_scope { order(:description) }
+
   def authorized_organization_types
     current_user.auth_organization_types.collect { |v| [ v.description, v.id ] }
   end
-
 
   def self.select_options
     OrganizationType.all.map { |type| [type.description, type.id] }

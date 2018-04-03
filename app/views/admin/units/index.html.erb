@@ -1,9 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <%= search_form_for [:admin, @search] do |f| %>
+    <%= f.label :description_sap_cont %>
+    <%= f.search_field :description_sap_cont %>
+    <%= f.submit "Buscar", class: "button hollow" %>
+  <% end %>
+</div>
 
-<h2><%= t('admin.units.index.title') %></h2>
-<% if @sub_processes.nil? %>
-  <%= render 'admin/shared/in_works' %>
-<% else %>
-  <%= render 'item_list' %>
-<% end %>
+<%= paginate @units %>
 
+<div class="row">
+  <%= link_to(t('actions.back'),'javascript:history.go(-1);',  class:"icon-angle-left" ) %>
+  <h2> <%= t('admin.units.index.title') %></h2>
+
+   <%= link_to("Crear", new_admin_unit_path, class: "button hollow") %>
+
+  <table>
+    <tr>
+      <th class="text-left"> <%= sort_link(@search, :id) %> </th>
+      <th class="text-left"> <%= sort_link(@search, :description)%> </th>
+      <th class="text-left"> <%= sort_link(@search, :sap_id)%> </th>
+      <th class="text-left"> <%= sort_link(@search, :order) %> </th>
+      <th class="text-left"> <%= sort_link(@search, :unit_type) %> </th>
+      <th class="text-left"> <%= sort_link(@search, :organization) %> </th>
+      <th class="text-left"> <%= t('actions.actions')%></th>
+    </tr>
+    <% @units.each do |unit| %>
+      <tr>
+        <td><%= unit.id %></td>
+        <td><%= unit.description_sap %></td>
+        <td><%= unit.sap_id %></td>
+        <td><%= unit.order %></td>
+        <td><%= unit.unit_type&.description %></td>
+        <td><%= unit.organization&.description %></td>
+        <td>
+          <%= link_to("", edit_admin_unit_path(unit), class: "icon-pencil") %>
+          <%= link_to("", admin_unit_path(unit), method: :delete, class: "icon-trash") %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>

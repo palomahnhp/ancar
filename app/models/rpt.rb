@@ -2,7 +2,7 @@ class Rpt < ActiveRecord::Base
   belongs_to :organization
   belongs_to :unit
 
-  validates_presence_of :year, :organization_id, :id_puesto
+  validates_presence_of :year, :sapid_area, :sapid_unidad, :id_puesto
 
   scope :by_organization, ->(organization) { where( organization: organization ) }
   scope :by_unit,         ->(unit) { where( unit: unit ) }
@@ -10,12 +10,12 @@ class Rpt < ActiveRecord::Base
   scope :by_year,         ->(year) { where( year: year ) }
   scope :vacant,          -> { where(ocupada: 'VC') }
   scope :occupied,        -> { where(ocupada: 'OC') }
-  scope :a1,              -> { where(grtit_per: 'A1') }
-  scope :a2,              -> { where(grtit_per: 'A2') }
-  scope :c1,              -> { where(grtit_per: 'C1') }
-  scope :c2,              -> { where(grtit_per: 'C2') }
-  scope :e,               -> { where(grtit_per: 'E') }
-  scope :nogrtit,         -> { where(grtit_per:   'X') }
+  scope :A1,              -> { where(grtit_per: 'A1') }
+  scope :A2,              -> { where(grtit_per: 'A2') }
+  scope :C1,              -> { where(grtit_per: 'C1') }
+  scope :C2,              -> { where(grtit_per: 'C2') }
+  scope :E,               -> { where(grtit_per: 'E') }
+  scope :X,               -> { where(grtit_per: 'X') }
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
@@ -41,7 +41,6 @@ class Rpt < ActiveRecord::Base
       rpt_data = Gpwrpt.find_by_sql(sql_import_rpt_sentence(year, organization))
       update_rpt_data(rpt_data)
     end
-
   end
 
   def self.import_from_xls(file)
@@ -49,12 +48,12 @@ class Rpt < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      rpt = find_by(year: row["year"], sapid_organizacion: row["sapid_organizacion"],
+      rpt = find_by(year: row["year"], sapid_area: row["sapid_area"],
                     sapid_unidad: row["sapid_unidad"], id_puesto: row["id_puesto"]) || new
       rpt.attributes   = row.to_hash
-      rpt.organization = Organization.find_by(sap_id: row["sapid_organizacion"])
+      rpt.organization = FirstLevelUnit.find_by(sapid_unit: row["sapid_area"]).organization
       rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
-      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_organizacion"] + rpt.errors.messages.to_s } unless rpt.save
+      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s } unless rpt.save
     end
     true
   end
@@ -66,6 +65,40 @@ class Rpt < ActiveRecord::Base
       when ".xlsx" then Roo::Excelx.new(file.path)
       else raise "Unknown file type: #{file.original_filename}"
     end
+  end
+  
+  def self.export_columns
+    %w{
+      year
+      den_area
+      sapid_area
+      sapid_unidad
+      den_unidad
+      id_puesto
+      den_puesto
+      nivel_pto
+      grtit_pto
+      status_pto_txt
+      forma_acceso
+      ocupada
+      sociedad
+      division
+      dotado
+      nombre
+      apellido1
+      apellido2
+      den_categoria_per
+      area_personal_txt
+      grupo_personal_txt
+      grtit_per
+      situacion
+      modalidad
+      relacion_laboral
+      fecha_baja
+      editable_Z01
+      ficticio_Z02
+  }
+    
   end
 
   private

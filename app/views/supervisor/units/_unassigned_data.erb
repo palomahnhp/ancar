@@ -1,0 +1,24 @@
+<!-- No assigned -->
+<tr>
+  <td colspan="18"><hr>  </td>
+</tr>
+<tr>
+  <td> <h5>RPT no incluida </h5></td>
+</tr>
+
+<tr>
+  <% UnitRptAssignation.by_year_and_organization_without_unit((@year), @organization).each do |assign_rec| %>
+  <tr>
+    <td  colspan="2" title="<%= assign_rec.sapid_unit %>"> <%= assign_rec.den_unit %> </td>
+    <td title="Rpt">
+      <strong> <%= rpt_unit(@year, assign_rec.sapid_unit) %></strong>
+    </td>
+    <% %w(a1 a2 c1 c2 e x).each do |grtit|%>
+      <td title="Rpt <%= grtit %>">
+        <%= @rpt_grtit[grtit.upcase] %>
+      </td>
+    <% end %>
+    <td colspan="8"></td>
+  </tr>
+<% end %>
+</tr>

@@ -32,7 +32,7 @@ module IndicatorHelper
 
   def get_amount(im, unit)
     ei = EntryIndicator.where(indicator_metric_id: im.id, unit_id: unit.id).first
-    ei.nil? ? nil : format_number(ei.amount)
+    ei.nil? ? nil : ei.amount
   end
 
   def get_metric(im)

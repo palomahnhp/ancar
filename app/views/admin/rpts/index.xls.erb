@@ -7,51 +7,21 @@
   <Worksheet ss:Name="Plantilla">
     <Table>
       <Row>
-        <Cell><Data ss:Type="String">year</Data></Cell>
-        <Cell><Data ss:Type="String">den_organizacion</Data></Cell>
-        <Cell><Data ss:Type="String">sapid_unidad</Data></Cell>
-        <Cell><Data ss:Type="String">den_unidad</Data></Cell>
-        <Cell><Data ss:Type="String">fecha_baja</Data></Cell>
-        <Cell><Data ss:Type="String">den_puesto</Data></Cell>
-        <Cell><Data ss:Type="String">grupo_personal_txt</Data></Cell>
-        <Cell><Data ss:Type="String">area_personal_txt</Data></Cell>
-        <Cell><Data ss:Type="String">grtit_per</Data></Cell>
-        <Cell><Data ss:Type="String">grtit_pto</Data></Cell>
-        <Cell><Data ss:Type="String">situacion</Data></Cell>
-        <Cell><Data ss:Type="String">modalidad</Data></Cell>
-        <Cell><Data ss:Type="String">nombre</Data></Cell>
-        <Cell><Data ss:Type="String">apellido1</Data></Cell>
-        <Cell><Data ss:Type="String">apellido2</Data></Cell>
-        <Cell><Data ss:Type="String">sociedad</Data></Cell>
-        <Cell><Data ss:Type="String">división</Data></Cell>
-        <Cell><Data ss:Type="String">status_pto_txt</Data></Cell>
-        <Cell><Data ss:Type="String">editable_Z01</Data></Cell>
-        <Cell><Data ss:Type="String">ocupada</Data></Cell>
+        <% Rpt.export_columns.each do |col| %>
+          <Cell><Data ss:Type="String"><%= col %></Data></Cell>
+        <% end %>
       </Row>
-    <% @rpts.each do |position| %>
-      <Row>
-        <Cell><Data ss:Type="Number"><%= position.year %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.den_organizacion %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.sapid_unidad %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.den_unidad %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.fecha_baja %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.den_puesto %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.grupo_personal %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.area_personal %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.grtit_per %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.grtit_pto %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.situacion %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.modalidad %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.nombre %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.apellido1 %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.apellido2 %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.sociedad %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.division %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.status_pto_txt %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.editable_Z01 %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= position.ocupada %></Data></Cell>
-      </Row>
-    <% end %>
+      <% @organization_types.rpts.each do |type| %>
+        <% type.organizations.each do |organization| %>
+          <% organization.rpts.each do |position| %>
+            <Row>
+              <% Rpt.export_columns.each do |col| %>
+                <Cell><Data ss:Type="Number"><%= position.send(col.to_sym) %></Data></Cell>
+              <% end %>
+            </Row>
+          <% end %>
+        <% end %>
+      <% end %>
     </Table>
   </Worksheet>
 </Workbook>

@@ -1,14 +1,15 @@
 Kaminari.configure do |config|
-  # config.default_per_page = 25
-   config.max_per_page = 5
+  config.default_per_page = 25
+  config.max_per_page = 5
   # config.window = 4
   # config.outer_window = 0
   # config.left = 0
   # config.right = 0
   # config.page_method_name = :page
   # config.param_name = :page
+  config.window = 2
+  config.param_name = 'q[page]'
 end
-
 # Overrides for making Kaminari handle i18n pluralization correctly
 #
 # Remove everything below once https://github.com/amatsuda/kaminari/pull/694 is

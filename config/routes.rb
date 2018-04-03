@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :first_level_units
   mount RailsAdmin::Engine => '/console', as: 'rails_admin'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -58,9 +59,14 @@ Rails.application.routes.draw do
     end
     resources :unit_rpt_assignations do
       collection {
-        get :init_or_copy
+        get :init
+        get :copy
+        post :import
         post :update_assignations
       }
+    end
+    resources :first_level_units do
+      collection { post :import }
     end
   end
 
@@ -120,9 +126,9 @@ Rails.application.routes.draw do
       get :search, on: :collection
     end
     resources :units do
-      member {
-        get :detail
-      }
+      collection do
+        get 'export_rpt'
+      end
     end
     resources :unit_statuses
     resources :in_works

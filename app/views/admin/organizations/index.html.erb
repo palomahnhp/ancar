@@ -1,9 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <%= link_to(t('actions.back'),'javascript:history.go(-1);',  class:"icon-angle-left" ) %>
+  <h2> <%= t('admin.organizations.index.title') %></h2>
 
-<h2><%= t('admin.organizations.index.title') %></h2>
-  <% if @sub_processes.nil? %>
-    <%= render 'admin/shared/in_works' %>
-  <% else %>
-    <%= render 'item_list' %>
-  <% end %>
+   <%= link_to("Crear", new_admin_organization_path, class: "button hollow") %>
 
+  <table>
+    <tr>
+      <th class="text-left"> Id </th>
+      <th class="text-left"> <%= t('activerecord.attributes.organization.description') %> </th>
+      <th class="text-left"> <%= t('activerecord.attributes.organization.short_description') %> </th>
+      <th class="text-left"> <%= t('activerecord.attributes.organization.sap_id') %> </th>
+      <th class="text-left"> <%= t('activerecord.attributes.organization.organization_type') %> </th>
+      <th class="text-left"> <%= t('actions.actions')%></th>
+    </tr>
+    <% @organizations.each do |type| %>
+      <tr>
+        <td><%= type.id %></td>
+        <td><%= type.description %></td>
+        <td><%= type.short_description %></td>
+        <td><%= type.sap_id %></td>
+        <td><%= type.organization_type&.description %></td>
+        <td>
+          <%= link_to("", edit_admin_organization_path(type), class: "icon-pencil") %>
+          <%= link_to("", admin_organization_path(type), method: :delete, class: "icon-trash") %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>

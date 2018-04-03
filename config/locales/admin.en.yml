@@ -3,6 +3,7 @@ en:
   admin:
     actions:
       confirm: "¿Estás seguro?"
+      update: Registro actualizo.
     dashboard:
       index:
         title: Configuración de la aplicación
@@ -26,8 +27,11 @@ en:
       units: Unidades
       users: Usuarios
     organization_types:
+      acronym: Acrónimo
+      description: Descripción
       index:
         title: Tipos de organizaciones
+      new: Crar nuevo tipo de organización
     organizations:
       index:
         title: Organizaciones
@@ -35,6 +39,7 @@ en:
       flash:
         updated: Valor actualizado
       index:
+        criteria: 'Criterios para la selección de RPT:'
         disable: Desactivar
         disabled: Desactivada
         enable: Activar
@@ -47,6 +52,23 @@ en:
         imported_sources_editable:
           JD: Juntas de Distrito
           SGT: Secretarias Generales Técnicas
+        rpt:
+          only_grtit:
+            JD: Juntas de Distrito
+            SGT: Secretarias Generales Técnicas
+            no_title: Incluido personal sin grupo de titulacion
+            title: Solo personal con grupo de titulación
+          political:
+            JD: Juntas de Distrito
+            SGT: Secretarias Generales Técnicas
+            no_title: Incluidr Directivos, Eventuales y Cargos Electos
+            title: Excluidos Directivos, Eventuales y Cargos Electos
+          title: Condiciones para la selección de Rpts
+          vacancy:
+            JD: Juntas de Distrito
+            SGT: Secretarias Generales Técnicas
+            no_title: No incluidos puestos vacantes
+            title: Incluir puestos vacantes
         send_email:
           change_staff:
             JD: Juntas de Distrito
@@ -73,9 +95,13 @@ en:
               SGT: Correo de supervisor SGT
           user_test: Clave para pruebas de acceso
         value:
+          app_email: Correo electrónico de la aplicación
           app_name: Nombre de la aplicación
           header_logo: Texto para el Logo
           no_validation_lower_staff: Permitir menos plantilla
+          option:
+            supervisor:
+              report_digest: Resumenes por proceso
           org_name: Nombre de la Organización
           supervisor:
             email:
@@ -85,8 +111,13 @@ en:
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
     unit_types:
+      description: Descripción
+      edit: Modificar Tipo de unidad
       index:
         title: Tipos de unidades
+      new: Crear tipo de unidad
+      order: Orden
+      organization_type: Tipo de organización
     units:
       index:
         title: Unidades

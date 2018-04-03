@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180223194126) do
+ActiveRecord::Schema.define(version: 20180307120715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,14 @@ ActiveRecord::Schema.define(version: 20180223194126) do
   add_index "entry_indicators", ["indicator_source_id"], name: "index_entry_indicators_on_indicator_source_id", using: :btree
   add_index "entry_indicators", ["period_id"], name: "index_entry_indicators_on_period_id", using: :btree
   add_index "entry_indicators", ["unit_id"], name: "index_entry_indicators_on_unit_id", using: :btree
+
+  create_table "first_level_units", force: :cascade do |t|
+    t.integer "sapid_unit"
+    t.string  "den_unit"
+    t.integer "organization_id"
+    t.integer "period_from"
+    t.integer "period_to"
+  end
 
   create_table "indicator_groups", force: :cascade do |t|
     t.string   "updated_by"
@@ -297,32 +305,51 @@ ActiveRecord::Schema.define(version: 20180223194126) do
 
   create_table "rpts", force: :cascade do |t|
     t.integer "year"
-    t.integer "organization_id"
-    t.integer "unit_id"
-    t.string  "sapid_organizacion"
-    t.string  "den_organizacion"
+    t.string  "den_area"
+    t.string  "sapid_area"
     t.string  "sapid_unidad"
     t.string  "den_unidad"
-    t.date    "fecha_baja"
-    t.date    "fecha_actualiz"
+    t.string  "den_short_unidad"
+    t.integer "organization_id"
+    t.integer "unit_id"
     t.integer "id_puesto"
     t.string  "den_puesto"
+    t.string  "sociedad"
+    t.string  "division"
+    t.string  "den_tipo_puesto"
+    t.string  "nivel_pto"
+    t.string  "grtit_pto"
+    t.string  "forma_acceso"
     t.string  "grupo_personal"
     t.string  "grupo_personal_txt"
     t.string  "area_personal"
     t.string  "area_personal_txt"
-    t.string  "grtit_per"
-    t.string  "grtit_pto"
-    t.string  "situacion"
-    t.string  "modalidad"
+    t.string  "forma_acceso_pto"
+    t.string  "status_pto_txt"
+    t.string  "editable_Z01"
+    t.string  "ficticio_Z02"
+    t.string  "ocupada"
+    t.string  "dotado"
+    t.string  "observaciones_txt_pto"
     t.string  "nombre"
     t.string  "apellido1"
     t.string  "apellido2"
-    t.string  "sociedad"
-    t.string  "division"
-    t.string  "status_pto_txt"
-    t.string  "editable_Z01"
-    t.string  "ocupada"
+    t.string  "perid"
+    t.string  "sexo"
+    t.string  "den_categoria_per"
+    t.string  "grtit_per"
+    t.string  "situacion"
+    t.string  "modalidad"
+    t.string  "relacion_laboral"
+    t.string  "poblacion"
+    t.string  "fecha_nacimiento"
+    t.string  "fecha_antiguedad"
+    t.string  "fecha_trienios"
+    t.string  "fecha_baja"
+    t.string  "fecha_actualiz"
+    t.string  "fecha_baja_desde"
+    t.string  "fecha_baja_hasta"
+    t.string  "fecha_actualizado_hasta"
   end
 
   create_table "settings", force: :cascade do |t|
