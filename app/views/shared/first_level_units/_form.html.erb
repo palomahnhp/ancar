@@ -22,7 +22,7 @@
       </div>
       <div class="small-12 columns">
         <%= f.label :organization_id, t('activerecord.attributes.first_level_unit.organization_id') %>
-        <%= f.select :organization_id, options_for_select(Organization.select_options, f.object.organization_id), { include_blank: 'Seleccionar la unidad gestora ', label: false }  %>
+        <%= f.select :organization_id, option s_for_select(Organization.select_options, f.object.organization_id), { include_blank: 'Seleccionar la unidad gestora ', label: false }  %>
       </div>
       <div class="small-12 columns">
         <%= f.submit t("actions.#{action_name}"), class: 'button hollow'%>

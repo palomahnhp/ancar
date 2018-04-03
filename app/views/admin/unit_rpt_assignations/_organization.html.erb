@@ -1,9 +1,10 @@
 <table class="unit-rpt-assignation">
   <!-- Organizations -->
-  <% @organizations_assignated.each do |record|%>
+  <% @organizations_assignated.each do |record| %>
+    <% if record.organization.blank? then next end %>
     <tr>
-      <td title="<%= record.organization.sap_id %>" class="accordion-title">
-        <%= record.organization.description %>
+      <td title="<%= record.organization.id %>">
+        <h5><%= record.organization.description %></h5>
       </td>
       <%= render partial: 'display_organization_rpt',
                  locals: {year: @process_year, organization: record.organization} %>

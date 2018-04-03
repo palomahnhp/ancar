@@ -12,11 +12,24 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
     end
   end
 
-  def init_or_copy
+  def init
     resp = UnitRptAssignation.init(params[:year].to_i) if params[:init].present?
-    resp = UnitRptAssignation.copy(params[:year].to_i) if params[:copy].present?
     message = "Initialization done." if resp.present?
     message = "Initialization error." unless resp.present?
+    redirect_to admin_unit_rpt_assignations_path, notice: message
+  end
+
+  def copy
+    resp = UnitRptAssignation.copy(params[:year].to_i) if params[:copy].present?
+    message = "Capia de asignaciones hecha." if resp.present?
+    message = "Copy error." unless resp.present?
+    redirect_to admin_unit_rpt_assignations_path, notice: message
+  end
+
+  def import
+    resp = UnitRptAssignation.import(params[:year].to_i, params[:file])
+    message = "Import done." if resp.present?
+    message = "Import error." unless resp.present?
     redirect_to admin_unit_rpt_assignations_path, notice: message
   end
 

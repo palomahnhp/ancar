@@ -127,8 +127,8 @@ module SupervisorHelper
       @rpt_grtit = Rpt.select('grtit_per').by_year(year).by_unit_sap(unit).occupied.group(:grtit_per).count
     end
     tot = 0
-    %w{ A1 A2 C1 C2 E X}.each do |grtit|
-      @rpt_grtit[grtit] = 0 unless @rpt_grtit[grtit].present?
+    %w[A1 A2 C1 C2 E X].each do |grtit|
+      @rpt_grtit[grtit] = 0 if @rpt_grtit[grtit].blank?
     end
     @rpt_grtit.map do |rpt|
       tot+= rpt[1]
@@ -144,8 +144,8 @@ module SupervisorHelper
       @rpt_grtit = organization.rpts.select('grtit_per').by_year(year).occupied.group(:grtit_per).count
     end
     tot = 0
-    %w{ A1 A2 C1 C2 E X}.each do |grtit|
-      @rpt_grtit[grtit] = 0 unless @rpt_grtit[grtit].present?
+    %w[A1 A2 C1 C2 E X].each do |grtit|
+      @rpt_grtit[grtit] = 0 if @rpt_grtit[grtit].blank?
     end
     @rpt_grtit.map do |rpt|
       tot+= rpt[1]

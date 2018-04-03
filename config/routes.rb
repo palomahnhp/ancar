@@ -59,7 +59,9 @@ Rails.application.routes.draw do
     end
     resources :unit_rpt_assignations do
       collection {
-        get :init_or_copy
+        get :init
+        get :copy
+        post :import
         post :update_assignations
       }
     end

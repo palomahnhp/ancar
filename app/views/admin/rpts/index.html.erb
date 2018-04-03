@@ -5,7 +5,7 @@
     <div class="row" >
       <p class="note">
         Para cargar la RPT de una organización se debe partir de un csv o excel el siguiente formato y cabecera:
-        <span> <%= link_to "RPT.xlsx", "/carga_rpt/RPT.xlsx" %> </span>
+        <span> <%= link_to "RPT.xlsx", "/cargas/RPT.xlsx" %> </span>
         <br>Elije el excel a importar con el botón Choose File:
         <div class="small-12 columns">
           <%= form_tag import_admin_rpts_path(year: @year), multipart: true do %>

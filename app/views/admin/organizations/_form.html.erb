@@ -1,11 +1,11 @@
 <%= form_for [:admin, @organization] do |f| %>
-  <%= f.label   :organization_type, t('admin.organizations.description') %>
+  <%= f.label   :organization_type, t('activerecord.attributes.organization.organization_type') %>
   <%= f.select  :organization_type, options_for_select(OrganizationType.select_options), label: false %>
-  <%= f.label   :description, t('admin.organizations.description') %>
+  <%= f.label   :description, t('activerecord.attributes.organization.description') %>
   <%= f.text_field :description, label: false %>
-  <%= f.label   :short_description, t('admin.organizations.short_description') %>
+  <%= f.label   :short_description, t('activerecord.attributes.organization.short_description') %>
   <%= f.text_field :short_description, label: false %>
-  <%= f.label   :sap_id, t('admin.organizations.sapid') %>
+  <%= f.label   :sap_id, t('activerecord.attributes.organization.sap_id') %>
   <%= f.text_field :sap_id, label: false %>
   <%= f.submit t("actions.#{action_name}"), class: "button hollow" %>
 <% end %>

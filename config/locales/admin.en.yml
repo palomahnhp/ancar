@@ -39,6 +39,7 @@ en:
       flash:
         updated: Valor actualizado
       index:
+        criteria: 'Criterios para la selección de RPT:'
         disable: Desactivar
         disabled: Desactivada
         enable: Activar
@@ -51,6 +52,23 @@ en:
         imported_sources_editable:
           JD: Juntas de Distrito
           SGT: Secretarias Generales Técnicas
+        rpt:
+          only_grtit:
+            JD: Juntas de Distrito
+            SGT: Secretarias Generales Técnicas
+            no_title: Incluido personal sin grupo de titulacion
+            title: Solo personal con grupo de titulación
+          political:
+            JD: Juntas de Distrito
+            SGT: Secretarias Generales Técnicas
+            no_title: Incluidr Directivos, Eventuales y Cargos Electos
+            title: Excluidos Directivos, Eventuales y Cargos Electos
+          title: Condiciones para la selección de Rpts
+          vacancy:
+            JD: Juntas de Distrito
+            SGT: Secretarias Generales Técnicas
+            no_title: No incluidos puestos vacantes
+            title: Incluir puestos vacantes
         send_email:
           change_staff:
             JD: Juntas de Distrito
@@ -65,24 +83,6 @@ en:
             SGT: Secretarias Generales Técnicas
             title: Permitir menos plantilla que la asignada
           title: Validaciones
-        rpt:
-          title: "Condiciones para la selección de Rpts"
-          vacancy:
-            JD: Juntas de Distrito
-            SGT: Secretarias Generales Técnicas
-            no_title: "No incluidos puestos vacantes"
-            title: "Incluir puestos vacantes"
-          only_grtit:
-            JD: Juntas de Distrito
-            SGT: Secretarias Generales Técnicas
-            no_title: "Incluido personal sin grupo de titulacion"
-            title: "Solo personal con grupo de titulación"
-          political:
-            JD: Juntas de Distrito
-            SGT: Secretarias Generales Técnicas
-            no_title: "Incluidr Directivos, Eventuales y Cargos Electos"
-            title: "Excluidos Directivos, Eventuales y Cargos Electos"
-        criteria: "Criterios para la selección de RPT:"
       key:
         description:
           app_name: Nombre de la aplicación
@@ -95,14 +95,14 @@ en:
               SGT: Correo de supervisor SGT
           user_test: Clave para pruebas de acceso
         value:
-          app_name:  Nombre de la aplicación
           app_email: Correo electrónico de la aplicación
+          app_name: Nombre de la aplicación
           header_logo: Texto para el Logo
           no_validation_lower_staff: Permitir menos plantilla
-          org_name: Nombre de la Organización
           option:
             supervisor:
               report_digest: Resumenes por proceso
+          org_name: Nombre de la Organización
           supervisor:
             email:
               JD: Correo de supervisor JD

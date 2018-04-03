@@ -71,7 +71,9 @@ en:
         started_at: Inicio
         ended_at: Fin
       unit:
+        unit_type: Tipo de unidad
         unit_type_id: Tipo de unidad
+        organization: Organización
         organization_id: Organización
         description_sap:  Descripción
         sapid: 'Id SAP'

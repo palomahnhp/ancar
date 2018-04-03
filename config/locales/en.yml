@@ -5,6 +5,7 @@ en:
       not_verified: Ajuste de plantilla/puestos pendiente de verificación
       verified: Ajuste de plantilla/puestos verificado
   actions:
+    actions: Acciones
     add_empty_source: Editar
     back: Volver
     create: Crear
@@ -21,6 +22,13 @@ en:
           attributes:
             source_id:
               blank: Es obligatorio indicar una fuente
+  admin:
+    organization:
+      new: Crear
+    organization_types:
+      edit: Editar
+    organizations:
+      edit: Editar
   application:
     close: Desconectar
     require_user:
@@ -190,6 +198,10 @@ en:
     menu:
       first_level_units: Asignar Áreas a SGTS
   shared:
+    first_level_unit:
+      index:
+        actions: Acciones
+      title: Asignación de Áreas a SGTs
     print:
       print_button: Imprimir
     roles:
@@ -309,10 +321,6 @@ en:
       uweb_update:
         error: Error actualizando los datos del usuario
         success: Datos del usuario actualizados correctamente
-    first_level_unit:
-      title: Asignación de Áreas a SGTs
-      index:
-        actions: "Acciones"
   status:
     close: Cerrado
     open: Abierto
