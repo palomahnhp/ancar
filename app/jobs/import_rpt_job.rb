@@ -1,9 +1,9 @@
 class ImportRptJob < ActiveJob::Base
-  queue_as :imports
+  queue_as :default
 
-  def perform(year, file)
+  def perform(year, extname, path)
     puts 'Start rpt import' + Time.zone.now.to_s
-    sleep 5
+    Rpt.import(year, extname, path)
     puts 'End   rpt import' + Time.zone.now.to_s
   end
 end

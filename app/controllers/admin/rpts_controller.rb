@@ -15,13 +15,8 @@ class Admin::RptsController < Admin::BaseController
   end
 
   def import
-
-    if Rpt.import(params[:year], params[:file])
-      message = "Fichero importado."
-    else
-      message = "Error en la importación."
-    end
-    redirect_to admin_rpts_path, notice: message
+    ImportRptJob.perform_later(params[:year], File.extname(params[:file].original_filename), params[:file].path)
+    redirect_to admin_rpts_path, notice: 'Lanzada tarea de importación. Carga disponible en unos minutos'
   end
 
   private

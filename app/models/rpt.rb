@@ -26,25 +26,8 @@ class Rpt < ActiveRecord::Base
     end
   end
 
-  def self.import(year, file = '')
-    if file.present?
-      self.import_from_xls(file)
-    else
-      self.import_from_rptdb(year)
-    end
-  end
-
-  def self.import_from_rptdb(year)
-    Gpwrpt.connection
-    Organization.all.each do |organization|
-      sql_import_rpt_sentence(year, organization)
-      rpt_data = Gpwrpt.find_by_sql(sql_import_rpt_sentence(year, organization))
-      update_rpt_data(rpt_data)
-    end
-  end
-
-  def self.import_from_xls(file)
-    spreadsheet = open_spreadsheet(file)
+  def self.import(year, extname, path)
+    spreadsheet = open_spreadsheet(extname, path)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
@@ -58,17 +41,26 @@ class Rpt < ActiveRecord::Base
     true
   end
 
-  def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
-      when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
-      when ".xls" then Roo::Excel.new(file.path)
-      when ".xlsx" then Roo::Excelx.new(file.path)
-      else raise "Unknown file type: #{file.original_filename}"
+  def self.import_from_rptdb(year)
+    Gpwrpt.connection
+    Organization.all.each do |organization|
+      sql_import_rpt_sentence(year, organization)
+      rpt_data = Gpwrpt.find_by_sql(sql_import_rpt_sentence(year, organization))
+      update_rpt_data(rpt_data)
+    end
+  end
+
+  def self.open_spreadsheet(extname, path)
+    case extname
+      when ".csv" then Roo::Csv.new(path, nil, :ignore)
+      when ".xls" then Roo::Excel.new(path)
+      when ".xlsx" then Roo::Excelx.new(path)
+      else raise "Unknown file type: #{path}"
     end
   end
   
   def self.export_columns
-    %w{
+    %w[
       year
       den_area
       sapid_area
@@ -97,7 +89,7 @@ class Rpt < ActiveRecord::Base
       fecha_baja
       editable_Z01
       ficticio_Z02
-  }
+  ]
     
   end
 
