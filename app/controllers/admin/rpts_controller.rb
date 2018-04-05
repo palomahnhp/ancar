@@ -15,7 +15,7 @@ class Admin::RptsController < Admin::BaseController
   end
 
   def import
-    ImportRptJob.perform_later(params[:year], File.extname(params[:file].original_filename), params[:file].path)
+    resp = RptImportJob.set(wait: 15.seconds).perform_later(params[:year], File.extname(params[:file].original_filename), params[:file].path)
     redirect_to admin_rpts_path, notice: 'Lanzada tarea de importación. Carga disponible en unos minutos'
   end
 

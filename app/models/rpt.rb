@@ -27,6 +27,7 @@ class Rpt < ActiveRecord::Base
   end
 
   def self.import(year, extname, path)
+    puts Time.zone.now.to_s + ': RPT.import - Inicio - params: year ' + year + ', extname ' + extname + ', path ' + path
     spreadsheet = open_spreadsheet(extname, path)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
@@ -36,7 +37,11 @@ class Rpt < ActiveRecord::Base
       rpt.attributes   = row.to_hash
       rpt.organization = FirstLevelUnit.find_by(sapid_unit: row["sapid_area"]).organization
       rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
-      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s } unless rpt.save
+      if rpt.save
+        puts "puts No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s
+      else
+        Rails.logger.error { "No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s }
+      end
     end
     true
   end
@@ -51,10 +56,11 @@ class Rpt < ActiveRecord::Base
   end
 
   def self.open_spreadsheet(extname, path)
+    puts Time.zone.now.to_s + ': RPT.import - open_spreadsheet - params: extname ' + extname + ', path ' + path
     case extname
-      when ".csv" then Roo::Csv.new(path, nil, :ignore)
-      when ".xls" then Roo::Excel.new(path)
-      when ".xlsx" then Roo::Excelx.new(path)
+      when "csv" then Roo::Csv.new(path, nil, :ignore)
+      when "xls" then Roo::Excel.new(path)
+      when "xlsx" then Roo::Excelx.new(path)
       else raise "Unknown file type: #{path}"
     end
   end

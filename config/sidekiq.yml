@@ -1,7 +1,10 @@
-:verbose: true
+---
+:concurrency: 25
 :pidfile: ./tmp/pids/sidekiq.pid
 :logfile: ./log/sidekiq.log
-:concurrency: 15
 :queues:
   - default
+  - [high_priority, 2]
   - imports
+  - mailers
+:daemon: true
