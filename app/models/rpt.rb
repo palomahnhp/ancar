@@ -26,45 +26,6 @@ class Rpt < ActiveRecord::Base
     end
   end
 
-  def self.import(year, extname, path)
-    puts Time.zone.now.to_s + ': RPT.import - Inicio - params: year ' + year + ', extname ' + extname + ', path ' + path
-    spreadsheet = open_spreadsheet(extname, path)
-    header = spreadsheet.row(1)
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      rpt = find_by(year: row["year"], sapid_area: row["sapid_area"],
-                    sapid_unidad: row["sapid_unidad"], id_puesto: row["id_puesto"]) || new
-      rpt.attributes   = row.to_hash
-      rpt.organization = FirstLevelUnit.find_by(sapid_unit: row["sapid_area"]).organization
-      rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
-      if rpt.save
-        puts "puts No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s
-      else
-        Rails.logger.error { "No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s }
-      end
-    end
-    true
-  end
-
-  def self.import_from_rptdb(year)
-    Gpwrpt.connection
-    Organization.all.each do |organization|
-      sql_import_rpt_sentence(year, organization)
-      rpt_data = Gpwrpt.find_by_sql(sql_import_rpt_sentence(year, organization))
-      update_rpt_data(rpt_data)
-    end
-  end
-
-  def self.open_spreadsheet(extname, path)
-    puts Time.zone.now.to_s + ': RPT.import - open_spreadsheet - params: extname ' + extname + ', path ' + path
-    case extname
-      when "csv" then Roo::Csv.new(path, nil, :ignore)
-      when "xls" then Roo::Excel.new(path)
-      when "xlsx" then Roo::Excelx.new(path)
-      else raise "Unknown file type: #{path}"
-    end
-  end
-  
   def self.export_columns
     %w[
       year

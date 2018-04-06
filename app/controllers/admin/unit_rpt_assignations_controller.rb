@@ -2,7 +2,6 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
 
   def index
    year_to_process
-   # Se copia del año anterior
    @organizations_assignated = UnitRptAssignation.select(:organization_id).by_year(@assignation_year).order(:organization_id).distinct.to_a
 
     respond_to do |format|
@@ -27,7 +26,7 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   end
 
   def import
-    resp = UnitRptAssignation.import(params[:year].to_i, params[:file])
+    resp = UnitAssignationJob.perform_later(params[:year], File.extname(params[:file].original_filename), params[:file].path)
     message = "Import done." if resp.present?
     message = "Import error." unless resp.present?
     redirect_to admin_unit_rpt_assignations_path, notice: message
@@ -37,7 +36,12 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
     resp = UnitRptAssignation.update(params[:year].to_i, params[:assign])
     message = "Assignation done." if resp.present?
     message = "Assignation error." unless resp.present?
-    redirect_to admin_unit_rpt_assignations_path, notice: message
+    redirect_to show_organization_admin_unit_rpt_assignations_path(organization: params[:organization]), notice: message
+  end
+
+  def show_organization
+    year_to_process
+    @organization = Organization.find_by(id: params[:organization])
   end
 
   private

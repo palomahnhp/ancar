@@ -38,32 +38,4 @@ class UnitRptAssignation < ActiveRecord::Base
     end
   end
 
-  def self.import(year, file)
-    spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(1)
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      unit_assignation = find_or_create_by(year: year, sapid_unit: row["id_unidad"])
-      unit_assignation.den_unit = row["denominacion"]
-      if row["id_unit"].present?
-        unit_assignation.unit         = Unit.find_by(sap_id: row["id_unit"])
-        unit_assignation.organization = unit_assignation.unit.organization
-      else
-        unit_assignation.organization = FirstLevelUnit.find_by(sapid_unit: row["id_area"]).organization
-      end
-      puts 'i: ' + i.to_s
-      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["denominacion"] + unit_assignation.errors.messages.to_s } unless unit_assignation.save
-    end
-    true
-  end
-
-  def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
-      when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
-      when ".xls" then Roo::Excel.new(file.path)
-      when ".xlsx" then Roo::Excelx.new(file.path)
-      else raise "Unknown file type: #{file.original_filename}"
-    end
-  end
-
 end

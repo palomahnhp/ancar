@@ -1,0 +1,16 @@
+<div class="small-12 columns">
+  <p> Exportar: </p>
+  <ul class="note">
+    <li>
+      Listado de asignación:
+      <%= link_to "Excel", supervisor_units_path(format: "xls") %> |
+      <%= link_to "CSV",   supervisor_units_path(format: "csv") %>
+    </li>
+    <li>
+      RPT completa:
+      <%= link_to "Excel", admin_rpts_path(format: "xls") %> |
+      <%= link_to "CSV", admin_rpts_path(format: "csv") %>
+    </li>
+  </ul>
+
+</div>

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
         get :copy
         post :import
         post :update_assignations
+        get :show_organization
       }
     end
     resources :first_level_units do
