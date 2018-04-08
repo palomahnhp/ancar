@@ -1,70 +1,75 @@
 <div class="row" >
   <div class="small-12 columns">
-    <h1 class="text-center">RPT de unidades</h1>
 
-    <div class="row" >
-      <p  class="note">
-        Exportar listado:
-        <%= link_to "Excel", supervisor_units_path(format: "xls") %>
-      </p>
-      <p  class="note">
-        Exportar <strong>RPT</strong>:
-        <%= link_to "Excel", export_rpt_supervisor_units_path(type: @organization_types.ids, format: "xls") %>
-      </p>
-    </div>
-
-    <div class="row">
-      <div class="small-12 columns">
-         <%= form_tag(supervisor_units_path, method: :get) do %>
-           <div class="small-6 medium-2 columns">
-             <%= select_tag(:year, options_for_select(Period.select_year, selected: @year )) %>
-           </div>
-
-           <div class="medium-2 columns end">
-             <%= submit_tag "Cambiar periodo", class: "hollow button" %>
-           </div>
-         <% end %>
-       </div>
-      <div class="small-12 columns">
-        <table class="unit-status" >
-          <tr>
-            <th>Detalle </th>
-            <th colspan="2"> Organizacion </th>
-            <th colspan="7"> RPT </th>
-            <!--th colspan="7"> En Ancar </th-->
-          </tr>
-          <tr>
-            <th colspan = "3"></th>
-            <th>Tot.</th>
-            <% %w(A1 A2 C1 C2 Agr X).each do |group| %>
-              <th><%= group %></th>
-            <% end %>
-          </tr>
-          <% @organization_types.each do |type| %>
-            <tr>
-              <td colspan="9">
-                <h5><%= type.description %></h5>
-                <span class="note"> <%= rpt_load_conditions(type) %> </span>
-              </td>
-            </tr>
-           <!-- Organizations -->
-            <% type.organizations.each do |organization|%>
-              <tr>
-                <td >
-                  <%= link_to "", edit_supervisor_unit_path(id: organization.id, year: @year, conditions: @conditions), class:"icon-search" %>
-                </td>
-                <th class= "text-left" colspan="2" title="<%= organization.sap_id %>">
-                  <%= organization.description %>
-                </th>
-                <th title="RPT">    <%= organization.rpts.by_year(@year).count %> </th>
-                <% %w(A1 A2 C1 C2 E X).each do |group| %>
-                  <td title="RPT #{group}"> <%= organization.rpts.by_year(@year).occupied.send(group).count %> </td>
-                <% end %>
-             </tr>
-            <% end %>
-          <% end %>
-        </table>
+    <h1 class="text-center"><%= t('supervisor.units.index.title') %></h1>
+    <p class="note"></p><%= t('supervisor.units.index.explain_html') %>
+  </div>
+  <br>
+  <div class="small-12 columns">
+    <%= form_tag(supervisor_units_path, method: :get) do %>
+      <div class="small-6 medium-2 columns">
+        <br><%= select_tag(:year, options_for_select(Period.select_year, selected: @year )) %>
       </div>
+
+      <div class="medium-2 columns end">
+        <br><%= submit_tag t('supervisor.units.index.button.period'), class: "hollow button" %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+<hr>
+<div class="row" >
+  <p class="note"><strong><%= t('supervisor.units.index.export.title') %></strong></p>
+  <ul>
+    <li  class="note">
+      <%= link_to t('supervisor.units.index.export.assignation'), supervisor_units_path(format: "xls") %>
+    </li>
+    <li class="note">
+      <%= link_to t('supervisor.units.index.export.rpt_html'), export_rpt_supervisor_units_path(type: @organization_types.ids, format: "xls") %>
+    </li>
+  </ul>
+  <hr>
+  <div class="row">
+    <div class="small-12 columns">
+      <table class="unit-status" >
+        <tr>
+          <th> <%= t('supervisor.units.index.detail') %></th>
+          <th colspan="2"> <%= t('supervisor.units.index.organization') %> </th>
+          <th colspan="7"> <%= t('supervisor.units.index.data') %> </th>
+          <!--th colspan="7"> En Ancar </th-->
+        </tr>
+        <tr>
+          <th colspan = "3"></th>
+          <th></th>
+          <% %w(A1 A2 C1 C2 Agr X).each do |group| %>
+            <th><%= group %></th>
+          <% end %>
+        </tr>
+        <% @organization_types.each do |type| %>
+          <tr>
+            <td colspan="9">
+              <h5><%= type.description %></h5>
+              <span class="note"> <%= rpt_load_conditions(type) %> </span>
+            </td>
+          </tr>
+         <!-- Organizations -->
+          <% type.organizations.each do |organization|%>
+            <tr>
+              <td >
+                <%= link_to "", edit_supervisor_unit_path(id: organization.id, year: @year, conditions: @conditions), class:"icon-search" %>
+              </td>
+              <th class= "text-left" colspan="2" title="<%= organization.sap_id %>">
+                <%= organization.description %>
+              </th>
+              <th title="RPT">    <%= organization.rpts.by_year(@year).count %> </th>
+              <% %w(A1 A2 C1 C2 E X).each do |group| %>
+                <td title="RPT #{group}"> <%= organization.rpts.by_year(@year).occupied.send(group).count %> </td>
+              <% end %>
+           </tr>
+          <% end %>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

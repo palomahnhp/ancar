@@ -33,6 +33,10 @@ class UnitRptAssignationImporter
         Rails.logger.info { "No se actualiza el registro " + i.to_s + row["denominacion"] + unit_assignation.errors.messages.to_s }
       end
     end
+
+    if File.delete(@filepath)
+      Rails.logger.info ('*** ' + Time.zone.now.to_s + " - Eliminado fichero:   #{@filepath}" )
+    end
   end
 
   private

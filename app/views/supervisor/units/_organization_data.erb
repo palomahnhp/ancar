@@ -3,14 +3,17 @@
   <th class= "text-left border-down" colspan="2" title="<%= @organization.sap_id %>">
     <%= @organization.description %>
   </th>
+
   <th title="Rpt">
     <strong><%= rpt_organization(@year, @organization) %> </strong>
   </th>
+
   <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
     <td title="Rpt <%= grtit %>"><%= @rpt_grtit[grtit] %> </td>
   <% end %>
+
   <td></td>
-
-  <td colspan="8"><%= submit_tag("Actualizar RPT de la unidad", class: "button") %></td>
-
+  <% if @period.modifiable? %>
+    <td colspan="8"><%= submit_tag(t('supervisor.units.edit.organization_data.submit'), class: "button") %></td>
+  <% end %>
 </tr>

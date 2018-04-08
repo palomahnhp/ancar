@@ -25,7 +25,7 @@
         <% type.organizations.each do |organization| %>
           <% organization.units.each do |unit| %>
             <Row>
-              <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
+              <Cell><Data ss:Type="Number"><%= @year %></Data></Cell>
               <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
               <Cell><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
               <Cell><Data ss:Type="String">   </Data></Cell>
@@ -49,7 +49,7 @@
               </Row>
             <% end %>
           <% end %>
-          <% UnitRptAssignation.by_year_and_organization_without_unit((@year), organization).each do |assign_rec| %>
+          <% UnitRptAssignation.by_year(@year).by_organization(organization).unassigned.each do |assign_rec| %>
             <Row>
               <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
               <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>

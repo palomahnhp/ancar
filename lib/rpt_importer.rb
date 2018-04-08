@@ -8,10 +8,10 @@ class RptImporter
   end
 
   def run
-    Rails.logger.info ('*** ' + Time.zone.now.to_s + " - Inicio de importación de RPT:  #{@year} / #{@filepath}")
+    Rails.logger.info ('*** ' + Time.zone.now.to_s + " - Inicio con parámetros:  #{@year} / #{@filepath}")
     parse
     notify_admin
-    Rails.logger.info ('*** ' + Time.zone.now.to_s + " - Fin de importación de RPT:  #{@year} / #{@filepath}")
+    Rails.logger.info ('*** ' + Time.zone.now.to_s + " - Fin de proceso:")
   end
 
   def parse
@@ -31,6 +31,10 @@ class RptImporter
                           rpt.errors.to_s)
       end
     end
+
+    if File.delete(@filepath)
+      Rails.logger.info ('*** ' + Time.zone.now.to_s + " - Eliminado fichero de RPT:   #{@filepath}" )
+    end
   end
 
   private
@@ -46,7 +50,6 @@ class RptImporter
 
 
   def open_spreadsheet
-    puts Time.zone.now.to_s + ': RPT.import - open_spreadsheet - params: extname ' + @extname + ', path ' + @filepath
     case @extname
       when ".csv" then Roo::Csv.new(@filepath, nil, :ignore)
       when ".xls" then Roo::Excel.new(@filepath)

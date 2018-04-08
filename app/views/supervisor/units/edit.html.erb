@@ -2,9 +2,14 @@
   <div class="small-12 columns">
     <%= link_to(t('actions.back'),'javascript:history.go(-1);', class:"icon-angle-left" ) %>
 
-    <h1 class="text-center">RPT de unidades</h1>
-    <p class="note"> En las columnas de importar se muestra, tras los datos de RPT, un check verde si están cargados en la unidad o con un aspa roja si estan pendientes de carga.</p>
-    <p class="note"> Se puede modificar la RPT de cada una de las unidades y con el botón actualizar se cargan.</p>
+    <h1 class="text-center"><%= t('supervisor.units.edit.title') %></h1>
+    <p class="note"> <%= t('supervisor.units.edit.instructions.line_1') %></p>
+    <ul>
+      <li class="note"> <%= t('supervisor.units.edit.instructions.line_2_html') %></li>
+      <li class="note"> <%= t('supervisor.units.edit.instructions.line_3_html') %></li>
+    </ul>
+    <p class="note"> <%= t('supervisor.units.edit.instructions.line_4') %></p>
+    <p class="note"> <%= t('supervisor.units.edit.instructions.line_5') %></p>
 
     <div class="row">
       <div class="small-12 columns">

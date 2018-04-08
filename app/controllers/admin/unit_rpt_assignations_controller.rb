@@ -26,14 +26,18 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   end
 
   def import
-    resp = UnitAssignationJob.perform_later(params[:year], File.extname(params[:file].original_filename), params[:file].path)
-    message = "Import done." if resp.present?
-    message = "Import error." unless resp.present?
+    filepath = "public/imports/#{params[:file].original_filename}"
+    if File.rename(params[:file].path, filepath)
+      resp = UnitAssignationJob.perform_later(params[:year], File.extname(params[:file].original_filename), filepath)
+      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
+    else
+      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso '
+    end
     redirect_to admin_unit_rpt_assignations_path, notice: message
   end
 
   def update_assignations
-    resp = UnitRptAssignation.update(params[:year].to_i, params[:assign])
+    resp = UnitRptAssignation.update(params[:year].to_i, params[:assign], params[:unassign])
     message = "Assignation done." if resp.present?
     message = "Assignation error." unless resp.present?
     redirect_to show_organization_admin_unit_rpt_assignations_path(organization: params[:organization]), notice: message

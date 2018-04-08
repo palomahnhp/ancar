@@ -7,9 +7,12 @@ class Rpt < ActiveRecord::Base
   scope :by_organization, ->(organization) { where( organization: organization ) }
   scope :by_unit,         ->(unit) { where( unit: unit ) }
   scope :by_unit_sap,     ->(unit) { where( sapid_unidad: unit ) }
+  scope :by_unit_rpt_assigned, -> { where( sapid_unidad: UnitRptAssignation.assigned.pluck(:sapid_unit) ) }
+
   scope :by_year,         ->(year) { where( year: year ) }
   scope :vacant,          -> { where(ocupada: 'VC') }
   scope :occupied,        -> { where(ocupada: 'OC') }
+
   scope :A1,              -> { where(grtit_per: 'A1') }
   scope :A2,              -> { where(grtit_per: 'A2') }
   scope :C1,              -> { where(grtit_per: 'C1') }

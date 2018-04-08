@@ -143,14 +143,13 @@ module SupervisorHelper
     else
       @rpt_grtit = organization.rpts.select('grtit_per').by_year(year).occupied.group(:grtit_per).count
     end
-    tot = 0
+
     %w[A1 A2 C1 C2 E X].each do |grtit|
       @rpt_grtit[grtit] = 0 if @rpt_grtit[grtit].blank?
     end
-    @rpt_grtit.map do |rpt|
-      tot+= rpt[1]
-    end
-    tot
+
+    condition = @conditions[:vacancy].present? ? 'all' : 'occupied'
+    Rpt.by_year(@year).by_organization(@organization).send(condition).count
   end
 
   def rpt_load_conditions(type)

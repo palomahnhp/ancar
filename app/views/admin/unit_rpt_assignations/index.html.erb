@@ -1,6 +1,6 @@
 <div class="row" >
   <div class="small-12 columns">
-    <h1 class="text-center">Asignación de RPT a unidades</h1>
+    <h1 class="text-center"><%= t('admin.unit_rpt_assignations.index.title')%></h1>
     <br>
   </div>
 </div>
@@ -8,9 +8,7 @@
 <div class="row" >
   <%= render "load_status" %>
 </div>
-
 <hr>
-
 <div class="row" >
   <div class="small-12 columns">
     <div class="small-6 columns">
@@ -29,14 +27,14 @@
 <div class="row" >
   <div class="small-12 columns">
     <% if @organizations_assignated.blank? %>
-      <p> <strong>No hay datos de asignación cargados</strong></p>
+      <p> <strong><%= t('admin.unit_rpt_assignations.index.no_data')%></strong></p>
     <% else %>
       <table class="unit-status">
         <tr class="text-left">
-          <th> Detalle</th>
-          <th> Organización</th>
-          <th> Ocupados </th>
-          <th> Vacantes </th>
+          <th> <%= t('admin.unit_rpt_assignations.index.detail') %></th>
+          <th> <%= t('admin.unit_rpt_assignations.index.organization') %></th>
+          <th> <%= t('admin.unit_rpt_assignations.index.occupied') %> </th>
+          <th> <%= t('admin.unit_rpt_assignations.index.vacancy') %> </th>
           <th colspan="2"></th>
         </tr>
         <% @organizations_assignated.each do |record| %>
@@ -51,7 +49,6 @@
           </tr>
         <% end %>
       </table>
-
   <% end%>
   </div>
 </div>

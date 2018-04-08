@@ -10,18 +10,28 @@
     </td>
     <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
       <td title="Rpt <%= grtit %>">
-        <%= @rpt_grtit[grtit.upcase] %>
+        <%= @rpt_grtit[grtit] %>
       </td>
     <% end %>
     <td></td>
 
     <!-- Cargar -->
-    <% %w(a1 a2 c1 c2 agr).each do |grtit|%>
+    <% %w(A1 A2 C1 C2 Agr).each do |grtit|%>
+      <% if grtit ==  'Agr' then grtit = 'E' end %>
       <td>
-        <%= number_field_tag "unit[#{unit.id}][#{grtit}]", unit_assigned_rpt(@year, @organization, unit, grtit), step: 0.05 %>
+        <% if @period.modifiable? || current_user.has_role?(:admin) %>
+          <%= number_field_tag "unit[#{unit.id}][#{grtit}]", unit_assigned_rpt(@year, @organization, unit, grtit),
+                             step: 0.05, min: 0,
+                             class: @rpt_grtit[grtit].to_f == unit_assigned_rpt(@year, @organization, unit, grtit) ? "ok" : "nok" %>
+        <% else %>
+          <span class= <%= @rpt_grtit[grtit].to_f == unit_assigned_rpt(@year, @organization, unit, grtit) ? "ok" : "nok" %> >
+            <%= unit_assigned_rpt(@year, @organization, unit, grtit) %>
+          </span>
+        <% end %>
+
       </td>
     <% end %>
-    <td class="<%= @loaded_rpt ? 'icon-check' : 'icon-x'%>"> </td>
+    <td class="<%= @loaded_rpt ? 'icon-check' : 'icon-x' %>"> </td>
   </tr>
 
   <% unit.unit_rpt_assignations.by_year(@year).by_year(@year).order(:sapid_unit).each do |item|  %>
@@ -32,7 +42,7 @@
       </td>
       <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
         <td title="Rpt <%= grtit %>">
-          <%= @rpt_grtit[grtit.capitalize] %>
+          <%= @rpt_grtit[grtit] %>
         </td>
       <% end %>
     </tr>

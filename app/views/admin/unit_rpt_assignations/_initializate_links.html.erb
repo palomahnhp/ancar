@@ -1,9 +1,9 @@
 <div class="small-12 columns">
-  <p> Inicializar asignación de unidades </p>
+  <p> <%= t('admin.unit_rpt_assignations.index.initialize_links.title_html') + @rpt_year.to_s %> </p>
   <ul class="note">
     <li>
-      Básica (solo departamentos):
-      <%= link_to "Inicializar", init_admin_unit_rpt_assignations_path(year: @process_year, init: true), class: "button hollow small" %>
+      <%= t('admin.unit_rpt_assignations.index.initialize_links.text') %>
+      <%= link_to t('admin.unit_rpt_assignations.index.initialize_links.initialize'), init_admin_unit_rpt_assignations_path(year: @process_year, init: true), class: "button hollow small" %>
     </li>
     <li>
       Desde fichero (<span> <%= link_to "AssignUnits.xlsx", "/cargas/AssignUnits.xlsx" %> </span>)
@@ -14,10 +14,10 @@
         </div>
       <% end %>
     </li>
-    <% if @assignation_year !=  @process_year %>
+    <% if @assignation_year !=  @rpt_year %>
       <li>
-        Copia (se muestran los datos de <%= @assignation_year %>  y se copiaran en <%= @process_year %>):
-        <%= link_to "Copiar asignaciones", copy_admin_unit_rpt_assignations_path(year: @process_year, copy: true), class: "button hollow small" %>
+        <%= t('admin.unit_rpt_assignations.index.initialize_links.copy.title', assignation_year: @assignation_year, process_year: @rpt_year ) %>
+        <%= link_to t('admin.unit_rpt_assignations.index.initialize_links.copy.link'), copy_admin_unit_rpt_assignations_path(year: @rpt_year, copy: true), class: "button hollow small" %>
       </li>
     <% end %>
   </ul>

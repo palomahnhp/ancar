@@ -1,6 +1,6 @@
 <h2><%= t("admin.settings.index.title") %></h2>
 
-<h3><%= t("admin.settings.index.general.title") %></h3>
+<h5><%= t("admin.settings.index.general.title") %></h5>
 <table>
   <tbody>
     <% @settings.each do |setting| %>
@@ -25,7 +25,7 @@
 </table>
 
 <h3><%= t("admin.settings.index.imported_source.title") %></h3>
-<h4><%= t("admin.settings.index.imported_source.subtitle") %></h4>
+<h5><%= t("admin.settings.index.imported_source.subtitle") %></h5>
 <table>
   <tbody>
   <% @imported_sources.each do |imported_source| %>
@@ -51,7 +51,7 @@
 </table>
 
 <h3><%= t("admin.settings.index.validations.title") %></h3>
-<h4><%= t("admin.settings.index.validations.lower_staff.title") %></h4>
+<h5><%= t("admin.settings.index.validations.lower_staff.title") %></h5>
 <table>
   <tbody>
   <% @validations.each do |validation| %>
@@ -77,7 +77,7 @@
 </table>
 
 <h3><%= t("admin.settings.index.rpt.title") %></h3>
-<h4><%= t("admin.settings.index.rpt.vacancy.title") %></h4>
+<h5><%= t("admin.settings.index.rpt.vacancy.title") %></h5>
 <table>
   <tbody>
   <% if @rpt_vacancy.present? %>
@@ -104,7 +104,7 @@
   </tbody>
 </table>
 
-<h4><%= t("admin.settings.index.rpt.only_grtit.title") %></h4>
+<h5><%= t("admin.settings.index.rpt.only_grtit.title") %></h5>
 <table>
   <tbody>
   <% if @rpt_only_grtit.present? %>
@@ -132,7 +132,7 @@
 </table>
 
 <h3><%= t("admin.settings.index.send_email.title") %></h3>
-<h4><%= t("admin.settings.index.send_email.change_staff.title") %></h4>
+<h5><%= t("admin.settings.index.send_email.change_staff.title") %></h5>
 <table>
   <tbody>
   <% if @send_emails_change_staff.present? %>
