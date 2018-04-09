@@ -18,7 +18,7 @@ class Admin::RptsController < Admin::BaseController
   def import
 #    filepath = "public/imports/#{params[:file].original_filename}"
     filepath = params[:file].original_filename
-    if filepath.exist?
+    if params[:file].exist?
      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
      resp = RptImportJob.perform_later(params[:year], File.extname(params[:file].original_filename), filepath)
     else
