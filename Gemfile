@@ -44,7 +44,7 @@ gem 'rollbar', '~> 2.8.0' # exception tracking for ruby
 gem 'delayed_job_active_record', '~> 4.1.0'
 gem 'daemons', '~> 1.2' # wrap existing ruby scripts to be run as a daemon.
 
-gem 'whenever', '~> 0.9.7', require: false # Clean ruby syntax for writing and deploying cron jobs (scheduled jobs).
+gem 'whenever', require: false # Clean ruby syntax for writing and deploying cron jobs (scheduled jobs).
 
 # gem 'groupdate', '~> 3.1'   # group temporary data
 # gem 'tolk', '~> 2.0' # Web interface for translations
@@ -60,6 +60,7 @@ gem 'unicorn', '~> 5.2'
 gem 'spreadsheet', '~> 1.1', '>= 1.1.2'
 
 gem "roo", "~> 2.7.0"
+gem "roo-xls"
 
 # Create beautiful Javascript charts with one line of Ruby
 gem 'chartkick', '~> 2.2'
@@ -78,6 +79,7 @@ gem 'tiny_tds', '~> 2.1', '>= 2.1.1'
 gem 'activerecord-sqlserver-adapter', '~> 4.1'
 
 gem 'ransack'
+gem 'sidekiq'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  after_create :assign_default_role
 
   def create
     @user = User.new(user_params)

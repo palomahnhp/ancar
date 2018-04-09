@@ -1,7 +1,10 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
 
-  resources :first_level_units
-  mount RailsAdmin::Engine => '/console', as: 'rails_admin'
+#  authenticate :user, lambda { |u| u.has_role?(:admin,:any)} do
+    mount RailsAdmin::Engine => '/console', as: 'rails_admin'
+    mount Sidekiq::Web => '/sidekiq'
+#  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -26,6 +29,7 @@ Rails.application.routes.draw do
   resources :units
   resources :instructions
   resources :docs
+  resources :first_level_units
 
   namespace :admin do
     root to: "dashboard#index"
@@ -63,6 +67,7 @@ Rails.application.routes.draw do
         get :copy
         post :import
         post :update_assignations
+        get :show_organization
       }
     end
     resources :first_level_units do

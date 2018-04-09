@@ -22,6 +22,7 @@ module Ancar
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
 
+    # Set the adapter of Active Job
     config.active_job.queue_adapter = :sidekiq
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
@@ -30,7 +31,6 @@ module Ancar
     # Add lib to the autoload path
     config.autoload_paths << Rails.root.join('lib')
 
-    config.active_job.queue_adapter = :delayed_job
 
     # Add the new directories to the locales load path
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]

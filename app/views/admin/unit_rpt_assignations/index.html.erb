@@ -1,86 +1,54 @@
 <div class="row" >
-
   <div class="small-12 columns">
-    <h1 class="text-center">Asignación de RPT a unidades</h1>
-    <div class="row" >
-      <p class="note">
-        Asignación de unidades a los departamentos para el calculo de RPT asignada a cada unidad.
-        <ul class="note">
-          <li>Último periodo creado        : <%= @process_year %>     </li>
-          <li>Última RPT cargada           : <%= @rpt_year %>         </li>
-          <li>Última asignación de unidades: <%= @assignation_year %> </li>
-        </ul>
-      </p>
-    </div>
-    <div class="row" >
-      <div class="note small-12 columns">
-        <div class="small-6 columns">
-          Exportar listado:
-          <%= link_to "Excel", supervisor_units_path(format: "xls") %> |
-          <%= link_to "CSV",   supervisor_units_path(format: "csv") %>
-        </div>
-        <div class="small-6 columns">
-          Exportar <strong>RPT</strong>:
-          <%= link_to "Excel", admin_rpts_path(format: "xls") %> |
-          <%= link_to "CSV", admin_rpts_path(format: "csv") %>
-        </div>
-      </div>
-    </div>
-
-    <%  if @organizations_assignated.blank? %>
-      <p> No hay datos de asignación cargados</p>
-      <p  class="note">
-        Inicializar manualmente
-        <%= link_to "Inicializar", init_or_copy_admin_unit_rpt_assignations_path(year: @process_year, init: true), class: "button hollow" %>
-      </p>
-      <p  class="note">
-        Inicializar partiendo de fichero con el formato: <span> <%= link_to "AssignUnits.xlsx", "/cargas/AssignUnits.xlsx" %> </span>)
-         <%= form_tag import_admin_unit_rpt_assignations_path(year: @process_year), multipart: true do %>
-          <div class="medium-4 columns">
-            <%= file_field_tag(:file) %>
-          </div>
-          <div class="medium-2 columns end">
-            <%= submit_tag "Importar", class: "hollow button" %>
-          </div>
-        <% end %>
-      </p>
-    <% else %>
-
-      <div class="small-12 columns">
-        <p  class="note">
-         <% if @assignation_year !=  @process_year %>
-            Se muestran los datos de <%= @assignation_year %>  y se copiaran en <%= @process_year %>. <br>
-            Las modificaciones de asignacion se realizan desde el menú del supervisor <br>
-            <%= link_to "Copiar asignaciones", copy_admin_unit_rpt_assignations_path(year: @process_year, copy: true), class: "button hollow" %>
-          <% end %>
-        </p>
-        <p  class="note">
-          Si se desea inicializar la asignación para el presente año:
-          <%= link_to "Inicializar", init_admin_unit_rpt_assignations_path(year: @process_year, init: true), class: "button hollow" %>
-        </p>
-        <p  class="note">
-          Inicializar partiendo de fichero con el formato: <span> <%= link_to "AssignUnits.xlsx", "/cargas/AssignUnits.xlsx" %> </span>
-           <%= form_tag import_admin_unit_rpt_assignations_path(year: @process_year), multipart: true do %>
-          <div class="medium-4 columns">
-            <%= file_field_tag(:file) %>
-          </div>
-          <div class="medium-2 columns end">
-            <%= submit_tag "Importar", class: "hollow button" %>
-          </div>
-        <% end %>
-        </p>
-
-      </div>
-
-    <% end %>
+    <h1 class="text-center"><%= t('admin.unit_rpt_assignations.index.title')%></h1>
+    <br>
   </div>
+</div>
 
-  <%= form_tag(update_assignations_admin_unit_rpt_assignations_path(year: @process_year )) do %>
-    <%= hidden_field_tag :year, @process_year %>
-    <div class="medium-2 columns end">
-      <p><%= submit_tag "Actualizar asignaciones", class: "hollow button"  %></p>
+<div class="row" >
+  <%= render "load_status" %>
+</div>
+<hr>
+<div class="row" >
+  <div class="small-12 columns">
+    <div class="small-6 columns">
+      <%= render "initializate_links" %>
     </div>
-    <%= render "organization" %>
-  <% end %>
 
+    <div class="small-6 columns">
+      <% if @organizations_assignated.present? %>
+        <%= render "export_links" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<hr>
+
+<div class="row" >
+  <div class="small-12 columns">
+    <% if @organizations_assignated.blank? %>
+      <p> <strong><%= t('admin.unit_rpt_assignations.index.no_data')%></strong></p>
+    <% else %>
+      <table class="unit-status">
+        <tr class="text-left">
+          <th> <%= t('admin.unit_rpt_assignations.index.detail') %></th>
+          <th> <%= t('admin.unit_rpt_assignations.index.organization') %></th>
+          <th> <%= t('admin.unit_rpt_assignations.index.occupied') %> </th>
+          <th> <%= t('admin.unit_rpt_assignations.index.vacancy') %> </th>
+          <th colspan="2"></th>
+        </tr>
+        <% @organizations_assignated.each do |record| %>
+          <% if record.organization.blank? then next end %>
+          <tr>
+            <td><%= link_to "", show_organization_admin_unit_rpt_assignations_path(organization: record.organization), class: "icon-search"%></td>
+            <td title="<%= record.organization.id %>">
+              <%= record.organization.description %>
+            </td>
+            <%= render partial: 'display_organization_rpt',
+                       locals: {year: @process_year, organization: record.organization} %>
+          </tr>
+        <% end %>
+      </table>
+  <% end%>
+  </div>
 </div>

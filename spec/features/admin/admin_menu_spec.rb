@@ -27,12 +27,14 @@ feature 'Admin dashboard' do
         expect(page).to have_content 'Configuración global'
       end
 
-      within("li#stats") do
-        expect(page).to have_content 'Estadísticas'
+      within("li#console") do
+        expect(page).to have_content 'Consola de administración'
       end
 
+      within("li#sidekiq") do
+        expect(page).to have_content 'Jobs asíncronos'
+      end
     end
-
   end
 
   context 'Users' do

@@ -1,0 +1,14 @@
+<div class="small-12 columns">
+  <p> <%= t('admin.unit_rpt_assignations.index.export_links.title_html') %> </p>
+  <ul class="note">
+    <li>
+      <%= t('admin.unit_rpt_assignations.index.export_links.assignated_units', year: @assignation_year) %>
+      <%= link_to "Excel", supervisor_units_path(format: "xls") %> |
+    </li>
+    <li>
+      <%= t('admin.unit_rpt_assignations.index.export_links.rpt', rpt_year: @rpt_year) %>
+      <%= link_to "Excel", admin_rpts_path(format: "xls") %> |
+    </li>
+  </ul>
+
+</div>

@@ -7,7 +7,7 @@
 </tr>
 
 <tr>
-  <% UnitRptAssignation.by_year_and_organization_without_unit((@year), @organization).each do |assign_rec| %>
+  <% UnitRptAssignation.by_year(@year).by_organization(@organization).unassigned.each do |assign_rec| %>
   <tr>
     <td  colspan="2" title="<%= assign_rec.sapid_unit %>"> <%= assign_rec.den_unit %> </td>
     <td title="Rpt">

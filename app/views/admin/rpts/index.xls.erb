@@ -4,16 +4,16 @@
   xmlns:x="urn:schemas-microsoft-com:office:excel"
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:html="http://www.w3.org/TR/REC-html40">
-  <Worksheet ss:Name="Plantilla">
+  <Worksheet ss:Name="RPT">
     <Table>
       <Row>
         <% Rpt.export_columns.each do |col| %>
           <Cell><Data ss:Type="String"><%= col %></Data></Cell>
         <% end %>
       </Row>
-      <% @organization_types.rpts.each do |type| %>
+      <% @organization_types.each do |type| %>
         <% type.organizations.each do |organization| %>
-          <% organization.rpts.each do |position| %>
+          <% organization.rpts.by_year(@year).each do |position| %>
             <Row>
               <% Rpt.export_columns.each do |col| %>
                 <Cell><Data ss:Type="Number"><%= position.send(col.to_sym) %></Data></Cell>

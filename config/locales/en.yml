@@ -196,12 +196,12 @@ en:
     no_indicators: No se han incluido indicadores para el resumen de este proceso
   share:
     menu:
-      first_level_units: Asignar Áreas a SGTS
+      first_level_units: Asignar Orga. primer nivel a Org. Ancar
   shared:
     first_level_unit:
       index:
         actions: Acciones
-      title: Asignación de Áreas a SGTs
+      title: Asignación de Unidades primer nivel a Organizaciones Ancar
     print:
       print_button: Imprimir
     roles:

@@ -7,9 +7,12 @@ class Rpt < ActiveRecord::Base
   scope :by_organization, ->(organization) { where( organization: organization ) }
   scope :by_unit,         ->(unit) { where( unit: unit ) }
   scope :by_unit_sap,     ->(unit) { where( sapid_unidad: unit ) }
+  scope :by_unit_rpt_assigned, -> { where( sapid_unidad: UnitRptAssignation.assigned.pluck(:sapid_unit) ) }
+
   scope :by_year,         ->(year) { where( year: year ) }
   scope :vacant,          -> { where(ocupada: 'VC') }
   scope :occupied,        -> { where(ocupada: 'OC') }
+
   scope :A1,              -> { where(grtit_per: 'A1') }
   scope :A2,              -> { where(grtit_per: 'A2') }
   scope :C1,              -> { where(grtit_per: 'C1') }
@@ -26,49 +29,8 @@ class Rpt < ActiveRecord::Base
     end
   end
 
-  def self.import(year, file = '')
-    if file.present?
-      self.import_from_xls(file)
-    else
-      self.import_from_rptdb(year)
-    end
-  end
-
-  def self.import_from_rptdb(year)
-    Gpwrpt.connection
-    Organization.all.each do |organization|
-      sql_import_rpt_sentence(year, organization)
-      rpt_data = Gpwrpt.find_by_sql(sql_import_rpt_sentence(year, organization))
-      update_rpt_data(rpt_data)
-    end
-  end
-
-  def self.import_from_xls(file)
-    spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(1)
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      rpt = find_by(year: row["year"], sapid_area: row["sapid_area"],
-                    sapid_unidad: row["sapid_unidad"], id_puesto: row["id_puesto"]) || new
-      rpt.attributes   = row.to_hash
-      rpt.organization = FirstLevelUnit.find_by(sapid_unit: row["sapid_area"]).organization
-      rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
-      Rails.logger.info { "No se actualiza el registro " + i.to_s + row["den_area"] + rpt.errors.messages.to_s } unless rpt.save
-    end
-    true
-  end
-
-  def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
-      when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
-      when ".xls" then Roo::Excel.new(file.path)
-      when ".xlsx" then Roo::Excelx.new(file.path)
-      else raise "Unknown file type: #{file.original_filename}"
-    end
-  end
-  
   def self.export_columns
-    %w{
+    %w[
       year
       den_area
       sapid_area
@@ -97,7 +59,7 @@ class Rpt < ActiveRecord::Base
       fecha_baja
       editable_Z01
       ficticio_Z02
-  }
+  ]
     
   end
 

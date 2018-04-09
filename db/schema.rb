@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20180307120715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "adminpack"
 
   create_table "approvals", force: :cascade do |t|
     t.integer  "period_id"

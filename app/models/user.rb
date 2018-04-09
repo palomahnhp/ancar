@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
     else
       @organizations ||= Organization.with_roles(ROLES, self).distinct
     end
-    @organizations = @organizations.distinct.order(:order)
+    @organizations = @organizations.distinct.order(:description)
   end
 
   def auth_units()

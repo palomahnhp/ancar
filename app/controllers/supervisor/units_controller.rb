@@ -4,6 +4,7 @@ class Supervisor::UnitsController < Supervisor::BaseController
 
     @organization_types = OrganizationType.with_roles(:supervisor, current_user)
     @organization_types = OrganizationType.all if current_user.has_role? :admin
+
     respond_to do |format|
       format.html
       format.xls # { send_data @rpts.to_csv(col_sep: "\t") }
@@ -24,6 +25,7 @@ class Supervisor::UnitsController < Supervisor::BaseController
     @units = @organization.units
     @year = params[:year]
     @conditions = params[:conditions]
+    @period = Period.where(organization_type: @organization.organization_type).last
   end
 
   def update
@@ -34,9 +36,9 @@ class Supervisor::UnitsController < Supervisor::BaseController
     @error = false
     update_assigned_employees
       if @error
-        flash[:error]  = "Error actualizando asignación de RPT a la unidad #{@old_assigned_employee.errors.messages}"
+        flash[:error]  = t('supervisor.units_update.error', message: @old_assigned_employee.errors.messages )
       else
-        flash[:notice] = "Actualiza asignación de RPT a la unidad"
+        flash[:notice] = t('supervisor.units_update.success')
       end
       redirect_to edit_supervisor_unit_path(params[:id], year: @year)
   end
@@ -60,9 +62,9 @@ class Supervisor::UnitsController < Supervisor::BaseController
   end
 
   def year_to_process
-    @rpt_year     = Rpt.order(:year).last.year if Rpt.order(:year).present?
-    @rpt_year     = @process_year unless Rpt.order(:year).present?
-    @year         = params[:year].present? ? params[:year] : @rpt_year
+    @rpt_year         = Rpt.maximum(:year)
+    @assignation_year = UnitRptAssignation.maximum(:year)
+    @year             = params[:year].present? ? params[:year] : Period.maximum(:ended_at).year
   end
 
   def update_assigned_employees
@@ -87,7 +89,5 @@ class Supervisor::UnitsController < Supervisor::BaseController
         end
       end
     end
-
   end
-
 end
