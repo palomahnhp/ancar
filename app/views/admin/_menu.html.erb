@@ -74,16 +74,17 @@
       <% end %>
     </li>
 
-    <li id="stats" <%= 'class=active' if controller_name == 'stats' %>>
-      <%= link_to admin_root_path do %>
-        <span class="icon-chart-bar"></span>
-        <%= t('admin.menu.stats') %>
-      <% end %>
-    </li>
     <li id="console" <%= 'class=active' if controller_name == 'RailsAdmin::Engine' %>>
       <%= link_to rails_admin_path, target: :_blank  do %>
           <span class="icon-cogs"></span>
           <%= t('admin.menu.console') %>
+      <% end %>
+    </li>
+
+    <li id="sidekiq" <%= 'class=active' if controller_name == 'Sidekiq::Web' %>>
+      <%= link_to sidekiq_web_path, target: :_blank  do %>
+          <span class="icon-cogs"></span>
+          <%= t('admin.menu.sidekiq') %>
       <% end %>
     </li>
   </ul>

@@ -36,11 +36,13 @@ class UnitRptAssignation < ActiveRecord::Base
       unit.unit_id = assign[1]
       unit.save
     end
-    unassigns&.each do |unassign|
-      next if unassign[1].blank?
-      unit = find_by(sapid_unit: unassign[0], year: year)
-      unit.unit_id = nil
-      unit.save
+    if unassigns.present?
+      unassigns.each do |unassign|
+        next if unassign[1].blank?
+        unit = find_by(sapid_unit: unassign[0], year: year)
+        unit.unit_id = nil
+        unit.save
+      end
     end
   end
 

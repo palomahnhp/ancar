@@ -22,10 +22,10 @@ en:
       organization_types: Tipos de organizaciones
       organizations: Organizaciones
       settings: Configuración global
-      stats: Estadísticas
       unit_types: Tipos de unidades
       units: Unidades
       users: Usuarios
+      sidekiq: "Jobs asíncronos"
     organization_types:
       acronym: Acrónimo
       description: Descripción
@@ -128,7 +128,7 @@ en:
         no_assigned: "SIN ASIGNAR"
       index:
         no_data: "No hay datos de asignación cargados"
-        title: "Asignacion de RPT  a unidades"
+        title: "Asignacion de RPT a unidades"
         initialize_links:
           initialize: "Inicializar"
           title_html: "<strong>Inicializar</strong> asignación de unidades para última RPT cargada: "
