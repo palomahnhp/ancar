@@ -26,7 +26,7 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   end
 
   def import
-    filepath = "public/imports/#{params[:file].original_filename}"
+    filepath = Rails.root + 'public/imports/' + params[:file].original_filename
     if File.rename(params[:file].path, filepath)
       resp = UnitAssignationJob.perform_later(params[:year], File.extname(params[:file].original_filename), filepath)
       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
