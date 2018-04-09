@@ -26,10 +26,6 @@ DatabaseCleaner.clean_with :truncation
                  updated_by: "seed")
   to2 = OrganizationType.create!(acronym: "SGT", description: "Secretarías Generales Técnicas",
                  updated_by: "seed")
-  to3 = OrganizationType.create!(acronym: "AG", description: "Áreas de Gobierno",
-                 updated_by: "seed")
-  to4 = OrganizationType.create!(acronym: "OOAA", description: "Organismos Autónomos",
-                 updated_by: "seed")
 
 #puts "3. Creando Tipos de unidades para Distritos"
   ut1 = UnitType.create!(description: "DEPARTAMENTO DE SERVICIOS JURIDICOS", organization_type_id: to1.id, order: 1, updated_by: "seed")
