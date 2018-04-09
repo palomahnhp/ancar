@@ -16,15 +16,15 @@ class Admin::RptsController < Admin::BaseController
   end
 
   def import
-    filepath = "public/imports/#{params[:file].original_filename}"
-    if File.rename(params[:file].path, filepath)
+#    filepath = "public/imports/#{params[:file].original_filename}"
+    filepath = params[:file].original_filename
+    if filepath.exist?
      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
      resp = RptImportJob.perform_later(params[:year], File.extname(params[:file].original_filename), filepath)
     else
-      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso '
+      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + filepath
     end
     redirect_to admin_rpts_path, notice: message
-
   end
 
   private
