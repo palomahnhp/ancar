@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user }
+
   rolify
   paginates_per 25
   belongs_to :organization

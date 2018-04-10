@@ -1,4 +1,7 @@
 class SubProcess < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user }
+
   has_many :tasks, :dependent => :destroy
   has_many :indicators, through: :tasks, :dependent => :destroy
   has_many :assigned_employees, as: :staff_of, :dependent => :destroy

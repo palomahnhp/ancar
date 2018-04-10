@@ -1,4 +1,6 @@
 class FirstLevelUnit < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked
   belongs_to :organization
 
   scope :active,   -> { where(period_to: nil ) }

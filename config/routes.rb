@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     end
     resources :stats
     resources :in_works
+    resources :activities
     resources :roles, only: [:index]
     resources :rpts do
       collection { post :import }

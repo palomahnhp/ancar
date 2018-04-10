@@ -1,5 +1,8 @@
 class Validation  < ActiveRecord::Base
 
+  include PublicActivity::Model
+  tracked
+
   belongs_to :period
   belongs_to :unit
 
