@@ -1,4 +1,6 @@
 class UnitRptAssignation < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked
 
   belongs_to :unit
   belongs_to :organization

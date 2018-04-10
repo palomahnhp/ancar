@@ -135,6 +135,7 @@ ignore_unused:
   - 'entry_indicators.form.error.title.*'
   - 'entry_indicators.form.error.p1.*'
   - 'entry_indicators.form.error.p2.*'
+  - 'admin.activities.index.class.*'
 
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

@@ -74,6 +74,13 @@
       <% end %>
     </li>
 
+    <li id="activities" <%= 'class=active' if controller_name == 'activities' %>>
+      <%= link_to admin_activities_path do %>
+        <span class="icon-eye"></span>
+        <%= t('admin.menu.activities') %>
+      <% end %>
+    </li>
+
     <li id="console" <%= 'class=active' if controller_name == 'RailsAdmin::Engine' %>>
       <%= link_to rails_admin_path, target: :_blank  do %>
           <span class="icon-cogs"></span>
