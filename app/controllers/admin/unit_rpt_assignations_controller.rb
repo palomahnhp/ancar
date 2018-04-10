@@ -26,12 +26,15 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   end
 
   def import
-    filepath = Rails.root + 'public/imports/' + params[:file].original_filename
-    if File.rename(params[:file].path, filepath)
-      resp = UnitAssignationJob.perform_later(params[:year], File.extname(params[:file].original_filename), filepath)
+    filepath = params[:file].tempfile.path
+    if File.exists?(filepath)
       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
+      Thread.new do
+        Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
+        ActiveRecord::Base.connection.close
+      end
     else
-      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso '
+      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + filepath
     end
     redirect_to admin_unit_rpt_assignations_path, notice: message
   end

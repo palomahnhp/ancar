@@ -19,11 +19,11 @@
 # Learn more: http://github.com/javan/whenever
 # Update whenever -w  o whenever --update-crontab
 #
-job_type :runner, "cd :path && bin/rails runner -e :environment ':task' :output"
 
 set :output, {:error => "log/cron_ancar_error.log", :standard => "log/cron_ancar_log.log"}
-set :environment, "development"
 
-# every 1.year do
-#   runner "Rpt.import('2016', 'xlsx', 'public/cargas/RPTCompleta_Pruebas.xlsx')"
-# end
+every 1.minute do
+  command "date > log/cron_ancar_test_log.log"
+end
+
+
