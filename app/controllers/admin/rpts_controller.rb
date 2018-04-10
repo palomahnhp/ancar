@@ -19,10 +19,11 @@ class Admin::RptsController < Admin::BaseController
     filepath = params[:file].tempfile.path
     if File.exists?(filepath)
      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
-      Thread.new do
+      t = Thread.new do
         Importers::RptImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
         ActiveRecord::Base.connection.close
       end
+
     else
       message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + filepath
     end
