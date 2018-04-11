@@ -10,28 +10,27 @@ module Importers
 
     def run
       Rails.logger.info (self.class.to_s + ' - '  + Time.zone.now.to_s + " - Inicio con parámetros:  #{@year} / #{@filepath}")
-      parse
-      notify_admin
+      ret = parse
+      notify_admin(ret)
       Rails.logger.info (self.class.to_s + ' - '  +  Time.zone.now.to_s + " - Fin de proceso:")
     end
 
-    private
-
-    def notify_admin
-      if @start.blank?
-        puts '*** notify_Admin **** Ejecutado importer '
-        @start = true
-      else
-        puts '*** notify_Admin **** Ejecutado importer '
-      end
+    def notify_admin(ret)
+      message =  ret.blank? ? '*** notify_Admin **** ERROR: ejecutando importer - revisar log  ' : '*** notify_Admin **** OK: Ejecutado importer'
+      Rails.logger.info(self.class.to_s + ' - '  +  message)
     end
 
     def open_spreadsheet
-      case @extname
-        when ".csv" then Roo::Csv.new(@filepath, nil, :ignore)
-        when ".xls" then Roo::Excel.new(@filepath)
-        when ".xlsx" then Roo::Excelx.new(@filepath)
-        else raise "Unknown file type: #{@filepath}"
+      begin
+        case @extname
+          when ".csv" then Roo::Csv.new(@filepath, nil, :ignore)
+          when ".xls" then Roo::Excel.new(@filepath)
+          when ".xlsx" then Roo::Excelx.new(@filepath)
+          else raise " - Tipo de archivo no permitido: #{@filepath}"
+        end
+      rescue StandardError => e
+        Rails.logger.info(self.class.to_s + ' - '  +  e.message)
+        false
       end
     end
 

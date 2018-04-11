@@ -4,15 +4,15 @@
   </h1>
 </div>
 <div class="row">
-  <table >
+  <table class="unit-status">
     <thead>
     <tr>
       <th><%= t('admin.activities.index.date')%></th>
+      <th><%= t('admin.activities.index.key')%></th>
       <th><%= t('admin.activities.index.user')%></th>
       <th><%= t('admin.activities.index.trackable_type')%></th>
       <th><%= t('admin.activities.index.trackable_id')%></th>
       <th><%= t('admin.activities.index.trackable_description')%></th>
-      <th><%= t('admin.activities.index.key')%></th>
       <th><%= t('admin.activities.index.parameters')%></th>
 
     </tr>
@@ -20,12 +20,16 @@
     <tbody>
     <% @activities.each do |activity| %>
       <tr>
-        <td><%= l activity.created_at, format: :short %></td>
-        <td><%= activity.owner.login + ' - ' + activity.owner.full_name if activity.owner.present? %></td>
+        <td class="date-width"><%= l activity.created_at, format: :short %></td>
+        <td><%= activity.key %></td>
+        <td class="user-width"><%= activity.owner.full_name if activity.owner.present? %> <%= activity.owner.login %> </td>
         <td><%= activity.trackable_type %></td>
         <td><%= activity.trackable_id %></td>
-        <td><%= activity.trackable.description if activity.trackable.present? && activity.trackable.description.present? %></td>
-        <td><%= activity.key %></td>
+        <% if activity.trackable.respond_to?(:description) %>
+          <td><%= activity.trackable.description %></td>
+        <% else %>
+          <td><%= activity.key %></td>
+        <% end %>
         <td id="activities_parameters"><%= activity.parameters %></td>
       </tr>
     <% end %>
