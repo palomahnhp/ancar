@@ -1,5 +1,5 @@
 class Admin::UnitRptAssignationsController < Admin::BaseController
-
+  Thread.abort_on_exception = true
   def index
    year_to_process
    @organizations_assignated = UnitRptAssignation.select(:organization_id).by_year(@assignation_year).order(:organization_id).distinct.to_a
@@ -28,12 +28,18 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   def import
     filepath = params[:file].tempfile.path
     if File.exists?(filepath)
-      current_user.create_activity(key: 'Importar asignacion de unidades para RPT', params: {file: filepath}, owner: current_user)
+      current_user.create_activity(key: 'Importar asignacion de unidades para RPT',
+                                   params: { file: filepath }, owner: current_user)
       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
-      Thread.new do
-        Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
-        ActiveRecord::Base.connection.close
+      begin
+        Thread.new do
+          Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
+          ActiveRecord::Base.connection.close
+        end
+      rescue StandardError => e
+        Rails.logger.info (params[:controller] + '#' + params[:action] + ' - '  + Time.zone.now.to_s +  " EXCEPTION: " + e.inspect + " MESSAGE: " + e.message )
       end
+
     else
       message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + filepath
     end

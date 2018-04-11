@@ -3,7 +3,7 @@ module AppHelper
     url_for(request.query_parameters.merge(query_parameters))
   end
 
-  def format_number(num, format='')
+  def format_number(num, format = '')
     num = 0 if num.nil?
     if format.blank?
       number_to_currency(num, {:unit => '', :separator => ',', :delimiter =>

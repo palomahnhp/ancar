@@ -1,5 +1,5 @@
 module Importers
-  class UnitRptAssignationImporter  < BaseImporter
+  class UnitRptAssignationImporter < BaseImporter
 
     def parse
       Rails.logger.info (self.class.to_s + ' - '  + Time.zone.now.to_s + " - comienza lectura fichero: #{@filepath}")
@@ -18,7 +18,8 @@ module Importers
               unit_assignation.organization = FirstLevelUnit.find_by(sapid_unit: row["id_area"]).organization
             end
             unit_assignation.save!
-            Rails.logger.info { self.class.to_s + ' - '  +  "No se actualiza el registro " + i.to_s + row["denominacion"] + unit_assignation.errors.messages.to_s }
+            Rails.logger.info { self.class.to_s + ' - ' + "No se actualiza el registro " + i.to_s + row["denominacion"]
+            + unit_assignation.errors.messages.to_s }
           rescue StandardError => e
             Rails.logger.info(self.class.to_s + ' - '  +  " - Error parse unit_Assignation: #{@filepath}" + e.message)
             false

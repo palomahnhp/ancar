@@ -1,5 +1,4 @@
 class Admin::RptsController < Admin::BaseController
-  Thread.abort_on_exception = true
 
   def index
     @year = Rpt.maximum(:year)
@@ -20,13 +19,13 @@ class Admin::RptsController < Admin::BaseController
     filepath = ''
     filepath = params[:file].tempfile.path if params[:file].present?
     if File.exists?(filepath)
-     current_user.create_activity(key: 'Importar RPT', params: {file: filepath}, owner: current_user)
+     current_user.create_activity(key: 'Importar RPT', params: { file: filepath }, owner: current_user)
      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
      begin
        Thread.new do
           Importers::RptImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
           ActiveRecord::Base.connection.close
-        end
+       end
      rescue StandardError => e
        Rails.logger.info (params[:controller] + '#' + params[:action] + ' - '  + Time.zone.now.to_s +  " EXCEPTION: " + e.inspect + " MESSAGE: " + e.message )
      end
