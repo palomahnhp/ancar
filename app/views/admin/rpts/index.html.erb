@@ -25,37 +25,11 @@
         <%= link_to t('admin.rpts.index.export.button'), admin_rpts_path(format: "xls") %>
       </p>
     </div>
+    <%= render 'rpt_counts' %>
 
-    <div class="row">
-      <div class="small-12 columns">
-        <% if @year.present? %>
-          <div class="small-6 medium-4 columns">
-            <strong> <%= t('admin.rpts.index.last_year') %> <%= @year %> </strong>
-          </div>
-        <% else %>
-            <strong class="text-center"> <%= t('admin.rpts.index.no_data') %> </strong>
-        <% end %>
+    <!--%= render 'show_organizations_list' %-->
 
-        <table class="unit-status">
-          <tr>
-            <th> <%= t('admin.rpts.index.load') %></th>
-            <th> <%= t('admin.rpts.index.organization') %> </th>
-            <th> <%= t('admin.rpts.index.occupied') %> </th>
-            <th> <%= t('admin.rpts.index.vacancy') %> </th>
-          </tr>
 
-          <% @organizations.each do |organization|%>
-            <tr>
-              <td class="check">
-                <span class="<%= organization_loaded?(organization, @year) %>"></span></td>
-              <td> <%= organization.description %> </td>
-              <td> <%= organization.rpts.by_year(@year).occupied.count %> </td>
-              <td> <%= organization.rpts.by_year(@year).vacant.count %> </td>
-            </tr>
-          <% end %>
 
-        </table>
-      </div>
-    </div>
   </div>
 </div>
