@@ -22,10 +22,10 @@ en:
       organization_types: Tipos de organizaciones
       organizations: Organizaciones
       settings: Configuración global
+      sidekiq: Jobs asíncronos
       unit_types: Tipos de unidades
       units: Unidades
       users: Usuarios
-      sidekiq: "Jobs asíncronos"
     organization_types:
       acronym: Acrónimo
       description: Descripción
@@ -35,6 +35,19 @@ en:
     organizations:
       index:
         title: Organizaciones
+    rpts:
+      index:
+        export:
+          button: Excel
+          title: Exportar la RPT
+        import:
+          button: Importar
+          format: Formato excel
+          import:
+            title: Importar la RPT
+          line_html: Elije el excel a importar con el botón
+        last_year: "Último año cargado:"
+        no_data: No hay datos de RPT cargados
     settings:
       flash:
         updated: Valor actualizado
@@ -110,6 +123,25 @@ en:
           user_test: Clave para pruebas de acceso
     shared:
       in_works: "¡¡¡¡ Página en CONSTRUCCIÓN !!!!"
+    unit_rpt_assignations:
+      index:
+        export_links:
+          assignated_units: 'Listado de asignación de %{year}:'
+          rpt: 'RPT completa de %{rpt_year}:'
+          title_html: "<strong>Exportar</strong> :"
+        initialize_links:
+          copy:
+            link: Copiar asignaciones
+            title: Copia los datos mostrados que corresponde a %{assignation_year} y se copiaran en %{process_year})
+          initialize: Inicializar
+          text: 'Básica (solo departamentos):'
+          title_html: "<strong>Inicializar</strong> asignación de unidades para última RPT cargada: "
+        no_data: No hay datos de asignación cargados
+        title: Asignacion de RPT a unidades
+      show_organization:
+        delete_column: Eiminar
+        no_assigned: SIN ASIGNAR
+        title: Detalle de la asignación de RPT a unidades
     unit_types:
       description: Descripción
       edit: Modificar Tipo de unidad
@@ -121,41 +153,5 @@ en:
     units:
       index:
         title: Unidades
-    unit_rpt_assignations:
-      show_organization:
-        title: "Detalle de la asignación de RPT a unidades"
-        delete_column: "Eiminar"
-        no_assigned: "SIN ASIGNAR"
-      index:
-        no_data: "No hay datos de asignación cargados"
-        title: "Asignacion de RPT a unidades"
-        initialize_links:
-          initialize: "Inicializar"
-          title_html: "<strong>Inicializar</strong> asignación de unidades para última RPT cargada: "
-          text: "Básica (solo departamentos):"
-          copy:
-            link: "Copiar asignaciones"
-            title: Copia los datos mostrados que corresponde a %{assignation_year} y se copiaran en %{process_year})
-        export_links:
-          title_html: "<strong>Exportar</strong> :"
-          assignated_units: "Listado de asignación de %{year}:"
-          rpt: "RPT completa de %{rpt_year}:"
-    rpts:
-      index:
-        import:
-          line_html: "Elije el excel a importar con el botón"
-          format: "Formato excel"
-          import:
-            title: "Importar la RPT"
-          button: "Importar"
-        export:
-          title: "Exportar la RPT"
-          button: "Excel"
-        last_year: "Último año cargado:"
-        no_data: "No hay datos de RPT cargados"
-        load: "Cargada"
-        organization: "Organizacion"
-        occupied: "Ocupados"
-        vacancy: "Vacantes"
   subnavigation_menu:
     assign_rpt: Asignar rpt

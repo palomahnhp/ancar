@@ -1,5 +1,12 @@
 ---
 en:
+  admin:
+    unit_rpt_assignations:
+      index:
+        detail: Detalle
+        occupied: Ocupados
+        organization: Organización
+        vacancy: Vacantes
   supervisor:
     dashboard:
       index:
@@ -254,36 +261,28 @@ en:
         ok: Visto Bueno
         validation: "Última validación"
     units:
-      index:
-        title: "Asignación de RPT a unidades"
-        organization: "Organización"
-        data: "RPT"
-        export:
-          title: "Exportar:"
-          rpt_html: "RPT"
-          assignation: "Asignación de Rpt a unidades"
-        button:
-          period: "Cambiar periodo"
-        detail: "Detalle"
-        explain_html: "Se muestra la asignación de unidades del último selecconado. Solo podrán modificarse si dicho periodo no está cerrado."
-
       edit:
-        title: "Asignación de RPT a unidades"
         instructions:
-          line_1: "A la derecha de cada unidad se muestran los datos por grupo de titulación:"
+          line_1: 'A la derecha de cada unidad se muestran los datos por grupo de titulación:'
           line_2_html: Si la unidad tiene asignados datos, se muestran estos con <span class="icon-check"><span>
           line_3_html: Si no tienen datos asignados se muestran los de la RPT en la columnas de la izquierda
           line_4: Se muestran en rojo cuando no coincide con los datos de la RPT a 31 de diciembre
           line_5: Solo se pueden modificar si el periodo no está cerrado.
         organization_data:
-          submit: "Actualizar RPT de la unidad"
-    units_update:
-      error: "Error actualizando asignación de RPT a la unidad %{message}"
-      success: "Actualiza asignación de RPT a la unidad"
-  admin:
-    unit_rpt_assignations:
+          submit: Actualizar RPT de la unidad
+        title: Asignación de RPT a unidades
       index:
-        detail: "Detalle"
-        organization: "Organización"
-        occupied: "Ocupados"
-        vacancy: "Vacantes"
+        button:
+          period: Cambiar periodo
+        data: RPT
+        detail: Detalle
+        explain_html: Se muestra la asignación de unidades del último selecconado. Solo podrán modificarse si dicho periodo no está cerrado.
+        export:
+          assignation: Asignación de Rpt a unidades
+          rpt_html: RPT
+          title: 'Exportar:'
+        organization: Organización
+        title: Asignación de RPT a unidades
+    units_update:
+      error: Error actualizando asignación de RPT a la unidad %{message}
+      success: Actualiza asignación de RPT a la unidad
