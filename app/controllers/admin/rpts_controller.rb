@@ -1,4 +1,5 @@
 class Admin::RptsController < Admin::BaseController
+  Thread.abort_on_exception = true
 
   def index
     @year = Rpt.maximum(:year)
@@ -16,14 +17,18 @@ class Admin::RptsController < Admin::BaseController
   end
 
   def import
-    @rpt.create_activity key: 'article.commented_on', owner: current_user
     filepath = params[:file].tempfile.path
+    current_user.create_activity key: 'RPT import', owner: current_user, params: { file: filepath, year: params[:year] }
     if File.exists?(filepath)
      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
-      t = Thread.new do
+     begin
+      Thread.new do
         Importers::RptImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
         ActiveRecord::Base.connection.close
       end
+     rescue
+       puts 'Error ejecutando RPTController#import'
+     end
 
     else
       message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + filepath
