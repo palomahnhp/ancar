@@ -16,11 +16,7 @@ module Importers
     end
 
     def notify_admin(ret)
-      if ret.blank?
-        message =   '*** notify_Admin **** ERROR: ejecutando importer - revisar log  '
-      else
-        message = '*** notify_Admin **** OK: Ejecutado importer'
-      end
+      message =  ret.blank? ? '*** notify_Admin **** ERROR: ejecutando importer - revisar log  ' : '*** notify_Admin **** OK: Ejecutado importer'
       Rails.logger.info(self.class.to_s + ' - '  +  message)
     end
 
@@ -32,7 +28,7 @@ module Importers
           when ".xlsx" then Roo::Excelx.new(@filepath)
           else raise " - Tipo de archivo no permitido: #{@filepath}"
         end
-      rescue Exception => e
+      rescue StandardError => e
         Rails.logger.info(self.class.to_s + ' - '  +  e.message)
         false
       end

@@ -28,6 +28,7 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   def import
     filepath = params[:file].tempfile.path
     if File.exists?(filepath)
+      current_user.create_activity(key: 'Importar asignacion de unidades para RPT', params: {file: filepath}, owner: current_user)
       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
       Thread.new do
         Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run

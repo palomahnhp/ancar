@@ -19,7 +19,7 @@ module Importers
             end
             unit_assignation.save!
             Rails.logger.info { self.class.to_s + ' - '  +  "No se actualiza el registro " + i.to_s + row["denominacion"] + unit_assignation.errors.messages.to_s }
-          rescue Exception => e
+          rescue StandardError => e
             Rails.logger.info(self.class.to_s + ' - '  +  " - Error parse unit_Assignation: #{@filepath}" + e.message)
             false
           end

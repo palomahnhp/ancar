@@ -4,7 +4,8 @@ module Importers
       Rails.logger.info (self.class.to_s + ' - '  + Time.zone.now.to_s + " - comienza lectura fichero: #{@filepath}")
       spreadsheet = open_spreadsheet
       if spreadsheet.present?
-        Rails.logger.info (self.class.to_s + ' - '  + Time.zone.now.to_s + " - fichero leido: #{@filepath} " + spreadsheet.last_row.to_s + ' filas' )
+        Rails.logger.info (self.class.to_s + ' - '  + Time.zone.now.to_s + " - fichero leido: #{@filepath} " +
+            spreadsheet.last_row.to_s + ' filas' )
         header = spreadsheet.row(1)
         (2..spreadsheet.last_row).each do |i|
           begin
@@ -16,7 +17,7 @@ module Importers
             rpt.unit         = Unit.find_by(sap_id: row["sapid_unidad"]).presence
             Rails.logger.info (self.class.to_s + ' - '  + Time.zone.now.to_s + " - procesado registro: " + i.to_s)
             rpt.save!
-          rescue Exception => e
+          rescue StandardError => e
             Rails.logger.info(self.class.to_s + ' - '  +  " - Error parse RPT: #{@filepath}" + e.message)
             false
           end

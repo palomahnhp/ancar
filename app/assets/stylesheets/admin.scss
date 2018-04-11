@@ -481,6 +481,12 @@ table.unit-status {
     &.big-width {
       width: 60%;
     }
+    &.date-width {
+      width: 10%;
+    }
+    &.user-width {
+      width: 20%;
+    }
   }
 
   td {

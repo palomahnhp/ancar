@@ -65,7 +65,6 @@ en:
           line_html: Elije el excel a importar con el botón
         last_year: "Último año cargado:"
         no_data: No hay datos de RPT cargados
-        load: Cargada
     settings:
       flash:
         updated: Valor actualizado
