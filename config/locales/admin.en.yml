@@ -4,6 +4,22 @@ en:
     actions:
       confirm: "¿Estás seguro?"
       update: Registro actualizo.
+    activities:
+      index:
+        class:
+          Indicator: Indicador/Tarea
+          IndicatorMetric: Métrica/Indicador
+          MainProcess: Procesos/BloqueCompetencial
+          Period: Periodo
+          SubProcess: SubProcesos/Proceso
+        date: Fecha
+        entries: Entradas
+        key: Acción
+        parameters: Parámetros
+        trackable_description: Descripción
+        trackable_id: Id.
+        trackable_type: Objeto
+        user: Usuario
     dashboard:
       index:
         title: Configuración de la aplicación
@@ -15,6 +31,7 @@ en:
         sources: Fuentes
         units: Unidades
     menu:
+      activities: Log de actividades
       console: Consola de administración
       group:
         units: Organizaciones
@@ -48,6 +65,7 @@ en:
           line_html: Elije el excel a importar con el botón
         last_year: "Último año cargado:"
         no_data: No hay datos de RPT cargados
+        load: Cargada
     settings:
       flash:
         updated: Valor actualizado

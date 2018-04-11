@@ -78,8 +78,12 @@ gem 'rails_admin', '~> 1.1' # Rails engine that provides an easy-to-use interfac
 # ActiveRecord SQL Server Adapter. SQL Server 2012 and upward.
 gem 'activerecord-sqlserver-adapter', '~> 4.1'
 
+# activity tracking for ActiveRecord models.
+gem 'public_activity', '~> 1.5'
+
 gem 'ransack'
 gem 'sidekiq'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

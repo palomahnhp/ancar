@@ -1,5 +1,8 @@
 class Period < ActiveRecord::Base
   resourcify
+  include PublicActivity::Common
+  #  tracked owner: Proc.new{ |controller, model| controller && controller.current_user }
+
   has_many :main_processes, :dependent => :destroy
   has_many :assigned_employees, :dependent => :destroy
   has_many :entry_indicators, :dependent => :destroy

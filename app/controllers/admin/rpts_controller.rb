@@ -20,6 +20,7 @@ class Admin::RptsController < Admin::BaseController
     filepath = ''
     filepath = params[:file].tempfile.path if params[:file].present?
     if File.exists?(filepath)
+     @rpt.create_activity key: 'article.commented_on', owner: current_user
      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
      begin
        Thread.new do
