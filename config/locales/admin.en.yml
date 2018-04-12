@@ -63,6 +63,7 @@ en:
           import:
             title: Importar la RPT
           line_html: Elije el excel a importar con el botón
+          confirm: "¡¡¡ Esta opción eliminara todos los datos de RPT del año al que corresponda el fichero!! Se sustituiran con los del fichero. ¿Desea continuar?"
         last_year: 'Último año cargado:'
         load: Cargada
         no_data: No hay datos de RPT cargados

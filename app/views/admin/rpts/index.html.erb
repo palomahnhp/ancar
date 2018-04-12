@@ -5,6 +5,7 @@
     <div class="row" >
       <p class="note">
         <strong> <%= t('admin.rpts.index.import.import.title') %> </strong>
+        <p  class="note">Solo se permite importar datos del último año cargado, o del siguiente, nunca de los anteriores. <br>El año a cargar viene en la primera columna del excel </p>
         <%= t('admin.rpts.index.import.line_html') %> (<%= link_to t('admin.rpts.index.import.format'), "/cargas/RPT.xlsx" %> )
         <div class="small-12 columns">
           <%= form_tag import_admin_rpts_path(year: @year), multipart: true do %>
@@ -12,7 +13,8 @@
               <%= file_field_tag :file %>
             </div>
             <div class="medium-2 columns end">
-              <%= submit_tag t('admin.rpts.index.import.button'), class: "hollow button" %>
+              <%= submit_tag t('admin.rpts.index.import.button'), class: "hollow button",
+                             data: {:confirm => t('admin.rpts.index.import.confirm')}  %>
             </div>
           <% end %>
         </div>
@@ -26,10 +28,6 @@
       </p>
     </div>
     <%= render 'rpt_counts' %>
-
     <!--%= render 'show_organizations_list' %-->
-
-
-
   </div>
 </div>
