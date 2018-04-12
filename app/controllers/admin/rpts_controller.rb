@@ -17,13 +17,14 @@ class Admin::RptsController < Admin::BaseController
   end
 
   def import
-    filepath = params[:file].tempfile.path
-    current_user.create_activity key: 'RPT import', owner: current_user, params: { file: filepath, year: params[:year] }
+    filepath = params[:file].present? ? params[:file].tempfile.path : ''
+
     if File.exists?(filepath)
+     current_user.create_activity key: 'RPT import', owner: current_user, params: { file: filepath, year: params[:year] }
      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
      begin
       Thread.new do
-        Importers::RptImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
+        Importers::RptImporter.new(params[:year], File.extname(params[:file].original_filename), params[:file].original_filename, filepath).run
         ActiveRecord::Base.connection.close
       end
      rescue

@@ -1,4 +1,5 @@
 class Admin::UnitRptAssignationsController < Admin::BaseController
+  Thread.abort_on_exception = true
 
   def index
    year_to_process
@@ -26,13 +27,19 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   end
 
   def import
-    filepath = params[:file].tempfile.path
+    filepath = params[:file].present? ? params[:file].tempfile.path : ''
+
     if File.exists?(filepath)
       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
-      Thread.new do
-        Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
-        ActiveRecord::Base.connection.close
+      begin
+        Thread.new do
+          Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename), params[:file].original_filename, filepath).run
+          ActiveRecord::Base.connection.close
+        end
+      rescue
+        puts 'Error ejecutando UnitRptassignationController#import'
       end
+
     else
       message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + filepath
     end

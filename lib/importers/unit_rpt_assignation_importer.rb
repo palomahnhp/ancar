@@ -3,7 +3,7 @@ module Importers
 
     def parse
       spreadsheet = open_spreadsheet
-      Rails.logger.info (self.class.to_s + ' - '  + Time.zone.now.to_s + " - comienza lectura fichero: #{@filepath}")
+      activity_log(self.class, "comienza lectura fichero: #{@filepath}", :info)
       header = spreadsheet.row(1)
       (2..spreadsheet.last_row).each do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
@@ -18,10 +18,13 @@ module Importers
         begin
           unit_assignation.save!
         rescue
-          Rails.logger.info { self.class.to_s + ' - '  +  "No se actualiza el registro " + i.to_s + row["denominacion"] + unit_assignation.errors.messages.to_s }
+          activity_log(self.class, "No se actualiza el registro " + i.to_s + row["denominacion"] +
+                           unit_assignation.errors.messages.to_s, :error)
         end
       end
       delete_file
+      activity_log(self.class,  "Termina la importación de " + @filename ,:info)
+
     end
   end
 end

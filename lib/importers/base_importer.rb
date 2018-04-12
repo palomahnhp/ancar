@@ -2,17 +2,18 @@ module Importers
   class BaseImporter
     attr_reader :filepath
 
-    def initialize(year, extname, filepath)
+    def initialize(year, extname, filename, filepath)
       @year     = year
+      @filename = filename
       @filepath = filepath
       @extname  = extname
     end
 
     def run
-      Rails.logger.info (self.class.to_s + ' - '  + Time.zone.now.to_s + " - Inicio con parámetros:  #{@year} / #{@filepath}")
+      activity_log(self.class, "Inicio con parámetros:  #{@year} / #{@filename}", :info)
       parse
       notify_admin
-      Rails.logger.info (self.class.to_s + ' - '  +  Time.zone.now.to_s + " - Fin de proceso:")
+      activity_log(self.class, "Fin de proceso:", :info)
     end
 
     private
@@ -37,8 +38,18 @@ module Importers
 
     def delete_file
       if File.delete(@filepath)
-        Rails.logger.info (self.class.to_s + ' - '  +  Time.zone.now.to_s + " - Eliminado fichero de RPT:   #{@filepath}" )
+        activity_log(self.class, "Eliminado fichero tmp:   #{@filepath}", :info )
       end
     end
+
+    def activity_log(class_name, message, type)
+      log_message = class_name.to_s + ' - ' + Time.zone.now.to_s + ' - ' + message
+      if type == :error
+        Rails.logger.error log_message
+      else
+        Rails.logger.info  log_message
+      end
+    end
+
   end
 end
