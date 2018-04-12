@@ -23,11 +23,16 @@ module Importers
     end
 
     def open_spreadsheet
-      case @extname
-        when ".csv" then Roo::Csv.new(@filepath, nil, :ignore)
-        when ".xls" then Roo::Excel.new(@filepath)
-        when ".xlsx" then Roo::Excelx.new(@filepath)
-        else raise "Unknown file type: #{@filepath}"
+      begin
+        case @extname
+          when ".csv" then Roo::Csv.new(@filepath, nil, :ignore)
+          when ".xls" then Roo::Excel.new(@filepath)
+          when ".xlsx" then Roo::Excelx.new(@filepath)
+          else raise " - Tipo de archivo no permitido: #{@filepath}"
+        end
+      rescue StandardError => e
+        Rails.logger.info(self.class.to_s + ' - '  +  e.message)
+        false
       end
     end
 

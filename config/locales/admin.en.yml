@@ -66,9 +66,6 @@ en:
         last_year: "Último año cargado:"
         load: Cargada
         no_data: No hay datos de RPT cargados
-        occupied: Ocupados
-        organization: Organizacion
-        vacancy: Vacantes
     settings:
       flash:
         updated: Valor actualizado

@@ -30,14 +30,16 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
     filepath = params[:file].present? ? params[:file].tempfile.path : ''
 
     if File.exists?(filepath)
+      current_user.create_activity(key: 'Importar asignacion de unidades para RPT',
+                                   params: { file: filepath }, owner: current_user)
       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
       begin
         Thread.new do
           Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename), params[:file].original_filename, filepath).run
           ActiveRecord::Base.connection.close
         end
-      rescue
-        puts 'Error ejecutando UnitRptassignationController#import'
+      rescue StandardError => e
+        Rails.logger.info (params[:controller] + '#' + params[:action] + ' - '  + Time.zone.now.to_s +  " EXCEPTION: " + e.inspect + " MESSAGE: " + e.message )
       end
 
     else

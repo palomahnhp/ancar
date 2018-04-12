@@ -1,5 +1,5 @@
 module Importers
-  class UnitRptAssignationImporter  < BaseImporter
+  class UnitRptAssignationImporter < BaseImporter
 
     def parse
       spreadsheet = open_spreadsheet
@@ -17,14 +17,17 @@ module Importers
         end
         begin
           unit_assignation.save!
-        rescue
+        rescue StandardError => e
           activity_log(self.class, "No se actualiza el registro " + i.to_s + row["denominacion"] +
-                           unit_assignation.errors.messages.to_s, :error)
+                           unit_assignation.errors.messages.to_s + ' ' +  + e.message, :error)
         end
+        delete_file
+      else
+        Rails.logger.info(self.class.to_s + ' - '  +  " - No se ha realizado la importación de : #{@filepath}")
+        false
       end
       delete_file
       activity_log(self.class,  "Termina la importación de " + @filename ,:info)
-
     end
   end
 end

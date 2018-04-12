@@ -28,7 +28,7 @@ class Admin::RptsController < Admin::BaseController
         ActiveRecord::Base.connection.close
       end
      rescue
-       puts 'Error ejecutando RPTController#import'
+       Rails.logger.info (params[:controller] + '#' + params[:action] + ' - '  + Time.zone.now.to_s +  " EXCEPTION: " + e.inspect + " MESSAGE: " + e.message )
      end
 
     else

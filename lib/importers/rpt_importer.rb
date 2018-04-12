@@ -25,15 +25,18 @@ module Importers
           activity_log(self.class, "procesado registro: " + i.to_s, :info)
           begin
             rpt.save!
-          rescue
-            activity_log(self.class, "Error actualizando RPT: #{@filename} tmp: + #{filepath}" + rpt.errors.to_s,
-                         :error)
+          rescue StandardError => e
+            activity_log(self.class, "Error actualizando RPT: #{@filename} tmp: + #{filepath} " + rpt.errors.to_s +
+                e.message, :error)
           end
         end
+        delete_file
+      else
+        Rails.logger.info(self.class.to_s + ' - '  +  " - No se ha realizado la importación de : #{@filepath}")
+        false
       end
       delete_file
-      activity_log(self.class, "Finaliza import de fichero: #{@filename}",:info)
-
+      activity_log(self.class, "Finaliza import de fichero: #{@filename}",:info)1
     end
 
     private

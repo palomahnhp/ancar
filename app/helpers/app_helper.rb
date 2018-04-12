@@ -5,14 +5,16 @@ module AppHelper
 
   def format_number(num, format = '')
     num = 0 if num.nil?
-      number_to_currency(num, {:unit => '', :separator => ',', :delimiter => '.', :precision => 2})
-      if format.blank?
-        number_to_currency(num, {:unit => '', :separator => ',', :delimiter => '.', :precision => 2})
-      elsif format == 'no_decimals'
-        number_with_delimiter(num, {:unit => '', :separator => ',', :delimiter => '.', :precision => 0})
-      else
-        number_with_delimiter(num, {:unit => '', :separator => ',', :delimiter => '.', :precision => 2})
-      end
+    if format.blank?
+      number_to_currency(num, {:unit => '', :separator => ',', :delimiter =>
+      '.', :precision => 2})
+    elsif format == 'no_decimals'
+      number_with_delimiter(num, {:unit => '', :separator => ',', :delimiter =>
+          '.', :precision => 0})
+    else
+      number_with_delimiter(num, {:unit => '', :separator => ',', :delimiter =>
+          '.', :precision => 2})
+    end
   end
 
   def resources_select_options(user, class_name)
