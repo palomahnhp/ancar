@@ -1,15 +1,12 @@
 module AssignedEmployeeHelper
   def input_staff_visible?(unit_id, period_id)
-    (params[:justification] && params[:justification].blank?) || AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
+    (params[:justification] && params[:justification].blank?) ||
+      AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).count > 0
 
   end
 
   def staff_verified_class(unit_id, period_id)
-    if AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).not_verified.count > 0
-      'warning'
-    else
-      'success'
-    end
+    AssignedEmployeesChange.where(unit_id: unit_id, period_id: period_id).not_verified.count > 0 ? 'warning' : 'success'
   end
 
   def staff_verified_text(unit_id, period_id)
@@ -31,10 +28,11 @@ module AssignedEmployeeHelper
       ids = []
       ids <<  proc.id
     end
+
     if type == 'Unit' || type == 'UnitJustified'
       @unit_assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id).order(:official_group_id).
           group(:staff_of_type, :official_group_id).
-          pluck(:staff_of_type, :official_group_id, 0 , 'count(id)', 'sum(quantity)')
+          pluck(:staff_of_type, :official_group_id, 0, 'count(id)', 'sum(quantity)')
       if class_of.empty?
         return_array = @unit_assigned_employees.select{ |t| t[0] == type }
       elsif class_of == 'Assigned'
@@ -51,7 +49,7 @@ module AssignedEmployeeHelper
            pluck(:staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)', :staff_of_id)
        return_array = @sp_assigned_employees.select{ |t| ids.include?(t[4])  }
     end
-     return return_array
+    return_array
   end
 
   def display_staff(of, process, unit, period, gr_id, pos, class_type = '')

@@ -15,31 +15,33 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   def init
     resp = UnitRptAssignation.init(params[:year].to_i) if params[:init].present?
     message = "Initialization done." if resp.present?
-    message = "Initialization error." unless resp.present?
+    message = "Initialization error." if resp.blank?
     redirect_to admin_unit_rpt_assignations_path, notice: message
   end
 
   def copy
     resp = UnitRptAssignation.copy(params[:year].to_i) if params[:copy].present?
     message = "Capia de asignaciones hecha." if resp.present?
-    message = "Copy error." unless resp.present?
+    message = "Copy error." if resp.blank?
     redirect_to admin_unit_rpt_assignations_path, notice: message
   end
 
   def import
     filepath = params[:file].present? ? params[:file].tempfile.path : ''
 
-    if File.exists?(filepath)
+    if File.exist?(filepath)
       current_user.create_activity(key: 'Importar asignacion de unidades para RPT',
                                    params: { file: filepath }, owner: current_user)
       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
       begin
         Thread.new do
-          Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename), params[:file].original_filename, filepath).run
+          Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename),
+                                                    params[:file].original_filename, filepath).run
           ActiveRecord::Base.connection.close
         end
       rescue StandardError => e
-        Rails.logger.info (params[:controller] + '#' + params[:action] + ' - '  + Time.zone.now.to_s +  " EXCEPTION: " + e.inspect + " MESSAGE: " + e.message )
+        Rails.logger.info (params[:controller] + '#' + params[:action] + ' - '  + Time.zone.now.to_s +  " EXCEPTION: " +
+            e.inspect + " MESSAGE: " + e.message )
       end
 
     else
@@ -51,7 +53,7 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   def update_assignations
     resp = UnitRptAssignation.update(params[:year].to_i, params[:assign], params[:unassign])
     message = "Assignation done." if resp.present?
-    message = "Assignation error." unless resp.present?
+    message = "Assignation error." if resp.blank?
     redirect_to show_organization_admin_unit_rpt_assignations_path(organization: params[:organization]), notice: message
   end
 

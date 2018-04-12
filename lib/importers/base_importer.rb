@@ -19,27 +19,28 @@ module Importers
     private
 
     def notify_admin
-      AdminMailer.importer_email(message: 'Termina el proceso de importación ' + @year + ' ' + @filename).deliver_now  #deliver_later
+      AdminMailer.importer_email(message: 'Termina el proceso de importación ' + @year + ' ' + @filename).deliver_now  # deliver_later
     end
 
     def open_spreadsheet
       begin
         case @extname
-          when ".csv" then Roo::Csv.new(@filepath, nil, :ignore)
-          when ".xls" then Roo::Excel.new(@filepath)
-          when ".xlsx" then Roo::Excelx.new(@filepath)
-          else raise " - Tipo de archivo no permitido: #{@filepath}"
+        when ".csv" then spreadsheet = Roo::Csv.new(@filepath, nil, :ignore)
+        when ".xls" then spreadsheet = Roo::Excel.new(@filepath)
+        when ".xlsx" then spreadsheet = Roo::Excelx.new(@filepath)
+        else raise " - Tipo de archivo no permitido: #{@filepath}"
         end
       rescue StandardError => e
         Rails.logger.info(self.class.to_s + ' - '  +  e.message)
         false
       end
+      activity_log(self.class, "fichero leido: #{@filepath} " + spreadsheet.last_row.to_s + ' filas', :info )
+      spreadsheet
     end
 
     def delete_file
-      if File.delete(@filepath)
-        activity_log(self.class, "Eliminado fichero tmp:   #{@filepath}", :info )
-      end
+      return unless File.delete(@filepath)
+      activity_log(self.class, "Eliminado fichero tmp:   #{@filepath}", :info )
     end
 
     def activity_log(class_name, message, type)

@@ -16,7 +16,7 @@
         </div>
         <div class="small-12 medium-8 column">
           <%= label_tag :source_id, t('admin.entry_indicators.search.sources') %>
-          <%= select_tag :source_id, options_for_select(source_items(nil, true), :source_id) ,placeholder: t('admin.entry_indicators.search.sources') %>
+          <%= select_tag :source_id, options_for_select(source_items(nil, true), :source_id),placeholder: t('admin.entry_indicators.search.sources') %>
         </div>
         <div class="small-12 medium-4 column">
           <%= submit_tag t('shared.roles.search.search'), class: 'button' %>

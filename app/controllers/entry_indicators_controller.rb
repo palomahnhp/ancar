@@ -68,7 +68,7 @@ class EntryIndicatorsController < ApplicationController
             margin: {top: 30 },
             left:   "",
             right: 'Pág. [page] / [topage]',
-            center:  "" ,
+            center:  "",
             font_name: 'Arial',
             font_size: 8
         },
@@ -177,7 +177,7 @@ class EntryIndicatorsController < ApplicationController
         end
       end
     end
-    return indicator_empty
+    indicator_empty
   end
 
   def validate_indicator_metrics
@@ -191,7 +191,7 @@ class EntryIndicatorsController < ApplicationController
         end
       end
     end
-    return indicator_empty
+    indicator_empty
   end
 
   def initialize_instance_vars
