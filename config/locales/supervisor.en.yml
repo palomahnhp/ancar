@@ -253,13 +253,13 @@ en:
         change_employees: Cambio de plantilla
         title: Estado de la entrada de datos
         unit: Unidad
-        validation: Última validación
+        validation: "Última validación"
       show:
         change: Cambio de plantilla
         no_change: No se ha realizado cambio de plantilla para esta unidad
         no_validation: No se han validado los datos
         ok: Visto Bueno
-        validation: Última validación
+        validation: "Última validación"
     units:
       edit:
         instructions:

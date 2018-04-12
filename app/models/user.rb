@@ -34,18 +34,14 @@ class User < ActiveRecord::Base
 
   def inactivate!(uweb_id)
     self.inactivated_at = Time.now
-    if self.uweb_off!(uweb_id) && self.delete_roles
-      return self.save
-    end
+    return self.save if self.uweb_off!(uweb_id) && self.delete_roles
     false
   end
 
   def activate!(uweb_id)
     self.inactivated_at =  nil
-    if self.uweb_on!(uweb_id)
-      return self.save
-    end
-    return false
+    return self.save if self.uweb_on!(uweb_id)
+    false
   end
 
   def page(per_page = 25)
@@ -188,7 +184,7 @@ class User < ActiveRecord::Base
     else
       @organization_types ||= OrganizationType.with_roles(ROLES, self)
     end
-    return @organization_types
+    @organization_types
   end
 
   def auth_organization_types_ids
@@ -199,7 +195,7 @@ class User < ActiveRecord::Base
     else
      @organization_types ||= OrganizationType.with_roles(ROLES, self).ids + Organization.with_roles(ROLES, self).map { |o| o.organization_type.id}
     end
-    return @organization_types
+    @organization_types
   end
 
   def organization_description
@@ -238,7 +234,7 @@ class User < ActiveRecord::Base
       roles.delete(I18n.t("shared.users.roles.role.name.#{:supervisor.to_s}"))
       roles.delete(I18n.t("shared.users.roles.role.name.#{:reader.to_s}"))
     end
-    return roles
+    roles
   end
 
   def self.auth(current_user)

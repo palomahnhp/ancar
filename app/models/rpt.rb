@@ -20,6 +20,11 @@ class Rpt < ActiveRecord::Base
   scope :E,               -> { where(grtit_per: 'E') }
   scope :X,               -> { where(grtit_per: 'X') }
 
+  def self.last_year_and_next
+    year = maximum(:year)
+    [year, year + 1]
+  end
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names

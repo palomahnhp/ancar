@@ -774,7 +774,7 @@ form {
 
 span.error, small.error {
   background: $alert-bg;
-  color: $color-alert;
+  color: $white;
 }
 
 span.no-error, small.no-error {
@@ -784,7 +784,7 @@ span.no-error, small.no-error {
 
 .error small.error {
   background: $alert-bg;
-  color: $color-alert;
+  color: $white;
   display: inline-block;
   margin: 0 $line-height/4;
 }

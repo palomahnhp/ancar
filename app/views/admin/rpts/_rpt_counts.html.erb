@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="small-12 columns">
+    <strong> <%= t('admin.rpts.index.last_year') %> <%= @year %> </strong><br>
+    <strong>Plazas totales:</strong>
+    <ul>
+      <li>Totales : <%= format_number(Rpt.by_year(@year).count, 'no_decimals') %></li>
+      <li>Ocupadas: <%= format_number(Rpt.by_year(@year).occupied.count, 'no_decimals') %></li>
+      <li>Vacantes: <%= format_number(Rpt.by_year(@year).vacant.count, 'no_decimals') %> </li>
+    </ul>
+  </div>
+</div>

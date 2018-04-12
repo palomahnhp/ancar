@@ -59,12 +59,16 @@ en:
           title: Exportar la RPT
         import:
           button: Importar
+          confirm: "¡¡¡ Esta opción eliminara todos los datos de RPT del año al que corresponda el fichero!! Se sustituiran con los del fichero. ¿Desea continuar?"
           format: Formato excel
           import:
             title: Importar la RPT
-          line_html: Elije el excel a importar con el botón
         last_year: "Último año cargado:"
+        load: Cargada
         no_data: No hay datos de RPT cargados
+        occupied: Ocupadas
+        organization: Organización
+        vacancy: Vacantes
     settings:
       flash:
         updated: Valor actualizado

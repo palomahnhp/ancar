@@ -3,46 +3,42 @@
     <h1 class="text-center">Carga de RPT</h1>
 
     <div class="row" >
-      <p class="note">
-        <strong> <%= t('admin.rpts.index.import.import.title') %> </strong>
-        <%= t('admin.rpts.index.import.line_html') %> (<%= link_to t('admin.rpts.index.import.format'), "/cargas/RPT.xlsx" %> )
-        <div class="small-12 columns">
-          <%= form_tag import_admin_rpts_path(year: @year), multipart: true do %>
-            <div class="medium-4 columns">
-              <%= file_field_tag :file %>
+      <div class="small-12 columns">
+        <p> <strong> <%= t('admin.rpts.index.import.import.title') %> </strong></p>
+          <%= form_tag import_admin_rpts_path, multipart: true do %>
+            <div class="small-12 columns">
+                Seleccionar año al que corresponde la RPT del fichero a importar:
+                <span class="note">El año a cargar se indica en la primera columna del excel y debe coincidir con el
+                  seleccionado (<%= link_to t('admin.rpts.index.import.format'), "/imports/RPT.xlsx" %> )
+                <br>Solo se permite importar datos del último año cargado, o del siguiente, nunca de los anteriores. </span>
             </div>
-            <div class="medium-2 columns end">
-              <%= submit_tag t('admin.rpts.index.import.button'), class: "hollow button" %>
+            <div class="small-12 columns">
+              <div class="medium-2 columns">
+                <%= label_tag(:year, 'Año') %>
+                <%= select_tag(:year, options_for_select(Rpt.last_year_and_next, selected: @year )) %>
+              </div>
+            </div>
+            <div class="small-12 columns">
+              <div class="small-12 medium-6 columns">
+                <%= label_tag(:file, 'Fichero') %>
+                <%= file_field_tag :file %>
+              </div>
+              <div class="small-12 medium-2 columns end ">
+                <%= submit_tag t('admin.rpts.index.import.button'), class: "hollow button",
+                               data: {:confirm => t('admin.rpts.index.import.confirm')}  %>
+              </div>
             </div>
           <% end %>
         </div>
-      </p>
     </div>
 
-    <div class="row" >
-      <p class="note">
+    <div class="small-12 columns">
+      <br><p>
         <strong><%= t('admin.rpts.index.export.title') %> : </strong>
         <%= link_to t('admin.rpts.index.export.button'), admin_rpts_path(format: "xls") %>
       </p>
     </div>
-
-    <div class="row">
-      <div class="small-12 columns">
-        <% if @year.present? %>
-          <div class="small-6 medium-4 columns">
-            <strong> <%= t('admin.rpts.index.last_year') %> <%= @year %> </strong><br>
-            <strong>Plazas totales:</strong>
-            <ul>
-              <li>Totales:  <%= format_number(Rpt.by_year(@year).count, 'no_decimals') %></li>
-              <li>Ocupadas: <%= format_number(Rpt.by_year(@year).occupied.count, 'no_decimals') %></li>
-              <li>Vacantes: <%= format_number(Rpt.by_year(@year).vacant.count, 'no_decimals') %> </li>
-            </ul>
-          </div>
-        <% else %>
-            <strong class="text-center"> <%= t('admin.rpts.index.no_data') %> </strong>
-        <% end %>
-
-      </div>
-    </div>
+    <%= render 'rpt_counts' %>
+    <!--%= render 'show_organizations_list' %-->
   </div>
 </div>
