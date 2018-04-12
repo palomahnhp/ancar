@@ -1,12 +1,12 @@
 module Importers
   class RptImporter < BaseImporter
     def parse
-      activity_log(self.class, 'comienza lectura fichero: ' + @filename + ' tmp: ' + @filepath, :info )
-      spreadsheet = open_spreadsheet
-      activity_log(self.class, "fichero leido: #{@filepath} " + spreadsheet.last_row.to_s + ' filas' , :info )
-      header = spreadsheet.row(1)
-
       Rpt.transaction do
+        activity_log(self.class, 'comienza lectura fichero: ' + @filename + ' tmp: ' + @filepath, :info )
+        spreadsheet = open_spreadsheet
+        activity_log(self.class, "fichero leido: #{@filepath} " + spreadsheet.last_row.to_s + ' filas' , :info )
+        header = spreadsheet.row(1)
+
         delete_rpt
         (2..spreadsheet.last_row).each do |i|
           row = Hash[[header, spreadsheet.row(i)].transpose]
@@ -31,12 +31,8 @@ module Importers
           end
         end
         delete_file
-      else
-        Rails.logger.info(self.class.to_s + ' - '  +  " - No se ha realizado la importación de : #{@filepath}")
-        false
       end
-      delete_file
-      activity_log(self.class, "Finaliza import de fichero: #{@filename}",:info)1
+      activity_log(self.class, "Finaliza import de fichero: #{@filename}",:info)
     end
 
     private
