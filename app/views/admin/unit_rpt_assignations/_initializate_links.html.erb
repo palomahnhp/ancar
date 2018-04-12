@@ -6,7 +6,7 @@
       <%= link_to t('admin.unit_rpt_assignations.index.initialize_links.initialize'), init_admin_unit_rpt_assignations_path(year: @process_year, init: true), class: "button hollow small" %>
     </li>
     <li>
-      Desde fichero (<span> <%= link_to "AssignUnits.xlsx", "/cargas/AssignUnits.xlsx" %> </span>)
+      Desde fichero (<span> <%= link_to "AssignUnits.xlsx", "/imports/AssignUnits.xlsx" %> </span>)
       <%= form_tag import_admin_unit_rpt_assignations_path(year: @process_year), multipart: true do %>
         <div class="small-12 columns">
           <%= file_field_tag(:file) %> <br>
