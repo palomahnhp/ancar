@@ -19,12 +19,7 @@ module Importers
     private
 
     def notify_admin
-      if @start.blank?
-        puts '*** notify_Admin **** Ejecutado importer '
-        @start = true
-      else
-        puts '*** notify_Admin **** Ejecutado importer '
-      end
+      AdminMailer.importer_email(message: 'Termina el proceso de importación ' + @year + ' ' + @filename).deliver_now  #deliver_later
     end
 
     def open_spreadsheet
