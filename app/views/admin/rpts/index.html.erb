@@ -3,26 +3,37 @@
     <h1 class="text-center">Carga de RPT</h1>
 
     <div class="row" >
-      <p class="note">
-        <strong> <%= t('admin.rpts.index.import.import.title') %> </strong>
-        <p  class="note">Solo se permite importar datos del último año cargado, o del siguiente, nunca de los anteriores. <br>El año a cargar viene en la primera columna del excel </p>
-        <%= t('admin.rpts.index.import.line_html') %> (<%= link_to t('admin.rpts.index.import.format'), "/cargas/RPT.xlsx" %> )
-        <div class="small-12 columns">
-          <%= form_tag import_admin_rpts_path(year: @year), multipart: true do %>
-            <div class="medium-4 columns">
-              <%= file_field_tag :file %>
+      <div class="small-12 columns">
+        <p> <strong> <%= t('admin.rpts.index.import.import.title') %> </strong></p>
+          <%= form_tag import_admin_rpts_path, multipart: true do %>
+            <div class="small-12 columns">
+                Seleccionar año al que corresponde la RPT del fichero a importar:
+                <span class="note">El año a cargar se indica en la primera columna del excel y debe coincidir con el
+                  seleccionado (<%= link_to t('admin.rpts.index.import.format'), "/cargas/RPT.xlsx" %> )
+                <br>Solo se permite importar datos del último año cargado, o del siguiente, nunca de los anteriores. </span>
             </div>
-            <div class="medium-2 columns end">
-              <%= submit_tag t('admin.rpts.index.import.button'), class: "hollow button",
-                             data: {:confirm => t('admin.rpts.index.import.confirm')}  %>
+            <div class="small-12 columns">
+              <div class="medium-2 columns">
+                <%= label_tag(:year, 'Año') %>
+                <%= select_tag(:year, options_for_select(Rpt.last_year_and_next, selected: @year )) %>
+              </div>
+            </div>
+            <div class="small-12 columns">
+              <div class="small-12 medium-6 columns">
+                <%= label_tag(:file, 'Fichero') %>
+                <%= file_field_tag :file %>
+              </div>
+              <div class="small-12 medium-2 columns end ">
+                <%= submit_tag t('admin.rpts.index.import.button'), class: "hollow button",
+                               data: {:confirm => t('admin.rpts.index.import.confirm')}  %>
+              </div>
             </div>
           <% end %>
         </div>
-      </p>
     </div>
 
-    <div class="row" >
-      <p class="note">
+    <div class="small-12 columns">
+      <br><p>
         <strong><%= t('admin.rpts.index.export.title') %> : </strong>
         <%= link_to t('admin.rpts.index.export.button'), admin_rpts_path(format: "xls") %>
       </p>

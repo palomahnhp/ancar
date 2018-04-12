@@ -9,6 +9,8 @@ module Importers
         delete_rpt
         (2..spreadsheet.last_row).each do |i|
           row = Hash[[header, spreadsheet.row(i)].transpose]
+          raise(self.class.to_s + ' - '  + Time.zone.now.to_s +
+                    " No coincide el año a cargar #{@year} con el excel #{row["year"]}") unless @year.to_s ==  row["year"].to_s
           rpt = Rpt.find_or_create_by(year: @year, sapid_area: row["sapid_area"],
                         sapid_unidad: row["sapid_unidad"], id_puesto: row["id_puesto"])
           rpt.attributes   = row.to_hash
