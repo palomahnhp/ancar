@@ -22,8 +22,8 @@
 
 set :output, {:error => "log/cron_ancar_error.log", :standard => "log/cron_ancar_log.log"}
 
-every 1.minute do
-  command "date > log/cron_ancar_test_log.log"
-end
+#every 1.minute do
+#  command "date > log/cron_ancar_test_log.log"
+#end
 
 
