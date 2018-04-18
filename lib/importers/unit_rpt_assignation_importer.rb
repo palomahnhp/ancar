@@ -4,7 +4,6 @@ module Importers
     def parse
       Rpt.transaction do
         spreadsheet = open_spreadsheet
-        activity_log(self.class, "comienza lectura fichero: #{@filepath}", :info)
         header = spreadsheet.row(1)
         (2..spreadsheet.last_row).each do |i|
           row = Hash[[header, spreadsheet.row(i)].transpose]
@@ -17,7 +16,6 @@ module Importers
           end
         end
         delete_file
-        activity_log(self.class, 'Termina la importación de ' + @filename,:info)
       end
     end
 

@@ -2,15 +2,14 @@ module Importers
   class BaseImporter
     attr_reader :filepath
 
-    def initialize(year, extname, filename, filepath)
+    def initialize(year, extname, filepath)
       @year     = year
-      @filename = filename
       @filepath = filepath
       @extname  = extname
     end
 
     def run
-      activity_log(self.class, "Inicio con parámetros:  #{@year} / #{@filename}", :info)
+      activity_log(self.class, "Inicio con parámetros:  #{@year} / #{@filepath}", :info)
       parse
       notify_admin
       activity_log(self.class, "Fin de proceso:", :info)
@@ -19,28 +18,30 @@ module Importers
     private
 
     def notify_admin
-      AdminMailer.importer_email(message: 'Termina el proceso de importación ' + @year + ' ' + @filename).deliver_now  # deliver_later
+      begin
+        AdminMailer.importer_email(message: 'Termina el proceso de importación ' + @year + ' ' + @filepath).deliver_now  # deliver_later
+      rescue StandardError => e
+        Rails.logger.error(self.class.to_s + ' - '  +  e.message)
+      end
     end
 
     def open_spreadsheet
       begin
         case @extname
-        when ".csv" then spreadsheet = Roo::Csv.new(@filepath, nil, :ignore)
-        when ".xls" then spreadsheet = Roo::Excel.new(@filepath)
-        when ".xlsx" then spreadsheet = Roo::Excelx.new(@filepath)
+        when ".csv" then Roo::Csv.new(@filepath, nil, :ignore)
+        when ".xls" then Roo::Excel.new(@filepath)
+        when ".xlsx" then Roo::Excelx.new(@filepath)
         else raise " - Tipo de archivo no permitido: #{@filepath}"
         end
       rescue StandardError => e
         Rails.logger.info(self.class.to_s + ' - '  +  e.message)
         false
       end
-      activity_log(self.class, "fichero leido: #{@filepath} " + spreadsheet.last_row.to_s + ' filas', :info )
-      spreadsheet
+
     end
 
     def delete_file
-      return unless File.delete(@filepath)
-      activity_log(self.class, "Eliminado fichero tmp:   #{@filepath}", :info )
+      File.delete(@filepath)
     end
 
     def activity_log(class_name, message, type)
@@ -51,6 +52,5 @@ module Importers
         Rails.logger.info  log_message
       end
     end
-
   end
 end
