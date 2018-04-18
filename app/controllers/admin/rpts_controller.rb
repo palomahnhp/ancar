@@ -17,24 +17,21 @@ class Admin::RptsController < Admin::BaseController
   end
 
   def import
-    filepath = params[:file].present? ? params[:file].tempfile.path : ''
-
-    if File.exist?(filepath)
-     current_user.create_activity key: 'RPT import', owner: current_user, params: { file: filepath, year: params[:year] }
-     message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
-     begin
-      Thread.new do
-        Importers::RptImporter.new(params[:year], File.extname(params[:file].original_filename),
-                                   params[:file].original_filename, filepath).run
-        ActiveRecord::Base.connection.close
+    tmpfilepath = params[:file].present? ? params[:file].tempfile.path : ''
+    if File.exist?(tmpfilepath)
+      filepath = 'public/imports/' + params[:file].original_filename
+      if File.rename(tmpfilepath, filepath)
+#       Importers::RptImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
+       current_user.create_activity key: 'RPT import', owner: current_user, params: { file: filepath, year: params[:year] }
+      RptImportJob.perform_later(params[:year], File.extname(params[:file].original_filename), filepath)
+       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
+      else
+        message =  'Error al copiar el fichero de importación. No se ha iniciado el proceso: ' + filepath
       end
-     rescue StandardError => e
-       Rails.logger.info(params[:controller] + '#' + params[:action] + ' - '  + Time.zone.now.to_s +  " EXCEPTION: " +
-           e.inspect + " MESSAGE: " + e.message )
-     end
     else
-      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + filepath
+      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + tmpfilepath
     end
+
     redirect_to admin_rpts_path, notice: message
   end
 

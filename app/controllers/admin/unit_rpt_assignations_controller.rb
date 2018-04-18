@@ -27,25 +27,18 @@ class Admin::UnitRptAssignationsController < Admin::BaseController
   end
 
   def import
-    filepath = params[:file].present? ? params[:file].tempfile.path : ''
-
-    if File.exist?(filepath)
-      current_user.create_activity(key: 'Importar asignacion de unidades para RPT',
-                                   params: { file: filepath }, owner: current_user)
-      message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
-      begin
-        Thread.new do
-          Importers::UnitRptAssignationImporter.new(params[:year], File.extname(params[:file].original_filename),
-                                                    params[:file].original_filename, filepath).run
-          ActiveRecord::Base.connection.close
-        end
-      rescue StandardError => e
-        Rails.logger.info (params[:controller] + '#' + params[:action] + ' - '  + Time.zone.now.to_s +  " EXCEPTION: " +
-            e.inspect + " MESSAGE: " + e.message )
+    tmpfilepath = params[:file].present? ? params[:file].tempfile.path : ''
+    if File.exist?(tmpfilepath)
+      filepath = 'public/imports/' + params[:file].original_filename
+      if File.rename(tmpfilepath, filepath)
+        current_user.create_activity key: 'RPT import', owner: current_user, params: { file: filepath, year: params[:year] }
+        UnitAssignationJob.perform_later(params[:year], File.extname(params[:file].original_filename), filepath)
+        message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
+      else
+        message =  'Error al copiar el fichero de importación. No se ha iniciado el proceso: ' + filepath
       end
-
     else
-      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + filepath
+      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + tmpfilepath
     end
     redirect_to admin_unit_rpt_assignations_path, notice: message
   end
