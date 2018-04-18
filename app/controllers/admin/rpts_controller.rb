@@ -1,4 +1,6 @@
 class Admin::RptsController < Admin::BaseController
+  require 'fileutils'
+
   Thread.abort_on_exception = true
 
   def index
@@ -20,18 +22,16 @@ class Admin::RptsController < Admin::BaseController
     tmpfilepath = params[:file].present? ? params[:file].tempfile.path : ''
     if File.exist?(tmpfilepath)
       filepath = 'public/imports/' + params[:file].original_filename
-      if File.rename(tmpfilepath, filepath)
-#       Importers::RptImporter.new(params[:year], File.extname(params[:file].original_filename), filepath).run
+      if FileUtils.mv(tmpfilepath, filepath)
        current_user.create_activity key: 'RPT import', owner: current_user, params: { file: filepath, year: params[:year] }
       RptImportJob.perform_later(params[:year], File.extname(params[:file].original_filename), filepath)
-       message =  'Lanzada tarea de importación. Carga disponible en unos minutos'
+       message = 'Lanzada tarea de importación. Carga disponible en unos minutos'
       else
-        message =  'Error al copiar el fichero de importación. No se ha iniciado el proceso: ' + filepath
+        message = 'Error al copiar el fichero de importación. No se ha iniciado el proceso: ' + filepath
       end
     else
-      message =  'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + tmpfilepath
+      message = 'Error al obtener el fichero de importación. No se ha iniciado el proceso: ' + tmpfilepath
     end
-
     redirect_to admin_rpts_path, notice: message
   end
 
