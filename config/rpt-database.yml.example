@@ -1,7 +1,7 @@
 development:
   adapter: sqlserver
   mode: dblib
-  host: xx.xx.xx.xxxx
+  host: xx.xx.51.153
   port: 2685
   mode: dblib
   database: xxxxxx

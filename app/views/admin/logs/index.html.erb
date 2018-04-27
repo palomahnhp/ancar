@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="small-12 columns" >
+    <h3>Logs del sistema (<%= Rails.env %>)</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns" >
+    <ul>
+      <% files_by_time('log/*').each do |file| %>
+        <li> <%= link_to File.basename(file), show_file_admin_logs_path(filepath: file) %> </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

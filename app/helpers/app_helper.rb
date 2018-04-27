@@ -42,4 +42,8 @@ module AppHelper
   def link_doc_target(format)
     format == 'HTML' ? '_self' : '_blank'
   end
+
+  def files_by_time(path)
+    files_sorted_by_time = Dir[path].sort_by{ |f| File.mtime(f) }
+  end
 end

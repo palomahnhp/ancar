@@ -11,6 +11,7 @@
 /config/database.yml
 /config/secrets.yml
 /config/deploy-secrets.yml
+/config/rpt-database.yml
 
 # Ignore coverage files
 /coverage/*

@@ -33,6 +33,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "dashboard#index"
+    resources :logs do
+      get :show_file, on: :collection
+    end
     resources :settings
     resources :organization_types
     resources :unit_types

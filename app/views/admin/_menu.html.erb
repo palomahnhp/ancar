@@ -74,25 +74,40 @@
       <% end %>
     </li>
 
-    <li id="activities" <%= 'class=active' if controller_name == 'activities' %>>
-      <%= link_to admin_activities_path do %>
-        <span class="icon-eye"></span>
-        <%= t('admin.menu.activities') %>
-      <% end %>
-    </li>
+    <li id="tools">
+      <a href="#">
+        <span class="icon-cogs"></span>
+        <%= t('admin.menu.group.tools') %>
+      </a>
+      <ul class="menu vertical nested">
+        <li id="activities" <%= 'class=active' if controller_name == 'activities' %>>
+          <%= link_to admin_activities_path do %>
+            <span class="icon-eye"></span>
+            <%= t('admin.menu.activities') %>
+          <% end %>
+        </li>
 
-    <li id="console" <%= 'class=active' if controller_name == 'RailsAdmin::Engine' %>>
-      <%= link_to rails_admin_path, target: :_blank  do %>
-          <span class="icon-cogs"></span>
-          <%= t('admin.menu.console') %>
-      <% end %>
-    </li>
+        <li id="logs" <%= 'class=active' if controller_name == 'activities' %> >
+          <%= link_to admin_logs_path do %>
+            <span class="icon-file-text-o"></span>
+            <%= t('admin.menu.syslog') %>
+          <% end %>
+        </li>
 
-    <li id="sidekiq" <%= 'class=active' if controller_name == 'Sidekiq::Web' %>>
-      <%= link_to sidekiq_web_path, target: :_blank  do %>
-          <span class="icon-cogs"></span>
-          <%= t('admin.menu.sidekiq') %>
-      <% end %>
+        <li id="console" <%= 'class=active' if controller_name == 'RailsAdmin::Engine' %>>
+          <%= link_to rails_admin_path, target: :_blank  do %>
+              <span class="icon-cogs"></span>
+              <%= t('admin.menu.console') %>
+          <% end %>
+        </li>
+
+        <li id="sidekiq" <%= 'class=active' if controller_name == 'Sidekiq::Web' %>>
+          <%= link_to sidekiq_web_path, target: :_blank  do %>
+              <span class="icon-cogs"></span>
+              <%= t('admin.menu.sidekiq') %>
+          <% end %>
+        </li>
+      </ul>
     </li>
   </ul>
 </nav>
