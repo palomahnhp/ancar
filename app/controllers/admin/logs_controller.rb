@@ -4,4 +4,10 @@ class Admin::LogsController < Admin::BaseController
 
   end
 
+  def show_file
+    file = params[:filepath]
+    File.open( file, "r" )
+    send_file( file )
+  end
+
 end
