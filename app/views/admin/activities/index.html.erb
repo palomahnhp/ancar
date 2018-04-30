@@ -22,7 +22,7 @@
       <tr>
         <td class="date-width"><%= l activity.created_at, format: :short %></td>
         <td><%= activity.key %></td>
-        <td class="user-width"><%= activity.owner.full_name if activity.owner.present? %> <%= activity.owner.login %> </td>
+        <td class="user-width"><%= activity.owner.full_name if activity.owner.present? %> <%= activity.owner.login  if activity.owner.present? %> </td>
         <td><%= activity.trackable_type %></td>
         <td><%= activity.trackable_id %></td>
         <% if activity.trackable.respond_to?(:description) %>
