@@ -2,6 +2,10 @@ class Admin::ActivitiesController  < Admin::BaseController
   before_filter(:only => :index) { unauthorized! if cannot? :index, :activities }
 
   def index
-    @activities = PublicActivity::Activity.all.order(created_at: :desc)
+    @search = PublicActivity::Activity.search(params[:q])
+
+    @search.sorts = 'created_at desc' if @search.sorts.empty?
+    @activities = @search.result
+    @search.build_condition
   end
 end
