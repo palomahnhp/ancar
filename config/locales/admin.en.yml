@@ -20,6 +20,8 @@ en:
         trackable_id: Id.
         trackable_type: Objeto
         user: Usuario
+        title: "Log de actividades"
+        search: "Busqueda avanzada"
     dashboard:
       index:
         title: Configuración de la aplicación
@@ -178,3 +180,9 @@ en:
         title: Unidades
   subnavigation_menu:
     assign_rpt: Asignar rpt
+  actions:
+    search: "Buscar"
+  activerecord:
+    models:
+      activities:
+        one: "Actividad"

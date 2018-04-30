@@ -174,13 +174,11 @@ module SupervisorHelper
 
   def unit_assigned_rpt(year, organization, unit, grtit)
     grtit = 'agr' if grtit == 'E'
-    @loaded_rpt = false if grtit == 'A1'
     @period ||= Period.by_year(year).by_organization_type(organization.organization_type).take
-    assigned = AssignedEmployee.staff_from_unit(unit, @period, OfficialGroup.find_by(name: grtit.capitalize))
-    @loaded_rpt = true  if assigned.present?
-    return assigned if assigned.present?
+    @loaded_rpt = AssignedEmployee.load_unit_staff(@period, unit)
+    return AssignedEmployee.staff_from_unit(unit, @period, OfficialGroup.find_by(name: grtit.capitalize)) if @loaded_rpt.present?
 
-    rpt_unit(year, unit.sap_id)
+    @rpt_grtit[grtit]
   end
 
   private

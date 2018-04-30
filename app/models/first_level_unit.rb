@@ -1,6 +1,7 @@
 class FirstLevelUnit < ActiveRecord::Base
   include PublicActivity::Model
-  tracked
+  tracked owner: ->(controller, model) { controller && controller.current_user }
+
   belongs_to :organization
 
   scope :active,   -> { where(period_to: nil ) }

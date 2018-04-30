@@ -51,6 +51,10 @@ class AssignedEmployee < ActiveRecord::Base
     return message
   end
 
+  def self.load_unit_staff(period, unit)
+      by_period(period).by_unit(unit)
+  end
+
   def self.staff_quantity(type, unit_id)
      where(staff_of_type: type.class.name, staff_of: type.id, unit_id: unit_id).sum(:quantity)
   end

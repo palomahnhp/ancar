@@ -1,8 +1,32 @@
 <div class="row">
-  <h1>
-    <%= t('admin.activities.index.entries')%> (<%= @activities.count %>)
-  </h1>
+  <h1> <%= t('admin.activities.index.title')%> </h1>
 </div>
+
+<%= search_form_for @search, url: search_admin_activities_path, method: :post do |f| %>
+  <div class= "row" >
+    <div class="small-12 columns ">
+      <p>
+      <h4><%= t('admin.activities.index.search') %> </h4>
+      <small>Para añadir una condición selecciona el campo de búsqueda, para eliminarla dejalo en blanco.</small>
+      <br>
+      </p>
+      <%= f.condition_fields do |c| %>
+        <%= render 'condition_fields', f: c %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class= "row" >
+    <div class="medium-12 small-3 columns">
+      <div class="medium-4 small-3 columns">
+        <p><%= f.submit t('actions.search'), class: "hollow button" %></p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+
 <div class="row">
   <table class="unit-status">
     <thead>
@@ -22,7 +46,7 @@
       <tr>
         <td class="date-width"><%= l activity.created_at, format: :short %></td>
         <td><%= activity.key %></td>
-        <td class="user-width"><%= activity.owner.full_name if activity.owner.present? %> <%= activity.owner.login %> </td>
+        <td class="user-width"><%= activity.owner.full_name if activity.owner.present? %> <%= activity.owner.login  if activity.owner.present? %> </td>
         <td><%= activity.trackable_type %></td>
         <td><%= activity.trackable_id %></td>
         <% if activity.trackable.respond_to?(:description) %>
