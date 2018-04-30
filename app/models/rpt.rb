@@ -21,7 +21,7 @@ class Rpt < ActiveRecord::Base
   scope :X,               -> { where(grtit_per: 'X') }
 
   def self.last_year_and_next
-    year = maximum(:year)
+    year = maximum(:year).present? ? maximum(:year) : Date.today.year - 2
     [year, year + 1]
   end
 
