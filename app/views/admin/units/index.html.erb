@@ -30,8 +30,8 @@
         <td><%= unit.description_sap %></td>
         <td><%= unit.sap_id %></td>
         <td><%= unit.order %></td>
-        <td><%= unit.unit_type&.description %></td>
-        <td><%= unit.organization&.description %></td>
+        <td><%= unit.unit_type.description %></td>
+        <td><%= unit.organization.description %></td>
         <td>
           <%= link_to("", edit_admin_unit_path(unit), class: "icon-pencil") %>
           <%= link_to("", admin_unit_path(unit), method: :delete, class: "icon-trash") %>

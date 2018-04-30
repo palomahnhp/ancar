@@ -16,7 +16,7 @@
       <tr>
         <td><%= type.id %></td>
         <td><%= type.description %></td>
-        <td><%= type.organization_type&.description %></td>
+        <td><%= type.organization_type.description %></td>
         <td><%= type.order %></td>
         <td>
           <%= link_to("", edit_admin_unit_type_path(type), class: "icon-pencil") %>

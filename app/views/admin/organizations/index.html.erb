@@ -19,7 +19,7 @@
         <td><%= type.description %></td>
         <td><%= type.short_description %></td>
         <td><%= type.sap_id %></td>
-        <td><%= type.organization_type&.description %></td>
+        <td><%= type.organization_type.description %></td>
         <td>
           <%= link_to("", edit_admin_organization_path(type), class: "icon-pencil") %>
           <%= link_to("", admin_organization_path(type), method: :delete, class: "icon-trash") %>
