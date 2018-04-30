@@ -25,7 +25,11 @@ class Supervisor::UnitsController < Supervisor::BaseController
     @units = @organization.units
     @year = params[:year]
     @conditions = params[:conditions]
-    @period = Period.where(organization_type: @organization.organization_type).last
+    @period = Period.where(organization_type: @organization.organization_type).by_year(@year).last
+    if @period.blank?
+
+      redirect_to supervisor_units_path(year: @year), alert: "No hay periodo abierto para el año #{@year} para #{@organization.organization_type.description}"
+    end
   end
 
   def update
@@ -77,7 +81,7 @@ class Supervisor::UnitsController < Supervisor::BaseController
         @new_quantity = assigned_employees[1].to_f
         @old_assigned_employee = Unit.find(@unit_id).assigned_employees.by_official_group(@group).by_period(@period.id).by_staff_of_type('Unit').take
         if @old_assigned_employee.blank?
-          @assigned_employee.new()
+          @assigned_employee = AssignedEmployee.new()
           @assigned_employee.assign_attributes(assigned_employee_params)
           unless @assigned_employee.save
             @error = true

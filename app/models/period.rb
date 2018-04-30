@@ -55,10 +55,6 @@ class Period < ActiveRecord::Base
     p.main_processes.each do |mp|
       mp.copy(self.id, current_user_login)
     end
-
-    p.assigned_employees.where(staff_of_type: 'Unit').each do |ae|
-      ae.copy(self.id, current_user_login)
-    end
   end
 
   def indicators(unit)

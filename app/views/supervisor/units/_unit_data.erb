@@ -31,7 +31,7 @@
 
       </td>
     <% end %>
-    <td class="<%= @loaded_rpt ? 'icon-check' : 'icon-x' %>"> </td>
+    <td class="<%= @loaded_rpt.present? ? 'icon-check' : 'icon-x' %>"> </td>
   </tr>
 
   <% unit.unit_rpt_assignations.by_year(@year).by_year(@year).order(:sapid_unit).each do |item|  %>
