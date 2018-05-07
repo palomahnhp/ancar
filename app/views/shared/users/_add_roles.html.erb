@@ -18,7 +18,8 @@
             <td> <%=role.no_empty_name %> </td>
             <td> <%= role.resource_type_description %> </td>
             <td> <%= role.resource_id_description %> </td>
-            <% if params[:action] == 'edit' %>
+            <% if params[:action] == 'edit' && @user.has_auth?(current_user).present? %>
+                %>
               <td id= "button_destroy">
                 <%= link_to t('shared.users.roles.remove_resource'),
                         eval("remove_role_#{namespace}_user_path(id: @user, role: role)"),
@@ -34,7 +35,7 @@
 
 <section id="add_role" class="row">
 
-  <% if params[:action] == 'edit' && @user.active?%>
+  <% if params[:action] == 'edit' && @user.active? && @user.has_auth?(current_user).present? %>
     <%= form_tag(controller: 'users', action: 'roles') do %>
        <table>
          <caption><%= t('shared.users.roles.title') %></caption>
