@@ -186,7 +186,7 @@ class Shared::UsersController < ApplicationController
     if current_user.has_role? :admin
       @valid_filters= %w[ all interlocutor validator supervisor consultor admin no_role inactive ]
     elsif current_user.has_role?(:supervisor, :any)
-      @valid_filters = %w[ all interlocutor validator ]
+      @valid_filters = %w[ all interlocutor validator no_role inactive]
     end
   end
 end
