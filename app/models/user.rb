@@ -238,11 +238,14 @@ class User < ActiveRecord::Base
   end
 
   def self.auth(current_user)
-     if current_user.has_role? :admin
-       User.all
-     else
-       sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
-       User.where(sap_id_organization: sap_ids)
-     end
-    end
+     return User.all if current_user.has_role? :admin
+     sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
+     User.where(sap_id_organization: sap_ids)
+  end
+
+  def has_auth?(current_user)
+    return true if current_user.has_role? :admin
+    sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
+    User.where(id: id, sap_id_organization: sap_ids)
+  end
 end
