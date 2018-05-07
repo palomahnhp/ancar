@@ -1,5 +1,11 @@
 ---
 en:
+  actions:
+    search: Buscar
+  activerecord:
+    models:
+      activities:
+        one: Actividad
   admin:
     actions:
       confirm: "¿Estás seguro?"
@@ -16,12 +22,12 @@ en:
         entries: Entradas
         key: Acción
         parameters: Parámetros
+        search: Busqueda avanzada
+        title: Log de actividades
         trackable_description: Descripción
         trackable_id: Id.
         trackable_type: Objeto
         user: Usuario
-        title: "Log de actividades"
-        search: "Busqueda avanzada"
     dashboard:
       index:
         title: Configuración de la aplicación
@@ -164,7 +170,7 @@ en:
         no_data: No hay datos de asignación cargados
         title: Asignacion de RPT a unidades
       show_organization:
-        delete_column: Eiminar
+        delete_column: Eliminar
         no_assigned: SIN ASIGNAR
         title: Detalle de la asignación de RPT a unidades
     unit_types:
@@ -180,9 +186,3 @@ en:
         title: Unidades
   subnavigation_menu:
     assign_rpt: Asignar rpt
-  actions:
-    search: "Buscar"
-  activerecord:
-    models:
-      activities:
-        one: "Actividad"
