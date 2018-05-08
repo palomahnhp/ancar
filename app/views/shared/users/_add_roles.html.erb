@@ -13,13 +13,12 @@
           <td> <em><%= t('shared.users.roles.no_role') %> </em></td>
         </tr>
       <% else %>
-        <% @user.filter_roles(params[:role_name]).each do |role| %>
+        <% @user.filter_roles(params[:role_name]).distinct.each do |role| %>
           <tr id="user">
             <td> <%=role.no_empty_name %> </td>
             <td> <%= role.resource_type_description %> </td>
             <td> <%= role.resource_id_description %> </td>
             <% if params[:action] == 'edit' && @user.has_auth?(current_user).present? %>
-                %>
               <td id= "button_destroy">
                 <%= link_to t('shared.users.roles.remove_resource'),
                         eval("remove_role_#{namespace}_user_path(id: @user, role: role)"),

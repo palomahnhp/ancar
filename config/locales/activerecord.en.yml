@@ -89,6 +89,28 @@ en:
         short_description: "Descripción corta"
         sap_id: "Id SAP"
         organization_type: "Tipo de organización"
+      user:
+        login: Usuario
+        uweb_id: Id. Uweb
+        name: Nombre
+        surname: Primer apellido
+        second_surname: Segundo apelllido
+        full_name: Nombre
+        document_number: Documento
+        document_type: Tipo de documento
+        pernr: Numero personal
+        phone: Telefono
+        official_position: Puesto
+        email: Correo electrónico
+        inactivated_at: Baja
+        sap_id_unit: Id unidad
+        sap_den_unit: Unidad
+        organization_id: Id organización
+        sap_id_organization: Sap id organización
+        sap_den_organization:  Organización
+        uweb_auth_at: Acceso ayre desde
+        roles_description: Roles
+        created_at: Fecha de alta
     errors:
       models:
         period:

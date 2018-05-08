@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="User_list_#{Time.zone.now.to_s}">
+    <Table>
+      <Row>
+        <% User.export_columns.each do |col| %>
+          <Cell><Data ss:Type="String"><%= t("activerecord.attributes.user.#{col}") %></Data></Cell>
+        <% end %>
+      </Row>
+      <% @users.each do |user| %>
+        <Row>
+          <% User.export_columns.each do |col| %>
+            <Cell><Data ss:Type="String"><%= user.send(col.to_sym) %></Data></Cell>
+          <% end %>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

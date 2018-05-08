@@ -23,8 +23,14 @@
 <div id="search-result" class="row"></div>
 
 <span id="user_tabs"><%= render 'shared/filter_subnav', i18n_namespace: 'shared.users.index' %></span>
-
-<h3><%= page_entries_info @users, :entry_name => 'usuario'%></h3>
+<div class="row">
+  <div class="small-10 columns">
+    <h3><%= page_entries_info @users, :entry_name => 'usuario'%></h3>
+  </div>
+  <div class="small-2 columns">
+    <%= link_to "Exportar a excel", eval("#{namespace}_users_path(format: 'xls')") %>
+  </div>
+</div>
 
 <table class="hover">
   <thead>

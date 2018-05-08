@@ -267,7 +267,7 @@ en:
           error: Error creando usuario
         position: Puesto
         status: Estado
-        unit: Unidad
+        unit: Unidad / Organizacion
         uweb_auth: Acceso desde ayre
       form:
         new: Crear usuario

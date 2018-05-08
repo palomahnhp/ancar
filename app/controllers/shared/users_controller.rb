@@ -6,7 +6,17 @@ class Shared::UsersController < ApplicationController
   has_filters []
 
   def index
-    @users = load_filtered_users
+    if params[:format].present?
+      @users = User.auth(current_user).distinct
+    else
+      @users = load_filtered_users
+    end
+    respond_to do |format|
+      format.html
+      format.xls
+      format.xml  { render xml: @users }
+      format.json { render json: @users }
+    end
   end
 
   def new
@@ -80,6 +90,7 @@ class Shared::UsersController < ApplicationController
 #      render :edit
       flas[:alert] =  t('shared.users.edit.message.error')
     end
+    redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
     redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
   end
 

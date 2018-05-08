@@ -115,12 +115,22 @@ class User < ActiveRecord::Base
       data  = DirectoryApi.new.get_unit_data(self.sap_id_unit)
       unit_data = data['UNIDAD_ORGANIZATIVA']
       if unit_data.present?
-        self.sap_id_organization  = unit_data['AREA']
-        self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
+        self.assign_organization(unit_data)
+#        self.sap_id_organization  = unit_data['AREA']
+#        self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
       end
     else
       false
     end
+  end
+
+  def assign_organization(unit_data)
+
+    assignation = UnitRptAssignation.find_by(sapid_unit: unit_data['ID_UNIDAD'])
+    return true if assignation.blank?
+    organization = Organization.find_by(id: assignation.organization_id)
+    self.sap_id_organization = organization.sap_id
+    self.sap_den_organization = organization.description
   end
 
   def directory_update!
@@ -248,4 +258,18 @@ class User < ActiveRecord::Base
     sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
     User.where(id: id, sap_id_organization: sap_ids)
   end
+
+  def self.export_columns
+    %w(login full_name official_position sap_den_unit sap_den_organization
+       email phone created_at roles_description uweb_auth_at inactivated_at )
+  end
+
+  def roles_description
+    roles_description = ''
+    a = roles.map { |role| "#{roles_description} #{I18n.t("shared.roles.role.name.#{role.name}")}"}
+
+    return a.uniq[0].strip unless a.empty?
+    ""
+  end
+
 end
