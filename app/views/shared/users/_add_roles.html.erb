@@ -13,7 +13,7 @@
           <td> <em><%= t('shared.users.roles.no_role') %> </em></td>
         </tr>
       <% else %>
-        <% @user.filter_roles(params[:role_name]).each do |role| %>
+        <% @user.filter_roles(params[:role_name]).distinct.each do |role| %>
           <tr id="user">
             <td> <%=role.no_empty_name %> </td>
             <td> <%= role.resource_type_description %> </td>
