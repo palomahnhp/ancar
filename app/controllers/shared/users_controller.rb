@@ -81,6 +81,7 @@ class Shared::UsersController < ApplicationController
       flas[:alert] =  t('shared.users.edit.message.error')
     end
     redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
+    redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
   end
 
   def uweb_auth

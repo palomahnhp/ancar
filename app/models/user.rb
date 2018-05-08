@@ -115,12 +115,22 @@ class User < ActiveRecord::Base
       data  = DirectoryApi.new.get_unit_data(self.sap_id_unit)
       unit_data = data['UNIDAD_ORGANIZATIVA']
       if unit_data.present?
-        self.sap_id_organization  = unit_data['AREA']
-        self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
+        self.assign_organization(unit_data)
+#        self.sap_id_organization  = unit_data['AREA']
+#        self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
       end
     else
       false
     end
+  end
+
+  def assign_organization(unit_data)
+
+    assignation = UnitRptAssignation.find_by(sapid_unit: unit_data['ID_UNIDAD'])
+    return true if assignation.blank?
+    organization = Organization.find_by(id: assignation.organization_id)
+    self.sap_id_organization = organization.sap_id
+    self.sap_den_organization = organization.description
   end
 
   def directory_update!
