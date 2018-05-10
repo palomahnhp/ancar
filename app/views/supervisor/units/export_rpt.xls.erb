@@ -4,11 +4,54 @@
   xmlns:x="urn:schemas-microsoft-com:office:excel"
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:html="http://www.w3.org/TR/REC-html40">
+  <ss:Styles>
+    <ss:Style ss:ID="Default" ss:Name="Normal">
+      <ss:Alignment ss:Vertical="Bottom"/>
+      <ss:Borders/>
+      <ss:Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+      <ss:Interior/>
+      <ss:NumberFormat/>
+      <ss:Protection/>
+    </ss:Style>
+    <ss:Style ss:ID="s67">
+      <ss:Alignment ss:Vertical="Bottom"/>
+      <ss:Borders/>
+      <ss:Font ss:FontName="Arial" ss:Bold="1"/>
+      <ss:Interior ss:Color="#5BA5A0" ss:Pattern="Solid"/>
+      <ss:NumberFormat/>
+      <ss:Protection/>
+    </ss:Style>
+  </ss:Styles>
+
   <Worksheet ss:Name="Plantilla">
     <Table>
-      <Row>
+      <ss:Column ss:Width="30"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="30"/>
+      <ss:Column ss:Width="30"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="30"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="30"/>
+      <ss:Column ss:Width="30"/>
+      <ss:Column ss:Width="50"/>
+      <ss:Column ss:Width="30"/>
+      <ss:Column ss:Width="50"/>
+      <ss:Column ss:Width="50"/>
+      <ss:Column ss:Width="30"/>
+      <ss:Column ss:Width="100"/>
+      <ss:Column ss:Width="100"/>
+      <ss:Column ss:Width="150"/>
+      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="50"/>
+      <ss:Column ss:Width="50"/>
+      <ss:Column ss:Width="50"/>
+      <ss:Column ss:Width="50"/>
+
+      <Row ss:StyleID="s67">
         <% Rpt.export_columns.each do |col| %>
-          <Cell><Data ss:Type="String"><%= col %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t("activerecord.attributes.rpt.#{col}") %></Data></Cell>
         <% end %>
       </Row>
       <% @organization_types.each do |type| %>

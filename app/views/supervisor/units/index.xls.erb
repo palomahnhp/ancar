@@ -4,9 +4,40 @@
   xmlns:x="urn:schemas-microsoft-com:office:excel"
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:html="http://www.w3.org/TR/REC-html40">
+
+  <ss:Styles>
+    <ss:Style ss:ID="Default" ss:Name="Normal">
+      <ss:Alignment ss:Vertical="Bottom"/>
+      <ss:Borders/>
+      <ss:Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+      <ss:Interior/>
+      <ss:NumberFormat/>
+      <ss:Protection/>
+    </ss:Style>
+    <ss:Style ss:ID="s67">
+      <ss:Alignment ss:Vertical="Bottom"/>
+      <ss:Borders/>
+      <ss:Font ss:FontName="Arial" ss:Bold="1"/>
+      <ss:Interior ss:Color="#5BA5A0" ss:Pattern="Solid"/>
+      <ss:NumberFormat/>
+      <ss:Protection/>
+    </ss:Style>
+  </ss:Styles>
+
   <Worksheet ss:Name="RPT">
     <Table>
-      <Row>
+      <ss:Column ss:Width="40"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="40"/>
+      <ss:Column ss:Width="40"/>
+      <ss:Column ss:Width="40"/>
+      <ss:Column ss:Width="40"/>
+      <ss:Column ss:Width="40"/>
+      <ss:Column ss:Width="40"/>
+      <Row ss:StyleID="s67">
         <Cell><Data ss:Type="String">Año</Data></Cell>
         <Cell><Data ss:Type="String">Organización</Data></Cell>
         <Cell><Data ss:Type="String">Unidad </Data></Cell>

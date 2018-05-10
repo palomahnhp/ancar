@@ -97,7 +97,11 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
     resources :sources
     resources :process_summary
-    resources :periods
+    resources :periods do
+      member do
+        get 'export'
+      end
+    end
     resources :indicators  do
       member do
         post 'edit'

@@ -83,6 +83,76 @@ class Period < ActiveRecord::Base
     unscoped.order_by_started_at.collect { |period| period.started_at.year }.uniq
   end
 
+  def structure
+    structure = []
+    main_processes.includes(:sub_processes).order(:order).each do |mp|
+      mp.sub_processes.each do |sp|
+        sp.tasks.each do |tk|
+          tk.indicators.order(:code).each do |ind|
+            ind.indicator_metrics.order(:code).each do |im|
+               structure << [{'Periodo': description},
+                             {'Cód.indicador': mp.order.to_s + '.' + sp.order.to_s + '.' + ind.code.to_s},
+                             {'Proceso/Bloque': mp.item.description},
+                             {'Subproceso/Proceso': sp.item.description},
+                             {'Indicador': ind.item.description},
+                             {'Métrica': im.metric.item.description},
+                             {'Tipo': im.in_out_type},
+                             {'Procedencia': im.data_source},
+                             {'Trámite': im.procedure},
+                             {'Fuente': im.indicator_sources.first.source.item.description},
+                             {'Auto': im.indicator_sources.first.source.fixed}]
+            end
+          end
+        end
+      end
+    end
+    structure
+  end
+
+  def self.export_columns
+    %w(description
+       main_processes
+       unit_type
+       sub_processes
+       code
+       indicators
+       source
+       metrics
+       in_out_type
+       data_source
+       procedure
+      )
+  end
+
+  def self.sql_export
+    Period.find_by_sql(
+    "select main_processes.order, items_mp.description, sub_processes.order, items_sp.description,
+             indicators.code, indicator_metrics.in_out_type,
+             items_ind.description, items_metric.description, items_source.description, items_mp.description
+         from periods
+        join organizations on organizations.organization_type_id = periods.organization_type_id
+        join main_processes on main_processes.period_id   = periods.id
+        join items as items_mp on items_mp.item_type = 'main_process' and items_mp.id = main_processes.item_id
+        join sub_processes on sub_processes.main_process_id   = main_processes.id
+        join items as items_sp on items_sp.item_type = 'sub_process' and items_sp.id = sub_processes.item_id
+        join tasks as tasks on tasks.id = sub_processes.id
+        join indicators on indicators.task_id   = tasks.id
+        join items as items_ind on items_ind.item_type = 'indicator' and items_ind.id = indicators.item_id
+        join indicator_metrics on indicator_metrics.indicator_id   = indicators.id
+        join metrics on metrics.id = indicator_metrics.metric_id
+        join items as items_metric on items_metric.item_type = 'metric' and items_metric.id = metrics.item_id
+        join indicator_sources on indicator_sources.indicator_metric_id = indicator_metrics.id
+        join sources on sources.id = indicator_sources.source_id
+        join items as items_source on items_source.item_type = 'source' and items_source.id = sources.item_id
+       where periods.id =  7 -- and organizations.id = 29
+    group by main_processes.order, items_mp.description, sub_processes.order, items_sp.description,
+             indicators.code, indicator_metrics.in_out_type,
+             items_ind.description, items_metric.description, items_source.description
+    order by main_processes.order, sub_processes.order, indicators.code
+    limit 1  ")
+
+  end
+
   private
 
   def started_at_before_ended_at
