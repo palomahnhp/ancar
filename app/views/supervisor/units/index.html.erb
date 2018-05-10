@@ -23,10 +23,10 @@
   <p class="note"><strong><%= t('supervisor.units.index.export.title') %></strong></p>
   <ul>
     <li  class="note">
-      <%= link_to t('supervisor.units.index.export.assignation'), supervisor_units_path(format: "xls") %>
+      <%= link_to t('supervisor.units.index.export.assignation'), supervisor_units_path(format: "xls", year: @year) %>
     </li>
     <li class="note">
-      <%= link_to t('supervisor.units.index.export.rpt_html'), export_rpt_supervisor_units_path(type: @organization_types.ids, format: "xls") %>
+      <%= link_to t('supervisor.units.index.export.rpt_html'), export_rpt_supervisor_units_path(type: @organization_types.ids, format: "xls", year: @year) %>
     </li>
   </ul>
   <hr>
@@ -37,7 +37,7 @@
           <th> <%= t('supervisor.units.index.detail') %></th>
           <th colspan="2"> <%= t('supervisor.units.index.organization') %> </th>
           <th colspan="7"> <%= t('supervisor.units.index.data') %> </th>
-          <!--th colspan="7"> En Ancar </th-->
+
         </tr>
         <tr>
           <th colspan = "3"></th>

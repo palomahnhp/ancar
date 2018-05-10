@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-          xmlns:o="urn:schemas-microsoft-com:office:office"
-          xmlns:x="urn:schemas-microsoft-com:office:excel"
-          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-          xmlns:html="http://www.w3.org/TR/REC-html40">
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+
   <ss:Styles>
     <ss:Style ss:ID="Default" ss:Name="Normal">
       <ss:Alignment ss:Vertical="Bottom"/>
@@ -22,28 +23,28 @@
       <ss:Protection/>
     </ss:Style>
   </ss:Styles>
-  <Worksheet ss:Name="User_list">
+  <Worksheet ss:Name="Estructura de Periodo" >
     <Table>
-      <ss:Column ss:Width="80"/>
-      <ss:Column ss:Width="180"/>
-      <ss:Column ss:Width="180"/>
-      <ss:Column ss:Width="180"/>
-      <ss:Column ss:Width="180"/>
       <ss:Column ss:Width="100"/>
+      <ss:Column ss:Width="50"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="180"/>
       <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="30"/>
       <ss:Column ss:Width="80"/>
-      <ss:Column ss:Width="80"/>
-      <ss:Column ss:Width="80"/>
-      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="40"/>
+      <ss:Column ss:Width="40"/>
+      <ss:Column ss:Width="40"/>
       <Row ss:StyleID="s67">
-        <% User.export_columns.each do |col| %>
-          <Cell><Data ss:Type="String"><%= t("activerecord.attributes.user.#{col}") %></Data></Cell>
+        <% @period_structure.first.each do |col| %>
+          <Cell><Data ss:Type="String"><%= col.keys.first.capitalize %></Data></Cell>
         <% end %>
       </Row>
-      <% @users.each do |user| %>
+      <% @period_structure.each do |data| %>
         <Row>
-          <% User.export_columns.each do |col| %>
-            <Cell><Data ss:Type="String"><%= user.send(col.to_sym) %></Data></Cell>
+          <% data.each do |cell| %>
+            <Cell><Data ss:Type="String"><%= cell[cell.keys.first] %></Data></Cell>
           <% end %>
         </Row>
       <% end %>

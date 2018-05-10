@@ -128,7 +128,7 @@ en:
           no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
           processes_copy: Se ha creado el periodo correctamente con los procesos e indicatores del periodo seleccionado.
       destroy:
-        error: Se ha producido un error a eliminar el Periodo
+        error: Se ha producido un error al eliminar el Periodo
         success: Se ha eliminado el Periodo correctamente
       edit:
         title: Editar periodo
@@ -149,6 +149,7 @@ en:
           delete: eliminar
           edit: editar
           processes: ver %{process_name}
+          export: "Exportar"
         data_collect: Periodo de mecanización
         empty: No se ha creado ningún periodo
         entry_closed: No modificable - cerrada entrada de datos
@@ -158,6 +159,20 @@ en:
         organization_type: Organización
         period: 'Periodo:'
         title: Periodos de estudio
+      export:
+        columns:
+          description: Periodo
+          main_processes: Proceso
+          unit_type: Unidad
+          sub_processes: Subproceso
+          code: Codigo
+          indicators: Indicadores
+          source: Fuente
+          automatic: Automatica
+          metrics: Metrica
+          in_out_type: E/S/X
+          data_source: origen
+          procedure: tramite
       new:
         title: Abrir un nuevo periodo
       show:

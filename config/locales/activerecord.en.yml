@@ -111,6 +111,33 @@ en:
         uweb_auth_at: Acceso ayre desde
         roles_description: Roles
         created_at: Fecha de alta
+      rpt:
+        year: Año
+        den_area: Unidad Nivel 1
+        sapid_area: Id SAP Nivel 1
+        sapid_unidad: Id SAP unidad
+        den_unidad: Unidad
+        status_pto_txt: Status puesto
+        ocupada: Ocu/Vac
+        id_puesto: Id SAP puesto
+        den_puesto: Puesto
+        nivel_pto: Nivel pto
+        grtit_pto: Grupo tit pto
+        sociedad: Sociedad
+        division: división
+        dotado: Dotado?
+        nombre: Nombre
+        apellido1: Apellido 1
+        apellido2: Apellido 2
+        den_categoria_per: Categoria
+        area_personal_txt: Area de personal
+        grupo_personal_txt: Grupo de personal
+        grtit_per: Grupo titulación
+        situacion: Situación
+        modalidad: Modalidad
+        fecha_baja: Fecha Baja
+        editable_Z01: Editable?
+        ficticio_Z02: Ficticio?
     errors:
       models:
         period:
