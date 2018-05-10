@@ -14,7 +14,15 @@
       <ss:NumberFormat/>
       <ss:Protection/>
     </ss:Style>
-    <ss:Style ss:ID="s67">
+    <ss:Style ss:ID="sTitle">
+      <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+      <ss:Borders/>
+      <ss:Font ss:FontName="Arial" x:Family="Swiss" ss:Size="12" ss:Bold="1"/>
+      <ss:Interior ss:Color="#5BA5A0" ss:Pattern="Solid"/>
+      <ss:NumberFormat/>
+      <ss:Protection/>
+    </ss:Style>
+    <ss:Style ss:ID="sHeader">
       <ss:Alignment ss:Vertical="Bottom"/>
       <ss:Borders/>
       <ss:Font ss:FontName="Arial" ss:Bold="1"/>
@@ -22,11 +30,18 @@
       <ss:NumberFormat/>
       <ss:Protection/>
     </ss:Style>
+    <ss:Style ss:ID="sTotal">
+      <ss:Alignment ss:Vertical="Bottom"/>
+      <ss:Borders/>
+      <ss:Font ss:FontName="Arial" ss:Bold="1"/>
+      <ss:Interior ss:Color="#A9D08E" ss:Pattern="Solid"/>
+      <ss:NumberFormat/>
+      <ss:Protection/>
+    </ss:Style>
   </ss:Styles>
 
-  <Worksheet ss:Name="RPT">
+  <Worksheet ss:Name="Asignacion de RPT de unidades">
     <Table>
-      <ss:Column ss:Width="40"/>
       <ss:Column ss:Width="180"/>
       <ss:Column ss:Width="180"/>
       <ss:Column ss:Width="80"/>
@@ -37,38 +52,30 @@
       <ss:Column ss:Width="40"/>
       <ss:Column ss:Width="40"/>
       <ss:Column ss:Width="40"/>
-      <Row ss:StyleID="s67">
-        <Cell><Data ss:Type="String">Año</Data></Cell>
-        <Cell><Data ss:Type="String">Organización</Data></Cell>
-        <Cell><Data ss:Type="String">Unidad </Data></Cell>
-        <Cell><Data ss:Type="String">id_unidad</Data></Cell>
-        <Cell><Data ss:Type="String">den_unidad</Data></Cell>
-        <Cell><Data ss:Type="String">Total</Data></Cell>
-        <Cell><Data ss:Type="String">A1</Data></Cell>
-        <Cell><Data ss:Type="String">A2</Data></Cell>
-        <Cell><Data ss:Type="String">C1</Data></Cell>
-        <Cell><Data ss:Type="String">C2</Data></Cell>
-        <Cell><Data ss:Type="String">Agr</Data></Cell>
-        <Cell><Data ss:Type="String"> X  </Data></Cell>
+      <Row ss:AutoFitHeight="0" ss:Height="31.799999999999997">
+        <Cell ss:MergeAcross="10" ss:StyleID="sTitle"><Data ss:Type="String">ASIGNACIÓN DE PUESTOS A UNIDADES - <%= @year %></Data></Cell>
+      </Row>
+      <Row>
+        <% UnitRptAssignation.export_columns.each do |col| %>
+         <Cell ss:StyleID="sHeader"><Data ss:Type="String"><%= col %></Data></Cell>
+        <% end %>
       </Row>
       <% @organization_types.each do |type| %>
        <%  rpt_load_conditions(type) %>
         <% type.organizations.each do |organization| %>
           <% organization.units.each do |unit| %>
-            <Row>
-              <Cell><Data ss:Type="Number"><%= @year %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
-              <Cell><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
-              <Cell><Data ss:Type="String">   </Data></Cell>
-              <Cell><Data ss:Type="String">TOTAL</Data></Cell>
-              <Cell><Data ss:Type="String"><%= rpt_unit(@year, assigned_units(@year, unit.id))%> </Data></Cell>
-              <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
-                <Cell><Data ss:Type="String"><%= @rpt_grtit[grtit] %></Data></Cell>
-              <% end %>
-            </Row>
+              <Row>
+                <Cell ss:StyleID="sTotal"><Data ss:Type="String"><%= organization.description %></Data></Cell>
+                <Cell ss:StyleID="sTotal"><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
+                <Cell ss:StyleID="sTotal"><Data ss:Type="String">   </Data></Cell>
+                <Cell ss:StyleID="sTotal"><Data ss:Type="String">TOTAL</Data></Cell>
+                <Cell ss:StyleID="sTotal"><Data ss:Type="String"><%= rpt_unit(@year, assigned_units(@year, unit.id))%> </Data></Cell>
+                <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
+                  <Cell ss:StyleID="sTotal"><Data ss:Type="String"><%= @rpt_grtit[grtit] %></Data></Cell>
+                <% end %>
+              </Row>
             <% unit.unit_rpt_assignations.by_year(@year).by_year(@year).order(:sapid_unit).each do |item|  %>
               <Row>
-                <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= unit.description_sap %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= item.sapid_unit %></Data></Cell>
@@ -80,9 +87,19 @@
               </Row>
             <% end %>
           <% end %>
+          <Row>
+            <Cell ss:StyleID="sTotal"><Data ss:Type="String"><%= organization.description %></Data></Cell>
+            <Cell ss:StyleID="sTotal"><Data ss:Type="String">SIN ASIGNAR</Data></Cell>
+            <Cell ss:StyleID="sTotal"><Data ss:Type="String">SIN ASIGNAR </Data></Cell>
+            <Cell ss:StyleID="sTotal"><Data ss:Type="String"></Data></Cell>
+            <Cell ss:StyleID="sTotal"><Data ss:Type="String"></Data></Cell>
+            <% %w(A1 A2 C1 C2 E X).each do |grtit|%>
+              <Cell ss:StyleID="sTotal"><Data ss:Type="String"><%= @rpt_grtit[grtit] %></Data></Cell>
+            <% end %>
+          </Row>
+
           <% UnitRptAssignation.by_year(@year).by_organization(organization).unassigned.each do |assign_rec| %>
             <Row>
-              <Cell><Data ss:Type="Number"><%= @rpt_year %></Data></Cell>
               <Cell><Data ss:Type="String"><%= organization.description %></Data></Cell>
               <Cell><Data ss:Type="String">SIN ASIGNAR</Data></Cell>
               <Cell><Data ss:Type="String"><%=  %></Data></Cell>

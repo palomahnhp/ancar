@@ -4,7 +4,7 @@
   xmlns:x="urn:schemas-microsoft-com:office:excel"
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:html="http://www.w3.org/TR/REC-html40">
-  <Worksheet ss:Name="RPT">
+  <Worksheet ss:Name="Asignacion de RPT a unidades">
     <ss:Styles>
       <ss:Style ss:ID="Default" ss:Name="Normal">
         <ss:Alignment ss:Vertical="Bottom"/>
@@ -14,7 +14,15 @@
         <ss:NumberFormat/>
         <ss:Protection/>
       </ss:Style>
-      <ss:Style ss:ID="s67">
+      <ss:Style ss:ID="sHeader">
+        <ss:Alignment ss:Vertical="Bottom"/>
+        <ss:Borders/>
+        <ss:Font ss:FontName="Arial" ss:Bold="1"/>
+        <ss:Interior ss:Color="#9BC2E6" ss:Pattern="Solid"/>
+        <ss:NumberFormat/>
+        <ss:Protection/>
+      </ss:Style>
+      <ss:Style ss:ID="sTotal">
         <ss:Alignment ss:Vertical="Bottom"/>
         <ss:Borders/>
         <ss:Font ss:FontName="Arial" ss:Bold="1"/>
@@ -24,7 +32,7 @@
       </ss:Style>
     </ss:Styles>
     <Table>
-      <Row ss:StyleID="s67">>
+      <Row ss:StyleID="s67">
         <Cell><Data ss:Type="String">year</Data></Cell>
         <Cell><Data ss:Type="String">den_organizacion</Data></Cell>
         <Cell><Data ss:Type="String">sapid_unidad</Data></Cell>
