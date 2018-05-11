@@ -64,5 +64,16 @@ class IndicatorMetric < ActiveRecord::Base
     end
       return type == '-' ? ' ' : type
   end
+
+  def source_description
+    return indicator_sources.first.source.item.description if indicator_sources.present?
+    ' '
+  end
+
+  def source_fixed
+    return indicator_sources.first.source.fixed if indicator_sources.present?
+    false
+  end
+
 end
 
