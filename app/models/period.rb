@@ -90,17 +90,17 @@ class Period < ActiveRecord::Base
         sp.tasks.each do |tk|
           tk.indicators.order(:code).each do |ind|
             ind.indicator_metrics.order(:code).each do |im|
-               structure << [{'Periodo': description},
-                             {'Cód.indicador': mp.order.to_s + '.' + sp.order.to_s + '.' + ind.code.to_s},
-                             {'Proceso/Bloque': mp.item.description},
-                             {'Subproceso/Proceso': sp.item.description},
-                             {'Indicador': ind.item.description},
-                             {'Métrica': im.metric.item.description},
-                             {'Tipo': im.in_out_type},
-                             {'Procedencia': im.data_source},
-                             {'Trámite': im.procedure},
-                             {'Fuente': im.indicator_sources.first.source.item.description},
-                             {'Auto': im.indicator_sources.first.source.fixed}]
+              structure << [{'Periodo': self.description},
+                            {'Cód.indicador': ind.full_code},
+                            {'Proceso/Bloque': mp.item.description},
+                            {'Subproceso/Proceso': sp.item.description},
+                            {'Indicador': ind.item.description},
+                            {'Métrica': im.metric.item.description},
+                            {'Tipo': im.in_out_type},
+                            {'Procedencia': im.data_source},
+                            {'Trámite': im.procedure},
+                            {'Fuente': im.source_description},
+                            {'Auto': im.source_fixed}]
             end
           end
         end

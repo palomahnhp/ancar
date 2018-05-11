@@ -90,4 +90,8 @@ class Indicator < ActiveRecord::Base
     end
     return [entry_without_staff, staff_without_entry]
   end
+
+  def full_code
+    main_process.order.to_s + '.' + sub_process.order.to_s + '.' + code.to_s
+  end
 end
