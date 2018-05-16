@@ -20,6 +20,9 @@ DatabaseCleaner.clean_with :truncation
   Setting.create!(key: "logger_name", value: "ancar.log")
   Setting.create!(key: "logger_status", value: 1)
   Setting.create!(key: "logger_age", value: "weekle")
+  Setting.create!(key: "logger_age", value: "weekle")
+
+
 
 #puts "2. Creando tipos de organizaciones"
   to1 = OrganizationType.create!(acronym: "JD", description: "Distritos",

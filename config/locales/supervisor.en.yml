@@ -1,12 +1,5 @@
 ---
 en:
-  admin:
-    unit_rpt_assignations:
-      index:
-        detail: Detalle
-        occupied: Ocupados
-        organization: Organización
-        vacancy: Vacantes
   supervisor:
     dashboard:
       index:

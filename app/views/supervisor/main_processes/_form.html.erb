@@ -4,19 +4,22 @@
   <br>
   <%= f.hidden_field :period_id, value: main_process_period_id %>
 
-  <div class="small-10 columns" >
-    <%= f.label :organization_id, t('supervisor.main_processes.form.organization') %>
-    <%= f.select :organization_id, options_for_select(Organization.select_options(@main_process.period.organization_type), @main_process.organization_id),
-                 :prompt => t('supervisor.main_processes.form.organization'), label: false,
-                 placeholder: t('supervisor.main_processes.form.organization') %>
-  </div>
+  <% if  main_process_organization_enabled?(@main_process) %>
+    <div class="small-10 columns" >
+      <%= f.label :organization_id, t('supervisor.main_processes.form.organization') %>
+      <%= f.select :organization_id, options_for_select(Organization.select_options(@main_process.period.organization_type), @main_process.organization_id),
+                   :prompt => t('supervisor.main_processes.form.organization'), label: false,
+                   placeholder: t('supervisor.main_processes.form.organization') %>
+    </div>
+  <% end %>
 
-    <div class="small-10 columns end" >
+  <div class="small-10 columns end" >
     <%= f.label :item_id, t('supervisor.main_processes.form.description') %>
     <%= f.select :item_id, options_for_select(main_process_items, @main_process.item_id),
                    :prompt => t('supervisor.main_processes.form.prompt'), label: false,
                    placeholder: t('supervisor.main_processes.form.description') %>
   </div>
+
   <div class="row">
     <div class="small-7 columns" >
       <%= label_tag t('supervisor.main_processes.form.items.description')%>

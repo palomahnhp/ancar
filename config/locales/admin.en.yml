@@ -127,6 +127,9 @@ en:
             SGT: Secretarias Generales Técnicas
             title: Permitir menos plantilla que la asignada
           title: Validaciones
+        main_processes_organization:
+          subtitle: "Adjudicacion de procesos a una unica organizacion"
+          title: "Procesos por organizacion"
       key:
         description:
           app_name: Nombre de la aplicación
@@ -186,4 +189,10 @@ en:
         title: Unidades
   subnavigation_menu:
     assign_rpt: Asignar rpt
+  unit_rpt_assignations:
+    index:
+      detail: Detalle
+      occupied: Ocupados
+      organization: Organización
+      vacancy: Vacantes
 

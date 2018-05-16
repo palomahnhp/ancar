@@ -1,15 +1,17 @@
   <table id="main_processes_list">
     <% @main_processes.each do  |main_process|%>
-      <% if @organization_before.nil? || @organization_before != main_process.organization_group %>
-          <tr>
-            <td class="expanded highlight">
-              <%= main_process.organization_group %>
-            </td>
-            <td class="expanded highlight"></td>
-            <td class="expanded highlight"></td>
-            <td class="expanded highlight"></td>
-          </tr>
-          <% @organization_before = main_process.organization_group %>
+      <% if main_process_organization_enabled?(main_process) %>
+        <% if @organization_before.nil? || @organization_before != main_process.organization_group %>
+            <tr>
+              <td class="expanded highlight">
+                <%= main_process.organization_group %>
+              </td>
+              <td class="expanded highlight"></td>
+              <td class="expanded highlight"></td>
+              <td class="expanded highlight"></td>
+            </tr>
+            <% @organization_before = main_process.organization_group %>
+        <% end %>
       <% end %>
 
       <tr id="<%= dom_id(main_process) %>">
