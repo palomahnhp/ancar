@@ -120,6 +120,12 @@ module SupervisorHelper
     setting.enabled? if setting.present?
   end
 
+  def main_process_organization_enabled?(mp)
+    @setting ||= Setting.find_by(key: 'main_process_organization.'+ mp.period.organization_type.acronym)
+    return @setting.enabled? if @setting.present?
+    false
+  end
+
   def rpt_unit(year, unit)
     if @conditions[:vacancy].present?
       @rpt_grtit = Rpt.select('grtit_per').by_year(year).by_unit_sap(unit).group(:grtit_per).count

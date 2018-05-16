@@ -138,6 +138,17 @@ en:
         fecha_baja: Fecha Baja
         editable_Z01: Editable?
         ficticio_Z02: Ficticio?
+      setting:
+        key:
+          st_imported_source:   &st_imported_source   Modificacion de fuentes automaticas permitida
+          st_validation:        &st_validation        Validaciones
+          st_rpt_vacancy:       &st_rpt_vacancy       Incluir vacantes
+          st_rpt_only_grtit:    &st_rpt_only_grtit    Excluir personal sin grupo de titulacion
+          st_rpt_political:     &st_rpt_political     Incluir politicos
+          st_send_email_change_staff: &st_send_email_change_staff  Enviar correo cuando haya cambio de plantilla
+          st_main_processes_organization: &st_main_processes_organization Bloque copetencial/Proceso por organizacion
+          st_other:             st_other Generales
+        value: Valor
     errors:
       models:
         period:
