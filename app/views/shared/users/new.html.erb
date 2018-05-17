@@ -12,8 +12,9 @@
         <%= f.hidden_field :official_position %>
         <%= f.hidden_field :sap_den_unit %>
         <%= f.hidden_field :sap_den_organization %>
+        <%= f.hidden_field :sap_id_unit %>
+        <%= f.hidden_field :sap_id_organization %>
         <%= f.hidden_field :email %>
-        <%= f.hidden_field :phone %>
         <%= f.hidden_field :phone %>
 
         <%= f.submit t('shared.users.form.ws_update'), class: 'hollow button' %>
@@ -28,8 +29,8 @@
               <%= @user.second_surname %>
             </td>
             <td><%= @user.official_position %> </td>
-            <td><%= @user.sap_den_unit %></td>
-            <td><%= @user.sap_den_organization %></td>
+            <td title="<%= @user.sap_id_unit %>"><%= @user.sap_den_unit %></td>
+            <td title="<%= @user.sap_id_organization %>"><%= @user.sap_den_organization %></td>
             <td><%= @user.email %></td>
             <td><%= @user.phone %></td>
             <td><%= f.submit t('shared.users.form.new'), class: 'hollow button' %></td>

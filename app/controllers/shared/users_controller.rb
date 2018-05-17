@@ -164,8 +164,10 @@ class Shared::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :surname, :second_surname, :login, :uweb_id, :pernr,
-                                 :document_type, :document_number, :phone, :email, :official_position,
-                                 :inactivated_at, :unit, :sap_id_unit, :sap_den_unit, :sap_den_organization, :sap_den_organization)
+                                 :document_type, :document_number, :phone, :email,
+                                 :official_position,:inactivated_at,
+                                 :unit, :sap_id_unit,:sap_den_unit,
+                                 :sap_id_organization, :sap_den_organization)
   end
 
   def load_filtered_users
