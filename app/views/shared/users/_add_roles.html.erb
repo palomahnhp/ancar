@@ -53,33 +53,35 @@
               <%= submit_tag t('shared.roles.add_role.submit'), class: 'button hollow success small', :name => 'Organization' %>
             </td>
          </tr>
-         <tr>
-            <td>
-              <%= label_tag :role_2, t('shared.users.roles.add_role') %>
-              <%= select_tag(:role_2, options_for_select(roles_select_options(@user, OrganizationType)),
-                             label: false, placeholder: t('shared.roles.add_role.title') ) %>
-            </td>
-            <td>
-              <%= label_tag :resource_id_2, t('shared.roles.add_resource.organization_type') %>
-              <%= select_tag(:resource_id_2, grouped_options_for_select(resources_select_options(@user, OrganizationType)),
-                             label: false, placeholder: t('shared.roles.add_role.resource'))%>
-            </td>
-            <td>
-              <%= submit_tag t('shared.roles.add_role.submit'), class: 'button hollow success small', :name => 'OrganizationType' %>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <%= label_tag :role_3, t('shared.users.roles.add_role') %>
-              <%= select_tag(:role_3, options_for_select(roles_select_options(@user)),
-                                                         label: false, placeholder: t('shared.roles.add_role.title') ) %>
-            </td>
-            <td>
-            </td>
-            <td>
-              <%= submit_tag t('shared.roles.add_role.submit'), class: 'button hollow success small', :name => '#{shared}' %>
-            </td>
-          </tr>
+         <% if current_user.has_role? :admin %>
+           <tr>
+              <td>
+                <%= label_tag :role_2, t('shared.users.roles.add_role') %>
+                <%= select_tag(:role_2, options_for_select(roles_select_options(@user, OrganizationType)),
+                               label: false, placeholder: t('shared.roles.add_role.title') ) %>
+              </td>
+              <td>
+                <%= label_tag :resource_id_2, t('shared.roles.add_resource.organization_type') %>
+                <%= select_tag(:resource_id_2, grouped_options_for_select(resources_select_options(@user, OrganizationType)),
+                               label: false, placeholder: t('shared.roles.add_role.resource'))%>
+              </td>
+              <td>
+                <%= submit_tag t('shared.roles.add_role.submit'), class: 'button hollow success small', :name => 'OrganizationType' %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= label_tag :role_3, t('shared.users.roles.add_role') %>
+                <%= select_tag(:role_3, options_for_select(roles_select_options(@user)),
+                                                           label: false, placeholder: t('shared.roles.add_role.title') ) %>
+              </td>
+              <td>
+              </td>
+              <td>
+                <%= submit_tag t('shared.roles.add_role.submit'), class: 'button hollow success small', :name => '#{shared}' %>
+              </td>
+            </tr>
+         <% end %>
        </table>
     <% end %>
   <% end %>
