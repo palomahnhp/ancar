@@ -46,7 +46,7 @@
             </td>
             <td>
               <%= label_tag :resource_id_1, t('shared.roles.add_resource.resource') %>
-              <%= select_tag(:resource_id_1, grouped_options_for_select(resources_select_options(@user, Organization)),
+              <%= select_tag(:resource_id_1, grouped_options_for_select(resources_select_options(current_user, Organization)),
                      label: false) %>
             </td>
             <td>
