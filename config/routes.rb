@@ -99,7 +99,8 @@ Rails.application.routes.draw do
     resources :process_summary
     resources :periods do
       member do
-        get 'export'
+        get  'export'
+        get 'open'
       end
     end
     resources :indicators  do
