@@ -165,6 +165,15 @@ en:
     not_saved: 'guardar %{resource}:'
     period: el periodo
     sub_process: el subproceso
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name} de <b>%{total}</b> en total
+      one_page:
+        display_entries:
+          one: Mostrando <b>%{count}</b> %{entry_name}
+          other: Mostrando <b>un total de %{count}</b> %{entry_name}
+          zero: No se han encontrado %{entry_name}
   instructions:
     jd:
       subtitle: Instrucciones para la cumplimentación de datos
@@ -342,19 +351,6 @@ en:
       no_auth_units: No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones
       select: Selección de unidad a tratar
       title: Hoja de medición de procesos
-  welcome:
-    logo_alt: Logo Gerencia de la Ciudad
-    sub_title: Estudio de cargas de trabajo
-    title: Organización del trabajo en las unidades municipales
-  helpers:
-    page_entries_info:
-      more_pages:
-        display_entries: Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name} de <b>%{total}</b> en total
-      one_page:
-        display_entries:
-          one: Mostrando <b>%{count}</b> %{entry_name}
-          other: Mostrando <b>un total de %{count}</b> %{entry_name}
-          zero: No se han encontrado %{entry_name}
   views:
     pagination:
       first: "&laquo; Primera"
@@ -362,3 +358,7 @@ en:
       next: Siguiente &rsaquo;
       previous: "&lsaquo; Anterior"
       truncate: "&hellip;"
+  welcome:
+    logo_alt: Logo Gerencia de la Ciudad
+    sub_title: Estudio de cargas de trabajo
+    title: Organización del trabajo en las unidades municipales

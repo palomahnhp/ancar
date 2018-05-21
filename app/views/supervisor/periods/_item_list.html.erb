@@ -28,49 +28,9 @@
             <% end %>
           </div>
         </td>
-        <td>
-          <%= link_to supervisor_main_processes_path(commit: t('supervisor.main_processes.index.submit'), period_id: period.id,
-                                                     organization_type_id: period.organization_type_id),
-                      id: "index_#{period.id}",
-                      class: 'button float-right tiny hollow' do %>
-                        <span class="icon-tag"></span>
-                        <%= t('supervisor.periods.index.button.processes',
-                      process_name: t("supervisor.process_name.plural.#{process_name(period, 'main_processes')}")) %>
-                      <% end %>
-        </td>
 
-        <td>
-          <%= link_to export_supervisor_period_path(format: "xls", id: period),
-                      id: "export_#{period.id}",
-                      class: 'edit-banner button float-right tiny hollow' do %>
-            <span class="icon-cloud-download"></span>
-            <%= t('supervisor.periods.index.button.export') %>
-          <% end %>
-        </td>
+        <%= render 'actions', period: period %>
 
-        <% if period.modifiable? || (current_user.has_role? :admin) %>
-        <td>
-          <%= link_to edit_supervisor_period_path(period),
-              id: "edit_#{period.id}",
-              class: 'edit-banner button float-right tiny hollow' do %>
-               <span class="icon-pencil-square-o"></span>
-                <%= t('supervisor.periods.index.button.edit') %>
-              <% end %>
-        </td>
-      <% end %>
-
-        <% if period.modifiable?  || (current_user.has_role? :admin)%>
-          <% msg = delete_msg(period.class.name.pluralize.underscore, period.eliminable?, period.modifiable?, period.is_empty? ) %>
-          <td>
-            <%= link_to supervisor_period_path(period), method: :delete,
-                        data: {confirm: msg},
-                        id: "delete_#{period.id}",
-                        class: 'delete-banner button alert float-right tiny hollow end' do %>
-                          <span class="icon-trash-o"></span>
-                          <%= t('supervisor.periods.index.button.delete') %>
-                        <% end %>
-          </td>
-        <% end %>
       </tr>
     <% end %>
   <% end %>

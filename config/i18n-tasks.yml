@@ -102,6 +102,8 @@ ignore_missing:
   - 'errors.*'
   - 'activerecord.*'
   - 'shared.users.index.filter.*'
+  - 'admin.unit_rpt_assignations.index.export_links.*'
+  - 'admin.unit_rpt_assignations.index.initialize_links.*'
 
 ## Consider these keys used:
 ignore_unused:
@@ -136,6 +138,7 @@ ignore_unused:
   - 'entry_indicators.form.error.p1.*'
   - 'entry_indicators.form.error.p2.*'
   - 'admin.activities.index.class.*'
+  - 'supervisor.periods.export.*'
 
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

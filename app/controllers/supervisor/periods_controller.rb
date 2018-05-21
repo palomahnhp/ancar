@@ -1,5 +1,5 @@
 class Supervisor::PeriodsController < Supervisor::BaseController
-  before_action :find_period, only: [:edit, :update, :destroy, :export]
+  before_action :find_period, only: [:edit, :update, :destroy, :export, :open]
 
   def index
     @periods = Period.all.page(params[:page])
@@ -68,6 +68,10 @@ class Supervisor::PeriodsController < Supervisor::BaseController
         format.xls { flash[:notice] = "Se ha generado el excel con la estructura del periodo" }
       end
     end
+  end
+
+  def open
+
   end
 
   private

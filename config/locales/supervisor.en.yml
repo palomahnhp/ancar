@@ -125,6 +125,20 @@ en:
         success: Se ha eliminado el Periodo correctamente
       edit:
         title: Editar periodo
+      export:
+        columns:
+          automatic: Automatica
+          code: Codigo
+          data_source: origen
+          description: Periodo
+          in_out_type: E/S/X
+          indicators: Indicadores
+          main_processes: Proceso
+          metrics: Metrica
+          procedure: tramite
+          source: Fuente
+          sub_processes: Subproceso
+          unit_type: Unidad
       form:
         closed_at: Fin
         data_collect: Recogida de datos
@@ -138,11 +152,11 @@ en:
         started_at: Inicio
       index:
         button:
-          create: Crear un periodo
           delete: eliminar
           edit: editar
+          export: Exportar
+          open: Reabrir periodo
           processes: ver %{process_name}
-          export: "Exportar"
         data_collect: Periodo de mecanización
         empty: No se ha creado ningún periodo
         entry_closed: No modificable - cerrada entrada de datos
@@ -152,22 +166,10 @@ en:
         organization_type: Organización
         period: 'Periodo:'
         title: Periodos de estudio
-      export:
-        columns:
-          description: Periodo
-          main_processes: Proceso
-          unit_type: Unidad
-          sub_processes: Subproceso
-          code: Codigo
-          indicators: Indicadores
-          source: Fuente
-          automatic: Automatica
-          metrics: Metrica
-          in_out_type: E/S/X
-          data_source: origen
-          procedure: tramite
       new:
         title: Abrir un nuevo periodo
+      open:
+        title: Reabrir un periodo
       show:
         title: Indicador
       update:
