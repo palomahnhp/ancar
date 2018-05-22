@@ -155,7 +155,8 @@ en:
           delete: eliminar
           edit: editar
           export: Exportar
-          open: Reabrir periodo
+          reopen: Reabrir periodo
+          open: Crear un periodo
           processes: ver %{process_name}
         data_collect: Periodo de mecanización
         empty: No se ha creado ningún periodo
