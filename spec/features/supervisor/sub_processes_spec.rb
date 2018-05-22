@@ -15,7 +15,7 @@ feature 'SubProcesses Maintenance' do
 
       expect(page).to have_content 'Organización: Distritos'
       expect(page).to have_content 'Periodo: Periodo de análisis de datos'
-      expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
+      expect(page).to have_content '1.TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
 
       expect(page).to have_content 'No hay subprocesos para este periodo'
     end

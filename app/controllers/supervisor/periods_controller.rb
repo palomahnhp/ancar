@@ -2,7 +2,7 @@ class Supervisor::PeriodsController < Supervisor::BaseController
   before_action :find_period, only: [:edit, :update, :destroy, :export, :open]
 
   def index
-    @periods = Period.all.page(params[:page])
+    @periods = Period.by_organization_type(current_user.auth_organization_types_ids).page(params[:page])
   end
 
   def new

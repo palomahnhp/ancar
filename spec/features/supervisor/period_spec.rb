@@ -138,9 +138,9 @@ feature 'Periods Maintenance' do
         click_link "ver procesos"
       end
 
-      expect(page).to have_selector('tr', count: 3)
+      expect(page).to have_selector('tr', count: 2)
       expect(page).to have_content 'GENÉRICOS'
-      expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
+      expect(page).to have_content '1.TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
       expect(page).to have_content '2. AUTORIZACIONES Y CONCESIONES'
       expect(page).to have_link('Editar', count: 2)
       expect(page).to have_link('Eliminar', count: 2)
