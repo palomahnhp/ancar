@@ -158,9 +158,7 @@ class User < ActiveRecord::Base
   end
 
   def auth_organizations(organization_type_ids = [])
-    if self.has_any_role? :admin
-      @organizations ||= Organization.all.distinct
-    elsif organization_type_ids.present?
+    if organization_type_ids.present?
       # global roles
       if self.has_any_role? :supervisor, :reader, :validator, :interlocutor
         @organizations ||= Organization.where(organization_type_id: organization_type_ids).distinct
@@ -172,6 +170,8 @@ class User < ActiveRecord::Base
            @organizations ||= Organization.where(organization_type_id: organization_type_ids)
          end
       end
+    elsif self.has_any_role? :admin
+      @organizations ||= Organization.all.distinct
     else
       @organizations ||= Organization.with_roles(ROLES, self).distinct
     end
