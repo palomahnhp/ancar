@@ -38,7 +38,7 @@
   <% end %>
 </td>
 
-<% if period.modifiable?  || (current_user.has_role? :admin)%>
+<% if current_user.has_role? :admin %>
   <% msg = delete_msg(period.class.name.pluralize.underscore, period.eliminable?, period.modifiable?, period.is_empty? ) %>
   <td>
     <%= link_to supervisor_period_path(period), method: :delete,
