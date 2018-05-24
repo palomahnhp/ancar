@@ -6,11 +6,11 @@ class Doc  < ActiveRecord::Base
 
   scope :for_all, -> { where(organization_type_id: nil, role: nil  ) }
   scope :auth,    ->(user) { where(organization_type_id: user.auth_organization_types_ids.uniq << nil)  }
-  scope :reader,        -> {where("role like ?", '%reader%')}
-  scope :interlocutor,  -> {where("role like ?", '%interlocutor%')}
-  scope :validator,     -> {where("role like ?", '%validator%')}
-  scope :supervisor,    -> {where("role like ?", '%supervisor%')}
-  scope :administrator, -> {all}
+  scope :reader,        -> { where("role like ?", '%reader%') }
+  scope :interlocutor,  -> { where("role like ?", '%interlocutor%') }
+  scope :validator,     -> { where("role like ?", '%validator%') }
+  scope :supervisor,    -> { where("role like ?", '%supervisor%') }
+  scope :administrator, -> { all }
 
   def self.to_show(user)
     user_roles = user.roles.map { |role| role.name }.uniq
@@ -22,14 +22,14 @@ class Doc  < ActiveRecord::Base
     supervisor    = user_roles.include? 'supervisor'
 
     case
-      when supervisor
-        auth(user).supervisor
-      when interlocutor
-        auth(user).interlocutor
-      when validator
-        auth(user).validator
-      when reader
-        auth(user).readerr
+    when supervisor
+      auth(user).supervisor
+    when interlocutor
+      auth(user).interlocutor
+    when validator
+      auth(user).validator
+    when reader
+      auth(user).reader
     end
   end
 end
