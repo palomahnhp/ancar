@@ -7,8 +7,7 @@ RailsAdmin.config do |config|
                             "EntryIndicator", "Indicator",
                             "Item", "Metric", "Source",
                             "Unit", "UnitType", "Organization", "OrganizationType", "Period",
-                            "User", "Role",
-                            "Doc"]
+                            "User", "Role", "Doc", "Setting"]
 
   config.default_items_per_page = 150
 
@@ -306,6 +305,10 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Doc' do
+    navigation_label 'Generales'
+  end
+
+  config.model 'Setting' do
     navigation_label 'Generales'
   end
 
