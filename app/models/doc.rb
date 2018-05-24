@@ -5,11 +5,11 @@ class Doc  < ActiveRecord::Base
   validates_inclusion_of :format, in: %w[PDF JPG PNG HTML]
 
   scope :for_all, -> { where(organization_type_id: nil, role: nil  ) }
-  scope :auth, ->(user) { where(organization_type_id: user.auth_organization_types_ids.uniq) }
-  scope :reader,   -> {where("role like ?", '%reader%')}
-  scope :interlocutor,   -> {where("role like ?", '%interlocutor%')}
-  scope :validator,   -> {where("role like ?", '%validator%')}
-  scope :supervisor,   -> {where("role like ?", '%supervisor%')}
+  scope :auth,    ->(user) { where(organization_type_id: user.auth_organization_types_ids.uniq << nil)  }
+  scope :reader,        -> {where("role like ?", '%reader%')}
+  scope :interlocutor,  -> {where("role like ?", '%interlocutor%')}
+  scope :validator,     -> {where("role like ?", '%validator%')}
+  scope :supervisor,    -> {where("role like ?", '%supervisor%')}
   scope :administrator, -> {all}
 
   def self.to_show(user)

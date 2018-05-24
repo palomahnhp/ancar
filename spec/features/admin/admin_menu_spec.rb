@@ -83,7 +83,7 @@ feature 'Admin dashboard' do
       expect(page).to have_content 'Mostrando un total de 4 usuarios'
 
       click_link 'Administradores'
-      expect(page).to have_content 'Mostrando un total de 1 usuarios'
+      expect(page).to have_content 'Mostrando 1 usuario'
     end
 
     scenario 'Activar, desactivar usuarios'

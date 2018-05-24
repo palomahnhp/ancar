@@ -48,7 +48,7 @@ class Supervisor::PeriodsController < Supervisor::BaseController
 
   def destroy
     if @period.destroy
-      @period.create_activity :destroy, owner: current_user, parameters: params[]
+      @period.create_activity :destroy, owner: current_user, parameters: params[:period]
       flash[:notice] = t('supervisor.periods.destroy.success')
     else
       flash[:alert] = t('supervisor.periods.destroy.error')
@@ -83,6 +83,5 @@ class Supervisor::PeriodsController < Supervisor::BaseController
     def find_period
       @period = Period.find(params[:id])
     end
-
 
 end
