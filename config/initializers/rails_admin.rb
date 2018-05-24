@@ -7,7 +7,7 @@ RailsAdmin.config do |config|
                             "EntryIndicator", "Indicator",
                             "Item", "Metric", "Source",
                             "Unit", "UnitType", "Organization", "OrganizationType", "Period",
-                            "User", "Role", "Doc", "Setting"]
+                            "User", "Role", "Doc", "Setting", "Rpt", "FirstLevelUnit", "UnitRptAssignation"]
 
   config.default_items_per_page = 150
 
@@ -246,6 +246,22 @@ RailsAdmin.config do |config|
         end
       end
     end
+  end
+
+  config.model 'FirstLevelUnit' do
+    navigation_label 'Organizaciones'
+  end
+
+  config.model 'Validation' do
+    navigation_label 'Validaciones'
+  end
+
+  config.model 'Rpt' do
+    navigation_label 'Rpts'
+  end
+
+  config.model 'UnitRptAssignation' do
+    navigation_label 'Rpts'
   end
 
   config.model 'AssignedEmployee' do
