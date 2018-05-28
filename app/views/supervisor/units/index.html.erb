@@ -64,7 +64,7 @@
               </th>
               <th title="RPT">    <%= organization.rpts.by_year(@year).count %> </th>
               <% %w(A1 A2 C1 C2 E X).each do |group| %>
-                <td title="RPT #{group}"> <%= organization.rpts.by_year(@year).occupied.send(group).count %> </td>
+                <td title="RPT #{group}"> <%= organization.rpts.by_year(@year).occupied.send(group).count %></td>
               <% end %>
            </tr>
           <% end %>
