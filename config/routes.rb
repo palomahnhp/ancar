@@ -50,7 +50,9 @@ Rails.application.routes.draw do
         get 'uweb_auth'
       end
       get :search, on: :collection
+      get :update_all, on: :collection
     end
+
     resources :entry_indicators do
       collection do
         post 'edit_individual'
