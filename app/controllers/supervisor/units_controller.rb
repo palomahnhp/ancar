@@ -27,7 +27,6 @@ class Supervisor::UnitsController < Supervisor::BaseController
     @conditions = params[:conditions]
     @period = Period.where(organization_type: @organization.organization_type).by_year(@year).last
     if @period.blank?
-
       redirect_to supervisor_units_path(year: @year), alert: "No hay periodo abierto para el año #{@year} para #{@organization.organization_type.description}"
     end
   end

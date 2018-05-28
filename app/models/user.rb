@@ -51,18 +51,21 @@ class User < ActiveRecord::Base
 
   def uweb_update
     uweb_data = UwebApi.new(login: self.login).get_user
-    if uweb_data.present? && login == uweb_data[:login] && uweb_data[:active]
-      self.uweb_id = uweb_data[:uweb_id]
-      self.phone = uweb_data[:phone]
-      self.email = uweb_data[:email]
-      self.pernr = uweb_data[:pernr]
-#     Datos básicos para personal externo, que en el caso de empleados se sobreescribiran con datos de Directorio
-      self.name = uweb_data[:name]
-      self.surname = uweb_data[:surname]
-      self.second_surname = uweb_data[:second_surname]
-      self.sap_den_unit = uweb_data[:unit]
+    if uweb_data.present? && login == uweb_data[:login]
+      self.uweb_id  = uweb_data[:uweb_id]
+      self.phone    = uweb_data[:phone]
+      self.email    = uweb_data[:email]
+      self.pernr    = uweb_data[:pernr]
+      self.uweb_active = uweb_data[:active]
+      if self.uweb_active # se prefieren los datos de directorio que se usaron cuando estaba activo
+        # Datos básicos para personal externo, que en el caso de empleados se sobreescribiran con datos de Directorio
+        self.name           = uweb_data[:name]
+        self.surname        = uweb_data[:surname]
+        self.second_surname = uweb_data[:second_surname]
+      end
+      self.sap_den_unit      = uweb_data[:unit]
       self.official_position = uweb_data[:official_position]
-      true
+     true
     else
       false
     end

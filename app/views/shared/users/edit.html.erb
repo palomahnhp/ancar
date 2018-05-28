@@ -4,6 +4,7 @@
     <div class="radius secondary label  small-6 columns end ">
       <h5><%= @user.login %> <%= @user.full_name %></h5>
     </div>
+
     <% if @user.has_auth?(current_user).present? %>
       <div class="small-6 columns">
         <%= link_to(" Actualizar datos ", eval("ws_update_#{namespace}_user_path(@user, login: @user.login, filter: params[:filter], page: params[:page])"), title: 'Actualizar puesto y organización', class: "icon-external button hollow") %>
