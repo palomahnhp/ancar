@@ -1,6 +1,12 @@
 <%= form_for [namespace.to_sym, @user] do |f| %>
-    <%= render 'shared/errors', resource: @user %>
-    <div class="row">
+  <% unless @user.uweb_active %>
+    <div class="label ancar-error">
+      <strong>Usuario esta de baja en ayre/uweb. Dar de baja en la aplicacion</strong>
+    </div>
+  <% end %>
+  <%= render 'shared/errors', resource: @user %>
+
+  <div class="row">
       <br>
       <%= hidden_field_tag :status, @user.status %>
       <% if params[:action] == 'destroy' %>

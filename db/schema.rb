@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410151713) do
+ActiveRecord::Schema.define(version: 20180528082159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -547,6 +547,7 @@ ActiveRecord::Schema.define(version: 20180410151713) do
     t.integer  "sap_id_organization"
     t.string   "sap_den_organization"
     t.date     "uweb_auth_at"
+    t.boolean  "uweb_active"
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
