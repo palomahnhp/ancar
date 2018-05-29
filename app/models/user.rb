@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   ROLES = [:interlocutor, :validator, :reader, :supervisor, :admin  ]
 
-  default_scope  { order(:login)} #  Overriding default_scope: unscoped
+  default_scope  { order(:surname, :second_surname, :name)} #  Overriding default_scope: unscoped
   scope :active,   -> { where(inactivated_at: nil) }
   scope :inactive, -> { where.not(inactivated_at: nil) }
   scope :has_role, lambda{|role| includes(:roles).where(:roles => { :name=> role })}
@@ -21,7 +21,11 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{self.name} #{self.surname} #{self.second_surname}"
+    self.name + ' ' + self.surname + ' ' + self.second_surname
+  end
+
+  def surname_name
+     self.surname + ' ' + self.second_surname + ', ' + self.name
   end
 
   def status
@@ -264,7 +268,7 @@ class User < ActiveRecord::Base
   end
 
   def self.export_columns
-    %w(login full_name official_position sap_den_unit sap_den_organization
+    %w(login surname_name official_position sap_den_unit sap_den_organization
        email phone created_at roles_description uweb_auth_at inactivated_at )
   end
 
@@ -276,4 +280,8 @@ class User < ActiveRecord::Base
     ""
   end
 
+  def position_or_inactive
+    return official_position if uweb_active.present?
+    'Baja en ayre'
+  end
 end

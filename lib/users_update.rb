@@ -30,7 +30,7 @@ class UsersUpdate
 
   def notify_admin
     begin
-      AdminMailer.importer_email(message: 'Termina el proceso de importación ' + @year + ' ' + @filepath).deliver_now  # deliver_later
+      AdminMailer.importer_email(message: 'Termina el proceso de actualizacion de usuarios').deliver_now  # deliver_later
     rescue StandardError => e
       Rails.logger.error(self.class.to_s + ' - '  +  e.message)
     end

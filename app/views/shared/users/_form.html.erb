@@ -1,7 +1,7 @@
 <%= form_for [namespace.to_sym, @user] do |f| %>
   <% unless @user.uweb_active %>
     <div class="label ancar-error">
-      <strong>Usuario esta de baja en ayre/uweb. Dar de baja en la aplicacion</strong>
+      <strong>Usuario esta de baja en ayre/uweb. Dar de baja en la aplicación si aún esta de alta.</strong>
     </div>
   <% end %>
   <%= render 'shared/errors', resource: @user %>

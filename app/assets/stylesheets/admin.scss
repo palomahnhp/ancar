@@ -573,3 +573,10 @@ table.unit-rpt-assignation {
   }
 }
 
+table.users{
+  td{
+    &.user-width {
+      width: 20%;
+    }
+  }
+}
