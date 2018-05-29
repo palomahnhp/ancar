@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   ROLES = [:interlocutor, :validator, :reader, :supervisor, :admin  ]
 
-  default_scope  { order(:login)} #  Overriding default_scope: unscoped
+  default_scope  { order(:surname, :second_surname, :name)} #  Overriding default_scope: unscoped
   scope :active,   -> { where(inactivated_at: nil) }
   scope :inactive, -> { where.not(inactivated_at: nil) }
   scope :has_role, lambda{|role| includes(:roles).where(:roles => { :name=> role })}
@@ -21,7 +21,11 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{self.name} #{self.surname} #{self.second_surname}"
+    self.name + ' ' + self.surname + ' ' + self.second_surname
+  end
+
+  def surname_name
+     self.surname + ' ' + self.second_surname + ', ' + self.name
   end
 
   def status

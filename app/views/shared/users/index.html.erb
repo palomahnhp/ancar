@@ -22,26 +22,36 @@
 
 <div id="search-result" class="row"></div>
 
-<span id="user_tabs"><%= render 'shared/filter_subnav', i18n_namespace: 'shared.users.index' %></span>
 <div class="row">
   <div class="small-8 columns">
-    <h3><%= page_entries_info @users, :entry_name => 'usuario'%></h3>
+    <h4><%= page_entries_info @users, :entry_name => 'usuario'%></h4>
+  </div>
+
+</div>
+
+<div>
+  <div class="small-8 columns">
+    <%= paginate @users %>
   </div>
   <div class="small-2 columns">
     <% if namespace == 'admin' %>
       <%= link_to " Actualizar usuarios", eval("update_all_#{namespace}_users_path"), class: "icon-cloud-download" %>
     <% end %>
   </div>
+
   <div class="small-2 columns">
     <%= link_to " Exportar a excel", eval("#{namespace}_users_path(format: 'xls')") , class: "icon-cloud-upload" %>
   </div>
+
 </div>
 
-<table class="hover">
+<span id="user_tabs"><%= render 'shared/filter_subnav', i18n_namespace: 'shared.users.index' %></span>
+
+<table class="hover users">
   <thead>
   <tr>
+    <th class="user-width"><%= t('shared.users.index.row.name') %></th>
     <th><%= t('shared.users.index.row.login') %></th>
-    <th><%= t('shared.users.index.row.name') %></th>
     <th><%= t('shared.users.index.row.position') %></th>
     <th><%= t('shared.users.index.row.unit') %></th>
     <th><%= t('shared.users.index.row.organization') %></th>
@@ -51,11 +61,11 @@
   <tbody>
   <% @users.each do |user| %>
     <tr>
-      <td>
-        <%= link_to user.login, eval("#{namespace}_user_path(user)"), id: "#{user.login}"%>
+      <td  class="user-width">
+        <%= link_to user.surname_name, eval("#{namespace}_user_path(user)"), id: "#{user.login}"%>
       </td>
       <td>
-        <%= user.full_name%>
+        <%= link_to user.login, eval("#{namespace}_user_path(user)"), id: "#{user.login}"%>
       </td>
       <td> <%= user.position_or_inactive %> </td>
       <td> <%= user.sap_den_unit %> </td>
@@ -74,4 +84,3 @@
 
 </table>
 
-<%= paginate @users %>
