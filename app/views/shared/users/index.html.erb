@@ -57,7 +57,7 @@
       <td>
         <%= user.full_name%>
       </td>
-      <td> <%= user.official_position %> </td>
+      <td> <%= user.position_or_inactive %> </td>
       <td> <%= user.sap_den_unit %> </td>
       <td> <%= user.sap_den_organization %> </td>
       <td>
@@ -71,7 +71,7 @@
     </tr>
   <% end %>
   </tbody>
-  <tfoot> </tfoot>
+
 </table>
 
 <%= paginate @users %>

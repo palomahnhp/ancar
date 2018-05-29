@@ -276,4 +276,8 @@ class User < ActiveRecord::Base
     ""
   end
 
+  def position_or_inactive
+    return official_position if uweb_active.present?
+    'Baja en ayre'
+  end
 end

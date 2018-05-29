@@ -6,9 +6,15 @@
       <div class="small-6 medium-12 column">
         <%= f.label :login, "Usuario ayre" %>
         <%= f.text_field :login, label: false %>
+        <%= f.hidden_field :pernr %>
         <%= f.hidden_field :name %>
         <%= f.hidden_field :surname %>
         <%= f.hidden_field :second_surname %>
+        <%= f.hidden_field :document_type %>
+        <%= f.hidden_field :document_number %>
+        <%= f.hidden_field :uweb_id %>
+        <%= f.hidden_field :uweb_active %>
+        <%= f.hidden_field :inactivated_at %>
         <%= f.hidden_field :official_position %>
         <%= f.hidden_field :sap_den_unit %>
         <%= f.hidden_field :sap_den_organization %>
