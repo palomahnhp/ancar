@@ -207,12 +207,12 @@ class User < ActiveRecord::Base
   def auth_organization_types_ids
     # global roles
     if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
-      @organization_types ||= OrganizationType.all
+      @organization_types_ids ||= OrganizationType.all.ids
     # scoped roles
     else
-     @organization_types ||= OrganizationType.with_roles(ROLES, self).ids + Organization.with_roles(ROLES, self).map { |o| o.organization_type.id}
+     @organization_types_ids ||= OrganizationType.with_roles(ROLES, self).ids + Organization.with_roles(ROLES, self).map { |o| o.organization_type.id}
     end
-    @organization_types
+    @organization_types_ids
   end
 
   def organization_description
