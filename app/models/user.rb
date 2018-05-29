@@ -268,7 +268,7 @@ class User < ActiveRecord::Base
   end
 
   def self.export_columns
-    %w(login full_name official_position sap_den_unit sap_den_organization
+    %w(login surname_name official_position sap_den_unit sap_den_organization
        email phone created_at roles_description uweb_auth_at inactivated_at )
   end
 
