@@ -35,7 +35,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:alert] = t('shared.users.destroy.alert', user: @user.login)
     end
-     redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+     redirect_to eval("edit_#{params[:controller].split("/").first}_user_path(#{@user}, filter: #{params[:filter]}, page: #{params[:page]})")
   end
 
   def remove_role
@@ -46,11 +46,11 @@ class Shared::UsersController < ApplicationController
       resource_class = sanitize_resource_type(role.resource_type)
       if resource_class.nil?
         flash[:error] = t('shared.users.destroy_resource.error')
-        redirect_to supervisor_roles_path(role_name: role.name, user_id: @user.id )
+        redirect_to eval("#{params[:controller].split("/").first}_roles_path(role_name: #{role.name}, user_id: #{@user.id})")
       end
       @user.revoke role.name, resource_class.find(role.resource_id)
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to eval("edit_#{params[:controller].split("/").first}_user_path(#{@user}, filter: #{params[:filter]}, page: #{params[:page]})")
   end
 
   def activate
@@ -59,7 +59,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:alert] = t('shared.users.activate.alert', user: @user.login)
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to eval("edit_#{params[:controller].split("/").first}_user_path(#{@user}, filter: #{params[:filter]}, page: #{params[:page]})")
   end
 
   def create
@@ -76,7 +76,7 @@ class Shared::UsersController < ApplicationController
     else
       @user = User.create(user_params)
 #      @user.directory_update!
-      redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+      redirect_to eval("edit_#{params[:controller].split("/").first}_user_path(#{@user}, filter: #{params[:filter]}, page: #{params[:page]})")
     end
   end
 
@@ -88,10 +88,16 @@ class Shared::UsersController < ApplicationController
       flash[:notice] =  t("shared.users.edit.message.#{params[:status]}")
     else
 #      render :edit
-      flas[:alert] =  t('shared.users.edit.message.error')
+      flash[:alert] =  t('shared.users.edit.message.error')
     end
-    redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
-    redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
+    redirect_to eval("#{params[:controller].split("/").first}_users_path(anchor: #{@user.login}, filter: #{params[:filter]}, page: #{params[:page]})")
+  end
+
+  def update_all
+    UsersUpdateJob.perform_later
+#    UsersUpdate.new.run
+    flash[:notice] =  'Lanzada tarea de actualizacion. Disponible en unos minutos'
+    redirect_to eval("#{params[:controller].split("/").first}_users_path")
   end
 
   def uweb_auth
@@ -100,7 +106,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:alert] =  t('shared.users.uweb_auth.message.error')
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to eval("edit_#{params[:controller].split("/").first}_user_path(#{@user}, filter: #{params[:filter]}, page: #{params[:page]})")
   end
 
   def ws_update
@@ -110,7 +116,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:alert] = t('shared.users.uweb_update.error', user: @user.login)
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to eval("edit_#{params[:controller].split("/").first}_user_path(#{@user}, filter: #{params[:filter]}, page: #{params[:page]})")
   end
 
   def search
@@ -153,7 +159,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:error] = t('shared.roles.add_role.error')
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to eval("edit_#{params[:controller].split("/").first}_user_path(#{@user}, filter: #{params[:filter]}, page: #{params[:page]})")
   end
 
   private
