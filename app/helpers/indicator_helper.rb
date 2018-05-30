@@ -84,9 +84,12 @@ module IndicatorHelper
   end
 
   def period_status_text(period)
-    period.open_entry? ? period.description + " \n(" + t('status.open') + ' de ' +
-        (l period.opened_at) + ' a ' + (l period.closed_at) + ')' : (period.description) + ' (' +
-        t('status.close') +')'
+    date_to_s = ' de ' + (l period.opened_at) + ' a ' + (l period.closed_at) + ')'
+
+    return period.description + " \n(" + t('status.not_yet_open') + date_to_s if period.not_yet_open?
+
+    period.open_entry? ? period.description + " \n(" + t('status.open') + date_to_s  :
+        (period.description) + ' (' +  t('status.close') + date_to_s + ')'
   end
 
   def source_imported?(indicator_metric)

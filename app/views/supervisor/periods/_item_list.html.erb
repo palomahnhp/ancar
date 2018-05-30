@@ -18,7 +18,7 @@
               de <strong> <%= period.opened_at %> </strong>
                a <strong> <%= period.closed_at %> </strong>
           </div>
-          <div class="<%= period.not_yet_open? ? "period_open" : "period_closed"     %>">
+          <div class="<%= period_status_class(period) %>">
             <% if period.open_entry? %>
               <%= t('supervisor.periods.index.entry_opened') %>
             <% elsif period.close_entry? %>

@@ -187,6 +187,17 @@ module SupervisorHelper
     @rpt_grtit[grtit]
   end
 
+  def period_status_class(period)
+    return "period-no-yet-open" if period.not_yet_open?
+    period.open_entry? ? "period-no-modifiable-entry-opened" : "period-no-modifiable-entry-closed"
+  end
+
+  def period_entry_status_class(period)
+    return "period-entry_not_yet_open" if period.not_yet_open?
+    period.open_entry? ? "period-open" : "period-closed"
+  end
+
+
   private
   
     def namespace

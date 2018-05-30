@@ -25,10 +25,11 @@ class Period < ActiveRecord::Base
   scope :by_organization_type, -> (organization_type) { where(organization_type: organization_type) }
   scope :by_year, -> (year) { where(started_at: year.to_s + '01' + '01') }
 
+  # Abierta actualizacion de datos por el interlocutor
   def open_entry?
     opened_at <=  DateTime.now.to_date  && closed_at >=  DateTime.now.to_date
   end
-
+  # Cerrada actualizacion de datos por el interlocutor
   def close_entry?
     closed_at <  DateTime.now
   end
@@ -37,7 +38,7 @@ class Period < ActiveRecord::Base
 #   !close_entry?
     not_yet_open?
   end
-
+# Aun no ha comenzado la entrada de datos
   def not_yet_open?
     opened_at >  DateTime.now
   end

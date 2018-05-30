@@ -11,7 +11,7 @@
          <td >
             <%= link_to period_status_text(period),
                         entry_indicators_path(organization_id: organization.id, period_id: period.id),
-                        {class: ("period_open" if period.open_entry?) }
+                        {class: period_entry_status_class(period)}
             %>
          </td>
         <% if index % 1 == 0 %>

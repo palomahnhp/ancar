@@ -69,7 +69,7 @@ en:
         order:        Orden de visualización
         metric_id:    Métrica
         source_id:    Fuente
-        in_out_type:  E/S/X
+        in_out_type:  Tipo (E/S/X)
       period:
         organization_type: Tipo de organización
         description: Descripción
