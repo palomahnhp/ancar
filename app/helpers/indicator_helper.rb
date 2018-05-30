@@ -45,6 +45,12 @@ module IndicatorHelper
     process_name.nil? ? process.camelize : process_name.name.camelize
   end
 
+  def model_name(period, process)
+    process_name = period.organization_type.process_names.find_by(model: process.snakecase
+                                                                             .pluralize)
+    process_name.nil? ? process.singularize : process_name.name.singularize
+  end
+
   def entry_staff_error(entry_error)
     "#{Indicator.description(entry_error[0])}=> cantidad: #{entry_error[1][0].to_f} puesto asignado #{entry_error[1][1].to_f}"
   end
@@ -78,9 +84,12 @@ module IndicatorHelper
   end
 
   def period_status_text(period)
-    period.open_entry? ? period.description + " \n(" + t('status.open') + ' de ' +
-        (l period.opened_at) + ' a ' + (l period.closed_at) + ')' : (period.description) + ' (' +
-        t('status.close') +')'
+    date_to_s = ' de ' + (l period.opened_at) + ' a ' + (l period.closed_at) + ')'
+
+    return period.description + " \n(" + t('status.not_yet_open') + date_to_s if period.not_yet_open?
+
+    period.open_entry? ? period.description + " \n(" + t('status.open') + date_to_s  :
+        (period.description) + ' (' +  t('status.close') + date_to_s + ')'
   end
 
   def source_imported?(indicator_metric)

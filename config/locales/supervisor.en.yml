@@ -44,21 +44,14 @@ en:
       edit:
         title: Editar %{process_name}
       form:
-        code: Código del indicador
         description: Descripción
         items:
           description: Si no existe la descripción en la caja superior escribala aquí
-        order: Orden de Visualización
       index:
         create: Añadir %{process_name}
         empty: No hay %{process_name} definidos
         submit: submit
         title: "%{process_name}"
-      item_list:
-        in_out_type: Tipo (E/S/X)
-        indicator: "%{process_name}"
-        metric: Métrica
-        source: Fuente
       new:
         title: Crear %{process_name}
       show:
@@ -155,9 +148,9 @@ en:
           delete: eliminar
           edit: editar
           export: Exportar
-          reopen: Reabrir periodo
           open: Crear un periodo
           processes: ver %{process_name}
+          reopen: Reabrir periodo
         data_collect: Periodo de mecanización
         empty: No se ha creado ningún periodo
         entry_closed: No modificable - cerrada entrada de datos

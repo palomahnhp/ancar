@@ -74,7 +74,7 @@ feature 'Admin dashboard' do
 
       expect(page).to have_link 'Alta de usuario'
 
-      expect(page).to have_content 'Mostrando un total de 5 usuarios'
+      expect(page).to have_content ' 5 usuarios'
 
       click_link 'Inactivos'
       expect(page).to have_content 'Mostrando un total de 2 usuarios'

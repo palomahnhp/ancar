@@ -333,6 +333,7 @@ en:
   status:
     close: Cerrado
     open: Abierto
+    not_yet_open: Pendiente inicio
   subnavigation_menu:
     documentation: Instrucciones y manuales
     entry_indicators: Procesos y subprocesos

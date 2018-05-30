@@ -3,11 +3,18 @@ require 'rails_helper'
 feature "Entry Indicators" do
 
   describe "muestra datos de una unidad " do
+
     it 'primera unidad de la organización' do
-      user= create(:user, :with_two_organizations)
+      user = create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
+
       click_link("Procesos y subprocesos", :match => :first)
-      click_link('Periodo de análisis de datos Distritos (Cerrado)', :match => :first)
+
+      period = Period.first
+      description = period.description + ' (Pendiente inicio de ' + period.opened_at.strftime('%d/%m/%Y') + ' a ' + period.closed_at.strftime('%d/%m/%Y') + ')'
+
+      click_link(description, :match => :first)
+
       within('div#unit') do
         expect(page).to have_content 'DEPARTAMENTO DE SERVICIOS JURIDICOS'
       end
@@ -17,9 +24,15 @@ feature "Entry Indicators" do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
 
+      period = Period.first
+      description = period.description + ' (Pendiente inicio de ' + period.opened_at.strftime('%d/%m/%Y') + ' a ' + period.closed_at.strftime('%d/%m/%Y') + ')'
+
       click_link("Procesos y subprocesos", :match => :first)
-      click_link('Periodo de análisis de datos Distritos (Cerrado)', :match => :first)
+
+      click_link(description, :match => :first)
+
       click_link 'SECRETARIA DE DISTRITO'
+
       within('div#unit') do
         expect(page).to have_content 'SECRETARIA DE DISTRITO'
       end
@@ -33,11 +46,13 @@ feature "Entry Indicators" do
       unit = organization.units.first
 
       period = Period.first
+      description = period.description + ' (Pendiente inicio de ' + period.opened_at.strftime('%d/%m/%Y') + ' a ' + period.closed_at.strftime('%d/%m/%Y') + ')'
+
       add_staff("Unit", unit.id, unit.id, period, 1, 0.5, 1, 0.5)
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
+        click_link description
       end
 
       within("table#staff_Unit") do
@@ -57,12 +72,11 @@ feature "Entry Indicators" do
       organization = Organization.find(organization_role.resource_id)
       unit = organization.units.first
 
+      period = Period.by_organization_type(organization.organization_type).first
+      description = period.description + ' (Pendiente inicio de ' + period.opened_at.strftime("%d/%m/%Y") + ' a ' + period.closed_at.strftime('%d/%m/%Y') + ')'
 
       click_link("Procesos y subprocesos", :match => :first)
-
-      within("#organization_#{organization.id}") do
-        click_link('Periodo de análisis de datos SGT 2 (Cerrado)')
-      end
+      click_link(description)
 
       expect(page).to have_content 'SECRETARIA GENERAL TECNICA DEL AREA DE GOBIERNO DE DESARROLLO URBANO SOSTENIBLE'
       expect(page).to have_content '1. RÉGIMEN JURÍDICO'
@@ -73,7 +87,8 @@ feature "Entry Indicators" do
       expect(page).to have_content '1.2. PROYECTOS NORMATIVOS'
       expect(page).to have_content 'Preparación revisión y tramitación de proyectos normativos ...'
       expect(page).to have_content 'Nº de proyectos de otras Áreas	Elaboración Propia'
-  end
+    end
+
     it ' show Distritos data' do
       user= create(:user, :distrito)
       login_as_authenticated_user(user)
@@ -82,17 +97,19 @@ feature "Entry Indicators" do
       unit = organization.units.first
 
       period = Period.first
+      description = period.description + ' (Pendiente inicio de ' + period.opened_at.strftime('%d/%m/%Y') + ' a ' + period.closed_at.strftime('%d/%m/%Y') + ')'
 
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
+        click_link description
       end
 
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
       expect(page).to have_content 'TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO TÉCNICO'
 
     end
+
     it ' actualiza indicadores y puestos ' do
       user= create(:user, :with_two_organizations)
       login_as_authenticated_user(user)
@@ -160,10 +177,12 @@ feature "Entry Indicators" do
       period = Period.first
       period.save
 
+      description = period.description + ' (Pendiente inicio de ' + period.opened_at.strftime('%d/%m/%Y') + ' a ' + period.closed_at.strftime('%d/%m/%Y') + ')'
+
       click_link("Procesos y subprocesos", :match => :first)
 
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
+        click_link description
       end
 
       expect(page).not_to have_selector(:link_or_button, 'Guardar datos')
@@ -330,11 +349,13 @@ feature "Entry Indicators" do
       unit = organization.units.first
 
       period = Period.first
+      description = period.description + ' (Pendiente inicio de ' + period.opened_at.strftime('%d/%m/%Y') + ' a ' + period.closed_at.strftime('%d/%m/%Y') + ')'
 
-#      Approval.add(period, unit, 'Visto bueno de la unidad', user)
+#     Approval.add(period, unit, 'Visto bueno de la unidad', user)
       click_link("Procesos y subprocesos", :match => :first)
+
       within("#organization_#{organization.id}") do
-        click_link 'Periodo de análisis de datos Distritos (Cerrado)'
+        click_link description
       end
 
       expect(page).not_to have_selector(:link_or_button, 'Visto bueno')
