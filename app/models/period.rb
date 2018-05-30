@@ -29,6 +29,7 @@ class Period < ActiveRecord::Base
   def open_entry?
     opened_at <=  DateTime.now.to_date  && closed_at >=  DateTime.now.to_date
   end
+
   # Cerrada actualizacion de datos por el interlocutor
   def close_entry?
     closed_at <  DateTime.now
@@ -38,6 +39,7 @@ class Period < ActiveRecord::Base
 #   !close_entry?
     not_yet_open?
   end
+
 # Aun no ha comenzado la entrada de datos
   def not_yet_open?
     opened_at >  DateTime.now

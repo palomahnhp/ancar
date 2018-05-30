@@ -197,7 +197,6 @@ module SupervisorHelper
     period.open_entry? ? "period-open" : "period-closed"
   end
 
-
   private
   
     def namespace
