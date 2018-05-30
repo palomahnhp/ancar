@@ -45,6 +45,12 @@ module IndicatorHelper
     process_name.nil? ? process.camelize : process_name.name.camelize
   end
 
+  def model_name(period, process)
+    process_name = period.organization_type.process_names.find_by(model: process.snakecase
+                                                                             .pluralize)
+    process_name.nil? ? process.singularize : process_name.name.singularize
+  end
+
   def entry_staff_error(entry_error)
     "#{Indicator.description(entry_error[0])}=> cantidad: #{entry_error[1][0].to_f} puesto asignado #{entry_error[1][1].to_f}"
   end

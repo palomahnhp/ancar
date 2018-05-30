@@ -1,6 +1,6 @@
 <%= render partial: 'supervisor/shared/header',
            locals: {title: t("supervisor.indicators.#{action_name}.title",
-                             process_name: t("supervisor.process_name.singular.#{process_name(@indicator.task.sub_process.main_process.period, controller_name)}")),
+                             process_name: t("activerecord.models.#{model_name(@indicator.task.sub_process.main_process.period, controller_name)}.one")),
                     button: t("supervisor.indicators.index.create#{process_name(@indicator.task.sub_process.main_process.period, controller_name)}"),
                     path: nil,
                     modifiable: @indicator.modifiable?,

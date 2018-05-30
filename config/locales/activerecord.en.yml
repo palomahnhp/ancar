@@ -63,6 +63,13 @@ en:
         approval_by: Aprobado por
         approval_at: Aprobado
         description: Descripción
+      indicator:
+        code:         Código
+        description:  Descripción
+        order:        Orden de visualización
+        metric_id:    Métrica
+        source_id:    Fuente
+        in_out_type:  E/S/X
       period:
         organization_type: Tipo de organización
         description: Descripción
@@ -141,6 +148,14 @@ en:
       setting:
         key: Nombre
         value: Valor
+      indicator_metric:
+        indicator_id: Indicador
+        metric_id: Métrica
+        code: Código
+        in_out_type: Tipo de indicador
+        order: Orden de visualización
+        data_source: Modo de obtención
+        procedure: Trámite
     errors:
       models:
         period:
