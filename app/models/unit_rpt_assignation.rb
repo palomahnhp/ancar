@@ -3,10 +3,12 @@ class UnitRptAssignation < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user} ,
           :params => {:id => :id,
-                      :description     => proc {|controller, model_instance| model_instance.indicator_metric.indicator.item.description},
-                      :amount          => proc {|controller, model_instance| model_instance.amount.to_s},
-                      :imported_amount => proc {|controller, model_instance| model_instance.imported_amount.to_s},
-                     }
+                      :year          => proc {|controller, model_instance| model_instance.year},
+                      :den_unit      => proc {|controller, model_instance| model_instance.den_unit},
+                      :sapid_unit    => proc {|controller, model_instance| model_instance.sapid_unit},
+                      :unit          => proc {|controller, model_instance| model_instance.unit.description_sap if model_instance.unit.present?},
+                      :organization  => proc {|controller, model_instance| model_instance.organization.description if model_instance.organization.present? },
+          }
 
   belongs_to :unit
   belongs_to :organization
@@ -53,5 +55,4 @@ class UnitRptAssignation < ActiveRecord::Base
       end
     end
   end
-
 end

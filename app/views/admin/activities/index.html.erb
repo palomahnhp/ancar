@@ -32,7 +32,6 @@
     <th><%= sort_link @search, t('activerecord.attributes.activity.key') %></th>
     <th><%= sort_link @search, t('activerecord.attributes.activity.trackable_type') %></th>
     <th><%= sort_link @search, t('activerecord.attributes.activity.trackable_id') %></th>
-    <th><%= t('admin.activities.index.description')%></th>
     <th><%= sort_link @search, t('activerecord.attributes.activity.parameters')  %></th>
   </tr>
   </thead>
@@ -44,12 +43,7 @@
       <td class="date-width"><%= activity.key %></td>
       <td><%= activity.trackable_type %></td>
       <td><%= activity.trackable_id %></td>
-      <% if activity.trackable.respond_to?(:description) %>
-        <td><%= activity.trackable.description %></td>
-      <% else %>
-        <td><%= activity.key %></td>
-      <% end %>
-      <td id="activities_parameters" class="user-width"><%= activity.parameters %></td>
+      <td><%= activity.parameters %></td>
     </tr>
   <% end %>
   </tbody>
