@@ -55,4 +55,9 @@ class UnitRptAssignation < ActiveRecord::Base
       end
     end
   end
+
+  def self.export_columns
+    %w(Organización Unidad Id.unidad Unidad Total A1 A2 C1 C2 Agr X )
+  end
+
 end

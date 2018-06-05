@@ -231,6 +231,7 @@ FactoryBot.define do
       description 'Ejemplo de documento de analísis de cargas de trabajo de las unidades municipales'
       url 'docs/Manual de uso.pdf'
       format 'PDF'
+      role 'supervisor interlocutor validator reader'
     end
 
     trait :instructions_jd do
@@ -239,6 +240,7 @@ FactoryBot.define do
       url 'instructions?jd'
 #      organization_type_id OrganizationType.find_by_description('Distritos')
       format 'HTML'
+      role 'supervisor interlocutor validator reader'
       association :organization_type, :factory=> [:organization_type, :distritos]
     end
 
@@ -247,6 +249,7 @@ FactoryBot.define do
       description 'Ejemplo de documento de analísis de cargas de trabajo de las unidades municipales'
       url 'instructions?sgt'
       format 'HTML'
+      role 'supervisor interlocutor validator reader'
       association :organization_type, :factory=> [:organization_type, :sgts]
     end
   end

@@ -1,6 +1,11 @@
 <h2><%= t("admin.settings.index.title") %></h2>
 
+<ul>
+
+<li>
+
 <h5><%= t("admin.settings.index.general.title") %></h5>
+<% if @settings.present? %>
 <table>
   <tbody>
     <% @settings.each do |setting| %>
@@ -23,64 +28,76 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
+</li>
 
+<li>
 <h3><%= t("admin.settings.index.imported_source.title") %></h3>
-<h5><%= t("admin.settings.index.imported_source.subtitle") %></h5>
-<table>
-  <tbody>
-  <% @imported_sources.each do |imported_source| %>
-      <tr>
-        <td>
-          <strong><%= t("admin.settings.index.#{imported_source.key}") %></strong>
-          <br><small> (<%= "#{imported_source.key}" %>) </small>
-        </td>
-        <td>
-          <%= imported_source.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
-        </td>
-        <td class="text-right">
-          <%= form_for(imported_source, url: admin_setting_path(imported_source), html: { id: "edit_#{dom_id(imported_source)}"}) do |f| %>
-            <%= f.hidden_field :value, id: dom_id(imported_source), value: (imported_source.enabled? ? FALSE : TRUE) %>
-            <%= f.submit(t("admin.settings.index.#{imported_source.enabled? ? 'disable' : 'enable'}"),
-                         class: "button expanded #{imported_source.enabled? ? 'hollow alert' : 'success'}",
-                         data: {confirm: t("admin.actions.confirm")}) %>
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+<% if @imported_sources.present? %>
+  <h5><%= t("admin.settings.index.imported_source.subtitle") %></h5>
+  <table>
+    <tbody>
+    <% @imported_sources.each do |imported_source| %>
+        <tr>
+          <td>
+            <strong><%= t("admin.settings.index.#{imported_source.key}") %></strong>
+            <br><small> (<%= "#{imported_source.key}" %>) </small>
+          </td>
+          <td>
+            <%= imported_source.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
+          </td>
+          <td class="text-right">
+            <%= form_for(imported_source, url: admin_setting_path(imported_source), html: { id: "edit_#{dom_id(imported_source)}"}) do |f| %>
+              <%= f.hidden_field :value, id: dom_id(imported_source), value: (imported_source.enabled? ? FALSE : TRUE) %>
+              <%= f.submit(t("admin.settings.index.#{imported_source.enabled? ? 'disable' : 'enable'}"),
+                           class: "button expanded #{imported_source.enabled? ? 'hollow alert' : 'success'}",
+                           data: {confirm: t("admin.actions.confirm")}) %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+</li>
 
+<li>
 <h3><%= t("admin.settings.index.validations.title") %></h3>
-<h5><%= t("admin.settings.index.validations.lower_staff.title") %></h5>
-<table>
-  <tbody>
-  <% @validations.each do |validation| %>
-      <tr>
-        <td>
-          <strong><%= t("admin.settings.index.#{validation.key}") %></strong>
-          <br><small> (<%= "#{validation.key}" %>) </small>
-        </td>
-        <td>
-          <%= validation.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
-        </td>
-        <td class="text-right">
-          <%= form_for(validation, url: admin_setting_path(validation), html: { id: "edit_#{dom_id(validation)}"}) do |f| %>
-            <%= f.hidden_field :value, id: dom_id(validation), value: (validation.enabled? ? FALSE : TRUE) %>
-            <%= f.submit(t("admin.settings.index.#{validation.enabled? ? 'disable' : 'enable'}"),
-                         class: "button expanded #{validation.enabled? ? 'hollow alert' : 'success'}",
-                         data: {confirm: t("admin.actions.confirm")}) %>
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
+<% if @validations_lower_staff.present? %>
+  <h5><%= t("admin.settings.index.validations.lower_staff.title") %></h5>
+  <table>
+    <tbody>
+    <% @validations_lower_staff.each do |validation| %>
+        <tr>
+          <td>
+            <strong><%= t("admin.settings.index.#{validation.key}") %></strong>
+            <br><small> (<%= "#{validation.key}" %>) </small>
+          </td>
+          <td>
+            <%= validation.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
+          </td>
+          <td class="text-right">
+            <%= form_for(validation, url: admin_setting_path(validation), html: { id: "edit_#{dom_id(validation)}"}) do |f| %>
+              <%= f.hidden_field :value, id: dom_id(validation), value: (validation.enabled? ? FALSE : TRUE) %>
+              <%= f.submit(t("admin.settings.index.#{validation.enabled? ? 'disable' : 'enable'}"),
+                           class: "button expanded #{validation.enabled? ? 'hollow alert' : 'success'}",
+                           data: {confirm: t("admin.actions.confirm")}) %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+</li>
+<li>
 <h3><%= t("admin.settings.index.rpt.title") %></h3>
-<h5><%= t("admin.settings.index.rpt.vacancy.title") %></h5>
-<table>
-  <tbody>
-  <% if @rpt_vacancy.present? %>
+<ul>
+<% if @rpt_vacancy.present? %>
+  <li>
+  <h5><%= t("admin.settings.index.rpt.vacancy.title") %></h5>
+  <table>
+    <tbody>
     <% @rpt_vacancy.each do |item| %>
         <tr>
           <td>
@@ -100,15 +117,49 @@
           </td>
         </tr>
     <% end %>
-  <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  </li>
+<% end %>
 
-<h5><%= t("admin.settings.index.rpt.only_grtit.title") %></h5>
-<table>
-  <tbody>
-  <% if @rpt_only_grtit.present? %>
-    <% @rpt_only_grtit.each do |item| %>
+<% if @rpt_only_grtit.present? %>
+  <li>
+  <h5><%= t("admin.settings.index.rpt.only_grtit.title") %></h5>
+  <table>
+    <tbody>
+      <% @rpt_only_grtit.each do |item| %>
+          <tr>
+            <td>
+              <strong><%= t("admin.settings.index.#{item.key}") %></strong>
+              <br><small> (<%= "#{item.key}" %>) </small>
+            </td>
+            <td>
+              <%= item.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
+            </td>
+            <td class="text-right">
+              <%= form_for(item, url: admin_setting_path(item), html: { id: "edit_#{dom_id(item)}"}) do |f| %>
+                  <%= f.hidden_field :value, id: dom_id(item), value: (item.enabled? ? FALSE : TRUE) %>
+                  <%= f.submit(t("admin.settings.index.#{item.enabled? ? 'disable' : 'enable'}"),
+                               class: "button expanded #{item.enabled? ? 'hollow alert' : 'success'}",
+                               data: {confirm: t("admin.actions.confirm")}) %>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </li>
+<% end %>
+</ul>
+</li>
+
+<li>
+<h3><%= t("admin.settings.index.send_email.title") %></h3>
+<% if @send_emails_change_staff.present? %>
+  <h5><%= t("admin.settings.index.send_email.change_staff.title") %></h5>
+  <table>
+    <tbody>
+      <% @send_emails_change_staff.each do |item| %>
         <tr>
           <td>
             <strong><%= t("admin.settings.index.#{item.key}") %></strong>
@@ -119,42 +170,45 @@
           </td>
           <td class="text-right">
             <%= form_for(item, url: admin_setting_path(item), html: { id: "edit_#{dom_id(item)}"}) do |f| %>
-                <%= f.hidden_field :value, id: dom_id(item), value: (item.enabled? ? FALSE : TRUE) %>
-                <%= f.submit(t("admin.settings.index.#{item.enabled? ? 'disable' : 'enable'}"),
-                             class: "button expanded #{item.enabled? ? 'hollow alert' : 'success'}",
-                             data: {confirm: t("admin.actions.confirm")}) %>
+              <%= f.hidden_field :value, id: dom_id(item), value: (item.enabled? ? FALSE : TRUE) %>
+              <%= f.submit(t("admin.settings.index.#{item.enabled? ? 'disable' : 'enable'}"),
+                           class: "button expanded #{item.enabled? ? 'hollow alert' : 'success'}",
+                           data: {confirm: t("admin.actions.confirm")}) %>
             <% end %>
           </td>
         </tr>
-    <% end %>
-  <% end %>
-  </tbody>
-</table>
-
-<h3><%= t("admin.settings.index.send_email.title") %></h3>
-<h5><%= t("admin.settings.index.send_email.change_staff.title") %></h5>
-<table>
-  <tbody>
-  <% if @send_emails_change_staff.present? %>
-    <% @send_emails_change_staff.each do |item| %>
-      <tr>
-        <td>
-          <strong><%= t("admin.settings.index.#{item.key}") %></strong>
-          <br><small> (<%= "#{item.key}" %>) </small>
-        </td>
-        <td>
-          <%= item.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
-        </td>
-        <td class="text-right">
-          <%= form_for(item, url: admin_setting_path(item), html: { id: "edit_#{dom_id(item)}"}) do |f| %>
-            <%= f.hidden_field :value, id: dom_id(item), value: (item.enabled? ? FALSE : TRUE) %>
-            <%= f.submit(t("admin.settings.index.#{item.enabled? ? 'disable' : 'enable'}"),
-                         class: "button expanded #{item.enabled? ? 'hollow alert' : 'success'}",
-                         data: {confirm: t("admin.actions.confirm")}) %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  <% end %>
-  </tbody>
-</table>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+</li>
+<li>
+<h3><%= t("admin.settings.index.main_processes_organization.title") %></h3>
+<% if @main_processes_organization.present? %>
+  <h5><%= t("admin.settings.index.main_processes_organization.subtitle") %></h5>
+  <table>
+    <tbody>
+      <% @main_processes_organization.each do |item| %>
+        <tr>
+          <td>
+            <strong><%= t("admin.settings.index.#{item.key}") %></strong>
+            <br><small> (<%= "#{item.key}" %>) </small>
+          </td>
+          <td>
+            <%= item.enabled? ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %>
+          </td>
+          <td class="text-right">
+            <%= form_for(item, url: admin_setting_path(item), html: { id: "edit_#{dom_id(item)}"}) do |f| %>
+              <%= f.hidden_field :value, id: dom_id(item), value: (item.enabled? ? FALSE : TRUE) %>
+              <%= f.submit(t("admin.settings.index.#{item.enabled? ? 'disable' : 'enable'}"),
+                           class: "button expanded #{item.enabled? ? 'hollow alert' : 'success'}",
+                           data: {confirm: t("admin.actions.confirm")}) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+</li>
+</ul>

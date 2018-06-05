@@ -165,6 +165,15 @@ en:
     not_saved: 'guardar %{resource}:'
     period: el periodo
     sub_process: el subproceso
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name} de <b>%{total}</b> en total
+      one_page:
+        display_entries:
+          one: Mostrando <b>%{count}</b> %{entry_name}
+          other: Mostrando <b>un total de %{count}</b> %{entry_name}
+          zero: No se han encontrado %{entry_name}
   instructions:
     jd:
       subtitle: Instrucciones para la cumplimentación de datos
@@ -267,7 +276,7 @@ en:
           error: Error creando usuario
         position: Puesto
         status: Estado
-        unit: Unidad
+        unit: Unidad / Organizacion
         uweb_auth: Acceso desde ayre
       form:
         new: Crear usuario
@@ -324,6 +333,7 @@ en:
   status:
     close: Cerrado
     open: Abierto
+    not_yet_open: Pendiente inicio
   subnavigation_menu:
     documentation: Instrucciones y manuales
     entry_indicators: Procesos y subprocesos
@@ -342,6 +352,13 @@ en:
       no_auth_units: No tienes autorizado el acceso a ninguna unidad. Para mas información consulta las Instrucciones
       select: Selección de unidad a tratar
       title: Hoja de medición de procesos
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: "Última &raquo;"
+      next: Siguiente &rsaquo;
+      previous: "&lsaquo; Anterior"
+      truncate: "&hellip;"
   welcome:
     logo_alt: Logo Gerencia de la Ciudad
     sub_title: Estudio de cargas de trabajo

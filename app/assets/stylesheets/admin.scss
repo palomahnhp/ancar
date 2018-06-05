@@ -573,3 +573,25 @@ table.unit-rpt-assignation {
   }
 }
 
+table.users{
+  td{
+    &.user-width {
+      width: 20%;
+    }
+  }
+}
+
+.period-no-modifiable-entry-opened {
+  font-weight: bold;
+  color: #ffb520;
+}
+
+.period-no-modifiable-entry-closed {
+  font-weight: bold;
+  color: gray;
+}
+
+.period-no-yet-open {
+  font-weight: bold;
+  color: #27c236;
+}

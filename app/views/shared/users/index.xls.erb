@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <ss:Styles>
+    <ss:Style ss:ID="Default" ss:Name="Normal">
+      <ss:Alignment ss:Vertical="Bottom"/>
+      <ss:Borders/>
+      <ss:Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+      <ss:Interior/>
+      <ss:NumberFormat/>
+      <ss:Protection/>
+    </ss:Style>
+    <ss:Style ss:ID="s67">
+      <ss:Alignment ss:Vertical="Bottom"/>
+      <ss:Borders/>
+      <ss:Font ss:FontName="Arial" ss:Bold="1"/>
+      <ss:Interior ss:Color="#5BA5A0" ss:Pattern="Solid"/>
+      <ss:NumberFormat/>
+      <ss:Protection/>
+    </ss:Style>
+  </ss:Styles>
+  <Worksheet ss:Name="User_list">
+    <Table>
+      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="180"/>
+      <ss:Column ss:Width="100"/>
+      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="80"/>
+      <ss:Column ss:Width="80"/>
+      <Row ss:StyleID="s67">
+        <% User.export_columns.each do |col| %>
+          <Cell><Data ss:Type="String"><%= t("activerecord.attributes.user.#{col}") %></Data></Cell>
+        <% end %>
+      </Row>
+      <% @users.each do |user| %>
+        <Row>
+          <% User.export_columns.each do |col| %>
+            <Cell><Data ss:Type="String"><%= user.send(col.to_sym) %></Data></Cell>
+          <% end %>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

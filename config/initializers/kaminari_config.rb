@@ -8,6 +8,7 @@ Kaminari.configure do |config|
   # config.page_method_name = :page
   # config.param_name = :page
   config.param_name = 'q[page]'
+
 end
 # Overrides for making Kaminari handle i18n pluralization correctly
 #

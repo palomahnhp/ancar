@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   ROLES = [:interlocutor, :validator, :reader, :supervisor, :admin  ]
 
-  default_scope  { order(:login)} #  Overriding default_scope: unscoped
+  default_scope  { order(:surname, :second_surname, :name)} #  Overriding default_scope: unscoped
   scope :active,   -> { where(inactivated_at: nil) }
   scope :inactive, -> { where.not(inactivated_at: nil) }
   scope :has_role, lambda{|role| includes(:roles).where(:roles => { :name=> role })}
@@ -21,7 +21,11 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{self.name} #{self.surname} #{self.second_surname}"
+    self.name + ' ' + self.surname + ' ' + self.second_surname
+  end
+
+  def surname_name
+     self.surname + ' ' + self.second_surname + ', ' + self.name
   end
 
   def status
@@ -51,18 +55,21 @@ class User < ActiveRecord::Base
 
   def uweb_update
     uweb_data = UwebApi.new(login: self.login).get_user
-    if uweb_data.present? && login == uweb_data[:login] && uweb_data[:active]
-      self.uweb_id = uweb_data[:uweb_id]
-      self.phone = uweb_data[:phone]
-      self.email = uweb_data[:email]
-      self.pernr = uweb_data[:pernr]
-#     Datos básicos para personal externo, que en el caso de empleados se sobreescribiran con datos de Directorio
-      self.name = uweb_data[:name]
-      self.surname = uweb_data[:surname]
-      self.second_surname = uweb_data[:second_surname]
-      self.sap_den_unit = uweb_data[:unit]
+    if uweb_data.present? && login == uweb_data[:login]
+      self.uweb_id  = uweb_data[:uweb_id]
+      self.phone    = uweb_data[:phone]
+      self.email    = uweb_data[:email]
+      self.pernr    = uweb_data[:pernr]
+      self.uweb_active = uweb_data[:active]
+      if self.uweb_active # se prefieren los datos de directorio que se usaron cuando estaba activo
+        # Datos básicos para personal externo, que en el caso de empleados se sobreescribiran con datos de Directorio
+        self.name           = uweb_data[:name]
+        self.surname        = uweb_data[:surname]
+        self.second_surname = uweb_data[:second_surname]
+      end
+      self.sap_den_unit      = uweb_data[:unit]
       self.official_position = uweb_data[:official_position]
-      true
+     true
     else
       false
     end
@@ -115,12 +122,22 @@ class User < ActiveRecord::Base
       data  = DirectoryApi.new.get_unit_data(self.sap_id_unit)
       unit_data = data['UNIDAD_ORGANIZATIVA']
       if unit_data.present?
-        self.sap_id_organization  = unit_data['AREA']
-        self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
+        self.assign_organization(unit_data)
+#        self.sap_id_organization  = unit_data['AREA']
+#        self.sap_den_organization = fix_encoding(unit_data['DENOM_AREA'])
       end
     else
       false
     end
+  end
+
+  def assign_organization(unit_data)
+
+    assignation = UnitRptAssignation.find_by(sapid_unit: unit_data['ID_UNIDAD'])
+    return true if assignation.blank?
+    organization = Organization.find_by(id: assignation.organization_id)
+    self.sap_id_organization = organization.sap_id
+    self.sap_den_organization = organization.description
   end
 
   def directory_update!
@@ -148,9 +165,7 @@ class User < ActiveRecord::Base
   end
 
   def auth_organizations(organization_type_ids = [])
-    if self.has_any_role? :admin
-      @organizations ||= Organization.all.distinct
-    elsif organization_type_ids.present?
+    if organization_type_ids.present?
       # global roles
       if self.has_any_role? :supervisor, :reader, :validator, :interlocutor
         @organizations ||= Organization.where(organization_type_id: organization_type_ids).distinct
@@ -162,6 +177,8 @@ class User < ActiveRecord::Base
            @organizations ||= Organization.where(organization_type_id: organization_type_ids)
          end
       end
+    elsif self.has_any_role? :admin
+      @organizations ||= Organization.all.distinct
     else
       @organizations ||= Organization.with_roles(ROLES, self).distinct
     end
@@ -190,12 +207,12 @@ class User < ActiveRecord::Base
   def auth_organization_types_ids
     # global roles
     if self.has_any_role? :admin, :supervisor, :reader, :validator, :interlocutor
-      @organization_types ||= OrganizationType.all
+      @organization_types_ids ||= OrganizationType.all.ids
     # scoped roles
     else
-     @organization_types ||= OrganizationType.with_roles(ROLES, self).ids + Organization.with_roles(ROLES, self).map { |o| o.organization_type.id}
+     @organization_types_ids ||= OrganizationType.with_roles(ROLES, self).ids + Organization.with_roles(ROLES, self).map { |o| o.organization_type.id}
     end
-    @organization_types
+    @organization_types_ids
   end
 
   def organization_description
@@ -222,10 +239,11 @@ class User < ActiveRecord::Base
   def self.roles_select_options(class_name =  '' )
     roles = ROLES.map.with_index { |r, i| [  I18n.t("shared.users.roles.role.name.#{r.to_s}"), i ] }.to_h
     if class_name == Organization
-      roles.delete(I18n.t("shared.users.roles.role.name.#{:shared.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:admin.to_s}"))
       roles.delete(I18n.t("shared.users.roles.role.name.#{:supervisor.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:reader.to_s}"))
     elsif class_name == OrganizationType
-      roles.delete(I18n.t("shared.users.roles.role.name.#{:shared.to_s}"))
+      roles.delete(I18n.t("shared.users.roles.role.name.#{:admin.to_s}"))
       roles.delete(I18n.t("shared.users.roles.role.name.#{:interlocutor.to_s}"))
       roles.delete(I18n.t("shared.users.roles.role.name.#{:validator.to_s}"))
     else
@@ -238,15 +256,36 @@ class User < ActiveRecord::Base
   end
 
   def self.auth(current_user)
-     if current_user.has_role? :admin
-       User.all
-     else
-       sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
-       User.where(sap_id_organization: sap_ids)
-     end
+     return User.all if current_user.has_role? :admin
+     sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
+     User.where(sap_id_organization: sap_ids)
   end
 
+  def has_auth?(current_user)
+    return true if current_user.has_role? :admin
+    sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
+    User.where(id: id, sap_id_organization: sap_ids)
+  end
+
+  def self.export_columns
+    %w(login surname_name official_position sap_den_unit sap_den_organization
+       email phone created_at roles_description uweb_auth_at inactivated_at )
+  end
+
+  def roles_description
+    roles_description = ''
+    a = roles.map { |role| "#{roles_description} #{I18n.t("shared.roles.role.name.#{role.name}")}"}
+
+    return a.uniq[0].strip unless a.empty?
+    ""
+  end
+
+  def position_or_inactive
+    return official_position if uweb_active.present?
+    'Baja en ayre'
+  end
+  
   def self.ransackable_attributes(auth_object = nil)
     %w(login fullname) + _ransackers.keys
-  end
+  end    
 end

@@ -16,7 +16,6 @@ feature 'Periods Maintenance' do
         expect(page).to have_content I18n.t('supervisor.periods.index.entry_not_open_yet')
         expect(page).to have_link 'ver procesos'
         expect(page).to have_link 'editar'
-        expect(page).to have_link 'eliminar'
       end
     end
 
@@ -35,7 +34,6 @@ feature 'Periods Maintenance' do
         expect(page).to have_content I18n.t('supervisor.periods.index.entry_closed')
         expect(page).to have_link 'ver procesos'
         expect(page).not_to have_link 'editar'
-        expect(page).not_to have_link 'eliminar'
       end
 
     end
@@ -55,7 +53,6 @@ feature 'Periods Maintenance' do
         expect(page).to have_content I18n.t('supervisor.periods.index.entry_not_open_yet')
         expect(page).to have_link 'ver procesos'
         expect(page).to have_link 'editar'
-        expect(page).to have_link 'eliminar'
       end
     end
 
@@ -138,8 +135,7 @@ feature 'Periods Maintenance' do
         click_link "ver procesos"
       end
 
-      expect(page).to have_selector('tr', count: 3)
-      expect(page).to have_content 'GENÉRICOS'
+      expect(page).to have_selector('tr', count: 2)
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
       expect(page).to have_content '2. AUTORIZACIONES Y CONCESIONES'
       expect(page).to have_link('Editar', count: 2)

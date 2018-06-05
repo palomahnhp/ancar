@@ -20,7 +20,7 @@
       <h5> <%= t('supervisor.headers.period') %> <%= period.description %></h5>
   <% end %>
   <% unless main_process.nil? %>
-      <h5> <%= main_process.order %>. <%= main_process.item.description %> </h5>
+      <h5> <%= main_process.order %>.<%= main_process.item.description %> </h5>
   <% end %>
   <% unless sub_process.nil? %>
       <h5> <%= main_process.order %>.<%= sub_process.order %>. <%= sub_process.item.description %></h5>
@@ -29,7 +29,6 @@
       <h5> <%= main_process.order %>.<%= sub_process.order %>.<%= indicator.code %>. <%= indicator.item.description %></h5>
   <% end %>
   <% unless indicator_metric.nil? %>
-      <h5>     <%= indicator_metric.metric.item.description %></h5>
+      <h5> <%= indicator_metric.metric.item.description %></h5>
   <% end %>
-
 </div>

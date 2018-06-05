@@ -1,6 +1,12 @@
 <%= form_for [namespace.to_sym, @user] do |f| %>
-    <%= render 'shared/errors', resource: @user %>
-    <div class="row">
+  <% unless @user.uweb_active %>
+    <div class="label ancar-error">
+      <strong>Usuario esta de baja en ayre/uweb. Dar de baja en la aplicación si aún esta de alta.</strong>
+    </div>
+  <% end %>
+  <%= render 'shared/errors', resource: @user %>
+
+  <div class="row">
       <br>
       <%= hidden_field_tag :status, @user.status %>
       <% if params[:action] == 'destroy' %>
@@ -44,9 +50,11 @@
             <% if (@user.uweb_auth_at.present? && @user.active?) %>
               <%= (l @user.uweb_auth_at) unless @user.uweb_auth_at.nil?  %>
             <% elsif (@user.uweb_auth_at.nil? && @user.active?) %>
-              <%= link_to(" Dar acceso en ayre", eval("uweb_auth_#{namespace}_user_path(@user, login: @user.login,
-                                                                           filter: params[:filter], page: params[:page])"),
-                          class: 'icon-activate button hollow small', title: 'Dar acceso en ayre') %>
+              <% if @user.has_auth?(current_user).present? %>
+                 <%= link_to(" Dar acceso en ayre", eval("uweb_auth_#{namespace}_user_path(@user, login: @user.login,
+                                                         filter: params[:filter], page: params[:page])"),
+                             class: 'icon-activate button hollow small', title: 'Dar acceso en ayre') %>
+              <% end %>
             <% end %>
           </td>
         </tr>

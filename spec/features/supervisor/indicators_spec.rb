@@ -149,7 +149,7 @@ feature 'Indicators Maintenance' do
         click_link 'Editar'
       end
 
-      expect(page).to have_content 'Editar indicador'
+      expect(page).to have_content 'Editar Indicador'
       expect(page).to have_content '1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS'
       expect(page).to have_content '1.1. TRAMITACIÓN Y SEGUIMIENTO DE CONTRATOS Y CONVENIOS DEPARTAMENTO JURIDICO'
       expect(page).to have_content '1.1.1. Contratos Menores'

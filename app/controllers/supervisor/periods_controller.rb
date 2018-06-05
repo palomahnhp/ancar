@@ -1,8 +1,8 @@
 class Supervisor::PeriodsController < Supervisor::BaseController
-  before_action :find_period, only: [:edit, :update, :destroy]
+  before_action :find_period, only: [:edit, :update, :destroy, :export, :open]
 
   def index
-    @periods = Period.all.page(params[:page])
+    @periods = Period.by_organization_type(current_user.auth_organization_types_ids).page(params[:page])
   end
 
   def new
@@ -48,12 +48,30 @@ class Supervisor::PeriodsController < Supervisor::BaseController
 
   def destroy
     if @period.destroy
-      @period.create_activity :destroy, owner: current_user, parameters: params[]
-      msg = t('supervisor.periods.destroy.success')
+      @period.create_activity :destroy, owner: current_user, parameters: params[:period]
+      flash[:notice] = t('supervisor.periods.destroy.success')
     else
-      msg = t('supervisor.periods.destroy.error')
+      flash[:alert] = t('supervisor.periods.destroy.error')
     end
     redirect_to supervisor_periods_path, notice: msg
+  end
+
+  def export
+    @period_structure = @period.structure
+    filename = @period.description
+
+    if @period_structure.empty?
+     flash[:alert] = "El periodo esta vacio, no tiene estructura "
+     redirect_to supervisor_periods_path
+    else
+      respond_to do |format|
+        format.xls { flash[:notice] = "Se ha generado el excel con la estructura del periodo" }
+      end
+    end
+  end
+
+  def open
+
   end
 
   private
@@ -65,6 +83,5 @@ class Supervisor::PeriodsController < Supervisor::BaseController
     def find_period
       @period = Period.find(params[:id])
     end
-
 
 end

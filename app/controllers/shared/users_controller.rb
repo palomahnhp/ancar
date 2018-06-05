@@ -6,7 +6,17 @@ class Shared::UsersController < ApplicationController
   has_filters []
 
   def index
-    @users = load_filtered_users
+    if params[:format].present?
+      @users = User.auth(current_user).distinct
+    else
+      @users = load_filtered_users
+    end
+    respond_to do |format|
+      format.html
+      format.xls
+      format.xml  { render xml: @users }
+      format.json { render json: @users }
+    end
   end
 
   def new
@@ -25,7 +35,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:alert] = t('shared.users.destroy.alert', user: @user.login)
     end
-     redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    edit_redirect
   end
 
   def remove_role
@@ -36,11 +46,10 @@ class Shared::UsersController < ApplicationController
       resource_class = sanitize_resource_type(role.resource_type)
       if resource_class.nil?
         flash[:error] = t('shared.users.destroy_resource.error')
-        redirect_to supervisor_roles_path(role_name: role.name, user_id: @user.id )
       end
       @user.revoke role.name, resource_class.find(role.resource_id)
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    edit_redirect
   end
 
   def activate
@@ -49,7 +58,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:alert] = t('shared.users.activate.alert', user: @user.login)
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    edit_redirect
   end
 
   def create
@@ -66,7 +75,7 @@ class Shared::UsersController < ApplicationController
     else
       @user = User.create(user_params)
 #      @user.directory_update!
-      redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+      edit_redirect
     end
   end
 
@@ -78,9 +87,16 @@ class Shared::UsersController < ApplicationController
       flash[:notice] =  t("shared.users.edit.message.#{params[:status]}")
     else
 #      render :edit
-      flas[:alert] =  t('shared.users.edit.message.error')
+      flash[:alert] =  t('shared.users.edit.message.error')
     end
-    redirect_to supervisor_users_path(anchor: @user.login, filter: params[:filter], page: params[:page])
+    redirect_to eval("#{params[:controller].split("/").first}_users_path(anchor: #{@user.login}, filter: #{params[:filter]}, page: #{params[:page]})")
+  end
+
+  def update_all
+    UsersUpdateJob.perform_later
+#    UsersUpdate.new.run
+    flash[:notice] =  'Lanzada tarea de actualizacion. Disponible en unos minutos'
+    redirect_to eval("#{params[:controller].split("/").first}_users_path")
   end
 
   def uweb_auth
@@ -89,7 +105,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:alert] =  t('shared.users.uweb_auth.message.error')
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    edit_redirect
   end
 
   def ws_update
@@ -99,7 +115,7 @@ class Shared::UsersController < ApplicationController
     else
       flash[:alert] = t('shared.users.uweb_update.error', user: @user.login)
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    redirect_to eval("edit_#{params[:controller].split("/").first}_user_path(" + @user.id.to_s + ")")
   end
 
   def search
@@ -142,7 +158,8 @@ class Shared::UsersController < ApplicationController
     else
       flash[:error] = t('shared.roles.add_role.error')
     end
-    redirect_to edit_supervisor_user_path(@user, filter: params[:filter], page: params[:page])
+    namespace =  params[:controller].split("/").first
+    edit_redirect
   end
 
   private
@@ -152,9 +169,12 @@ class Shared::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :surname, :second_surname, :login, :uweb_id, :pernr,
-                                 :document_type, :document_number, :phone, :email, :official_position,
-                                 :inactivated_at, :unit, :sap_id_unit, :sap_den_unit, :sap_den_organization, :sap_den_organization)
+    params.require(:user).permit(:name, :surname, :second_surname, :pernr,
+                                 :login, :uweb_id, :uweb_active,
+                                 :document_type, :document_number, :phone, :email,
+                                 :official_position,:inactivated_at,
+                                 :unit, :sap_id_unit,:sap_den_unit,
+                                 :sap_id_organization, :sap_den_organization)
   end
 
   def load_filtered_users
@@ -186,7 +206,18 @@ class Shared::UsersController < ApplicationController
     if current_user.has_role? :admin
       @valid_filters= %w[ all interlocutor validator supervisor consultor admin no_role inactive ]
     elsif current_user.has_role?(:supervisor, :any)
-      @valid_filters = %w[ all interlocutor validator ]
+      @valid_filters = %w[ all interlocutor validator no_role inactive]
     end
   end
+
+  def edit_redirect
+    namespace = params[:controller].split("/").first
+    if namespace == 'admin'
+      path = edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
+    else
+      path = edit_admin_user_path(@user, filter: params[:filter], page: params[:page])
+    end
+    redirect_to path
+  end
+
 end
