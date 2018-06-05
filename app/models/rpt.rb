@@ -38,17 +38,16 @@ class Rpt < ActiveRecord::Base
   def self.export_columns
     %w[
       year
-      den_area
       sapid_area
+      den_area
       sapid_unidad
       den_unidad
+      status_pto_txt
+      ocupada
       id_puesto
       den_puesto
       nivel_pto
       grtit_pto
-      status_pto_txt
-      forma_acceso
-      ocupada
       sociedad
       division
       dotado
@@ -61,7 +60,6 @@ class Rpt < ActiveRecord::Base
       grtit_per
       situacion
       modalidad
-      relacion_laboral
       fecha_baja
       editable_Z01
       ficticio_Z02

@@ -110,7 +110,7 @@ table.sub-process-tab {
     height: auto !important;
     margin: rem-calc(6) 0 !important;
     &.group {
-      width: rem-calc(40);
+      width: rem-calc(60);
       text-align: center;
     }
   }
@@ -613,14 +613,19 @@ table#admin-indicator-metric {
   margin-left: 5%;
 }
 
-.period_open {
+.period-open {
   font-weight: bold;
   color: #27c236;
   }
 
-.period_closed {
+.period-entry_not_yet_open {
   font-weight: bold;
-  color: red;
+  color: #ffb520;
+  }
+
+.period-closed {
+  font-weight: bold;
+  color: gray;
   }
 
 .source-automatic {

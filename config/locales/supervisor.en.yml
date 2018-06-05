@@ -1,12 +1,5 @@
 ---
 en:
-  admin:
-    unit_rpt_assignations:
-      index:
-        detail: Detalle
-        occupied: Ocupados
-        organization: Organización
-        vacancy: Vacantes
   supervisor:
     dashboard:
       index:
@@ -51,21 +44,14 @@ en:
       edit:
         title: Editar %{process_name}
       form:
-        code: Código del indicador
         description: Descripción
         items:
           description: Si no existe la descripción en la caja superior escribala aquí
-        order: Orden de Visualización
       index:
         create: Añadir %{process_name}
         empty: No hay %{process_name} definidos
         submit: submit
         title: "%{process_name}"
-      item_list:
-        in_out_type: Tipo (E/S/X)
-        indicator: "%{process_name}"
-        metric: Métrica
-        source: Fuente
       new:
         title: Crear %{process_name}
       show:
@@ -128,10 +114,24 @@ en:
           no_processes_copy: Se ha creado el periodo correctamente. Debera incluir los procesos e indicadores desde la opción "Configurar indicadores".
           processes_copy: Se ha creado el periodo correctamente con los procesos e indicatores del periodo seleccionado.
       destroy:
-        error: Se ha producido un error a eliminar el Periodo
+        error: Se ha producido un error al eliminar el Periodo
         success: Se ha eliminado el Periodo correctamente
       edit:
         title: Editar periodo
+      export:
+        columns:
+          automatic: Automatica
+          code: Codigo
+          data_source: origen
+          description: Periodo
+          in_out_type: E/S/X
+          indicators: Indicadores
+          main_processes: Proceso
+          metrics: Metrica
+          procedure: tramite
+          source: Fuente
+          sub_processes: Subproceso
+          unit_type: Unidad
       form:
         closed_at: Fin
         data_collect: Recogida de datos
@@ -145,10 +145,12 @@ en:
         started_at: Inicio
       index:
         button:
-          create: Crear un periodo
           delete: eliminar
           edit: editar
+          export: Exportar
+          open: Crear un periodo
           processes: ver %{process_name}
+          reopen: Reabrir periodo
         data_collect: Periodo de mecanización
         empty: No se ha creado ningún periodo
         entry_closed: No modificable - cerrada entrada de datos
@@ -160,6 +162,8 @@ en:
         title: Periodos de estudio
       new:
         title: Abrir un nuevo periodo
+      open:
+        title: Reabrir un periodo
       show:
         title: Indicador
       update:

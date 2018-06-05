@@ -36,7 +36,7 @@
             <%= t('supervisor.menu.unit_statuses') %>
           </a>
           <ul class="menu vertical nested">
-            <% Period.show_status.each do |period| %>
+            <% Period.show_status.by_organization_type(current_user.auth_organization_types.ids).each do |period| %>
               <li <%= 'class=active' if controller_name == 'unit_statuses' %>>
                 <%= link_to supervisor_unit_statuses_path(id: period.id) do %>
                   <span class="icon-list">- </span>
@@ -47,6 +47,7 @@
             <% end %>
           </ul>
         </li>
+
         <% if current_user.has_role? :admin %>
           <li id="summary_reports">
             <a href="#">

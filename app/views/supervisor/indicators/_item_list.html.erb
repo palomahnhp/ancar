@@ -2,11 +2,10 @@
 <br>
 <table>
   <tr>
-    <th><%= t('supervisor.indicators.item_list.indicator',
-              process_name: t("supervisor.process_name.singular.#{process_name(@sub_process.main_process.period, controller_name)}")).capitalize %></th>
-    <th class="text-left"><%= t('supervisor.indicators.item_list.metric') %></th>
-    <th class="text-left"><%= t('.source') %></th>
-    <th class="text-center"><%= t('.in_out_type') %></th>
+    <th><%= t("activerecord.models.#{model_name(@sub_process.main_process.period, controller_name)}.one") %></th>
+    <th class="text-left"><%= t("activerecord.attributes.indicator.metric_id") %></th>
+    <th class="text-left"><%= t("activerecord.attributes.indicator.source_id") %></th>
+    <th class="text-center"><%= t("activerecord.attributes.indicator.in_out_type") %></th>
   </tr>
 
   <% @indicators.each do  |indicator|%>

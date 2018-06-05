@@ -120,6 +120,12 @@ module SupervisorHelper
     setting.enabled? if setting.present?
   end
 
+  def main_process_organization_enabled?(mp)
+    @setting ||= Setting.find_by(key: 'main_process_organization.'+ mp.period.organization_type.acronym)
+    return @setting.enabled? if @setting.present?
+    false
+  end
+
   def rpt_unit(year, unit)
     if @conditions[:vacancy].present?
       @rpt_grtit = Rpt.select('grtit_per').by_year(year).by_unit_sap(unit).group(:grtit_per).count
@@ -179,6 +185,16 @@ module SupervisorHelper
     return AssignedEmployee.staff_from_unit(unit, @period, OfficialGroup.find_by(name: grtit.capitalize)) if @loaded_rpt.present?
 
     @rpt_grtit[grtit]
+  end
+
+  def period_status_class(period)
+    return "period-no-yet-open" if period.not_yet_open?
+    period.open_entry? ? "period-no-modifiable-entry-opened" : "period-no-modifiable-entry-closed"
+  end
+
+  def period_entry_status_class(period)
+    return "period-entry_not_yet_open" if period.not_yet_open?
+    period.open_entry? ? "period-open" : "period-closed"
   end
 
   private

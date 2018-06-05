@@ -4,14 +4,14 @@
 
   <div id='indicator_sources' class="small-12 columns" >
       <%= hidden_field_tag :indicator_id, params[:indicator_id] %>
-      <label><%= t('supervisor.indicator_metrics.form.metric') %></label>
+      <label><%= t('activerecord.attributes.indicator_metric.metric_id') %></label>
       <%= f.select :metric_id, options_for_select(metric_items, @indicator_metric.metric_id), :prompt => t('supervisor.indicator_metrics.form.metric'),
                 label: false, placeholder: t('supervisor.indicator_metrics.form.metric') %>
 
   </div>
   <div id='indicator_sources' class="small-12 columns" >
     <fieldset>
-      <legend> <%= t('supervisor.indicator_metrics.form.source.column') %></legend>
+      <legend> <%= t('activerecord.attributes.indicator_metric.source_id') %></legend>
       <div class="row">
       </div>
       <%= f.fields_for :indicator_sources do |indicator_source| %>
@@ -29,14 +29,14 @@
   <br>
   <div  class="small-12 columns"> <br> </div>
   <div class="small-12 medium-4 columns end">
-    <%= f.label :in_out_type, t('supervisor.indicator_metrics.form.type') %>
+    <%= f.label :in_out_type, t('activerecord.attributes.indicator_metric.in_out_type') %>
     <%= f.select :in_out_type, options_for_select([['Entrada', 'E'], ['Salida', 'S'], ['Stock', 'X']], @indicator_metric.in_out_type),
                  prompt: t('supervisor.indicator_metrics.form.type'), label: false, placeholder: t('supervisor.indicator_metrics.form.type') %>
   </div>
 
   <div  class="small-12 columns"> <br> </div>
   <div class="small-12 medium-4 columns">
-    <%= f.label :order, t('supervisor.indicators.form.order') %>
+    <%= f.label :order, t('activerecord.attributes.indicator_metric.order') %>
     <%= f.text_field :order, label: false %>
   </div>
 

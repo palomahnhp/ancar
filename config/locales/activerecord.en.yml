@@ -77,6 +77,13 @@ en:
         approval_by: Aprobado por
         approval_at: Aprobado
         description: Descripción
+      indicator:
+        code:         Código
+        description:  Descripción
+        order:        Orden de visualización
+        metric_id:    Métrica
+        source_id:    Fuente
+        in_out_type:  Tipo (E/S/X)
       period:
         organization_type: Tipo de organización
         description: Descripción
@@ -103,6 +110,66 @@ en:
         short_description: "Descripción corta"
         sap_id: "Id SAP"
         organization_type: "Tipo de organización"
+      user:
+        login: Usuario
+        uweb_id: Id. Uweb
+        name: Nombre
+        surname: Primer apellido
+        second_surname: Segundo apelllido
+        full_name: Nombre
+        document_number: Documento
+        document_type: Tipo de documento
+        pernr: Numero personal
+        phone: Telefono
+        official_position: Puesto
+        email: Correo electrónico
+        inactivated_at: Baja
+        sap_id_unit: Id unidad
+        sap_den_unit: Unidad
+        organization_id: Id organización
+        sap_id_organization: Sap id organización
+        sap_den_organization:  Organización
+        uweb_auth_at: Acceso ayre desde
+        roles_description: Roles
+        created_at: Fecha de alta
+      rpt:
+        year: Año
+        den_area: Unidad Nivel 1
+        sapid_area: Id SAP Nivel 1
+        sapid_unidad: Id SAP unidad
+        den_unidad: Unidad
+        status_pto_txt: Status puesto
+        ocupada: Ocu/Vac
+        id_puesto: Id SAP puesto
+        den_puesto: Puesto
+        nivel_pto: Nivel pto
+        grtit_pto: Grupo tit pto
+        sociedad: Sociedad
+        division: división
+        dotado: Dotado?
+        nombre: Nombre
+        apellido1: Apellido 1
+        apellido2: Apellido 2
+        den_categoria_per: Categoria
+        area_personal_txt: Area de personal
+        grupo_personal_txt: Grupo de personal
+        grtit_per: Grupo titulación
+        situacion: Situación
+        modalidad: Modalidad
+        fecha_baja: Fecha Baja
+        editable_Z01: Editable?
+        ficticio_Z02: Ficticio?
+      setting:
+        key: Nombre
+        value: Valor
+      indicator_metric:
+        indicator_id: Indicador
+        metric_id: Métrica
+        code: Código
+        in_out_type: Tipo de indicador
+        order: Orden de visualización
+        data_source: Modo de obtención
+        procedure: Trámite
     errors:
       models:
         period:

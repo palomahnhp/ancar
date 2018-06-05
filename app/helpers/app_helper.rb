@@ -21,7 +21,8 @@ module AppHelper
     grouped_resources = {}
     grouped_resources[' '] = ['Selecciona el ambito de autorización', '']
     if class_name == Organization
-      OrganizationType.all.each do |type|
+#      OrganizationType.all.each do |type|
+       user.auth_organization_types.each do |type|
         grouped_resources[type.description] = Organization.select_options(type)
       end
     elsif class_name == OrganizationType
