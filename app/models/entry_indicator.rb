@@ -1,7 +1,16 @@
 class EntryIndicator < ActiveRecord::Base
   resourcify
+
   include PublicActivity::Model
-  tracked
+  tracked owner: ->(controller, model) { controller && controller.current_user },
+          :params => {
+              :id => :id,
+              :description => proc {|controller, model_instance| model_instance.indicator_metric.indicator.item.description},
+              :amount =>  proc {|controller, model_instance| model_instance.amount.to_s},
+              :imported_amount =>  proc {|controller, model_instance| model_instance.imported_amount.to_s},
+
+          }
+
 #  has_many :entry_indicator_sources
 
   has_many :metrics, through: :indicator_metrics

@@ -9,10 +9,12 @@ module Importers
     end
 
     def run
+      PublicActivity.enabled = false
       activity_log(self.class, "Inicio con parámetros:  #{@year} / #{@filepath}", :info)
       parse
       notify_admin
       activity_log(self.class, "Fin de proceso:", :info)
+      PublicActivity.enabled = true
     end
 
     private
@@ -45,6 +47,7 @@ module Importers
     end
 
     def activity_log(class_name, message, type)
+      class_name.to_s.create_activity :create, owner: current_user, parameters:  "#{@year} / #{@filepath}"
       log_message = class_name.to_s + ' - ' + Time.zone.now.to_s + ' - ' + message
       if type == :error
         Rails.logger.error log_message

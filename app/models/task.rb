@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  include ItemTrackable
+
   has_many :indicators, :dependent => :destroy
   belongs_to :sub_process
   belongs_to :item, -> { where item_type: 'task' }

@@ -61,7 +61,10 @@ Rails.application.routes.draw do
     resources :stats
     resources :in_works
     resources :activities do
-      get :search, on: :collection
+      collection {
+        post :search, to:'activities#index'
+        get  :search, to:'activities#index'
+      }
     end
     resources :roles, only: [:index]
     resources :rpts do

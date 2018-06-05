@@ -244,5 +244,9 @@ class User < ActiveRecord::Base
        sap_ids = current_user.auth_organizations(OrganizationType.with_roles(ROLES, current_user).ids).map { |o| o.sap_id }
        User.where(sap_id_organization: sap_ids)
      end
-    end
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w(login fullname) + _ransackers.keys
+  end
 end

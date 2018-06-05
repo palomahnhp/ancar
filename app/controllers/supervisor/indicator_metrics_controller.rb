@@ -15,6 +15,7 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
     @indicator_metric = @indicator.indicator_metrics.new
     @indicator_metric.assign_attributes(indicator_metric_params)
     if @indicator_metric.save
+      @indicator_metric.create_activity :create, owner: current_user, parameters: params
       update_summary_types
       redirect_to_index(t('supervisor.indicator_metrics.create.success'))
     else
@@ -25,6 +26,7 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
   def update
     @indicator_metric.assign_attributes(indicator_metric_params)
     if @indicator_metric.save
+      @indicator_metric.create_activity :update, owner: current_user, parameters: params
       update_summary_types
       redirect_to_index(t('supervisor.indicator_metrics.create.success'))
     else
@@ -34,17 +36,20 @@ class Supervisor::IndicatorMetricsController < Supervisor::BaseController
 
   def add_empty_source
     IndicatorSource.create!(indicator_metric: @indicator_metric, source: Source.find_or_create_by!(item: Item.find_or_create_by!(item_type: 'source', description: '')))
+    @indicator_metric.create_activity :add_empty_source, owner: current_user, parameters: params
     render :edit
   end
 
   def destroy_source
     source = Source.find(params[:source])
     IndicatorSource.delete_all(indicator_metric: @indicator_metric, source: source)
+    @indicator_metric.create_activity :destroy_source, owner: current_user, parameters: params
     render :edit
   end
 
   def destroy
     if @indicator_metric.destroy
+      @indicator_metric.create_activity :destroy, owner: current_user, parameters: params
       msg = t('supervisor.indicators_metrics.destroy.success')
     else
       msg = t('supervisor.indicators_metrics.destroy.error')

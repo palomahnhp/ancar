@@ -1,6 +1,5 @@
 class MainProcess < ActiveRecord::Base
-  include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user }
+  include ItemTrackable
 
   has_many :sub_processes, :dependent => :destroy
   has_many :tasks, through: :sub_processes, :dependent => :destroy

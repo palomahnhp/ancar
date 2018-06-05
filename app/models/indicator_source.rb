@@ -1,4 +1,6 @@
 class IndicatorSource < ActiveRecord::Base
+  include ItemTrackable
+
   belongs_to :indicator_metric
   belongs_to :source
 

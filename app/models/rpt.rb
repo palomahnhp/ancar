@@ -1,4 +1,5 @@
 class Rpt < ActiveRecord::Base
+
   belongs_to :organization
   belongs_to :unit
 

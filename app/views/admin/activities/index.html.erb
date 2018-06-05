@@ -1,62 +1,57 @@
-<div class="row">
-  <h1> <%= t('admin.activities.index.title')%> </h1>
-</div>
+<h1> <%= t('admin.activities.index.title')%> </h1>
 
 <%= search_form_for @search, url: search_admin_activities_path, method: :post do |f| %>
-  <div class= "row" >
-    <div class="small-12 columns ">
-      <p>
-      <h4><%= t('admin.activities.index.search') %> </h4>
-      <small>Para añadir una condición selecciona el campo de búsqueda, para eliminarla dejalo en blanco.</small>
-      <br>
-      </p>
-      <%= f.condition_fields do |c| %>
-        <%= render 'condition_fields', f: c %>
-      <% end %>
-    </div>
+  <div class="small-12 columns ">
+    <p>
+    <h4><%= t('admin.activities.index.search') %> </h4>
+    <small>Para añadir una condición selecciona el campo de búsqueda, para eliminarla dejalo en blanco.</small>
+    <br>
+    </p>
+    <%= f.condition_fields do |c| %>
+      <%= render 'condition_fields', f: c %>
+    <% end %>
   </div>
 
-  <div class= "row" >
-    <div class="medium-12 small-3 columns">
-      <div class="medium-4 small-3 columns">
-        <p><%= f.submit t('actions.search'), class: "hollow button" %></p>
-      </div>
+  <div class="medium-12 small-3 columns">
+    <div class="medium-4 small-3 columns">
+      <p><%= f.submit t('actions.search'), class: "hollow button" %></p>
     </div>
   </div>
 <% end %>
 
 
+<%= page_entries_info @activities, entry_name: 'actividad'  %>
 
-<div class="row">
-  <table class="unit-status">
-    <thead>
+<%= paginate @activities, windows: 5 %>
+
+<table class="unit-status">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, t('activerecord.attributes.activity.created_at') %></th>
+    <th><%= sort_link @search, t('activerecord.attributes.activity.owner') %></th>
+    <th><%= sort_link @search, t('activerecord.attributes.activity.key') %></th>
+    <th><%= sort_link @search, t('activerecord.attributes.activity.trackable_type') %></th>
+    <th><%= sort_link @search, t('activerecord.attributes.activity.trackable_id') %></th>
+    <th><%= t('admin.activities.index.description')%></th>
+    <th><%= sort_link @search, t('activerecord.attributes.activity.parameters')  %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @activities.each do |activity| %>
     <tr>
-      <th><%= t('admin.activities.index.date')%></th>
-      <th><%= t('admin.activities.index.key')%></th>
-      <th><%= t('admin.activities.index.user')%></th>
-      <th><%= t('admin.activities.index.trackable_type')%></th>
-      <th><%= t('admin.activities.index.trackable_id')%></th>
-      <th><%= t('admin.activities.index.trackable_description')%></th>
-      <th><%= t('admin.activities.index.parameters')%></th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <% @activities.each do |activity| %>
-      <tr>
-        <td class="date-width"><%= l activity.created_at, format: :short %></td>
+      <td class="date-width"><%= l activity.created_at, format: :short %></td>
+      <td class="user-width"><%= activity.owner.full_name if activity.owner.present? %> <%= activity.owner.login  if activity.owner.present? %> </td>
+      <td class="date-width"><%= activity.key %></td>
+      <td><%= activity.trackable_type %></td>
+      <td><%= activity.trackable_id %></td>
+      <% if activity.trackable.respond_to?(:description) %>
+        <td><%= activity.trackable.description %></td>
+      <% else %>
         <td><%= activity.key %></td>
-        <td class="user-width"><%= activity.owner.full_name if activity.owner.present? %> <%= activity.owner.login  if activity.owner.present? %> </td>
-        <td><%= activity.trackable_type %></td>
-        <td><%= activity.trackable_id %></td>
-        <% if activity.trackable.respond_to?(:description) %>
-          <td><%= activity.trackable.description %></td>
-        <% else %>
-          <td><%= activity.key %></td>
-        <% end %>
-        <td id="activities_parameters"><%= activity.parameters %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+      <% end %>
+      <td id="activities_parameters" class="user-width"><%= activity.parameters %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 </div>

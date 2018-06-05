@@ -1,4 +1,14 @@
 class Item < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user },
+          :params => {
+              :id => :id,
+              :description => proc {|controller, model_instance| model_instance.description},
+          }
+
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user }
+
   has_many :main_processes
   has_many :sub_processes
   has_many :tasks

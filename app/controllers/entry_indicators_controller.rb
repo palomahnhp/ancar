@@ -165,7 +165,7 @@ class EntryIndicatorsController < ApplicationController
           indicator_empty.push(Indicator.find(indicator[0]).item.description)
         else
           ei = EntryIndicator.find_or_create_by(unit_id: @unit.id, indicator_metric_id: indicator_metric_id)
-          amount = amount.tr('.', '').tr(',', '.').to_f
+          amount = amount.to_f
           unless ei.amount == amount
             ei.amount = amount
             ei.imported_amount = ei.amount if ((current_user.has_role? :admin) && (source_imported?(ei.indicator_metric)))

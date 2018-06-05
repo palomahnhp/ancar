@@ -1,6 +1,12 @@
 class UnitRptAssignation < ActiveRecord::Base
+
   include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user }
+  tracked owner: ->(controller, model) { controller && controller.current_user} ,
+          :params => {:id => :id,
+                      :description     => proc {|controller, model_instance| model_instance.indicator_metric.indicator.item.description},
+                      :amount          => proc {|controller, model_instance| model_instance.amount.to_s},
+                      :imported_amount => proc {|controller, model_instance| model_instance.imported_amount.to_s},
+                     }
 
   belongs_to :unit
   belongs_to :organization
