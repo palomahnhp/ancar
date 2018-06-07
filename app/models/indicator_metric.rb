@@ -1,5 +1,5 @@
 class IndicatorMetric < ActiveRecord::Base
-  include ItemTrackable
+  include Trackable
 
   belongs_to :indicator
   belongs_to :metric

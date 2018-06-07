@@ -332,8 +332,8 @@ en:
         success: Datos del usuario actualizados correctamente
   status:
     close: Cerrado
-    open: Abierto
     not_yet_open: Pendiente inicio
+    open: Abierto
   subnavigation_menu:
     documentation: Instrucciones y manuales
     entry_indicators: Procesos y subprocesos
