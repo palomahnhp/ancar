@@ -155,11 +155,26 @@ en:
     unit_rpt_assignations:
       index:
         detail: Detalle
+        export_links:
+          assignated_units: 'Listado de asignación de %{year}:'
+          rpt: 'RPT completa de %{rpt_year}:'
+          title_html: "<strong>Exportar</strong> :"
+        initialize_links:
+          copy:
+            link: Copiar asignaciones
+            title: Copia los datos mostrados que corresponde a %{assignation_year} y se copiaran en %{process_year})
+          initialize: Inicializar
+          text: 'Básica (solo departamentos):'
+          title_html: "<strong>Inicializar</strong> asignación de unidades para última RPT cargada: "
         no_data: No hay datos de asignacion cargados
         occupied: Ocupados
         organization: Organización
         title: Asignacion de RPT a unidades
         vacancy: Vacantes
+      show_organization:
+        delete_column: Eiminar
+        no_assigned: SIN ASIGNAR
+        title: Detalle de la asignación de RPT a unidades
     unit_types:
       description: Descripción
       edit: Modificar Tipo de unidad
