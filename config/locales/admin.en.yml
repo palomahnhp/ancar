@@ -19,15 +19,8 @@ en:
           MainProcess: Procesos/BloqueCompetencial
           Period: Periodo
           SubProcess: SubProcesos/Proceso
-        date: Fecha
-        key: Acción
-        parameters: Parámetros
         search: Busqueda avanzada
         title: Log de actividades
-        trackable_description: Descripción
-        trackable_id: Id.
-        trackable_type: Objeto
-        user: Usuario
     dashboard:
       index:
         title: Configuración de la aplicación

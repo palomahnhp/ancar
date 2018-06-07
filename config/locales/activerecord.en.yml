@@ -1,6 +1,9 @@
 en:
   activerecord:
     models:
+      activity:
+        one: Actividad
+        other: Actividades
       approval:
         one: Visto Bueno
         other: Vistos Buenos
@@ -59,6 +62,17 @@ en:
         one: Fuente
         other: Fuentes
     attributes:
+      activity:
+        trackable_id: Trackable id
+        trackable_type: Trackable Type
+        owner: Usuario
+        owner_type: Tipo de propietario
+        key: Clave
+        parameters: Parametros
+        recipient_id: Contenedor
+        recipient_type: Tipo de contenedor
+        created_at: Creación
+        updated_at: Actualización
       approval:
         approval_by: Aprobado por
         approval_at: Aprobado

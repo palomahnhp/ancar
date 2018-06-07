@@ -2,6 +2,7 @@ class Supervisor::UnitStatusesController < Supervisor::BaseController
   before_action :set_supervisor_unit_status, only: [:show]
   before_action :set_supervisor_unit_statuses, only: [:index]
 
+
   # GET /supervisor/unit_statuses
   # GET /supervisor/unit_statuses.json
   def index

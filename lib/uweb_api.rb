@@ -6,7 +6,7 @@ class UwebApi
 
   def auth
     # comprueba los paramearos
-    if !([@user_params[:login], @user_params[:user_key], @user_params[:date]].all? {|_| _.present?})
+    if !([@user_params[:login], @user_params[:user_key], @user_params[:date]].all? { |_| _.present?})
       return false
     end
     if (Rails.env.development? || Rails.env.preproduction?) && (!@user_params[:development].nil? && @user_params[:development] == "TRUE")

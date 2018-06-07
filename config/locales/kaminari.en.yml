@@ -3,21 +3,21 @@ en:
   helpers:
     page_entries_info:
       entry:
-        one: Entry
-        other: Entries
-        zero: Entries
+        one: Registro
+        other: Registros
+        zero: Registros
       more_pages:
-        display_entries: Displaying <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> %{entry_name}
+        display_entries: Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> %{entry_name}
       one_page:
         display_entries:
-          one: There is <b>1</b> %{entry_name}
-          other: There are <b> %{count}</b> %{entry_name}
-          zero: "%{entry_name} cannot be found"
+          one: Hay <b>1</b> %{entry_name}
+          other: Hay <b> %{count}</b> %{entry_name}
+          zero: "No hay registros de %{entry_name}"
   views:
     pagination:
-      first: First
-      last: Last
-      next: Next
-      previous: Previous
+      first: Primero
+      last: Última
+      next: Siguiente
+      previous: Anterior
       truncate: "&hellip;"
-      current: You're on page
+      current: Estas en la pagina

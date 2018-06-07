@@ -12,7 +12,7 @@ class Setting < ActiveRecord::Base
              main_process_organization)
 
   def type
-    type  = TYPES.select {|type| key.include?(type)}
+    type  = TYPES.select { |type| key.include?(type) }
     return type[0] if type.present?
     'common'
   end

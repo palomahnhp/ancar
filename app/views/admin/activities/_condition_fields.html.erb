@@ -1,13 +1,15 @@
-<div class="medium-3 small-6 columns end ">
-  <%= f.attribute_fields do |a| %>
-      <%= a.attribute_select associations: [:user, :ic_procedure, :ic_action, :society, :manager_body, :approval_body]%>
-  <% end %>
-</div>
-<div class="medium-3 small-6 columns end ">
-  <%= f.predicate_select  compounds: false,  only: %i(cont not_cont eq not_eq gt lt blank null) %>
-</div>
-<div class="medium-3 small-8 columns end ">
-  <%= f.value_fields do |v| %>
+<div class="row">
+  <div class="medium-3 small-6 columns end ">
+    <%= f.attribute_fields do |a| %>
+      <%= a.attribute_select associations: [:owner, :trackable]%>
+    <% end %>
+  </div>
+  <div class="medium-3 small-6 columns end ">
+    <%= f.predicate_select  compounds: false,  only: %i(cont not_cont eq not_eq gt lt blank null) %>
+  </div>
+  <div class="medium-3 small-8 columns end ">
+    <%= f.value_fields do |v| %>
       <%= v.text_field :value %>
-  <% end  %>
+    <% end  %>
+  </div>
 </div>

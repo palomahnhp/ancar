@@ -1,4 +1,6 @@
 class IndicatorMetric < ActiveRecord::Base
+  include Trackable
+
   belongs_to :indicator
   belongs_to :metric
 

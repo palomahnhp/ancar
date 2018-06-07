@@ -32,7 +32,7 @@ module SupervisorHelper
 
   def source_items(id, fixed=false)
     if fixed
-      Source.fixed.collect  { |v| [ v.item.description, v.item.id ]}
+      Source.fixed.collect  { |v| [v.item.description, v.item.id] }
     else
       select_items('source')
     end
@@ -44,7 +44,7 @@ module SupervisorHelper
 
   def select_items(class_name, id=nil)
     items_not_used = Item.where(item_type: class_name).active.order(:description)
-    items_not_used.collect  { |v| [ v.description, Object.const_get(class_name.camelize).find_by_item_id(v.id).id ] if Object.const_get(class_name.camelize).find_by_item_id(v.id).present? }
+    items_not_used.collect  { |v| [v.description, Object.const_get(class_name.camelize).find_by_item_id(v.id).id] if Object.const_get(class_name.camelize).find_by_item_id(v.id).present? }
   end
 
   def total_check(indicator_metric_id, summary_type_id)

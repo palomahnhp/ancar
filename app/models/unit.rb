@@ -25,15 +25,15 @@ class Unit < ActiveRecord::Base
 
   def self.select_options(user = nil)
     if user.present?
-      user.auth_units.collect { |ar| ar.collect { |v| [ v.description_sap, v.id ] }}
+      user.auth_units.collect { |ar| ar.collect { |v| [v.description_sap, v.id] } }
       units = ''
       user.auth_units.each do |ar|
-        units = ar.collect { |u| [ u.description_sap, u.id ]}
+        units = ar.collect { |u| [u.description_sap, u.id] }
 #          units << [ u.description_sap, u.id ]
 #        end
       end
     else
-      units = self.all.collect { |v| [ v.description, v.id ] }
+      units = self.all.collect { |v| [v.description, v.id] }
     end
     return units
   end
