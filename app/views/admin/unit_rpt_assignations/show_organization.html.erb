@@ -1,0 +1,67 @@
+<div class="row">
+  <%= link_to(t('actions.back'), admin_unit_rpt_assignations_path,
+              class:"icon-angle-left" ) %>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <h2 class="text-center"><%= t('admin.unit_rpt_assignations.show_organization.title')%> <%= @process_year %></h2>
+    <br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= form_tag(update_assignations_admin_unit_rpt_assignations_path(year: @process_year, organization: @organization )) do %>
+      <table class="unit-rpt-assignation">
+        <tr>
+          <td></td>
+           <td class="assign_button" colspan="3"><%= submit_tag "Actualizar asignaciones", class: "button large"  %></td>
+        </tr>
+        <tr>
+          <td title="<%= @organization.id %>">
+            <h5><%= @organization.description %></h5>
+          </td>
+          <%= render partial: 'display_organization_rpt',
+                     locals: {year: @process_year, organization: @organization} %>
+          <th><%= t('admin.unit_rpt_assignations.show_organization.delete_column')%></th>
+        </tr>
+
+        <% @organization.units.each do |unit| %>
+          <tr>
+            <td title="<%= unit.sap_id %>"> <strong><%= unit.description_sap %></strong></td>
+            <td> <strong><%= Rpt.by_year(@process_year).by_unit_sap(assigned_units(@assignation_year,unit )).occupied.count %> </strong></td>
+            <td> <strong><%= Rpt.by_year(@process_year).by_unit_sap(assigned_units(@assignation_year,unit )).vacant.count %> </strong></td>
+            <td>  </td>
+          </tr>
+          <tr>
+          <%  UnitRptAssignation.by_year(@process_year).by_unit(unit).each do |assign_record| %>
+            <tr>
+              <td class="unit-assigned" title="<%= assign_record.sapid_unit %>">  <%= assign_record.den_unit %></td>
+              <td>  <%= Rpt.by_year(@process_year).by_unit_sap(assign_record.sapid_unit).occupied.count %> </td>
+              <td>  <%= Rpt.by_year(@process_year).by_unit_sap(assign_record.sapid_unit).vacant.count %> </td>
+              <td>  <%= check_box_tag "unassign[#{assign_record.sapid_unit}]" %> </td>
+            </tr>
+          <% end %>
+        <% end %>
+          <!-- No assigned -->
+        <tr>
+          <td> <h6><%= t('admin.unit_rpt_assignations.show_organization.no_assigned')%></h6></td>
+        </tr>
+        <tr>
+        <% UnitRptAssignation.by_year(@assignation_year).by_organization(@organization).unassigned.order(:den_unit).each do |assign_rec| %>
+          <tr>
+            <td title="<%= assign_rec.sapid_unit %>">
+              <%= assign_rec.den_unit %> (<%= assign_rec.sapid_unit %>)
+            </td>
+            <td> <%= Rpt.by_year(@process_year).by_unit_sap(assign_rec.sapid_unit).occupied.count %> </td>
+            <td> <%= Rpt.by_year(@process_year).by_unit_sap(assign_rec.sapid_unit).vacant.count %> </td>
+            <td>
+              <%= select_tag("assign[#{assign_rec.sapid_unit}]", options_for_select(@organization.select_units), prompt: 'Asigna unidad') %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+</div>
