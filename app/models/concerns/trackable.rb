@@ -1,13 +1,12 @@
 require 'active_support/concern'
-module ItemTrackable
+module Trackable
   extend ActiveSupport::Concern
 
   included do
     include PublicActivity::Model
     tracked owner: ->(controller, _model) { controller && controller.current_user },
            :params => {
-              :id => :id,
-              :description => proc {|controller, model_instance| model_instance.item.description},
+              :params => proc {|controller, model_instance| controller && controller.params},
     }
   end
 end
