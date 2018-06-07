@@ -112,28 +112,28 @@ FactoryBot.define do
   factory :main_process do
     association :period, factory: :period
     association :item, :factory => [:item, :main_process]
-    sequence(:order) {|n|  "#{n}"}
+    sequence(:order) { |n|  "#{n}" }
   end
 
   factory :sub_process do
     association :main_process, factory: :main_process
     association :item, :factory => [:item, :sub_process]
     association :unit_type, factory: :unit_type
-    sequence(:order) {|n|  "#{n}"}
+    sequence(:order) { |n|  "#{n}" }
   end
 
   factory :task do
     association :sub_process, factory: :sub_process
     association :item, :factory => [:item, :task]
-    sequence(:order) {|n|  "#{n}"}
+    sequence(:order) { |n|  "#{n}" }
   end
 
   factory :indicator do
     association :item, :factory => [:item, :indicator]
     association :task, factory: :task
 
-    sequence(:order) {|n|  "#{n}"}
-    sequence(:code) {|n|  "#{n}"}
+    sequence(:order) { |n|  "#{n}" }
+    sequence(:code) { |n|  "#{n}" }
   end
 
   factory :indicator_metric do
@@ -164,39 +164,39 @@ FactoryBot.define do
 
     trait :main_process do
       item_type 'main_process'
-      sequence(:description) {|n|  "MainProcess #{n}"}
+      sequence(:description) { |n| "MainProcess #{n}" }
     end
 
     trait :sub_process do
       item_type 'sub_process'
-      sequence(:description) {|n|  "SubProcess #{n}"}
+      sequence(:description) { |n| "SubProcess #{n}" }
     end
 
     trait :task do
       item_type 'task'
-      sequence(:description) {|n|  "Task #{n}"}
+      sequence(:description) { |n| "Task #{n}" }
     end
 
     trait :indicator do
       item_type 'indicator'
-      sequence(:description) {|n|  "Indicator #{n}"}
+      sequence(:description) { |n| "Indicator #{n}" }
     end
 
     trait :metric do
       item_type 'metric'
-      sequence(:description) {|n|  "Metric #{n}"}
+      sequence(:description) { |n| "Metric #{n}" }
     end
 
     trait :source do
       item_type 'source'
-      sequence(:description) {|n|  "Source #{n}"}
+      sequence(:description) { |n| "Source #{n}" }
     end
   end
 
   factory :unit_type do
     association :organization_type, factory: :organization_type
-    sequence(:description) {|n|  "Tipo de unidad #{n}"}
-    sequence(:order) {|n|  "#{n}"}
+    sequence(:description) { |n| "Tipo de unidad #{n}" }
+    sequence(:order) { |n|  "#{n}"}
   end
 
   factory :organization_type do

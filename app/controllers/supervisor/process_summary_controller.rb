@@ -22,7 +22,7 @@ class Supervisor::ProcessSummaryController < Supervisor::BaseController
 
 private
   def main_processes_select_options
-    MainProcess.where(period_id: @period.id).collect { |v| [ v.item.description, v.id ] }
+    MainProcess.where(period_id: @period.id).collect { |v| [v.item.description, v.id] }
   end
 
   def main_process_by_order

@@ -22,7 +22,7 @@ module Authorizable
       else
         organization_type_roles = OrganizationType.applied_roles
         user_roles = self.roles
-        if (organization_type_roles.ids).map{ |id| (user_roles.ids).include? id}
+        if (organization_type_roles.ids).map{ |id| (user_roles.ids).include? id }
           @organizations ||= Organization.where(organization_type_id: organization_type_ids)
         end
       end
@@ -59,7 +59,7 @@ module Authorizable
       @organization_types_ids ||= OrganizationType.all.ids
       # scoped roles
     else
-      @organization_types_ids ||= OrganizationType.with_roles(User::ROLES, self).ids + Organization.with_roles(User::ROLES, self).map { |o| o.organization_type.id}
+      @organization_types_ids ||= OrganizationType.with_roles(User::ROLES, self).ids + Organization.with_roles(User::ROLES, self).map { |o| o.organization_type.id }
     end
     @organization_types_ids
   end

@@ -6,7 +6,7 @@ module Trackable
     include PublicActivity::Model
     tracked owner: ->(controller, _model) { controller && controller.current_user },
            :params => {
-              :params => proc {|controller, model_instance| controller && controller.params},
+              :params => proc { |controller, model_instance| controller && controller.params },
     }
   end
 end

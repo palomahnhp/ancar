@@ -2,7 +2,7 @@ class Admin::SettingsController  < Admin::BaseController
   before_action :set_setting, only: [:show, :edit, :update, :destroy]
 
   def index
-    all_settings = (Setting.all).group_by { |s| s.type  }
+    all_settings = (Setting.all).group_by { |s| s.type }
     @settings               = all_settings['common']
     @imported_sources       = all_settings['imported_sources_editable']
     @validations_lower_staff = all_settings['validations.lower_staff ']

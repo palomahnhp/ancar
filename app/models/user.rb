@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   default_scope  { order(:surname, :second_surname, :name)} #  Overriding default_scope: unscoped
   scope :active,   -> { where(inactivated_at: nil) }
   scope :inactive, -> { where.not(inactivated_at: nil) }
-  scope :has_role, lambda{|role| includes(:roles).where(:roles => { :name=> role })}
+  scope :has_role, lambda{ |role| includes(:roles).where(:roles => { :name=> role }) }
 
   def login=(val)
     self[:login] = val.upcase
@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
   end
 
   def self.roles_select_options(class_name =  '' )
-    roles = ROLES.map.with_index { |r, i| [  I18n.t("shared.users.roles.role.name.#{r.to_s}"), i ] }.to_h
+    roles = ROLES.map.with_index { |r, i| [I18n.t("shared.users.roles.role.name.#{r.to_s}"), i] }.to_h
     if class_name == Organization
       roles.delete(I18n.t("shared.users.roles.role.name.#{:admin.to_s}"))
       roles.delete(I18n.t("shared.users.roles.role.name.#{:supervisor.to_s}"))

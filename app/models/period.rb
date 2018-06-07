@@ -75,7 +75,7 @@ class Period < ActiveRecord::Base
   end
 
   def self.select_options
-    self.all.order(:ended_at).collect { |v| [ v.description, v.id ] }
+    self.all.order(:ended_at).collect { |v| [v.description, v.id] }
   end
 
   def self.look_up_description(description)

@@ -39,10 +39,10 @@ module SupervisorActions
     end
 
     def select_option_descriptions(class_name)
-      Item.where(item_type: class_name).order(:description).map{|item| [item.description, item.id]}
+      Item.where(item_type: class_name).order(:description).map{ |item| [item.description, item.id] }
     end
 
     def items_map(class_name)
-      Item.where(item_type: class_name).order(:description).map{|item| [item.description, item.id]}
+      Item.where(item_type: class_name).order(:description).map{ |item| [item.description, item.id] }
     end
 end

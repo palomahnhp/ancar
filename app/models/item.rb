@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
   tracked owner: ->(controller, model) { controller && controller.current_user },
           :params => {
               :id => :id,
-              :description => proc {|controller, model_instance| model_instance.description},
+              :description => proc { |controller, model_instance| model_instance.description},
           }
 
   include PublicActivity::Model

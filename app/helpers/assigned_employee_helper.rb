@@ -47,7 +47,7 @@ module AssignedEmployeeHelper
        @sp_assigned_employees ||= AssignedEmployee.where(unit_id: unit.id, period_id: period.id, staff_of_type: 'SubProcess').order(:official_group_id).
            group(:staff_of_id, :staff_of_type, :official_group_id).
            pluck(:staff_of_type, :official_group_id, 'count(id)', 'sum(quantity)', :staff_of_id)
-       return_array = @sp_assigned_employees.select{ |t| ids.include?(t[4])  }
+       return_array = @sp_assigned_employees.select{ |t| ids.include?(t[4]) }
     end
     return_array
   end
@@ -56,7 +56,7 @@ module AssignedEmployeeHelper
     quantity = 0
     staff = get_staff(of, process, unit, period, class_type)
     if staff.present?
-      staff = staff.select{|st| st[1] == gr_id}
+      staff = staff.select{ |st| st[1] == gr_id }
       if staff.present?
         if of == "SubProcess" || of == "MainProcess"
           staff.map{ |st| quantity += st[3] unless st[3].nil? }
